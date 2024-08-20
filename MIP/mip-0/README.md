@@ -17,11 +17,11 @@ Movement technologies continually evolve, and there's a need to ensure that the 
   
 - **Structure**: Each MIP must adhere to the given template, which requires details like title, description, author, status, and more. A MIP also includes sections like Abstract, Motivation, Specification, Reference Implementation, Verification, Errata, and Appendix. 
 
-    - An md-template is provided in the [MIPs Repository](https://github.com/movemntdev/MIPs) which further specifies this structure. This MIP is an example of said structure.
+    - An md-template is provided in the [MIP Repository](https://github.com/movemntdev/MIP) which further specifies this structure. This MIP is an example of said structure.
   
 - **Lifecycle**: An MIP starts as a draft, after which it undergoes discussions and revisions. Once agreed upon, it moves to a 'published' status. An MIP can also be deprecated if it becomes obsolete.
 
-- **Storage**: MIPs should be stored in the MIPs directory at [MIPs Repository](https://github.com/movemntdev/MIPs). 
+- **Storage**: MIPs should be stored in the MIPs directory at [MIP Repository](https://github.com/movemntdev/MIP). 
 
 - **Desiderata (MD)**: Any significant wish, requirement, or need related to MIPs should be documented as an MD and stored in the MD directory. MDs serve to capture the overarching objectives behind the introduction of a particular MIP.
 

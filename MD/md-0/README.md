@@ -14,7 +14,7 @@
 ## Overview
 Provide formal structure for proposing non-trivial improvements to Movement. This should be used for specifying complex changes to Movement technologies--particularly those that may require third-parties to adjust their usage of said technologies.
 
-## Desiderata List
+## Desiderata
 
 <!--
   List out the specific desiderata. Each entry should consist of:
