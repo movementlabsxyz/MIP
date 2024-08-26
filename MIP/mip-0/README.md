@@ -27,7 +27,7 @@ Movement technologies continually evolve, and there's a need to ensure that the 
 
 ## Reference Implementation
 
-A reference implementation or a sample MIP following the MIP template can be provided to guide potential proposers. This MIP (MIP-1) serves as a practical example, aiding in understanding the format and expectations.
+A reference implementation or a sample MIP following the MIP template can be provided to guide potential proposers. This MIP (MIP-0) serves as a practical example, aiding in understanding the format and expectations.
 
 ## Verification
 
