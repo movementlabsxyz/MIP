@@ -87,15 +87,27 @@ Enclave products such as [AWS Nitro Enclaves](https://aws.amazon.com/ec2/nitro/n
 
 Several suggestions are made to resolve this problem in [MD-2](../MD/md-2).
 
+#### Time-locking
+Most enclave products do not have cryptographically secure clocks. Instead, they rely on the host machine's clock. This means we benefit from using a more advanced time-locking mechanism.
+
+Generally, for time-locking we recommend reviewing the [original RSW notes on the topic](https://people.csail.mit.edu/rivest/pubs/RSW96.pdf). 
+
+The simplest viable approach here is to regard the enclave as a trusted agent and in fact not to rely on the Client for any kind of puzzle solving. Instead simply perform a procedure with a known number of sequential operations and estimate the time it would take to perform these operations according to the host machine's clock cycles. 
+
+The main drawback with this approach is that the time it will actually take to perform these operations can be significantly greater than the proposed lock. This is particularly true if the host machine is under load.
+
+At the opposite extreme, you could rely entirely upon something like RSW's repeated-squaring puzzle. However, this would quite imprecise relative to the consumer hardware being used to solve the puzzle.
+
+A hybrid-approach may provide the best of both worlds may prove the best approach both in terms of shifting work between the Enclave and the Client and in terms of security and manipulation resistance.
+
 ## Reference Implementation
 
 
 ## Verification
-ENTL assumes a valid Client program is one that (1) can provide the correct nonce and (2) 
+ENTL assumes a valid Client program is one that (1) can provide a correct and cryptographically secure nonce and (2) passed an undisputed synchronization phase corresponding to a pre-determined time-lock. We shall prove the secure usage of the nonce by the protocol to prove this validity. We shall also prove the preservation of the time-lock by the protocol to prove the second condition is upheld.
 
 
 ## Errata
 
-Post-publication corrections, if any, to the MIPs should be documented in this section. This ensures transparency and provides readers with accurate and up-to-date information.
 
 ## Appendix
