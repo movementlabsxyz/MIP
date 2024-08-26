@@ -30,25 +30,25 @@ The following messages types are exchanged between the Enclave and the Client:
 These messages are exchanged as follows:
 
 **Synchronization Phase**
-1. Prior to sending its first application message, the Client generates and safely stores CSPRNG nonce and sends it to the Enclave in a SYN message.
-2. The Enclave processes the SYN message:
-    - If enclave does not have a stored nonce, this indicates that no other client has attempted to synchronize with the Enclave. The Enclave MUST accept the nonce, store the nonce, and respond with a SYN-OK message.
+1. Prior to sending its first application message, the Client generates and safely stores CSPRNG nonce and sends it to the Enclave in a **SYN** message.
+2. The Enclave processes the **SYN** message:
+    - If enclave does not have a stored nonce, this indicates that no other client has attempted to synchronize with the Enclave. The Enclave MUST accept the nonce, store the nonce, and respond with a **SYN-OK** message.
     - If the Enclave has a record of the nonce, this indicates that another client has attempted to synchronize with the Enclave in the past. It MUST check queue and time-lock conditions:
-        - If the nonce is at the top of the queue and has passed its time-lock, the Enclave MUST accept, store, and respond with a SYN-OK message.
-        - If the nonce is not at the top of the queue or has not passed its time-lock, the Enclave MUST respond with a SYN-TL message.
+        - If the nonce is at the top of the queue and has passed its time-lock, the Enclave MUST accept, store, and respond with a **SYN-OK** message.
+        - If the nonce is not at the top of the queue or has not passed its time-lock, the Enclave MUST respond with a **SYN-TL** message.
     
 **Application Phase**
-1. The Client sends an APP message to the Enclave with the application message and the nonce for the current message and the nonce for the next message.
-2. The Enclave processes the APP message:
-    - If the nonce for the current message is the expected nonce, the Enclave MUST process the application message and update the nonce for the next message. It MUST responds with an APP-OK message.
-    - If the nonce for the current message is not the expected nonce, the Enclave MUST respond with an APP-REJ message.
+1. The Client sends an **APP** message to the Enclave with the application message and the nonce for the current message and the nonce for the next message.
+2. The Enclave processes the **APP** message:
+    - If the nonce for the current message is the expected nonce, the Enclave MUST process the application message and update the nonce for the next message. It MUST responds with an **APP-OK** message.
+    - If the nonce for the current message is not the expected nonce, the Enclave MUST respond with an **APP-REJ** message.
     - If the nonce for the current message is the expected nonce but the Enclave has nonces in its time-lock queue, i.e., from other SYN messages, the Enclave MUST:
         1. Empty the queue of all other nonces;
         2. Process the application message;
-        3. Respond with an APP-OK-CON message.
-3. The Client MUST wait for an APP-OK, APP-REJ, or APP-OK-CON message before sending the next application message.
-    - If the message is APP-OK or APP-OK-CON, the Client MUST send the next application message with the "next nonce" specified in the previous message.
-    - If the message is APP-REJ, the Client MUST re-send the application message with the "current nonce" it used in the previous message.
+        3. Respond with an **APP-OK-CON** message.
+3. The Client MUST wait for an **APP-OK**, **APP-REJ**, or **APP-OK-CON** message before sending the next application message.
+    - If the message is **APP-OK** or **APP-OK-CON**, the Client MUST send the next application message with the "next nonce" specified in the previous message.
+    - If the message is **APP-REJ**, the Client MUST re-send the application message with the "current nonce" it used in the previous message.
 
 ### Example Application: Atomic Bridge Service
 To demonstrate how this protocol can be used, consider the Atomic Bridge Service.
@@ -59,7 +59,7 @@ Once the enclave has been configured, the MLABSO configures the bridge service s
 
 A MLABSO is informed that the bridge service needs to be upgraded. Because the previous bridge service securely stored its nonce (challenges related to this discussed below), the MLABSO will need to rely on the ENTL protocol to run a new synchronization phase. This enforces a time-lock of say 20 minutes before the new bridge service has been synchronized with the enclave and can continue signing transactions.
 
-Now, a malicious MLABSO decides to attempt to abuse the key. She knows she cannot directly access the key. She also knows that she will not be able to use the key until the program has synchronized to a nonce she controls. She deems discovering or replacing the nonce used in the existing program intractable. So, she must stop the service and start a new synchronization phase. This will time-lock the service for 20 minutes. However, in the end, she will have the ability to sign with the key. The MLABSO begins the synchronization phase. However, during this time, a legitimate MLABSO notices that the bridge service is being upgraded (perhaps even that it is down). The legitimate MLABSO then reviews access logs to discover the malicious MLABSO's actions. The malicious MLABSO and her program are then removed from the system before the new bridge service can be synchronized.
+Now, a malicious MLABSO decides to attempt to abuse the key. She knows she cannot directly access the key. She also knows that she will not be able to use the key until the program has synchronized to a nonce she controls. She deems discovering or replacing the nonce used in the existing program intractable. So, she must stop the service and start a new synchronization phase. This will time-lock the service for 20 minutes. However, in the end, she will have the ability to sign with the key. The malicious MLABSO begins her synchronization phase. However, during this time, a legitimate MLABSO notices that the bridge service is being upgraded (perhaps even that it is down). The legitimate MLABSO then reviews access logs to discover the malicious MLABSO's actions. The malicious MLABSO and her program are then removed from the system before the new bridge service can be synchronized.
 
 ### Practical Considerations
 In practice, there are several phenomena regarded as external to the ENTL protocol which need to be considered in order to make it safely usable. 
