@@ -65,7 +65,7 @@ Now, a malicious MLABSO decides to attempt to abuse the key. She knows she canno
 In practice, there are several phenomena regarded as external to the ENTL protocol which need to be considered in order to make it safely usable. 
 
 #### Securing the Nonce
-In order to avoid the possibility of malicious usage, both the current nonce and the next nonce need to be stored in a manner that is difficult to access except by the current program. We do not intend to impose cryptographically secure requirements on this storage, as that begins to invoke concepts related to the literature on succinct arguments for programs. However, there are several simpler ways that can make accessing the and using the outside  nonce difficult.
+In order to avoid the possibility of malicious usage, both the current nonce and the next nonce need to be stored in a manner that is difficult to access except by the current program. We do not intend to impose cryptographically secure requirements on this storage, as that begins to invoke concepts related to the literature on succinct arguments for programs. However, there are several simpler ways that can make accessing and using the nonce difficult.
 
 To describe these, it first helps to consider what enables a nonce attack and to consider the time these operations take. 
 
