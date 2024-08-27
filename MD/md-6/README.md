@@ -49,7 +49,7 @@ While we cannot prevent latter, providing solutions to the former may prove vita
     - Causality
 
 ### D2: Accept Only Blocks Signed by Staked Validators
-**User Journey**: A staked Suzuka Validator is the only entity that can submit blocks to the network which will later be processed by the Aptos executor.
+**User Journey**: A proposer submits batches to the DA which will later be processed by the Aptos executor. A proposer must be a Suzuka validator.
 
 **Justification**: This will prevent DOS attacks on the network by requiring a stake to submit blocks.
 
