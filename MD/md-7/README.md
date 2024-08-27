@@ -44,7 +44,7 @@ Many of MEV attacks addressed can also be classed as censorship attacks. That is
 
 **Recommendations**:
 - Begin be enumerating all of placers where a single entity has control over transaction inclusion or ordering. 
-- Assess how transaction provenance can be formed. 
+- Evaluate how the history and origin of transactions can be tracked and recorded.
 
 ### D2: Merge Blocks and Assign Deterministic Cut-points
 **User Journey**: An honest Suzuka Full Node can only form the final blocks needed for execution by (a) merging blocks in a given DA height range, (b) ordering transactions deterministically, and (c) assigning deterministic cut-points for block formation.
