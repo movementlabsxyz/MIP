@@ -12,6 +12,7 @@ While we cannot prevent latter, providing solutions to the former may prove vita
 
 ## Desiderata
 
+Transaction fairness (general term) : A fair block proposal of a node follows a random selection of the transactions among the set of pending transactions the node is aware of. This is also called _transaction fairness_.
 <!--
   List out the specific desiderata. Each entry should consist of:
 
