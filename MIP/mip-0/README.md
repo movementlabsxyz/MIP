@@ -23,7 +23,7 @@ Movement technologies continually evolve, and there's a need to ensure that the 
 
 - **Storage**: MIPs should be stored in the MIPs directory at [MIP Repository](https://github.com/movemntdev/MIP). 
 
-- **Desiderata (MD)**: Any significant wish, requirement, or need related to MIPs should be documented as an MD and stored in the MD directory. MDs serve to capture the overarching objectives behind the introduction of a particular MIP.
+
 
 ## Reference Implementation
 
