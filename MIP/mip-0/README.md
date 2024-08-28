@@ -13,7 +13,7 @@ Movement technologies continually evolve, and there's a need to ensure that the 
 
 ## Specification
 
-- **Definition**: A Movement Improvement Proposal (MIP) is a design document that provides information to the Movement community, describing a new feature or improvement for Movement technologies.
+A Movement Improvement Proposal (MIP) is a design document that provides information to the Movement community, describing a new feature or improvement for Movement technologies.
   
 - **Structure**: Each MIP must adhere to the given template, which requires details like title, description, author, status, and more. A MIP also includes sections like Abstract, Motivation, Specification, Reference Implementation, Verification, Errata, and Appendix. 
 
@@ -23,7 +23,7 @@ Movement technologies continually evolve, and there's a need to ensure that the 
 
 - **Storage**: MIPs should be stored in the MIPs directory at [MIP Repository](https://github.com/movemntdev/MIP). 
 
-
+- **Definitions** : Provide definitions that you think will empower the reader to quickly dive into the topic.
 
 ## Reference Implementation
 
