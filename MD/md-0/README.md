@@ -35,7 +35,7 @@ Provide formal structure for proposing non-trivial improvements to Movement. Thi
 
   **Justification**: <Why this is a significant or required desideratum>
 
-  **Recommendations**: <Any specific guidance or suggestions (optional)>
+  **Guidance and suggestions**: <Any specific guidance or suggestions (optional)>
 
   TODO: Remove this comment before finalizing.
 -->
@@ -49,7 +49,7 @@ Provide formal structure for proposing non-trivial improvements to Movement. Thi
 
 **Justification**: The standardization and review process should produce clearer specifications. The contributors responsible for these specifications should be--encouraging higher quality.
 
-**Recommendations**:
+**Guidance and suggestions**:
 - As referenced above, the formalized proposals supported by the desired process should be reserved for changes to Movement technologies that are of the highest complexity and quality. Otherwise, the effort of the standardization will likely be counterproductive.
 
 ## Errata
