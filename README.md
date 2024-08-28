@@ -5,6 +5,8 @@ We differentiate between MD and MIPs.
 
 ## Movement Desiderata (MD) 
 
+See [MD-0](./MD/md-0) to get started.
+
 MDs serve to capture the **objectives** behind the **introduction** of a particular MIP.
 Any  
 - _wish_, 
@@ -13,11 +15,9 @@ Any
 
 related to MIPs should be documented as an MD and stored in the MD directory. 
 
-See [MIP-0](./MD/md-0) to get started.
-
 ## Movement Improvement Proposal (MIP)
 
-Movement Improvement Proposals. See [MIP-0](./MIP/mip-0) to get started.
+See [MIP-0](./MIP/mip-0) to get started.
 
 
 ### Deciding whether to propose
