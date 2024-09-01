@@ -59,6 +59,14 @@ These and other phenomena are listed in the desiderata below.
   - Penalty decay: the function describing the increasing returns of penalties later in the window.
   - Vote decay: the function describing the diminishing returns of votes later in the window. This would only be useful if previous rounds of voting are considered in the current round.
 
+### D3: Address Asynchronous Upgrades, Fork Creation, and Fork Stake Problems
+**User Journey**: A researcher or protocol implementer can understand the [Asynchronous Upgrades, Fork Creation, and Fork Stake Problems](./asychronous-upgrades-problem.md) and how they are addressed in MCR.
+
+**Justification**: These are problems encountered under asynchrony and systems addressing asynchrony which if not addressed would bring down the network.
+
+**Recommendations**:
+- Start by reviewing the [Asynchronous Upgrades, Fork Creation, and Fork Stake Problems](./asychronous-upgrades-problem.md).
+
 ## Errata
 <!--
   Errata should be maintained after publication.
