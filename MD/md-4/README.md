@@ -38,6 +38,9 @@ To combat this, round-robin rewarding and commitment schemes such as Pedersen Co
 
 **Justification**: The current implementation of MCR does not offset gas costs for the last attester. This could lead to a disincentive to participate in the game, provide a model which clearly shows this.
 
+**Recommendations**:
+- Start with [Rollover Gas](./rollover-gas.md) to understand the current state of the problem.
+
 ### D2: Model for Gas Costs in MCR with Offset
 **User Journey**: A researcher or protocol implementer can understand the game theory of gas costs in MCR with offsetting.
 
