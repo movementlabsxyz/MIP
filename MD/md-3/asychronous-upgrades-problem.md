@@ -38,7 +38,9 @@ Assuming $U_{B, s} = U_{A, s}$, i.e., Partition B is indifferent between the sta
 
 However, in the current MCR slashing model, the initial penalty would only be assigned in the disagreement, i.e., $U_{B, p} = U_{A, r} \Rightarrow U_{B, p} > \frac{U_{A, r}}{1 - \gamma} > \frac{U_{A, r}}{1 - \gamma} - \frac{U_{B, r}}{1 - \gamma}$. This would imply that Partition B would always be better off disagreeing with Fork A--even in the event where it is indifferent between the states.
 
-This means that penalties for creating a new fork cannot be implemented synchronously with block commitments if we want to incentivize agreement on the current block height while allowing forking. The fork point needs to be known s.t. a heftier penalty can be assigned to the initial disagreement $U_{B, p}$. In other words, an initial fee must be paid to create a fork.
+This means that penalties for creating a new fork cannot be implemented synchronously with block commitments if we want to incentivize agreement on the current block height while allowing forking. The fork point needs to be known s.t. a heftier penalty can be assigned to the initial disagreement $U_{B, p}$ after the fork point is known. In other words, an initial fee must be paid to create a fork.
+
+Note that this holds even when separate tokens are issues on separate forks. The new token will have some value relative to the old token and utility in the game more broadly. That is, even the stake-based portions of this model can have extrinsic interpretations. 
 
 ## Fork Stake Problem
 The allowance of long-lived forks presents another problem for MCR. That is, currently MCR only rewards in one token. However, if this continues whilst allowing forking, network would be incentivized to create spurious forks to use the minting capabilities of MCR to create more tokens.
