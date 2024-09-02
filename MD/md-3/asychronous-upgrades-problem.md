@@ -12,7 +12,7 @@ Consider two honest partitions of the network A and B. At a given block height $
 
 Because a fixed proportion of the stake is needed to agree on the current block height $h$, the network will not be able to agree on $h$. 
 
-The network may be able to provisionally agree on $h' > h$ within the block tolerance $\tau$ of the network. However, these agreements are never realized because $h$ remains undecided. 
+The network may be able to provisionally agree on $h\' > h$ within the block tolerance $\tau$ of the network. However, these agreements are never realized because $h$ remains undecided. 
 
 ## Solving the Problem with Partially Synchronous Forks
 The Asynchronous Upgrades Problem can be resolved by allowing the network to fork in a partially synchronous manner. That is, the network can agree at a defined point in time $t_{h - 1} + \epsilon$ to fork into two chains w.l.o.g., one with state derivation $S_A(h)$ and the other with state derivation $S_B(h)$.
