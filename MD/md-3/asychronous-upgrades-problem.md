@@ -5,7 +5,9 @@ This state of MCR can arise in other contexts than upgrades. The use of the upgr
 
 It is resolvable by allowing network forks in a partial synchronous manner. However, this leads to a series of questions of when rewards and penalties should be applied to commitments on these forks. These questions are the crux of the Fork Creation and Fork Stake Problem.
 
-The conclusion drawn from the Fork Creation Problem is that penalties for creating a new fork cannot be implemented synchronously with block commitments.
+The conclusion drawn from the Fork Creation Problem is that penalties for creating a new fork cannot be implemented synchronously with the block commitments constituting that fork as well. 
+
+The Fork Stake Problem suggests that rewards also cannot be implemented synchronously with their commitments, in order to ensure temporary forks do not have stake-based incentives. 
 
 ## Asynchronous Upgrades Problem
 Consider two honest partitions of the network A and B. At a given block height $h$, Partition A upgrades to a new version of the chain containing a state derivation $S_A(h)$. At the same block height, Partition B remains on the old version of the chain containing a state derivation $S_B(h)$ s.t. $S_A(h) \neq S_B(h)$.
