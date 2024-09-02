@@ -10,9 +10,9 @@ We model the utility of the offset as follows...
 &U_{l} = \delta(|\mathcal{V}|)U_{o} - E[G_{\mathcal{V}}] \\
 \end{align}
 ```
-$U_{n}$ is the utility of any attester that is not last
+$U_{n}$ is the utility of any attester that is not last.
 
-$U_{l}$ is the utility of the last attester
+$U_{l}$ is the utility of the last attester.
 
 $E[G]$ is the expected gas cost modeled as a random variable $G$.
 
