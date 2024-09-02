@@ -28,8 +28,10 @@ However, an attester would not have complete information about whether the would
 To model this, we will say an attester can play two strategies $L$ and $N$ where $L$ is the strategy to be last and $N$ is the strategy to not be last. The utility of these strategies is given by...
 
 ```math
-U_{N} = P[W = 0] U_{n} + P[W = 1] U_{l} + E[P_{N}] \\
-U_{L} = P[W = 0] U_{n} + P[W = 1] U_{l} + E[P_{L}] \\
+\begin{align}
+& U_{N} = P[W = 0] U_{n} + P[W = 1] U_{l} + E[P_{N}] \\
+& U_{L} = P[W = 0] U_{n} + P[W = 1] U_{l} + E[P_{L}] \\
+\end{align}
 ```
 $W$ is a random variable indicating whether the attester is last.
 
@@ -43,6 +45,6 @@ However, the attester will really play a repeated game where she may either play
 
 In practice holding $P[W = 1]$ constant is difficult. 
 
-Via mechanisms such as Pedersen Commitments, information about whether the attester would have a matching commitment to those already made could be concealed--thereby reducing ${[W = 1]$. However, under a well functioning chain, $P[W = 1]$ would still generally increase with added commitments as we would expect there will ultimately be at least $\frac{2}{3}$ of all voting power eventually represented.
+Via mechanisms such as Pedersen Commitments, information about whether the attester would have a matching commitment to those already made could be concealed--thereby reducing $P[W = 1]$. However, under a well functioning chain, $P[W = 1]$ would still generally increase with added commitments as we would expect there will ultimately be at least $\frac{2}{3}$ of all voting power eventually represented.
 
 If noisy commitments and attempts to hide stake were also introduced, that would further reduce $P[W = 1]$. However, again, the overall assumption is that $E[W = 1]$ is inherent to the voting process itself.
