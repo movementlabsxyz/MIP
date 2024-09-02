@@ -45,6 +45,6 @@ However, the attester will really play a repeated game where she may either play
 
 In practice holding $P[W = 1]$ constant is difficult. 
 
-Via mechanisms such as Pedersen Commitments, information about whether the attester would have a matching commitment to those already made could be concealed--thereby reducing $P[W = 1]$. However, under a well functioning chain, $P[W = 1]$ would still generally increase with added commitments as we would expect there will ultimately be at least $\frac{2}{3}$ of all voting power eventually represented.
+Via mechanisms such as Pedersen Commitments, information about whether the attester would have a matching commitment to those already made could be concealed--thereby increasing the variance of W given an observation of a commitment. However, under a well functioning chain, $P[W = 1]$ would still generally increase with added commitments as we would expect there will ultimately be at least $\frac{2}{3}$ of all voting power eventually represented.
 
-If noisy commitments and attempts to hide stake were also introduced, that would further reduce $P[W = 1]$. However, again, the overall assumption is that $E[W = 1]$ is inherent to the voting process itself.
+If noisy commitments and attempts to hide stake were also introduced, that would further increase the variance W. However, again, the overall assumption that $P[W = 1]$ increases over time is inherent to the voting process itself.
