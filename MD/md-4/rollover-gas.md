@@ -18,7 +18,7 @@ $E[G]$ is the expected gas cost modeled as a random variable $G$.
 
 $\delta(|\mathcal{V}|)$ is reward rate determined by the number of validators in the set $\mathcal{V}$.
 
-Note that $E[G] \not\!\perp\!\!\!\perp \delta(|\mathcal{V}|)$, as the gas cost is a function of the number of validators in the set. This will be addressed in later sections.
+Note that $G \not\!\perp\!\!\!\perp \delta(|\mathcal{V}|)$, as the gas cost is a function of the number of validators in the set. This will be addressed in later sections.
 
 For an attester with complete information not to attempt to be last, $E[U_{n}] > E[U_{l}]$ which would imply that the $\delta(|\mathcal{V}|) < g(|\mathcal{V}|)$ where $g$ the gas algebra applied be Ethereum. 
 
