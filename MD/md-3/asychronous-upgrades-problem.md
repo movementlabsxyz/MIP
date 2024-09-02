@@ -19,7 +19,7 @@ The Asynchronous Upgrades Problem can be resolved by allowing the network to for
 
 Within the current epoch, stake weights would then be split between the two chains, Fork A and Fork B, w.l.o.g. based on the votes represented at the fork point at the time of splitting. In other words, the votes are deemed unanimous at the fork point.
 
-In the literal case of an upgrade, the Partition B may then rejoin its stake in Partition A in the next epoch. This effectively means, however, that Partition B would not have any staked motivation to complete its upgrade, instead preferring to continue to commit to the fork it created until the next epoch.
+In the literal case of an upgrade, the Partition B may then rejoin its stake in Partition A in the next epoch. This effectively means, however, that Partition B would not have any stake-based incentive to complete its upgrade, instead preferring to continue to commit to the fork it created until the next epoch.
 
 In the event a long-lived fork is intended by Partition B, MCR will have provided a usable means to facilitate this fork. 
 
