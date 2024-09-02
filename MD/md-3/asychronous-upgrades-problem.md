@@ -45,8 +45,19 @@ Note that this holds even when separate tokens are issues on separate forks. The
 ## Fork Stake Problem
 The allowance of long-lived forks presents another problem for MCR. That is, currently MCR only rewards in one token. However, if this continues whilst allowing forking, network would be incentivized to create spurious forks to use the minting capabilities of MCR to create more tokens.
 
+### Minimum Stake Requirements
 If you attempt to account for this by creating minimum stake requirements for a new fork, you will reintroduce the Asynchronous Upgrades Problem for some partitions of the network.
 
-You may attempt to account for this by discounting the rewards for Fork B for as long as it is not the heaviest staked fork, i.e., $W_B < \max W$ where $W$ is the set of stake weights of all forks at their tip. . However, you must reconsider the Fork Creation problem to ensure it is only $U_{B, s}$, i.e., extrinsic utility, that rationalizes the continued existence of Fork B. In other words, you must ensure there are no short-term payoffs for creating a spurious fork within the reward system itself.
+### Discounting Rewards by Fork Weight
+You may attempt to account for this by discounting the rewards for Fork B for as long as it is not the heaviest staked fork, i.e., $W_B < \max W$ where $W$ is the set of stake weights of all forks at their tip. However, you must reconsider the Fork Creation problem to ensure it is only $U_{B, s}$, i.e., extrinsic utility of state, that rationalizes the continued existence of Fork B. In other words, you must ensure there are no short-term payoffs for creating a spurious fork within the reward system itself.
 
-A safer, however, to handle the Fork Stake problem generally is to simply create new coins a Fork Points. This would likely however require a rewrite and rearchitecting of the MCR contracts, as this is a difficult feature to implement in ETH. 
+A safer approach, however, to handle the Fork Stake problem generally is to simply create new coins a Fork Points. This would likely however require a rewrite and rearchitecting of the MCR contracts, as this is a difficult feature to implement in ETH. 
+
+### Remporary Forks
+Finally, in many BFT protocols, temporary forks are allowed before they are reconciled by selecting the appropriate fork by a fork choice rule. The rewards earned by contributing to the temporary fork are represented only along this fork and thus $\frac{U_{B, r}}{1 - \gamma} = 0$ if the fork is indeed temporary. 
+
+Unfortunately, MCR is restricted by representation and synchronicity problems in this regard. Because there is only one canonical replica of the chain decided upon by the base layer's, ETH's, BFT and because rewards need to be issued synchronously on this base layer, we would be unable to ensure $\frac{U_{B, r}}{1 - \gamma} = 0$ if rewards are issued immediately. 
+
+The solution is thus to issue rewards at some height $h + \zeta$ where $\zeta$ is the maximum lifetime of a temporary fork. 
+
+While temporary forks can be used to properly align incentives for short-term asynchrony, it is does not allow for the situation where long-lived $U_{B, s}$ is considered honest under chain governance and properly incentivized. That is, we can not expect that every fork should be reconciled. 
