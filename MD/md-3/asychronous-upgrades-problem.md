@@ -47,6 +47,6 @@ The allowance of long-lived forks presents another problem for MCR. That is, cur
 
 If you attempt to account for this by creating minimum stake requirements for a new fork, you will reintroduce the Asynchronous Upgrades Problem for some partitions of the network.
 
-You may attempt to account for this by discounting the rewards for Fork B for as long as it is not the heaviest staked fork, i.e., $W_B < W_A$. However, you must reconsider the Fork Creation problem to ensure it is only $U_{B, s}$, i.e., extrinsic utility, that rationalizes the continued existence of Fork B. In other words, you must ensure there are no short-term payoffs for creating a spurious fork within the reward system itself.
+You may attempt to account for this by discounting the rewards for Fork B for as long as it is not the heaviest staked fork, i.e., $W_B < \max W$ where $W$ is the set of stake weights of all forks at their tip. . However, you must reconsider the Fork Creation problem to ensure it is only $U_{B, s}$, i.e., extrinsic utility, that rationalizes the continued existence of Fork B. In other words, you must ensure there are no short-term payoffs for creating a spurious fork within the reward system itself.
 
 A safer, however, to handle the Fork Stake problem generally is to simply create new coins a Fork Points. This would likely however require a rewrite and rearchitecting of the MCR contracts, as this is a difficult feature to implement in ETH. 
