@@ -4,7 +4,7 @@
 
 
 ## Overview
-The current implementation of the Suzuka Network relies on a public and permissionless DA. The blocks are further not validated besides their correctness w.r.t. the Aptos executor. 
+The current implementation of the Suzuka Network relies on a public and permissionless DA. Anyone can submit batches to the DA. Blocks, that are created from these batches, are not further validated besides their correctness w.r.t. the Aptos executor. 
 
 This could lead to an unsophisticated DOS attack wherein the attacker simply spams the network with low gas fee--both on the DA and in the execution layer--blocks. A slightly more sophisticated attack would see the attack DOS the DA namespace itself in a [Woods Attack](https://forum.celestia.org/t/woods-attack-on-celestia/59).
 
