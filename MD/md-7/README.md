@@ -2,6 +2,56 @@
 - **Description**: Provide an account of possible Suzuka MEV attacks and censorship vulnerabilities, and propose solutions to mitigate these risks.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 
+## Definitions
+
+ * Node: An independent program that processes or utilizes trusted blockchain state. Examples of nodes include Light nodes, bootstrap nodes, Full nodes, and RPC nodes.
+ * Proposer / Sequencer: Receive Tx from users and proposes transactions to the DA (Data Availability layer).
+ * Validator: Validates the blockchain state to ensure it is trusted.
+ * Batch / Blob: A set of transactions aggregated by a proposer and sent to the DA.
+ * Block: A set of transactions that defines the minimum atomic state change and secures the blockchain.
+ * Sequence Numbers: Equivalent to Ethereum's Nonce for Aptos. A number that orders transactions sent by an account.
+ * Height: The DA orders its generated blocks by Height. The DA's internal process increases the height, and one to several blocks can belong to a given height.
+
+## Current process diagram
+```mermaid
+flowchart TD
+    subgraph User
+    end
+    subgraph Full node
+        subgraph Sequencer
+            sequencer("Sequencer/Proposer:
+            Receive Tx from users
+            Aggregate Tx in batch
+            Propose Tx Batch to the DA
+            ")
+        end
+        validator("Validator:
+            Validate block
+            Call executor
+            Settle block on chain
+            Manage states:
+            blocks / accounts
+        ")
+        executor("Executor:
+            Execute block
+            using Aptos Executor
+            Generate execution state
+        ")
+
+    end
+    subgraph DA
+        da("Celestia DA:
+            Receive batch of Tx
+            Aggregate Batch in Block
+            Entry point to get a block
+        ")
+    end
+    sequencer-- "Propose batch" --> da
+    validator-- "get blocks at height" --> da
+    validator<-- "Execute block" --> executor
+    User-- "Submit Tx" --> sequencer
+
+```
 
 ## Overview
 The Suzuka Network is known to be subject to MEV exploits in the form of manipulating block size and order. That is, while transactions within a block are ordered deterministically, full nodes are currently given freedom to chose which transactions to include in a block and when to send those blocks to the network. Execution-level validation will only assert that the sequence numbers are appropriate and other dApp-specific logic. There are no penalties for being to have withheld a transaction. 
