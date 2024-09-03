@@ -41,7 +41,7 @@ $P_{L}$ is the price of the strategy $L$ which is the price of attempting to be 
 
 Under this model as long as $E[P_{N}] > E[P_{L}]$ the attester will choose the strategy $N$. Introspectively, this would be satisfied if $E[P_{N}] > \delta(|\mathcal{V}|)U_{o}$. 
 
-However, the attester will really play a repeated game where she may either play $U_{N}$ or $U_{L}$ and end the game or wait for more information. The decisions of other actors primarily contribute to the information available and are here not modeled. Generally, the more rounds of this game the attester plays the larger the value of $P[W = 1]$. This is could result in sub-game perfect Nash Equilibria (SPNE) to play $U_{L}$ the precise implications of which are outside of the scope of this document. However, generally, these equilibria can be avoided by holding $P[W = 1]$ constant. 
+However, the attester will really play a repeated game where she may either play $U_{N}$ or $U_{L}$ and end the game or wait for more information. The decisions of other actors primarily contribute to the information available and are here not modeled as they cancel. Generally, the more rounds of this game the attester plays the larger the value of $P[W = 1]$. This is could result in sub-game perfect Nash Equilibria (SPNE) to play $U_{L}$ the precise implications of which are outside of the scope of this document. However, generally, these equilibria can be avoided by holding $P[W = 1]$ constant. 
 
 In practice holding $P[W = 1]$ constant is difficult. 
 
