@@ -1,7 +1,7 @@
-# MIP-\<number\>:  Suzuka DA Migrations Format
+# MIP-13:  Suzuka DA Migrations Format
 - **Description**: Data format which describes migrations of the canonical state of the DA over time.
 - **Authors**: [Mikhail Zabaluev](mailto:mikhail.zabaluev@movementlabs.xyz)
-- **Desiderata**: [MD-\<number\>](../MD/md-\<number\>)
+- **Desiderata**: [MD-13](../MD/md-13)
 
 ## Abstract
 

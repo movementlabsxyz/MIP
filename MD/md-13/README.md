@@ -1,4 +1,4 @@
-# MD-\<number\>: Suzuka DA Migrations Format
+# MD-13: Suzuka DA Migrations Format
 - **Description**: Data format which describes migrations of the canonical state of the DA over time.
 - **Authors**: [Mikhail Zabaluev](mailto:mikhail.zabaluev@movementlabs.xyz)
 
