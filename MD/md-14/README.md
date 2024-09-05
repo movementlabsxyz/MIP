@@ -24,7 +24,7 @@ The Bridge is arguably the most important feature of an L2 and lately we have ha
 ### D1: Initiator Contract Timelock is a constant or a modifiable state with a minimum time
 **User Journey**: Whenever Timelock is consumed, it is consumed as `timelock * 2`. If a modifiable state, it should be at least 12 hours.
 
-**Justification**: Because it has to be higher than the Counterparty Contract Timelock, `timelock * 2` is reasonable. A modifiable state should have some form to prevent malicious attacks. If lowering becomes a necessity, an upgrade to the contract will solve the issue. 
+**Justification**: Because it has to be higher than the Counterparty Contract Timelock, `timelock * 2` is reasonable. A modifiable state should have some form to prevent malicious attacks. If lowering becomes a necessity, an upgrade to the contract will solve the issue. `timelock * 2` consumption also introduces a requirement from the design which stipulates that the initiator timelock has to be significantly higher than the counterparty to assure that a bridge transfer cannot be completed on the target chain and cancelled on the origin chain.
 
 ### D2: Counterparty Contract Timelock is a constant or a modifiable variable with a minimum time
 **User Journey**: Bridge Relayer locks the bridge transfer on the Counterparty side. It does not specify the timelock. The timelock is specified by the timelock state or constant in the Ethereum Initiator Contract or Movement Initiator Contract.
@@ -32,12 +32,12 @@ The Bridge is arguably the most important feature of an L2 and lately we have ha
 **Justification**: Because it has to be higher than the Counterparty Contract Timelock, `timelock` is reasonable. A modifiable state should have some form to prevent malicious attacks. If lowering becomes a necessity, an upgrade to the contract will solve the issue. 
 
 ### D3: Use timestamps instead of block number
-**User Journey**: self explanatory
+**User Journey**: This has already been agreed, but by using timestamp, there is no necessity to handle block.number parity between chains.
 
 **Justification**: For cross bridge synchronocity between Ethereum and Movement which have very distinct block numbers and block settlement speed.
 
 ### D4: Remove dependency of the Bridge Relayer on processing the desired timelock.
-**User Journey**: self explanatory
+**User Journey**: Bridge Relayer stops having any decision how the timelock timestamp. It is fully provided by the contracts and modules variables.
 
 **Justification**: We are heavily relying on the Bridge Relayer's capabilities to not fail and this should make the Bridge Relayer less error prone.
 
