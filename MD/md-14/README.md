@@ -1,4 +1,4 @@
-# MD-8: Bridge Should Use A More Secure Timelock
+# MD-14: Bridge Should Use A More Secure Timelock
 - **Description**: Provide formal structure for proposing non-trivial improvements to Movement.
 - **Authors**: [Primata](mailto:primata@movementlabs.xyz)
 
