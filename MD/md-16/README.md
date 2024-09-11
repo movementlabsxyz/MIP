@@ -31,7 +31,7 @@ People claiming that runes are dead ought to understand that in general, on-chai
 As an example of runes being very much well and alive, [Pups token recently announced](https://x.com/PupsToken/status/1832831489840443579) migrating their Solana and Bitcoin (BRC-20) assets to runs.
 
 **Guidance and suggestions**:
-- Etch MOVE rune on Bitcoin testnet 
+- etch MOVE rune on Bitcoin testnet 
 - add capability for the Movement atomic bridge to swap MOVE on Bitcoin for MOVE on Movement
 
 ## Errata
