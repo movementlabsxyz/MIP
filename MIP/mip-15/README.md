@@ -1,7 +1,7 @@
-# MIP-1: MG (Movement Gloss)
+# MIP-15: MG (Movement Gloss)
 - **Description**: Introduces the Movement Gloss (MG) document type and establishes a process for introducing new glossary terms.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Desiderata**: [MD-movement-gloss](../MD/md-movement-gloss/README.md)
+- **Desiderata**: [MD-15](../MD/md-15/README.md)
 
 ## Abstract
 
@@ -16,7 +16,7 @@ In order to communicate with more specificity in all contexts, Movement Labs sho
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
 
 ### MG Document Type
-A templated for the MG is provided at [mg-template](../../md-template.md). An example MG is provided at [mg-0](../../MG/mg-0/README.md). These templates cover the requested elements listed in [MD-movement-gloss.D1](../MD/md-movement-gloss/README.md).
+A templated for the MG is provided at [mg-template](../../md-template.md). An example MG is provided at [mg-0](../../MG/mg-0/README.md). These templates cover the requested elements listed in [MD-15.D1](../MD/md-15/README.md).
 
 ### MG Process
 1. A new glossary term is proposed in an MG document.

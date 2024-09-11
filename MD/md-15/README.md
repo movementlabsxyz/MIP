@@ -1,4 +1,4 @@
-# MD-3: Movement Glossary
+# MD-15: Movement Glossary
 - **Description**: Provide a glossary for Movement Vocabulary.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 
