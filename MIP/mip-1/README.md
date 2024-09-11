@@ -85,7 +85,7 @@ This model of an attack leads to several prevention strategies:
 #### Crash Resistance and Recovery
 Enclave products such as [AWS Nitro Enclaves](https://aws.amazon.com/ec2/nitro/nitro-enclaves/) and [Intel SGX](https://www.intel.com/content/www/us/en/products/docs/accelerator-engines/software-guard-extensions.html)-based products generally [do not allow backups](https://ieeexplore.ieee.org/document/9743462). This means that if you were to generate keys within an enclave, as suggested above, you may not be able to recover them if the enclave crashes.
 
-Several suggestions are made to resolve this problem in [MD-2](../MD/md-2).
+Several suggestions are made to resolve this problem in [MD-2](../../MD/md-2).
 
 #### Time-locking
 Most enclave products do not have cryptographically secure clocks. Instead, they rely on the host machine's clock. This means we benefit from using a more advanced time-locking mechanism.
