@@ -19,8 +19,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 A templated for the MG is provided at [mg-template](../../md-template.md). An example MG is provided at [mg-0](../../MG/mg-0/README.md). These templates cover the requested elements listed in [MD-15.D1](../MD/md-15/README.md).
 
 ### MG Process
-1. A new glossary term is proposed in an MG document.
-2. An MG document cannot be accepted unless justified in an MIP.
+1. A new glossary term MUST be defined in an MG document matching the provided templates.
+2. An MG document MUST not be accepted unless justified in an MIP.
 
 For example, herein, we justify the introduction of [MG-0](../../MG/mg-0/README.md). MG-0 defines the term "gloss" which is used in the context of Movement Labs to denote the definition of a term as would feature as an entry in a glossary. It is important to include in the glossary both clarify as the acronym "MG" and to provide an example gloss. 
 
