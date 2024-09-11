@@ -1,4 +1,4 @@
-# MD-2: Create MOVE fungible asset on Bitcoin using runes
+# MD-16: Create MOVE fungible asset on Bitcoin using runes
 - **Description**: 
 - **Authors**: [Andy Golay](mailto:andy.golay@movementlabs.xyz)
 
