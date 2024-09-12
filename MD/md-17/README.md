@@ -4,7 +4,7 @@ Description: Bridges requires fees to assure it's not drained and can self-susta
 
 ## Overview
 
-Bridges require a sustainable fee mechanism to prevent abuse and ensure they can self-sustain operations. This proposal outlines a dynamic fee structure for both the Ethereum and Movement chains. On the Ethereum side, fees will adjust according to gas price volatility, while on the Movement side, an oracle service will monitor and update gas prices in real time.
+Bridges require a sustainable fee mechanism to prevent abuse and ensure they can self-sustain operations. This proposal outlines a dynamic fee structure for both the Ethereum and Movement chains. On the Ethereum side, fees will adjust according to gas price volatility, while on the Movement side, an oracle service will monitor and update gas prices in real time. The only external component that we are reliant on are RPC nodes.
 
 ## Definitions
 
