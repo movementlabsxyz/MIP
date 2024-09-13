@@ -1,4 +1,4 @@
-# MIP-02: Stage 0 Multisigs
+# MIP-02: Stage 0 Upgradeability and Multisigs
 - **Description**: Proposal to establish two multisigs, one for engineers and another for the foundation, to facilitate the deployment and upgrade of the Movement Token (MOVEToken) and other upgradeable contracts.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Desiderata**: [MD-0](../MD/md-0)
