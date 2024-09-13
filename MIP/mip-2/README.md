@@ -22,7 +22,7 @@ The first multisig allows Movement Labs engineers to propose upgrades via Safeâ€
    - Addresses: Deployed on Ethereum, Sepolia, and Holesky (if available).
    - Signers: Andy Bell, Richard Melkonian, Liam Monninger, Primata (Engineers involved with Token), and a remote key for automated transaction proposals via SafeKit API's [proposeTransaction](https://docs.safe.global/sdk/api-kit#propose-a-transaction-to-the-service).
 
-2. **Movement Foundation Multisig** (3/5 signatures required, triggered after 2-day timelock):  
+2. **Movement Foundation Multisig** (3/5 signatures required, triggerable after 2-day timelock):  
    - Role: Executing upgrades.
    - Addresses: Deployed on Ethereum, Sepolia, and Holesky (if available).
    - Signers: TBD.
