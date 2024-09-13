@@ -13,7 +13,7 @@ There is an immediate need to deploy the Movement Token (MOVEToken) using a robu
 
 The first multisig allows Movement Labs engineers to propose upgrades via Safe’s multisig service. A remote key will automate the population of upgrade proposals. The second multisig, held by the Movement Foundation, will be responsible for executing the scheduled upgrades after a time delay, ensuring community trust and review.
 
-While developing an isolated
+Also, while developing an independent multisig, handling signature showed to be an issue that might be indicative of better letting signature to be handled by safe.global.
 
 ## Specification
 
