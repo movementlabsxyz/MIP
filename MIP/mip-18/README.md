@@ -22,7 +22,7 @@ Also, while developing an independent multisig, handling signature showed to be 
 1. **Movement Labs Multisig** (4/5 signatures required):  
    - Role: Proposing upgrades.
    - Addresses: Deployed on Ethereum, Sepolia, and Holesky (if available).
-   - Signers: Andy Bell (), Richard Melkonian (0xaFf3deeb13bD2B480751189808C16e9809EeBcce), Liam Monninger (0x12Cbb2C9F072E955b6B95ad46213aAa984A4434D), Primata () (Engineers involved with Token), and a remote key for automated transaction proposals via SafeKit API's [proposeTransaction](https://docs.safe.global/sdk/api-kit#propose-a-transaction-to-the-service).
+   - Signers: Andy Bell (0x49F86Aee2C2187870ece0e64570D0048EaF4C751), Richard Melkonian (0xaFf3deeb13bD2B480751189808C16e9809EeBcce), Liam Monninger (0x12Cbb2C9F072E955b6B95ad46213aAa984A4434D), Primata (0xB2105464215716e1445367BEA5668F581eF7d063) (Engineers involved with Token), and a remote key for automated transaction proposals via SafeKit API's [proposeTransaction](https://docs.safe.global/sdk/api-kit#propose-a-transaction-to-the-service).
    - Justification: We leave some wiggle room incase one of the engineers is away. We still need 3/4 engineers to sign.
 
 2. **Movement Foundation Multisig** (3/5 signatures required, triggerable after 2-day timelock):  
