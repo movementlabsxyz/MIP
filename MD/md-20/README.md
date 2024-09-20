@@ -1,4 +1,4 @@
-# MD-19: Bridge Swap Mechanism 
+# MD-20: Bridge Swap Mechanism 
 
 Description: This MD outlines a proposes the mechanics for the swap to take place, as part of the lock-mint-swap Bridge Transfer. 
 
@@ -10,11 +10,14 @@ Therefore, these parts of the sequence will not be discussed here, but only refe
 
 The total Gas required on the initiator side and the computation of this amount will also not be discussed here and has already been explored as part of [MD-17](https://github.com/movementlabsxyz/MIP/blob/6722c67a8434de07c6612e46b5a023b63ad8dcbd/MD/md-17/README.md)
 This MD deals only with the swap step of L2 $MOVE. When a user transfers from the L2 back to the L1, the [AtomicBridgeCounterpartyMOVE.sol](https://github.com/movementlabsxyz/movement/blob/andygolay/atomic-bridge-initiator-move/protocol-units/bridge/contracts/src/AtomicBridgeCounterpartyMOVE.sol) simply withdraws the ERC20 $MOVE from the pool and issues 
-it back to the user. Because the ERC20 is not native gas paying ETH no swap needs to occur in this direction. 
+it back to the user. Because the ERC20 is not native gas paying ETH no swap on the L1 needs to occur in this direction. However, a swap will occur on the L2.
 
 To summarise:
-L1 -> L2 : Lock-Mint-Swap 
-L2 -> l1 : Lock-Mint
+L1 -> L2 : Lock->Mint->Swap 
+L2 -> l1 : Swap->Lock->Mint
+
+It is worth highlighting, that the term Mint on the L1 is slightly innacurate. The L1 ERC20 MOVE is already minted prior to any transfers, no L1 mint transaction ever takes place during a bridge transfer. However, a mint _does_ occur on the L2. 
+The L2 ERCO Move is only ever ether _locked in the pool_ or _withdrawn from the pool_. But, we can continue with this language as its used across the org.
 
 ## Definitions
 
@@ -24,14 +27,16 @@ L2 -> l1 : Lock-Mint
 - **L2 $MOVE**: For the sake of clarity, the MOVE on the L2. This token is equivalent in functionality and ability than the the $APT token. It is the native token of the L2 and used to pay gas for transactions.
 - **BRIDGE-FA** This is the asset that is minted and deposited in the user's account before the swap occurs. It is an Aptos [Fungible Asset](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/fungible_asset.move).
 - **L1 ERC20 $MOVE**: The ERC20 Move on Ethereum, The L1.
+- **Pool** A holding place for assets, state data in the contract on either the L1 or the L2.
 
 ## Desiderata
 
 ### 1. Seamless aquisition of L2 $MOVE on completion of Transfer 
 
 - **User Journey**: After a transfer is initiated and the secrets are revealed, the Bridge Relayer calls `complete_bridge_transfer`. At this point the bridge move module mints the `BRIDGE-FA`. 
-This is a temporary holding asset that is used to redeem the L2 $MOVE.
-- **Justification**: A dynamic adjustment mechanism is crucial for handling gas volatility on Ethereum, ensuring the fee structure remains fair while avoiding undercharging during high gas periods.
+This is a temporary holding asset that is used to SWAP for the L2 $MOVE.
+- **Justification**: Using the BRIDGE FA provides a clean API and audited safety features. Furthermore it has already been implemented, the prior implementation was called `MOVETH`, but the Source Code is the same.
+[MOVETH.move source code](https://github.com/movementlabsxyz/movement/blob/main/protocol-units/bridge/move-modules/sources/MOVETH.move)
 
 ### 2. Safe and Secure access of L2 $MOVE pool 
 
