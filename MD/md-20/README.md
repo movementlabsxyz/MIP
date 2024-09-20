@@ -79,6 +79,14 @@ Currently, in the `atomic_bridge_counterparty.move` module, the FA asset is give
 5. The rest of the transfer sequence is carried out as currently implemented.
 6. The user acquires 10 L1 ERC20 MOVE on Ethereum.
 
+### Required components and functions 
+
+1. `swap_asset` on `atomic_bridge_counterparty.move`
+2. `swap_asset` on `atomic_bridge_initiator.move`
+3. `TopUp` component on Bridge Relayer. A CLI addition, that allows the bridge operator to Top Up $MOVE for sponsored transactions. This can be a manual
+step for now, to automate it will be trivial. 
+4. `RetryOrRefund` In the case that a swap failed, the Bridge Relayer needs the logic to decide whether it is necessary to Retry or Refund. I would suggest: Try 3 times. If fail, refund to L1.
+
 ## Open Questions
 
 How the user pays for L1 Gas (ETH) in the L2 to L1 case is still open and has been proposed in [MD-17](https://github.com/movementlabsxyz/MIP/blob/6722c67a8434de07c6612e46b5a023b63ad8dcbd/MD/md-17/README.md).
