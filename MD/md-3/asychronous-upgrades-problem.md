@@ -28,17 +28,25 @@ In the event a long-lived fork is intended by Partition B, MCR will have provide
 ## Fork Creation Problem
 Assume towards definition of the problem that rewards issued on Fork B are non-zero in perpetuity and that slashing only occurs at the fork point owing to the initial disagreement. 
 
-For a continued Fork B to be rational for Partition B, we state that $U_B = U_{B, s} + \frac{U_{B, r}}{1 - \gamma} + U_{B, p} \geq U_{A, s} + \frac{U_{A, r}}{1 - \gamma} = U_A$. That is, the utility of the state represented by Fork B $U_{B, s}$ plus the discounted repeated utility of the rewards $\frac{U_{B, r}}{1 - \gamma}$ plus some penalty $U_{B, p} < 0$ must be greater than or equal to the utility of the state represented by Fork A $U_{A, s}$ plus the discounted repeated utility of the rewards $\frac{U_{A, r}}{1 - \gamma}$. (Note the utility of the state could also be assigned a discounting model, however, this is considered extrinsic to the model of the problem provided herein.)
+**Rationale**: for a continued Fork B to be rational for Partition B, we state that 
 
-Since rewards on Fork B are non-zero and Partition B is in agreement with Fork B, it follows that $\frac{U_{B, r}}{1 - \gamma} > 0$
+```math
+U_B = U_{B, s} + \frac{U_{B, r}}{1 - \gamma} + U_{B, p} \geq U_{A, s} + \frac{U_{A, r}}{1 - \gamma} = U_A 
+```
 
-Because there was an initial disagreement at the fork point leading to a slash of Partition B's stake, it follows that $U_{B, p} < 0$
+That is, the utility of the state represented by Fork B $U_{B, s}$ plus the discounted repeated utility of the rewards $\frac{U_{B, r}}{1 - \gamma}$ plus some penalty $U_{B, p} < 0$ must be greater than or equal to the utility of the state represented by Fork A $U_{A, s}$ plus the discounted repeated utility of the rewards $\frac{U_{A, r}}{1 - \gamma}$. (Note the utility of the state could also be assigned a discounting model, however, this is considered extrinsic to the model of the problem provided herein.)
 
-Because Partition B disagrees with Fork A, it follows that $\frac{U_{A, r}}{1 - \gamma} < 0$. 
+**Positive Rewards for Fork B**: since rewards on Fork B are non-zero and Partition B is in agreement with Fork B, it follows that $\frac{U_{B, r}}{1 - \gamma} > 0$
 
-Assuming $U_{B, s} = U_{A, s}$, i.e., Partition B is indifferent between the states, it follows that $U_B < U_A$ iff $U_{B, p} < \frac{U_{A, r}}{1 - \gamma} - \frac{U_{B, r}}{1 - \gamma}$. That is, only if initial penalty of Fork B exceeds the difference between disagreeing on the Fork A and the benefit of agreeing on Fork B.
+**Initial Penalty for Fork B**: because there was an initial disagreement at the fork point leading to a slash of Partition B's stake, it follows that $U_{B, p} < 0$
 
-However, in the current MCR slashing model, the initial penalty would only be assigned in the disagreement, i.e., $U_{B, p} = U_{A, r} \Rightarrow U_{B, p} > \frac{U_{A, r}}{1 - \gamma} > \frac{U_{A, r}}{1 - \gamma} - \frac{U_{B, r}}{1 - \gamma}$. This would imply that Partition B would always be better off disagreeing with Fork A--even in the event where it is indifferent between the states.
+**Should Partition B Recover**: we assume Partition B disagrees with Fork A and should not recover, it follows tautologically that $\frac{U_{A, r}}{1 - \gamma} < 0$. 
+
+In cases where Partition B can recover--e.g., can reset its state, perform an appropriate upgrade, or similar--we should expect the fork with greater rewards should appropriately align the behavior of the Partitions. 
+
+**State Indifference**: assuming $U_{B, s} = U_{A, s}$, i.e., Partition B is indifferent between the states, it follows that $U_B < U_A$ iff $U_{B, p} < \frac{U_{A, r}}{1 - \gamma} - \frac{U_{B, r}}{1 - \gamma}$. That is, only if initial penalty of Fork B exceeds the difference between disagreeing on the Fork A and the benefit of agreeing on Fork B.
+
+**Individualism**: however, in the current MCR slashing model, the initial penalty would only be assigned in the disagreement, i.e., $U_{B, p} = U_{A, r} \Rightarrow U_{B, p} > \frac{U_{A, r}}{1 - \gamma} > \frac{U_{A, r}}{1 - \gamma} - \frac{U_{B, r}}{1 - \gamma}$. This would imply that Partition B would always be better off disagreeing with Fork A--even in the event where it is indifferent between the states.
 
 This means that penalties for creating a new fork cannot be implemented synchronously with block commitments if we want to incentivize agreement on the current block height while allowing forking. The fork point needs to be known s.t. a heftier penalty can be assigned to the initial disagreement $U_{B, p}$ after the fork point is known. In other words, an initial fee must be paid to create a fork.
 
