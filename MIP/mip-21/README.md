@@ -8,7 +8,7 @@ A bridge mechanism is essential for any Layer 2 solution, serving as the user's 
 
 ## Motivation
 
-Our current bridge solution has been increasing in complexity with each iteration. Originally requiring three on-chain transactions, it now requires five. Additionally, the bridge does not currently support gas charging mechanisms to prevent exploits, and ongoing discussions are leaning toward adding further components, making it even more complex and computationally expensive.
+Our current bridge solution has been increasing in complexity with each iteration. Originally requiring three on-chain transactions, it now requires four, initiate bridge, lock, complete source chain, complete target chain. Additionally, the bridge does not currently support gas charging mechanisms to prevent exploits, and ongoing discussions are leaning toward adding further components, making it even more complex and computationally expensive.
 
 We believe the best approach is to draw from live implementations that have achieved a streamlined user experience with minimal cost to the user. One such example is USDC's [CCTP](https://www.circle.com/en/cross-chain-transfer-protocol), which offers simplicity, security, and efficiency in cross-chain bridging. Instead of increasing the complexity of our current bridge design, we should aim to adopt this proven mechanism.
 
