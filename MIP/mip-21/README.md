@@ -33,6 +33,25 @@ Or on Circle's own words:
 
 This approach minimizes the need for additional components and avoids the reliance on synthetic assets, leading to a simplified and cost-effective bridge solution.
 
+### Flow
+
+1. **User Deposits**:  
+   - The user deposits tokens on the source chain, which triggers a deposit event.
+   
+2. **Bridge Relayer**:  
+   - The Bridge Relayer, listening for the deposit event, picks up the message or messages associated with the deposit.
+   
+3. **Multisig Signing**:  
+   - The multisig party signs the bridge transaction. The combination of signatures produces an aggregated signature that ties the signatures to the message.
+
+4. **Target Chain Verification**:  
+   - On the target chain, the aggregated signature and the message are used to verify the validity of the bridge transaction. The withdrawal can only occur if the multisig-provided signature is valid.
+
+5. **User Withdrawal**:  
+   - Once the signature is verified, the user can withdraw the corresponding funds on the target chain.
+
+This process is bi-directional, allowing funds to be bridged between Layer 1 and Layer 2, and vice versa, with minimal complexity and friction.
+
 ## Reference Implementation
 
 For more details on how this model operates, refer to USDC's Cross-Chain Transfer Protocol (CCTP) documentation:  
