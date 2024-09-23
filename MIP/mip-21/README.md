@@ -18,11 +18,13 @@ The Cross-Chain Transfer Protocol (CCTP) operates using a set of attestors that 
 
 To align with this approach and reduce complexity:
 
-- **Bridge Relayer as Attestor**: The Bridge Relayer in our system will function as an attestor, operating via a multisig. This relayer, through aggregated signatures, produces a proof on a signed message.
-  
+- **Bridge Relayer as Attestor**: The Bridge Relayer in our system will function as an attestor, operating via a multisig scheme (i.e. the attestor collects signatures from a threshold number of comittee members that approve of the message). This relayer, through aggregated signatures, produces a proof on a signed message.  
+
 - **User Interaction**: Users, or other parties interested in completing the bridge, retrieve their funds on the target chain by submitting the signature and message.
 
-- **Validation Mechanism**: The off-chain signature produced by the multisig is verified against the message on-chain. The challenge is to make sure that the signature is only used once, but the beauty is that the signature is comprised of a multi-party system that do not need to provide onchain signatures. But relying on a protocol like CCTP that has been tested in live environments significantly reduces the risk of any unexpected utilization of off-chain and on-chain proofs.
+- **Validation Mechanism**: The off-chain signature produced by the multisig scheme is verified against the message on-chain.
+The challenge is to make sure that the signature is only used once, but the beauty is that the signature is provided by a multi-party system that do not need to provide onchain signatures.
+Relying on a protocol like CCTP that has been tested in live environments significantly reduces the risk of any unexpected utilization of off-chain and on-chain proofs.  
 
 Or on Circle's own words:
 
