@@ -23,7 +23,7 @@ To align with this approach and reduce complexity:
   
 - **User Interaction**: Users, or other parties interested in completing the bridge, retrieve their funds on the target chain by submitting the signature and message.
 
-- **Validation Mechanism**: The off-chain signature produced by the multisig is verified against the message on-chain. The challenge is to ensure the off-chain signature logic matches the on-chain data, but relying on a protocol like CCTP that has been tested in live environments significantly reduces the risk.
+- **Validation Mechanism**: The off-chain signature produced by the multisig is verified against the message on-chain. The challenge is to make sure that the signature is only used once, but the beauty is that the signature is comprised of a multi-party system that do not need to provide onchain signatures. But relying on a protocol like CCTP that has been tested in live environments significantly reduces the risk of any unexpected utilization of off-chain and on-chain proofs.
 
 Or on Circle's own words:
 
