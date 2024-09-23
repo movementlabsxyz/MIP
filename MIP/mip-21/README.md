@@ -1,7 +1,6 @@
 # MIP-21: Bridge Based on Attestors
 - **Description**: Proposal for simplifying the bridge mechanism using an attestor-based approach inspired by USDC's CCTP, reducing friction, cost, and complexity for Layer 2 onboarding.
-- **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Desiderata**: [MD-0](../MD/md-0)
+- **Authors**: [Primata](mailto:primata@movementlabs.xyz)
 
 ## Abstract
 
