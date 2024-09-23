@@ -25,6 +25,12 @@ To align with this approach and reduce complexity:
 
 - **Validation Mechanism**: The off-chain signature produced by the multisig is verified against the message on-chain. The challenge is to ensure the off-chain signature logic matches the on-chain data, but relying on a protocol like CCTP that has been tested in live environments significantly reduces the risk.
 
+Or on Circle's own words:
+
+1. An on-chain component on source domain emits a message.
+2. Circle's off-chain attestation service signs the message.
+3. The on-chain component at the destination domain receives the message, and forwards the message body to the specified recipient.
+
 This approach minimizes the need for additional components and avoids the reliance on synthetic assets, leading to a simplified and cost-effective bridge solution.
 
 ## Reference Implementation
