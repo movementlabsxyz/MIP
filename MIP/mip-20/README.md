@@ -30,6 +30,7 @@ The lock-mint-swap process allows users to convert L1 ERC20 $MOVE to L2 native $
 
 - The Bridge Relayer service MUST be a trusted service responsible for calling the necessary contract functions to complete the swap.
 As a trusted service, it MUST ensure security and consistency, and thus transaction verification SHOULD NOT be required. The relayer MUST have restricted permissions and can only call certain functions on the contracts, mitigating potential security risks.
+Fraudulent transactions would NOT be executed due to the restricted, only-owner functions, ensuring that only the designated trusted relayer has the authority to interact with the critical swap and bridge logic.
 
 ### Gas Sponsorship and Security Considerations
 
