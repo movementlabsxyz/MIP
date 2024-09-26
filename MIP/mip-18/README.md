@@ -5,13 +5,13 @@
 
 ## Abstract
 
-MIP-18 advocates for the creation of two multisigs: one managed by Movement Labs engineers to propose contract upgrades and another managed by the Movement Foundation to execute them. This proposal enables testing of multisig services while ensuring secure and transparent upgrade processes for the Movement Token. The multisigs will be deployed on Ethereum, Sepolia, and Holesky (if available) networks.
+MIP-18 advocates for the creation of two multisigs: one managed by Core Contributors engineers to propose contract upgrades and another managed by the Movement Foundation to execute them. This proposal enables testing of multisig services while ensuring secure and transparent upgrade processes for the Movement Token. The multisigs will be deployed on Ethereum, Sepolia, and Holesky (if available) networks.
 
 ## Motivation
 
 There is an immediate need to deploy the Movement Token (MOVEToken) using a robust, secure, and auditable upgrade mechanism. By creating two multisigs—one for proposal and one for execution—we ensure a transparent and decentralized governance process over upgrades to critical contracts.
 
-The first multisig allows Movement Labs engineers to propose upgrades via Safe’s multisig service. A remote key will automate the population of upgrade proposals. The second multisig, held by the Movement Foundation, will be responsible for executing the scheduled upgrades after a time delay, ensuring community trust and review.
+The first multisig allows Core Contributors engineers to propose upgrades via Safe’s multisig service. A remote key will automate the population of upgrade proposals. The second multisig, held by the Movement Foundation, will be responsible for executing the scheduled upgrades after a time delay, ensuring community trust and review.
 
 Also, while developing an independent multisig, handling signature showed to be an issue that might be indicative of better letting signature to be handled by safe.global.
 
@@ -19,7 +19,7 @@ Also, while developing an independent multisig, handling signature showed to be 
 
 ### Multisig Setup
 
-1. **Movement Labs Multisig** (4/5 signatures required):  
+1. **Core Contributors Multisig** (4/5 signatures required):  
    - Role: Proposing upgrades.
    - Addresses: Deployed on Ethereum, Sepolia, and Holesky (if available).
    - Signers: Andy Bell (0x49F86Aee2C2187870ece0e64570D0048EaF4C751), Richard Melkonian (0xaFf3deeb13bD2B480751189808C16e9809EeBcce), Liam Monninger (0x12Cbb2C9F072E955b6B95ad46213aAa984A4434D), Primata (0xB2105464215716e1445367BEA5668F581eF7d063) (Engineers involved with Token), and a remote key for automated transaction proposals via SafeKit API's [proposeTransaction](https://docs.safe.global/sdk/api-kit#propose-a-transaction-to-the-service).
@@ -40,11 +40,11 @@ Both multisigs are part of a timelock mechanism to enforce a 2-day waiting perio
    - The Contract Pipeline deploys a new contract implementation and generates transaction data for the upgrade.
 
 2. **Proposal**:  
-   - The remote key automates the submission of a transaction proposal using SafeKit API’s `proposeTransaction`, populating the transaction for review by Movement Labs engineers.
+   - The remote key automates the submission of a transaction proposal using SafeKit API’s `proposeTransaction`, populating the transaction for review by Core Contributors engineers.
    - The proposal includes the transaction for `timelock.schedule(proxyAdmin.upgradeAndCall(newContractImplementation))`.
 
 3. **Approval**:  
-   - The Movement Labs engineers review and gather 4/5 signatures to approve the proposal.
+   - The Core Contributors engineers review and gather 4/5 signatures to approve the proposal.
    - Once approved, the `timelock.schedule` transaction is enacted, holding the upgrade in a 2-day timelock.
 
 4. **Execution**:  
@@ -63,7 +63,7 @@ Both multisigs are part of a timelock mechanism to enforce a 2-day waiting perio
 
 ## Reference Implementation
 
-The multisigs will be deployed using the Safe global multisig service, with contracts interacting through the SafeKit API. The remote key will automate transaction proposals for review by Movement Labs engineers.
+The multisigs will be deployed using the Safe global multisig service, with contracts interacting through the SafeKit API. The remote key will automate transaction proposals for review by Core Contributors engineers.
 
 ## Verification
 
