@@ -42,7 +42,7 @@ The fees should be expressed in a single (crypto)-currency, e.g. USD, or a token
 
 ### Execution 
 
-###3 MoveVM execution fees 
+#### MoveVM execution fees 
 
 To execute a transaction and store the result, the operator of the chain uses some hardware: CPU and disk storge. The **execution** fees represent the compensation of the operator for executing a transaction. 
 
@@ -55,13 +55,13 @@ The Aptos-Move fee mechanism splits the execution fees in two parts:
 CPU and IO operations for a transaction $tx$ result in a number of gas units $g(tx)$, and the corresponding fees are computing using a _gas price_ $GasPrice$ expressed in the gas token ($APT for Aptos-Move). A transaction specifies the $GasPrice(tx)$ it is willing to pay.  
 The value $GasPrice(tx)$ must not be lower than a minimum $GasPrice$, which may fluctuate depending on network contention, and may be updated frequently (e.g. after each block). 
 
-In contrast the permanent storage fees are designed to be stable and are updated infrequently. The reasoning is that they depend on how much storage costs (hardware, disks) and with advancement in technology this should go down in the future. The storage fees for $tx$ are denoted $StoreFees(tx)$ and expressed in $APT ^[It looks like the actual currency used to express this fee is a stable currency like USD. It can be converted to $APT using an oracle.].
+In contrast the permanent storage fees are designed to be stable and are updated infrequently. The reasoning is that they depend on how much storage costs (hardware, disks) and with advancement in technology this should go down in the future. The storage fees for $tx$ are denoted $StoreFees(tx)$ and expressed in $APT[^3].
 
 The fees that correspond to the permanent storage are **converted to gas units** using the  $GasPrice$ and the $APT price. 
 
 The _total charge in gas units_ for a transaction is the defined by:
 $$ \textit{TotalGasUnits}(tx) = g(tx) + StoreFees(tx)/GasPrice(tx)$$
-and the total transaction fees are approxiamtely^[This is another _refund_ component in the Aptos-Move fee statement thatwe ignore here]:
+and the total transaction fees are approxiamtly[^1]:
 $$ \textit{ExecFees}(tx) = \textit{TotalGasUnits}(tx) \times GasPrice(tx) \mathpunct.$$.
 
 > [!WARNING]
@@ -128,7 +128,7 @@ The proving part is more complex to evaluate. The [zkSync –– Fee mechanism](
 Note that we first need a zkMoveVM to develop this approach.
 
 #### Fast-finality settlement
-In our metwork, we will offer _fast-finality settlement_ (FFS) where _validators_ verify state transitions (and blocks) and interact with a contract, `StakingK`, that may live^[We may be able to have the quorum verification function in a Movement contract which would reduce the costs.] on Ethereum mainnet. 
+In our metwork, we will offer _fast-finality settlement_ (FFS) where _validators_ verify state transitions (and blocks) and interact with a contract, `StakingK`, that may live[^2] on Ethereum mainnet. 
 
 The costs incurred by the validators plus the cost of posting the attestations to Ethereum mainnet have to be factored in the $\textit{SetlFees}$.
 
@@ -179,9 +179,12 @@ Fees.](https://ethereum.org/en/developers/docs/gas/#eip-1559)
  -->
  
 ---
-[^1]: In a *Validity Proof* (zk) rollup, a proof of correct execution is submitted instead.
 
+[^1]: There is another _refund_ component in the Aptos-Move fee statement that we ignore here.
 
+[^2]: We may be able to have the quorum verification function in a Movement contract which would reduce the costs.
+
+[^3]: It looks like the actual currency used to express this fee is a stable currency like USD. It can be converted to $APT using an oracle.
 ---
 ## Copyright
 
