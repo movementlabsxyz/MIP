@@ -62,6 +62,7 @@ The fees that correspond to the permanent storage are **converted to gas units**
 The _total charge in gas units_ for a transaction is the defined by:
 $$ \textit{TotalGasUnits}(tx) = g(tx) + StoreFees(tx)/GasPrice(tx)$$
 and the total transaction fees are approxiamtly[^1]:
+
 $$ \textit{ExecFees}(tx) = \textit{TotalGasUnits}(tx) \times GasPrice(tx) \mathpunct.$$.
 
 > [!WARNING]
