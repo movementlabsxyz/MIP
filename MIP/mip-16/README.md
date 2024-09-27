@@ -138,7 +138,6 @@ We have bnot finalised the FFS details yet so it may be premature to try and def
 > [!TIP]
 **Proposal 4**: The simplest approach seems to implement a fraud-proof fee mechanism and publish state roots to Ethereum mainnet.
 
-
 ## References 
 
 \[1\]  [Transaction fees on OP Mainet](https://docs.optimism.io/stack/transactions/fees). Optimism Documentation.
