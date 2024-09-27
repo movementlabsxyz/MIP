@@ -36,7 +36,7 @@ The cost of processing a transaction on a Movement chain is [multi-dimensional](
 
 Overall the transaction fees are the defined by the sum of the three types of fees:
 
-$$ \textit{ExecFees} + \textit{DAFees} + \textit{SetlFees}\mathpunct. $$
+$$ {ExecFees} + {DAFees} + {SetlFees}\mathpunct. $$
 
 The fees should be expressed in a single (crypto)-currency, e.g. USD, or a token \$APT, \$MOVE, \$ETH.
 
@@ -69,11 +69,11 @@ $$ ExecFees(tx) = TotalGasUnits(tx) \times GasPrice(tx) \mathpunct.$$
 
 
 > [!WARNING]
-We may not use the \$APT token value to compute the fees on Movement. If we do so the $ExecFees$ will be identical to processing fees on Aptos-Move, and the total fees including $\textit{DAFees}$ and $\textit{SetlFees}$ will be higher than the processing fees on Aptos-Move, which may not be desirable.
+We may not use the \$APT token value to compute the fees on Movement. If we do so the $ExecFees$ will be identical to processing fees on Aptos-Move, and the total fees including $DAFees$ and $SetlFees$ will be higher than the processing fees on Aptos-Move, which may not be desirable.
 
 
 > [!TIP]
-**Proposal 1**: use the $\textit{TotalGasUnits}(tx)$ and a $GasPrice$ in \$MOVE to compute the execution fees on a Movement chain.
+**Proposal 1**: use the $TotalGasUnits(tx)$ and a $GasPrice$ in \$MOVE to compute the execution fees on a Movement chain.
 This may require an oracle to get the exchange rate for \$APT/\$MOVE.
 
 
@@ -134,7 +134,7 @@ Note that we first need a zkMoveVM to develop this approach.
 #### Fast-finality settlement
 In our metwork, we will offer _fast-finality settlement_ (FFS) where _validators_ verify state transitions (and blocks) and interact with a contract, `StakingK`, that may live[^2] on Ethereum mainnet. 
 
-The costs incurred by the validators plus the cost of posting the attestations to Ethereum mainnet have to be factored in the $\textit{SetlFees}$.
+The costs incurred by the validators plus the cost of posting the attestations to Ethereum mainnet have to be factored in the ${SetlFees}$.
 
 > [!WARNING]
 We have bnot finalised the FFS details yet so it may be premature to try and define fees for this mechanism. It also pertains to _staking_ which is not fully fledged yet.
