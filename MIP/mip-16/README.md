@@ -69,7 +69,7 @@ $$ ExecFees(tx) = TotalGasUnits(tx) \times GasPrice(tx) \mathpunct.$$
 
 
 > [!WARNING]
-> We may not use the \$APT token value to compute the fees on Movement. If we do so the $\textit{ExecFees}$ will be identical to processing fees on Aptos-Move, and the total fees including $\textit{DAFees}$ and $\textit{SetlFees}$ will be higher than the processing fees on Aptos-Move, which may not be desirable.
+We may not use the APT token value to compute the fees on Movement. If we do so the $ExecFees$ will be identical to processing fees on Aptos-Move, and the total fees including $\textit{DAFees}$ and $\textit{SetlFees}$ will be higher than the processing fees on Aptos-Move, which may not be desirable.
 
 
 > [!TIP]
