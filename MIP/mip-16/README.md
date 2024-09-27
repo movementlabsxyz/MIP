@@ -12,7 +12,7 @@ This MIP describes the structure of the gas fees and overall resource consumptio
 
 ## Motivation
 
-The transaction fees on L2s are multi-dimensional. They comprise of _execution fees_, _settlement fees_ and _data availability fees_.
+The transaction fees on L2s are multi-dimensional [9, 10]. They comprise of _execution fees_, _settlement fees_ and _data availability fees_.
 This MIP describes what the different types of fees are, and how the transaction fees can be computed.
 
 ## Scope of this MIP
@@ -28,7 +28,8 @@ Althought the costs (in terms of resources consumption) are expressed in gas uni
 
 ## Fee structure 
 
-The cost of processing a transaction on a Movement chain is [multi-dimensional](https://medium.com/offchainlabs/understanding-arbitrum-2-dimensional-fees-fd1d582596c9):
+The processing costs on rollups [1-6] are  [multi-dimensional](https://medium.com/offchainlabs/understanding-arbitrum-2-dimensional-fees-fd1d582596c9).
+The cost of processing a transaction on a Movement chain consists of:
 
 1. **execution** fees: the costs that correspond to resources usage, CPU and permanent storage.
 2. **data availability** fees: the costs of publishing transactions/blocks data to a _data availability layer_.
@@ -146,7 +147,7 @@ We have bnot finalised the FFS details yet so it may be premature to try and def
 
 \[1\]  [Transaction fees on OP Mainet](https://docs.optimism.io/stack/transactions/fees). Optimism Documentation.
 
-\[2\]  [Sui –– Gas Pricing](https://docs.sui.io/concepts/tokenomics/gas-pricing) . Sui Documentation.
+\[2\]  [Sui –– Gas Pricing](https://docs.sui.io/concepts/tokenomics/gas-pricing). Sui Documentation.
 
 \[3\] [Gas and storage fees](https://aptos.dev/en/network/blockchain/gas-txn-fee). Aptos documentation.
 
