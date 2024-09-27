@@ -68,9 +68,8 @@ and the total transaction fees are approximately[^1]:
 $$ ExecFees(tx) = TotalGasUnits(tx) \times GasPrice(tx) \mathpunct.$$
 
 
-
 > [!WARNING]
-We may not use the \$APT token value to compute the fees on Movement. If we do so the $\textit{ExecFees}$ will be identical to processing fees on Aptos-Move, and the total fees including $\textit{DAFees}$ and $\textit{SetlFees}$ will be higher than the processing fees on Aptos-Move, which may not be desirable.
+> We may not use the \$APT token value to compute the fees on Movement. If we do so the $\textit{ExecFees}$ will be identical to processing fees on Aptos-Move, and the total fees including $\textit{DAFees}$ and $\textit{SetlFees}$ will be higher than the processing fees on Aptos-Move, which may not be desirable.
 
 
 > [!TIP]
@@ -96,7 +95,7 @@ This can be updated infrequently e.g. every 6 months or year.
 The reduce the costs, the data published to the DA layer can be compressed. This reduces the overall costs of publishing a batch (and a state) to the DA layer but makes it harder to identify the contribution of each transaction to the overall costs. OP Mainet Ecotone has a [formula](https://docs.optimism.io/stack/transactions/fees#formula) to try and weight the contribution of each transaction to the compressed data. It is unclear how well it works in practice.  
 
 > [!TIP]
-> **Proposal 3**: \$MOVE If the cost of publishing a batch $b$ to the DA is $DAFees(b)$, and $n$ transactions are in the batch, the DA fees for each transaction are $DAFees(b)/n$. This is simple to implement and can be refined later if needed.
+> **Proposal 3**: If the cost of publishing a batch $b$ to the DA is $DAFees(b)$, and $n$ transactions are in the batch, the DA fees for each transaction are $DAFees(b)/n$. This is simple to implement and can be refined later if needed.
 
 ### Settlement Fees
 
