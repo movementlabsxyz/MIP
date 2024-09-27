@@ -13,7 +13,7 @@ This MIP describes the structure of the gas fees and overall resource consumptio
 ## Motivation
 
 The transaction fees on L2s are multi-dimensional. They comprise of _execution fees_, _settlement fees_ and _data availability fees_.
-This MIP describes what the different types of fees are, and how the transaction fees cana be computed.
+This MIP describes what the different types of fees are, and how the transaction fees can be computed.
 
 ## Scope of this MIP
 This MIP applies to costs/fees **related to executing Move bytecode**. 
@@ -38,7 +38,7 @@ Overall the transaction fees are the defined by the sum of the three types of fe
 
 $$\textit{ExecFees} + \textit{DAFees} + \textit{SetlFees}\mathpunct. $$
 
-The fees should be expressed in a single (crypto)-currency, e.g. USD, or a token $APT, $MOVE, $ETH.
+The fees should be expressed in a single (crypto)-currency, e.g. USD, or a token \$APT, \$MOVE, \$ETH.
 
 ### Execution 
 
@@ -50,14 +50,14 @@ Movement Network uses Aptos-Move as the execution layer and the execution fees f
 The Aptos-Move fee mechanism splits the execution fees in two parts:
 
 - CPU and IO operations, expressed in gas units; 
-- permanent storage, expressed in $APT.
+- permanent storage, expressed in \$APT.
 
-CPU and IO operations for a transaction $tx$ result in a number of gas units $g(tx)$, and the corresponding fees are computing using a _gas price_ $GasPrice$ expressed in the gas token ($APT for Aptos-Move). A transaction specifies the $GasPrice(tx)$ it is willing to pay.  
+CPU and IO operations for a transaction $tx$ result in a number of gas units $g(tx)$, and the corresponding fees are computing using a _gas price_ $GasPrice$ expressed in the gas token (\$APT for Aptos-Move). A transaction specifies the $GasPrice(tx)$ it is willing to pay.  
 The value $GasPrice(tx)$ must not be lower than a minimum $GasPrice$, which may fluctuate depending on network contention, and may be updated frequently (e.g. after each block). 
 
-In contrast the permanent storage fees are designed to be stable and are updated infrequently. The reasoning is that they depend on how much storage costs (hardware, disks) and with advancement in technology this should go down in the future. The storage fees for $tx$ are denoted $StoreFees(tx)$ and expressed in $APT[^3].
+In contrast the permanent storage fees are designed to be stable and are updated infrequently. The reasoning is that they depend on how much storage costs (hardware, disks) and with advancement in technology this should go down in the future. The storage fees for $tx$ are denoted $StoreFees(tx)$ and expressed in \$APT[^3].
 
-The fees that correspond to the permanent storage are **converted to gas units** using the  $GasPrice$ and the $APT price. 
+The fees that correspond to the permanent storage are **converted to gas units** using the  $GasPrice$ and the \$APT price. 
 
 The _total charge in gas units_ for a transaction is the defined by:
 $$ \textit{TotalGasUnits}(tx) = g(tx) + StoreFees(tx)/GasPrice(tx)$$
@@ -65,16 +65,16 @@ and the total transaction fees are approxiamtly[^1]:
 $$ \textit{ExecFees}(tx) = \textit{TotalGasUnits}(tx) \times GasPrice(tx) \mathpunct.$$.
 
 > [!WARNING]
- We may not use the $APT token value to compute the fees on Movement. If we do so the $\textit{ExecFees}$ will be identical to processing fees on Aptos-Move, and the total fees including $\textit{DAFees}$ and $\textit{SetlFees}$ will be higher than the processing fees on Aptos-Move, which may not be desirable.
+We may not use the \$APT token value to compute the fees on Movement. If we do so the $\textit{ExecFees}$ will be identical to processing fees on Aptos-Move, and the total fees including $\textit{DAFees}$ and $\textit{SetlFees}$ will be higher than the processing fees on Aptos-Move, which may not be desirable.
 
 
 > [!TIP]
-**Proposal 1**: use the $\textit{TotalGasUnits}(tx)$ and a $GasPrice$ in $MOVE to compute the execution fees on a Movement chain.
-This may require an oracle to get the exchange rate for $APT/$MOVE.
+**Proposal 1**: use the $\textit{TotalGasUnits}(tx)$ and a $GasPrice$ in \$MOVE to compute the execution fees on a Movement chain.
+This may require an oracle to get the exchange rate for \$APT/\$MOVE.
 
 
 #### Gas price adjustments
-We may also want to adjust the $GasPrice$ (in $MOVE) to reflect our metwork load. There are many ways the $GasPrice$ can be updated. On Ethereum it is governed by rules in [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559). zkSync, Arbitrum and OP Mainnet use different strategies [1, 4, 6] to update the gas price. 
+We may also want to adjust the $GasPrice$ (in \$MOVE) to reflect our metwork load. There are many ways the $GasPrice$ can be updated. On Ethereum it is governed by rules in [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559). zkSync, Arbitrum and OP Mainnet use different strategies [1, 4, 6] to update the gas price. 
 
 > [!TIP]
 **Proposal 2**: The OP Mainet [1] strategy seems to be the simplest one so we may implement this strategy first. 
@@ -184,7 +184,7 @@ Fees.](https://ethereum.org/en/developers/docs/gas/#eip-1559)
 
 [^2]: We may be able to have the quorum verification function in a Movement contract which would reduce the costs.
 
-[^3]: It looks like the actual currency used to express this fee is a stable currency like USD. It can be converted to $APT using an oracle.
+[^3]: It looks like the actual currency used to express this fee is a stable currency like USD. It can be converted to \$APT using an oracle.
 ---
 ## Copyright
 
