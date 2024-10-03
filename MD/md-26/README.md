@@ -62,6 +62,8 @@ Provide definitions that you think will empower the reader to quickly dive into 
         ./suzuka_user_test.sh
         ```
 
+4. Run a script to check whether two transactions fail consecutively, and send an event to PagerDuty if that happens. I'll defer to SRE for the best implemention method. We can follow [the PagerDuty Integration Guide](https://support.pagerduty.com/main/docs/pagerduty-agent-integration-guide) for this step.
+
 **Justification**:
 
   It's a high priority to have testnet running and able to process transactions, or alterting us otherwise.
