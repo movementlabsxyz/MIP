@@ -46,7 +46,7 @@ Provide definitions that you think will empower the reader to quickly dive into 
 
         # Send a transaction (use something simple e.g. a simple counter function call?`)
         movement move run --function-id "0x1::module::function_name" --args "u64:1" \
-                --account $ACCOUNT_KEY --private-key $PRIVATE_KEY --url $APTOS_URL
+                --account $ACCOUNT_KEY --private-key $PRIVATE_KEY --url $MOVEMENT_URL
 
         echo "Transaction submitted at $(date)"
         
