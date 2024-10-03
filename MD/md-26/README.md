@@ -36,15 +36,15 @@ Provide definitions that you think will empower the reader to quickly dive into 
         # Define variables (replace with actual values)
         ACCOUNT_KEY="your_account_key"
         PRIVATE_KEY="your_private_key"
-        APTOS_URL="https://fullnode.testnet.aptoslabs.com"
+        MOVEMENT_URL="https://testnet.suzuka.movementlabs.xyz"
         
         # Infinite loop to send a transaction every 3 minutes
         while true
         do
         # Get faucet funding
-        aptos account fund-with-faucet --account $ACCOUNT_KEY --url $APTOS_URL --faucet-url https://faucet.testnet.aptoslabs.com
+        movement account fund-with-faucet --account $ACCOUNT_KEY --url $MOVEMENT_URL --faucet-url https://faucet.testnet.suzuka.movementlabs.xyz
 
-        # Send a transaction (replace with something simple e.g. a `movemania::play` (tapping game) call?`)
+        # Send a transaction (use something simple e.g. a simple counter function call?`)
         movement move run --function-id "0x1::module::function_name" --args "u64:1" \
                 --account $ACCOUNT_KEY --private-key $PRIVATE_KEY --url $APTOS_URL
 
@@ -62,7 +62,7 @@ Provide definitions that you think will empower the reader to quickly dive into 
         ./suzuka_user_test.sh
         ```
 
-4. Run a script to check whether two transactions fail consecutively, and send an event to PagerDuty if that happens. I'll defer to SRE for the best implemention method. We can follow [the PagerDuty Integration Guide](https://support.pagerduty.com/main/docs/pagerduty-agent-integration-guide) for this step.
+4. Run a script to check whether two transactions fail consecutively, and send an event to PagerDuty if that happens. I'll defer to SRE for the best implemention method. We can follow [the PagerDuty Integration Guide](https://support.pagerduty.com/main/docs/pagerduty-agent-integration-guide) for this step. 
 
 **Justification**:
 
