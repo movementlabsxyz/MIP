@@ -43,10 +43,17 @@ The Contract Pipeline includes the following components:
 - **Role**: This domain is composed of network stakers who can execute timelocked transactions.
 - **Purpose**: Provides an additional layer of decentralized control by allowing stakers to be responsible for executing transactions after the timelock period has elapsed.
 
+
+### 6. **Contracts**
+
+- **Role**: The functional component of the protocol.
+- **Purpose**: Allow users to interact with Movement as a protocol.
+ 
 ## Workflow for Releases
 
 1. **Engineers Push Releases**:  
    - Engineers push new releases containing the necessary deployment data and transaction details. Each release tag initializes the workflow.
+   - Engineers release a new implementation contract on the network. The old contract is versioned and a new iterable contract is created. E.g. MOVEToken is deployed. It currently contains MOVETokenV1 (current implementation) and MOVEToken. ALL work is to be done on MOVEToken. Once a new upgrade occurs, the deployed MOVEToken version is renamed MOVETokenV2 and a new iterable contract is created and named MOVEToken.
 
 2. **Deployment JSON Files**:  
    - The release includes deployment JSON files following the standard proposed in MIP-23. These files include:
