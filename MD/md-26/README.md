@@ -18,9 +18,9 @@ We need to check that users can submit transactions. This MD outlines a simple a
 
 Provide definitions that you think will empower the reader to quickly dive into the topic.
 
-## Desiderata
+## Desiderata 26
 
-  ### Desideratum Title
+  ### User-facing checks
 
   **User Journey**: Users get more assurance that we know when Suzuka testnet has a transaction-processing outage. 
 
