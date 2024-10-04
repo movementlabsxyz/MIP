@@ -58,7 +58,7 @@ module aptos_framework::proxy {
         let proxy_controller = borrow_global_mut<ProxyController>(@aptos_framework);
 
         assert!(
-            proxy_controller.controller != signer::address_of(signer) ||
+            proxy_controller.controller == signer::address_of(signer) ||
             is_aptos_framework_address(signer::address_of(signer)),
             EINVALID_CONTROLLER);
 
