@@ -20,7 +20,7 @@ Provide definitions that you think will empower the reader to quickly dive into 
 
 ## Desiderata 26
 
-  ### User-facing checks
+  ### User-facing Suzuka Checks
 
   **User Journey**: Users get more assurance that we know when Suzuka testnet has a transaction-processing outage. 
 
