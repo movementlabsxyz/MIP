@@ -28,7 +28,7 @@ Also, while developing an independent multisig, handling signature showed to be 
 2. **Movement Foundation Multisig** (3/5 signatures required, triggerable after 2-day timelock):  
    - Role: Executing upgrades.
    - Addresses: eth:0x074C155f09cE5fC3B65b4a9Bbb01739459C7AD63, sep:0x00db70A9e12537495C359581b7b3Bc3a69379A00.
-   - Signers: Jacques/Mugen1 (0x2801A777E451094c22abCF2c1bBfd0a9c1756831), Joel (0xCd87972D73C3eAC3b12dA31c089cE53DcC066812), Cooper (0x5505070Cf73f8c92Cf79a23C53Be15F55Fb70923), Rushi (0x89A4e685644E5fa0F137BBabc35b7A45a20a90bE) and Marc (0x9d7963F30C27d54e19faA679EF2F5Af105Ac1D75).
+   - Signers: Jacques/Mugen1 (0x2801A777E451094c22abCF2c1bBfd0a9c1756831), Joel/Mugen2 (0xCd87972D73C3eAC3b12dA31c089cE53DcC066812), Cooper (0x5505070Cf73f8c92Cf79a23C53Be15F55Fb70923), Rushi (0x89A4e685644E5fa0F137BBabc35b7A45a20a90bE) and Marc (0x9d7963F30C27d54e19faA679EF2F5Af105Ac1D75).
 
 3. **Deployer Multisig** (1/2 signatures required):
    - Role: Deploy contracts.
