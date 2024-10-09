@@ -87,6 +87,26 @@ module aptos_framework::proxy {
     }
 }
 ```
+**Steps:**
+1. Create the Move script you want to execute.  An example can be found below.
+2. With the use of the [multisig_account.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/multisig_account.move) module a multisig is created with members and a required threshold.
+3. A transaction payload will be created from the Move script and would be used to initiate the multisig ceremony with `create_transaction` [multisig_account.move:953](https://github.com/aptos-labs/aptos-core/blob/f8eef74f9f712fcc0e809265ec2b77013a683184/aptos-move/framework/aptos-framework/sources/multisig_account.move#L953)  
+4. The transaction is either approved with `approve_transaction` [multisig_account.move:1000](https://github.com/aptos-labs/aptos-core/blob/f8eef74f9f712fcc0e809265ec2b77013a683184/aptos-move/framework/aptos-framework/sources/multisig_account.move#L1000) or rejected with `reject_transaction` [mutlisig_account.move:1006](https://github.com/aptos-labs/aptos-core/blob/f8eef74f9f712fcc0e809265ec2b77013a683184/aptos-move/framework/aptos-framework/sources/multisig_account.move#L1006)  
+5. Any member of the multisig group can then submit a transaction(multisig) type which, if the threshold has been reached, will be executed.
+
+```rust
+script {
+    use aptos_framework::proxy;
+    use aptos_framework::atomic_bridge_configuration;
+
+    // Signed by the controller of the proxy to be delegated proxy to the framework to 
+    // update the bridge operator
+    fun main(controller: &signer, new_operator: address) {
+        let framework_signer = proxy::delegate_to_proxy(controller);
+        atomic_bridge_configuration::update_bridge_operator(&framework_signer, new_operator);
+    }
+}
+```
 
 ## Verification
 
