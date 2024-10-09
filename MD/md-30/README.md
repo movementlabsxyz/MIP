@@ -55,7 +55,11 @@ MNS falls under the SoFi category, offering a decentralized, permissionless fram
 
 - Name and Room ownership should be tied to flexible access key resources, allowing for extensibility through third-party integrations and custom services.
 
-### D5: Movement Name Service should acquire ICANN
+### D5: Each Movement Name should grant access to its own Domain for .move TLD
+
+**User Jorney** User acquires .move domain. This allows the user to host an application running on http/https.
+
+**Justification**: Domains are yet to be fully implemented for any web3 name service and `.move` is an elegant TLD with intrinsic value for a global market.
 
 ## Design
 
