@@ -12,8 +12,9 @@ MNS falls under the SoFi category, offering a decentralized, permissionless fram
 
 ## Definitions
 
-- **Names**: Human-readable identifiers registered on-chain.
+- **Names**: Human-readable identifiers registered on-chain. Should be freely tradeable. Room ownership is tied to Name. Names domain is `.move`. E.g. `[owned_name].move`.
 - **Rooms**: Digital spaces associated with a registered Name, accessible by the Name's owner or key holders.
+- **Keys**: Access key to Name's rooms. Mintable and burnable according bonding curve.
 - **Bonding Curve**: A mathematical model used to determine minting and burning prices for access keys.
 
 ## Desiderata
@@ -53,6 +54,8 @@ MNS falls under the SoFi category, offering a decentralized, permissionless fram
 **Guidance and suggestions**:
 
 - Name and Room ownership should be tied to flexible access key resources, allowing for extensibility through third-party integrations and custom services.
+
+### D5: Movement Name Service should acquire ICANN
 
 ## Design
 
