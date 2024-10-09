@@ -60,11 +60,9 @@ MNS falls under the SoFi category, offering a decentralized, permissionless fram
 
 - **NameRegistry**: Manages the registration and ownership of Names on the Movement blockchain, similar to the Aptos Name Service.
 - **NameKeys**: Manages the minting and burning of access keys tied to Rooms and Names using the bonding curve mechanism.
-  
-### Temporary Names
-
 - **Ductus** (temporary name): A server responsible for generating and serving Rooms' content off-chain.
 - **Domus** (temporary name): A frontend interface where users can access, message, and manage their Rooms, including features like messaging, timeline integration, and third-party service integration (such as Parthenon).
+- **Community Integrations**: Community can generate revenue on existent infrastructure by driving Keys trading on their own interface by utilizing the `application_fee` feature. This allows them to find new revenue models that either compete or improve the Ductus and Domus ecosystem.
 
 The community can modify these temporary names or replace them with their own infrastructure and branding.
 
