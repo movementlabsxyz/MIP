@@ -1,5 +1,5 @@
 # MIP-15: MG (Movement Gloss)
-- **Description**: Introduces the Movement Gloss (MG) document type and establishes a process for introducing new glossary terms.
+- **Description**: Introduces the Movement Gloss (MG) document type and establishes a process for introducing new glossary terms. Introduces the [Glossary](../GLOSSARY.md), which contains an overview of all terms defined through MGs.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
 - **Desiderata**: [MD-15](../MD/md-15/README.md)

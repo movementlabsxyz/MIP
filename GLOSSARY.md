@@ -1,6 +1,6 @@
 ## Glossary
 
-Alphabetically ordered list of terms defined through MG.
+Alphabetically ordered list of terms defined through MGs.
 
 | Term          | Short Definition               | #MG                                                                 |
 |---------------|--------------------------------|-------------------------------------------------------------------------------------------------------|
