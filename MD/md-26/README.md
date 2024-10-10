@@ -26,43 +26,11 @@ Provide definitions that you think will empower the reader to quickly dive into 
 
   **Description**:
 
-  1. Spin up an EC2 instance.
-  
-  2. On the instance, create a shell script `suzuka_user_test.sh`:
+- Implement e2e tests which are already packaged as containers. See https://github.com/movementlabsxyz/movement/tree/main/networks/suzuka/suzuka-client/src/bin/e2e for the test logic and https://github.com/orgs/movementlabsxyz/packages?repo_name=movement for the containers (those with e2e in the name).
 
-        ```
-        #!/bin/bash
+- Run these checks periodically, say once every 3 minutes, to simulate users sending transactions, and add to monitoring infrastructure, reporting based on the exit code of the e2e test binaries and not requiring any modifications to the implementation.
 
-        # Define variables (replace with actual values)
-        ACCOUNT_KEY="your_account_key"
-        PRIVATE_KEY="your_private_key"
-        MOVEMENT_URL="https://testnet.suzuka.movementlabs.xyz"
-        
-        # Infinite loop to send a transaction every 3 minutes
-        while true
-        do
-        # Get faucet funding
-        movement account fund-with-faucet --account $ACCOUNT_KEY --url $MOVEMENT_URL --faucet-url https://faucet.testnet.suzuka.movementlabs.xyz
-
-        # Send a transaction (use something simple e.g. a simple counter function call?`)
-        movement move run --function-id "0x1::module::function_name" --args "u64:1" \
-                --account $ACCOUNT_KEY --private-key $PRIVATE_KEY --url $MOVEMENT_URL
-
-        echo "Transaction submitted at $(date)"
-        
-        # Wait for 3 minutes
-        sleep 180
-        done
-        ```
-
-3. Run the script:
-
-        ```
-        chmod +x suzuka_user_test.sh
-        ./suzuka_user_test.sh
-        ```
-
-4. Run a script to check whether two transactions fail consecutively, and send an event to PagerDuty if that happens. I'll defer to SRE for the best implemention method. We can follow [the PagerDuty Integration Guide](https://support.pagerduty.com/main/docs/pagerduty-agent-integration-guide) for this step. 
+(See @l-monninger comments in discussion.)
 
 **Justification**:
 
