@@ -14,7 +14,7 @@ MNS falls under the SoFi category, offering a decentralized, permissionless fram
 
 - **Names**: Human-readable identifiers registered on-chain. Should be freely tradeable. Room ownership is tied to Name. Names domain is `.move`. E.g. `[owned_name].move`.
 - **Rooms**: Digital spaces associated with a registered Name, accessible by the Name's owner or key holders.
-- **Keys**: Access key to Name's rooms. Mintable and burnable according bonding curve.
+- **Keys**: Access key to Name's rooms. Mintable and burnable according to a bonding curve.
 - **Bonding Curve**: A mathematical model used to determine minting and burning prices for access keys.
 
 ## Desiderata
@@ -57,7 +57,7 @@ MNS falls under the SoFi category, offering a decentralized, permissionless fram
 
 ### D5: Each Movement Name should grant access to its own Domain for .move TLD
 
-**User Jorney** User acquires .move domain. This allows the user to host an application running on http/https.
+**User Journey**: Users acquire a `.move` domain. This allows the user to host an application running on http/https.
 
 **Justification**: Domains are yet to be fully implemented for any web3 name service and `.move` is an elegant TLD with intrinsic value for a global market.
 
@@ -69,15 +69,38 @@ MNS falls under the SoFi category, offering a decentralized, permissionless fram
 - **NameKeys**: Manages the minting and burning of access keys tied to Rooms and Names using the bonding curve mechanism.
 - **Ductus** (temporary name): A server responsible for generating and serving Rooms' content off-chain.
 - **Domus** (temporary name): A frontend interface where users can access, message, and manage their Rooms, including features like messaging, timeline integration, and third-party service integration (such as Parthenon).
-- **Community Integrations**: Community can generate revenue on existent infrastructure by driving Keys trading on their own interface by utilizing the `application_fee` feature. This allows them to find new revenue models that either compete or improve the Ductus and Domus ecosystem.
+- **Community Integrations**: The community can generate revenue on existing infrastructure by driving Keys trading on their own interface by utilizing the `application_fee` feature. This allows them to find new revenue models that either compete with or improve the Ductus and Domus ecosystem.
 
 The community can modify these temporary names or replace them with their own infrastructure and branding.
 
-## Disclaimers
+## Background & Motivation
 
-- This initiative is a potential continuation of the "Building the Parthenon" project.
-- The MNS system is open and permissionless, meaning Movement Labs is not responsible for content or services built by the Community Movement.
-  
+Name services are integral to establishing on-chain identities, creating a user-friendly interface for interaction. Move-based name services have historically been owned by the network. The MNS maintains this model while also allowing the community to contribute content and services. The goal is to create a more innovative, community-driven Name Service on the Movement blockchain.
+
+### Expanded
+
+The Movement Name Service (MNS) goes beyond simply assigning human-readable names by introducing the concept of access keys tied to a bonding curve. This mechanism provides users with more than just an identifier—it adds a layer of value through the potential for ownership, community-building, and monetization. Access keys allow users to unlock private Rooms associated with Names, creating a user-driven ecosystem where participation and engagement with specific names hold tangible economic and social value.
+
+#### Keys and Bonding Curve
+
+Keys are pivotal to this system. By tying the issuance of keys to a bonding curve, the cost of minting and burning keys dynamically adjusts based on demand, ensuring a fair and transparent market for entry into exclusive rooms. Users who acquire these keys not only gain access to specific digital spaces but also gain a stake in the name's ecosystem. For example, as more users mint keys to access a popular room, the minting price rises, reflecting the increased demand for that space.
+
+This incentivizes early participation in popular rooms and encourages users to build brands around their names. When these names and associated rooms grow in value and demand, users can sell the keys on secondary markets, benefiting from increased key prices and potential residual earnings tied to those trades.
+
+#### Integrating SoFi into MNS
+
+The integration of SoFi (Social Finance) into the MNS framework amplifies the value of the name service. Rather than tying a name's worth to external platforms like Twitter or Discord, SoFi enables names to exist as self-contained ecosystems where the owner can control not only their brand but also the flow of interactions and transactions within their domain.
+
+By allowing people to trade well-established names, MNS unlocks additional value—when acquiring a prominent name, users can also gain access to that name’s followers and established community. This creates opportunities for individuals or brands to sell and transfer their influence on the blockchain in a decentralized manner. For developers and entrepreneurs, the introduction of an application fee tied to keys incentivizes the creation of third-party applications that route trades and interactions through their platforms, driving a thriving secondary market for names and keys.
+
+In this model, the name service and key market extend far beyond the initial design, encouraging continual growth and evolution as users build their own applications on top of the MNS framework.
+
+#### User/Developer Experience
+
+For users, the experience of interacting with MNS is streamlined and intuitive. Registering a name or purchasing access keys involves interacting with simple on-chain functions, all while benefiting from the bonding curve’s dynamic pricing. As users participate in these interactions, they become integral parts of the MNS ecosystem, with the potential to trade, mint, or burn keys as demand shifts. This flexibility provides users with agency over their digital spaces and monetization paths.
+
+For developers, MNS presents a unique opportunity to create value-added services. By integrating with the bonding curve for keys, developers can create custom frontends or applications where users manage their names and keys, while collecting application fees on trades. This creates a lucrative ecosystem where developers benefit from user engagement and traffic on their platforms.
+
 ## Goals and Non-Goals
 
 ### Goals
@@ -96,14 +119,10 @@ The community can modify these temporary names or replace them with their own in
 - **Q4 2024**:
   - Finalize module designs and implementation.
   - Deploy modules to testnet.
-  - Design and build the `Domus` frontend interface and `Ductus` server.
+  - Design and build the Domus frontend interface and Ductus server.
 - **Q1 2025**:
   - Launch the NameRegistry and key management modules on mainnet.
   - Community-driven integrations incentives.
-
-## Background & Motivation
-
-Name services are integral to establishing on-chain identities, creating a user-friendly interface for interaction. Move-based name services have historically been owned by the network. The MNS maintains this model while also allowing the community to contribute content and services. The goal is to create a more innovative, community-driven Name Service on the Movement blockchain.
 
 ## Operations
 
@@ -112,9 +131,7 @@ The protocol should utilize a bonding curve model for minting and burning access
 ```move
 struct Settings {
     protocol_fee_destination: address,
-
     application_fee_percent: u64,
-    
     protocol_fee_percent: u64,
     subject_fee_percent: u64,
 }
@@ -123,20 +140,18 @@ struct Settings {
 struct Trade {
     trader: address,
     domain: address,
-
     application: address,
-
     is_buy: bool,
     key_amount: u64,
     move_amount: u64,
     protocol_amount: u64,
     domain_amount: u64,
-
     application_amount: u64,
-    
     new_supply: u64,
 }
 ```
+
+[preliminary sketch of the implementation on GitHub](https://github.com/0xPrimata/movement-names-contracts)
 
 ## Security/Privacy/Compliance
 
@@ -145,6 +160,11 @@ As this system is decentralized and permissionless, Movement Labs is not respons
 ## Risks
 
 Community-driven services may introduce unforeseen vulnerabilities or suboptimal practices if not properly vetted.
+
+## Disclaimers
+
+- This initiative is a potential continuation of the "Building the Parthenon" project.
+- The MNS system is open and permissionless, meaning Movement Labs is not responsible for content or services built by the Community Movement.
 
 ## Appendix
 
