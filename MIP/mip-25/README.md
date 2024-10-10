@@ -21,18 +21,52 @@ During Stage 0 of the Movement network Movement Labs would hold centralized cont
 ```rust
 module aptos_framework::proxy {
     use std::signer;
+    use aptos_std::smart_table;
+    use aptos_std::smart_table::SmartTable;
     use aptos_framework::account::{create_signer_with_capability, SignerCapability};
+    use aptos_framework::aptos_coin::AptosCoin;
+    use aptos_framework::coin;
+    use aptos_framework::coin::Coin;
     use aptos_framework::event;
     use aptos_framework::system_addresses;
     use aptos_framework::system_addresses::is_aptos_framework_address;
+    use aptos_framework::transaction_context;
     friend aptos_framework::genesis;
 
     struct ProxyController has key {
         controller: address,
         aptos_framework_signer_cap: SignerCapability,
+        next_proposal_id: u64,
+        proposals: SmartTable<u64, Proposal>,
+    }
+
+    struct Proposal has store {
+        creator: address,
+        proposal_id: u64,
+        execution_hash: vector<u8>,
+        stake: Coin<AptosCoin>,
+        approved: bool,
+    }
+
+    #[event]
+    struct ProposalCreated has store, drop {
+        creator: address,
+        proposal_id: u64
+    }
+
+    #[event]
+    struct ProposalRejected has store, drop {
+        proposal_id: u64,
+    }
+
+    #[event]
+    struct ProposalApproved has store, drop {
+        proposal_id: u64,
     }
 
     const EINVALID_CONTROLLER : u64 = 0x1;
+    const ENOT_APPROVED : u64 = 0x2;
+    const EEXECUTION_HASH_INVALID : u64 = 0x3;
 
     #[event]
     /// An event triggered when the controller is updated
@@ -45,10 +79,15 @@ module aptos_framework::proxy {
     public(friend) fun initialize(aptos_framework: &signer, aptos_framework_signer_cap: SignerCapability) {
         system_addresses::assert_aptos_framework(aptos_framework);
 
-        move_to(aptos_framework, ProxyController {
-            controller: @aptos_framework,
-            aptos_framework_signer_cap,
-        })
+        move_to(
+            aptos_framework,
+            ProxyController {
+                controller: @aptos_framework,
+                aptos_framework_signer_cap,
+                next_proposal_id: 1,
+                proposals: smart_table::new(),
+            }
+        )
     }
 
     /// Update the controller of the proxy
@@ -73,36 +112,104 @@ module aptos_framework::proxy {
         );
     }
 
+    /// Propose a script to be executed providing its hash and a stake
+    /// Stake is returned on approval and execution or rejection
+    public entry fun propose(caller: &signer, execution_hash: vector<u8>) acquires ProxyController {
+        let proxy_controller = borrow_global_mut<ProxyController>(@aptos_framework);
+        let stake: Coin<AptosCoin> = coin::withdraw<AptosCoin>(caller, 10_000_000);
+
+        let creator = signer::address_of(caller);
+        let proposal_id = proxy_controller.next_proposal_id;
+        let proposal = Proposal {
+            creator,
+            proposal_id,
+            execution_hash,
+            stake,
+            approved: false,
+        };
+
+        proxy_controller.next_proposal_id = proxy_controller.next_proposal_id + 1;
+
+        smart_table::add(&mut proxy_controller.proposals, proposal_id, proposal);
+
+        event::emit(ProposalCreated {
+            creator,
+            proposal_id,
+        });
+    }
+
+    /// Approve proposal
+    public entry fun approve(caller: &signer, proposal_id: u64) acquires ProxyController {
+        let proxy_controller = borrow_global_mut<ProxyController>(@aptos_framework);
+        assert!(signer::address_of(caller) == proxy_controller.controller, EINVALID_CONTROLLER);
+        smart_table::borrow_mut(&mut proxy_controller.proposals, proposal_id).approved = true;
+
+        event::emit(ProposalApproved {
+            proposal_id,
+        });
+    }
+
+    /// Reject proposal
+    public entry fun reject(caller: &signer, proposal_id: u64) acquires ProxyController {
+        let proxy_controller = borrow_global_mut<ProxyController>(@aptos_framework);
+        assert!(signer::address_of(caller) == proxy_controller.controller, EINVALID_CONTROLLER);
+
+        let Proposal {
+            creator,
+            proposal_id: _,
+            execution_hash: _,
+            stake,
+            approved: _ } = smart_table::remove(&mut proxy_controller.proposals, proposal_id);
+
+        coin::deposit(creator, stake);
+        event::emit(ProposalRejected {
+            proposal_id,
+        });
+    }
+
+    /// Delegate Aptos Framework's signing cap to proxy providing proposal id for approved proposal and calling from
+    /// the proposed script
+    public fun delegate_to_proxy(proposal_id: u64) : signer acquires ProxyController {
+        let proxy_controller = borrow_global_mut<ProxyController>(@aptos_framework);
+    
+        let Proposal {
+            creator,
+            proposal_id: _,
+            execution_hash,
+            stake,
+            approved } = smart_table::remove(&mut proxy_controller.proposals, proposal_id);
+
+        assert!(approved, ENOT_APPROVED);
+        assert!(transaction_context::get_script_hash() == execution_hash, EEXECUTION_HASH_INVALID);
+
+        coin::deposit(creator, stake);
+        create_signer_with_capability(&proxy_controller.aptos_framework_signer_cap)
+    }
+
     #[view]
     /// Return the controller of the proxy
     public fun get_controller(): address acquires ProxyController {
         borrow_global<ProxyController>(@aptos_framework).controller
     }
-
-    /// Delegate Aptos Framework's signing cap to proxy
-    public fun delegate_to_proxy(controller: &signer) : signer acquires ProxyController {
-        let proxy_controller = borrow_global<ProxyController>(@aptos_framework);
-        assert!(signer::address_of(controller) == proxy_controller.controller, EINVALID_CONTROLLER);
-        create_signer_with_capability(&proxy_controller.aptos_framework_signer_cap)
-    }
 }
 ```
 **Steps:**
 1. Create the Move script you want to execute.  An example can be found below.
-2. With the use of the [multisig_account.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/multisig_account.move) module a multisig is created with members and a required threshold.
-3. A transaction payload will be created from the Move script and would be used to initiate the multisig ceremony with `create_transaction` [multisig_account.move:953](https://github.com/aptos-labs/aptos-core/blob/f8eef74f9f712fcc0e809265ec2b77013a683184/aptos-move/framework/aptos-framework/sources/multisig_account.move#L953)  
-4. The transaction is either approved with `approve_transaction` [multisig_account.move:1000](https://github.com/aptos-labs/aptos-core/blob/f8eef74f9f712fcc0e809265ec2b77013a683184/aptos-move/framework/aptos-framework/sources/multisig_account.move#L1000) or rejected with `reject_transaction` [mutlisig_account.move:1006](https://github.com/aptos-labs/aptos-core/blob/f8eef74f9f712fcc0e809265ec2b77013a683184/aptos-move/framework/aptos-framework/sources/multisig_account.move#L1006)  
-5. Any member of the multisig group can then submit a transaction(multisig) type which, if the threshold has been reached, will be executed.
+2. With the hash of the script call `proxy::propose(execution_hash)` to initiate the request to proxy the script providing a refundable stake.  On off chain mechanism would track the newly created `proposal_id`
+3. The controller would call `proxy::approve(proposal_id)` which would approve the proposal
+4. Alternatively the controller would call `proxy::reject(proposal_id)` to reject the proposal resulting in the return of the stake to the `creator`
+5. With a proposal being approved the proposed script can now be executed and will be delegated proxy, `proxy::delegate_to_proxy` to the signing capabilities of the Aptos Framework.
+6. On receiving the proxy the proposal is removed with the stake being returned to the `creator`
 
 ```rust
 script {
     use aptos_framework::proxy;
     use aptos_framework::atomic_bridge_configuration;
 
-    // Signed by the controller of the proxy to be delegated proxy to the framework to 
+    // Called by anyone with an approved proposal id to be delegated proxy to the framework to 
     // update the bridge operator
-    fun main(controller: &signer, new_operator: address) {
-        let framework_signer = proxy::delegate_to_proxy(controller);
+    fun main(proposal_id: u64, new_operator: address) {
+        let framework_signer = proxy::delegate_to_proxy(proposal_id);
         atomic_bridge_configuration::update_bridge_operator(&framework_signer, new_operator);
     }
 }
