@@ -6,31 +6,20 @@
 ## Overview
 Long-range attacks are an inherent vulnerability to PoS networks and a subject of prescient research. We request that the relevance of these attacks to MCR be formally modeled and considered. 
 
+### Introduction
+
+[This reference](https://blog.positive.com/rewriting-history-a-brief-introduction-to-long-range-attacks-54e473acdba9) categorises Long-Range Attacks into 
+1. Simple Attack:
+The attacker forges an alternative blockchain branch from the genesis block, bypassing timestamp checks to produce blocks ahead of time and overtake the main chain.
+2. Posterior Corruption:
+A retired validator is bribed or hacked to sign blocks on an alternate chain, allowing the attacker to increase their block production and potentially surpass the main chain.
+3. Stake Bleeding:
+The attacker stalls the main chain by skipping block production while accumulating stake and rewards on a hidden branch, eventually overtaking the main chain.
+
+
+
 ## Desiderata
 
-<!--
-  List out the specific desiderata. Each entry should consist of:
-
-  1. Title: A concise name for the desideratum.
-  2. User Journey: A one or two-sentence statement focusing on the "user" (could be a human, machine, software, etc.) and their interaction or experience.
-  3. Description (optional): A more detailed explanation if needed.
-  4. Justification: The reasoning behind the desideratum. Why is it necessary or desired?
-  5. Recommendations (optional): Suggestions or guidance related to the desideratum.
-
-  Format as:
-
-  ### Desideratum Title
-
-  **User Journey**: [user] can [action].
-
-  **Description**: <More detailed explanation if needed (optional)>
-
-  **Justification**: <Why this is a significant or required desideratum>
-
-  **Recommendations**: <Any specific guidance or suggestions (optional)>
-
-  TODO: Remove this comment before finalizing.
--->
 ### D1: Evaluate the Opportunity for "Simple" Long-range Attacks and Detection Thereof
 **User Journey**: A researcher or protocol implement can understand how a simple long-range attack could be executed and detected in MCR.
 
@@ -47,14 +36,3 @@ Long-range attacks are an inherent vulnerability to PoS networks and a subject o
 **Justification**: Stake-bleeding long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a stake-bleeding long-range attack could be executed and detected in MCR could enabled us to derive preventative measures.
 
 ## Errata
-<!--
-  Errata should be maintained after publication.
-
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the desiderata in which the error was identified.
-
-  TODO: Maintain this comment.
--->
