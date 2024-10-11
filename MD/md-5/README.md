@@ -21,18 +21,18 @@ The attacker stalls the main chain by skipping block production while accumulati
 ## Desiderata
 
 ### D1: Evaluate the Opportunity for "Simple" Long-range Attacks and Detection Thereof
-**User Journey**: A researcher or protocol implement can understand how a simple long-range attack could be executed and detected in MCR.
+**User Journey**: A researcher or protocol implementer can understand how a simple long-range attack could be executed and detected in MCR.
 
-**Justification**: Long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a simple long-range attack could be executed and detected in MCR could enabled us to derive preventative measures.
+**Justification**: Long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a simple long-range attack could be executed and detected in MCR could enable us to derive preventative measures.
 
 ### D2: Evaluate the Opportunity for Posterior Corruption Long-range Attacks and Detection Thereof
-**User Journey**: A researcher or protocol implement can understand how a posterior corruption long-range attack could be executed and detected in MCR.
+**User Journey**: A researcher or protocol implementer can understand how a posterior corruption long-range attack could be executed and detected in MCR.
 
-**Justification**: Posterior corruption long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a posterior corruption long-range attack could be executed and detected in MCR could enabled us to derive preventative measures.
+**Justification**: Posterior corruption long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a posterior corruption long-range attack could be executed and detected in MCR could enable us to derive preventative measures.
 
 ### D3: Evaluate the Opportunity for Stake-bleeding Long-range Attacks and Detection Thereof
-**User Journey**: A researcher or protocol implement can understand how a stake-bleeding long-range attack could be executed and detected in MCR.
+**User Journey**: A researcher or protocol implementer can understand how a stake-bleeding long-range attack could be executed and detected in MCR.
 
-**Justification**: Stake-bleeding long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a stake-bleeding long-range attack could be executed and detected in MCR could enabled us to derive preventative measures.
+**Justification**: Stake-bleeding long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a stake-bleeding long-range attack could be executed and detected in MCR could enable us to derive preventative measures.
 
 ## Errata
