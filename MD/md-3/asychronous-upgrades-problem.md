@@ -1,5 +1,5 @@
 # Asynchronous Upgrades, Fork Creation, and Fork Stake Problems
-The Asynchronous Upgrades Problem is an issue with the current implementation of MCR that arises when a partition of the network upgrades to a new version of the protocol while another partition remains on the old version. This can lead to failure to agree upon the current block height and currently would require the deployment of a new settlement contract to resolve. 
+The _Asynchronous Upgrades Problem_ is an issue with the current implementation of MCR that arises when a partition of the network upgrades to a new version of the protocol while another partition remains on the old version. This can lead to failure to agree upon the current block height and currently would require the deployment of a new settlement contract to resolve. 
 
 This state of MCR can arise in other contexts than upgrades. The use of the upgrade scenario is merely illustrative and used for naming. 
 
