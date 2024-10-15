@@ -21,6 +21,24 @@ related to MIPs should be documented as an MD and stored in the MD directory.
 
 See [MIP-0](./MIP/mip-0) to get started. A template is provided at [mip-template](mip-template.md).
 
+Here is a list of pending MIPs:
+
+
+Identifier | Status | Author | Description | MD | Ready to merge |
+|--------|--------|--------|-------------|----|---|
+| [MIP-0](https://github.com/movementlabsxyz/MIP/tree/main/MIP/mip-0) | Approved | @l-monninger | This MIP | |  |
+| [MIP-1](https://github.com/movementlabsxyz/MIP/tree/l-monninger/entl/MIP/mip-1) | Pending | @l-monninger | ENTL (Enclave Nonce Time-lock) | | :x: (draft) |
+| [MIP-13](https://github.com/movementlabsxyz/MIP/tree/mikhail/suzuka-da-migrations/MIP/mip-13) | Pending | @mzabaluev | Suzuka DA Migrations Format | [MD-13](https://github.com/movementlabsxyz/MIP/tree/mikhail/suzuka-da-migrations/MD/md-13) | :x: (review required) |
+| [MIP-15](https://github.com/movementlabsxyz/MIP/tree/l-monninger/movement-gloss/MIP/mip-15) | Pending | @l-monninger | MG (Movement Glossary) <br> a process for introducing new glossary terms. | [MD-15](https://github.com/movementlabsxyz/MIP/tree/l-monninger/movement-gloss/MD/md-15), [MG-0](https://github.com/movementlabsxyz/MIP/tree/l-monninger/movement-gloss/MG/mg-0) | :white_check_mark:  |
+| [MIP-16](https://github.com/movementlabsxyz/MIP/tree/gas-fee-calculation/MIP/mip-16) | Pending | @franck44 | Gas fee structure and calculation | | :x: (3 reviews required) | 
+| [MIP-18](./MIP/mip-18) | Pending | @0xPrimata | Stage 0 Upgradeability and Multisigs | | :x: (3 reviews required) |
+| [MIP-21](https://github.com/movementlabsxyz/MIP/tree/primata/bridge-attestors/MIP/mip-21) | Pending | @0xPrimata | Bridge Based on Attestors | | :x: (3 reviews required)|
+| [MIP-23](https://github.com/movementlabsxyz/MIP/tree/l-monninger/releases/MIP/mip-n) | Pending | @l-monninger | Release Conventions for Movement Technologies | [MD-23](https://github.com/movementlabsxyz/MIP/tree/l-monninger/releases/MD/md-n) | :x: (1 review required) |
+[MIP-24](https://github.com/movementlabsxyz/MIP/blob/andyjsbell/unwanted-framework/MIP/mip-24/README.md) | Pending | @andyjsbell | Removal of redundant functionality from framework | | :x: (3 reviews required) |
+[MIP-25](https://github.com/movementlabsxyz/MIP/blob/andyjsbell/proxy-root/MIP/mip-25/README.md) | Pending | @andyjsbell | Proxy Aptos Framework for Stage 0 governance | | :x: (1 review required) |
+| [MIP-27](https://github.com/movementlabsxyz/MIP/blob/primata/mip-27/MIP/mip-27/README.md) | Pending | @0xPrimata | Contract Pipeline |  | :x: (1 review required) |
+| [MIP-28](https://github.com/movementlabsxyz/MIP/tree/l-monninger/actor-naming-conventions/MIP/mip-n) | Pending | @l-monninger | Naming Conventions for Movement Protocol Design | | :x: (1 review required) |
+
 ### Deciding whether to propose
 
 You **SHOULD** draft and submit an MIP, if any of the following are true:
