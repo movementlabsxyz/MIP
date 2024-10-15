@@ -20,7 +20,9 @@ During Stage 0 of the Movement network Movement Labs would hold centralized cont
 ## Reference Implementation
 ```rust
 module aptos_framework::proxy {
+    use std::hash::sha3_256;
     use std::signer;
+    use std::vector;
     use aptos_std::smart_table;
     use aptos_std::smart_table::SmartTable;
     use aptos_framework::account::{create_signer_with_capability, SignerCapability};
@@ -31,6 +33,10 @@ module aptos_framework::proxy {
     use aptos_framework::system_addresses;
     use aptos_framework::system_addresses::is_aptos_framework_address;
     use aptos_framework::transaction_context;
+    use aptos_std::ed25519;
+    use aptos_std::from_bcs;
+    use aptos_framework::timestamp::now_seconds;
+
     friend aptos_framework::genesis;
 
     struct ProxyController has key {
@@ -38,14 +44,15 @@ module aptos_framework::proxy {
         aptos_framework_signer_cap: SignerCapability,
         next_proposal_id: u64,
         proposals: SmartTable<u64, Proposal>,
+        nonce: u64,
     }
 
     struct Proposal has store {
         creator: address,
-        proposal_id: u64,
         execution_hash: vector<u8>,
         stake: Coin<AptosCoin>,
         approved: bool,
+        expiration: u64,
     }
 
     #[event]
@@ -64,9 +71,22 @@ module aptos_framework::proxy {
         proposal_id: u64,
     }
 
+    #[event]
+    struct ProposalRemoved has store, drop {
+        proposal_id: u64,
+    }
+
     const EINVALID_CONTROLLER : u64 = 0x1;
     const ENOT_APPROVED : u64 = 0x2;
     const EEXECUTION_HASH_INVALID : u64 = 0x3;
+    const ENONCE_MISMATCH : u64 = 0x4;
+    const EINVALID_SIGNATURE : u64 = 0x5;
+    const EINVALID_CHALLENGE : u64 = 0x5;
+    const EPROPOSAL_TIMEOUT : u64 = 0x6;
+    const ENOT_CREATOR : u64 = 0x7;
+    const EAPPROVED : u64 = 0x8;
+
+    const PROPOSAL_LENGTH_IN_SECS : u64 = 2 * 24 * 60 * 60;
 
     #[event]
     /// An event triggered when the controller is updated
@@ -86,23 +106,54 @@ module aptos_framework::proxy {
                 aptos_framework_signer_cap,
                 next_proposal_id: 1,
                 proposals: smart_table::new(),
+                nonce: 0,
             }
         )
     }
 
-    /// Update the controller of the proxy
+    /// Update the controller of the proxy. Requires signature over challenge which is at the moment an abitrary vector
+    /// of bytes with a length of 32
     /// Aborts if signed by anyone else except the controller or @aptos_framework
+    /// Aborts if nonce invalid
+    /// Aborts etc
     /// Emits an event on updating the controller
-    public fun update_controller(signer: &signer, new_controller: address) acquires ProxyController {
+    public fun update_controller(signer: &signer,
+                                 new_controller_pubkey: vector<u8>,
+                                 new_controller_signature: vector<u8>,
+                                 challenge: vector<u8>,
+                                 provided_nonce: u64
+    ) acquires ProxyController {
         let proxy_controller = borrow_global_mut<ProxyController>(@aptos_framework);
 
         assert!(
             proxy_controller.controller == signer::address_of(signer) ||
-            is_aptos_framework_address(signer::address_of(signer)),
+                is_aptos_framework_address(signer::address_of(signer)),
             EINVALID_CONTROLLER);
 
+        assert!(
+            provided_nonce == proxy_controller.nonce,
+            ENONCE_MISMATCH
+        );
+
+        let new_controller = sha3_256(new_controller_pubkey);
+
+        let public_key = ed25519::new_unvalidated_public_key_from_bytes(new_controller_pubkey);
+        let signature = ed25519::new_signature_from_bytes(new_controller_signature);
+        assert!(
+            ed25519::signature_verify_strict_t(&signature, &public_key, challenge),
+            EINVALID_SIGNATURE
+        );
+
+        assert!(
+            vector::length(&challenge) == 32,
+            EINVALID_CHALLENGE
+        );
+
+        let new_controller = from_bcs::to_address(new_controller);
         let old_controller = proxy_controller.controller;
         proxy_controller.controller = new_controller;
+
+        proxy_controller.nonce = proxy_controller.nonce + 1;
 
         event::emit(
             ControllerUpdated {
@@ -122,10 +173,10 @@ module aptos_framework::proxy {
         let proposal_id = proxy_controller.next_proposal_id;
         let proposal = Proposal {
             creator,
-            proposal_id,
             execution_hash,
             stake,
             approved: false,
+            expiration: now_seconds() + PROPOSAL_LENGTH_IN_SECS,
         };
 
         proxy_controller.next_proposal_id = proxy_controller.next_proposal_id + 1;
@@ -142,9 +193,33 @@ module aptos_framework::proxy {
     public entry fun approve(caller: &signer, proposal_id: u64) acquires ProxyController {
         let proxy_controller = borrow_global_mut<ProxyController>(@aptos_framework);
         assert!(signer::address_of(caller) == proxy_controller.controller, EINVALID_CONTROLLER);
-        smart_table::borrow_mut(&mut proxy_controller.proposals, proposal_id).approved = true;
+        let proposal = smart_table::borrow_mut(&mut proxy_controller.proposals, proposal_id);
+        assert!(now_seconds() < proposal.expiration, EPROPOSAL_TIMEOUT);
+        proposal.approved = true;
 
         event::emit(ProposalApproved {
+            proposal_id,
+        });
+    }
+
+    /// Remove proposal to be called by the creator of the proposal and only after the proposal has expired and has not
+    /// been approved
+    public entry fun remove(caller: &signer, proposal_id: u64) acquires ProxyController {
+        let proxy_controller = borrow_global_mut<ProxyController>(@aptos_framework);
+        let Proposal {
+            creator,
+            execution_hash: _,
+            stake,
+            approved,
+            expiration,
+        } = smart_table::remove(&mut proxy_controller.proposals, proposal_id);
+
+        assert!(creator == signer::address_of(caller), ENOT_CREATOR);
+        assert!(approved == false, EAPPROVED);
+        assert!(expiration < now_seconds(), EPROPOSAL_TIMEOUT);
+
+        coin::deposit(creator, stake);
+        event::emit(ProposalRemoved {
             proposal_id,
         });
     }
@@ -156,10 +231,14 @@ module aptos_framework::proxy {
 
         let Proposal {
             creator,
-            proposal_id: _,
             execution_hash: _,
             stake,
-            approved: _ } = smart_table::remove(&mut proxy_controller.proposals, proposal_id);
+            approved,
+            expiration,
+        } = smart_table::remove(&mut proxy_controller.proposals, proposal_id);
+
+        assert!(approved == false, EAPPROVED);
+        assert!(expiration < now_seconds(), EPROPOSAL_TIMEOUT);
 
         coin::deposit(creator, stake);
         event::emit(ProposalRejected {
@@ -171,13 +250,14 @@ module aptos_framework::proxy {
     /// the proposed script
     public fun delegate_to_proxy(proposal_id: u64) : signer acquires ProxyController {
         let proxy_controller = borrow_global_mut<ProxyController>(@aptos_framework);
-    
+
         let Proposal {
             creator,
-            proposal_id: _,
             execution_hash,
             stake,
-            approved } = smart_table::remove(&mut proxy_controller.proposals, proposal_id);
+            approved,
+            expiration: _,
+        } = smart_table::remove(&mut proxy_controller.proposals, proposal_id);
 
         assert!(approved, ENOT_APPROVED);
         assert!(transaction_context::get_script_hash() == execution_hash, EEXECUTION_HASH_INVALID);
@@ -195,7 +275,7 @@ module aptos_framework::proxy {
 ```
 **Steps:**
 1. Create the Move script you want to execute.  An example can be found below.
-2. With the hash of the script call `proxy::propose(execution_hash)` to initiate the request to proxy the script providing a refundable stake.  On off chain mechanism would track the newly created `proposal_id`
+2. With the hash of the script call `proxy::propose(execution_hash)` to initiate the request to proxy the script providing a refundable stake.  An off chain mechanism would track the newly created `proposal_id`
 3. The controller would call `proxy::approve(proposal_id)` which would approve the proposal
 4. Alternatively the controller would call `proxy::reject(proposal_id)` to reject the proposal resulting in the return of the stake to the `creator`
 5. With a proposal being approved the proposed script can now be executed and will be delegated proxy, `proxy::delegate_to_proxy` to the signing capabilities of the Aptos Framework.
