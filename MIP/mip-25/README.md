@@ -295,6 +295,22 @@ script {
 }
 ```
 
+**Proposals**  
+
+Proposals expire 2 days after creation, after which they can no longer be approved or rejected. Only the creator of the proposal can remove it using the `remove(caller, proposal_id)` function.
+
+**Key Rotation**  
+
+The controlling key can be rotated using `update_controller()` by providing the new controller's public key along with a signed challenge, which proves ownership of the private key corresponding to the new public key.
+
+**At Genesis**  
+
+The `proxy` module would be initialized with the `SignerCapability` for the Aptos Framework
+https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/genesis.move#L68
+
+```rust
+proxy::initialize(&aptos_framework_account, aptos_framework_signer_cap);
+```
 ## Verification
 
 The verification process ensures that any modifications to the Aptos Framework through the Proxy module are valid, secure, and follow the intended workflow for updates.
