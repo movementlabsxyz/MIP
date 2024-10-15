@@ -313,27 +313,21 @@ proxy::initialize(&aptos_framework_account, aptos_framework_signer_cap);
 ```
 ## Verification
 
-The verification process ensures that any modifications to the Aptos Framework through the Proxy module are valid, secure, and follow the intended workflow for updates.
+### 1. Correctness:
+The reference implementation has been integrated with the Aptos Framework. The `multisig_account.move` module has been verified as a mechanism to allow the proxy controller to be managed by a predefined set of signers. A review of `aptos_governance.move` provided a useful framework for validating and executing approved scripts based on their script hash. Further testing, including integration tests, will be conducted to validate the reference implementation presented here, and this will be supported by specification files for formal verification.
 
-**Signature Verification:**
-The Proxy module MUST verify the signature of any incoming transactions attempting to acquire the signing privileges of the Aptos Framework. Only the authorized multisig account, or the single account for testing purposes, MUST be allowed to execute these operations. Any invalid signatures or unauthorized attempts MUST be rejected by the Proxy module.
+### 2. Security Implications:
+The controller’s ability to approve proposals that proxy the signing capabilities of the Aptos Framework introduces certain security risks. These risks are mitigated by ensuring that only the controller can approve or reject proposals. Additionally, cryptographic methods are employed to verify key rotations using a signed challenge, along with a nonce to prevent replay attacks. Malicious scripts are further safeguarded by validating their hash at the time of execution, ensuring that only approved scripts can be executed.
+Changes will be required at Genesis to initialize the module, which will involve providing the `SignerCapability` to the module. A potential area of concern is the scope of control the proxy has during script execution. This could be addressed with more granular access control over the modules, but such a solution is beyond the scope of this MIP and would warrant its own proposal. Since this module is designed for upgrading the framework during Stage 0, it is expected to be superseded and made inoperative once the network transitions to a later stage of governance, potentially using Aptos Governance.
 
-**Key Rotation Validation:**
-When a key rotation occurs, the Proxy module MUST verify that the new key is properly registered and authorized before allowing any further actions. The rotation process MUST be logged and monitored to ensure traceability and that only approved keyholders have control.
+### 3. Performance Impacts:
+The proxy model offers an efficient way to govern the Aptos Framework through a multisig setup, bypassing the delays and staking requirements typically involved when using the Aptos Governance system.
 
-**Script Execution Auditing:**
-Every Move script signed by the Proxy account to modify or update the Aptos Framework MUST be audited and logged. The logs SHOULD include information about the account that executed the script, the changes made, and the time of execution. This ensures that any modifications can be traced back and verified for accountability.
+### 4. Validation Procedures:
+Tests were conducted using Move scripts to confirm that they can successfully acquire the `SignerCapability` for the Aptos Framework. These tests were aligned with the existing capabilities provided by the Aptos Governance system.
 
-**Multisig Approval Process (When Applicable):**
-If the multisig account is in use, all transactions MUST meet the approval threshold defined by the multisig wallet. The Proxy module MUST verify that the required number of signatures is provided before proceeding with any action. This process MUST also be logged for review and validation.
-
-**Testing Exceptions:**
-During Stage 0 testing, if a single account is used instead of multisig, additional verifications MUST be in place to ensure that the single account is correctly configured and has not been compromised. This MAY involve requiring additional manual reviews or monitoring to mitigate the risks associated with a non-multisig setup.
-
-**Security Audits:**
-Movement Labs MUST conduct periodic security audits of the Proxy module, especially after key rotations or framework updates. These audits SHOULD include reviewing logs, verifying signatures, and ensuring that no unauthorized access has occurred. Any issues discovered during the audit MUST be addressed immediately to maintain the integrity of the Aptos Framework.
-
-By following these verification steps, the integrity and security of the Aptos Framework are maintained throughout Stage 0 of the Movement Network, even while centralized control is held by Movement Labs.
+### 5. Peer Review and Community Feedback:
+The proposal is subject to review and feedback from the Movement Labs team and the wider community to ensure that it meets the needs of the ecosystem.  
 
 ## Errata
 
