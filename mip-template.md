@@ -1,7 +1,7 @@
-# MD-\<number\>: \<Title\>
+# MIP-\<number\>: \<Title\>
 - **Description**: A single sentence summarizing the contents of the proposal.
 - **Authors**: [Author](mailto:author@email.com)
-- **Desiderata**: [MD-\<number\>](../MD/md-\<number\>)
+- **Desiderata**: [MIP-\<number\>](../MIP/mip-\<number\>)
 
 <!--
   READ MIP-1 BEFORE USING THIS TEMPLATE!
