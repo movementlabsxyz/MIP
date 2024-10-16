@@ -328,14 +328,118 @@ Proposals expire 2 days after creation, after which they can no longer be approv
 
 The controlling key can be rotated using `update_controller()` by providing the new controller's public key along with a signed challenge, which proves ownership of the private key corresponding to the new public key.
 
-**At Genesis**  
+**Genesis**  
 
-The `proxy` module would be initialized with the `SignerCapability` for the Aptos Framework
-https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/genesis.move#L68
+At Genesis, the `genesis.move` module is invoked to initialize a series of modules, including the `proxy` module. At this stage, the `core_resources_key` account would serve as the initial controller of the Proxy.
+
+The following patch outlines an approach to side-load the proxy module alongside Aptos Governance, enabling a pathway for transitioning to Aptos Governance and deprecating the Proxy module after Genesis.
+
+```patch
+Index: aptos-move/framework/aptos-framework/sources/genesis.move
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/aptos-move/framework/aptos-framework/sources/genesis.move b/aptos-move/framework/aptos-framework/sources/genesis.move
+--- a/aptos-move/framework/aptos-framework/sources/genesis.move	(revision 70be3926ff79ff4cdb0cee928f717fafcd41ecdd)
++++ b/aptos-move/framework/aptos-framework/sources/genesis.move	(date 1729089687774)
+@@ -19,6 +19,7 @@
+     use aptos_framework::execution_config;
+     use aptos_framework::create_signer::create_signer;
+     use aptos_framework::gas_schedule;
++    use aptos_framework::proxy;
+     use aptos_framework::reconfiguration;
+     use aptos_framework::stake;
+     use aptos_framework::staking_contract;
+@@ -95,8 +96,8 @@
+             b"epilogue",
+         );
+ 
+-        // Give the decentralized on-chain governance control over the core framework account.
+-        aptos_governance::store_signer_cap(&aptos_framework_account, @aptos_framework, aptos_framework_signer_cap);
++        // Give the proxy module the core framework account.
++        proxy::initialize(&aptos_framework_account, aptos_framework_signer_cap);
+ 
+         // put reserved framework reserved accounts under aptos governance
+         let framework_reserved_addresses = vector<address>[@0x2, @0x3, @0x4, @0x5, @0x6, @0x7, @0x8, @0x9, @0xa];
+@@ -150,6 +151,14 @@
+         transaction_fee::store_aptos_coin_mint_cap(aptos_framework, mint_cap);
+     }
+ 
++    /// Genesis step 3: Initialize Proxy
++    fun update_proxy_controller_to_core_resources(
++        aptos_framework: &signer,
++        core_resources_auth_key: vector<u8>,
++    ) {
++        proxy::update_controller_unvalidated(aptos_framework, core_resources_auth_key);
++    }
++
+     /// Only called for testnets and e2e tests.
+     fun initialize_core_resources_and_aptos_coin(
+         aptos_framework: &signer,
+Index: aptos-move/vm-genesis/src/lib.rs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/aptos-move/vm-genesis/src/lib.rs b/aptos-move/vm-genesis/src/lib.rs
+--- a/aptos-move/vm-genesis/src/lib.rs	(revision 70be3926ff79ff4cdb0cee928f717fafcd41ecdd)
++++ b/aptos-move/vm-genesis/src/lib.rs	(date 1729089624756)
+@@ -260,6 +260,8 @@
+     } else {
+         initialize_aptos_coin(&mut session);
+     }
++    initialize_proxy(&mut session, core_resources_key);
++
+     initialize_config_buffer(&mut session);
+     initialize_dkg(&mut session);
+     initialize_reconfiguration_state(&mut session);
+@@ -606,6 +608,23 @@
+         ]),
+     );
+ }
++
++fn initialize_proxy(
++    session: &mut SessionExt,
++    core_resources_key: &Ed25519PublicKey,
++) {
++    let core_resources_auth_key = AuthenticationKey::ed25519(core_resources_key);
++    exec_function(
++        session,
++        GENESIS_MODULE_NAME,
++        "update_proxy_controller_to_core_resources",
++        vec![],
++        serialize_values(&vec![
++            MoveValue::Signer(CORE_CODE_ADDRESS),
++            MoveValue::vector_u8(core_resources_auth_key.to_vec()),
++        ]),
++    );
++}
+ 
+ /// Create and initialize Association and Core Code accounts.
+ fn initialize_on_chain_governance(session: &mut SessionExt, genesis_config: &GenesisConfiguration) {
+```
+
+**Post Genesis** 
+Ideally, the `proxy` module would eventually be replaced by Aptos Governance. To facilitate this transition, the following Move script would deactivate the `proxy` module and transfer the `SignerCapability` from the proxy to Aptos Governance. This process can also be applied to upgrade to any other governance module if needed.
 
 ```rust
-proxy::initialize(&aptos_framework_account, aptos_framework_signer_cap);
+script {
+    use aptos_framework::proxy;
+    use aptos_framework::aptos_governance;
+
+    fun main(proposal_id: u64) {
+        // Request proxy
+        let core_signer = proxy::delegate_to_proxy(proposal_id);
+        let framework_signer = &core_signer;
+        // Pass `SignerCapability` over to Aptos Governance
+        let aptos_framework_signer_cap = proxy::destroy(framework_signer);
+        aptos_governance::store_signer_cap(framework_signer, @aptos_framework, aptos_framework_signer_cap);
+        // Proxy is now inactive
+    }
+}
 ```
+
 ## Verification
 
 ### 1. Correctness:
