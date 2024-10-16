@@ -1,11 +1,13 @@
 
-# MIPs and MDs
+# MIP, MD and MG
 
-We differentiate between MD and MIPs.
+We differentiate between MD and MIPs. 
+
+In addition MG serves as a glossary for terms defined in the MIPs and MDs.
 
 ## Movement Desiderata (MD) 
 
-See [MD-0](./MD/md-0) to get started.
+See [MD-0](./MD/md-0) to get started. A template is provided at [md-template](md-template.md).
 
 MDs serve to capture the **objectives** behind the **introduction** of a particular MIP.
 Any  
@@ -17,7 +19,7 @@ related to MIPs should be documented as an MD and stored in the MD directory.
 
 ## Movement Improvement Proposal (MIP)
 
-See [MIP-0](./MIP/mip-0) to get started.
+See [MIP-0](./MIP/mip-0) to get started. A template is provided at [mip-template](mip-template.md).
 
 
 ### Deciding whether to propose
@@ -31,8 +33,17 @@ You **SHOULD NOT** draft an MIP, if any of the following are true:
 - You only intend to request a change to software units or processes without overseeing specification and review.
 - The change is trivial. In the event that an MIP is required by governance, such trivial changes usually be handled as either errata or appendices of an existing MIP. 
 
+## Movement Glossary (MG)
+
+See [MG-0](./MIP/mg-0) to get started. A template is provided at [mg-template](mg-template.md).
+
+An alphabetically ordered list of terms is provided in the [glossary](GLOSSARY.md).
+
+MG serve to capture the **definitions** of terms introduced in the MIPs and MDs. The creation of a new MG requires an MIP or MG (since new terms are introduced through the MIP or MG).
+
+
 ## Files and numbering
-Each MIP or MD is stored in a separate subdirectory with the a name `md-<number>` or `mip-<number>`. The subdirectory contains a `README.md` file that describes the MIP or MD. All assets related to the MIP or MD are stored in the same subdirectory.
+Each MIP, MD or MG is stored in a separate subdirectory with the a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a `README.md` file that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
 
 MIPs start as Drafts. MIPs obtain a number during the review process described in [Status Terms](#status-terms). 
 
@@ -40,6 +51,7 @@ PRs that don't introduce a new MIP are also accepted.
 - MIPs can be updated. PRs that update a MIP should state so in the PR title via `[Update] .... `. 
 
 There may be gaps in the numbering, as MIPs get rejected and removed.
+
 
 
 ## Status Terms
