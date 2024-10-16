@@ -3,6 +3,8 @@
 
 We differentiate between MD and MIPs.
 
+An overview of the MIPs and MDs can be found in the [OVERVIEW.md](./OVERVIEW.md) file.
+
 ## Movement Desiderata (MD) 
 
 See [MD-0](./MD/md-0) to get started.
@@ -14,8 +16,6 @@ Any
 - _need_ 
 
 related to MIPs should be documented as an MD and stored in the MD directory. 
-
-Here is a list of MDs with their statuses:
 
 
 ## Movement Improvement Proposal (MIP)
