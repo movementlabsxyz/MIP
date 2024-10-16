@@ -51,9 +51,9 @@ MIPs, MDs and MGs are assigned their PR number as soon as they are drafted. MDs 
 ## Status Terms
 
 A MIP is proposed through a PR. It should at all times have one of the following statuses:
-- **Draft** - an MIP that is open for consideration. (It does not yet hold a MIP number)
-- **Review** - The MIP is under peer review. The MIP should receive an **MIP number** and the MIP should be registered in the MIP overview file.
-- **Accepted** - an MIP that has been accepted. All technical changes requested have been addressed by the author. There may be additional non-technical changes requested by the MIP editor.
+- **Draft** - (set by author) An MIP that is open for consideration. (It does not yet hold a MIP number)
+- **Review** - (set by author) The MIP is under peer review. The MIP should receive an **MIP number** and the MIP should be registered in the MIP overview file.
+- **Accepted** - (set by editor) An MIP that has been accepted. All technical changes requested have been addressed by the author. There may be additional non-technical changes requested by the MIP editor.
 
 After acceptance the MIP is merged into `main` and the branch should be deleted.
 
