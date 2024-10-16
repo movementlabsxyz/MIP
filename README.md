@@ -36,3 +36,15 @@ Each MIP or MD is stored in a separate subdirectory with the a name `md-<number>
 
 MDs and MIPs are assigned their PR number as soon as they are drafted. PRs that do not introduce a new MIP are also accepted. Thus, there will be gaps in the MIP number sequence. These gaps will also emerge when MIPs are deprecated or rejected.
 
+## Status Terms
+
+A MIP is proposed through a PR. It should at all times have one of the following statuses:
+- **Draft** - an MIP that is open for consideration. (It does not yet hold a MIP number)
+- **Review** - The MIP is under peer review. The MIP should receive an **MIP number** and the MIP should be registered in the MIP overview file.
+- **Accepted** - an MIP that has been accepted. All technical changes requested have been addressed by the author. There may be additional non-technical changes requested by the MIP editor.
+
+After acceptance the MIP is merged into `main` and the branch should be deleted.
+
+Addtionally, the following statuses are used for MIPs that are not actively being worked on:
+- **Stagnant** - an MIP that has not been updated for 6 months.
+- **Withdrawn** - an MIP that has not been updated for 6 months.
