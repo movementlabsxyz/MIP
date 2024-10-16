@@ -1,52 +1,35 @@
 # MIP-?: Fast-Finality Settlement
+
 - **Description**: Establish the scope and components that are part of the Fast-Finality Settlement mechanism.
 - **Authors**: [Franck Cassez](), [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 
-
-<!--
-  READ MIP-1 BEFORE USING THIS TEMPLATE!
-
-  This is the suggested template for new MIPs. After you have filled in the requisite fields, please delete these comments.
-
-  Note that an MIP number will be assigned by an editor. When opening a pull request to submit your MIP, please use an abbreviated title in the filename, `mip-draft_title_abbrev.md`.
-
-  The title should be 44 characters or less. It should not repeat the MIP number in title, irrespective of the category.
-
-  TODO: Remove this comment before finalizing.
--->
-
 ## Abstract
 
-<!--
-  The Abstract is a multi-sentence (short paragraph) technical summary. This should be a very terse and human-readable version of the specification section. Someone should be able to read only the abstract to get the gist of what this specification does.
-
-  TODO: Remove this comment before finalizing.
--->
-
-
-Fast-Finality Settlement (FFS) is a mechanism that allows for fast settlement of transactions with crypto-economic security. This MIP outlines the specifications for implementing FFS on the Movement blockchain.
+Fast-Finality Settlement (FFS) is a mechanism that allows for fast _confirmation_ of transactions backed by crypto-economic security. This MIP outlines the high-level specifications and architecture of FFS.
 
 ## Definitions
 
-- FFS - Fast Finality Settlement
-- MCR - Multi-commit Rollup : an implementation of FFS
-- Validator - a node that is responsible for validating transactions and producing blocks
-- Postconfirmation - a finality guarantee related to L1
-- L2-finality - a finality guarantee related to L2
+- **FFS** - Fast Finality Settlement
+- **L1-finality** - finality mechanism (confirmation) for layer 1
+- **L2-finality** -  finality mechanism (confirmation) for layer 2
+- **MCR** - Multi-commit Rollup : an implementation of FFS
+- **PosP** - Proof of Stake
+- **Postconfirmation** - a finality guarantee related to L1
+- **Validator** - a node that is responsible for validating transactions and producing blocks
 
 ## Motivation
 
-<!--
-  The motivation section should include a description of any nontrivial problems the MIP solves. It should not describe how the MIP solves those problems.
+Layer 2s (L2) and rollups have to publish transaction data to a data availability (DA) layer or to Ethereum mainnet (Layer 1, L1). Validity (ZKP) and optimistic (FP) rollups can finalize (confirm) transactions within approximately 30 minutes (ZKP) resp. ~1 week (FP). Until a transaction is finalized, there is no assurance about its validity and result (success or failure). This can be a limiting factor for certain types of DeFi applications.
 
-  TODO: Remove this comment before finalizing.
--->
+Our objective is to enable transactions's issuers to quickly get some guarantees that their transactions are correctly included in a block. The crypto-economic security is provided by a PoS protocol.
 
-This MIP introduces a mechanism that provides crypto-economical guarantees on the finality level of transactions. 
+The mechanism can be deployed independently for a chain, or used in combination with existing settlement mechanisms, such as ZK and optimistic settlements.
 
-The mechanism can be deployed independently for a chain, or in combination with existing settlement mechanisms, such as ZK and optimistic settlement. The main goal of the mechanism is to provide fast-finality settlement, which is crucial for reducing transaction costs and enabling new use cases for which existing finality times are not sufficient.
+As a result, users can rely and trust the **L2-finality**  to use as confirmation, or if the chain is configured to do so, wait for **L1-finality**, end of challenge window for fraud proofs (optimistic L2) or verification of a ZK-proof (validity L2).
 
-A more detailed description on the security of the mechanism can be found at [this blog post on Fast-Finality Settlement](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement). A description of a (partial) implementation of the mechanism is available at [this blog post on Postconfirmations](https://blog.movementlabs.xyz/article/postconfirmations-L2s-rollups-blockchain-movement).
+A introduction to FFS can be found in [this blog post on Fast-Finality Settlement](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement). A more detailed description of a (partial) implementation of the mechanism is available at [this blog post on Postconfirmations](https://blog.movementlabs.xyz/article/postconfirmations-L2s-rollups-blockchain-movement).
+
+This MIP provides an overview of an architecture of FFS, and its main components.
 
 ## Specification
 <!--
@@ -79,7 +62,6 @@ n/a
 
 ## Verification
 
-
 <!--
 
   All proposals must contain a section that discusses the various aspects of verification pertinent to the introduced changes. This section should address:
@@ -94,41 +76,39 @@ n/a
 
   5. **Peer Review and Community Feedback**: Highlight any feedback from peer reviews or the community that played a crucial role in refining the verification process or the proposal itself.
 
-
   TODO: Remove this comment before submitting
 -->
 
-
-1. **Correctness**: 
+1. **Correctness**:
 
 n/a
 
-2. **Security Implications**: 
+2. **Security Implications**:
 
-The security of this approach is discussed in [this blog post on Fast-Finality Settlement](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement). 
+The security of this approach is discussed in [this blog post on Fast-Finality Settlement](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement).
 
-3. **Performance Impacts**: 
+3. **Performance Impacts**:
 
 The mechanism provides fast finality.
 
 Performance concerns are
+
 - the time it takes for a transaction to be confirmed
 - the time it takes for aggregation of signatures
 - the time it takes for issuing a postconfirmation and getting included in an L1-block
-- the time it takes for issuing an L2-finality and getting 
+- the time it takes for issuing an L2-finality and getting
 - the impact of the validator set size
 - bridge volume capacity and time
 
-4. **Validation Procedures**: 
+4. **Validation Procedures**:
 
 n/a
 
-5. **Peer Review and Community Feedback**: 
+5. **Peer Review and Community Feedback**:
 
 n/a
 
 ## Errata
-
 
 <!--
   Errata should be maintained after publication.
