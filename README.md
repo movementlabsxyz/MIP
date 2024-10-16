@@ -38,3 +38,6 @@ Each MIP or MD is stored in a separate subdirectory with the a name `md-<number>
 
 MDs and MIPs are assigned their PR number as soon as they are drafted. PRs that do not introduce a new MIP are also accepted. Thus, there will be gaps in the MIP number sequence. These gaps will also emerge when MIPs are deprecated or rejected.
 
+An MIP number will be assigned by an editor. When opening a pull request to submit your MIP, please use an abbreviated title in the folder name, `mip-draft-title_abbrev`. The branch of the pull request should be "mip/title" and the pull request description should be "[draft] <MIP title>".
+
+Update the OVERVIEW.md file with the MIP number and title.
