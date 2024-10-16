@@ -1,3 +1,8 @@
+# Reviewers that should be added to all additions
 * @l-monninger
 * @andyjsbell
 * @apenzk
+
+# Authors and reviewers that should be added for specific files
+/MIP/mip-0/ @l-monninger @apenzk
+/MD/md-0/ @l-monninger @apenzk
