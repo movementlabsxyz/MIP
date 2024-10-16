@@ -43,15 +43,23 @@ MG serve to capture the **definitions** of terms introduced in the MIPs and MDs.
 
 
 ## Files and numbering
-Each MIP, MD or MG is stored in a separate subdirectory with the a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a README.md file that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
 
-MIPs, MDs and MGs are assigned their PR number as soon as they are drafted. MDs that do not introduce a new MIP are also accepted. Thus, there will be gaps in the MIP number sequence. These gaps will also emerge when MIPs are deprecated or rejected.
+Each MIP, MD or MG is stored in a separate subdirectory with the a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a `README.md` that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
+
+MIPs start as Drafts. MIPs obtain a number during the review process described in [Status Terms](#status-terms).  
+
+PRs that don't introduce a new MIP are also accepted. 
+
+- MIPs can be updated. PRs that update a MIP should state so in the PR title via `[Update] .... `. 
+
+There may be gaps in the numbering, as MIPs get rejected and removed.
 
 
 ## Status Terms
+An MIP is proposed through a PR. Each MIP-introducing PR should have a status in the name in the form `[Status] ...`.
 
-A MIP is proposed through a PR. It should at all times have one of the following statuses:
-- **Draft** - (set by author) An MIP that is open for consideration. (It does not yet hold a MIP number)
+An MIP should at all times have one of the following statuses:
+- **Draft** - (set by author) An MIP that is open for consideration. (It does not yet hold an MIP number)
 - **Review** - (set by author) The MIP is under peer review. The MIP should receive an **MIP number** and the MIP should be registered in the MIP overview file.
 - **Accepted** - (set by editor) An MIP that has been accepted. All technical changes requested have been addressed by the author. There may be additional non-technical changes requested by the MIP editor.
 
