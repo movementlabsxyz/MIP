@@ -3,7 +3,11 @@
 
 We differentiate between MD and MIPs.
 
+An overview of the MIPs and MDs can be found in the [OVERVIEW.md](./OVERVIEW.md) file.
+
 In addition MG serves as a glossary for terms defined in the MIPs and MDs.
+
+## Movement Desiderata (MD) 
 
 ## Movement Desiderata (MD)
 
@@ -16,8 +20,6 @@ MDs serve to capture the **objectives** behind the **introduction** of a particu
 - _need_
 
 related to MIPs should be documented as an MD and stored in the MD directory.
-
-Here is a list of MDs with their statuses:
 
 
 ## Movement Improvement Proposal (MIP)
