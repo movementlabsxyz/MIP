@@ -60,9 +60,9 @@ A more detailed description on the security of the mechanism can be found at [th
 The Fast-Finality Settlement mechanism consists of the following components/mechanisms and which should be addressed separately in their own MIPs:
 
 - A set of validators that are responsible for validating transactions and producing blocks, and how they communicate with each other.
+- A mechanism for validators to create a quorum certificte for new states on L2.
 - A mechanism for validators to stake tokens as collateral.
-- A mechanism for validators to be penalized for misbehavior.
-- A mechanism for validators to be rewarded for correct behavior.
+- A mechanism for validators to be rewarded for correct behavior and penalized for misbehavior.
 - Postconfirmations, a mechanism for a user to obtain a confirmation for a transaction that it has been attested to on L1 by a validator.
 - L2-finality, a mechanism for validators to confirm transactions after they have been included in an L2-block AND a quorum of validators has confirmed the state that is created by that L2-block.
 - A fast bridge that allows for the transfer of tokens between L1 and L2, and vice versa.
