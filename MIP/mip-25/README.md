@@ -16,6 +16,7 @@ During Stage 0 of the Movement network Movement Labs would hold centralized cont
 4. The controller key MUST be rotated, and the Proxy module MUST provide functionality to support key rotation.
 5. Updates to the framework MUST use a Move script signed by the controller account to acquire the signing privileges of the Aptos Framework during the script's execution.
 6. The controller account SHOULD be multisig, and this MUST be a strict requirement for the Proxy module. For testing purposes, this requirement MAY be relaxed to allow a single account.
+7. The Proxy module MUST allow the controller to remove the signing capabilities and render the module inoperable.  This MUST allow an upgrade path to a new governance like module.  This MUST be an irreversible action.
 
 ## Reference Implementation
 ```rust
@@ -31,7 +32,6 @@ module aptos_framework::proxy {
     use aptos_framework::coin::Coin;
     use aptos_framework::event;
     use aptos_framework::system_addresses;
-    use aptos_framework::system_addresses::is_aptos_framework_address;
     use aptos_framework::transaction_context;
     use aptos_std::ed25519;
     use aptos_std::from_bcs;
@@ -41,10 +41,13 @@ module aptos_framework::proxy {
 
     struct ProxyController has key {
         controller: address,
-        aptos_framework_signer_cap: SignerCapability,
         next_proposal_id: u64,
         proposals: SmartTable<u64, Proposal>,
         nonce: u64,
+    }
+
+    struct ProxySignerCapabilities has key {
+        aptos_framework_signer_cap: SignerCapability,
     }
 
     struct Proposal has store {
@@ -103,12 +106,33 @@ module aptos_framework::proxy {
             aptos_framework,
             ProxyController {
                 controller: @aptos_framework,
-                aptos_framework_signer_cap,
                 next_proposal_id: 1,
                 proposals: smart_table::new(),
                 nonce: 0,
             }
+        );
+
+        move_to(
+            aptos_framework,
+            ProxySignerCapabilities {
+                aptos_framework_signer_cap,
+            }
         )
+    }
+
+    /// Destroy the proxy and release SignerCapability to the caller
+    /// The controller is voided with 0xdead as the new controlling address.
+    /// Warning from this point the proxy module will be inoperable
+    public fun destroy(caller: &signer) : SignerCapability acquires ProxySignerCapabilities, ProxyController {
+        let proxy_controller = borrow_global_mut<ProxyController>(@aptos_framework);
+        assert!(signer::address_of(caller) == proxy_controller.controller, EINVALID_CONTROLLER);
+        proxy_controller.controller = @0xdead;
+
+        let ProxySignerCapabilities {
+            aptos_framework_signer_cap
+        } = move_from<ProxySignerCapabilities>(@aptos_framework);
+
+        aptos_framework_signer_cap
     }
 
     /// Update the controller of the proxy. Requires signature over challenge which is at the moment an abitrary vector
@@ -126,9 +150,9 @@ module aptos_framework::proxy {
         let proxy_controller = borrow_global_mut<ProxyController>(@aptos_framework);
 
         assert!(
-            proxy_controller.controller == signer::address_of(signer) ||
-                is_aptos_framework_address(signer::address_of(signer)),
-            EINVALID_CONTROLLER);
+            proxy_controller.controller == signer::address_of(signer),
+            EINVALID_CONTROLLER
+        );
 
         assert!(
             provided_nonce == proxy_controller.nonce,
@@ -248,7 +272,7 @@ module aptos_framework::proxy {
 
     /// Delegate Aptos Framework's signing cap to proxy providing proposal id for approved proposal and calling from
     /// the proposed script
-    public fun delegate_to_proxy(proposal_id: u64) : signer acquires ProxyController {
+    public fun delegate_to_proxy(proposal_id: u64) : signer acquires ProxyController, ProxySignerCapabilities {
         let proxy_controller = borrow_global_mut<ProxyController>(@aptos_framework);
 
         let Proposal {
@@ -262,8 +286,9 @@ module aptos_framework::proxy {
         assert!(approved, ENOT_APPROVED);
         assert!(transaction_context::get_script_hash() == execution_hash, EEXECUTION_HASH_INVALID);
 
+        let aptos_framework_signer_cap = &borrow_global<ProxySignerCapabilities>(@aptos_framework).aptos_framework_signer_cap;
         coin::deposit(creator, stake);
-        create_signer_with_capability(&proxy_controller.aptos_framework_signer_cap)
+        create_signer_with_capability(aptos_framework_signer_cap)
     }
 
     #[view]
