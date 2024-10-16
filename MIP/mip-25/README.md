@@ -420,7 +420,7 @@ diff --git a/aptos-move/vm-genesis/src/lib.rs b/aptos-move/vm-genesis/src/lib.rs
  fn initialize_on_chain_governance(session: &mut SessionExt, genesis_config: &GenesisConfiguration) {
 ```
 
-**Post Genesis** 
+**Post Genesis**  
 Ideally, the `proxy` module would eventually be replaced by Aptos Governance. To facilitate this transition, the following Move script would deactivate the `proxy` module and transfer the `SignerCapability` from the proxy to Aptos Governance. This process can also be applied to upgrade to any other governance module if needed.
 
 ```rust
