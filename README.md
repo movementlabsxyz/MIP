@@ -77,3 +77,13 @@ Addtionally, the following statuses are used for MIPs that are not actively bein
 
 Finally, MIPs can also be updated
 - **Update** - (set by author) An MIP is being updated. The titel should list the MIP number, e.g. `[Update] MIP-0 ...`.
+
+
+## Editor
+
+Currently the editors are [@andyjsbell](https://github.com/andyjsbell), [@l-monninger](https://github.com/l-monninger), [@apenzk](https://github.com/apenzk). Volunteers are welcome.
+
+The editor is responsible for the final review of the MIPs. The editor is responsible for the following:
+- Ensures a high quality of the MIPs.
+- Removes content from the MIPs that is commented out. (<!- ->)
+- Ensures the MIP numbering is correct, the MIP has been added to [OVERVIEW.md](./OVERVIEW.md), the MIP is in the correct status and the authors have added themselves to [CODEOWNERS](./.github/CODEOWNERS).
