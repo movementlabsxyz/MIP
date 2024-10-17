@@ -60,8 +60,11 @@ An MIP is proposed through a PR. Each MIP-introducing PR should have a status in
 
 An MIP should at all times have one of the following statuses:
 - **Draft** - (set by author) An MIP that is open for consideration. (It does not yet hold an MIP number)
-- **Review** - (set by author) The MIP is under peer review. The MIP should receive an **MIP number** and the MIP should be registered in the MIP overview file.
+- **Review** - (set by author) The MIP is under peer review. The MIP should receive an **MIP number**, the MIP should be registered in the MIP overview file, and the author should add themselves in the `CODEOWNERS` file.
 - **Accepted** - (set by editor) An MIP that has been accepted. All technical changes requested have been addressed by the author. There may be additional non-technical changes requested by the MIP editor.
+
+>[!Note]
+> In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim. 
 
 After acceptance the MIP is merged into `main` and the branch should be deleted.
 
