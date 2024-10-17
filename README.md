@@ -83,7 +83,7 @@ Finally, MIPs can also be updated
 
 ## Editor
 
-Currently the editors are [@andyjsbell](https://github.com/andyjsbell), [@l-monninger](https://github.com/l-monninger), [@apenzk](https://github.com/apenzk). Volunteers are welcome.
+Currently the editors are [@apenzk](https://github.com/apenzk), [@andyjsbell](https://github.com/andyjsbell), [@l-monninger](https://github.com/l-monninger). Volunteers are welcome.
 
 The editor is responsible for the final review of the MIPs. The editor is responsible for the following:
 - Ensures a high quality of the MIPs.
