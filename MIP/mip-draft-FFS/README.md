@@ -10,8 +10,9 @@ Fast-Finality Settlement (FFS) is a mechanism that allows for fast _confirmation
 ## Definitions
 
 - **FFS** - Fast Finality Settlement
-- **L1-finality** - finality mechanism (confirmation) for layer 1
+- **L1-finality** - finality mechanism for layer 1
 - **L2-finality** -  finality mechanism (confirmation) for layer 2
+- **QC** - Quorum certificate
 - **Postconfirmation** - a finality guarantee related to L1
 - **MCR** - Multi-commit Rollup : an implementation of FFS
 - **PoS** - Proof of Stake
@@ -27,7 +28,7 @@ The mechanism can be deployed independently for a chain, or used in combination 
 
 As a result, users can rely and trust the **L2-finality**  to use as confirmation, or if the chain is configured to do so, wait for **L1-finality**, such as end of challenge window for fraud proofs (optimistic L2) or verification of a ZK-proof (validity L2).
 
-A introduction to FFS can be found in [this blog post on Fast-Finality Settlement](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement). A more detailed description of a (partial) implementation of the mechanism is available at [this blog post on Postconfirmations](https://blog.movementlabs.xyz/article/postconfirmations-L2s-rollups-blockchain-movement).
+A introduction to FFS can be found in [this blog post on Fast-Finality Settlement](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement). A more detailed description of a (partial) implementation of the mechanism is available at [this blog post on postconfirmations](https://blog.movementlabs.xyz/article/postconfirmations-L2s-rollups-blockchain-movement).
 
 This MIP provides an overview of an architecture of FFS, and its main components.
 
@@ -58,11 +59,15 @@ The term _correct_ means that the successor block $B'$ (and the state it represe
 
 **Attestation**. To do so they _attest_ for the new block $B'$ by casting a vote :white_check_mark: or :x:. 
 
-**Quorum Certificate**. When enough validators have attested for a new block $B'$, the block is L2-confirmed. The accumulation of enough votes is aggregated in a quorum certificate.
+**L2-finality certificate / quorum certificate (QC)**. When enough validators have attested for a new block $B'$, the block is _L2-final_. The accumulation of enough votes is aggregated in a quorum certificate (i.e. the L2-finality certificate). The block is then considered to be _confirmed_.
+
+> [!NOTE]
+> Until a better definition arises we consider _**confirmation**_ to be defined as _L2-finality_.
 
 If the validators can attest blocks quickly and make their attestations available to third-parties, we have a fast confirmation mechanism supported by crypto-econonimic security, the  level of which depends on what is at stake for the confirmation of a block.
 
-**Postconfirmation**. At certain intervals Quorum Certificates will also be published to L1. The L1 contract will verify the quorum certificate. This provides an L1-protected _Postconfirmation_ that the L2-block (or a batch of L2-blocks) is L2-confirmed. This increases the security of the L2-confirmation as it locks in the L2-confirmation, reduces the risk of long range attacks and provides a way to slash validators that have attested for invalid blocks.
+
+**Postconfirmation**. At certain intervals L2-finality certificates will also be published to L1. The L1 contract will verify the L2-finality certificate. This provides an L1-protected _postconfirmation_ that the L2-block (or a batch of L2-blocks) is indeed confirmed. This additional anchoring mechanism increases the security of the L2-confirmation as it locks in the L2-confirmation, reduces the risk of long range attacks and provides a way to slash validators that have attested for invalid blocks.
 
 **Slashing**. The security of the mechanism relies on a PoS protocol. Each validator has to stake some assets, and if they are malicious they _should_ be slashed.
 The condition for slashing may be met by several quiteria, and not all slashing conditions may be used:
@@ -72,11 +77,16 @@ The condition for slashing may be met by several quiteria, and not all slashing 
 
 ### Main challenges
 
-To achieve crypto-economically secured fast-finality, we need to solve the following problems:
+To achieve crypto-economically secured Fast-Finality, we need to solve the following problems:
 
 1. design a _staking_ mechanism for the validators to stake assets, distribute rewards and manage slashing
 1. _define and verify_ the threshold (e.g. 2/3 of validators attest :white_check_mark:) for L2-finality
 1. _communicate_ the L2-finality status.
+
+In addition the following may require separate discussion, as it is a different procedure (postconfirmations are handled in smart contracts on L1, whereas L2-finality is handled off-chain)
+
+4. _define and verify_ the threshold (e.g. 2/3 of validators attest :white_check_mark:) for postconfirmation.
+
 
 ### Components
 
@@ -93,6 +103,11 @@ This contract provides the following functionalities:
 
 To ensure that the L2-finality status is made available to third-parties, we may publish our _proof_  (2/3 of attestations :white_check_mark:) to a data availability layer and get a _certificate_ that the proof is available.  
 This DA layer should offer a reliable _mempool_ for example as described [in this paper](https://arxiv.org/pdf/2105.11827).
+
+#### Handle postconfirmations (addresses 4.)
+
+The L1 contract will verify the L2-finality certificate. If the certificate is correct the block (or sequence of blocks) are _postconfirmed_. This requires handling who should send the certificate to the L1 contract, and how to verify the certificate.
+
 
 ## Reference Implementation
 
