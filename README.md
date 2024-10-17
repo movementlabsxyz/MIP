@@ -70,3 +70,6 @@ After acceptance the MIP is merged into `main` and the branch should be deleted.
 Addtionally, the following statuses are used for MIPs that are not actively being worked on:
 - **Stagnant** - an MIP that has not been updated for 6 months.
 - **Withdrawn** - an MIP that has not been updated for 6 months.
+
+Finally, MIPs can also be updated
+- **Update** - (set by author) An MIP is being updated. The titel should list the MIP number, e.g. `[Update] MIP-0 ...`.
