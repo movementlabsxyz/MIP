@@ -91,6 +91,11 @@ The editor is responsible for the final review of the MIPs. The editor is respon
 - Ensures the MIP numbering is correct, the MIP has been added to [OVERVIEW.md](./OVERVIEW.md), the MIP is in the correct status and the authors have added themselves to [CODEOWNERS](./.github/CODEOWNERS).
 
 
+**Conflict resolution**: If an editor requests a change from an author that the author does not agree with and communication does not resolve the situation
+- the editor can mandate that the author implements the changes by getting 2 upvotes from reviewers on their discussion comment mentioning the changes.
+- Otherwise the author can request a merge without the change.
+
+
 ## Code owners
 An author commits to becoming the owner of the MIP or MD they propose. This means that for any future changes to the MIP or MD the author will be notified. 
 
