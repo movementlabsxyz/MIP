@@ -60,7 +60,7 @@ An MIP is proposed through a PR. Each MIP-introducing PR should have a status in
 
 An MIP should at all times have one of the following statuses:
 - **Draft** - (set by author) An MIP that is open for consideration. (It does not yet hold an MIP number)
-- **Review** - (set by author) The MIP is under peer review. The MIP should receive an **MIP number**, the MIP should be registered in the MIP overview file.
+- **Review** - (set by author) The MIP is under peer review. The MIP should receive an **MIP number**.
 - **Accepted** - (set by editor) An MIP that has been accepted. All technical changes requested have been addressed by the author. There may be additional non-technical changes requested by the MIP editor.
 
 >[!Note]
