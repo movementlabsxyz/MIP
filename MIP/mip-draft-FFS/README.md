@@ -12,20 +12,20 @@ Fast-Finality Settlement (FFS) is a mechanism that allows for fast _confirmation
 - **FFS** - Fast Finality Settlement
 - **L1-finality** - finality mechanism (confirmation) for layer 1
 - **L2-finality** -  finality mechanism (confirmation) for layer 2
-- **MCR** - Multi-commit Rollup : an implementation of FFS
-- **PosP** - Proof of Stake
 - **Postconfirmation** - a finality guarantee related to L1
+- **MCR** - Multi-commit Rollup : an implementation of FFS
+- **PoS** - Proof of Stake
 - **Validator** - a node that is responsible for validating transactions and producing blocks
 
 ## Motivation
 
-Layer 2s (L2) and rollups have to publish transaction data to a data availability (DA) layer or to Ethereum mainnet (Layer 1, L1). Validity (ZKP) and optimistic (FP) rollups can finalize (confirm) transactions within approximately 30 minutes (ZKP) resp. ~1 week (FP). Until a transaction is finalized, there is no assurance about its validity and result (success or failure). This can be a limiting factor for certain types of DeFi applications.
+Layer 2s (L2), including rollups, publish or secure transaction data in a data availability (DA) layer or at Ethereum mainnet (Layer 1, L1). Validity and optimistic rollups can finalize (confirm) transactions within approximately 30 minutes, resp. ~1 week. Until a transaction is finalized, there is no assurance about its validity and result (success or failure). This can be a limiting factor for certain types of DeFi applications.
 
-Our objective is to enable transactions's issuers to quickly get some guarantees that their transactions are correctly included in a block. The crypto-economic security is provided by a PoS protocol.
+Our objective is to enable transaction issuers to quickly get some guarantees that their transactions are correctly included in a block. The crypto-economic security is provided by a PoS protocol.
 
 The mechanism can be deployed independently for a chain, or used in combination with existing settlement mechanisms, such as ZK and optimistic settlements.
 
-As a result, users can rely and trust the **L2-finality**  to use as confirmation, or if the chain is configured to do so, wait for **L1-finality**, end of challenge window for fraud proofs (optimistic L2) or verification of a ZK-proof (validity L2).
+As a result, users can rely and trust the **L2-finality**  to use as confirmation, or if the chain is configured to do so, wait for **L1-finality**, such as end of challenge window for fraud proofs (optimistic L2) or verification of a ZK-proof (validity L2).
 
 A introduction to FFS can be found in [this blog post on Fast-Finality Settlement](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement). A more detailed description of a (partial) implementation of the mechanism is available at [this blog post on Postconfirmations](https://blog.movementlabs.xyz/article/postconfirmations-L2s-rollups-blockchain-movement).
 
@@ -37,24 +37,36 @@ This MIP provides an overview of an architecture of FFS, and its main components
 
 The objective of FFS is to confirm that transactions are processed correctly. It does not relate to the ordering of transactions.
 
-At an abstract level, the blockchain produces a new block in each round, and this block is the successor of the block in the previous round, the _predecessor_. Initially, there is a _genesis_ block with no predecessor.
-Each round corresponds to the processing of a _batch_ of transactions which is computed and proposed by the _sequencer_ (can be centralised, decentralised, shared).
+At an abstract level, the blockchain increases by a new L2-block in each (L2) round, and this L2-block is the successor of the L2-block in the previous round, the _predecessor_. Initially, there is a _genesis_ block with no predecessor.
+
+**Batch**. Each round corresponds to the processing of a _batch_ of transactions which is proposed by the _sequencer_ (can be centralised, decentralised, shared). 
+
+**Block**. A node with execution capability is then in charge of validating the transactions in the batch and calculate the new state. Since the batch is given by the sequencer, the new state and the state roots for a block are deterministic. For a batch $b$ the state is $S_b$ and the state root is $H(S_b)$. From the batch $b$ and the state $S_b$ the block $B$ is computed (which contains the information of the batch and the state root). 
+
+**Local validation**. Since the block is deterministically calculated we say a block (and the associated new state) is _validated locally_ once the execution node calculates it from the batch. 
 
 > [!NOTE]
-> FFS aims to confirm the validity of each produced block, in **each round**. The validity judgement to be made is: given a block $B$ (predecessor), a batch of transactions $txs$ and a successor block $B'$, is $B'$ the^[the MoveVM is deterministic and there can be only valid successor.] _correct_ successor of $B$ after executing the sequence of transactions $txs$?
+> **L2-Confirmation**. FFS aims to _confirm_ the validity of each produced block, in each round. The validity judgement to be made is: 
+> Given a block $B$ (predecessor), a batch of transactions $txs$ and a successor block $B'$, is $B'$ the^[the MoveVM is deterministic and there can be only valid successor.] _correct_ successor of $B$ after executing the sequence of transactions $txs$?
 
 The term _correct_ means that the successor block $B'$ (and the state it represents) has been computed in accordance with the semantics of the MoveVM, which we denote  $B \xrightarrow{\ txs \ } B'$.
 
 > [!IMPORTANT]
-> If we confirm each successor block before adding it to the chain, there cannot be any fork except if the network is partitioned.
+> If we attest each successor block before adding it to the chain, there cannot be any fork, except if the sequencer would provide equivocating batches for a given height AND there is a sufficiently strong Byzantine attack on the confirmation process.
 
-To guarantee the validity of a new block $B'$, we use a set of **validators** who are in charge of verifying the transition $B \xrightarrow{\ txs \ } B'$.
-To do so they _attest_ for the new block $B'$ by casting a vote :white_check_mark: or :x:.
-When enough validators have attested for a new block $B'$, the block is _postconfirmed_.
+**Validator**. To guarantee the validity of a new block $B'$, we use a set of _validators_ who are in charge of verifying the transition $B \xrightarrow{\ txs \ } B'$. To do so they _attest_ for the new block $B'$ by casting a vote :white_check_mark: or :x:. 
 
-The security of the mechanism relies on a PoS protocol. Each validator has to stake some assets, and if they are malicious (vote :white_check_mark: for an invalid block or :x: for a valid block), they _should_ be slashed.
+**Quorum Certificate**. When enough validators have attested for a new block $B'$, the block is L2-confirmed. The accumulation of enough votes is aggregated in a quorum certificate.
 
-If the validators can confirm blocks quickly and make their attestations available to third-parties, we have a fast confirmation mechanism supported by crypto-econonimic security, the  level of which depends on what is at stake for the confirmation of a block.
+If the validators can attest blocks quickly and make their attestations available to third-parties, we have a fast confirmation mechanism supported by crypto-econonimic security, the  level of which depends on what is at stake for the confirmation of a block.
+
+**Postconfirmation**. At certain intervals Quorum Certificates will also be published to L1. The L1 contract will verify the quorum certificate. This provides an L1-protected _Postconfirmation_ that the L2-block (or a batch of L2-blocks) is L2-confirmed. This increases the security of the L2-confirmation as it locks in the L2-confirmation, reduces the risk of long range attacks and provides a way to slash validators that have attested for invalid blocks.
+
+**Slashing**. The security of the mechanism relies on a PoS protocol. Each validator has to stake some assets, and if they are malicious they _should_ be slashed.
+The condition for slashing may be met by several quiteria, and not all slashing conditions may be used:
+- equivocate (send a different vote to different validators or users)
+- vote :white_check_mark: for an invalid block 
+- vote :x: for a valid block
 
 ### Main challenges
 
