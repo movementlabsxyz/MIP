@@ -45,8 +45,8 @@ At an abstract level, the blockchain increases by a new L2-block in each (L2) ro
 
 **Local validation**. Since the block is deterministically calculated we say a block (and the associated new state) is _validated locally_ once the execution engine calculates it from the batch. 
 
+**L2-Confirmation**. FFS aims to _confirm_ the validity of each produced block, in each round. The validity judgement to be made is: 
 > [!NOTE]
-> **L2-Confirmation**. FFS aims to _confirm_ the validity of each produced block, in each round. The validity judgement to be made is: 
 > Given a block $B$ (predecessor), a batch of transactions $txs$ and a successor block $B'$, is $B'$ the^[the MoveVM is deterministic and there can be only valid successor.] _correct_ successor of $B$ after executing the sequence of transactions $txs$?
 
 The term _correct_ means that the successor block $B'$ (and the state it represents) has been computed in accordance with the semantics of the MoveVM, which we denote  $B \xrightarrow{\ txs \ } B'$.
