@@ -87,3 +87,8 @@ The editor is responsible for the final review of the MIPs. The editor is respon
 - Ensures a high quality of the MIPs.
 - Removes content from the MIPs that is commented out. (<!- ->)
 - Ensures the MIP numbering is correct, the MIP has been added to [OVERVIEW.md](./OVERVIEW.md), the MIP is in the correct status and the authors have added themselves to [CODEOWNERS](./.github/CODEOWNERS).
+
+
+**Conflict resolution**: If an editor requests a change from an author that the author does not agree with and communication does not resolve the situation
+- the editor can mandate that the author implements the changes by getting 2 upvotes from reviewers on their discussion comment mentioning the changes.
+- Otherwise the author can request a merge without the change.
