@@ -69,6 +69,8 @@ The FFS requires the creation of certificates that prove that a block has been a
 
 ## Reference Implementation
 
+Implemented: [View the Code](https://github.com/movementlabsxyz/movement/tree/main/protocol-units/settlement/mcr)
+
 <!--
   The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
 
