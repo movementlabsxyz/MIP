@@ -148,7 +148,7 @@ It is common to have $f = \frac{1}{3}n$ and in this case we request that $\frac{
 Second we assume that the Staking contract that validates the proof of super-majority is correct (there are no bugs in the implementation of the contract).
 As a result, when the staking contract verification step is confirmed on L1 (L1-finality), the super-majority proof is verified.
 
-Combining the two results above we have: confirmation (L1 contract) that 2/3 of validators have attested :white_check_mark: and if more than 2/3 have attested :white_check_mark_ then $B'$ is valid. So overall, if the 2/3 super-majority is verified by the staking contract, $B'$ is valid.
+Combining the two results above we have: confirmation (L1 contract) that 2/3 of validators have attested :white_check_mark: and if more than 2/3 have attested :white_check_mark: then $B'$ is valid. So overall, if the 2/3 super-majority is verified by the staking contract, $B'$ is valid.
 
 In the previous design, it takes upto 13 minutes to verify the super-majority proof on Ethereum.
 However, the L2 validators also publish the proofs to DA layer and once the proof is available it cannot be tampered with.
