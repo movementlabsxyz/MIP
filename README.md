@@ -73,6 +73,10 @@ Addtionally, the following statuses are used for MIPs that are not actively bein
 - **Withdrawn** - an MIP that has not been updated for 6 months.
 
 
+Finally, MIPs can also be updated
+- **Update** - (set by author) An MIP is being updated. The titel should list the MIP number, e.g. `[Update] MIP-0 ...`.
+
+
 ## Code owners
 An author commits to becoming the owner of the MIP or MD they propose. This means that for any future changes to the MIP or MD the author will be notified. 
 
