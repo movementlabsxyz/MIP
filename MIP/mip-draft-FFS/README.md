@@ -152,7 +152,6 @@ to capture the requirements for each component.
 - validators network, how they communicate and build the _super-majority proof_.
 - staking: what crypto-coin is used for staking, safeguards to prevent validators from exiting too early etc
 - communication of the super-majority proof to the DA. This is mostly a performamce issue and we need to get a certificate in the order of seconds to provide L2-finality in the order of seconds.
-- delegation/weighted stakes: a mechanism for validators to delegate their voting power to other validators. Ability for validators to stake different amounts (and use weighted stakes super-majority).
 
 ## Optimisations
 
@@ -160,7 +159,7 @@ There are several aspects that could be optimised and refined:
 
 - super-majority proof: it can be a list of votes, but could also be a zk-proof (more compact). The suer-majority proof is not a proof of correct execution (as in zkVM) but simply of super-majority and this is cheaper to compute.
 - signatures aggregation: we want to avoid sending large transcations to the L1 as it increases operational costs. How to aggregate signatures to send more compact messages/trasactions?
--
+- delegation/weighted stakes: a mechanism for validators to delegate their voting power to other validators. Ability for validators to stake different amounts (and use weighted stakes super-majority)
 
 <!-- 
 4. **Validation Procedures**:
