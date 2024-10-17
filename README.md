@@ -45,7 +45,7 @@ MG serve to capture the **definitions** of terms introduced in the MIPs and MDs.
 ## Files and numbering
 Each MIP, MD or MG is stored in a separate subdirectory with the a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a `README.md` file that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
 
-MIPs start as Drafts. MIPs obtain a number during the review process described in [Status Terms](#status-terms). 
+MIPs start as Drafts. MIPs obtain a number during the review process described in [Status Terms](#status-terms). The number is the highest number in the MIP directory plus one.
 
 PRs that don't introduce a new MIP are also accepted. 
 - MIPs can be updated. PRs that update a MIP should state so in the PR title via `[Update] .... `. 
@@ -59,7 +59,7 @@ An MIP is proposed through a PR. Each MIP-introducing PR should have a status in
 
 An MIP should at all times have one of the following statuses:
 - **Draft** - (set by author) An MIP that is open for consideration. (It does not yet hold an MIP number)
-- **Review** - (set by author) The MIP is under peer review. The MIP should receive an **MIP number**, determined by the author.
+- **Review** - (set by author) The MIP is under peer review. The MIP should receive an **MIP number**, according to the rules described in the [Files and numbering](#files-and-numbering) section.
 
 >[!Note]
 > Currently the author has to understand from the PRs what the latest MIP number is. This is suboptimal and will be fixed by a later PR. 
