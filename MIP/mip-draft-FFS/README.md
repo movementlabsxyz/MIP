@@ -1,4 +1,4 @@
-# MIP-?: Fast-Finality Settlement
+# MIP-34: Fast-Finality Settlement
 
 - **Description**: Establish the scope and components that are part of the Fast-Finality Settlement mechanism.
 - **Authors**: [Franck Cassez](), [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
@@ -9,14 +9,27 @@ Fast-Finality Settlement (FFS) is a mechanism that allows for fast _confirmation
 
 ## Definitions
 
-- **FFS** - Fast Finality Settlement
-- **L1-finality** - finality mechanism for layer 1
-- **L2-finality** -  finality mechanism (confirmation) for layer 2
-- **QC** - Quorum certificate
-- **Postconfirmation** - a finality guarantee related to L1
-- **MCR** - Multi-commit Rollup : an implementation of FFS
+- **L2-block** - See [Overview](#overview)
+- **sequencer-batch** - See [Overview](#overview)  
+- **FFS** - Fast Finality Settlement. See [Overview](#overview)  
+- **L1-finality** - finality mechanism for layer 1. 
+- **L2-finality** -  finality mechanism (confirmation) for layer 2. See [Overview](#overview)  
+- **QC** - Quorum certificate. See [Overview](#overview)  
+- **postconfirmation** - a finality guarantee related to L1. See [Overview](#overview)  
+- **MCR** - Multi-commit Rollup : an implementation of FFS.
 - **PoS** - Proof of Stake
-- **Validator** - a node that is responsible for validating transactions and producing blocks
+- **validator** - a node that is responsible for validating transactions and producing blocks. See [Overview](#overview)  
+
+In addition we make the note for the following terms:
+
+- **Batch** (not recommended)
+Less clean, but more common term for sequencer-batch. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of blocks that should be processed by the L1-contract. 
+- **Block** 
+More common term for block. May be mixed up with the batch of transactions sent to the sequencer, the L1-block or with the batch of blocks that should be processed by the L1-contract. 
+- **Attester**  (not recommended)
+The term attester has been deprecated in favor of validator.
+
+
 
 ## Motivation
 
@@ -38,15 +51,15 @@ This MIP provides an overview of an architecture of FFS, and its main components
 
 The objective of FFS is to confirm that transactions are processed correctly. It does not relate to the ordering of transactions.
 
-At an abstract level, the blockchain increases by a new L2-block in each (L2) round, and this L2-block is the successor of the L2-block in the previous round, the _predecessor_. Initially, there is a _genesis_ block with no predecessor.
+At an abstract level, the L2-blockchain increases by a new block in each (L2) round, and this block is the successor of the block in the previous round, the _predecessor_. Initially, there is a _genesis_ block with no predecessor.
 
 **Sequencer-Batch**. Each round corresponds to the processing of a _sequencer-batch_ of transactions which is proposed by the _sequencer_ (can be centralised, decentralised, shared). 
 
-**L2-Block**. A node with execution capability is then in charge of validating the transactions in the sequencer-batch and calculate the new state. Since the sequencer-batch is given by the sequencer, the new state and the state roots for a block are deterministic. For a sequencer-batch $b$ the state is $S_b$ and the state root is $H(S_b)$. From the sequencer-batch $b$ and the state $S_b$ the block $B$ is computed (which contains the information of the sequencer-batch and the state root). 
+**L2-Block**. Since we generally mean L2-blocks we will ommit the "L2-" prefix, i.e. by _block_ we mean L2-block. A node with execution capability is then in charge of validating the transactions in the sequencer-batch and calculate the new state. Since the sequencer-batch is given by the sequencer, the new state and the state roots for a block are deterministic. For a sequencer-batch $b$ the state is $S_b$ and the state root is $H(S_b)$. From the sequencer-batch $b$ and the state $S_b$ the block $B$ is computed (which contains the information of the sequencer-batch and the state root). 
 
 **Local validation**. Since the block is deterministically calculated we say a block (and the associated new state) is _validated locally_ once the execution engine calculates it from the sequencer-batch. 
 
-**L2-Confirmation**. FFS aims to _confirm_ the validity of each produced block, in each round. The validity judgement to be made is: 
+**L2-confirmation / L2-finality**. FFS aims to _confirm_ the validity of each produced block, in each round. The validity judgement to be made is: 
 > [!NOTE]
 > Given a block $B$ (predecessor), a sequencer-batch of transactions $txs$ and a successor block $B'$, is $B'$ the^[the MoveVM is deterministic and there can be only valid successor.] _correct_ successor of $B$ after executing the sequence of transactions $txs$?
 
@@ -59,7 +72,7 @@ The term _correct_ means that the successor block $B'$ (and the state it represe
 
 **Attestation**. To do so they _attest_ for the new block $B'$ by casting a vote :white_check_mark: or :x:. 
 
-**L2-finality certificate / quorum certificate (QC)**. When enough validators have attested for a new block $B'$, the block is _L2-final_. The accumulation of enough votes is aggregated in a quorum certificate (i.e. the L2-finality certificate). The block is then considered to be _confirmed_.
+**L2-finality certificate / quorum certificate (QC)**. When enough validators have attested for a new block $B'$, the block is _L2-final_. The accumulation of enough votes is aggregated in a quorum certificate (i.e. the L2-finality certificate). The block is then considered to be _confirmed_. A naive implementation of the quorum certificate is a list of votes.
 
 > [!NOTE]
 > Until a better definition arises we consider _**confirmation**_ to be defined as _L2-finality_.
@@ -67,7 +80,7 @@ The term _correct_ means that the successor block $B'$ (and the state it represe
 If the validators can attest blocks quickly and make their attestations available to third-parties, we have a fast confirmation mechanism supported by crypto-econonimic security, the  level of which depends on what is at stake for the confirmation of a block.
 
 
-**Postconfirmation**. At certain intervals L2-finality certificates will also be published to L1. The L1 contract will verify the L2-finality certificate. This provides an L1-protected _postconfirmation_ that the L2-block (or a batch of L2-blocks) is indeed confirmed. This additional anchoring mechanism increases the security of the L2-confirmation as it locks in the L2-confirmation, reduces the risk of long range attacks and provides a way to slash validators that have attested for invalid blocks.
+**Postconfirmation**. At certain intervals L2-finality certificates will also be published to L1. The L1 contract will verify the L2-finality certificate. This provides an L1-protected _postconfirmation_ that the block (or a batch of blocks) is indeed confirmed. This additional anchoring mechanism increases the security of the L2-confirmation as it locks in the L2-confirmation, reduces the risk of long range attacks and provides a way to slash validators that have attested for invalid blocks.
 
 **Slashing**. The security of the mechanism relies on a PoS protocol. Each validator has to stake some assets, and if they are malicious they _should_ be slashed.
 The condition for slashing may be met by several quiteria, and not all slashing conditions may be used:
@@ -131,7 +144,7 @@ From there on two separate threads of event occur:
 - A mechanism for validators to stake tokens as collateral.
 - A mechanism for validators to be rewarded for correct behavior and penalized for misbehavior.
 - Postconfirmations, a mechanism for a user to obtain a confirmation for a transaction that it has been attested to on L1 by a validator.
-- L2-finality, a mechanism for validators to confirm transactions after they have been included in an L2-block AND a quorum of validators has confirmed the state that is created by that L2-block.
+- L2-finality, a mechanism for validators to confirm transactions after they have been included in an block AND a quorum of validators has confirmed the state that is created by that block.
 - A fast bridge that allows for the transfer of tokens between L1 and L2, and vice versa. -->
 
 ## Verification
