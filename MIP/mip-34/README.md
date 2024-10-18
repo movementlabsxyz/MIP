@@ -22,11 +22,11 @@ Fast-Finality Settlement (FFS) is a mechanism that allows for fast _confirmation
 
 In addition we make the note for the following terms:
 
-- **Batch** (not recommended)
+- **batch** (not recommended)
 Less clean, but more common term for sequencer-batch. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of blocks that should be processed by the L1-contract. 
-- **Block** 
+- **block** 
 More common term for block. May be mixed up with the batch of transactions sent to the sequencer, the L1-block or with the batch of blocks that should be processed by the L1-contract. 
-- **Attester**  (not recommended)
+- **attester**  (not recommended)
 The term attester has been deprecated in favor of validator.
 
 
