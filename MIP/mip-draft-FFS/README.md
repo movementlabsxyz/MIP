@@ -40,20 +40,20 @@ The objective of FFS is to confirm that transactions are processed correctly. It
 
 At an abstract level, the blockchain increases by a new L2-block in each (L2) round, and this L2-block is the successor of the L2-block in the previous round, the _predecessor_. Initially, there is a _genesis_ block with no predecessor.
 
-**Batch**. Each round corresponds to the processing of a _batch_ of transactions which is proposed by the _sequencer_ (can be centralised, decentralised, shared). 
+**Sequencer-Batch**. Each round corresponds to the processing of a _sequencer-batch_ of transactions which is proposed by the _sequencer_ (can be centralised, decentralised, shared). 
 
-**Block**. A node with execution capability is then in charge of validating the transactions in the batch and calculate the new state. Since the batch is given by the sequencer, the new state and the state roots for a block are deterministic. For a batch $b$ the state is $S_b$ and the state root is $H(S_b)$. From the batch $b$ and the state $S_b$ the block $B$ is computed (which contains the information of the batch and the state root). 
+**L2-Block**. A node with execution capability is then in charge of validating the transactions in the sequencer-batch and calculate the new state. Since the sequencer-batch is given by the sequencer, the new state and the state roots for a block are deterministic. For a sequencer-batch $b$ the state is $S_b$ and the state root is $H(S_b)$. From the sequencer-batch $b$ and the state $S_b$ the block $B$ is computed (which contains the information of the sequencer-batch and the state root). 
 
-**Local validation**. Since the block is deterministically calculated we say a block (and the associated new state) is _validated locally_ once the execution engine calculates it from the batch. 
+**Local validation**. Since the block is deterministically calculated we say a block (and the associated new state) is _validated locally_ once the execution engine calculates it from the sequencer-batch. 
 
 **L2-Confirmation**. FFS aims to _confirm_ the validity of each produced block, in each round. The validity judgement to be made is: 
 > [!NOTE]
-> Given a block $B$ (predecessor), a batch of transactions $txs$ and a successor block $B'$, is $B'$ the^[the MoveVM is deterministic and there can be only valid successor.] _correct_ successor of $B$ after executing the sequence of transactions $txs$?
+> Given a block $B$ (predecessor), a sequencer-batch of transactions $txs$ and a successor block $B'$, is $B'$ the^[the MoveVM is deterministic and there can be only valid successor.] _correct_ successor of $B$ after executing the sequence of transactions $txs$?
 
 The term _correct_ means that the successor block $B'$ (and the state it represents) has been computed in accordance with the semantics of the MoveVM, which we denote  $B \xrightarrow{\ txs \ } B'$.
 
 > [!IMPORTANT]
-> If we confirm each successor block before adding it to the (confirmed) L2-chain, there cannot be any fork, except if the sequencer would provide equivocating batches for a given height AND there is a sufficiently strong Byzantine attack on the confirmation process.
+> If we confirm each successor block before adding it to the (confirmed) L2-chain, there cannot be any fork, except if the sequencer would provide equivocating sequencer-batches for a given height AND there is a sufficiently strong Byzantine attack on the confirmation process.
 
 **Validator**. To guarantee the validity of a new block $B'$, we use a set of _validators_ who are in charge of verifying the transition $B \xrightarrow{\ txs \ } B'$.
 

@@ -2,15 +2,27 @@
 
 Alphabetically ordered list of terms defined through MGs.
 
-|  Term  |  Short Definition  |  #MG  | 
-| ------ | ------------------ | ----- | 
-| Attester | Deprecated term for Validator. |   | 
-| Batch | Common alternative term for Sequencer-Batch; could also refer to a batch of transactions sent to the sequencer. |   | 
-| Block | Common alternative term for L2-Block, may lead to confusion with the term 'batch' or 'L1-block' |   | 
-| FFS | Fast-Finality Settlement protocol that ensures transactions are processed correctly and confirmed through crypto-economic security. |   | 
-| L2-Block | A block of transactions processed by the FFS protocol containing the state root information. |   | 
-| Postconfirmation | The process of confirming a block or sequence of blocks after processing by the FFS protocol on L1. |   | 
-| Sequencer-Batch | A batch of transactions provided by the sequencer. |   | 
-| Validator | A node that participates in the FFS protocol by executing and validating transactions and the sequencer-batch that contains them. |   | 
+**Attester**  (not recommended)
+The term attester has been deprecated in favor of validator. > **MG-?**
 
+**Batch**  
+Less clean, but more common term for sequencer-batch. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of L2-blocks that should be processed by the L1-contract. > **MG-?**
+
+**Block**  (not recommended)
+Less clean, but more common term for L2-block. May be mixed up with the batch of transactions sent to the sequencer, the L1-block or with the batch of L2-blocks that should be processed by the L1-contract. > **MG-?**
+
+**FFS**  
+The objective of the FFS protocol is to confirm that transactions are processed correctly and back this confirmation through crypto-economic security. It does not relate to the ordering of transactions. > **MG-?**
+
+**L2-block**  
+A block of transactions that is processed by the FFS protocol. It contains information about the state root produced by the transactions in the block. > **MG-?**
+
+**Postconfirmation**  
+The process of confirming a (sequence of) blocks after it has been processed by the FFS protocol on L1. > **MG-?**
+
+**Sequencer-batch**  
+The block of transactions that is provided by the sequencer. > **MG-?**
+
+**Validator**  
+A validator is a node that participates in the FFS protocol. Validators execute transactions from sequencer-batches and validate their correctness. > **MG-?**
 
