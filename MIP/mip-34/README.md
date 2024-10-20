@@ -14,6 +14,7 @@ Fast-Finality Settlement (FFS) is a mechanism that allows for fast _confirmation
 - **FFS** - Fast Finality Settlement. See [Overview](#overview)  
 - **L1-finality** - finality mechanism for layer 1. 
 - **L2-finality** -  finality mechanism (confirmation) for layer 2. See [Overview](#overview)  
+- **L2-confirmation** - Same as L2-finality, see [Overview](#overview)
 - **QC** - Quorum certificate. See [Overview](#overview)  
 - **postconfirmation** - a finality guarantee related to L1. See [Overview](#overview)  
 - **MCR** - Multi-commit Rollup : an implementation of FFS.
@@ -25,7 +26,7 @@ In addition we make the note for the following terms:
 - **batch** (not recommended)
 Less clean, but more common term for sequencer-batch. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of blocks that should be processed by the L1-contract. 
 - **block** 
-More common term for block. May be mixed up with the batch of transactions sent to the sequencer, the L1-block or with the batch of blocks that should be processed by the L1-contract. 
+More common term for block. May be mixed up with the batch of transactions sent to the sequencer, the L1-block or with the batch of blocks that should be processed by the L1-contract. Here we mean L2-block.
 - **attester**  (not recommended)
 The term attester has been deprecated in favor of validator.
 
@@ -59,7 +60,7 @@ At an abstract level, the L2-blockchain increases by a new block in each (L2) ro
 
 **Local validation**. Since the block is deterministically calculated we say a block (and the associated new state) is _validated locally_ once the execution engine calculates it from the sequencer-batch. 
 
-**L2-confirmation / L2-finality**. FFS aims to _confirm_ the validity of each produced block, in each round. The validity judgement to be made is: 
+**L2-confirmation / L2-finality**. FFS aims to _confirm_ the validity of each produced block, at every block. The validity judgement to be made is: 
 > [!NOTE]
 > Given a block $B$ (predecessor), a sequencer-batch of transactions $txs$ and a successor block $B'$, is $B'$ the^[the MoveVM is deterministic and there can be only valid successor.] _correct_ successor of $B$ after executing the sequence of transactions $txs$?
 
@@ -75,7 +76,7 @@ The term _correct_ means that the successor block $B'$ (and the state it represe
 **L2-finality certificate / quorum certificate (QC)**. When enough validators have attested for a new block $B'$, the block is _L2-final_. The accumulation of enough votes is aggregated in a quorum certificate (i.e. the L2-finality certificate). The block is then considered to be _confirmed_. A naive implementation of the quorum certificate is a list of votes.
 
 > [!NOTE]
-> Until a better definition arises we consider _**confirmation**_ to be defined as _L2-finality_.
+> Until a better definition arises we consider _**confirmation**_ to be defined as _L2-finality_ (or _L2-confirmation_).
 
 If the validators can attest blocks quickly and make their attestations available to third-parties, we have a fast confirmation mechanism supported by crypto-econonimic security, the  level of which depends on what is at stake for the confirmation of a block.
 
@@ -125,9 +126,15 @@ The L1 contract will verify the L2-finality certificate. If the certificate is c
 ## Reference Implementation
 
 To simplify we assume that each validator stakes the same amount.
-The set of validators is in charge of validating a block at each round.
+The set of validators is in charge of validating sequenced batches and producing blocks that also commit to the state root of the sequenced batch.
 
-A leader validator $V_l$ is elected in each round, and proposes the next transition (and block $B'$):  $B \xrightarrow{\ txs \ } B'$.
+There may be different protocols for the postconfirmation, and the L2-finality certificate. Here we focus only on the L1 contract.
+
+#### Version A: Leader-dependent block
+
+A leader validator $V_l$ is elected for a certain interval. 
+
+The leader proposes the next transition (and block $B'$):  $B \xrightarrow{\ txs \ } B'$.
 They can do by sending a digest of $txs$ (Merkle root) and a digest of $B'$ (Merke root hash of $B'$), or a _change set_.
 Every other validator checks the validity of $B'$ and send their vote to $V_l$.
 Once $V_l$ has received more than 2/3 of :white_check_mark: for $B'$ they sent the votes (who voted :white_check_mark: and who voted :x:) to the L1 staking contract **and** to the DA.
@@ -136,6 +143,17 @@ From there on two separate threads of event occur:
 
 - the DA layer returns an _availability certificate_ that a proof of 2/3 super-majority is available for block $B'$. This step should take O(1) second if we use a fast reliable mempool.
 - the Staking contract on L1 _will_ eventually verify the proof of of 2/3 super-majority (on Ethereum mainnet this should take in the order of 13mins).
+
+#### Version B: Leader-independent block
+
+A leader validator $V_l$ is elected for a certain interval. 
+
+Blocks are deterministically derived from the sequencer-batch. Validators attest for the next transition:  $B \xrightarrow{\ txs \ } B'$.
+
+In the scenario where validators commit individually they send the block hashes of the calculated blocks directly to the L1 contract. A leader may be required to update the latest state when the super-majority is reached. A leader approval may not be necessary, however the leader takes a special role and may incur increased gas costs compared to the remainder of validators and has to be rewarded accordingly. Since the block derivation is deterministic, $f+1$ may be sufficient to confirm the block. (However, we require $2f+1$ to cover potential edge cases, such as that the sequencer cannot be trusted.)
+
+In a more optimised scenario, the leader sends the super-majority proof to the L1 contract. A similar approach applies on the DA layer.
+
 
 <!-- The Fast-Finality Settlement mechanism consists of the following components/mechanisms and which should be addressed separately in their own MIPs:
 
@@ -156,22 +174,18 @@ The correctness of the mechanism relies on a few trust assumptions.
 First we assume that at most $f$ of the total $n$ (L2) validators can be malicious.
 This implies that if more than $2f +1$ attest :white_check_mark: for a new block, at least $f + 1$ honest validators have attested :white_check_mark:, so at least one honest validator has :white_check_mark: $B'$ and $B'$ is valid.
 
-It is common to have $f = \frac{1}{3}n$ and in this case we request that $\frac{2}{3}n$ (super-majority)  validators have :white_check_mark: $B'$ to validate $B'$.
+It is common to have $f < \frac{1}{3}n$ and in this case we request that >$\frac{2}{3}n$ (super-majority)  validators have :white_check_mark: $B'$ to validate $B'$.
 
-Second we assume that the Staking contract that validates the proof of super-majority is correct (there are no bugs in the implementation of the contract).
-As a result, when the staking contract verification step is confirmed on L1 (L1-finality), the super-majority proof is verified.
+**Postconfirmations**. Second, we assume that the staking contract that validates the proof of super-majority is correct (there are no bugs in the implementation of the contract). As a result, when the staking contract verification step is confirmed on L1 (L1-finality), the super-majority proof is verified.
 
-Combining the two results above we have: confirmation (L1 contract) that 2/3 of validators have attested :white_check_mark: and if more than 2/3 have attested :white_check_mark: then $B'$ is valid. So overall, if the 2/3 super-majority is verified by the staking contract, $B'$ is valid.
+Combining the two results above we have: confirmation (L1 contract) that >2/3 of validators have attested :white_check_mark: and if >2/3 have attested :white_check_mark: then $B'$ is valid. So overall, if the >2/3 super-majority is verified by the staking contract, $B'$ is valid.
 
-In the previous design, it takes upto 13 minutes to verify the super-majority proof on Ethereum.
-However, the L2 validators also publish the proofs to DA layer and once the proof is available it cannot be tampered with.
-This is why we can provide some guarantees about L2-finality when the availability certificate is delivered, and before the actual proof is verified on L1.
-If the validators are malicious and publish an incorrect proof, they _will_ slashed in the next 13 minutes, which should be enough incentives for them to not be malicious.
+**L2-finality** Third, in the above design, verification and inclusion happens in the order of seconds. However, it takes up to 13 minutes to verify the super-majority proof on Ethereum. The L2 validators also publish the proofs to DA layer and once the proof is available it cannot be tampered with. Thus, we can provide some guarantees about L2-finality when the availability certificate is delivered, and before the actual proof is verified on L1. If the validators are malicious and publish an incorrect proof, they _will_ be slashed in the next 13 minutes, which provides strong incentives for validators not to act malicious.
 
 This is conditional to:
 
-- ensuring that the validators send the same proof to the L1 staking contract and tothe DA
-- validators cannot exit too early (not before the proof they are participated to are confirmed).
+- ensuring that the validators send the same proof to the L1 staking contract and to the DA.
+- validators cannot exit too early (not before the proof they are committeed to are confirmed on L1).
 
 ### Security
 
@@ -183,17 +197,18 @@ The level of security depends on the total stake of the L2 validators. The highe
 There are several aspects that can impact performance and should be properly addressed:
 
 - time to collect the super-majority votes
-- time to get an availability certificate
+- time to get an availability certificate for the super-majority proof
 - number and size of messages and transactions, specifically containing the signatures
 
 ## Detailed plan and implementation
 
-A detailed plan should be proposed addressing the implementation of the different components, and ideally MIPs
-to capture the requirements for each component.
+A detailed plan should be proposed addressing the implementation of the different components, and ideally MIPs to capture the requirements for each component.
 
-- validators network, how they communicate and build the _super-majority proof_.
-- staking: what crypto-coin is used for staking, safeguards to prevent validators from exiting too early etc
-- communication of the super-majority proof to the DA. This is mostly a performamce issue and we need to get a certificate in the order of seconds to provide L2-finality in the order of seconds.
+- **validators network**: how they communicate and build the _super-majority proof_.
+- **L2-finality**: communication of the super-majority proof to the DA. Validators should certificate in the order of seconds to provide L2-finality in the order of seconds.
+- **postconfirmation**: L1 validation contract, how it verifies the super-majority proof and if and how there is interaction with the DA layer.
+- **staking**: what crypto-coin is used for staking, safeguards to prevent validators from exiting too early etc
+
 
 ## Optimisations
 
