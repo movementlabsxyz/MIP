@@ -8,6 +8,10 @@ MCR provides a stake-based settlement mechanism used in Movement Lab's Suzuka Ne
 
 Henceforth, we will simply refer to network partitions, as all forms of asynchrony with which we are concerned can be modeled as such. Even if a node is not technically offline, the remainder of this disiderata will be concerned with the case in which it is not able to commit meaningfully to the current block height.
 
+### Example
+
+In the following we describe an example of where network partition is relevant. 
+
 It is important to account for network partitions in a manner consistent with the game theory of MCR. In the current implementation, a simple race is run to $\frac{2}{3}$ of the network's stake. Currently, there is no model for slashing or rewarding. So, not participating in that race to $\frac{2}{3}$ of the network's stake is not a meaningfully punished. Presuming there would be a reward for participating, this may create an incentive to run an unreliable node which may often fail to commit to the current block height.
 
 The same condition could also be seen as an attack vector if rewards and punishments were in place. A malicious actor could aim to partition the network via generating conditions for fast commitment amongst certain nodes--perhaps via something similar to the [Peer Attack described in RFC-29](https://github.com/movementlabsxyz/rfcs/pull/29). This would allow their stake to increase via rewards while the targeted minority stake would be slashed. The attacker may be able to keep apply this attack until they have a majority of stake. 
