@@ -11,7 +11,7 @@ Fast-Finality Settlement (FFS) is a mechanism that allows for fast _confirmation
 
 - **L2-block** - See [Overview](#overview)
 - **sequencer-batch** - See [Overview](#overview)  
-- **validator** - a node that is responsible for validating transactions and confirming blocks. See [Overview](#overview)  
+- **validator** - a node that is responsible for validating transactions and confirming L2-blocks. See [Overview](#overview)  
 - **FFS** - Fast Finality Settlement. See [Overview](#overview)  
 - **MCR** - Multi-commit Rollup : an implementation of FFS. See [Overview](#overview)  
 - **L2-finality certificate** - See [Overview](#overview)
@@ -26,7 +26,7 @@ In addition we make the note for the following terms:
 - **batch** (not recommended)
 Less clean, but more common term for sequencer-batch. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of blocks that should be processed by the L1-contract. 
 - **block** 
-More common term for block. May be mixed up with the batch of transactions sent to the sequencer, the L1-block or with the batch of blocks that should be processed by the L1-contract. Here we mean L2-block.
+More common term for L2-block. May be mixed up with the batch of transactions sent to the sequencer, the L1-block or with the batch of L2-blocks that should be processed by the L1-contract. Here we mean L2-block when we say block.
 - **attester**  (not recommended)
 The term attester has been deprecated in favor of validator.
 - **quorum certificate** (not recommended)
@@ -58,9 +58,9 @@ At an abstract level, the L2-blockchain increases by a new block in each (L2) ro
 
 **Sequencer-Batch**. Each round corresponds to the processing of a _sequencer-batch_ of transactions which is proposed by the _sequencer_ (can be centralised, decentralised, shared). 
 
-**L2-Block**. Since we generally mean L2-blocks we will ommit the "L2-" prefix, i.e. by _block_ we mean L2-block. A node with execution capability is then in charge of validating the transactions in the sequencer-batch and calculate the new state. Since the sequencer-batch is given by the sequencer, the new state and the state roots for a block are deterministic. For a sequencer-batch $b$ the state is $S_b$ and the state root is $H(S_b)$. From the sequencer-batch $b$ and the state $S_b$ the block $B$ is computed (which contains the information of the sequencer-batch and the state root). 
+**L2-Block**. For the vast majority of cases we mean L2-blocks, thus we will ommit the "L2-" prefix, i.e. by _block_ we mean L2-block. A node with execution capability is in charge of validating the transactions in a sequencer-batch and calculate the new state. Since the sequencer-batches are provided by the sequencer, the new state and the state roots for a block are deterministic. For a sequencer-batch $b$ the state is $S_b$ and the state root is $H(S_b)$. From the sequencer-batch $b$ and the state $S_b$ the block $B$ is computed (which contains the information of the sequencer-batch and the state root). 
 
-**Local validation**. Since the block is deterministically calculated we say a block (and the associated new state) is _validated locally_ once the execution engine calculates it from the sequencer-batch. 
+**Local validation**. Since a block is deterministically calculated we say a block (and the associated new state) is _validated locally_ once the execution engine calculates it from the sequencer-batch. 
 
 **L2-confirmation**. FFS aims to _confirm_ the validity of each produced block, at every block. The validity judgement to be made is: 
 > [!NOTE]
