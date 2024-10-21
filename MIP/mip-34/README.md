@@ -73,7 +73,7 @@ The term _correct_ means that the successor block $B'$ (and the state it represe
 
 **Validator**. To guarantee the validity of a new block $B'$, we use a set of _validators_ who are in charge of verifying the transition $B \xrightarrow{\ txs \ } B'$.
 
-**Attestation**. To do so they _attest_ for the new block $B'$ by casting a vote :white_check_mark: or :x:. 
+**Attestation**. A validator _attests_ for a new block $B'$. This can be done, for example, by casting a vote :white_check_mark: or :x: for a proposal by a leader validator. Or by each validator sending the hash of the block they have validated.
 
 **L2-finality certificate**. When enough validators have attested for a new block $B'$, the block is _L2-final_ (i.e. _L2-confirmed_). The accumulation of enough votes is aggregated in an L2-finality certificate. A naive implementation of the L2-finality certificate is a list of votes.
 
