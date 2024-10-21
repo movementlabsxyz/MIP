@@ -34,7 +34,7 @@ Provide definitions that you think will empower the reader to quickly dive into 
 
 **Justification**:
 
-  It's a high priority to have testnet running and able to process transactions, or alterting us otherwise.
+  It's a high priority to have testnet running and able to process transactions, or alerting us otherwise.
 
 **Guidance and suggestions**: 
 
