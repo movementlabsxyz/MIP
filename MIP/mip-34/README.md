@@ -160,7 +160,7 @@ In the scenario where validators commit individually they send the block hashes 
 In a more optimised scenario, the leader sends the super-majority proof to the L1 contract. A similar approach applies on the DA layer.
 
 ![Version A Diagram](postconfirmationV2.png)
-*Figure 1: Leader-independent block generation process in Version B.*
+*Figure 2: Leader-independent block generation process in Version B.*
 
 
 #### Version C: Leader-independent blocks and L2-finality certificates
@@ -174,7 +174,7 @@ A p2p layer is established between validators. Validators communicate to aggrega
 
 
 ![Version A Diagram](fullDesign.png)
-*Figure 1: Leader-independent block generation process in Version C. Validators co-operate to create a L2-finality certificate before L1 is involved.*
+*Figure 3: Leader-independent block generation process in Version C. Validators co-operate to create a L2-finality certificate before L1 is involved.*
 
 <!-- The Fast-Finality Settlement mechanism consists of the following components/mechanisms and which should be addressed separately in their own MIPs:
 
