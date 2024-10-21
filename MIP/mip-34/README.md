@@ -11,15 +11,15 @@ Fast-Finality Settlement (FFS) is a mechanism that allows for fast _confirmation
 
 - **L2-block** - See [Overview](#overview)
 - **sequencer-batch** - See [Overview](#overview)  
+- **validator** - a node that is responsible for validating transactions and confirming blocks. See [Overview](#overview)  
 - **FFS** - Fast Finality Settlement. See [Overview](#overview)  
-- **L1-finality** - finality mechanism for layer 1. 
-- **L2-finality** -  finality mechanism (confirmation) for layer 2. See [Overview](#overview)  
-- **L2-confirmation** - Same as L2-finality, see [Overview](#overview)
-- **QC** - Quorum certificate. See [Overview](#overview)  
+- **MCR** - Multi-commit Rollup : an implementation of FFS. See [Overview](#overview)  
+- **L2-finality certificate** - See [Overview](#overview)
+- **L2-confirmation** - a finality guarantee related to L2. See [Overview](#overview)
 - **postconfirmation** - a finality guarantee related to L1. See [Overview](#overview)  
-- **MCR** - Multi-commit Rollup : an implementation of FFS.
+- **L1-finality** - finality mechanism for layer 1. 
+- **L2-finality** -  finality mechanism (confirmation) for layer 2.
 - **PoS** - Proof of Stake
-- **validator** - a node that is responsible for validating transactions and producing blocks. See [Overview](#overview)  
 
 In addition we make the note for the following terms:
 
@@ -29,6 +29,8 @@ Less clean, but more common term for sequencer-batch. May be mixed up with the b
 More common term for block. May be mixed up with the batch of transactions sent to the sequencer, the L1-block or with the batch of blocks that should be processed by the L1-contract. Here we mean L2-block.
 - **attester**  (not recommended)
 The term attester has been deprecated in favor of validator.
+- **quorum certificate** (not recommended)
+The term quorum certificate has been deprecated in favor of L2-finality certificate.
 
 
 
@@ -60,7 +62,7 @@ At an abstract level, the L2-blockchain increases by a new block in each (L2) ro
 
 **Local validation**. Since the block is deterministically calculated we say a block (and the associated new state) is _validated locally_ once the execution engine calculates it from the sequencer-batch. 
 
-**L2-confirmation / L2-finality**. FFS aims to _confirm_ the validity of each produced block, at every block. The validity judgement to be made is: 
+**L2-confirmation**. FFS aims to _confirm_ the validity of each produced block, at every block. The validity judgement to be made is: 
 > [!NOTE]
 > Given a block $B$ (predecessor), a sequencer-batch of transactions $txs$ and a successor block $B'$, is $B'$ the^[the MoveVM is deterministic and there can be only valid successor.] _correct_ successor of $B$ after executing the sequence of transactions $txs$?
 
@@ -73,10 +75,10 @@ The term _correct_ means that the successor block $B'$ (and the state it represe
 
 **Attestation**. To do so they _attest_ for the new block $B'$ by casting a vote :white_check_mark: or :x:. 
 
-**L2-finality certificate / quorum certificate (QC)**. When enough validators have attested for a new block $B'$, the block is _L2-final_. The accumulation of enough votes is aggregated in a quorum certificate (i.e. the L2-finality certificate). The block is then considered to be _confirmed_. A naive implementation of the quorum certificate is a list of votes.
+**L2-finality certificate**. When enough validators have attested for a new block $B'$, the block is _L2-final_ (i.e. _L2-confirmed_). The accumulation of enough votes is aggregated in an L2-finality certificate. A naive implementation of the L2-finality certificate is a list of votes.
 
 > [!NOTE]
-> Until a better definition arises we consider _**confirmation**_ to be defined as _L2-finality_ (or _L2-confirmation_).
+> Until a better definition arises we consider _**confirmation**_ to be defined as _L2-finality_ (i.e. _L2-confirmation_).
 
 If the validators can attest blocks quickly and make their attestations available to third-parties, we have a fast confirmation mechanism supported by crypto-econonimic security, the  level of which depends on what is at stake for the confirmation of a block.
 
@@ -97,7 +99,7 @@ To achieve crypto-economically secured Fast-Finality, we need to solve the follo
 1. _define and verify_ the threshold (e.g. 2/3 of validators attest :white_check_mark:) for L2-finality
 1. _communicate_ the L2-finality status.
 
-In addition the following may require separate discussion, as it is a different procedure (postconfirmations are handled in smart contracts on L1, whereas L2-finality is handled off-chain)
+In addition the following may require separate discussion, as it is a different procedure (postconfirmations are handled in smart contracts on L1, whereas L2-confirmations are handled off-chain)
 
 4. _define and verify_ the threshold (e.g. 2/3 of validators attest :white_check_mark:) for postconfirmation.
 
@@ -128,7 +130,7 @@ The L1 contract will verify the L2-finality certificate. If the certificate is c
 To simplify we assume that each validator stakes the same amount.
 The set of validators is in charge of validating sequenced batches and producing blocks that also commit to the state root of the sequenced batch.
 
-There may be different protocols for the postconfirmation, and the L2-finality certificate. Here we focus only on the L1 contract.
+There may be different protocols for the postconfirmation and the L2-confirmation. Here we focus only on the L1 contract (i.e. postconfirmation).
 
 #### Version A: Leader-dependent block
 
@@ -180,7 +182,7 @@ It is common to have $f < \frac{1}{3}n$ and in this case we request that >$\frac
 
 Combining the two results above we have: confirmation (L1 contract) that >2/3 of validators have attested :white_check_mark: and if >2/3 have attested :white_check_mark: then $B'$ is valid. So overall, if the >2/3 super-majority is verified by the staking contract, $B'$ is valid.
 
-**L2-finality** Third, in the above design, verification and inclusion happens in the order of seconds. However, it takes up to 13 minutes to verify the super-majority proof on Ethereum. The L2 validators also publish the proofs to DA layer and once the proof is available it cannot be tampered with. Thus, we can provide some guarantees about L2-finality when the availability certificate is delivered, and before the actual proof is verified on L1. If the validators are malicious and publish an incorrect proof, they _will_ be slashed in the next 13 minutes, which provides strong incentives for validators not to act malicious.
+**L2-confirmation** Third, in the above design, verification and inclusion happens in the order of seconds. However, it takes up to 13 minutes to verify the super-majority proof on Ethereum. The L2 validators also publish the proofs to a DA layer and once the proof is available it cannot be tampered with. Thus, we can provide some guarantees about L2-finality when the availability certificate (of the L2-finality certificate) is delivered, and before the actual proof is verified on L1. If validators misbehave, they _will_ be slashed on L1, which provides strong incentives for validators not to act malicious.
 
 This is conditional to:
 
@@ -205,7 +207,7 @@ There are several aspects that can impact performance and should be properly add
 A detailed plan should be proposed addressing the implementation of the different components, and ideally MIPs to capture the requirements for each component.
 
 - **validators network**: how they communicate and build the _super-majority proof_.
-- **L2-finality**: communication of the super-majority proof to the DA. Validators should certificate in the order of seconds to provide L2-finality in the order of seconds.
+- **L2-confirmation**: communication of the super-majority proof to the DA. Validators should certificate in the order of seconds to provide L2-finality in the order of seconds.
 - **postconfirmation**: L1 validation contract, how it verifies the super-majority proof and if and how there is interaction with the DA layer.
 - **staking**: what crypto-coin is used for staking, safeguards to prevent validators from exiting too early etc
 
@@ -214,10 +216,10 @@ A detailed plan should be proposed addressing the implementation of the differen
 
 There are several aspects that could be optimised and refined:
 
-- super-majority proof: it can be a list of votes, but could also be a zk-proof (more compact). The suer-majority proof is not a proof of correct execution (as in zkVM) but simply of super-majority and this is cheaper to compute.
-- signatures aggregation: we want to avoid sending large transcations to the L1 as it increases operational costs. How to aggregate signatures to send more compact messages/trasactions?
-- delegation/weighted stakes: a mechanism for validators to delegate their voting power to other validators. Ability for validators to stake different amounts (and use weighted stakes super-majority).
-- commit to a sequence of L2-blocks. The L2-finality certificate could be per block. However, on L1 we may want to commit to a sequence of blocks. This can be done by committing to the state root of the last block in the sequence or more complicated approaches using Merkle roots. 
+- **super-majority proof**: it can be a list of votes, but could also be a zk-proof (more compact). The suer-majority proof is not a proof of correct execution (as in zkVM) but simply of super-majority and this is cheaper to compute.
+- **signatures aggregation**: we want to avoid sending large transcations to the L1 as it increases operational costs. How to aggregate signatures to send more compact messages/trasactions?
+- **delegation/weighted stakes**: a mechanism for validators to delegate their voting power to other validators. Ability for validators to stake different amounts (and use weighted stakes super-majority).
+- **commit to a sequence of L2-blocks**. The L2-finality certificate could be per block. However, on L1 we may want to commit to a sequence of blocks. This can be done by committing to the state root of the last block in the sequence or more complicated approaches using Merkle roots. 
 
 <!-- 
 4. **Validation Procedures**:
