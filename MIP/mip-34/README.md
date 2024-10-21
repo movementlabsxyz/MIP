@@ -132,7 +132,7 @@ The set of validators is in charge of validating sequenced batches and producing
 
 There may be different protocols for the postconfirmation and the L2-confirmation. Here we focus only on the L1 contract (i.e. postconfirmation).
 
-#### Version A: Leader-dependent block
+#### Version A: Leader-dependent blocks
 
 A leader validator $V_l$ is elected for a certain interval. 
 
@@ -146,7 +146,10 @@ From there on two separate threads of event occur:
 - the DA layer returns an _availability certificate_ that a proof of 2/3 super-majority is available for block $B'$. This step should take O(1) second if we use a fast reliable mempool.
 - the Staking contract on L1 _will_ eventually verify the proof of of 2/3 super-majority (on Ethereum mainnet this should take in the order of 13mins).
 
-#### Version B: Leader-independent block
+![Version A Diagram](postconfirmationV1.png)
+*Figure 1: Leader-dependent block generation process in Version A.*
+
+#### Version B: Leader-independent blocks
 
 A leader validator $V_l$ is elected for a certain interval. 
 
@@ -156,6 +159,22 @@ In the scenario where validators commit individually they send the block hashes 
 
 In a more optimised scenario, the leader sends the super-majority proof to the L1 contract. A similar approach applies on the DA layer.
 
+![Version A Diagram](postconfirmationV2.png)
+*Figure 1: Leader-independent block generation process in Version B.*
+
+
+#### Version C: Leader-independent blocks and L2-finality certificates
+
+A leader validator $V_l$ is elected for a certain interval. 
+
+Blocks are deterministically derived from the sequencer-batch. Validators attest for the next transition:  $B \xrightarrow{\ txs \ } B'$.
+
+
+A p2p layer is established between validators. Validators communicate to aggregate a threshold of votes on the deterministically determined block. The super-majority proof is collected by the leader who updates the L1 contract using this proof.
+
+
+![Version A Diagram](fullDesign.png)
+*Figure 1: Leader-independent block generation process in Version C. Validators co-operate to create a L2-finality certificate before L1 is involved.*
 
 <!-- The Fast-Finality Settlement mechanism consists of the following components/mechanisms and which should be addressed separately in their own MIPs:
 
