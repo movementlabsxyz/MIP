@@ -1,4 +1,4 @@
-# MD-n: Provide for Fixed Token Supply when Using Atomic Bridge and Fast Finality Settlement (FFS)
+# MD-38: Provide for Fixed Token Supply when Using Atomic Bridge and Fast Finality Settlement (FFS)
 - **Description**: Requests for Movement Improvement Proposals (MIPs) to provide for fixed token supply when using the Atomic Bridge and Fast Finality Settlement (FFS).
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
