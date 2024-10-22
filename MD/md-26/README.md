@@ -30,7 +30,7 @@ Provide definitions that you think will empower the reader to quickly dive into 
 
 - Run these checks periodically, say once every 3 minutes, to simulate users sending transactions, and add to monitoring infrastructure, reporting based on the exit code of the e2e test binaries and not requiring any modifications to the implementation.
 
-(See @l-monninger comments in discussion.)
+(See @l-monninger comments in discussion and reference implementation by Liam below.)
 
 **Justification**:
 
