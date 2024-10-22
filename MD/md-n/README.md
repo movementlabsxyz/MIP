@@ -1,13 +1,19 @@
 # MD-n: Provide for Fixed Token Supply when Using Atomic Bridge and Fast Finality Settlement (FFS)
-- **Description**: Provide a glossary for Movement Vocabulary.
+- **Description**: Requests for Movement Improvement Proposals (MIPs) to provide for fixed token supply when using the Atomic Bridge and Fast Finality Settlement (FFS).
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
 
 
 ## Overview
-Using Fast Finality Settlement with the Atomic Bridge presents a challenge when the token supply is fixed. Namely, in this context, trying to use the same token for both L2 gas and L1 rewards requires that the token be bridged back over or else rely on a trusted signer to relay the gas. This document outlines the challenges and potential solutions for this problem.
+Using Fast Finality Settlement with the Atomic Bridge presents a challenge when the token supply is fixed. 
+
+Naively burning token on the L2 without a way to return it to either pools on the L2 or the L1 will result in a **deflationary token**, i.e., the supply decreases over time and eventually reaches 0 rendering any operations relying on gas impossible. Meanwhile, providing minting capabilities which involve the operation of fallible services can result in **either a deflationary or inflationary token** and the opportunity for **byzantine attacks**.
+
+Namely, in this context, trying to use the same token for both L2 gas and L1 rewards requires that the token be bridged back over or else rely on a trusted signer to relay the gas. This document outlines the challenges and potential solutions for this problem.
 
 Users of the Movement SDK should be informed of different approaches and trade-offs when using the Atomic Bridge and Fast Finality Settlement with a fixed token supply. This document provides desires and initial conceptual framing towards that end. 
+
+This document also seeks a response to the concerns raised in [MD-20](https://github.com/movementlabsxyz/MIP/pull/20).
 
 ## Desiderata
 
