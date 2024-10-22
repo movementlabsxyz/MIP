@@ -5,6 +5,9 @@
 
 
 ## Overview
+![Fixed Supply Rewarding Problem](./fixed-supply-rewarding-problem.png)
+
+
 Using Fast Finality Settlement with the Atomic Bridge presents a challenge when the token supply is fixed. 
 
 Naively burning token on the L2 without a way to return it to either pools on the L2 or the L1 will result in a **deflationary token**, i.e., the supply decreases over time and eventually reaches 0 rendering any operations relying on gas impossible. Meanwhile, providing minting capabilities which involve the operation of fallible services can result in **either a deflationary or inflationary token** and the opportunity for **byzantine attacks**.
