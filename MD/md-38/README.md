@@ -14,45 +14,21 @@ Naively burning token on the L2 without a way to return it to either pools on th
 
 Namely, in this context, trying to use the same token for both L2 gas and L1 rewards requires that the token be bridged back over or else rely on a trusted signer to relay the gas. This document outlines the challenges and potential solutions for this problem.
 
-Users of the Movement SDK should be informed of different approaches and trade-offs when using the Atomic Bridge and Fast Finality Settlement with a fixed token supply. This document provides desires and initial conceptual framing towards that end. 
+Users of the Movement SDK should be **informed of different approaches and trade-offs when using the Atomic Bridge and Fast Finality Settlement with a fixed token supply.** This document provides an initial conceptual framing towards that end. 
 
 This document also seeks a response to the concerns raised in [MD-20](https://github.com/movementlabsxyz/MIP/pull/20).
 
 ## Desiderata
 
-<!--
-  List out the specific desiderata. Each entry should consist of:
-
-  1. Title: A concise name for the desideratum.
-  2. User Journey: A one or two-sentence statement focusing on the "user" (could be a human, machine, software, etc.) and their interaction or experience.
-  3. Description (optional): A more detailed explanation if needed.
-  4. Justification: The reasoning behind the desideratum. Why is it necessary or desired?
-  5. Recommendations (optional): Suggestions or guidance related to the desideratum.
-
-  Format as:
-
-  ### Desideratum Title
-
-  **User Journey**: [user] can [action].
-
-  **Description**: <More detailed explanation if needed (optional)>
-
-  **Justification**: <Why this is a significant or required desideratum>
-
-  **Recommendations**: <Any specific guidance or suggestions (optional)>
-
-  TODO: Remove this comment before finalizing.
--->
-
 ### D1: Provide MIPs for Approaches Presented in Appendix A1 and Similar
 
-**User Journey**: Developers can reference MIPs for different approaches to using the Atomic Bridge and Fast Finality Settlement with a fixed token supply. Developers can also reference rejected MIPs to understand why certain approaches are not recommended.
+**User Journey**: Developers can reference MIPs for **different approaches to using the Atomic Bridge and Fast Finality Settlement with a fixed token supply.** Developers can also **reference rejected MIPs** to understand why certain approaches are not recommended.
 
 **Justification**: Developers need a clear understanding of the different approaches to using the Atomic Bridge and Fast Finality Settlement with a fixed token supply. MIPs provide a clear and standardized way to document these approaches.
 
 ### D2: Provide Staged Approaches for Networks Building on the Atomic Bridge and Fast Finality Settlement
 
-**User Journey**: Developers can reference approaches spawned from these desiderata to understand how to build networks using the Atomic Bridge and Fast Finality Settlement with a fixed token supply in stages. For example, developers can initial roll out a network using the "Free Execution" approach and then transition to the "Noble Attester" approach and so on. Some formats may be more suitable for certain stages of network development and release than others. 
+**User Journey**: Developers can reference approaches spawned from these desiderata to understand how to build networks using the Atomic Bridge and Fast Finality Settlement with a fixed token supply **in stages.** For example, developers can initial roll out a network using the **"Free Execution" approach and then transition to the "Noble Attester"** approach and so on. Some formats may be more suitable for certain stages of network development and release than others. 
 
 **Justification**: Developers need a clear understanding of how to build networks using the Atomic Bridge and Fast Finality Settlement with a fixed token supply in stages. This allows developers to roll out networks in a more controlled and manageable way.
 
@@ -61,13 +37,13 @@ This document also seeks a response to the concerns raised in [MD-20](https://gi
 
 ### D3: Provide Additional Software Necessary to Achieve Accepted Approaches in Movement SDK
 
-**User Journey**: Developers can use modules from the Movement SDK to achieve the approaches presented in Appendix A1 and similar.
+**User Journey**: Developers can use **modules from the Movement SDK** to achieve the approaches presented in Appendix A1 and similar.
 
 **Justification**: Developers need a clear understanding of how to use the Movement SDK to achieve the approaches presented in Appendix A1 and similar. This allows developers to build networks using the Atomic Bridge and Fast Finality Settlement with a fixed token supply more easily.
 
 ### D3: Provide Guides and Software for Genesis Procedures and Initial Conditions of L1 and L2 Networks Using the Atomic Bridge and Fast Finality Settlement
 
-**User Journey**: Developers can use guides and software from the Movement SDK to understand how to set up the initial conditions of L1 and L2 networks using the Atomic Bridge and Fast Finality Settlement.
+**User Journey**: Developers can use guides and software from the Movement SDK to understand how to set up the **initial conditions of L1 and L2 networks** using the Atomic Bridge and Fast Finality Settlement.
 
 **Justification**: Developers need a clear understanding of how to set up the initial conditions of L1 and L2 networks using the Atomic Bridge and Fast Finality Settlement. This allows developers to build networks using the Atomic Bridge and Fast Finality Settlement with a fixed token supply more easily. For example, one common approach will be to generate an initial supply on the L1 and run a privileged bridge and voucher swap exchange to the L2 such that overall circulation is grounded in the L1 mint.
 
