@@ -28,7 +28,7 @@ This document also seeks a response to the concerns raised in [MD-20](https://gi
 
 ### D2: Provide Staged Approaches for Networks Building on the Atomic Bridge and Fast Finality Settlement
 
-**User Journey**: Developers can reference approaches spawned from these desiderata to understand how to build networks using the Atomic Bridge and Fast Finality Settlement with a fixed token supply **in stages.** For example, developers can initial roll out a network using the **"Free Execution" approach and then transition to the "Noble Attester"** approach and so on. Some formats may be more suitable for certain stages of network development and release than others. 
+**User Journey**: Developers can reference approaches spawned from these desiderata to understand how to build networks using the Atomic Bridge and Fast Finality Settlement with a fixed token supply **in stages.** For example, developers can initially roll out a network using the **"Free Execution" approach and then transition to the "Noble Attester"** approach and so on. Some formats may be more suitable for certain stages of network development and release than others. 
 
 **Justification**: Developers need a clear understanding of how to build networks using the Atomic Bridge and Fast Finality Settlement with a fixed token supply in stages. This allows developers to roll out networks in a more controlled and manageable way.
 
