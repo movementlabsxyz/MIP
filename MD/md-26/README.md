@@ -42,7 +42,7 @@ Provide definitions that you think will empower the reader to quickly dive into 
 
 **Reference Implementation**:
 
-[`movement` repository PR 726](https://github.com/movementlabsxyz/movement/pull/726/)
+[`movement` PR 726](https://github.com/movementlabsxyz/movement/pull/726/)
 
 ## Errata
 <!--
