@@ -68,14 +68,14 @@ L2-blocks are deterministically derived from the sequencer-batch. Validators cal
 
 #### Domains - One contract to rule them all
 
-The contract is intended to handle multiple chains. We differentiate between them by their unique identifier `domain` (of type `address`).
+The contract is intended to handle multiple chains. We differentiate between the chains by their unique identifier `domain` (of type `address`).
 
 #### Epochs
 
 We require epochs in order to faciliate `staking` and `unstaking` of validators, as well as rewards and penalties. The `epochDuration` is set when initializing a chain. 
 
-There are two types of epochs
-1. The **_current epoch_** is the epoch that is currently active and it determines the current `acceptor`.
+There are two relevant epochs names
+1. The `currentEpoch` is the epoch that is currently active and it determines the current `acceptor`.
 ```solidity
 currentEpoch = getEpochByL1BlockTime();
 ```
@@ -86,16 +86,19 @@ function getEpochByL1BlockTime(address domain) public view returns (uint256) {
 }
 ```
 
-2. The **_accepting epoch_** is the epoch in which commitments are counted and postconfirmation for an L2-block-batch is created. 
+2. The `acceptingEpoch` is the epoch in which commitments are counted and postconfirmation for an L2-block-batch is created. The protocol progresses from one accepting epoch to the next via the `rollover` function. 
+
+```solidity
+
+```
 
 Note that validator L1-transactions could get lost, or validators can become inactive. Since liveness concerns should be handled, we permit for a more recent epoch to accept the L2-block-batch from an earlier epoch. 
 
 #### L2-block-batches
 
-Validators commit the hash of the L2-block-batch to the L1-contract. If an L2-block-batch is new, the L1-contract will asign the `current epoch` to the L2-block-batch hash. 
+Validators commit the hash of the L2-block-batch to the L1-contract. It commits the validator to the L2-block-batch with no option for changing their opinion. (This is intentional - validators should not be able to revert). If an L2-block-batch height is new, the L1-contract will asign the L2-block-batch height to the `current epoch`. 
 
 ```solidity
-// commits a attester to a particular block
 function submitBlockCommitmentForAttester(address attester,  BlockCommitment memory blockCommitment) internal {
   ...
   if (blockHeightEpochAssignments[blockCommitment.height] == 0) {
@@ -104,6 +107,16 @@ function submitBlockCommitmentForAttester(address attester,  BlockCommitment mem
   ...
 }
 ```
+
+Note that since any validator can commit the hash of an L2-block-batch, the height of the L2-block-batch should not be able to be set too far into the future. 
+
+
+```solidity
+if (lastAcceptedBlockHeight + leadingBlockTolerance < blockCommitment.height) revert AttesterAlreadyCommitted();
+```
+
+> [!note]
+> The validator has to also check if the current L2-block-batch height (offchain) is within the above window otherwise the comittment of the (honest) validator will be reverted.
 
 
 #### Acceptor
@@ -124,6 +137,9 @@ function getCurrentAcceptor() public view returns (address) {
   return attesters[acceptorIndex];        
 }
 ```
+
+> [!note]
+> If the acceptor does not update the contract state, for some time this is negative for the liveness of the protocol. In particular if the `acceptorTerm` is in the range for the time that is required for the `leadingBlockTolerance`.
 
 
 
