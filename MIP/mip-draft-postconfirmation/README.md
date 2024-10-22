@@ -86,10 +86,16 @@ function getEpochByL1BlockTime(address domain) public view returns (uint256) {
 }
 ```
 
-2. The `acceptingEpoch` is the epoch in which commitments are counted and postconfirmation for an L2-block-batch is created. The protocol progresses from one accepting epoch to the next via the `rollover` function. 
+2. The `acceptingEpoch` is the epoch in which commitments are counted and postconfirmation for an L2-block-batch is created. If there are no more blocks in the current epoch the protocol progresses from one accepting epoch to the next via the `rollover` function. 
+
+> [!note]
+> !!! Should we compensate for the case where validators of an epoch are not active anymore. In which case should we entertain the possibility that validators of the next epoch can take over to attest for a block from the previous epoch. In principle this may be feasible since the L2-block-batch is deterministic, we have L1 as a clock and postconfirmations do not rely on a BFT consensus.
 
 ```solidity
-
+while (getCurrentEpoch() < blockEpoch) {
+    // TODO: we should check the implication of this for the acceptor. But it also may be an issue for any attester. 
+    rollOverEpoch();
+}
 ```
 
 Note that validator L1-transactions could get lost, or validators can become inactive. Since liveness concerns should be handled, we permit for a more recent epoch to accept the L2-block-batch from an earlier epoch. 
