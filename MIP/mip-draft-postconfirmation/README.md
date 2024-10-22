@@ -1,5 +1,5 @@
-# MIP-\<number\>: Postconfirmations
-- **Description**: L1-confirmations of L2-blocks. A sub-protocol of FFS.
+# MIP-\<number\>: Postconfirmation
+- **Description**: L1-confirmation of L2-blocks. A sub-protocol of FFS.
 - **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 <!-- - **Desiderata**: [MIP-\<number\>](../MIP/mip-\<number\>) -->
 
@@ -30,12 +30,22 @@ This provides an L1-protected _postconfirmation_ that the block (or a batch of b
 
 ## New Definitions and Terms
 
-- acceptor: A validator that is selected to accept L2-block-batches.
-- L2-block-batch
+- **validator** : A participant in the FFS protocol that is responsible for attesting to the correctness of L2-block-batches.
+- **attester** (deprecated): a validator
+- **postconfirmation** : a confirmation on L1, protected by a supermajority of stake
+- **acceptor** : A validator that is selected to accept L2-block-batches.
+- **L2-block-batch** : a batch of L2-blocks that are committed to L1.
 
+#### Other
+
+- **block** (not recommended): since postconfirmations are commitments on batches of L2-blocks the term L2-block-batch is preferred. Also it gets mixed up with L1-blocks. For example, the term `block` is used in the context of `block.timestamp` which refers to the L1-block time.
 
 
 ## Motivation
+
+We require an FFS protocol that is secure and efficient, yet simple in its initial design. By simplicity we mean that the validators only communicate with the L1-contract and not with each other. This is a key design decision to reduce the complexity of the protocol. 
+
+Moreover, to facilitate predictable rewards, validators only commit. While the update of the state in the contract (the postconfirmation) is left to the role of the acceptor.
 
 <!--
   The motivation section should include a description of any nontrivial problems the MIP solves. It should not describe how the MIP solves those problems.
@@ -53,11 +63,72 @@ This provides an L1-protected _postconfirmation_ that the block (or a batch of b
   TODO: Remove this comment before finalizing
 -->
 
-Blocks are deterministically derived from the sequencer-batch. Validators attest for the next transition:  $B \xrightarrow{\ txs \ } B'$. Validators commit individually the hashes of the result of the calculated L2-block-batch directly to the L1 contract.
+L2-blocks are deterministically derived from the sequencer-batch. Validators calculate the next transition:  $B \xrightarrow{\ txs \ } B'$. After a certain number of blocks, the validators commit individually the hash of the L2-block-batch to the L1-contract. The L1-contract will verify if 2/3 of the validators have attested to the L2-block-batch height.
+
+
+#### Domains - One contract to rule them all
+
+The contract is intended to handle multiple chains. We differentiate between them by their unique identifier `domain` (of type `address`).
+
+#### Epochs
+
+We require epochs in order to faciliate `staking` and `unstaking` of validators, as well as rewards and penalties. The `epochDuration` is set when initializing a chain. 
+
+There are two types of epochs
+1. The **_current epoch_** is the epoch that is currently active and it determines the current `acceptor`.
+```solidity
+currentEpoch = getEpochByL1BlockTime();
+```
+where
+```solidity
+function getEpochByL1BlockTime(address domain) public view returns (uint256) {
+    return block.timestamp / epochDuration;
+}
+```
+
+2. The **_accepting epoch_** is the epoch in which commitments are counted and postconfirmation for an L2-block-batch is created. 
+
+Note that validator L1-transactions could get lost, or validators can become inactive. Since liveness concerns should be handled, we permit for a more recent epoch to accept the L2-block-batch from an earlier epoch. 
+
+#### L2-block-batches
+
+Validators commit the hash of the L2-block-batch to the L1-contract. If an L2-block-batch is new, the L1-contract will asign the `current epoch` to the L2-block-batch hash. 
+
+```solidity
+// commits a attester to a particular block
+function submitBlockCommitmentForAttester(address attester,  BlockCommitment memory blockCommitment) internal {
+  ...
+  if (blockHeightEpochAssignments[blockCommitment.height] == 0) {
+      blockHeightEpochAssignments[blockCommitment.height] = getEpochByL1BlockTime();
+  }
+  ...
+}
+```
+
+
+#### Acceptor
 
 Every interval `acceptorTerm` one of the validators takes on the role to accept L2-block-batches. This acceptor is selected via L1-randomness provided through L1-block hashes. This acceptor is responsible for updating the contract state once a super-majority is reached for an L2-block-batch. The acceptor is rewarded for this service.
 
-In order to guarantee liveness the protocol ensures that anyone can voluntarily provide the service of the accepter. However, no reward is being issued for this service.
+The L1-contract determines the current valid `acceptor` by considering the current L1-block time (`block.timestamp`) and randomness provided through L1-block hashes. For example,
+
+```solidity
+function getCurrentAcceptor() public view returns (address) {
+  uint256 currentL1BlockHeight = block.number;
+  // -1 because we do not want to consider the current block.
+  uint256 relevantL1BlockHeight = currentL1BlockHeight - currentL1BlockHeight % acceptorTerm - 1 ; 
+  bytes32 blockHash = blockhash(relevantL1BlockHeight);
+  address[] memory attesters = getAttesters();
+  // map the blockhash to the attesters
+  uint256 leaderIndex = uint256(blockHash) % attesters.length;
+  return attesters[acceptorIndex];        
+}
+```
+
+
+
+
+**Liveness**. In order to guarantee liveness the protocol ensures that anyone can voluntarily provide the service of the accepter. However, no reward is being issued for this service.
 
 ![Version A Diagram](postconfirmation.png)
 *Figure 1: Leader-independent block generation process in Version B.*
