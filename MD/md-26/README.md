@@ -1,6 +1,6 @@
 # MD-26: User-facing checks
 - **Description**: Automate checking user experience by submitting transactions every few minutes
-- **Authors**: [Andy Golay](mailto:liam@movementlabs.xyz)
+- **Authors**: [Andy Golay](mailto:andygolay@movementlabs.xyz)
 
 
 <!--
@@ -40,6 +40,9 @@ Provide definitions that you think will empower the reader to quickly dive into 
 
   We will need the address for this job allowlisted to use the Suzuka testnet faucet.
 
+**Reference Implementation**:
+
+[`movement` repository PR 726](https://github.com/movementlabsxyz/movement/pull/726/)
 
 ## Errata
 <!--
