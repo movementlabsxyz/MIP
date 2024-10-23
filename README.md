@@ -45,7 +45,7 @@ MG serve to capture the **definitions** of terms introduced in the MIPs and MDs.
 ## Files and numbering
 Each MIP, MD or MG is stored in a separate subdirectory with the a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a `README.md` file that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
 
-MIPs start as Drafts. MIPs obtain a number during the review process described in [Status Terms](#status-terms). The number is the highest number in the MIP directory plus one.
+MIPs start as Drafts. MIPs obtain a number during the review process described in [Status Terms](#status-terms). The number is the highest number in the MIP `overview.md` file plus 1.
 
 PRs that don't introduce a new MIP are also accepted. 
 - MIPs can be updated. PRs that update a MIP should state so in the PR title via `[Update] .... `. 
@@ -60,11 +60,6 @@ An MIP is proposed through a PR. Each MIP-introducing PR should have a status in
 An MIP should at all times have one of the following statuses:
 - **Draft** - (set by author) An MIP that is open for consideration. (It does not yet hold an MIP number)
 - **Review** - (set by author) The MIP is under peer review. The MIP should receive an **MIP number**, according to the rules described in the [Files and numbering](#files-and-numbering) section.
-
->[!Note]
-> Currently the author has to understand from the PRs what the latest MIP number is. This is suboptimal and will be fixed by a later PR. 
-
-- **Accepted** - (set by editor) An MIP that has been accepted. All technical changes requested have been addressed by the author. There may be additional non-technical changes requested by the MIP editor.
 
 >[!Note]
 > In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim. 
@@ -84,11 +79,10 @@ Finally, MIPs can also be updated
 Currently the editors are [@apenzk](https://github.com/apenzk). 
 
 The editor is responsible for the final review of the MIPs. The editor is responsible for the following:
-- Ensures a high quality of the MIPs.
+- Ensures a high quality of the MIPs, e.g. checking language while reviewing.
 - Removes content from the MIPs that is commented out. (<!- ->)
-- Ensures the MIP numbering is correct, the MIP has been added to [OVERVIEW.md](./OVERVIEW.md), the MIP is in the correct status and the authors have added themselves to [CODEOWNERS](./.github/CODEOWNERS).
+- Ensures the MIP numbering is correct, the MIP has been added to [OVERVIEW.md](./OVERVIEW.md)
+- Ensures the MIP is in the correct status. 
+- Ensures the authors have added themselves to [CODEOWNERS](./.github/CODEOWNERS).
 
-
-**Conflict resolution**: If an editor requests a change from an author that the author does not agree with and communication does not resolve the situation
-- the editor can mandate that the author implements the changes by getting 2 upvotes from reviewers on their discussion comment mentioning the changes.
-- Otherwise the author can request a merge without the change.
+The editor is not responsible for the content. 
