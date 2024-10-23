@@ -13,7 +13,7 @@ Fast-Finality Settlement (FFS) is a mechanism that allows for fast _confirmation
 - **sequencer-batch** - See [Overview](#overview)  
 - **validator** - a node that is responsible for validating transactions and confirming L2-blocks. See [Overview](#overview)  
 - **FFS** - Fast Finality Settlement. See [Overview](#overview)  
-- **MCR** - Multi-commit Rollup : an implementation of FFS. See [Overview](#overview)  
+- **MCR** - Multi-commit Rollup : an implementation of the postconfirmation in FFS. See [Overview](#overview)  
 - **L2-finality certificate** - See [Overview](#overview)
 - **L2-confirmation** - a finality guarantee related to L2. See [Overview](#overview)
 - **postconfirmation** - a finality guarantee related to L1. See [Overview](#overview)  
@@ -83,7 +83,7 @@ The term _correct_ means that the successor block $B'$ (and the state it represe
 If the validators can attest blocks quickly and make their attestations available to third-parties, we have a fast confirmation mechanism supported by crypto-econonimic security, the  level of which depends on what is at stake for the confirmation of a block.
 
 
-**Postconfirmation**. At certain intervals L2-finality certificates will also be published to L1. The L1 contract will verify the L2-finality certificate. This provides an L1-protected _postconfirmation_ that the block (or a batch of blocks) is indeed confirmed. This additional anchoring mechanism increases the security of the L2-confirmation as it locks in the L2-confirmation, reduces the risk of long range attacks and provides a way to slash validators that have attested for invalid blocks.
+**Postconfirmation**. At certain intervals confirmation will also be achieved on L1. The L1 contract will verify the satisfaction of the super-majority critera. This provides an L1-protected _postconfirmation_ that the block (or a batch of blocks, which we call _block range_) is confirmed. This additional anchoring mechanism increases the security of the L2-confirmation as it locks in the L2-confirmation, reduces the risk of long range attacks and provides a way to slash validators that have attested for invalid blocks.
 
 **Slashing**. The security of the mechanism relies on a PoS protocol. Each validator has to stake some assets, and if they are malicious they _should_ be slashed.
 The condition for slashing may be met by several quiteria, and not all slashing conditions may be used:
@@ -136,55 +136,43 @@ There may be different protocols for the postconfirmation and the L2-confirmatio
 
 A leader validator $V_l$ is elected for a certain interval. 
 
-The leader proposes the next transition (and block $B'$):  $B \xrightarrow{\ txs \ } B'$.
-They can do by sending a digest of $txs$ (Merkle root) and a digest of $B'$ (Merke root hash of $B'$), or a _change set_.
-Every other validator checks the validity of $B'$ and send their vote to $V_l$.
-Once $V_l$ has received more than 2/3 of :white_check_mark: for $B'$ they sent the votes (who voted :white_check_mark: and who voted :x:) to the L1 staking contract **and** to the DA.
+The leader proposes the next transition (block-range $B_r'$):  $B_r \xrightarrow{\ txs \ } B_r'$. The leader can do so by sending a digest of $txs$ (Merkle root) and a digest of $B_r'$ (Merkle root hash of $B_r'$), or a _change set_. The leader commits on L1 to $B_r'$. Every validator checks the validity of $B_r'$ and prepares a vote message (:white_check_mark: or :x:).
 
-From there on two separate threads of event occur:
+**Direct L1 commitments**. The vote messages of each validator are directly sent to the L1 contract. Once enough votes are available on L1, the leader initiates the postconfirmation process.
 
-- the DA layer returns an _availability certificate_ that a proof of 2/3 super-majority is available for block $B'$. This step should take O(1) second if we use a fast reliable mempool.
-- the Staking contract on L1 _will_ eventually verify the proof of of 2/3 super-majority (on Ethereum mainnet this should take in the order of 13mins).
+**Leader collects votes**. The vote messages of each validator are directly sent to the L1 contract. Once the votes reach the required threshold :white_check_mark: for $B_r'$, the leader initiates the postconfirmation process with the proof of the votes. 
+
 
 ![Version A Diagram](postconfirmationV1.png)
-*Figure 1: Leader-dependent block generation process in Version A.*
+*Figure 1: Leader-dependent L2-block generation process in Version A.*
 
-#### Version B: Leader-independent blocks
+#### Version B: Deterministic blocks
 
-A leader validator $V_l$ is elected for a certain interval. 
+Blocks are deterministically derived from the sequencer-batch, and consequently the block-range $B_r'$ is deterministic. This is in contrast to Version A, where a leader proposes the next transition.Validators then attest for the next transition directly:  $B_r \xrightarrow{\ txs \ } B_r'$. E.g. by commiting to the the hash of $B_r'$.
 
-Blocks are deterministically derived from the sequencer-batch. Validators attest for the next transition:  $B \xrightarrow{\ txs \ } B'$.
+An additional actor - the `acceptor` - is introduced that initiates the postconfirmation process. This is necessary, as this step requires additional gas costs on L1 and thus this role requires additional rewards. The `acceptor` serves for a specified period and is then replaced by another validator. 
 
-In the scenario where validators commit individually they send the block hashes of the calculated blocks directly to the L1 contract. A leader may be required to update the latest state when the super-majority is reached. A leader approval may not be necessary, however the leader takes a special role and may incur increased gas costs compared to the remainder of validators and has to be rewarded accordingly. Since the block derivation is deterministic, $f+1$ may be sufficient to confirm the block. (However, we require $2f+1$ to cover potential edge cases, such as that the sequencer cannot be trusted.)
+Note, since the block derivation is deterministic, $f+1$ may be sufficient to confirm the block. (However, we require $2f+1$ to cover potential edge cases, such as that the sequencer cannot be trusted.)
 
-In a more optimised scenario, the leader sends the super-majority proof to the L1 contract. A similar approach applies on the DA layer.
+**Direct L1 commitments**. In the scenario where validators commit individually they send the block hashes of the calculated blocks directly to the L1 contract. 
+
+**Acceptor collects commitments**. In a more optimised scenario, the acceptor sends the super-majority proof to the L1 contract. 
 
 ![Version A Diagram](postconfirmationV2.png)
-*Figure 2: Leader-independent block generation process in Version B.*
+*Figure 2: Leader-independent (deterministic) L2-block generation process in Version B.*
 
 
-#### Version C: Leader-independent blocks and L2-finality certificates
+#### Version C: Deterministic blocks and L2-finality certificates
 
-A leader validator $V_l$ is elected for a certain interval. 
+This approach extends Version B. 
 
-Blocks are deterministically derived from the sequencer-batch. Validators attest for the next transition:  $B \xrightarrow{\ txs \ } B'$.
+A p2p layer is established between validators. Validators communicate to aggregate a threshold of votes on each deterministically determined L2-block. This provides L2-confirmations in the order of seconds.
 
-
-A p2p layer is established between validators. Validators communicate to aggregate a threshold of votes on the deterministically determined block. The super-majority proof is collected by the leader who updates the L1 contract using this proof.
+Since this approach already collects commitments off-L1, the natural choice is to use Version B where the acceptor collects the commitments and sends the super-majority proof to the L1 contract. This provides postconfirmations in the order of minutes.
 
 
 ![Version A Diagram](fullDesign.png)
-*Figure 3: Leader-independent block generation process in Version C. Validators co-operate to create a L2-finality certificate before L1 is involved.*
-
-<!-- The Fast-Finality Settlement mechanism consists of the following components/mechanisms and which should be addressed separately in their own MIPs:
-
-- A set of validators that are responsible for validating transactions and producing blocks, and how they communicate with each other.
-- A mechanism for validators to create a quorum certificte for new states on L2.
-- A mechanism for validators to stake tokens as collateral.
-- A mechanism for validators to be rewarded for correct behavior and penalized for misbehavior.
-- Postconfirmations, a mechanism for a user to obtain a confirmation for a transaction that it has been attested to on L1 by a validator.
-- L2-finality, a mechanism for validators to confirm transactions after they have been included in an block AND a quorum of validators has confirmed the state that is created by that block.
-- A fast bridge that allows for the transfer of tokens between L1 and L2, and vice versa. -->
+*Figure 3: Leader-independent (deterministic) L2-block generation process in Version C. Validators co-operate to create a L2-finality certificate before L1 is involved.*
 
 ## Verification
 
@@ -239,6 +227,8 @@ There are several aspects that could be optimised and refined:
 - **signatures aggregation**: we want to avoid sending large transcations to the L1 as it increases operational costs. How to aggregate signatures to send more compact messages/trasactions?
 - **delegation/weighted stakes**: a mechanism for validators to delegate their voting power to other validators. Ability for validators to stake different amounts (and use weighted stakes super-majority).
 - **commit to a sequence of L2-blocks**. The L2-finality certificate could be per block. However, on L1 we may want to commit to a sequence of blocks. This can be done by committing to the state root of the last block in the sequence or more complicated approaches using Merkle roots. 
+- **involvement of DA layer**. Validators sent their votes or commitments to a DA layer off-L1. This ensures that votes remain available and can be used for potential slashing. This step should take O(1) second if we use a fast reliable mempool.
+
 
 <!-- 
 4. **Validation Procedures**:
