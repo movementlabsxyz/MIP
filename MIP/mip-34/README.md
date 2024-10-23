@@ -10,7 +10,8 @@ Fast-Finality Settlement (FFS) is a mechanism that allows for fast _confirmation
 ## Definitions
 
 - **L2-block** - See [Overview](#overview)
-- **sequencer-batch** - See [Overview](#overview)  
+- **sequencer-batch** - See [Overview](#overview)
+- **block-range** - a sequence of blocks that are confirmed together. See [Overview](#overview)  
 - **validator** - a node that is responsible for validating transactions and confirming L2-blocks. See [Overview](#overview)  
 - **FFS** - Fast Finality Settlement. See [Overview](#overview)  
 - **MCR** - Multi-commit Rollup : an implementation of the postconfirmation in FFS. See [Overview](#overview)  
@@ -60,16 +61,15 @@ At an abstract level, the L2-blockchain increases by a new block in each (L2) ro
 
 **L2-Block**. For the vast majority of cases we mean L2-blocks, thus we will ommit the "L2-" prefix, i.e. by _block_ we mean L2-block. A node with execution capability is in charge of validating the transactions in a sequencer-batch and calculate the new state. Since the sequencer-batches are provided by the sequencer, the new state and the state roots for a block are deterministic. For a sequencer-batch $b$ the state is $S_b$ and the state root is $H(S_b)$. From the sequencer-batch $b$ and the state $S_b$ the block $B$ is computed (which contains the information of the sequencer-batch and the state root). 
 
+**Block-range**. L2-Blocks can be constructed and confirmed on L2 at a higher rate than is feasible for L1. We group L2-blocks into a _block-range_ that is confirmed together. 
+
 **Local validation**. Since a block is deterministically calculated we say a block (and the associated new state) is _validated locally_ once the execution engine calculates it from the sequencer-batch. 
 
-**L2-confirmation**. FFS aims to _confirm_ the validity of each produced block, at every block. The validity judgement to be made is: 
+The validity judgement to be made is: 
 > [!NOTE]
 > Given a block $B$ (predecessor), a sequencer-batch of transactions $txs$ and a successor block $B'$, is $B'$ the^[the MoveVM is deterministic and there can be only valid successor.] _correct_ successor of $B$ after executing the sequence of transactions $txs$?
 
 The term _correct_ means that the successor block $B'$ (and the state it represents) has been computed in accordance with the semantics of the MoveVM, which we denote  $B \xrightarrow{\ txs \ } B'$.
-
-> [!IMPORTANT]
-> If we confirm each successor block before adding it to the (confirmed) L2-chain, there cannot be any fork, except if the sequencer would provide equivocating sequencer-batches for a given height AND there is a sufficiently strong Byzantine attack on the confirmation process.
 
 **Validator**. To guarantee the validity of a new block $B'$, we use a set of _validators_ who are in charge of verifying the transition $B \xrightarrow{\ txs \ } B'$.
 
@@ -79,6 +79,10 @@ The term _correct_ means that the successor block $B'$ (and the state it represe
 
 > [!NOTE]
 > Until a better definition arises we consider _**confirmation**_ to be defined as _L2-finality_ (i.e. _L2-confirmation_).
+
+**L2-confirmation**. FFS aims to _confirm_ the validity of each produced L2-block, at every L2-block height. 
+> [!IMPORTANT]
+> If we confirm each successor block before adding it to the (confirmed) L2-chain, there cannot be any fork, except if the sequencer would provide equivocating sequencer-batches for a given height AND there is a sufficiently strong Byzantine attack on the confirmation process.
 
 If the validators can attest blocks quickly and make their attestations available to third-parties, we have a fast confirmation mechanism supported by crypto-econonimic security, the  level of which depends on what is at stake for the confirmation of a block.
 
