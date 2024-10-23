@@ -69,7 +69,7 @@ After acceptance the MIP is merged into `main` and the branch should be deleted.
 
 Addtionally, the following statuses are used for MIPs that are not actively being worked on:
 - **Stagnant** - an MIP that has not been updated for 6 months.
-- **Withdrawn** - an MIP that has not been updated for 6 months.
+- **Withdrawn** - an MIP that has not been withdrawn.
 
 
 Finally, MIPs can also be updated
@@ -77,6 +77,8 @@ Finally, MIPs can also be updated
 
 
 ## Editor
+
+The motivation for the role of the editor is to ensure the readability and easy access of content, until further means, such as automatic rendering becomes available.
 
 Currently the editors are [@apenzk](https://github.com/apenzk). 
 
