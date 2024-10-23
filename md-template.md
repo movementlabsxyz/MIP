@@ -9,6 +9,8 @@
 
   The title should be 44 characters or less. It should not repeat the MD number in title.
 
+  The author should add himself as a code owner in the `.github/CODEOWNERS` file for the MD.
+
   TODO: Remove this comment before finalizing.
 -->
 
