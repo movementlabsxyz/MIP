@@ -34,7 +34,6 @@ The term attester has been deprecated in favor of validator.
 The term quorum certificate has been deprecated in favor of L2-finality certificate.
 
 
-
 ## Motivation
 
 Layer 2s (L2), including rollups, publish or secure transaction data in a data availability (DA) layer or at Ethereum mainnet (Layer 1, L1). Validity and optimistic rollups can finalize (confirm) transactions within approximately 30 minutes, resp. ~1 week. Until a transaction is finalized, there is no assurance about its validity and result (success or failure). This can be a limiting factor for certain types of DeFi applications.
