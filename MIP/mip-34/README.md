@@ -3,9 +3,11 @@
 - **Description**: Establish the scope and components that are part of the Fast-Finality Settlement mechanism.
 - **Authors**: [Franck Cassez](), [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 
+
 ## Abstract
 
 Fast-Finality Settlement (FFS) is a mechanism that allows for fast _confirmation_ of transactions backed by crypto-economic security. This MIP outlines the high-level specifications and architecture of FFS.
+
 
 ## Definitions
 
