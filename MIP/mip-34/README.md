@@ -138,9 +138,7 @@ There may be different protocols for the postconfirmation and the L2-confirmatio
 
 #### Version A: Leader-dependent blocks
 
-A leader validator $V_l$ is elected for a certain interval. 
-
-The leader proposes the next transition (block-range $B_r'$):  $B_r \xrightarrow{\ txs \ } B_r'$. The leader can do so by sending a digest of $txs$ (Merkle root) and a digest of $B_r'$ (Merkle root hash of $B_r'$), or a _change set_. The leader commits on L1 to $B_r'$. Every validator checks the validity of $B_r'$ and prepares a vote message (:white_check_mark: or :x:).
+A leader validator is elected for a certain interval. The leader proposes the next transition (block-range $B_r'$):  $B_r \xrightarrow{\ txs \ } B_r'$. The leader can do so by sending a digest of $txs$ (Merkle root) and a digest of $B_r'$ (Merkle root hash of $B_r'$), or a _change set_. The leader commits on L1 to $B_r'$. Every validator checks the validity of $B_r'$ and prepares a vote message (:white_check_mark: or :x:).
 
 **Direct L1 commitments**. The vote messages of each validator are directly sent to the L1 contract. Once enough votes are available on L1, the leader initiates the postconfirmation process.
 
@@ -156,7 +154,8 @@ Blocks are deterministically derived from the sequencer-batch, and consequently 
 
 An additional actor - the `acceptor` - is introduced that initiates the postconfirmation process. This is necessary, as this step requires additional gas costs on L1 and thus this role requires additional rewards. The `acceptor` serves for a specified period and is then replaced by another validator. 
 
-Note, since the block derivation is deterministic, $f+1$ may be sufficient to confirm the block. (However, we require $2f+1$ to cover potential edge cases, such as that the sequencer cannot be trusted.)
+> [!NOTE]
+> Since the block derivation is deterministic, $f+1$ may be sufficient to confirm the block. (However, we require $2f+1$ to cover potential edge cases, such as that the sequencer cannot be trusted.)
 
 **Direct L1 commitments**. In the scenario where validators commit individually they send the block hashes of the calculated blocks directly to the L1 contract. 
 
@@ -180,30 +179,28 @@ Since this approach already collects commitments off-L1, the natural choice is t
 
 ## Verification
 
-### Correctness
+### Correctness and Security
+
+A more detailed discussion on the correctness and security is discussed in [this blog post on Fast-Finality Settlement](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement).
+
+The level of security depends on the total stake of the L2 validators. The higher the more secure.
 
 The correctness of the mechanism relies on a few trust assumptions.
 
-First we assume that at most $f$ of the total $n$ (L2) validators can be malicious.
-This implies that if more than $2f +1$ attest :white_check_mark: for a new block, at least $f + 1$ honest validators have attested :white_check_mark:, so at least one honest validator has :white_check_mark: $B'$ and $B'$ is valid.
+**Byzantine assumption**. 
+We assume that at most $f$ of the total $n=3f+1$ (L2) validators can be malicious.
+This implies that if more than $2f +1$ attest :white_check_mark: for a new block, at least $f + 1$ honest validators have attested :white_check_mark:, so at least one honest validator has :white_check_mark: $B'$ and $B'$ is valid. Thus, we request that >$\frac{2}{3}n$ (super-majority)  validators have :white_check_mark: $B'$ to validate $B'$.
 
-It is common to have $f < \frac{1}{3}n$ and in this case we request that >$\frac{2}{3}n$ (super-majority)  validators have :white_check_mark: $B'$ to validate $B'$.
-
-**Postconfirmations**. Second, we assume that the staking contract that validates the proof of super-majority is correct (there are no bugs in the implementation of the contract). As a result, when the staking contract verification step is confirmed on L1 (L1-finality), the super-majority proof is verified.
+**Postconfirmations**. We assume that the contract that validates the proof of super-majority is correct (there are no bugs in the implementation of the contract). As a result, when the staking contract verification step is confirmed on L1 (L1-finality), the super-majority proof verification is L1-secure.
 
 Combining the two results above we have: confirmation (L1 contract) that >2/3 of validators have attested :white_check_mark: and if >2/3 have attested :white_check_mark: then $B'$ is valid. So overall, if the >2/3 super-majority is verified by the staking contract, $B'$ is valid.
 
-**L2-confirmation** Third, in the above design, verification and inclusion happens in the order of seconds. However, it takes up to 13 minutes to verify the super-majority proof on Ethereum. The L2 validators also publish the proofs to a DA layer and once the proof is available it cannot be tampered with. Thus, we can provide some guarantees about L2-finality when the availability certificate (of the L2-finality certificate) is delivered, and before the actual proof is verified on L1. If validators misbehave, they _will_ be slashed on L1, which provides strong incentives for validators not to act malicious.
+**L2-confirmation** The L2 validators also publish the proofs to a DA layer and once the proof is available it cannot be tampered with. Thus, we can provide some guarantees about L2-finality when the availability certificate (of the L2-finality certificate) is delivered, and before the actual proof is verified on L1. If validators misbehave, they _will_ be slashed on L1, which provides strong incentives for validators not to act malicious.
 
 This is conditional to:
 
 - ensuring that the validators send the same proof to the L1 staking contract and to the DA.
 - validators cannot exit too early (not before the proof they are committeed to are confirmed on L1).
-
-### Security
-
-The security of this approach is discussed in [this blog post on Fast-Finality Settlement](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement).
-The level of security depends on the total stake of the L2 validators. The higher the more secure.
 
 ### Performance
 
