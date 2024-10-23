@@ -83,7 +83,7 @@ Finally, MIPs can also be updated
 
 ## Editor
 
-Currently the editors are [@apenzk](https://github.com/apenzk). Volunteers are welcome.
+Currently the editors are [@apenzk](https://github.com/apenzk). 
 
 The editor is responsible for the final review of the MIPs. The editor is responsible for the following:
 - Ensures a high quality of the MIPs.
