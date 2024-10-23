@@ -12,6 +12,9 @@ Less clean, but more common term for sequencer-batch. May be mixed up with the b
 **block**  
 More common term for L2-block. May be mixed up with the batch of transactions sent to the sequencer, the L1-block or with the batch of L2-blocks that should be processed by the L1-contract. So treat with care. > **MG-34**
 
+**block-range**
+A range of blocks that are processed by the FFS postconfirmation protocol. > **MG-34**
+
 **FFS**  
 The objective of the FFS protocol is to confirm that transactions are processed correctly and back this confirmation through crypto-economic security. It does not relate to the ordering of transactions. > **MG-34**
 
