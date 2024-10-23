@@ -63,11 +63,6 @@ An MIP should at all times have one of the following statuses:
 - **Review** - (set by author) The MIP is under peer review. The MIP should receive an **MIP number**, according to the rules described in the [Files and numbering](#files-and-numbering) section.
 
 >[!Note]
-> Currently the author has to understand from the PRs what the latest MIP number is. This is suboptimal and will be fixed by a later PR. 
-
-- **Accepted** - (set by editor) An MIP that has been accepted. All technical changes requested have been addressed by the author. There may be additional non-technical changes requested by the MIP editor.
-
->[!Note]
 > In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim. 
 
 After acceptance the MIP is merged into `main` and the branch should be deleted.
@@ -86,10 +81,13 @@ Finally, MIPs can also be updated
 Currently the editors are [@apenzk](https://github.com/apenzk). 
 
 The editor is responsible for the final review of the MIPs. The editor is responsible for the following:
-- Ensures a high quality of the MIPs.
+- Ensures a high quality of the MIPs, e.g. checking language while reviewing.
 - Removes content from the MIPs that is commented out. (<!- ->)
-- Ensures the MIP numbering is correct, the MIP has been added to [OVERVIEW.md](./OVERVIEW.md), the MIP is in the correct status and the authors have added themselves to [CODEOWNERS](./.github/CODEOWNERS).
+- Ensures the MIP numbering is correct, the MIP has been added to [OVERVIEW.md](./OVERVIEW.md)
+- Ensures the MIP is in the correct status. 
+- Ensures the authors have added themselves to [CODEOWNERS](./.github/CODEOWNERS).
 
+The editor is not responsible for the content.
 
 **Conflict resolution**: If an editor requests a change from an author that the author does not agree with and communication does not resolve the situation
 - the editor can mandate that the author implements the changes by getting 2 upvotes from reviewers on their discussion comment mentioning the changes.
@@ -100,3 +98,4 @@ The editor is responsible for the final review of the MIPs. The editor is respon
 An author commits to becoming the owner of the MIP or MD they propose. This means that for any future changes to the MIP or MD the author will be notified. 
 
 This is being implemented by adding the author as a code owner in the `.github/CODEOWNERS` file for a given MIP or MD.
+
