@@ -45,7 +45,7 @@ MG serve to capture the **definitions** of terms introduced in the MIPs and MDs.
 ## Files and numbering
 Each MIP, MD or MG is stored in a separate subdirectory with the a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a `README.md` file that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
 
-MIPs start as Drafts. MIPs obtain a number during the review process. The number is the highest number in the MIP and MD `overview.md` file plus 1.
+MIPs start as Drafts. MIPs obtain a number during the review process. The number is the highest number in the MIP and MD `overview.md` file plus 1. The editor can be requested for support on this.
 
 PRs that don't introduce a new MIP are also accepted. 
 - MIPs can be updated. PRs that update a MIP should state so in the PR title via `[Update] .... `. 
@@ -68,13 +68,15 @@ After acceptance the MIP is merged into `main` and the branch should be deleted.
 
 Addtionally, the following statuses are used for MIPs that are not actively being worked on:
 - **Stagnant** - an MIP that has not been updated for 6 months.
-- **Withdrawn** - an MIP that has not been updated for 6 months.
+- **Withdrawn** - an MIP that has not been withdrawn.
 
 Finally, MIPs can also be updated
 - **Update** - (set by author) An MIP is being updated. The titel should list the MIP number, e.g. `[Update] MIP-0 ...`.
 
 
 ## Editor
+
+The motivation for the role of the editor is to ensure the readability and easy access of content, until further means, such as automatic rendering becomes available.
 
 Currently the editors are [@apenzk](https://github.com/apenzk). 
 
