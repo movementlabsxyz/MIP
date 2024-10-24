@@ -3,9 +3,10 @@
 
 We differentiate between MD and MIPs. 
 
+An overview of the MIPs and MDs can be found in the [OVERVIEW](https://github.com/movementlabsxyz/MIP/wiki/Overview).
+
 In addition MG serves as a glossary for terms defined in the MIPs and MDs.
 
-An overview of the MIPs and MDs can be found in the [OVERVIEW.md](./OVERVIEW.md) file.
 
 ## Movement Desiderata (MD) 
 
@@ -47,6 +48,7 @@ MG serve to capture the **definitions** of terms introduced in the MIPs and MDs.
 ## Files and numbering
 Each MIP, MD or MG is stored in a separate subdirectory with the a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a README.md file that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
 
-An MIP number will be assigned by an editor. When opening a pull request to submit your MIP/D, please use an abbreviated title in the folder name, e.g. `mip-draft-title_abbrev`. The branch of the pull request should be "mip/title" and the pull request description should be "[draft] <MIP title>".
+MIPs, MDs and MGs are assigned their PR number as soon as they are drafted. MDs that do not introduce a new MIP are also accepted. Thus, there will be gaps in the MIP number sequence. These gaps will also emerge when MIPs are deprecated or rejected.
 
-Update the `OVERVIEW.md` file with the MIP/MD number and title.
+> [!NOTE]
+> Update the [OVERVIEW](https://github.com/movementlabsxyz/MIP/wiki/Overview) file with the MIP/MD number, title and other requirements.
