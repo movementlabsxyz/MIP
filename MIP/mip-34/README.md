@@ -11,20 +11,9 @@ Fast-Finality Settlement (FFS) is a mechanism that allows for fast _confirmation
 
 ## Definitions
 
-- **L2-block** - See [Overview](#overview)
-- **sequencer-batch** - See [Overview](#overview)
-- **block-range** - a sequence of blocks that are confirmed together. See [Overview](#overview)  
-- **validator** - a node that is responsible for validating transactions and confirming L2-blocks. See [Overview](#overview)  
-- **FFS** - Fast Finality Settlement. See [Overview](#overview)  
-- **MCR** - Multi-commit Rollup : an implementation of the postconfirmation in FFS. See [Overview](#overview)  
-- **L2-finality certificate** - See [Overview](#overview)
-- **L2-confirmation** - a finality guarantee related to L2. See [Overview](#overview)
-- **postconfirmation** - a finality guarantee related to L1. See [Overview](#overview)  
-- **L1-finality** - finality mechanism for layer 1. 
-- **L2-finality** -  finality mechanism (confirmation) for layer 2.
-- **PoS** - Proof of Stake
 
-In addition we make the note for the following terms:
+
+We make a note for the following terms:
 
 - **batch** (not recommended)
 Less clean, but more common term for sequencer-batch. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of blocks that should be processed by the L1-contract. 
@@ -40,7 +29,7 @@ The term quorum certificate has been deprecated in favor of L2-finality certific
 
 Layer 2s (L2), including rollups, publish or secure transaction data in a data availability (DA) layer or at Ethereum mainnet (Layer 1, L1). Validity and optimistic rollups can finalize (confirm) transactions within approximately 30 minutes, resp. ~1 week. Until a transaction is finalized, there is no assurance about its validity and result (success or failure). This can be a limiting factor for certain types of DeFi applications.
 
-Our objective is to enable transaction issuers to quickly get some guarantees that their transactions are correctly included in a block. The crypto-economic security is provided by a PoS protocol.
+Our objective is to enable transaction issuers to quickly get some guarantees that their transactions are correctly included in a block. The crypto-economic security is provided by a Proof-of-Stake (PoS) protocol.
 
 The mechanism can be deployed independently for a chain, or used in combination with existing settlement mechanisms, such as ZK and optimistic settlements.
 
@@ -54,7 +43,8 @@ This MIP provides an overview of an architecture of FFS, and its main components
 
 ### Overview
 
-The objective of FFS is to confirm that transactions are processed correctly. It does not relate to the ordering of transactions.
+
+**FFS**. The objective of Fast Finality Settlement (FFS) is to confirm that transactions are _processed_ correctly and that the node has *read* the transactions in the correct order. It does not impact the already established order of transactions by the sequencer.
 
 At an abstract level, the L2-blockchain increases by a new block in each (L2) round, and this block is the successor of the block in the previous round, the _predecessor_. Initially, there is a _genesis_ block with no predecessor.
 
@@ -72,9 +62,9 @@ The validity judgement to be made is:
 
 The term _correct_ means that the successor block $B'$ (and the state it represents) has been computed in accordance with the semantics of the MoveVM, which we denote  $B \xrightarrow{\ txs \ } B'$.
 
-**Validator**. To guarantee the validity of a new block $B'$, we use a set of _validators_ who are in charge of verifying the transition $B \xrightarrow{\ txs \ } B'$.
+**Validator**. A node that is responsible for validating transactions and confirming L2-blocks. To guarantee the validity of a new block $B'$, we use a set of _validators_ who are in charge of verifying the transition $B \xrightarrow{\ txs \ } B'$.
 
-**Attestation**. A validator _attests_ for a new block $B'$. This can be done, for example, by casting a vote :white_check_mark: or :x: for a proposal by a leader validator. Or by each validator sending the hash of the block they have validated.
+**Attestation**. A validator _attests_ for a new block $B'$. This can be done, for example, by casting a vote :white_check_mark: (true) or :x: (false) for a proposal by a leader validator. Or by each validator sending the hash of the block they have validated.
 
 **L2-finality certificate**. When enough validators have attested for a new block $B'$, the block is _L2-final_ (i.e. _L2-confirmed_). The accumulation of enough votes is aggregated in an L2-finality certificate. A naive implementation of the L2-finality certificate is a list of votes.
 
@@ -98,7 +88,7 @@ The condition for slashing may be met by several quiteria, and not all slashing 
 
 ### Main challenges
 
-To achieve crypto-economically secured Fast-Finality, we need to solve the following problems:
+To achieve crypto-economically secured fast finality, we need to solve the following problems:
 
 1. design a _staking_ mechanism for the validators to stake assets, distribute rewards and manage slashing
 1. _define and verify_ the threshold (e.g. 2/3 of validators attest :white_check_mark:) for L2-finality
@@ -182,7 +172,7 @@ Since this approach already collects commitments off-L1, the natural choice is t
 
 ### Correctness and Security
 
-A more detailed discussion on the correctness and security is discussed in [this blog post on Fast-Finality Settlement](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement).
+A more detailed discussion on the correctness and security is discussed in [this blog post on FFS](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement).
 
 The level of security depends on the total stake of the L2 validators. The higher the more secure.
 
