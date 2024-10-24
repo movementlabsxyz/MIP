@@ -43,6 +43,48 @@ MG serve to capture the **definitions** of terms introduced in the MIPs and MDs.
 
 
 ## Files and numbering
-Each MIP, MD or MG is stored in a separate subdirectory with the a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a README.md file that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
+Each MIP, MD or MG is stored in a separate subdirectory with the a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a `README.md` file that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
 
-MIPs, MDs and MGs are assigned their PR number as soon as they are drafted. MDs that do not introduce a new MIP are also accepted. Thus, there will be gaps in the MIP number sequence. These gaps will also emerge when MIPs are deprecated or rejected.
+MIP/MG start as Drafts. They do not need to aquire a number at this point. 
+
+MIPs, MDs and MGs are assigned their PR number as soon as they are in the review process. MDs that do not introduce a new MIP are also accepted. Thus, there will be gaps in the MIP number sequence. These gaps will also emerge when MIPs are deprecated or rejected.
+
+
+## Status Terms
+An MIP is proposed through a PR. Each MIP-introducing PR should have a status in the name in the form `[Status] ...`.
+
+An MIP/MG should at all times have one of the following statuses:
+- **Draft** - (set by author) An MIP/MG that is open for consideration. (It does not yet hold an MIP/MG number)
+- **Review** - (set by author) The MIP/MG is under peer review. The MIP should receive an **MIP number**, according to the rules described in the [Files and numbering](#files-and-numbering) section. At this point the editor should be involved to ensure the MIP adheres to the guidelines.
+
+>[!Note]
+> In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim. 
+
+After acceptance the MIP is merged into `main` and the branch should be deleted.
+
+Addtionally, the following statuses are used for MIPs that are not actively being worked on:
+- **Stagnant** - an MIP that has not been updated for 6 months.
+- **Withdrawn** - an MIP that has not been withdrawn.
+
+Finally, MIPs can also be updated
+- **Update** - (set by author) An MIP is being updated. The titel should list the MIP number, e.g. `[Update] MIP-0 ...`.
+
+
+## Editor
+
+The motivation for the role of the editor is to ensure the readability and easy access of content, until further means, such as automatic rendering becomes available.
+
+Currently the editors are [@apenzk](https://github.com/apenzk). 
+
+The editor is responsible for the final review of the MIPs. The editor is responsible for the following:
+- Ensures a high quality of the MIPs, e.g. checking language while reviewing.
+- Removes content from the MIPs that is commented out. (<!- ->)
+- Ensures the MIP numbering is correct, the MIP has been added to [OVERVIEW.md](./OVERVIEW.md)
+- Ensures the MIP is in the correct status. 
+- Ensures the authors have added themselves to [CODEOWNERS](./.github/CODEOWNERS).
+
+The editor is not responsible for the content. 
+
+**Conflict resolution**: In the unlikely case, where an editor requests a change from an author that the author does not agree with and communication does not resolve the situation
+- the editor can mandate that the author implements the changes by getting 2 upvotes from reviewers on their discussion comment mentioning the changes.
+- Otherwise the author can merge without the editor requested change.
