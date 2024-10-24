@@ -4,16 +4,6 @@
 - **Desiderata**: [MD-0](../MD/md-0)
 
 
-<!--
-  This template is for drafting MIPs. 
-
-  An MIP number will be assigned by an editor. When opening a pull request to submit your MIP, please use an abbreviated title in the folder name, `mip-draft-title_abbrev`. The branch of the pull request should be "mip/title" and the pull request description should be "[draft] <MIP title>".
-
-  Update the OVERVIEW.md file with the MIP number and title.
-
-  TODO: Remove this comment before finalizing.
--->
-
 ## Abstract
 
 Movement Improvement Proposals (MIPs) serve as a mechanism to propose, discuss, and adopt changes or enhancements to Movement technologies. By providing a standardized and formalized structure for these proposals, MIPs ensure that proposed improvements are well-defined, transparent, and accessible to the wider community.
