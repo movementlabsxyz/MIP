@@ -46,21 +46,20 @@ MG serve to capture the **definitions** of terms introduced in the MIPs and MDs.
 
 Each MIP, MD or MG is stored in a separate subdirectory with the a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a `README.md` that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
 
-MIPs start as Drafts. MIPs obtain a number during the review process described in [Status Terms](#status-terms).  
+MIP/MG start as Drafts. They do not need to acquire a number at this point. 
+
+MIPs, MDs and MGs are assigned their PR number as soon as they are in the review process. MDs that do not introduce a new MIP are also accepted. Thus, there will be gaps in the MIP number sequence. These gaps will also emerge when MIPs are deprecated or rejected.
 
 PRs that don't introduce a new MIP are also accepted. 
 
-- MIPs can be updated. PRs that update a MIP should state so in the PR title via `[Update] .... `. 
-
-There may be gaps in the numbering, as MIPs get rejected and removed.
-
+MIPs can be updated. PRs that update a MIP should state so in the PR title via `[Update] .... `. 
 
 ## Status Terms
 An MIP is proposed through a PR. Each MIP-introducing PR should have a status in the name in the form `[Status] ...`.
 
-An MIP should at all times have one of the following statuses:
-- **Draft** - (set by author) An MIP that is open for consideration. (It does not yet hold an MIP number)
-- **Review** - (set by author) The MIP is under peer review. The MIP should receive an **MIP number**, according to the rules described in the [Files and numbering](#files-and-numbering) section.
+An MIP/MG should at all times have one of the following statuses:
+- **Draft** - (set by author) An MIP/MG that is open for consideration. (It does not yet hold an MIP/MG number)
+- **Review** - (set by author) The MIP/MG is under peer review. The MIP should receive an **MIP number**, according to the rules described in the [Files and numbering](#files-and-numbering) section. At this point the editor should be involved to ensure the MIP adheres to the guidelines.
 
 >[!Note]
 > In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim. 
@@ -93,11 +92,10 @@ The editor is not responsible for the content.
 
 **Conflict resolution**: In the unlikely case, where an editor requests a change from an author that the author does not agree with and communication does not resolve the situation
 - the editor can mandate that the author implements the changes by getting 2 upvotes from reviewers on their discussion comment mentioning the changes.
-- Otherwise the author can request a merge without the change.
+- Otherwise the author can merge without the editor requested change.
 
 
 ## Code owners
 An author commits to becoming the owner of the MIP or MD they propose. This means that for any future changes to the MIP or MD the author will be notified. 
 
 This is being implemented by adding the author as a code owner in the `.github/CODEOWNERS` file for a given MIP or MD.
-
