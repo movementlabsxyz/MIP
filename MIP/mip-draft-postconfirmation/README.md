@@ -139,7 +139,7 @@ function getCurrentAcceptor() public view returns (address) {
   bytes32 blockHash = blockhash(relevantL1BlockHeight);
   address[] memory attesters = getAttesters();
   // map the blockhash to the attesters
-  uint256 leaderIndex = uint256(blockHash) % attesters.length;
+  uint256 acceptorIndex = uint256(blockHash) % attesters.length;
   return attesters[acceptorIndex];        
 }
 ```
@@ -153,7 +153,7 @@ function getCurrentAcceptor() public view returns (address) {
 **Liveness**. In order to guarantee liveness the protocol ensures that anyone can voluntarily provide the service of the accepter. However, no reward is being issued for this service.
 
 ![Version A Diagram](postconfirmation.png)
-*Figure 1: Leader-independent block generation process in Version B.*
+*Figure 1: Leader-independent (deterministic) block generation process.*
 
 
 
