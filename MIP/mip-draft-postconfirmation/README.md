@@ -122,7 +122,7 @@ if (lastAcceptedBlockHeight + leadingBlockTolerance < blockCommitment.height) re
 ```
 
 > [!note]
-> The validator has to also check if the current block-range height (offchain) is within the above window otherwise the comittment of the (honest) validator will be reverted.
+> The validator has to also check if the current block-range height (offchain) is within the above window otherwise the comittment of the (honest) validator will be not added to the L1 contract.
 
 
 #### Acceptor
@@ -145,7 +145,7 @@ function getCurrentAcceptor() public view returns (address) {
 ```
 
 > [!note]
-> If the acceptor does not update the contract state, for some time this is negative for the liveness of the protocol. In particular if the `acceptorTerm` is in the range for the time that is required for the `leadingBlockTolerance`.
+> If the acceptor does not update the contract state for some time, this is negative for the liveness of the protocol. In particular if the `acceptorTerm` is in the range for the time that is required for the `leadingBlockTolerance`.
 
 
 
