@@ -2,7 +2,7 @@
 - **Description**: Introduces architectural guide for AB-FFS Decoupled. 
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
-- **Desiderata**: [MD-n](../MD/md-n/README.md)
+- **Desiderata**: [MD-38](https://github.com/movementlabsxyz/MIP/pull/38)
 
 ## Abstract
 
@@ -10,7 +10,7 @@ This MIP introduces the architectural guide for implementing AB-FFS Decoupled, a
 
 We also propose the usage of intermediary tokens for bridging to fully decouple the L1 and L2 systems. This allows for the L2 pool to be recirculated without the need for a direct bridge to the L1 and exposure to fallibility of the bridge on either side. 
 
-Without the usage of intermediary tokens, we refer to this systems as AB-FFS Partially Decoupled, for which we do not intend a separate MIP. 
+Without the usage of intermediary tokens, we refer to this system as AB-FFS Partially Decoupled, for which we do not intend a separate MIP. 
 
 ## Motivation
 
@@ -26,12 +26,18 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ![AB-FFS Decoupled](./ab-ffs-decoupled.png)
 
-### Key Components
-1. The L1 Staking token MUST be a unique token issued in a fixed supply.
-2. The L2 staking token MUST be a unique token issued in a fixed supply.
+An AB-FFS Decoupled system is defined by the following requirements:
+
+1. The L1 staking token MUST be a unique token issued in a fixed supply.
+2. The L2 gas token MUST be a unique token issued in a fixed supply.
 3. Rewards issued via FFS MUST NOT be issued in the L1 staking token, but instead in an LP token on the L1.
-4. The LP token SHALL make a best effort to have a value redeemable in the L1 staking token.
-5. The L2 staking token MUST be burned on the L2 to deposit gas into an L2 pool.
+4. The LP Token SHALL make a best effort to have a value redeemable in the L1 staking token.
+5. The LP Token MAY not need to maintain a supply or value correlated with the L1 staking token or the L2 gas token. 
+6. The L2 staking token MUST be burned on the L2 to deposit gas into an L2 pool.
+
+If the LP Token supply is not fixed, the AB-FFS solution implemented is referred to as AB-FFS Decoupled Demurrage. [MIP-n](todo) provides a more complete specification for AB-FFS Decoupled Demurrage. 
+
+Otherwise, the AB-FFS solution implemented implemented is referred to as AB-FFS Decoupled Grant. [MIP-n](todo) provides a more complete specification for AB-FFS Decoupled Grant.
 
 ### L1 LP Token
 1. The L1 LP Token MUST NOT enshrine any special capabilities to mint or otherwise unlock the L1 staking token. That is, the L1 LP token must be independent of the L1 staking token and only effectively be used to purchase the L1 staking token.
@@ -58,13 +64,15 @@ A more complete proposal for the usage of intermediary tokens is provided in [MI
 2. **Genesis Bridge Transfer**: mint the L1 staking or L2 gas token in a fixed supply and transfer the other token from the L1 to the L2 s.t. a successful bridge transfer occurs before the system is operational.
 
 ### On the Nature of the Tokens
-Fundamentally, the L1 and L2 staking tokens in an AB-FFS Decoupled system are independent, i.e., not constituting a representation of the same token redeemable on different chains. The comprise two closed token systems where assets cannot be lost or gained.
+Fundamentally, the L1 staking and L2 gas token in an AB-FFS Decoupled system are independent, i.e., not constituting a representation of the same token redeemable on different chains. The comprise two closed token systems where assets cannot be lost or gained.
 
 The usage of AB-FFS Decoupled is then suitable for systems wherein the governing body wishes to prioritize the security of the total supply of the staking tokens. To the extent the governing body wishes for the economics of the L1 staking token and L2 gas token to remain correlated, the governing body shall make efforts to peg the value of the L1 LP token to the L1 staking token.
 
-## Reference Implementation
-See the MG document type template at [mg-template](../../md-template.md) and the example MG at [mg-0](../../MG/mg-0/README.md).
+In the case that AB-FFS Decoupled Grant is implemented, FFS shall require a new token generation event at some point determined by the size of the grant. Thus, FFS has a lifespan w.r.t. to the L1 staking token. This lifespan is further detailed in [MIP-n](todo).
 
+In the case that AB-FFS Decoupled Demurrage is implemented, the value of L1 LP Token shall tend to zero over time. This may also be remedies by new token generation events. This phenomenon is further detailed in [MIP-n](todo).
+
+## Reference Implementation
 
 ## Verification
 
