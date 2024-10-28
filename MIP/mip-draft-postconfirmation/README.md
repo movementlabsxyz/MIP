@@ -18,7 +18,7 @@
 
 ## Abstract
 
-At certain intervals validators commit block-rangees to L1. The L1 contract will verify if 2/3 of the validators have attested to the block-range height and on the default path this is initiated by a special role - the acceptor. 
+At certain intervals validators commit a sequence of blocks (called _block-range_) to L1. The L1 contract will verify if 2/3 of the validators have attested to a given block-range height. For a given block-range height the acceptor will initiate the process of confirmation on the contract.
 
 This provides an L1-protected _postconfirmation_ that the block (or a batch of blocks) is confirmed. This additional anchoring mechanism increases the security of the L2-confirmation as it locks in the L2-confirmation, reduces the risk of long range attacks and provides a way to slash validators that have attested against the majority.
 
@@ -30,22 +30,22 @@ This provides an L1-protected _postconfirmation_ that the block (or a batch of b
 
 ## New Definitions and Terms
 
-- **validator** : A participant in the FFS protocol that is responsible for attesting to the correctness of block-rangees.
+- **block-range** : a sequence of L2-blocks that are committed to on L1.
+- **validator** : A participant in the FFS protocol that is responsible for attesting to the correctness of block-ranges.
 - **attester** (deprecated): a validator
+- **acceptor** : A validator that is selected to accept block-ranges.
 - **postconfirmation** : a confirmation on L1, protected by a supermajority of stake
-- **acceptor** : A validator that is selected to accept block-rangees.
-- **block-range** : a batch of L2-blocks that are committed to on L1.
 
 #### Other
 
-- **block** : previously block-range was described as `block`. However the term `block` is also used in the context of `L1-blocks`, e.g. `block.timestamp` which refers to the L1-block time. 
+- **block** : previously block-range was described as `block`. However the term `block` is also used in the context of `L1-blocks`, e.g. `block.timestamp` which refers to the L1-block time.
 
 
 ## Motivation
 
-We require an FFS protocol that is secure and efficient, yet simple in its initial design. By simplicity we mean that the validators only communicate with the L1-contract and not with each other. This is a key design decision to reduce the complexity of the protocol. 
+We require from the FFS protocol that it is secure and efficient, yet simple in its initial design. In order for the protocol to be kept simple validators only communicate to the L1-contract and not with each other. This is a key design decision to reduce the complexity of the protocol.
 
-Moreover, to facilitate predictable rewards, validators only commit. While the update of the state in the contract (the postconfirmation) is left to the role of the acceptor.
+Moreover, to facilitate predictable rewards, validators only perform the function of committing. While the update of the state in the contract (the _postconfirmation_) is left to the role of the acceptor.  
 
 <!--
   The motivation section should include a description of any nontrivial problems the MIP solves. It should not describe how the MIP solves those problems.
@@ -63,42 +63,16 @@ Moreover, to facilitate predictable rewards, validators only commit. While the u
   TODO: Remove this comment before finalizing
 -->
 
-L2-blocks are deterministically derived from the sequencer-batch. Validators calculate the next transition:  $B \xrightarrow{\ txs \ } B'$. After a certain number of blocks (the _block-range_), the validators commit individually the hash of this block-range to the L1-contract. The L1-contract will verify if 2/3 of the validators have attested to the block-range height.
+L2-blocks are deterministically derived from the sequencer-batches. Validators calculate the next transition:  $B \xrightarrow{\ txs \ } B'$. After a certain number of blocks (the _block-range_), the validators commit individually the hash of this block-range to the L1-contract. The L1-contract will verify if 2/3 of the validators have attested to the block-range height.
 
 
 #### Domains - One contract to rule them all
 
 The contract is intended to handle multiple chains. We differentiate between the chains by their unique identifier `domain` (of type `address`).
 
-#### Epochs
+#### Commitment
 
-We require epochs in order to faciliate `staking` and `unstaking` of validators, as well as rewards and penalties. The `epochDuration` is set when initializing a chain. 
-
-There are two relevant epochs names
-1. The `currentEpoch` is the epoch that is currently active and it determines the current `acceptor`.
-```solidity
-currentEpoch = getEpochByL1BlockTime();
-```
-where
-```solidity
-function getEpochByL1BlockTime(address domain) public view returns (uint256) {
-    return block.timestamp / epochDuration;
-}
-```
-
-2. The `acceptingEpoch` is the epoch in which commitments are counted and postconfirmation for an block-range is created. If there are no more blocks in the current epoch the protocol progresses from one accepting epoch to the next via the `rollover` function. 
-
-> [!note]
-> !!! Should we compensate for the case where validators of an epoch are not active anymore. In which case should we entertain the possibility that validators of the next epoch can take over to attest for a block from the previous epoch. In principle this may be feasible since the block-range is deterministic, we have L1 as a clock and postconfirmations do not rely on a BFT consensus.
-
-```solidity
-while (getCurrentEpoch() < blockEpoch) {
-    // TODO: we should check the implication of this for the acceptor. But it also may be an issue for any attester. 
-    rollOverEpoch();
-}
-```
-
-Note that validator L1-transactions could get lost, or validators can become inactive. Since liveness concerns should be handled, we permit for a more recent epoch to accept the block-range from an earlier epoch. 
+Validators commit the hash of the block-range to the L1-contract. It commits the validator to a certain block-range with no option for changing their opinion. (This is intentional - validators should not be able to revert). If an block-range height is new, the L1-contract will assign the block-range height to the `current epoch`. 
 
 #### block-range
 
@@ -114,20 +88,57 @@ function submitBlockCommitmentForAttester(address attester,  BlockCommitment mem
 }
 ```
 
-Note that since any validator can commit the hash of an block-range, the height of the block-range should not be able to be set too far into the future. 
-
+!!! TODO leading Block Tolerance
 
 ```solidity
 if (lastAcceptedBlockHeight + leadingBlockTolerance < blockCommitment.height) revert AttesterAlreadyCommitted();
 ```
 
 > [!note]
-> The validator has to also check if the current block-range height (offchain) is within the above window otherwise the comittment of the (honest) validator will be not added to the L1 contract.
+> The validator has to also check if the current relevant block-range height (off-L1) is within the above window otherwise the commitment of the (honest) validator will be not added to the L1 contract.
 
+
+Note that since any validator can commit the hash of a block-range, the height of the block-range should not be able to be set too far into the future.
+
+#### Epochs
+
+We require epochs in order to facilitate `staking` and `unstaking` of validators, as well as rewards and penalties. The `epochDuration` is set when initializing a chain. 
+
+There are two relevant epochs names
+1. The `presentEpoch` is the epoch that is currently active on L1 and it determines the current `acceptor`.
+```solidity
+presentEpoch = getEpochByL1BlockTime();
+```
+where
+```solidity
+function getEpochByL1BlockTime(address domain) public view returns (uint256) {
+    return block.timestamp / epochDuration;
+}
+```
+
+2. The `acceptingEpoch` is the epoch in which commitments are counted and postconfirmation for a block-range is created. If there are no more blocks in the current accepting epoch the protocol progresses from one accepting epoch to the next via the `rollover` function.
+
+> [!note]
+> !!! Should we compensate for the case where validators of an epoch are not active anymore. Should we entertain the possibility that validators of the next epoch can take over to attest for a block from the previous epoch. In principle this may be feasible since the block-range is deterministic, we have L1 as a clock and postconfirmations do not rely on a BFT consensus.
+
+```solidity
+while (getAcceptingEpoch() < blockEpoch) {
+    // TODO: we should check the implication of this for the acceptor. But it also may be an issue for any attester. 
+    rollOverEpoch();
+}
+```
+
+Note that validator L1-transactions could get lost, or validators can become inactive. Since liveness concerns should be handled, we permit for a more recent epoch to accept the block-range from an earlier epoch. 
+
+#### Rollover of epochs
+
+The `rolloverEpoch` function is called by the acceptor to progress from one accepting epoch to the next.
+
+!!! . describe rollover function
 
 #### Acceptor
 
-Every interval `acceptorTerm` one of the validators takes on the role to accept block-rangees. This acceptor is selected via L1-randomness provided through L1-block hashes. This acceptor is responsible for updating the contract state once a super-majority is reached for an block-range. The acceptor is rewarded for this service.
+Every interval `acceptorTerm` one of the validators takes on the role to accept block-ranges. This acceptor is selected via L1-randomness provided through L1-block hashes. This acceptor is responsible for updating the contract state once a super-majority is reached for an block-range. The acceptor is rewarded for this service.
 
 The L1-contract determines the current valid `acceptor` by considering the current L1-block time (`block.timestamp`) and randomness provided through L1-block hashes. For example,
 
