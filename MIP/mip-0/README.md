@@ -3,7 +3,6 @@
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Desiderata**: [MD-0](../MD/md-0)
 
-
 ## Abstract
 
 Movement Improvement Proposals (MIPs) serve as a mechanism to propose, discuss, and adopt changes or enhancements to Movement technologies. By providing a standardized and formalized structure for these proposals, MIPs ensure that proposed improvements are well-defined, transparent, and accessible to the wider community.
