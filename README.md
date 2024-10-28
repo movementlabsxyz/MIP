@@ -77,7 +77,7 @@ Additionally, the following statuses are used for MIPs/MDs that are not actively
 - **Stagnant** - an MIP/MD that has not been updated for 6 months.
 - **Withdrawn** - an MIP/MD that has not been withdrawn.
 
-Finally, MIPs can also be updated:
+Finally, an MIP/MD can also be updated:
 
 - **Update** - (set by author) An MIP/MD is being updated. The title should list the MIP/MD number, e.g. `[Update] MIP-0 ...`.
 
