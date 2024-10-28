@@ -55,23 +55,27 @@ PRs that don't introduce a new MIP are also accepted.
 MIPs can be updated. PRs that update a MIP should state so in the PR title via `[Update] .... `. 
 
 ## Status Terms
+
 An MIP is proposed through a PR. Each MIP-introducing PR should have a status in the name in the form `[Status] ...`.
 
 An MIP/MG should at all times have one of the following statuses:
+
 - **Draft** - (set by author) An MIP/MG that is open for consideration. (It does not yet hold an MIP/MG number)
 - **Review** - (set by author) The MIP/MG is under peer review. The MIP should receive an **MIP number**, according to the rules described in the [Files and numbering](#files-and-numbering) section. At this point the editor should be involved to ensure the MIP adheres to the guidelines.
 
 >[!Note]
-> In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim. 
+> In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim.
 
 After acceptance the MIP is merged into `main` and the branch should be deleted.
 
-Addtionally, the following statuses are used for MIPs that are not actively being worked on:
+Additionally, the following statuses are used for MIPs that are not actively being worked on:
+
 - **Stagnant** - an MIP that has not been updated for 6 months.
 - **Withdrawn** - an MIP that has not been withdrawn.
 
 
 Finally, MIPs can also be updated
+
 - **Update** - (set by author) An MIP is being updated. The titel should list the MIP number, e.g. `[Update] MIP-0 ...`.
 
 
@@ -79,18 +83,20 @@ Finally, MIPs can also be updated
 
 The motivation for the role of the editor is to ensure the readability and easy access of content, until further means, such as automatic rendering becomes available.
 
-Currently the editors are [@apenzk](https://github.com/apenzk). 
+Currently the editors are [@apenzk](https://github.com/apenzk).
 
 The editor is responsible for the final review of the MIPs. The editor is responsible for the following:
+
 - Ensures a high quality of the MIPs, e.g. checking language while reviewing.
 - Removes content from the MIPs that is commented out. (<!- ->)
 - Ensures the MIP numbering is correct, the MIP has been added to [OVERVIEW.md](./OVERVIEW.md)
-- Ensures the MIP is in the correct status. 
-- Ensures the authors have added themselves to [CODEOWNERS](./.github/CODEOWNERS).
+- Ensures the MIP is in the correct status.
+- Ensures the authors have added themselves to [CODEOWNERS](./.github/CODEOWNERS), see [Code owners](#code-owners).
 
-The editor is not responsible for the content. 
+The editor is not responsible for the content.
 
 **Conflict resolution**: In the unlikely case, where an editor requests a change from an author that the author does not agree with and communication does not resolve the situation
+
 - the editor can mandate that the author implements the changes by getting 2 upvotes from reviewers on their discussion comment mentioning the changes.
 - Otherwise the author can merge without the editor requested change.
 
