@@ -31,9 +31,8 @@ An AB-FFS Decoupled system is defined by the following requirements:
 1. The L1 staking token MUST be a unique token issued in a fixed supply.
 2. The L2 gas token MUST be a unique token issued in a fixed supply.
 3. Rewards issued via FFS MUST NOT be issued in the L1 staking token, but instead in an LP token on the L1.
-4. The LP Token SHALL make a best effort to have a value redeemable in the L1 staking token.
-5. The LP Token MAY not need to maintain a supply or value correlated with the L1 staking token or the L2 gas token. 
-6. The L2 staking token MUST be burned on the L2 to deposit gas into an L2 pool.
+4. The LP Token MAY elect to maintain a supply or value correlated with the L1 staking token or the L2 gas token. But, this supply or value correlation MUST NOT rely on special capabilities of the LP token or trusted third parties.
+5. The L2 staking token MUST be burned on the L2 to deposit gas into an L2 pool.
 
 If the LP Token supply is not fixed, the AB-FFS solution implemented is referred to as AB-FFS Decoupled Demurrage. [MIP-n](todo) provides a more complete specification for AB-FFS Decoupled Demurrage. 
 
