@@ -3,6 +3,8 @@
 
 We differentiate between MD and MIPs.
 
+An overview of the MIPs and MDs can be found in the [OVERVIEW](https://github.com/movementlabsxyz/MIP/wiki/Overview).
+
 In addition MG serves as a glossary for terms defined in the MIPs and MDs.
 
 ## Movement Desiderata (MD)
@@ -51,7 +53,10 @@ An MIP/MD starts as **Draft**s. They DO NOT acquire a number at this point.
 
 An MIP/MD is assigned their PR number as soon as they are in the **Review** process. MDs that do not introduce a new MIP/MD are also accepted. Thus, there will be gaps in the MIP/MD number sequence. These gaps will also emerge when MIPs/MDs are deprecated or rejected.
 
-PRs that don't introduce a new MIP/MD are also accepted, for example MIPs/MDs can be updated. PRs that **Update** a MIP/MD should state so in the PR title, e.g. `[Update] MIP-.... `.
+> [!NOTE]
+> Update the [OVERVIEW](https://github.com/movementlabsxyz/MIP/wiki/Overview) file with the MIP/MD number, title and other requirements.
+
+PRs that don't introduce a new MIP/MD are also accepted, for example MIPs/MDs can be updated. PRs that **Update** a MIP/MD should state so in the PR title, e.g. `[Update] MIP-....`.
 
 ## Status Terms
 
@@ -72,8 +77,7 @@ Additionally, the following statuses are used for MIPs/MDs that are not actively
 - **Stagnant** - an MIP/MD that has not been updated for 6 months.
 - **Withdrawn** - an MIP/MD that has not been withdrawn.
 
-
-Finally, MIPs can also be updated
+Finally, an MIP/MD can also be updated:
 
 - **Update** - (set by author) An MIP/MD is being updated. The title should list the MIP/MD number, e.g. `[Update] MIP-0 ...`.
 
