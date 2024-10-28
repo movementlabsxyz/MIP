@@ -1,4 +1,4 @@
-# MIP-\<number\>: \<Title\>
+# MIP-\<number\>: MOVE Token -- Bridge Design
 
 - **Description**: Architecture of the bridge for Move token.
 - **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz)
