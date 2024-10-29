@@ -8,6 +8,11 @@
 
 Fast-Finality Settlement (FFS) is a mechanism that allows for fast _confirmation_ of transactions backed by crypto-economic security. This MIP outlines the high-level specifications and architecture of FFS.
 
+FFS is divided into 
+
+- **Postconfimation**: a mechanism to confirm the validity of a block on L1
+- **L2-confirmation**: a mechanism to confirm the validity of a block on L2
+
 
 ## Definitions
 
@@ -125,9 +130,9 @@ The L1 contract will verify the L2-finality certificate. If the certificate is c
 To simplify we assume that each validator stakes the same amount.
 The set of validators is in charge of validating sequenced batches and producing blocks that also commit to the state root of the sequenced batch.
 
-There may be different protocols for the postconfirmation and the L2-confirmation. Here we focus only on the L1 contract (i.e. postconfirmation).
+There may be different protocols for the postconfirmation and the L2-confirmation. Version A and version B address Postconfirmation. Version C includes L2-confirmation.
 
-#### Version A: Leader-dependent blocks
+#### Version A: Postconfirmation with leader-dependent blocks
 
 A leader validator is elected for a certain interval. The leader proposes the next transition (block-range $B_r'$):  $B_r \xrightarrow{\ txs \ } B_r'$. The leader can do so by sending a digest of $txs$ (Merkle root) and a digest of $B_r'$ (Merkle root hash of $B_r'$), or a _change set_. The leader commits on L1 to $B_r'$. Every validator checks the validity of $B_r'$ and prepares a vote message (:white_check_mark: or :x:).
 
@@ -137,9 +142,9 @@ A leader validator is elected for a certain interval. The leader proposes the ne
 
 
 ![Version A Diagram](postconfirmationV1.png)
-*Figure 1: Leader-dependent L2-block generation process in Version A.*
+*Figure 1: **Postconfirmation**: Leader-dependent L2-block generation process in Version A.*
 
-#### Version B: Deterministic blocks
+#### Version B: Postconfirmation with deterministic blocks
 
 Blocks are deterministically derived from the sequencer-batch, and consequently the block-range $B_r'$ is deterministic. This is in contrast to Version A, where a leader proposes the next transition.Validators then attest for the next transition directly:  $B_r \xrightarrow{\ txs \ } B_r'$. E.g. by commiting to the the hash of $B_r'$.
 
@@ -153,10 +158,10 @@ An additional actor - the `acceptor` - is introduced that initiates the postconf
 **Acceptor collects commitments**. In a more optimised scenario, the acceptor sends the super-majority proof to the L1 contract. 
 
 ![Version A Diagram](postconfirmationV2.png)
-*Figure 2: Leader-independent (deterministic) L2-block generation process in Version B.*
+*Figure 2: **Postconfirmation**: Leader-independent (deterministic) L2-block generation process in Version B.*
 
 
-#### Version C: Deterministic blocks and L2-finality certificates
+#### Version C: L2-confirmation with deterministic blocks
 
 This approach extends Version B. 
 
@@ -166,7 +171,7 @@ Since this approach already collects commitments off-L1, the natural choice is t
 
 
 ![Version A Diagram](fullDesign.png)
-*Figure 3: Leader-independent (deterministic) L2-block generation process in Version C. Validators co-operate to create a L2-finality certificate before L1 is involved.*
+*Figure 3: **Postconfirmation + L2-confirmation**: Leader-independent (deterministic) L2-block generation process in Version C. Validators co-operate to create a L2-finality certificate before L1 is involved.*
 
 ## Verification
 
