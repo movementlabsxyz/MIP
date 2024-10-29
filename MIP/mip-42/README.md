@@ -15,6 +15,8 @@ In the event of an AB-FFS Partially Decoupled Gas Pool, we suggest identifying a
 
 ## Specification
 
+![AB-FFS Gas Pool AMM](./ab-ffs-gas-pool-amm.png)
+
 1. The AB-FFS Decoupled Gas Pool AMM MUST contain a pair of `L2GasToken`s to the `IntermediaryBridgeToken` at genesis.
 2. The AB-FFS Decoupled Gas Pool AMM MUST be implemented using the [StableSwap invariant](https://docs.curve.fi/references/whitepapers/stableswap/#how-it-works). The StableSwap invariant is a generalization of the constant product invariant used in Uniswap and Balancer, and is suitable for conditions where the price between two assets should be stable. The StableSwap invariant is defined as:
     ```math
@@ -32,6 +34,11 @@ In the event of an AB-FFS Partially Decoupled Gas Pool, we suggest identifying a
 4. The supply of `IntermediaryBridgeToken`s MUST be initialized to the total supply of `L2GasToken`s.
 5. The governing body of the AB-FFS Decoupled Gas Pool AMM SHOULD provide a token voucher system to maintain the correlation between the `L2GasToken` and the `L1StakingToken`.
 6. The governing body of the AB-FFS Decoupled Gas Pool AMM SHOULD apply supply constraints on the `L2GasToken` and the `IntermediaryBridgeToken`.
+
+From this system, we identify three distinct token flows:
+1. **Governance Token Flow**: the token flow from gas consumed at execution through the Gas Pool and withholding to the AMM and the voucher pool.
+2. **Execution Token Flow**: the token flow from the bridge to attainment and use of the `L2GasToken`.
+3. **Bridging Token Flow**: the token flow from the `L2GasToken` to the `IntermediaryBridgeToken` and into the bridge.
 
 ### Token Correlation
 
