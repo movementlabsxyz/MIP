@@ -17,20 +17,22 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 1. The AB-FFS Decoupled Gas Pool AMM MUST contain a swap of L2 gas tokens to the intermediary bridge token at genesis.
 2. The AB-FFS Decoupled Gas Pool AMM MUST be implemented using the [StableSwap invariant](https://docs.curve.fi/references/whitepapers/stableswap/#how-it-works). The StableSwap invariant is a generalization of the constant product invariant used in Uniswap and Balancer, and is suitable for conditions where the price between two assets should be stable. The StableSwap invariant is defined as:
-    ```math
-    A \cdot n \cdot \left( \sum x_i \right) + D = A \cdot D + \frac{D^{n+1}}{\prod x_i}
-    ```
-    where:
-    - $A$ is the **amplification coefficient**, which controls the "stretch" of the curve. Higher values of $ A $ make the curve behave more like a constant sum, while lower values make it behave more like a constant product.
+   
+```math
+A \cdot n \cdot \left( \sum x_i \right) + D = A \cdot D + \frac{D^{n+1}}{\prod x_i}
+```
+
+where:
+    - $A$ is the **amplification coefficient**, which controls the "stretch" of the curve. Higher values of $A$ make the curve behave more like a constant sum, while lower values make it behave more like a constant product.
     - $n$ is the number of assets in the pool (usually 2 in a two-asset pool).
     - $x_i$ represents the quantity of each token in the pool.
     - $D$ is the **StableSwap invariant**, representing the overall balance of the pool.
     - This formula combines both constant sum and constant product behaviors:
     - **Low-Slippage Region**: Around the equilibrium (e.g., a 1:1 price ratio), the formula approximates constant sum behavior, minimizing slippage for small trades.
     - **Transition to Constant Product**: For larger trades, as the price moves away from equilibrium, the formula shifts toward constant product behavior, allowing larger trades with appropriate price adjustment.
+    
 3. The AB-FFS Decoupled Gas Pool AMM MUST initialize a 1:1 price ratio between the L2 gas token and the intermediary bridge token.
 4. The supply of intermediary bridge tokens MUST be initialized to the total supply of L2 gas tokens.
-5. 
 
 ### Token Correlation
 
@@ -83,7 +85,7 @@ Simplifying, we get:
 ```math
 \text{Cov}(A, C) = \frac{\text{Cov}(A, B) \cdot \text{Cov}(B, C)}{\text{Var}(B)}
 ```
-Thus, under the assumption of collinearity, the covariance $ \text{Cov}(A, C) $ is given by:
+Thus, under the assumption of collinearity, the covariance $\text{Cov}(A, C)$ is given by:
 
 ```math
 \text{Cov}(A, C) = \frac{\text{Cov}(A, B) \cdot \text{Cov}(B, C)}{\text{Var}(B)}
@@ -100,7 +102,7 @@ First, we compute the covariance between $G$ and $B'$:
 ```
 
 
-Thus, the covariance between $G$ and $S$ is given by the product of the covariance between $G$ and $B'$ and the covariance between $B'$ and $S, scaled by the variance of $B'$:
+Thus, the covariance between $G$ and $S$ is given by the product of the covariance between $G$ and $B'$ and the covariance between $B'$ and $S$, scaled by the variance of $B'$:
 
 ```math
 \text{Cov}(G, S) = \frac{\text{Cov}(G, B) \cdot \text{Cov}(B, B') \cdot \text{Cov}(B', S)}{\text{Var}(B) \cdot \text{Var}(B')}
