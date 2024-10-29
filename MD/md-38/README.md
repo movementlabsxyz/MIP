@@ -41,7 +41,7 @@ This document also seeks a response to the concerns raised in [MD-20](https://gi
 
 **Justification**: Developers need a clear understanding of how to use the Movement SDK to achieve the approaches presented in Appendix A1 and similar. This allows developers to build networks using the Atomic Bridge and Fast Finality Settlement with a fixed token supply more easily.
 
-### D3: Provide Guides and Software for Genesis Procedures and Initial Conditions of L1 and L2 Networks Using the Atomic Bridge and Fast Finality Settlement
+### D4: Provide Guides and Software for Genesis Procedures and Initial Conditions of L1 and L2 Networks Using the Atomic Bridge and Fast Finality Settlement
 
 **User Journey**: Developers can use guides and software from the Movement SDK to understand how to set up the **initial conditions of L1 and L2 networks** using the Atomic Bridge and Fast Finality Settlement.
 
