@@ -1,4 +1,4 @@
-# MIP-15: AB-FFS Gas Pool AMM
+# MIP-41: AB-FFS Gas Pool AMM
 - **Description**: Introduces an Automated Market Maker (AMM) to satisfy the needs of the AB-FFS Decoupled Gas Pool.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
