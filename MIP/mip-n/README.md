@@ -21,10 +21,10 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
     A \cdot n \cdot \left( \sum x_i \right) + D = A \cdot D + \frac{D^{n+1}}{\prod x_i}
     ```
     where:
-    - $ A $ is the **amplification coefficient**, which controls the "stretch" of the curve. Higher values of $ A $ make the curve behave more like a constant sum, while lower values make it behave more like a constant product.
-    - $ n $ is the number of assets in the pool (usually 2 in a two-asset pool).
-    - $ x_i $ represents the quantity of each token in the pool.
-    - $ D $ is the **StableSwap invariant**, representing the overall balance of the pool.
+    - $A$ is the **amplification coefficient**, which controls the "stretch" of the curve. Higher values of $ A $ make the curve behave more like a constant sum, while lower values make it behave more like a constant product.
+    - $n$ is the number of assets in the pool (usually 2 in a two-asset pool).
+    - $x_i$ represents the quantity of each token in the pool.
+    - $D$ is the **StableSwap invariant**, representing the overall balance of the pool.
     - This formula combines both constant sum and constant product behaviors:
     - **Low-Slippage Region**: Around the equilibrium (e.g., a 1:1 price ratio), the formula approximates constant sum behavior, minimizing slippage for small trades.
     - **Transition to Constant Product**: For larger trades, as the price moves away from equilibrium, the formula shifts toward constant product behavior, allowing larger trades with appropriate price adjustment.
@@ -43,9 +43,9 @@ Given any two collinear relationships:
 A = \alpha B \quad \text{and} \quad C = \beta B
 ```
 
-for constants $ \alpha $ and $ \beta $, we want to compute $ \text{Cov}(A, C) $ in terms of $ \text{Cov}(A, B) $, $ \text{Cov}(B, C) $, and $ \text{Var}(B) $.
+for constants $\alpha$ and $\beta$, we want to compute $\text{Cov}(A, C)$ in terms of $\text{Cov}(A, B)$, $\text{Cov}(B, C)$, and $\text{Var}(B)$.
 
-Since $ A = \alpha B $ and $ C = \beta B $, we can express the covariance $ \text{Cov}(A, C) $ as:
+Since $A = \alpha B$ and $C = \beta B$, we can express the covariance $\text{Cov}(A, C)$ as:
 
 ```math
 \text{Cov}(A, C) = \text{Cov}(\alpha B, \beta B)
@@ -57,13 +57,13 @@ Using the property of covariance for scaled random variables, we get:
 \text{Cov}(\alpha B, \beta B) = \alpha \beta \cdot \text{Cov}(B, B)
 ```
 
-Since $ \text{Cov}(B, B) $ is the variance of $ B $, denoted $ \text{Var}(B) $, we have:
+Since $\text{Cov}(B, B)$ is the variance of $B$, denoted $\text{Var}(B)$, we have:
 
 ```math
 \text{Cov}(A, C) = \alpha \beta \cdot \text{Var}(B)
 ```
 
-Now, let’s express $ \alpha $ and $ \beta $ in terms of $ \text{Cov}(A, B) $, $ \text{Cov}(B, C) $, and $ \text{Var}(B) $:
+Now, we express $\alpha$ and $\beta$ in terms of $\text{Cov}(A, B)$, $\text{Cov}(B, C)$, and $\text{Var}(B)$:
 
 ```math
 \alpha = \frac{\text{Cov}(A, B)}{\text{Var}(B)}
@@ -72,7 +72,7 @@ Now, let’s express $ \alpha $ and $ \beta $ in terms of $ \text{Cov}(A, B) $, 
 \beta = \frac{\text{Cov}(B, C)}{\text{Var}(B)}
 ```
 
-Substituting these values of $ \alpha $ and $ \beta $ into the equation for $ \text{Cov}(A, C) $:
+Substituting these values of $\alpha$ and $\beta$ into the equation for $\text{Cov}(A, C)$:
 
 ```math
 \text{Cov}(A, C) = \left( \frac{\text{Cov}(A, B)}{\text{Var}(B)} \right) \left( \frac{\text{Cov}(B, C)}{\text{Var}(B)} \right) \cdot \text{Var}(B)
@@ -89,7 +89,7 @@ Thus, under the assumption of collinearity, the covariance $ \text{Cov}(A, C) $ 
 \text{Cov}(A, C) = \frac{\text{Cov}(A, B) \cdot \text{Cov}(B, C)}{\text{Var}(B)}
 ```
 
-This result shows that the covariance between $ A $ and $ C $ depends on the product of their individual covariances with $ B $, scaled by the variance of $ B $.
+This result shows that the covariance between $A$ and $C$ depends on the product of their individual covariances with $B$, scaled by the variance of $B$.
 
 Thus, for a system involving the L2 gas token $G$, the L2 intermediary bridge token $B$, the L1 intermediary bridge token $B'$, and the L1 staking token $S$, we can express the covariance between $G$ and $S$ in terms of the covariances between $G$ and $B$, $B$ and $B'$, and $B'$ and $S$, scaled by the variance of $B$.
 
@@ -108,9 +108,9 @@ Thus, the covariance between $G$ and $S$ is given by the product of the covarian
 
 This lends to the intuitive conclusion that the covariance between $G$ and $S$ is predicted positively by the covariance between any two pairs and negatively by the variance of the intermediary bridge tokens. 
 
-Tautologically, StableSwap maintains high covariance between the two tokens in the pool, so we can expect under normal market conditions that the terms $ \text{Cov}(G, B) $ and $ \text{Cov}(B', S) $ are all positive and close to 1.
+Tautologically, StableSwap maintains high covariance between the two tokens in the pool, so we can expect under normal market conditions that the terms $\text{Cov}(G, B)$ and $\text{Cov}(B', S)$ are all positive and close to 1.
 
-The bridge itself, while fallible, should maintain a scalar conversion rate between $B$ and $B'$ under normal operating conditions, so we can expect $ \text{Cov}(B, B') $ to be positive and close to 1.
+The bridge itself, while fallible, should maintain a scalar conversion rate between $B$ and $B'$ under normal operating conditions, so we can expect $\text{Cov}(B, B')$ to be positive and close to 1.
 
 It is thus the variance of the intermediary bridge tokens that we expect to be the primary determinant of the covariance between the L2 gas token and the L1 staking token under normal market conditions.
 
