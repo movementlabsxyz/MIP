@@ -71,24 +71,41 @@ Designing a safe bridge is a hard problem.
 - The `L1SideBridge` MUST offer 3 external functions:
   - `initiateBridgeTransfer`, to initiate a bridge transfer **from L1 to L2**,
   - `completeBridgeTransfer`, to finalise a bridge transfer **from L2 to L1**,
-  - `refundBridgeTransfer`, to cancel a bridge transfer from L1 to L2.
-- bridge transfers requests SHOULD all be identified by a unique `transferID` (256 bits)
-- a `transferID` MUST correspond to a unique `bridgeTransfer` record, the record MUST contain at least the following fields:
-  - `amount`: the number of $MOVE tokens to be transferred, `amount` MUST be a non-zero positive integer,
+  - `refundBridgeTransfer`, to cancel a bridge transfer **from L1 to L2**.
+
+- The `L1SideBridge` SHOULD maintain and store every bridge transfer request and its status in a `BridgeTransfer` record with the following fields:
+  - `amount`: the number of $MOVE tokens to be transferred, (`amount` MUST be a non-zero positive integer),
   - `initiator`: the account on the L1 that initiated the transfer,
   - `recipient`: an account on the L2,
   - `secret`: a secret that will be used to redeem the tokens on the L2 side,
-  - `timelock`: a time after which the transfer can be refunded, the `timelock` MUST be a non-zero positive integer, and represent a time in the future of the current block time,
-  - `status`: the status of the transfer, one of `PENDING`, `COMPLETED`, `REFUNDED`.
-- the `initiateBridgeTransfer` function SHOULD allow a user to define a `bridgeTransfer` by providing 3  parameters:
-  - `amount`: the number of $MOVE tokens to be transferred, `amount` MUST be a non-zero positive integer,
-  - `recipient`: an account on the L2,
-  - `secret`: a secret that will be used to redeem the tokens on the L2 side.
-- the `initiateBridgeTransfer` function MUST lock the `amount` of $MOVE tokens in the `L1SideBridge` contract, and MUST `revert` if the `msg.sender` does not have `amount` of $MOVE tokens.
-- when it does not revert, the `initiateBridgeTransfer` function MUST record a `BridgeTransfer` record .
-- when it does not revert, the `initiateBridgeTransfer` function MUST emit an event `BridgeTransferInitiated` with the `bridgeTransfer` as a parameter.
-- when it does not revert, the `initiateBridgeTransfer` function MUST return a `transferID` that uniquely identifies the `bridgeTransfer`. It is RECOMMENDED that the `transferID` is a hash of the `bridgeTransfer` parameters.
+  - `timelock`: a **date** after which the transfer MAY be refunded, the `timelock` MUST be a non-zero positive integer. The date MUST be specified in seconds (unix epoch is the start date) and be in the future of the block timestamp when the transfer is initiated,
+  - `status`: the current status of the transfer, one of `PENDING`, `COMPLETED`, `REFUNDED`.
+  
+- bridge transfers (`BridgeTransfer`) requests SHOULD all be associated with a unique 256-bit `transferID`
 
+- the list of current bridge transfers SHOULD be stored in a map with the `transferID` as the key, and the corresponding `BridgeTransfer` as the value.
+
+- the `initiateBridgeTransfer` function SHOULD allow a user to define a `bridgeTransfer` by providing 3  parameters:
+  - `amount`: the number of $MOVE tokens to be transferred (to the L2); `amount` MUST be a non-zero positive integer,
+  - `recipient`: an account (address) on the L2,
+  - `secret`: a secret that will be used to redeem the tokens on the L2 side.
+
+- the `initiateBridgeTransfer` function SHOULD `revert` in **ALL** of the following cases:
+  - the `amount` is zero,
+  - the `msg.sender` does not have `amount` of $MOVE tokens.
+
+- when it does not `revert`, the `initiateBridgeTransfer` function SHOULD create and store a  `BridgeTransfer` record that MUST contain at least the following fields:
+  - `amount`: the number of $MOVE tokens to be transferred, (`amount` MUST be a non-zero positive integer),
+  - `initiator`: the account on the L1 that initiated the transfer,
+  - `recipient`: an account on the L2,
+  - `secret`: a secret that will be used to redeem the tokens on the L2 side,
+  - `timelock`: a **date** after which the transfer MAY be refunded, the `timelock` MUST be a non-zero positive integer. The date MUST be specified in seconds (unix epoch is the start date) and be in the future of the block timestamp when the transfer is initiated,
+  - `status`: `PENDING`.
+
+- when it does not revert, the `initiateBridgeTransfer` function SHOULD return the `transferID` to the caller.
+- when it does not revert, the `initiateBridgeTransfer` function MUST emit an event `BridgeTransferInitiated` with the `bridgeTransfer` values as parameters.
+
+### `L2SideBridge` (Move contract)
 <!--
 
   The Specification section should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations.
