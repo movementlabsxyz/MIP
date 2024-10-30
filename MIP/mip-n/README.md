@@ -31,22 +31,15 @@ Simply put, FFS may be increase the supply of the LP token by minting for the pu
 To formalize this relationship, consider the following.
 
 Let:
-- $ S_{LP}(t) $ denote the total supply of LP tokens at time $ t $,
-- $ R_{LP}(t) $ denote the reward rate in LP tokens,
-- $ P_{L1} $ denote the price or value of the L1 staking token (fixed) in terms of the LP token, and
-- $ P_{LP}(t) $ denote the price of the LP token in terms of $ P_{L1} $.
+- $S_{LP}(t)$ denote the total supply of LP tokens at time $ t $,
+- $R_{LP}(t)$ denote the reward rate in LP tokens,
+- $P_{L1}$ denote the price or value of the L1 staking token (fixed) in terms of the LP token, and
+- $P_{LP}(t)$ denote the price of the LP token in terms of $ P_{L1} $.
 
-1. **Supply Inflation Rate**:
-   $
-   \Delta S_{LP}(t) = S_{LP}(t) \cdot R_{LP}(t)
-   $
-   where $ R_{LP}(t) $ represents the proportional increase in LP tokens over time.
+1. **Supply Inflation Rate**: $\Delta S_{LP}(t) = S_{LP}(t) \cdot R_{LP}(t)$ where $R_{LP}(t)$ represents the proportional increase in LP tokens over time.
 
 2. **Effective Dilution**:
-   - As new tokens are minted, each LP token’s value in terms of the L1 token $P_{L1}$ decreases:
-   $
-   P_{LP}(t+1) = \frac{P_{LP}(t)}{1 + R_{LP}(t)}
-   $
+   - As new tokens are minted, each LP token’s value in terms of the L1 token $P_{L1}$ decreases: $P_{LP}(t+1) = \frac{P_{LP}(t)}{1 + R_{LP}(t)}$
     - Since $R_{LP}(t) > 0$, we have:
 ```math
 1 + R_{LP}(t) > 1 \implies \frac{P_{LP}(t)}{1 + R_{LP}(t)} < P_{LP}(t) \implies P_{LP}(t+1) < P_{LP}(t)
