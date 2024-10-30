@@ -66,10 +66,6 @@ Designing a safe bridge is a hard problem.
 
 ## Specification
 
-In this section we specify the high-level architecture of the bridge and identify potential attacks (with a model of the attacker).
-
-`User` is an L1 account.
-
 ### `L1SideBridge` (Solidity contract)
 
 - The `L1SideBridge` MUST offer 3 external functions:
