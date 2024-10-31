@@ -91,6 +91,15 @@ An overview of the _happy_ path for normal operation is as follows:
 
 ![alt text](image.png)
 
+> [!WARNING]
+If `timeLockL2` is larger than `timeLockL1`, the following scenario can happen:
+
+- the `completeBridgeTransfer` tx completes on L2 and funds are transferred to the target address on L2,
+- the relayer does not relay the event fast enough,
+- the user on L1 asks for a refund, and the `refund` tx is executed on L1.
+
+User gets funds on L2, and gets their fund back on L1.
+
 <!--
   The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
 
