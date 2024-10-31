@@ -43,7 +43,7 @@ The fees should be expressed in a single (crypto)-currency, e.g. USD, or a token
 
 #### MoveVM execution fees 
 
-To execute a transaction and store the result, the operator of the chain uses some hardware: CPU and disk storge. The **execution** fees represent the compensation of the operator for executing a transaction. 
+To execute a transaction and store the result, the operator of the chain uses some hardware: CPU and disk storage. The **execution** fees represent the compensation of the operator for executing a transaction. 
 
 Movement Network uses Aptos-Move as the execution layer and the execution fees for Aptos-Move are defined in the Aptos documentation [Gas and storage fees](https://aptos.dev/en/network/blockchain/gas-txn-fee). 
 The Aptos-Move fee mechanism splits the execution fees in two parts:
@@ -51,7 +51,7 @@ The Aptos-Move fee mechanism splits the execution fees in two parts:
 - CPU and IO operations, expressed in gas units; 
 - permanent storage, expressed in `$APT`.
 
-CPU and IO operations for a transaction $tx$ result in a number of gas units $g(tx)$, and the corresponding fees are computing using a _gas price_ $GasPrice$ expressed in the gas token (`$APT` for Aptos-Move). A transaction specifies the value $GasPrice(tx)$ it is willing to pay.  
+CPU and IO operations for a transaction $tx$ result in a number of gas units $CpuIoGas(tx)$, and the corresponding fees are computing using a _gas price_ $GasPrice$ expressed in the gas token (`$APT` for Aptos-Move). A transaction specifies the value $GasPrice(tx)$ it is willing to pay.  
 The value $GasPrice(tx)$ must not be lower than a minimum $GasPrice$, which may fluctuate depending on network contention, and may be updated frequently (e.g. after each block). 
 
 In contrast, the permanent storage fees are designed to be stable and are updated infrequently. The reasoning is that they depend on how much storage costs (hardware, disks) and with advancement in technology this should go down in the future. The storage fees for $tx$ are denoted $StoreFees(tx)$ and expressed in `$APT`[^3].
@@ -60,7 +60,7 @@ The fees that correspond to the permanent storage are **converted to gas units**
 
 The _total charge in gas units_ for a transaction is the defined by:
 
-$$ TotalGasUnits(tx) = g(tx) + StoreFees(tx)/GasPrice(tx)$$
+$$ TotalGasUnits(tx) = CpuIoGas(tx) + StoreFees(tx)/GasPrice(tx)$$
 
 and the total transaction fees are approximately[^1]:
 
