@@ -66,46 +66,6 @@ Designing a safe bridge is a hard problem.
 
 ## Specification
 
-### `L1SideBridge` (Solidity contract)
-
-- The `L1SideBridge` MUST offer 3 external functions:
-  - `initiateBridgeTransfer`, to initiate a bridge transfer **from L1 to L2**,
-  - `completeBridgeTransfer`, to finalise a bridge transfer **from L2 to L1**,
-  - `refundBridgeTransfer`, to cancel a bridge transfer **from L1 to L2**.
-
-- The `L1SideBridge` SHOULD maintain and store every bridge transfer request and its status in a `BridgeTransfer` record with the following fields:
-  - `amount`: the number of $MOVE tokens to be transferred, (`amount` MUST be a non-zero positive integer),
-  - `initiator`: the account on the L1 that initiated the transfer,
-  - `recipient`: an account on the L2,
-  - `secret`: a secret that will be used to redeem the tokens on the L2 side,
-  - `timelock`: a **date** after which the transfer MAY be refunded, the `timelock` MUST be a non-zero positive integer. The date MUST be specified in seconds (unix epoch is the start date) and be in the future of the block timestamp when the transfer is initiated,
-  - `status`: the current status of the transfer, one of `PENDING`, `COMPLETED`, `REFUNDED`.
-  
-- bridge transfers (`BridgeTransfer`) requests SHOULD all be associated with a unique 256-bit `transferID`
-
-- the list of current bridge transfers SHOULD be stored in a map with the `transferID` as the key, and the corresponding `BridgeTransfer` as the value.
-
-- the `initiateBridgeTransfer` function SHOULD allow a user to define a `bridgeTransfer` by providing 3  parameters:
-  - `amount`: the number of $MOVE tokens to be transferred (to the L2); `amount` MUST be a non-zero positive integer,
-  - `recipient`: an account (address) on the L2,
-  - `secret`: a secret that will be used to redeem the tokens on the L2 side.
-
-- the `initiateBridgeTransfer` function SHOULD `revert` in **ALL** of the following cases:
-  - the `amount` is zero,
-  - the `msg.sender` does not have `amount` of $MOVE tokens.
-
-- when it does not `revert`, the `initiateBridgeTransfer` function SHOULD create and store a  `BridgeTransfer` record that MUST contain at least the following fields:
-  - `amount`: the number of $MOVE tokens to be transferred, (`amount` MUST be a non-zero positive integer),
-  - `initiator`: the account on the L1 that initiated the transfer,
-  - `recipient`: an account on the L2,
-  - `secret`: a secret that will be used to redeem the tokens on the L2 side,
-  - `timelock`: a **date** after which the transfer MAY be refunded, the `timelock` MUST be a non-zero positive integer. The date MUST be specified in seconds (unix epoch is the start date) and be in the future of the block timestamp when the transfer is initiated,
-  - `status`: `PENDING`.
-
-- when it does not revert, the `initiateBridgeTransfer` function SHOULD return the `transferID` to the caller.
-- when it does not revert, the `initiateBridgeTransfer` function MUST emit an event `BridgeTransferInitiated` with the `bridgeTransfer` values as parameters.
-
-### `L2SideBridge` (Move contract)
 <!--
 
   The Specification section should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations.
@@ -118,6 +78,18 @@ Designing a safe bridge is a hard problem.
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
 
 ## Reference Implementation
+
+### Bridging from L1 to L2
+
+The contracts involved are:
+
+- Solidity contract [AtomicBridgeInitiatorMOVE.sol](https://github.com/movementlabsxyz/movement/blob/main/protocol-units/bridge/contracts/src/AtomicBridgeInitiatorMOVE.sol) on L1,
+- module [atomic_bridge_counterparty.move](https://github.com/movementlabsxyz/aptos-core/blob/061155119258caab512aec6aa860b086e5f312e0/aptos-move/framework/aptos-framework/sources/atomic_bridge.move#L1163) on L2.
+
+The current implementation is a _lock-mint_ bridge. The user locks their L1\$MOVE tokens in the `AtomicBridgeInitiatorMOVE` contract, and the `atomic_bridge_counterparty.move` module mints the corresponding L2\$MOVE tokens.
+An overview of the _happy_ path for normal operation is as follows:
+
+![alt text](image.png)
 
 <!--
   The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
