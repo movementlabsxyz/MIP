@@ -3,7 +3,6 @@
 
 - **Description**: How to calculate gas fees for transactions on Movement L2.
 - **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz)
-- **Desiderata**: [MIP-\<number\>](../MD/md-\<number\>)
 
 
 ## Abstract
@@ -12,7 +11,7 @@ This MIP describes the structure of the gas fees and overall resource consumptio
 
 ## Motivation
 
-The transaction fees on L2s are multi-dimensional [9, 10]. They comprise of _execution fees_, _settlement fees_ and _data availability fees_.
+The transaction fees on L2s are multi-dimensional [[9](#ref-9), [10](#ref-10)]. They comprise of _execution fees_, _settlement fees_ and _data availability fees_.
 This MIP describes what the different types of fees are, and how the transaction fees can be computed.
 
 ## Scope of this MIP
@@ -28,18 +27,17 @@ Althought the costs (in terms of resources consumption) are expressed in gas uni
 
 ## Fee structure 
 
-The processing costs on rollups [1-6] are  [multi-dimensional](https://medium.com/offchainlabs/understanding-arbitrum-2-dimensional-fees-fd1d582596c9).
-The cost of processing a transaction on a Movement chain consists of:
+The processing costs on rollups [[1](#ref-1) - [6](#ref-6)] are  [multi-dimensional](https://medium.com/offchainlabs/understanding-arbitrum-2-dimensional-fees-fd1d582596c9). The cost of processing a transaction on a Movement chain consists of:
 
 1. **execution** fees: the costs that correspond to resources usage, CPU and permanent storage.
 2. **data availability** fees: the costs of publishing transactions/blocks data to a _data availability layer_.
 3. **settlement** fees: the costs of _validating_ a transaction (e.g. zk-proof generation and verification, validators attestations.)
 
-Overall the transaction fees are the defined by the sum of the three types of fees:
+Overall the transaction fees are defined by the sum of three types of fees:
 
 $$ {ExecFees} + {DAFees} + {SetlFees}\mathpunct. $$
 
-The fees should be expressed in a single (crypto)-currency, e.g. USD, or a token \$APT, \$MOVE, \$ETH.
+The fees should be expressed in a single (crypto)-currency, e.g. USD, or a token `$APT`, `$MOVE`, `$ETH`.
 
 ### Execution 
 
@@ -51,14 +49,14 @@ Movement Network uses Aptos-Move as the execution layer and the execution fees f
 The Aptos-Move fee mechanism splits the execution fees in two parts:
 
 - CPU and IO operations, expressed in gas units; 
-- permanent storage, expressed in \$APT.
+- permanent storage, expressed in `$APT`.
 
-CPU and IO operations for a transaction $tx$ result in a number of gas units $g(tx)$, and the corresponding fees are computing using a _gas price_ $GasPrice$ expressed in the gas token (\$APT for Aptos-Move). A transaction specifies the value $GasPrice(tx)$ it is willing to pay.  
+CPU and IO operations for a transaction $tx$ result in a number of gas units $g(tx)$, and the corresponding fees are computing using a _gas price_ $GasPrice$ expressed in the gas token (`$APT` for Aptos-Move). A transaction specifies the value $GasPrice(tx)$ it is willing to pay.  
 The value $GasPrice(tx)$ must not be lower than a minimum $GasPrice$, which may fluctuate depending on network contention, and may be updated frequently (e.g. after each block). 
 
-In contrast, the permanent storage fees are designed to be stable and are updated infrequently. The reasoning is that they depend on how much storage costs (hardware, disks) and with advancement in technology this should go down in the future. The storage fees for $tx$ are denoted $StoreFees(tx)$ and expressed in \$APT[^3].
+In contrast, the permanent storage fees are designed to be stable and are updated infrequently. The reasoning is that they depend on how much storage costs (hardware, disks) and with advancement in technology this should go down in the future. The storage fees for $tx$ are denoted $StoreFees(tx)$ and expressed in `$APT`[^3].
 
-The fees that correspond to the permanent storage are **converted to gas units** using the  $GasPrice$ and the \$APT price. 
+The fees that correspond to the permanent storage are **converted to gas units** using the  $GasPrice$ and the `$APT` price. 
 
 The _total charge in gas units_ for a transaction is the defined by:
 
@@ -70,19 +68,19 @@ $$ ExecFees(tx) = TotalGasUnits(tx) \times GasPrice(tx) \mathpunct.$$
 
 
 > [!WARNING]
-We may not use the \$APT token value to compute the fees on Movement. If we do so the $ExecFees$ will be identical to processing fees on Aptos-Move, and the total fees including $DAFees$ and $SetlFees$ will be higher than the processing fees on Aptos-Move, which may not be desirable.
+We may not use the `$APT` token value to compute the fees on Movement. If we do so the $ExecFees$ will be identical to processing fees on Aptos-Move, and the total fees including $DAFees$ and $SetlFees$ will be higher than the processing fees on Aptos-Move, which may not be desirable.
 
 
 > [!TIP]
-**Proposal 1**: use the $TotalGasUnits(tx)$ and a $GasPrice$ in \$MOVE to compute the execution fees on a Movement chain.
-This may require an oracle to get the exchange rate for \$APT/\$MOVE.
+**Proposal 1**: use the $TotalGasUnits(tx)$ and a $GasPrice$ in `$MOVE` to compute the execution fees on a Movement chain.
+This may require an oracle to get the exchange rate for `$APT`/`$MOVE`.
 
 
 #### Gas price adjustments
-We may also want to adjust the $GasPrice$ (in \$MOVE) to reflect our metwork load. There are many ways the $GasPrice$ can be updated. On Ethereum it is governed by rules in [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559). zkSync, Arbitrum and OP Mainnet use different strategies [1, 4, 6] to update the gas price. 
+We may also want to adjust the $GasPrice$ (in `$MOVE`) to reflect our metwork load. There are many ways the $GasPrice$ can be updated. On Ethereum it is governed by rules in [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559). zkSync, Arbitrum and OP Mainnet use different strategies [[1](#ref-1), [4](#ref-4), [6](#ref-6)] to update the gas price. 
 
 > [!TIP]
-**Proposal 2**: The OP Mainet [1] strategy seems to be the simplest one so we may implement this strategy first. 
+**Proposal 2**: The OP Mainet [[1](#ref-1)] strategy seems to be the simplest one so we may implement this strategy first. 
 
 
 ### Data Availability fees
@@ -127,7 +125,7 @@ In a validity proof settlement we have two sources of costs:
 2.  the _verification_ part which is a transaction in Ethereum Mainnet.
  
 The second part is usually predicatable as the sizes of proofs are known for each zk-proof system, and the verification step is _efficient_. 
-The proving part is more complex to evaluate. The [zkSync –– Fee mechanism](https://docs.zksync.io/zk-stack/concepts/fee-mechanism) [4] may be a useful reference to design an equivalent mechanism for Movement chains. 
+The proving part is more complex to evaluate. The [zkSync –– Fee mechanism](https://docs.zksync.io/zk-stack/concepts/fee-mechanism) [[4](#ref-4)] may be a useful reference to design an equivalent mechanism for Movement chains. 
 
 > [!WARNING] 
 Note that we first need a zkMoveVM to develop this approach.
@@ -145,18 +143,19 @@ We have bnot finalised the FFS details yet so it may be premature to try and def
 
 ## References 
 
-\[1\]  [Transaction fees on OP Mainet](https://docs.optimism.io/stack/transactions/fees). Optimism Documentation.
-
-\[2\]  [Sui –– Gas Pricing](https://docs.sui.io/concepts/tokenomics/gas-pricing). Sui Documentation.
-
-\[3\] [Gas and storage fees](https://aptos.dev/en/network/blockchain/gas-txn-fee). Aptos documentation.
-
-\[4\] [zkSync –– Fee mechanism](https://docs.zksync.io/zk-stack/concepts/fee-mechanism). zkSync documentation.
-
-\[5\] [Transaction fees on Mantle](https://docs-v2.mantle.xyz/devs/concepts/tx-fee/overviews). Mantle documentation.
+<a id="ref-1">[1]</a> [Transaction fees on OP Mainnet](https://docs.optimism.io/stack/transactions/fees). Optimism Documentation.
 
 
-\[6\]  [Gas and Fees](https://docs.arbitrum.io/how-arbitrum-works/gas-fees). Arbitrum documentation.
+<a id="ref-2">[2]</a>   [Sui –– Gas Pricing](https://docs.sui.io/concepts/tokenomics/gas-pricing). Sui Documentation.
+
+<a id="ref-3">[3]</a>  [Gas and storage fees](https://aptos.dev/en/network/blockchain/gas-txn-fee). Aptos documentation.
+
+<a id="ref-4">[4]</a>  [zkSync –– Fee mechanism](https://docs.zksync.io/zk-stack/concepts/fee-mechanism). zkSync documentation.
+
+<a id="ref-1">[5]</a>  [Transaction fees on Mantle](https://docs-v2.mantle.xyz/devs/concepts/tx-fee/overviews). Mantle documentation.
+
+
+<a id="ref-6">[6]</a>   [Gas and Fees](https://docs.arbitrum.io/how-arbitrum-works/gas-fees). Arbitrum documentation.
 
 <!-- \[4\] Arbitrum. [L1 Pricing.](https://developer.arbitrum.io/arbos/l1-pricing)
 
@@ -164,14 +163,13 @@ We have bnot finalised the FFS details yet so it may be premature to try and def
 
 <!-- \[6\] DZack23. July 2022. [L1 calldata data pricing / Sequencer reimbursement, "Fee Pool" Model.](https://research.arbitrum.io/t/l1-calldata-data-pricing-sequencer-reimbursement-fee-pool-model/107)
  -->
-\[7\] [EIP-1559.](https://eips.ethereum.org/EIPS/eip-1559)
+<a id="ref-7">[7]</a>  [EIP-1559.](https://eips.ethereum.org/EIPS/eip-1559)
 
-\[8\] Ethereum. [Gas and
-Fees.](https://ethereum.org/en/developers/docs/gas/#eip-1559)
+<a id="ref-8">[8]</a>  Ethereum. [Gas and Fees.](https://ethereum.org/en/developers/docs/gas/#eip-1559)
 
-\[9\] [Multi-dimensional EIP-1559.](https://ethresear.ch/t/multidimensional-eip-1559/11651)
+<a id="ref-9">[9]</a>  [Multi-dimensional EIP-1559.](https://ethresear.ch/t/multidimensional-eip-1559/11651)
 
-\[10\] [Notes on multi-dimensional EIP-1559.](https://youtu.be/QbR4MTgnCko)
+<a id="ref-10">[10]</a>  [Notes on multi-dimensional EIP-1559.](https://youtu.be/QbR4MTgnCko)
 
 <!-- \[11\] Optimism. [Bedrock Fees Dashboard.](https://dune.com/oplabspbc/optimism-bedrock-migration-impact-dashboard.) -->
 
@@ -188,7 +186,7 @@ Fees.](https://ethereum.org/en/developers/docs/gas/#eip-1559)
 
 [^2]: We may be able to have the quorum verification function in a Movement contract which would reduce the costs.
 
-[^3]: It looks like the actual currency used to express this fee is a stable currency like USD. It can be converted to \$APT using an oracle.
+[^3]: It looks like the actual currency used to express this fee is a stable currency like USD. It can be converted to `$APT` using an oracle.
 ---
 ## Copyright
 
