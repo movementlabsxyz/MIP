@@ -77,7 +77,7 @@ This may require an oracle to get the exchange rate for `$APT`/`$MOVE`.
 
 
 #### Gas price adjustments
-We may also want to adjust the $GasPrice$ (in `$MOVE`) to reflect our metwork load. There are many ways the $GasPrice$ can be updated. On Ethereum it is governed by rules in [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559). zkSync, Arbitrum and OP Mainnet use different strategies [[1](#ref-1), [4](#ref-4), [6](#ref-6)] to update the gas price. 
+We may also want to adjust the $GasPrice$ (in `$MOVE`) to reflect our network load. There are many ways the $GasPrice$ can be updated. On Ethereum it is governed by rules in [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559). zkSync, Arbitrum and OP Mainnet use different strategies [[1](#ref-1), [4](#ref-4), [6](#ref-6)] to update the gas price. 
 
 > [!TIP]
 **Proposal 2**: The OP Mainet [[1](#ref-1)] strategy seems to be the simplest one so we may implement this strategy first. 
@@ -91,17 +91,17 @@ We assume that the agreement with the DA provider is such that we pay a **fixed*
 This can be updated infrequently e.g. every 6 months or year.
 
 > [!NOTE] 
-The reduce the costs, the data published to the DA layer can be compressed. This reduces the overall costs of publishing a batch (and a state) to the DA layer but makes it harder to identify the contribution of each transaction to the overall costs. OP Mainet Ecotone has a [formula](https://docs.optimism.io/stack/transactions/fees#formula) to try and weight the contribution of each transaction to the compressed data. It is unclear how well it works in practice.  
+To reduce the costs, the data published to the DA layer can be compressed. This reduces the overall costs of publishing a batch (and a state) to the DA layer but makes it harder to identify the contribution of each transaction to the overall costs. OP Mainnet Ecotone has a [formula](https://docs.optimism.io/stack/transactions/fees#formula) to try and weight the contribution of each transaction to the compressed data. It is unclear how well it works in practice.  
 
 > [!TIP]
 > **Proposal 3**: If the cost of publishing a batch $b$ to the DA is $DAFees(b)$, and $n$ transactions are in the batch, the DA fees for each transaction are $DAFees(b)/n$. This is simple to implement and can be refined later if needed.
 
 ### Settlement Fees
 
-The settlement fees depend on a number of factors, and on the settlement mechanism used by given Movement chain.
+The settlement fees depend on a number of factors, and on the settlement mechanism used by a given Move Stack chain.
 There is a common feature though: some data are posted to Ethereum mainnet, and the price of a transaction on Mainnet may fluctuate. 
 
-The difficulty is that we charge our users when we process a transaction on a Moement chain. At that time we don't know the price of an Ethereum transaction to post our data because it will happen in the future when the transaction is included in a block. As a result we may have to use an oracle to provide an estimate of the (gas) price on Ethereum when our transaction is processed.
+The difficulty is that we charge our users when we process a transaction on a Move Stack chain. At that time we don't know the price of an Ethereum transaction to post our data because it will happen in the future when the transaction is included in a block. As a result we may have to use an oracle to provide an estimate of the (gas) price on Ethereum when our transaction is processed.
 
 Another thing that is common to all the settlement mechanisms is that we have to publish a _commitment_ to the states/blocks we produce.
 This is usually done by publishing _state roots_ (hashes of states). 
@@ -111,7 +111,7 @@ There are two interfaces to publish data on Ethereum:
 
 
 Blobs were introduced to lower the cost of L2s and offer temporary (18 days) data storage at low cost.
-Blobs are limited in size 128KB, and a maximum of 6 blocks per (Ethereum) block. 
+Blobs are limited in size to 128KB, and a maximum of 6 blobs per (Ethereum) block. 
 
 
 #### Fraud-proof settlement
@@ -131,12 +131,12 @@ The proving part is more complex to evaluate. The [zkSync –– Fee mechanism](
 Note that we first need a zkMoveVM to develop this approach.
 
 #### Fast-finality settlement
-In our metwork, we will offer _fast-finality settlement_ (FFS) where _validators_ verify state transitions (and blocks) and interact with a contract, `StakingK`, that may live[^2] on Ethereum mainnet. 
+In our network, we will offer _fast-finality settlement_ (FFS) where _validators_ verify state transitions (and blocks) and interact with a contract, `StakingK`, that may live[^2] on Ethereum mainnet. 
 
-The costs incurred by the validators plus the cost of posting the attestations to Ethereum mainnet have to be factored in the ${SetlFees}$.
+The costs incurred by the validators plus the cost of posting the attestations to Ethereum mainnet have to be factored in into the ${SetlFees}$.
 
 > [!WARNING]
-We have bnot finalised the FFS details yet so it may be premature to try and define fees for this mechanism. It also pertains to _staking_ which is not fully fledged yet.
+We have not finalised the FFS details yet so it may be premature to try and define fees for this mechanism. It also pertains to _staking_ which is not fully fledged yet.
 
 > [!TIP]
 **Proposal 4**: The simplest approach seems to implement a fraud-proof fee mechanism and publish state roots to Ethereum mainnet.
