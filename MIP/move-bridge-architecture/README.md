@@ -89,7 +89,7 @@ The contracts involved are:
 The current implementation is a _lock-mint_ bridge. The user locks their L1\$MOVE tokens in the `AtomicBridgeInitiatorMOVE` contract, and the `atomic_bridge_counterparty.move` module mints the corresponding L2\$MOVE tokens.
 An overview of the _happy_ path for normal operation is as follows:
 
-![alt text](image.png)
+![alt text](L1ToL2.png)
 
 > [!WARNING]
 If `timeLockL2` is larger than `timeLockL1`, the following scenario can happen:
