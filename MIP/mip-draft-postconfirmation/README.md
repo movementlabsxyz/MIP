@@ -63,80 +63,115 @@ Moreover, to facilitate predictable rewards, validators only perform the functio
   TODO: Remove this comment before finalizing
 -->
 
-L2-blocks are deterministically derived from the sequencer-batches. Validators calculate the next transition:  $B \xrightarrow{\ txs \ } B'$. After a certain number of blocks (the _block-range_), the validators commit individually the hash of this block-range to the L1-contract. The L1-contract will verify if 2/3 of the validators have attested to the block-range height.
 
 
-#### Domains - One contract to rule them all
+
+##### Domains - One contract to rule them all
 
 The contract is intended to handle multiple chains. We differentiate between the chains by their unique identifier `domain` (of type `address`).
 
-#### Commitment
+##### L2-blocks
 
-Validators commit the hash of the block-range to the L1-contract. It commits the validator to a certain block-range with no option for changing their opinion. (This is intentional - validators should not be able to revert). If an block-range height is new, the L1-contract will assign the block-range height to the `current epoch`. 
+L2-blocks are deterministically derived from the sequencer-batches, which are called proto-blocks, see the [glossary](../../GLOSSARY.md). Validators calculate the next deterministic transition (imposed through the sequence of transactions $txs$) $B \xrightarrow{\ txs \ } B'$, where $B$ and $B'$ are L2-blocks.
 
-#### block-range
+##### Block-range
 
-Validators commit the hash of the block-range to the L1-contract. It commits the validator to the block-range with no option for changing their opinion. (This is intentional - validators should not be able to revert). If an block-range height is new, the L1-contract will asign the block-range height to the `current epoch`. 
+The postconfirmation protocol cannot attest to each individual L2-block. This restriction derives from the high frequency at which proto-blocks can be created, the low frequency of L1-blocks and the cost of L1 transactions. Therefore, after a certain number of blocks (the _block-range_), the validators commit individually the hash of this block-range to the L1-contract. The L1-contract will verify if >2/3 of the validators have attested to the block-range height.
+
+##### Commitment
+
+Validators commit the hash of the block-range to the L1-contract. It commits the validator to a certain block-range with no option for changing their opinion. (This is intentional - validators should not be able to revert).
 
 ```solidity
-function submitBlockCommitmentForAttester(address attester,  BlockCommitment memory blockCommitment) internal {
-  ...
-  if (blockHeightEpochAssignments[blockCommitment.height] == 0) {
-      blockHeightEpochAssignments[blockCommitment.height] = getEpochByL1BlockTime();
-  }
-  ...
+struct BlockRangeCommitment {
+  uint256 height;
+  bytes32 commitment;
+  bytes32 blockRangeId;
 }
 ```
 
-!!! TODO leading Block Tolerance
+##### Epochs
+
+We require epochs in order to facilitate `staking` and `unstaking` of # validators, as well as rewards and penalties. The `epochDuration` is set when initializing a chain.
+
+There are three relevant epochs names
+
+1. **`presentEpoch`** is the epoch that is currently active on L1 and it determines the current `acceptor`.
 
 ```solidity
-if (lastAcceptedBlockHeight + leadingBlockTolerance < blockCommitment.height) revert AttesterAlreadyCommitted();
+uint256 presentEpoch = getEpochByL1BlockTime();
 ```
 
-> [!note]
-> The validator has to also check if the current relevant block-range height (off-L1) is within the above window otherwise the commitment of the (honest) validator will be not added to the L1 contract.
-
-
-Note that since any validator can commit the hash of a block-range, the height of the block-range should not be able to be set too far into the future.
-
-#### Epochs
-
-We require epochs in order to facilitate `staking` and `unstaking` of validators, as well as rewards and penalties. The `epochDuration` is set when initializing a chain. 
-
-There are two relevant epochs names
-1. The `presentEpoch` is the epoch that is currently active on L1 and it determines the current `acceptor`.
-```solidity
-presentEpoch = getEpochByL1BlockTime();
-```
 where
+
 ```solidity
 function getEpochByL1BlockTime(address domain) public view returns (uint256) {
     return block.timestamp / epochDuration;
 }
 ```
 
-2. The `acceptingEpoch` is the epoch in which commitments are counted and postconfirmation for a block-range is created. If there are no more blocks in the current accepting epoch the protocol progresses from one accepting epoch to the next via the `rollover` function.
+2. **`assignedEpoch`**. If a block-range height is new, the L1-contract will assign the block-range height to the `presentEpoch`.
 
-> [!note]
-> !!! Should we compensate for the case where validators of an epoch are not active anymore. Should we entertain the possibility that validators of the next epoch can take over to attest for a block from the previous epoch. In principle this may be feasible since the block-range is deterministic, we have L1 as a clock and postconfirmations do not rely on a BFT consensus.
 
 ```solidity
-while (getAcceptingEpoch() < blockEpoch) {
-    // TODO: we should check the implication of this for the acceptor. But it also may be an issue for any attester. 
-    rollOverEpoch();
+/// map each block height to an epoch
+mapping(uint256 blockHeight => uint256 epoch) public blockRangeHeightToAssignedEpoch;
+BlockRangeCommitment memory blockRangeCommitment
+
+if (blockRangeHeightToAssignedEpoch[blockCommitment.height] == 0) {
+  blockRangeHeightToAssignedEpoch[blockCommitment.height] = getEpochByL1BlockTime();
 }
 ```
 
-Note that validator L1-transactions could get lost, or validators can become inactive. Since liveness concerns should be handled, we permit for a more recent epoch to accept the block-range from an earlier epoch. 
 
-#### Rollover of epochs
+> [!NOTE]
+> Note this is susceptible to an attack where the adversary could commit to far in the future blockRanges. However, since no honest attester would attest to it, the rollover function should update to the correct epoch for a given block-range height.
 
-The `rolloverEpoch` function is called by the acceptor to progress from one accepting epoch to the next.
+> !!! . Any validator can commit the hash of a block-range, the height of the block-range should not be able to be set too far into the future.
+> !!! . TODO leading Block Tolerance. why do we need it? I assume it was meant as a protection against posting too far into the future block-heights but is this really necessary. But what in particular does this protect against. Could this impose a cost on the honest validators or acceptor in any way? 
 
-!!! . describe rollover function
+```solidity
+if (lastAcceptedBlockHeight + leadingBlockTolerance < blockCommitment.height) revert AttesterAlreadyCommitted();
+```
 
-#### Acceptor
+> [!NOTE]
+> The validator has to check if the current block-range height (off-L1) is within the above window otherwise the commitment of the (honest) validator will not be added to the L1 contract. 
+
+
+3. **`acceptingEpoch`**
+
+Votes are counted in the current `acceptingEpoch`. If there are enough commitments for a `blockRangeId` the block-range height receives a postconfirmation. 
+
+```solidity
+??? relevant code
+```
+
+##### Staking and Unstaking
+
+????
+
+##### Rollover
+
+The protocol increases the `acceptingEpoch` incrementally by one, i.e. the protocol progresses from one accepting epoch to the next. Whenever, such an incrementation happens, the stakes of the validators gets adjusted to account for `staking` and `unstaking` events. On the default path the `rolloverEpoch` function is called by the acceptor.
+
+This transition is called _Rollover_. A rollover can occur in two types of paths:
+
+1. If the timestamp of a block-range falls into the next epoch, the protocol progresses to the next epoch.
+
+```solidity
+uint256 NextBlockHeight
+uint256 NextBlockEpoch = blockRangeHeightToAssignedEpoch[NextBlockHeight];
+while (getAcceptingEpoch() < NextBlockEpoch) {
+  rollOverEpoch();  // this also increments the acceptingEpoch
+}
+```
+
+2. If the votes in the current `acceptingEpoch` are not sufficient but there are votes in the subsequent epochs and they are sufficient, the rollover function should be initiated.
+
+> [!NOTE]
+> this is a requirement to protect against liveness issues. can this be done? do we have enough information for this, in particular are the stakes known.
+
+##### Acceptor
 
 Every interval `acceptorTerm` one of the validators takes on the role to accept block-ranges. This acceptor is selected via L1-randomness provided through L1-block hashes. This acceptor is responsible for updating the contract state once a super-majority is reached for an block-range. The acceptor is rewarded for this service.
 
