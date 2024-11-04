@@ -31,7 +31,7 @@ There are several choices for the architecture of a bridge, and we describe here
 > [!WARNING]  
 > The transfer of tokens is one-to-one: a user locks $k$ `$L1MOVE` tokens on L1, they bridge them to L2, and they receive $k$ L2`$L2MOVE` tokens. The same one-to-one ratio applies from L2 to L1.  The bridge does not allow for _swapping_ tokens.
 
-**Lock-Mint**. The main idea of the _lock-mint_ protocol is as follows. For the sake of simplicity, assume the two chains (L1 and L2) have only one user and the user has an account `l1acc` on L1, and another account `l2acc` on L2.  We also assume that each transfer is for one token.
+**Lock-and-Mint**. The main idea of the _lock-mint_ protocol is as follows. For the sake of simplicity, assume the two chains (L1 and L2) have only one user and the user has an account `l1acc` on L1, and another account `l2acc` on L2.  We also assume that each transfer is for one token.
 
 If the user wants to bridge one `$L1MOVE` to L2, then
 
@@ -40,7 +40,7 @@ If the user wants to bridge one `$L1MOVE` to L2, then
 - a _relayer_ monitors the logs on the L1 side, and when they see the `FundReceived(l1acc)` event, they send a transaction to an L2 contract, `L2SideBridge` asking the contract to mint (one)  `$L2MOVE`,
 - the user requests the transfer of the newly minted `$L2MOVE` to their account `l2acc` on L2.
 
-**Burn-Release**. The transfer from L2 to L1 is similar:
+**Burn-and-Unlock**. The transfer from L2 to L1 is similar:
 
 - the user transfers (one) `$L2MOVE` to the `L2SideBridge` contract. The `L2SideBridge` burns (destroys) the token and emits an event
 `TokenBurned(l2acc)` to the L2 (append-only) logs,
