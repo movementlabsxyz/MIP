@@ -23,10 +23,10 @@ In the event of an AB-FFS Partially Decoupled Gas Pool, we suggest identifying a
     A \cdot n \cdot \left( \sum x_i \right) + D = A \cdot D + \frac{D^{n+1}}{\prod x_i}
     ```
     where:
-    - $ A $ is the **amplification coefficient**, which controls the "stretch" of the curve. Higher values of $ A $ make the curve behave more like a constant sum, while lower values make it behave more like a constant product.
-    - $ n $ is the number of assets in the pool (usually 2 in a two-asset pool).
-    - $ x_i $ represents the quantity of each token in the pool.
-    - $ D $ is the **StableSwap invariant**, representing the overall balance of the pool.
+    - $A$ is the **amplification coefficient**, which controls the "stretch" of the curve. Higher values of $A$ make the curve behave more like a constant sum, while lower values make it behave more like a constant product.
+    - $n$ is the number of assets in the pool (usually 2 in a two-asset pool).
+    - $x_i$ represents the quantity of each token in the pool.
+    - $D$ is the **StableSwap invariant**, representing the overall balance of the pool.
     - This formula combines both constant sum and constant product behaviors:
     - **Low-Slippage Region**: Around the equilibrium (e.g., a 1:1 price ratio), the formula approximates constant sum behavior, minimizing slippage for small trades.
     - **Transition to Constant Product**: For larger trades, as the price moves away from equilibrium, the formula shifts toward constant product behavior, allowing larger trades with appropriate price adjustment.
@@ -51,9 +51,9 @@ Given any two collinear relationships:
 A = \alpha B \quad \text{and} \quad C = \beta B
 ```
 
-for constants $ \alpha $ and $ \beta $, we want to compute $ \text{Cov}(A, C) $ in terms of $ \text{Cov}(A, B) $, $ \text{Cov}(B, C) $, and $ \text{Var}(B) $.
+for constants $\alpha$ and $\beta$, we want to compute $\text{Cov}(A, C)$ in terms of $\text{Cov}(A, B)$, $\text{Cov}(B, C)$, and $\text{Var}(B)$.
 
-Since $ A = \alpha B $ and $ C = \beta B $, we can express the covariance $ \text{Cov}(A, C) $ as:
+Since $A = \alpha B$ and $C = \beta B$, we can express the covariance $\text{Cov}(A, C)$ as:
 
 ```math
 \text{Cov}(A, C) = \text{Cov}(\alpha B, \beta B)
@@ -65,7 +65,7 @@ Using the property of covariance for scaled random variables, we get:
 \text{Cov}(\alpha B, \beta B) = \alpha \beta \cdot \text{Cov}(B, B)
 ```
 
-Since $ \text{Cov}(B, B) $ is the variance of $ B $, denoted $ \text{Var}(B) $, we have:
+Since $\text{Cov}(B, B)$ is the variance of $B$, denoted $\text{Var}(B)$, we have:
 
 ```math
 \text{Cov}(A, C) = \alpha \beta \cdot \text{Var}(B)
