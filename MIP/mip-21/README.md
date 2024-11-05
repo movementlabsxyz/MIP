@@ -4,7 +4,7 @@
 
 ## Abstract
 
-A bridge mechanism is essential for any Layer 2 solution, serving as the user's first interaction with the network. This process must be smooth and frictionless, ensuring that dealing with tokens on L1 and bridging to native gas tokens on L2 does not overcomplicate the user experience. The bridge must balance user onboarding, cost-efficiency, and simplicity, while minimizing transaction complexity. We propose a bridge based on attestors, inspired by the Cross-Chain Transfer Protocol (CCTP) by USDC, which offers an elegant solution to these challenges.
+A bridge mechanism is essential for any Layer 2 solution, serving as the user's first interaction with the network. This process must be smooth and frictionless, ensuring that dealing with tokens on L1 and bridging to native gas tokens on L2 does not overcomplicate the user experience. The bridge must balance user onboarding, cost-efficiency, and simplicity, while minimizing transaction complexity. We propose a bridge based on attestors, inspired by the [Cross-Chain Transfer Protocol](https://developers.circle.com/stablecoins/cctp-getting-started) (CCTP) by USDC, which offers an elegant solution to these challenges.
 
 ## Motivation
 
