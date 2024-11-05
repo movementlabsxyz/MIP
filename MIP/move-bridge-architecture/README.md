@@ -66,6 +66,46 @@ Designing a safe bridge is a hard problem.
 
 ## Specification
 
+### Bridging from L1 to L2
+
+Let `user1` be a user with an account on L1, and `user2` be a user with an account on L2. Assume `user1` wants to transfer `k` L1\$MOVE tokens to `user2` on L2.
+A successful transfer requires the following these steps:
+
+1. The _user1_ locks their L1\$MOVE tokens in the `AtomicBridgeInitiatorMOVE.sol` contract on L1. The contract emits an event `BridgeTransferPending` to the L1 logs. At this point in time the transfer becomes `INITIALIZED` on L1.
+2. A _relayer_ monitors the L1 logs and when they see the `BridgeTransferPending` event, they send a transaction to the `atomic_bridge_counterparty.move` module on L2 asking the module to prepare the minting of L2\$MOVE tokens. The status of the bridge transfer on L2 becomes `PENDING`. An event `BridgeTransferLocked` is emitted to the L2 logs.
+
+> [!NOTE]
+> At that point the bridge transfers details are known by the L1 and the L2.
+
+3. the _user2_ (or anybody with the secret) sends a transaction to the `atomic_bridge_counterparty.move` module on L2 asking to _complete the bridge transfer_. This mints tokens and transfers the minted tokens (step 2) to the `user2` account and if successful, an event `BridgeTransferComplete` is emitted to the L2 logs. The status of the transfer on L2 becomes `COMPLETED`.
+
+> [!NOTE]
+> At that stage the L2\$MOVE tokens are in the `user2` account on L2.
+
+4. The relayer monitors the L2 logs and when they see the `BridgeTransferComplete` event, they send a transaction to the `AtomicBridgeInitiatorMOVE.sol` contract on L1 asking to _complete the bridge transfer_. This closes the status of the transfer on L1 and the status of the transfer becomes `COMPLETED`. An event `BridgeTransferComplete` is emitted to the L1 logs.
+
+> [!WARNING]
+> As there can be crashes or delays or network partitions, the protocol should be _fault-tolerant_ to a certain extent.
+This is done by the use of `timelocks` on the L1 and L2 sides that restrict the operations above to occur within _bounded time windows_.
+
+`user1` can claim a refund on L1 after a certain time, `timelock1`, has elapsed.
+This introduces possible concurrent unwanted behaviours, and a timelock has to be set on L2, `timelock2`, to prevent the relayer from completing the transfer on L2 after the refund has been claimed on L1.
+
+<!-- The `AtomicBridgeInitiatorMOVE.sol` contract has a `timeLockL1` parameter, and the `atomic_bridge_counterparty.move` module has a `timeLockL2` parameter.  -->
+The rules for a successful withdrawal of funds on L1 are:
+
+- they should be at least `timeLockL1` time units elapsed since the `user1` initiated  the transfer on L1 (execution of step 1 above),
+- the status of the transfer on L1 should be `INITIALIZED` (i.e. the transfer has not been completed).
+
+This also imposes a time constraint on the L2 side: the operation to complete the transfer on L2 should not occur too long after the transfer has been locked on L2 (step 2 above). This is to prevent the relayer from completing the transfer too late and allow the `user` to get a refund while `user` got the minted token son L2.
+
+> [!IMPORTANT]
+> The desired properties of the bridge protocol (L1 to L2) are  **atomicity** and **liveness**:
+>
+> - [safety] `user1` SHOULD be able to initiate a transfer at any time.
+> - [safety] `user1` MUST NOT be able to get a refund if the transfer has been completed on L2 and `user2` has the funds on L2.
+> - [liveness] if the transfer has not been completed by the L2 within a time window `timelock1` since `user1` initiated the transfer, `user1` MUST be able to get a refund on L1.
+
 <!--
 
   The Specification section should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations.
