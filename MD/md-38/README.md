@@ -47,7 +47,7 @@ This document also seeks a response to the concerns raised in [MD-20](https://gi
 
 **User Journey**: Developers can use guides and software from the Movement SDK to understand how to set up the **initial conditions of L1 and L2 networks** using the Atomic Bridge and Fast Finality Settlement.
 
-**Justification**: Developers need a clear understanding of how to set up the initial conditions of L1 and L2 networks using the Atomic Bridge and Fast Finality Settlement. This allows developers to build networks using the Atomic Bridge and Fast Finality Settlement with a fixed token supply more easily. For example, one common approach will be to generate an initial supply on the L1 and run a privileged bridge and voucher swap exchange to the L2 such that overall circulation is grounded in the L1 mint.
+**Justification**: Developers need a clear understanding of how to set up the initial conditions of L1 and L2 networks using the Atomic Bridge and Fast Finality Settlement. This allows developers to build networks using the Atomic Bridge and Fast Finality Settlement with a fixed token supply more easily. For example, one possible usage approach could be to generate an initial supply on the L1 and run a privileged bridge and voucher swap exchange to the L2 such that overall circulation is grounded in the L1 mint.
 
 
 ## Errata
