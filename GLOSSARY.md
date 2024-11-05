@@ -51,7 +51,7 @@ ERC-20 type token for the Movement Network with the source contract on L1. See a
 
 **`$L2MOVE`**
 
-wrapped version of the `$L1MOVE` token. See also `$wMOVE`. > [MG-39](./MG/mg-39/README.md)
+Native token on L2. Used to pay for L2 gas. > [MG-39](./MG/mg-39/README.md)
 
 **`$L1StakingToken`**
 
@@ -96,3 +96,7 @@ Bridge-Swap plus `$L1MOVE` and `$L1Reward` token. > [MG-?]()
 **Governed Gas Pool**
 
 A token pool on L2 that holds the gas token (`$L2MOVE`). > [MIP-44](./MIP/mip-44/README.md)
+
+**Native Bridge**
+
+Native bridge that permits to exchange of `$L1MOVE` into `$L2MOVE`, and vice versa.
