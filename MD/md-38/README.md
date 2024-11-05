@@ -49,6 +49,11 @@ This document also seeks a response to the concerns raised in [MD-20](https://gi
 
 **Justification**: Developers need a clear understanding of how to set up the initial conditions of L1 and L2 networks using the Atomic Bridge and Fast Finality Settlement. This allows developers to build networks using the Atomic Bridge and Fast Finality Settlement with a fixed token supply more easily. For example, one possible usage approach could be to generate an initial supply on the L1 and run a privileged bridge and voucher swap exchange to the L2 such that overall circulation is grounded in the L1 mint.
 
+### D5: Provide and Argument Agains the Need to Resolve AB-FFS Fixed Supply Concerns
+
+**User Journey**: Developers, exchanges, and users can understand why the bridge can be assumed reasonably secure and inherent fallibility is within network security contraints given a set of assumptions.
+
+**Justification**: We can argue, for example, that many other bridge services use a trusted signer and that said trusted signer is uncomprimised is a fundamental and acceptable assumption. 
 
 ## Errata
 <!--
