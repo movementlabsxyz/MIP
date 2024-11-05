@@ -8,7 +8,7 @@ A bridge design that is atomic in the sense that a transfer either completes or 
 ***???? why atomic??. any transfer should be atomic***
 
 **ABS - Atomic Bridge with Fast Finality Settlement**
-Fast Finality settlement is employed to secure the AB transfers. [MG-?]()
+Fast Finality settlement is employed to secure the AB transfers. > [MG-?]()
 
 **attester**  (not recommended)
 The term attester has been deprecated in favor of validator. > [MG-34](./MG/g-34/MG-34)
@@ -55,40 +55,44 @@ wrapped version of the `$L1MOVE` token. See also `$wMOVE`. > [MG-39](./MG/mg-39/
 
 **`$L1StakingToken`**
 
-could be `$L1MOVE`. [MG-?]()
+could be `$L1MOVE`. > [MG-?]()
 
 **`$L2GasToken`**
 
-could be `$L2MOVE`. [MG-?]()
+could be `$L2MOVE`. > [MG-?]()
 
 **AB-FFS Bridge**
 
-Atomic Bridge that is secured in any way by the FFS protocol. [MG-?]()
+Atomic Bridge that is secured in any way by the FFS protocol. > [MG-?]()
 
 **Fallible transfer**
 
-Bridge token transfer is broken. [MG-?]()
+Bridge token transfer is broken. > [MG-?]()
 
 **Circulating token**
 
-Total supply of `$L1MOVE` plus `$L2MOVE`. [MG-?]()
+Total supply of `$L1MOVE` plus `$L2MOVE`. > [MG-?]()
 
 **Potential token**
 
-Token that could potentially be converted to `$L1MOVE`or `$L2MOVE` token. A bridge transfer releases the potential token on the target change, while it locks source chain tokens into the potential token. [MG-?]()
+Token that could potentially be converted to `$L1MOVE`or `$L2MOVE` token. A bridge transfer releases the potential token on the target change, while it locks source chain tokens into the potential token. > [MG-?]()
 
 **Potential total supply**
 
-Total supply plus potential token supply. [MG-?]()
+Total supply plus potential token supply. > [MG-?]()
 
 **Informer**
 
-An entity that monitors L1 **and** L2. [MG-?]()
+An entity that monitors L1 **and** L2. > [MG-?]()
 
 **Bridge-Swap**
 
-An AMM is between `$L2MOVE` and `$L2Bridge` token [MG-?]()
+An AMM is between `$L2MOVE` and `$L2Bridge` token. > [MG-?]()
 
 **Swap-Bridge-Swap**
 
-Bridge-Swap plus `$L1MOVE` and `$L1Reward` token  [MG-?]()
+Bridge-Swap plus `$L1MOVE` and `$L1Reward` token. > [MG-?]()
+
+**Governed Gas Pool**
+
+A token pool on L2 that holds the gas token (`$L2MOVE`). > [MIP-44](./MIP/mip-44/README.md)
