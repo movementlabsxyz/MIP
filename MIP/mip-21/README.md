@@ -22,8 +22,8 @@ To align with this approach and reduce complexity:
 
 - **User Interaction**: Users, or other parties interested in completing the bridge, retrieve their funds on the target chain by submitting the signature and message.
 
-- **Validation Mechanism**: The off-chain signature produced by the multisig scheme is verified against the message on-chain.
-The challenge is to make sure that the signature is only used once, but the beauty is that the signature is provided by a multi-party system that do not need to provide onchain signatures.
+- **Validation Mechanism**: The off-chain signature produced by the multisig scheme is verified against the message on-chain. As a reference, we could use the same automation scheme as the [MIP-18 Stage 0 Upgradeability and Multisigs](https://github.com/movementlabsxyz/MIP/pulls).
+The challenge is to make sure that the signature is only used once so no transaction is replayed, but the beauty is that the signature is provided by a multi-party system that do not need to provide onchain signatures. It's also important to use a solid architecture that prevents hash mining attacks.
 Relying on a protocol like CCTP that has been tested in live environments significantly reduces the risk of any unexpected utilization of off-chain and on-chain proofs.  
 
 Or on Circle's own words:
@@ -31,6 +31,8 @@ Or on Circle's own words:
 1. An on-chain component on source domain emits a message.
 2. Circle's off-chain attestation service signs the message.
 3. The on-chain component at the destination domain receives the message, and forwards the message body to the specified recipient.
+
+This results in 2 onchain transactions and 1 offchain transaction. Comparatively, HTLC requires 4 onchain transactions.
 
 This approach minimizes the need for additional components and avoids the reliance on synthetic assets, leading to a simplified and cost-effective bridge solution.
 
