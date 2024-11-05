@@ -1,0 +1,1 @@
+https://github.com/aptos-labs/aptos-core/blob/4af15009c7309823c6221079f4c1434ef84a8c95/aptos-move/framework/aptos-framework/sources/transaction_fee.move#L91: Burns the transaction fee
