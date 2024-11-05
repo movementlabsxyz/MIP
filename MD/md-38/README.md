@@ -12,7 +12,7 @@ Using Fast Finality Settlement with the Atomic Bridge presents a challenge when 
 
 Naively burning token on the L2 without a way to return it to either pools on the L2 or the L1 will result in a **deflationary token**, i.e., the supply decreases over time and eventually reaches 0 rendering any operations relying on gas impossible. Meanwhile, providing minting capabilities which involve the operation of fallible services can result in **either a deflationary or inflationary token** and the opportunity for **byzantine attacks**.
 
-Namely, in this context, trying to use the same token for both L2 gas and L1 rewards requires that the token be bridged back over or else rely on a trusted signer to relay the gas. This document outlines the challenges and potential solutions for this problem.
+Using FFS-Postconfirmation requires a reward scheme on L1. On the other hand, users pay fees on L2 into an L2 pool. Namely, in this context, trying to use the same token for both L2 gas and L1 rewards requires that the token be bridged back over from L2 to L1, or else rely on a trusted signer to relay the gas. This document outlines the challenges and potential solutions for this problem.
 
 Users of the Movement SDK should be **informed of different approaches and trade-offs when using the Atomic Bridge and Fast Finality Settlement with a fixed token supply.** This document provides an initial conceptual framing towards that end. 
 
