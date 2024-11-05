@@ -20,7 +20,7 @@
 
 The Native Bridge design presented in [MIP-39](../mip-39/) has the following assumptions to achieve secure operation, and which we detail in [Motivation](#motivation).
 
-Given that these hold, the sum of the token supply of `$L1MOVE` and `$L2MOVE` is considered constant. To improve the security of the relayer and protect the total token supply against violations of the above assumptions, we propose several safety mechanisms:
+Given that these hold, the sum of the token supply of `$L1MOVE` and `$L2MOVE` is equal to `MOVE_MAX`. To improve the security of the relayer and protect the total token supply against violations of the above assumptions, we propose several safety mechanisms:
 
 1. The token supply of `$L1MOVE`, as well as `$L2MOVE` cannot exceed the total supply individually.
 1. The bridge transfers are rate limited, and where the increase of that rate can only be increased by a governance body.
@@ -44,7 +44,9 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ##### 1. Fix the Potential Supply
 
-The token supply of `$L1MOVE`, as well as `$L2MOVE` cannot exceed the total supply individually.
+As described in the [Abstract](#abstract), the sum of the token supply of `$L1MOVE` and `$L2MOVE` is equal to `MOVE_MAX`.Since the bridge is the sole point of creation of `$L2MOVE` token the L2 contract MUST monitor the `$L2MOVE` supply. The L2 bridge contract MUST not release more `$L2MOVE` than the maximum supply `MOVE_MAX`.
+
+Since the maximal released supply of `$L1MOVE` is `MOVE_MAX` the maximum *Potential Supply* (of the sum of the supply of `$L1MOVE` and `$L2MOVE`) is 2 $\times$ `MOVE_MAX`, even in the case of compromised relayer.
 
 ##### 2. Native Bridge rate limiation
 
