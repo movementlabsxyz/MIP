@@ -24,7 +24,7 @@ Given that these hold, the sum of the token supply of `$L1MOVE` and `$L2MOVE` is
 
 1. The token supply of `$L1MOVE`, as well as `$L2MOVE` cannot exceed the total supply individually.
 1. The total amount of bridge transfers is rate limited.
-1. The relayer shall maximize security measurements to protect keys.
+1. The relayer shall maximize security measurements to protect its keys.
 
 
 ## Motivation
@@ -52,11 +52,11 @@ Since the maximal released supply of `$L1MOVE` is `MOVE_MAX` the maximum *Potent
 
 The total amount of bridge transfers SHOULD be rate limited. The bridge contract on L2 (L1) SHOULD be limiting the amount of tokens that can be transferred from L1 to L2 within a given time window $\Delta$ to `bridge_rate`.
 
-To not impact honest traffic heavily, a governance body should be overseeing, whether the `bridge_rate` should be increased temporarily and for what interval. However, such a mechanism impacts the security assumptions as this governance body also would have to adhere to stringent security requirements and a compromise of the governance body could effectively disable the rate limiation.
+To not impact honest traffic heavily, a governance body should be overseeing, whether the `bridge_rate` should be increased temporarily and for what interval. However, such a mechanism impacts the security assumptions as this governance body also would have to adhere to stringent security requirements and a compromise of the governance body could effectively disable the rate limitation.
 
 ##### 3. Relayer key protection
 
-The relayer shall maximize security measurements to protect keys.
+The relayer shall maximize security measurements to protect its keys. For example, it SHOULD implement a multi-signature scheme to sign its messages, as is proposed in [MIP-21](https://github.com/movementlabsxyz/MIP/pull/21). The owners of the constituent keys should be distinct entities with distinct access to their keys.
 
 ## Reference Implementation
 
@@ -91,29 +91,10 @@ Needs discussion.
 ---
 
 ## Errata
-<!--
-  Errata should be maintained after publication.
 
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the proposal in which the error was identified.
-
-  TODO: Maintain this comment.
--->
-
----
 
 ## Appendix
-<!--
-  The Appendix should contain an enumerated list of reference materials and notes.
 
-  When referenced elsewhere each appendix should be called out with [A<number>](#A<number>) and should have a matching header.
-
-  TODO: Remove this comment before finalizing.
-
--->
 
 ### A1
 Nothing important here.
