@@ -23,7 +23,7 @@ The Native Bridge design presented in [MIP-39](../mip-39/) has the following ass
 Given that these hold, the sum of the token supply of `$L1MOVE` and `$L2MOVE` is equal to `MOVE_MAX`. To improve the security of the relayer and protect the total token supply against violations of the above assumptions, we propose several safety mechanisms:
 
 1. The token supply of `$L1MOVE`, as well as `$L2MOVE` cannot exceed the total supply individually.
-1. The bridge transfers are rate limited, and where the increase of that rate can only be increased by a governance body.
+1. The total amount of bridge transfers is rate limited.
 1. The relayer shall maximize security measurements to protect keys.
 
 
@@ -50,7 +50,9 @@ Since the maximal released supply of `$L1MOVE` is `MOVE_MAX` the maximum *Potent
 
 ##### 2. Native Bridge rate limitation
 
-The bridge transfers are rate limited, and where the increase of that rate can only be increased by a governance body.
+The total amount of bridge transfers SHOULD be rate limited. The bridge contract on L2 (L1) SHOULD be limiting the amount of tokens that can be transferred from L1 to L2 within a given time window $\Delta$ to `bridge_rate`.
+
+To not impact honest traffic heavily, a governance body should be overseeing, whether the `bridge_rate` should be increased temporarily and for what interval. However, such a mechanism impacts the security assumptions as this governance body also would have to adhere to stringent security requirements and a compromise of the governance body could effectively disable the rate limiation.
 
 ##### 3. Relayer key protection
 
