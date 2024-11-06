@@ -89,7 +89,7 @@ where:
 - `L1 Gas Fee` is the gas fee charged by the Settlement Layer for commitments of validators.
 - `Postconfirmation L1 Gas fee` is the gas fee charged by the Settlement Layer for the Postconfirmation process and other functionality like rollover of epochs.
 
-While the size of an FFS attestion is constant for any transaction. `L1 Gas Fee` is not. Most L1s including, ETH, have implemented either gas priority systems or dynamic gas fees.
+While the size of an FFS attestion is constant for any transaction. `L1 Gas Fee` and `Postconfirmation L1 Gas fee` is not. Most L1s including, ETH, have implemented either gas priority systems or dynamic gas fees.
 
 
 ### Comparisons to Other Fee Models
