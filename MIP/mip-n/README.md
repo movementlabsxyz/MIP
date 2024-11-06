@@ -62,8 +62,9 @@ For example, in Celestia, fees take the following [form](https://docs.celestia.o
 ```
 
 where: 
-    - `Gas Limit` is the maximum amount of gas that can be used for the transaction and is proportional to the byte size of the transaction.
-    - `Gas Price` is a price set by the user to incentivize validators to include the transaction in the next block.
+
+- `Gas Limit` is the maximum amount of gas that can be used for the transaction and is proportional to the byte size of the transaction.
+- `Gas Price` is a price set by the user to incentivize validators to include the transaction in the next block.
 
 #### Settlement Costs
 Under AB-FFS Governed Fees and Rewards, settlement fee computation MUST not actively use an oracle or other live pricing model to introduce settlement fees directly as **L2 client** gas fees. The security concerns of using an oracle to compute settlement fees are commented on below. Instead, AB-FFS Governed Fees and Rewards recommends regarding the settlement fee passed to **L2 clients** as 0, and the settlement fee passed to **validators** as whatever the extrinsic system charges.
@@ -75,8 +76,9 @@ In general, settlement costs can be modeled in the following form:
 ```
 
 where:
-    - `Number of Validators` is the number of validators participating in the settlement.
-    - `L1 Gas Fee` is the gas fee charged by the Settlement Layer.
+
+- `Number of Validators` is the number of validators participating in the settlement.
+- `L1 Gas Fee` is the gas fee charged by the Settlement Layer.
 
 While the size of an FFS attestion is constant for any transaction. `L1 Gas Fee` is not. Most L1s including, ETH, have implemented either gas priority systems or dynamic gas fees.
 
