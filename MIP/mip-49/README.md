@@ -76,13 +76,18 @@ Under AB-FFS Governed Fees and Rewards, settlement fee computation MUST not acti
 In general, settlement costs can be modeled in the following form:
 
 ```math
-\text{Settlement Cost} = \text{Number of Validators} * \text{L1 Gas Fee}
+\text{Settlement Cost} = \text{Number of Validators} * \text{L1 Gas Fee} 
+```
+
+```math
++ \text{Postconfirmation L1 Gas fee}
 ```
 
 where:
 
 - `Number of Validators` is the number of validators participating in the settlement.
-- `L1 Gas Fee` is the gas fee charged by the Settlement Layer.
+- `L1 Gas Fee` is the gas fee charged by the Settlement Layer for commitments of validators.
+- `Postconfirmation L1 Gas fee` is the gas fee charged by the Settlement Layer for the Postconfirmation process and other functionality like rollover of epochs.
 
 While the size of an FFS attestion is constant for any transaction. `L1 Gas Fee` is not. Most L1s including, ETH, have implemented either gas priority systems or dynamic gas fees.
 
