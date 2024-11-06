@@ -2,7 +2,7 @@
 
 - **Description**: Architecture of the bridge for Move token.
 - **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz)
-- **Desiderata**: [MIP-\<number\>](../MIP/mip-\<number\>)
+- **Desiderata**: [MIP-39](../MIP/mip-\<number\>)
 
 ## Abstract
 
