@@ -45,12 +45,17 @@ In the following a step-by-step guide to transition from the current model to th
 
 Instruction: Figure out where and how the gas token is burned in the current model.
 
-2. redirect to Movement Labs controlled address
+2. Redirect gas fees to Movement Labs controlled address
 
+Instruction: Modify the code, such that the gas-fees go an address that is controlled by Movement Labs instead of burning the gas-fees.
 
 3. Governed gas pool goes live. 
 
+Instruction: Get a gas pool that has governance, see MIP-???.
+
 4. Redirect gas payout address to governed gas pools.
+
+Instruction: Same as step 2, but change the target address.
 
 5. Movement collected gas fees go to governed gas pools.
 
