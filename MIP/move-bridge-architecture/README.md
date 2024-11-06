@@ -92,7 +92,7 @@ This is done by the use of `timelocks` on the L1 and L2 sides that restrict the 
 This introduces possible concurrent unwanted behaviours, and a timelock has to be set on L2, `timelock2`, to prevent the relayer from completing the transfer on L2 after the refund has been claimed on L1.
 
 The following diagram illustrates the steps above:
-![alt text](image.png)
+![alt text](timechart.png)
 
 In order to ensure that the funds can only be transferred from `user` to `user2`, `users1` locks (step 1. `init_bridge_transfer()`) the funds with a `secret`.
 To unlock the funds on L2, `user2` needs to prove they know the secret when they request the funds on L2 (step 3. `complete_bridge_transfer()`).
