@@ -2,7 +2,7 @@
 - **Description**: Proposes a fee model which prioritizes using governance to adjust FFS rewards in an AB-FFS L2 system.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
-- **Desiderata**: [MD-n](../MD/md-n/README.md)
+- **Desiderata**: [MD-49](../MD/md-n/README.md)
 
 ## Abstract
 
