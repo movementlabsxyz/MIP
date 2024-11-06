@@ -11,11 +11,13 @@ This MIP describes the high-level architecture of the MOVE token bridge. The arc
 ## Motivation
 
 The Movement chain (L2) uses the \$MOVE token to pay for gas fees. As a result users need to hold \$MOVE tokens to pay for their transactions.
-The _native_ \$MOVE token is an ERC-20 contract on Ethereum (L1).  By native, we mean that this is the location where the token is minted and burned and where the total supply is set and possibly modified (inflation/deflation). The \$MOVE token reserve is in the L1 contract.
 
-To use the Movement chain and pay for gas fees, a user will acquire \$MOVE (native) tokens on L1, and bridge them to L2. On the L2 they can the token to pay for gas fees or with any other dApps that transact the \$MOVE token.
-A user can choose to migrate their L2 \$MOVE tokens back to the L1 at any time.
-Cross-chain transfers are usually done through a bridge.
+> [!IMPORTANT]
+> The _native_ \$MOVE token is an ERC-20 contract on Ethereum (L1).  By native, we mean that this is the location where the token is minted and burned and where the total supply is set and possibly modified (inflation/deflation). The **\$MOVE token reserve**  is in the L1 contract.
+
+To use the Movement chain and pay for gas fees, a user will acquire \$MOVE (native) tokens on L1, and _bridge_ them to L2. On the L2 they can use the token to pay for gas fees or with any other dApps that transact the \$MOVE token.
+Later, a user can choose to migrate their L2 \$MOVE tokens back to the L1 at any time.
+These Cross-chain assets's transfers are usually done through a component called a _bridge_.
 
 ### A standard bridge architecture
 
@@ -34,23 +36,23 @@ In the sequel, we use
 The main idea of the _lock-mint_ protocol is as follows. For the sake of simplicity, assume the two chains (L1 and L2) have only one user and the user has an account `l1acc` on L1, and another account `l2acc` on L2.  We also assume that each transfer is for one token.
 If the user wants to bridge one L1\$MOVE to L2.
 
-- they _lock_ (one) L1\$MOVE into a (escrow) contract `L1SideBridge` on the L1 side. To do so they transfer (one) L1\$MOVE from `l1acc` to the
-    `L1SideBridge` contract;
-- once the contract `L1SideBridge` receives the L1\$MOVE, it emits a corresponding event `FundReceivedFrom(l1acc)` to the L1 (append-only) logs,
-- a _relayer_ monitors the logs on the L1 side, and when they see the `FundReceived(l1acc)` event, they send a transaction to an L2 contract, `L2SideBridge` asking the contract to mint (one)  L2\$MOVE,
+- they _lock_ (one) L1\$MOVE into a (escrow) contract `L1InitiatorBridge` on the L1 side. To do so they transfer (one) L1\$MOVE from `l1acc` to the
+    `L1InitiatorBridge` contract;
+- once the contract `L1InitiatorBridge` receives the L1\$MOVE, it emits a corresponding event `FundReceivedFrom(l1acc)` to the L1 (append-only) logs,
+- a _relayer_ monitors the logs on the L1 side, and when they see the `FundReceived(l1acc)` event, they send a transaction to an L2 contract, `L2CounterPartyBridge` asking the contract to mint (one)  L2\$MOVE,
 - the user requests the transfer of the newly minted L2\$MOVE to their account on L2, `l2acc`.
 
 The transfer from L2 to L1 is similar:
 
-- the user transfers (one) L2\$MOVE to the `L2SideBridge` contract. The `L2SideBridge` burns (destroys) the token and emits an event
+- the user transfers (one) L2\$MOVE to the `L2InitiatorBridge` contract. The `L2InitiatorBridge` burns (destroys) the token and emits an event
 `TokenBurned(l2acc)` to the L2 (append-only) logs,
-- a relayer monitors the L2 logs and when they see the event `TokenBurned(l2acc)`, they send a transaction to the L1 contract `L1SideBridge` to _unlock_ an L1\$MOVE token for account `l1acc`,
-- the user (on L1)  requests transfer of one L1\$MOVE from the  `L1SideBridge` to their account on L1,   `l1acc`.
+- a relayer monitors the L2 logs and when they see the event `TokenBurned(l2acc)`, they send a transaction to the L1 contract `L1CounterPartyBridge` to _unlock_ an L1\$MOVE token for account `l1acc`,
+- the user (on L1)  requests transfer of one L1\$MOVE from the  `L1CounterPartyBridge` to their account on L1,   `l1acc`.
 
 The previous protocol can be implemented with three main components:
 
-- a contract on the L1 side,
-- a contract on the L2 side,
+- two contracts on the L1 side,
+- one contract (module) on the L2 (Move) side,
 - a relayer.
 
 ### Attacks on bridges
@@ -68,25 +70,25 @@ Designing a safe bridge is a hard problem.
 
 ### Bridging from L1 to L2
 
-Let `user1` be a user with an account on L1, and `user2` be a user with an account on L2. Assume `user1` wants to transfer `k` L1\$MOVE tokens (`asset` in the sequel) to `user2` on L2.
+Let `user1` be a user with an account on L1, and `user2` be a user with an account on L2.
+
+> [!NOTE]
+> Assume `user1` wants to transfer `k` L1\$MOVE tokens, we refer to as `asset` in the sequel, to `user2` on L2.
+
 A successful transfer requires the following these steps:
 
-1. The _user1_ locks their L1\$MOVE tokens in the `AtomicBridgeInitiatorMOVE.sol` contract on L1. The contract emits an event `BridgeTransferPending` to the L1 logs. At this point in time the transfer becomes `INITIALIZED` on L1.
+1. _user1_ locks their L1\$MOVE tokens in the `AtomicBridgeInitiatorMOVE.sol` contract on L1. The contract emits an event `BridgeTransferPending` to the L1 logs. At this point in time the transfer becomes `INITIALIZED` on L1.
 2. A _relayer_ monitors the L1 logs and when they see the `BridgeTransferPending` event, they send a transaction to the `atomic_bridge_counterparty.move` module on L2 asking the module to prepare the minting of L2\$MOVE tokens. The status of the bridge transfer on L2 becomes `PENDING`. An event `BridgeTransferLocked` is emitted to the L2 logs.
 
-> [!NOTE]
+> [!TIP]
 > At that point the bridge transfers details are known by the L1 and the L2.
 
-3. the _user2_ (or anybody with the secret) sends a transaction to the `atomic_bridge_counterparty.move` module on L2 asking to _complete the bridge transfer_. This mints tokens and transfers the minted tokens (step 2) to the `user2` account and if successful, an event `BridgeTransferComplete` is emitted to the L2 logs. The status of the transfer on L2 becomes `COMPLETED`.
+3. _user2_ (or anybody with the secret) sends a transaction to the `atomic_bridge_counterparty.move` module on L2 asking to _complete the bridge transfer_. If the transfer has been properly initialised (step 2 above), this results in minting tokens and transfers the minted tokens to the `user2` account. If successful, an event `BridgeTransferComplete` is emitted to the L2 logs. The status of the transfer on L2 becomes `COMPLETED`.
 
-> [!NOTE]
+> [!TIP]
 > At that stage the L2\$MOVE tokens are in the `user2` account on L2.
 
-4. The relayer monitors the L2 logs and when they see the `BridgeTransferComplete` event, they send a transaction to the `AtomicBridgeInitiatorMOVE.sol` contract on L1 asking to _complete the bridge transfer_. This closes the status of the transfer on L1 and the status of the transfer becomes `COMPLETED`. An event `BridgeTransferComplete` is emitted to the L1 logs.
-
-> [!WARNING]
-> As there can be crashes or delays or network partitions, the protocol should be _fault-tolerant_ to a certain extent.
-This is done by the use of `timelocks` on the L1 and L2 sides that restrict the operations above to occur within _bounded time windows_.
+4. The relayer monitors the L2 logs and when they see the `BridgeTransferComplete` event, they send a transaction to the `AtomicBridgeInitiatorMOVE.sol` contract on L1 to _complete the bridge transfer_. This closes the status of the transfer on L1 and the status of the transfer becomes `COMPLETED`. An event `BridgeTransferComplete` is emitted to the L1 logs.
 
 5. `user1` can claim a refund on L1 after a certain time, `timelock1`, has elapsed.
 This introduces possible concurrent unwanted behaviours, and a timelock has to be set on L2, `timelock2`, to prevent the relayer from completing the transfer on L2 after the refund has been claimed on L1.
@@ -94,7 +96,11 @@ This introduces possible concurrent unwanted behaviours, and a timelock has to b
 The following diagram illustrates the steps above:
 ![alt text](timechart.png)
 
-In order to ensure that the funds can only be transferred from `user` to `user2`, `users1` locks (step 1. `init_bridge_transfer()`) the funds with a `secret`.
+> [!CAUTION]
+> As there can be crashes or delays or network partitions, the protocol should be _fault-tolerant_ to a certain extent.
+This is done by the use of `timelocks` on the L1 and L2 sides that restrict the operations above to occur within _bounded time windows_.
+
+In order to ensure that the funds can only be transferred from `user1` to `user2`, `user1` locks (step 1. `init_bridge_transfer()`) the funds with a `secret`.
 To unlock the funds on L2, `user2` needs to prove they know the secret when they request the funds on L2 (step 3. `complete_bridge_transfer()`).
 
 > [!IMPORTANT]
@@ -107,14 +113,14 @@ To unlock the funds on L2, `user2` needs to prove they know the secret when they
 
 As can be seen in the diagram above, the safety of the bridge may depend on:
 
-- the relayer being live and relaying all events within a bounded time,
-- the timelocks' values being set correctly.
+- the relayer being live and **relaying all events within a bounded time**,
+- the timelocks' values **being set** correctly.
 
 For instance if `timeLock2` is larger than `timeLock1`, the following scenario can happen:
 
-- the `complete_bridge_transfer` tx completes on L2 and funds are transferred to `users2`,
-- the relayer does not relay the event `BridgeTrabsferCompleted!` fast enough,
-- `user1` on L1 asks for a refund and gets the asset back.
+- the `complete_bridge_transfer()` tx completes on L2 and funds are transferred to `users2`,
+- the relayer does not relay the event `BridgeTransferCompleted!` fast enough,
+- `user1` on L1 asks for a refund, `request_refund()`, which is successful and gets the asset back.
 
 The correctness of the implementation depends on the timelocks' values and is addressed in the Verification section below.
 <!--
@@ -142,15 +148,6 @@ An overview of the _happy_ path for normal operation is as follows:
 
 <!-- ![alt text](L1ToL2.png) -->
 
-> [!WARNING]
-If `timeLockL2` is larger than `timeLockL1`, the following scenario can happen:
-
-- the `completeBridgeTransfer` tx completes on L2 and funds are transferred to the target address on L2,
-- the relayer does not relay the event fast enough,
-- the user on L1 asks for a refund, and the `refund` tx is executed on L1.
-
-User gets funds on L2, and gets their fund back on L1.
-
 <!--
   The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
 
@@ -161,30 +158,30 @@ User gets funds on L2, and gets their fund back on L1.
 
 ### Bridge L1 to L2
 
-The correctness of the bridge from L1 to L2 depends on several factors:
+The correctness of the bridge operation from L1 to L2 depends on several factors:
 
 - the timelocks' values,
-- the controls the keys to operate the bridge,
+- the control of the keys to operate the bridge,
 - the verification of the `secret`.
 
 We assume that the keys are not compromised, and that the logics in the contracts ensure that the secret `user1` uses is requested by the `complete_bridge_transfer` tx on L2. This can tested on L1 (Solidity) and formally verified on L2 (Move and Move Prover).
 
 In this section we focus on the timelocks' values, as this involves a sequence of operations on L1 and L2.
-We model the bridge transactions (L1 to L2) and transfers with a [network of timed automata](https://www.cis.upenn.edu/~alur/TCS94.pdf).
+We model the bridge transactions (L1 to L2) and the transfers of assets with a [network of timed automata](https://www.cis.upenn.edu/~alur/TCS94.pdf).
 The safety and liveness properties are defined by temporal logics formulas and can be verified with model-checking tools such as [UPPAAL](http://www.uppaal.org/).
 
 The UPPAAL model is available in [this-file](./uppaal-models/bridge-up-v2.xml).
-To reproduce the results of formal verification, you need a working version of UPPAAL.
+To reproduce the results and check the properties on the model, you need a working version of UPPAAL.
 
-The results of the formal verification are as follows: let $maxRelayerDelay$ be the maximum delay for the relayer to relay the events, and $timeLock1$ and $timeLock2$ be the timelocks on L1 and L2 respectively.
+The results of the model-checking verification are as follows: let $maxRelayerDelay$ be the **maximum delay** for the relayer to relay an event, and $timeLock1$ and $timeLock2$ be the timelocks on L1 and L2 respectively.
 
 > [!IMPORTANT]
-> We have proved the following properties:
+> We have proved (model-checked with UPPAAL) the following properties:
 >
 > - [safety-1]: there exists an execution path such that `user1` initiates and completes a transfer on L2 within a time window $timeLock1$,
 > - [safety-2]: **Provided** the relayer relays the events within a time window $maxRelayerDelay$, **AND** $timelock1 > timelock2 + 2 \times  maxRelayerDelay$, `user1` cannot get a refund on L1 if the transfer has been completed on L2,
-> - [liveness-1] if the relayer is not down, `user2` can get the funds on L2, after $timnelock1 + 2 * maxRelayerDelay$ time units.
-> - [liveness-2] if the transfer is not successful on L2 within $timelock1$, `user1` can get a refund on L1 after $timelock1$ time units.
+> - [liveness-1] if the relayer is not down, `user2` can get the funds on L2, after $timelock1 + 2 * maxRelayerDelay$ time units.
+> - [liveness-2] if the transfer is not successful on L2 within $timelock1$, `user1` can get a refund on L1 (after $timelock1$ time units).
 
 Note that [safety-2] does hold if the relayer is down for more than $maxRelayerDelay$, or the timelocks are not set correctly.
 
