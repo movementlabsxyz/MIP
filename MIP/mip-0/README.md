@@ -9,7 +9,8 @@ The Goverened Gas Pool design presented in [MIP-44](../mip-44/) is required to b
 for the good of the network.
 
 The Governed Gas Pool may be used to provide liquidity for different network needs, such as L1 Reward Tokens, or to enable the "Trickle-back", where the `$L2-MOVE` would be paid 
-directly to attestors as `$L1-MOVE` for rewards. 
+directly to attestors as `$L1-MOVE` for rewards. For all these activities a dispersal of funds is required, this MIP proposes concrete ways to manage dispersal events 
+in a safe immutable and secure manner. 
 
 To decide on how acrued `$L2-MOVE` in the Governed Gas Pool should be used, a robust and thorough implementation of governance should be proposed. 
 
@@ -34,7 +35,6 @@ As described in the [Abstract](#abstract), the sum of the token supply of `$L1MO
 The total amount of bridge transfers should be rate limited to $(X, T)$ where $X$ is the maximum transferable amount per time period $T$. I.e. the bridge should not allow more than $X$ total transaction value in any $T$ period.
 
 To not impact honest traffic heavily, a governance body MAY be overseeing, whether the `bridge_rate` SHOULD be increased temporarily and for what interval. However, such a mechanism impacts the security assumptions as this governance body also would have to adhere to stringent security requirements and a compromise of the governance body could effectively disable the rate limitation. Also the above mentioned Crypto-economic security guarantees do not hold any longer.
-
 
 
 ##### 3. Relayer key protection
@@ -103,15 +103,14 @@ Multisignature approaches are common praxis, for example see [MIP-21](https://gi
 Needs discussion.
 
 ---
+## Reference Implementation 
+
+The `governed_gas_pool.move` would interact with `aptos_framework.move`, seperating the roles of actual governance, voting and storing of gas and dispersing those funds.
 
 ## Errata
 
 
 ## Appendix
-
-
-### A1
-Nothing important here.
 
 ---
 ## Copyright
