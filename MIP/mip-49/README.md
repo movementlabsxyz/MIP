@@ -2,7 +2,7 @@
 - **Description**: Proposes a fee model which prioritizes using governance to adjust FFS rewards in an AB-FFS L2 system.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
-- **Desiderata**: [MD-49](../MD/md-n/README.md)
+- **Desiderata**: [MD-49](../MD/md-49/README.md)
 
 ## Abstract
 
@@ -25,15 +25,19 @@ In response to [MD-49](../MD/md-n/README.md), we propose a fee model for an AB-F
 - **bridge operator**: the operator of the bridge service who charges fees for transferring assets between chains.
 
 ### Requirements 
-An AB-FFS Governed Reward system will meet the following requirements:
+An AB-FFS **Governed Reward system** will meet the following requirements for fees:
 
-1. An AB-FFS Governed Rewards system SHALL idenitfy four operators to whom fees may be charged or rewards may be paid: L2 clients, validators, delegators, and bridge operators.
+1. An AB-FFS Governed Reward system SHALL idenitfy to whom fees may be charged: L2 clients, Operator
+2. An AB-FFS Governed Reward system MUST provide a means for the governing body to adjust the gas fees charged to L2 clients according to a vote. This is intended to ensure that the cost of using the L2 system is competitive with other systems.
+3. An AB-FFS Governed Reward system MUST provide a means for the governing body to adjust the fees charged to bridge clients according to a vote. This is intended to ensure that the cost of using the bridge service is competitive with other systems.
+4. An AB-FFS Governed Reward system MUST transfer gas fees into a [Governed Gas Pool](https://github.com/movementlabsxyz/MIP/pulls) which SHALL be used to add additional rewards to the FFS rewards pool when needed. 
+
+An AB-FFS **Governed Reward system** will meet the following requirements for rewards
+
+1. An AB-FFS Governed Rewards system SHALL idenitfy 3 operators to whom fees rewards may be paid: validators, delegators, and bridge operators.
 2. An AB-FFS Governed Rewards system MUST provide a means for the governing body, e.g., Movement Labs to adjust FFS reward parameters according to a vote. This is intended to ensure the value of the FFS rewards exceeds difficult to compute costs of operating as a participant in the L2 system.
-3. An AB-FFS Governed Rewards system MUST provide a means for the governing body to adjust the gas fees charged to L2 clients according to a vot. This is intended to ensure that the cost of using the L2 system is competitive with other systems.
-4. An AB-FFS Governed Rewards system MUST provide a means for the governing body to adjust the fees charged to bridge clients according to a vote. This is intended to ensure that the cost of using the bridge service is competitive with other systems.
-5. An AB-FFS Governed Rewards system SHALL compensate validators as a function of expected settlement and DA costs with FFS rewards, but does not need to recompute this expectations. 
-6. An AB-FFS Governed Rewards system SHALL compensate bridge operators with collected gas fees, but does not need to recompute these fees.
-7. An AB-FFS Governed Rewards system MUST transfer gas fees into a [Governed Gas Pool](https://github.com/movementlabsxyz/MIP/pulls) which SHALL be used to add additional rewards to the FFS rewards pool when needed. 
+3. An AB-FFS Governed Rewards system SHALL compensate validators as a function of expected settlement and DA costs with FFS rewards, but does not need to recompute this expectations. 
+4. An AB-FFS Governed Rewards system SHALL compensate bridge operators with collected gas fees, but does not need to recompute these fees.
 
 ### Costs and Computability
 

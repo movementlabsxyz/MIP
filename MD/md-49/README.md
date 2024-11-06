@@ -1,4 +1,4 @@
-# MD-15: Movement L2 Gas Fees
+# MD-49: Movement L2 Gas Fees
 - **Description**: Provide a means of computing, charging, and distributing gas fees for the Movement L2s which rely on a separate DA and Settlement Layer, e.g., the Movement Network.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
