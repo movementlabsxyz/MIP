@@ -68,7 +68,7 @@ Designing a safe bridge is a hard problem.
 
 ### Bridging from L1 to L2
 
-Let `user1` be a user with an account on L1, and `user2` be a user with an account on L2. Assume `user1` wants to transfer `k` L1\$MOVE tokens to `user2` on L2.
+Let `user1` be a user with an account on L1, and `user2` be a user with an account on L2. Assume `user1` wants to transfer `k` L1\$MOVE tokens (`asset` in the sequel) to `user2` on L2.
 A successful transfer requires the following these steps:
 
 1. The _user1_ locks their L1\$MOVE tokens in the `AtomicBridgeInitiatorMOVE.sol` contract on L1. The contract emits an event `BridgeTransferPending` to the L1 logs. At this point in time the transfer becomes `INITIALIZED` on L1.
@@ -88,24 +88,35 @@ A successful transfer requires the following these steps:
 > As there can be crashes or delays or network partitions, the protocol should be _fault-tolerant_ to a certain extent.
 This is done by the use of `timelocks` on the L1 and L2 sides that restrict the operations above to occur within _bounded time windows_.
 
-`user1` can claim a refund on L1 after a certain time, `timelock1`, has elapsed.
+5. `user1` can claim a refund on L1 after a certain time, `timelock1`, has elapsed.
 This introduces possible concurrent unwanted behaviours, and a timelock has to be set on L2, `timelock2`, to prevent the relayer from completing the transfer on L2 after the refund has been claimed on L1.
 
-<!-- The `AtomicBridgeInitiatorMOVE.sol` contract has a `timeLockL1` parameter, and the `atomic_bridge_counterparty.move` module has a `timeLockL2` parameter.  -->
-The rules for a successful withdrawal of funds on L1 are:
+The following diagram illustrates the steps above:
+![alt text](image.png)
 
-- they should be at least `timeLockL1` time units elapsed since the `user1` initiated  the transfer on L1 (execution of step 1 above),
-- the status of the transfer on L1 should be `INITIALIZED` (i.e. the transfer has not been completed).
-
-This also imposes a time constraint on the L2 side: the operation to complete the transfer on L2 should not occur too long after the transfer has been locked on L2 (step 2 above). This is to prevent the relayer from completing the transfer too late and allow the `user` to get a refund while `user` got the minted token son L2.
+In order to ensure that the funds can only be transferred from `user` to `user2`, `users1` locks (step 1. `init_bridge_transfer()`) the funds with a `secret`.
+To unlock the funds on L2, `user2` needs to prove they know the secret when they request the funds on L2 (step 3. `complete_bridge_transfer()`).
 
 > [!IMPORTANT]
 > The desired properties of the bridge protocol (L1 to L2) are  **atomicity** and **liveness**:
 >
-> - [safety] `user1` SHOULD be able to initiate a transfer at any time.
-> - [safety] `user1` MUST NOT be able to get a refund if the transfer has been completed on L2 and `user2` has the funds on L2.
-> - [liveness] if the transfer has not been completed by the L2 within a time window `timelock1` since `user1` initiated the transfer, `user1` MUST be able to get a refund on L1.
+> - [safety-1] `user1` SHOULD be able to initiate a transfer at any time.
+> - [safety-2] `user1` MUST NOT be able to **get a refund** if the transfer **has been completed on L2** and `user2` has the funds on L2.
+> - [liveness-1] if the relayer is live and relays all events within a bounded time, `user1` SHOULD be able to complete the transfer on L2 and get the asset on L2.
+> - [liveness-2] if the transfer has not been completed by the L2 within a time window `timelock1` since `user1` initiated the transfer, `user1` MUST be able to get a refund on L1.
 
+As can be seen in the diagram above, the safety of the bridge may depend on:
+
+- the relayer being live and relaying all events within a bounded time,
+- the timelocks' values being set correctly.
+
+For instance if `timeLock2` is larger than `timeLock1`, the following scenario can happen:
+
+- the `complete_bridge_transfer` tx completes on L2 and funds are transferred to `users2`,
+- the relayer does not relay the event `BridgeTrabsferCompleted!` fast enough,
+- `user1` on L1 asks for a refund and gets the asset back.
+
+The correctness of the implementation depends on the timelocks' values and is addressed in the Verification section below.
 <!--
 
   The Specification section should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations.
@@ -129,7 +140,7 @@ The contracts involved are:
 The current implementation is a _lock-mint_ bridge. The user locks their L1\$MOVE tokens in the `AtomicBridgeInitiatorMOVE` contract, and the `atomic_bridge_counterparty.move` module mints the corresponding L2\$MOVE tokens.
 An overview of the _happy_ path for normal operation is as follows:
 
-![alt text](L1ToL2.png)
+<!-- ![alt text](L1ToL2.png) -->
 
 > [!WARNING]
 If `timeLockL2` is larger than `timeLockL1`, the following scenario can happen:
@@ -147,6 +158,35 @@ User gets funds on L2, and gets their fund back on L1.
 -->
 
 ## Verification
+
+### Bridge L1 to L2
+
+The correctness of the bridge from L1 to L2 depends on several factors:
+
+- the timelocks' values,
+- the controls the keys to operate the bridge,
+- the verification of the `secret`.
+
+We assume that the keys are not compromised, and that the logics in the contracts ensure that the secret `user1` uses is requested by the `complete_bridge_transfer` tx on L2. This can tested on L1 (Solidity) and formally verified on L2 (Move and Move Prover).
+
+In this section we focus on the timelocks' values, as this involves a sequence of operations on L1 and L2.
+We model the bridge transactions (L1 to L2) and transfers with a [network of timed automata](https://www.cis.upenn.edu/~alur/TCS94.pdf).
+The safety and liveness properties are defined by temporal logics formulas and can be verified with model-checking tools such as [UPPAAL](http://www.uppaal.org/).
+
+The UPPAAL model is available in [this-file](./uppaal-models/bridge-up-v2.xml).
+To reproduce the results of formal verification, you need a working version of UPPAAL.
+
+The results of the formal verification are as follows: let $maxRelayerDelay$ be the maximum delay for the relayer to relay the events, and $timeLock1$ and $timeLock2$ be the timelocks on L1 and L2 respectively.
+
+> [!IMPORTANT]
+> We have proved the following properties:
+>
+> - [safety-1]: there exists an execution path such that `user1` initiates and completes a transfer on L2 within a time window $timeLock1$,
+> - [safety-2]: **Provided** the relayer relays the events within a time window $maxRelayerDelay$, **AND** $timelock1 > timelock2 + 2 \times  maxRelayerDelay$, `user1` cannot get a refund on L1 if the transfer has been completed on L2,
+> - [liveness-1] if the relayer is not down, `user2` can get the funds on L2, after $timnelock1 + 2 * maxRelayerDelay$ time units.
+> - [liveness-2] if the transfer is not successful on L2 within $timelock1$, `user1` can get a refund on L1 after $timelock1$ time units.
+
+Note that [safety-2] does hold if the relayer is down for more than $maxRelayerDelay$, or the timelocks are not set correctly.
 
 <!--
 
