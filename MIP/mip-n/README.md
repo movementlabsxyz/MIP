@@ -6,11 +6,11 @@
 
 ## Abstract
 
-In response to [MD-n](../MD/md-n/README.md), we propose a fee model for an AB-FFS L2 system which interprets all fees as compensated for in gas fees, bridge fees, or FFS rewards which are adjusted by a governing body. We argue that this approach avoids many of the security and fairness issues that arise in more complex fee models, and is analogous to fee models used in traditional L1 systems. We provide an account of the complexity of other fee models and the limitations from which even theses models suffer. We exemplify these limitations by describing an AB-FFS system which uses Celestia as DA and Ethereum as the Settlement Layer.
+In response to [MD-49](../MD/md-n/README.md), we propose a fee model for an AB-FFS L2 system which interprets all fees as compensated for in gas fees, bridge fees, or FFS rewards which are adjusted by a governing body. We argue that this approach avoids many of the security and fairness issues that arise in more complex fee models, and is analogous to fee models used in traditional L1 systems. We provide an account of the complexity of other fee models and the limitations from which even theses models suffer. We exemplify these limitations by describing an AB-FFS system which uses Celestia as DA and Ethereum as the Settlement Layer.
 
 ## Motivation
 
-[MD-n](../MD/md-n/README.md) requests a means of computing, charging, and distributing gas fees for the Movement L2s which rely on a separate DA and Settlement Layer. We provide such means for an AB-FFS system.
+[MD-49](../MD/md-n/README.md) requests a means of computing, charging, and distributing gas fees for the Movement L2s which rely on a separate DA and Settlement Layer. We provide such means for an AB-FFS system.
 
 ## Specification
 
