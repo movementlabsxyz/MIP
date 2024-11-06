@@ -1,4 +1,4 @@
-# MIP-15: AB-FFS Governed Fees and Rewards
+# MIP-49: AB-FFS Governed Fees and Rewards
 - **Description**: Proposes a fee model which prioritizes using governance to adjust FFS rewards in an AB-FFS L2 system.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
