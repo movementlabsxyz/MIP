@@ -1,8 +1,7 @@
-# MIP-\<number\>: MOVE Token -- Bridge Design
+# MIP-39: MOVE Token -- Bridge Design
 
 - **Description**: Architecture of the bridge for Move token.
 - **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz)
-- **Desiderata**: [MIP-\<number\>](../MIP/mip-\<number\>)
 
 ## Abstract
 
@@ -11,14 +10,14 @@ This MIP describes the high-level architecture of the MOVE token bridge. The arc
 ## Definitions
 
 - `$L1MOVE` (or `$MOVE`) : ERC-20 type token with the source contract on L1
-- `$L2MOVE` :  `$L1MOVE` token that has been bridged from L1 to L2. Publicly may also be called `$MOVE` but as this causes confusion, here we stick to `$L2MOVE` to make clear this token lives on L2.
+- `$L2MOVE` :  Token that is created on L2 after `$L1MOVE` token is locked on L1. We also say `$L1MOVE` is bridged from L1 to L2. `$L2MOVE` may publicly also be called `$MOVE` but as this causes confusion, here we stick to `$L2MOVE` to make clear this token lives on L2.
 
 ## Motivation
 
 
 The Movement chain (L2) uses the `$L2MOVE` token to pay for gas fees. As a result users need to hold `$L2MOVE` tokens to pay for their transactions.
 
-> [!IMPORTANT]
+> [!IMPORTANT] Native $MOVE token
 > The _native_ `$L1MOVE` token is an ERC-20 contract on Ethereum (L1).  By native, we mean that this is the location where the token is minted and burned and where the total supply is set and possibly modified (inflation/deflation). The **`$L1MOVE` token reserve**  is in the L1 contract.
 
 To use the Movement chain and pay for gas fees, a user will acquire `$L1MOVE` (native) tokens on L1, and _bridge_ them to L2. On the L2 they can use the token to pay for gas fees or with any other dApps that transact the `$L2MOVE` token.
@@ -33,8 +32,8 @@ There are several choices for the architecture of a bridge, and we describe here
 
 
 
-> [!WARNING]  
-> The transfer of tokens is one-to-one: a user locks $k$ `$L1MOVE` tokens on L1, they bridge them to L2, and they receive $k$ L2`$L2MOVE` tokens. The same one-to-one ratio applies from L2 to L1.  The bridge does not allow for _swapping_ tokens.
+> [!WARNING]  This is a bridge, not a swap, so transfer is 1 to 1.
+> The transfer of tokens is one-to-one: a user bridges $k$ `$L1MOVE` tokens to L2, and they receive $k$ `$L2MOVE` tokens. Same one-to-one ratio applies from L2 to L1.  The bridge does not allow for _swapping_ tokens.
 
 **Lock-and-Mint**. The main idea of the _lock-mint_ protocol is as follows. For the sake of simplicity, assume the two chains (L1 and L2) have only one user and the user has an account `l1acc` on L1, and another account `l2acc` on L2.  We also assume that each transfer is for one token.
 
@@ -82,20 +81,22 @@ Designing a safe bridge is a hard problem.
 
 Let `user1` be a user with an account on L1, and `user2` be a user with an account on L2.
 
-> [!NOTE]
-> Assume `user1` wants to transfer `k` L1`$L1MOVE` tokens, we refer to as `asset` in the sequel, to `user2` on L2.
+> [!NOTE] Simple context (without loss of generality)
+> Assume `user1` wants to transfer `1` `$L1MOVE` tokens, we refer to as `asset` in the sequel, to `user2` on L2.
+
+#### Transfer steps
 
 A successful transfer requires the following these steps:
 
 1. _user1_ locks their L1`$L1MOVE` tokens in the `AtomicBridgeInitiatorMOVE.sol` contract on L1. The contract emits an event `BridgeTransferPending` to the L1 logs. At this point in time the transfer becomes `INITIALIZED` on L1.
 2. A _relayer_ monitors the L1 logs and when they see the `BridgeTransferPending` event, they send a transaction to the `atomic_bridge_counterparty.move` module on L2 asking the module to prepare the minting of `$L2MOVE` tokens. The status of the bridge transfer on L2 becomes `PENDING`. An event `BridgeTransferLocked` is emitted to the L2 logs.
 
-> [!TIP]
+> [!TIP] Check point: This is the end of the first phase. Next phase must be triggered by `user2`.
 > At that point the bridge transfers details are known by the L1 and the L2.
 
 3. _user2_ (or anybody with the secret) sends a transaction to the `atomic_bridge_counterparty.move` module on L2 asking to _complete the bridge transfer_. If the transfer has been properly initialised (step 2 above), this results in minting tokens and transfers the minted tokens to the `user2` account. If successful, an event `BridgeTransferComplete` is emitted to the L2 logs. The status of the transfer on L2 becomes `COMPLETED`.
 
-> [!TIP]
+> [!TIP] Check point: The transfer is completed on L2.
 > At that stage the `$L2MOVE` tokens are in the `user2` account on L2.
 
 4. The relayer monitors the L2 logs and when they see the `BridgeTransferComplete` event, they send a transaction to the `AtomicBridgeInitiatorMOVE.sol` contract on L1 to _complete the bridge transfer_. This closes the status of the transfer on L1 and the status of the transfer becomes `COMPLETED`. An event `BridgeTransferComplete` is emitted to the L1 logs.
@@ -103,17 +104,22 @@ A successful transfer requires the following these steps:
 5. `user1` can claim a refund on L1 after a certain time, `timelock1`, has elapsed.
 This introduces possible concurrent unwanted behaviours, and a timelock has to be set on L2, `timelock2`, to prevent the relayer from completing the transfer on L2 after the refund has been claimed on L1.
 
-The following diagram illustrates the steps above:
-![alt text](timechart.png)
+The following diagram (Figure 1) illustrates the steps above:
 
-> [!CAUTION]
+---
+
+![alt text](L1ToL2.png)
+**Figure 1**: Timechart of the bridge protocol from L1 to L2.
+
+---
+> [!CAUTION] Fault-tolerance
 > As there can be crashes or delays or network partitions, the protocol should be _fault-tolerant_ to a certain extent.
 This is done by the use of `timelocks` on the L1 and L2 sides that restrict the operations above to occur within _bounded time windows_.
 
 In order to ensure that the funds can only be transferred from `user1` to `user2`, `user1` locks (step 1. `init_bridge_transfer()`) the funds with a `secret`.
 To unlock the funds on L2, `user2` needs to prove they know the secret when they request the funds on L2 (step 3. `complete_bridge_transfer()`).
 
-> [!IMPORTANT]
+> [!IMPORTANT]  Requirements for the bridge protocol
 > The desired properties of the bridge protocol (L1 to L2) are  **atomicity** and **liveness**:
 >
 > - [safety-1] `user1` SHOULD be able to initiate a transfer at any time.
@@ -133,14 +139,72 @@ For instance if `timeLock2` is larger than `timeLock1`, the following scenario c
 - `user1` on L1 asks for a refund, `request_refund()`, which is successful and gets the asset back.
 
 The correctness of the implementation depends on the timelocks' values and is addressed in the Verification section below.
-<!--
 
-  The Specification section should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations.
+#### Security & Permissions
 
-  It is recommended to follow RFC 2119 and RFC 8170. Do not remove the key word definitions if RFC 2119 and RFC 8170 are followed.
+Contracts's APIs:
 
-  TODO: Remove this comment before finalizing
--->
+| Layer | Function Name              | Permission      | #Event |
+|----| ----------------------------|-------------------|------ |
+| L1 | `init_bridge_transfer()`   | User1              | BridgeTransferPending |
+| L1 | `request_refund()`         | User1              | BridgeTransferRefunded |
+| L1 | `complete_bridge_transfer()` | Relayer          | BridgeTransferCompleted |
+||
+| L2|  `lock_bridge_asset_transfer()`   | Relayer      | BridgeTransferLocked |
+| L2 | `complete_bridge_transfer()` | User2          |  BridgeTransferCompleted |
+| L2 | `abort_bridge_transfer()`   | Relayer          | BridgeTransferAborted |
+
+The permissions are set to ensure that only the user who initiated the transfer can request a refund, and only the relayer can complete the transfer on L2.
+
+Other safety considerations include the use of [EIP-55](https://eips.ethereum.org/EIPS/eip-55) (L1 side) checksums for addresses. There is some code immplemented in the L2 Move contract [ethereum_module](<https://github.com/movementlabsxyz/aptos-core/blob/061155119258caab512aec6aa860b086e5f312e0/aptos-move/framework/aptos-framework/sources/atomic_bridge.move#L1> to check EIP-55 compliance so we may enforce EIP-55 compliance at some stage.
+
+### Bridging from L2 to L1
+
+#### Transfer steps
+
+A successful transfer from L2 to L1 requires the following these steps:
+
+1. _user2_ burns their L2\$MOVE tokens in the `atoic_bridge_initiator.move`  contract on L2. The contract emits an event `BridgeTransferInitiated` to the L2 logs. At this point in time the transfer becomes `INITIALIZED` (or pending) on L2.
+2. A _relayer_ monitors the L2 logs and when they see the `BridgeTransferInitiated` event, they send a transaction to the `AtomicBridgeCounperPartyMOVE.sol` contract on L1 asking the module to prepare to _unlock_ L1\$MOVE tokens. The status of the bridge transfer on L1 becomes `PENDING`. An event `BridgeTransferLocked` is emitted to the L1 logs.
+
+> [!TIP] Check point. `user2' does not have the asset on L2 anymore.
+> At that point the bridge transfers details are known by the L1 and the L2.
+
+3. _user1_ (or anybody with the secret) sends a transaction to the `AtomicBridgeCounterParty.sol` contract on L1 asking to _complete the bridge transfer_. If the transfer has been properly initialised (step 2 above), this results in transferring $L1MOVE tokens to the `user1` account. If successful, an event `BridgeTransferCompleted` is emitted to the L1 logs. The status of the transfer on L1 becomes `COMPLETED`.
+
+> [!TIP] Check point. `User1` has the asset on L1.
+> At that stage the L1\$MOVE tokens are in the `user1` account on L1.
+
+4. The relayer monitors the L1 logs and when they see the `BridgeTransferCompleted` event, they send a transaction to the `atomic_bridge_initiator.move` module on L2 to _complete the bridge transfer_. This closes the status of the transfer on L2 and the status of the transfer becomes `COMPLETED`. An event `BridgeTransferCompleted` is emitted to the L2 logs.
+
+5. `user2` can claim a refund on L1 after a certain time, `timelock2`, has elapsed.
+This introduces possible concurrent unwanted behaviours, and a timelock has to be set on L2, `timelock2`, to prevent the relayer from completing the transfer on L1 after the refund has been claimed on L2.
+
+The following diagram (Figure 1) illustrates the steps above:
+
+---
+
+![alt text](L2ToL1.png)
+
+**Figure 2**: Timechart of the bridge protocol from L2 to L1.
+
+---
+
+#### Security & Permissions
+
+Contracts's APIs:
+
+| Layer | Function Name              | Permission      | #Event |
+|----| ----------------------------|-------------------|------ |
+| L2 | `initiate_bridge_transfer()`   | User2              | BridgeTransferPending |
+| L2 | `request_refund()`         | User2              | BridgeTransferRefunded |
+| L2 | `complete_bridge_transfer()` | Relayer          | BridgeTransferCompleted |
+||
+| L1|  `lock_bridge_transfer()`   | Relayer      | BridgeTransferLocked |
+| L1 | `complete_bridge_transfer()` | User1          |  BridgeTransferCompleted |
+| L1 | `request_refund()`   | User2          | BridgeTransferRefunded |
+
+The permissions are set to ensure that only the user who initiated the transfer can request a refund, and only the relayer can complete the transfer on L1.
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
 
@@ -155,7 +219,16 @@ The contracts involved are:
 
 The current implementation is a _lock-mint_ bridge. The user locks their `$L1MOVE` tokens in the `AtomicBridgeInitiatorMOVE` contract, and the `atomic_bridge_counterparty.move` module mints the corresponding `$L2MOVE` tokens.
 
-An overview of the _happy_ path for normal operation is as follows:
+### Bridging from L2 to L1
+
+The contracts involved are:
+
+- Solidity contract [AtomicBridgeCounterPartyMOVE.sol](http:githug.com/movementlabsxyz/movement/blob/main/protocol-units/bridge/contracts/src/AtomicBridgeCounterPartyMOVE.sol) on L1,
+- module [atomic_bridge_initiator.move](https://github.com/movementlabsxyz/aptos-core/blob/061155119258caab512aec6aa860b086e5f312e0/aptos-move/framework/aptos-framework/sources/atomic_bridge.move#L121) on L2.
+
+### Relayer and Services
+
+The (Rust) relayer logics are in [service folder](https://github.com/movementlabsxyz/movement/tree/main/protocol-units/bridge/service).
 
 ![alt text](L1ToL2.png)
 
@@ -196,8 +269,8 @@ To reproduce the results and check the properties on the model, you need a worki
 
 The results of the model-checking verification are as follows: let $maxRelayerDelay$ be the **maximum delay** for the relayer to relay an event, and $timeLock1$ and $timeLock2$ be the timelocks on L1 and L2 respectively.
 
-> [!IMPORTANT]
-> We have proved (model-checked with UPPAAL) the following properties:
+> [!IMPORTANT]  Verification results
+> We have **proved** (model-checked with UPPAAL) the following properties:
 >
 > - [safety-1]: there exists an execution path such that `user1` initiates and completes a transfer on L2 within a time window $timeLock1$,
 > - [safety-2]: **Provided** the relayer relays the events within a time window $maxRelayerDelay$, **AND** $timelock1 > timelock2 + 2 \times  maxRelayerDelay$, `user1` cannot get a refund on L1 if the transfer has been completed on L2,
@@ -205,6 +278,10 @@ The results of the model-checking verification are as follows: let $maxRelayerDe
 > - [liveness-2] if the transfer is not successful on L2 within $timelock1$, `user1` can get a refund on L1 (after $timelock1$ time units).
 
 Note that [safety-2] does hold if the relayer is down for more than $maxRelayerDelay$, or the timelocks are not set correctly.
+
+### Bridge L2 to L1
+
+The only difference between L1 to L2 is the way assets are created/destroyed. However, the formal model abstracts away this difference and the same properties hold for the L2 to L1 bridge.
 
 <!--
 
@@ -223,11 +300,9 @@ Note that [safety-2] does hold if the relayer is down for more than $maxRelayerD
   TODO: Remove this comment before submitting
 -->
 
-Needs discussion.
+<!-- ---
 
----
-
-## Errata
+## Errata -->
 <!--
   Errata should be maintained after publication.
 
@@ -243,6 +318,11 @@ Needs discussion.
 ---
 
 ## Appendix
+
+The UPPAAL models of the L1 to L2 tranfers are available in the [uppaal-models](./uppaal-models) directory.
+The simplest model is [bridge-up-v2.xml](./uppaal-models/bridge-up-v2.xml) and the more complex model is [bridge-up-v3.xml](./uppaal-models/bridge-up-v3.xml) with probabilities.
+
+You can request a license to use UPPAAL at [UPPAAL](http://www.uppaal.org/).
 <!--
   The Appendix should contain an enumerated list of reference materials and notes.
 
@@ -251,10 +331,10 @@ Needs discussion.
   TODO: Remove this comment before finalizing.
 
 -->
-
+<!-- 
 ### A1
 
-Nothing important here.
+Nothing important here. -->
 
 ---
 
