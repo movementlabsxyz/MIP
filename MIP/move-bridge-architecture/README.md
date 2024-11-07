@@ -217,8 +217,16 @@ The contracts involved are:
 - Solidity contract [AtomicBridgeInitiatorMOVE.sol](https://github.com/movementlabsxyz/movement/blob/main/protocol-units/bridge/contracts/src/AtomicBridgeInitiatorMOVE.sol) on L1,
 - module [atomic_bridge_counterparty.move](https://github.com/movementlabsxyz/aptos-core/blob/061155119258caab512aec6aa860b086e5f312e0/aptos-move/framework/aptos-framework/sources/atomic_bridge.move#L1163) on L2.
 
-The current implementation is a _lock-mint_ bridge. The user locks their L1\$MOVE tokens in the `AtomicBridgeInitiatorMOVE` contract, and the `atomic_bridge_counterparty.move` module mints the corresponding L2\$MOVE tokens.
-An overview of the _happy_ path for normal operation is as follows:
+### Bridging from L2 to L1
+
+The contracts involved are:
+
+- Solidity contract [AtomicBridgeCounterPartyMOVE.sol](http:githug.com/movementlabsxyz/movement/blob/main/protocol-units/bridge/contracts/src/AtomicBridgeCounterPartyMOVE.sol) on L1,
+- module [atomic_bridge_initiator.move](https://github.com/movementlabsxyz/aptos-core/blob/061155119258caab512aec6aa860b086e5f312e0/aptos-move/framework/aptos-framework/sources/atomic_bridge.move#L121) on L2.
+
+### Relayer and Services
+
+The (Rust) relayer logics are in [service folder](https://github.com/movementlabsxyz/movement/tree/main/protocol-units/bridge/service).
 
 <!-- ![alt text](L1ToL2.png) -->
 
