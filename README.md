@@ -39,7 +39,7 @@ You **SHOULD NOT** draft an MIP, if any of the following are true:
 
 ## Movement Glossary (MG)
 
-See [MG-0](./MIP/mg-0) to get started. A template is provided at [mg-template](mg-template.md).
+See [MG-0](https://github.com/movementlabsxyz/MIP/tree/main/MG/mg-0) to get started. A template is provided at [mg-template](mg-template.md).
 
 An alphabetically ordered list of terms is provided in the [glossary](GLOSSARY.md).
 
