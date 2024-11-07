@@ -75,6 +75,8 @@ Let `user1` be a user with an account on L1, and `user2` be a user with an accou
 > [!NOTE]
 > Assume `user1` wants to transfer `k` L1\$MOVE tokens, we refer to as `asset` in the sequel, to `user2` on L2.
 
+#### Transfer steps
+
 A successful transfer requires the following these steps:
 
 1. _user1_ locks their L1\$MOVE tokens in the `AtomicBridgeInitiatorMOVE.sol` contract on L1. The contract emits an event `BridgeTransferPending` to the L1 logs. At this point in time the transfer becomes `INITIALIZED` on L1.
@@ -93,9 +95,16 @@ A successful transfer requires the following these steps:
 5. `user1` can claim a refund on L1 after a certain time, `timelock1`, has elapsed.
 This introduces possible concurrent unwanted behaviours, and a timelock has to be set on L2, `timelock2`, to prevent the relayer from completing the transfer on L2 after the refund has been claimed on L1.
 
-The following diagram illustrates the steps above:
-![alt text](timechart.png)
+The following diagram (Figure 1) illustrates the steps above:
 
+---
+![
+
+](image.png)
+![alt text](L1ToL2.png)
+**Figure 1**: Timechart of the bridge protocol from L1 to L2.
+
+---
 > [!CAUTION]
 > As there can be crashes or delays or network partitions, the protocol should be _fault-tolerant_ to a certain extent.
 This is done by the use of `timelocks` on the L1 and L2 sides that restrict the operations above to occur within _bounded time windows_.
@@ -123,6 +132,73 @@ For instance if `timeLock2` is larger than `timeLock1`, the following scenario c
 - `user1` on L1 asks for a refund, `request_refund()`, which is successful and gets the asset back.
 
 The correctness of the implementation depends on the timelocks' values and is addressed in the Verification section below.
+
+#### Security & Permissions
+
+Contracts's APIs:
+
+| Layer | Function Name              | Permission      | #Event |
+|----| ----------------------------|-------------------|------ |
+| L1 | `init_bridge_transfer()`   | User1              | BridgeTransferPending |
+| L1 | `request_refund()`         | User1              | BridgeTransferRefunded |
+| L1 | `complete_bridge_transfer()` | Relayer          | BridgeTransferCompleted |
+||
+| L2|  `lock_bridge_asset_transfer()`   | Relayer      | BridgeTransferLocked |
+| L2 | `complete_bridge_transfer()` | User2          |  BridgeTransferCompleted |
+| L2 | `abort_bridge_transfer()`   | Relayer          | BridgeTransferAborted |
+
+The permissions are set to ensure that only the user who initiated the transfer can request a refund, and only the relayer can complete the transfer on L2.
+
+Other safety considerations include the use of [EIP-55](https://eips.ethereum.org/EIPS/eip-55) (L1 side) checksums for addresses. There is some code immplemented in the L2 Move contract [ethereum_module](<https://github.com/movementlabsxyz/aptos-core/blob/061155119258caab512aec6aa860b086e5f312e0/aptos-move/framework/aptos-framework/sources/atomic_bridge.move#L1> to check EIP-55 compliance so we may enforce EIP-55 compliance at some stage.
+
+### Bridging from L2 to L1
+
+#### Transfer steps
+
+A successful transfer from L2 to L1 requires the following these steps:
+
+1. _user2_ burns their L2\$MOVE tokens in the `atoic_bridge_initiator.move`  contract on L2. The contract emits an event `BridgeTransferInitiated` to the L2 logs. At this point in time the transfer becomes `INITIALIZED` (or pending) on L2.
+2. A _relayer_ monitors the L2 logs and when they see the `BridgeTransferInitiated` event, they send a transaction to the `AtomicBridgeCounperPartyMOVE.sol` contract on L1 asking the module to prepare to _unlock_ L1\$MOVE tokens. The status of the bridge transfer on L1 becomes `PENDING`. An event `BridgeTransferLocked` is emitted to the L1 logs.
+
+> [!TIP]
+> At that point the bridge transfers details are known by the L1 and the L2.
+
+3. _user1_ (or anybody with the secret) sends a transaction to the `AtomicBridgeCounterParty.sol` contract on L1 asking to _complete the bridge transfer_. If the transfer has been properly initialised (step 2 above), this results in transferring $L1MOVE tokens to the `user1` account. If successful, an event `BridgeTransferCompleted` is emitted to the L1 logs. The status of the transfer on L1 becomes `COMPLETED`.
+
+> [!TIP]
+> At that stage the L1\$MOVE tokens are in the `user1` account on L1.
+
+4. The relayer monitors the L1 logs and when they see the `BridgeTransferCompleted` event, they send a transaction to the `atomic_bridge_initiator.move` module on L2 to _complete the bridge transfer_. This closes the status of the transfer on L2 and the status of the transfer becomes `COMPLETED`. An event `BridgeTransferCompleted` is emitted to the L2 logs.
+
+5. `user2` can claim a refund on L1 after a certain time, `timelock2`, has elapsed.
+This introduces possible concurrent unwanted behaviours, and a timelock has to be set on L2, `timelock2`, to prevent the relayer from completing the transfer on L1 after the refund has been claimed on L2.
+
+The following diagram (Figure 1) illustrates the steps above:
+
+---
+
+![alt text](L2ToL1.png)
+
+**Figure 2**: Timechart of the bridge protocol from L2 to L1.
+
+---
+
+#### Security & Permissions
+
+Contracts's APIs:
+
+| Layer | Function Name              | Permission      | #Event |
+|----| ----------------------------|-------------------|------ |
+| L2 | `initiate_bridge_transfer()`   | User2              | BridgeTransferPending |
+| L2 | `request_refund()`         | User2              | BridgeTransferRefunded |
+| L2 | `complete_bridge_transfer()` | Relayer          | BridgeTransferCompleted |
+||
+| L1|  `lock_bridge_transfer()`   | Relayer      | BridgeTransferLocked |
+| L1 | `complete_bridge_transfer()` | User1          |  BridgeTransferCompleted |
+| L1 | `request_refund()`   | User2          | BridgeTransferRefunded |
+
+The permissions are set to ensure that only the user who initiated the transfer can request a refund, and only the relayer can complete the transfer on L1.
+
 <!--
 
   The Specification section should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations.
