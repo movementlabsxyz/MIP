@@ -31,6 +31,8 @@ The process of transferring tokens across different chains is implemented with a
 
 There are several choices for the architecture of a bridge, and we describe here a classical bridge with a  _lock-mint_ protocol (see Chainlink's [What Is a Cross-Chain Bridge?](https://chain.link/education-hub/cross-chain-bridge) for a quick introduction to types of bridges).
 
+
+
 > [!WARNING]  
 > The transfer of tokens is one-to-one: a user locks $k$ `$L1MOVE` tokens on L1, they bridge them to L2, and they receive $k$ L2`$L2MOVE` tokens. The same one-to-one ratio applies from L2 to L1.  The bridge does not allow for _swapping_ tokens.
 
@@ -38,18 +40,18 @@ There are several choices for the architecture of a bridge, and we describe here
 
 If the user wants to bridge one `$L1MOVE` to L2, then
 
-- they _lock_ (one) `$L1MOVE` into a (escrow) contract `L1SideBridge` on the L1 side. To do so they transfer (one) `$L1MOVE` from `l1acc` to the `L1SideBridge` contract;
-- once the contract `L1SideBridge` receives the `$L1MOVE` it emits a corresponding event `FundReceivedFrom(l1acc)` to the L1 (append-only) logs,
-- a _relayer_ monitors the logs on the L1 side, and when they see the `FundReceived(l1acc)` event, they send a transaction to an L2 contract, `L2SideBridge` asking the contract to mint (one)  `$L2MOVE`,
+- they _lock_ (one) `$L1MOVE` into a (escrow) contract `L1InitiatorBridge` on the L1 side. To do so they transfer (one) `$L1MOVE` from `l1acc` to the `L1InitiatorBridge` contract;
+- once the contract `L1InitiatorBridge` receives the `$L1MOVE` it emits a corresponding event `FundReceivedFrom(l1acc)` to the L1 (append-only) logs,
+- a _relayer_ monitors the logs on the L1 side, and when they see the `FundReceived(l1acc)` event, they send a transaction to an L2 contract, `L2CounterPartyBridge` asking the contract to mint (one)  `$L2MOVE`,
 - the user requests the transfer of the newly minted `$L2MOVE` to their account `l2acc` on L2.
 
 
 **Burn-and-Unlock**. The transfer from L2 to L1 is similar:
 
-- the user transfers (one) `$L2MOVE` to the `L2SideBridge` contract. The `L2SideBridge` burns (destroys) the token and emits an event
+- the user transfers (one) `$L2MOVE` to the `L2InitiatorBridge` contract. The `L2InitiatorBridge` burns (destroys) the token and emits an event
 `TokenBurned(l2acc)` to the L2 (append-only) logs,
-- a relayer monitors the L2 logs and when they see the event `TokenBurned(l2acc)`, they send a transaction to the L1 contract `L1SideBridge` to _unlock_ an `$L1MOVE` token for account `l1acc`,
-- the user (on L1)  requests transfer of one `$L1MOVE` from the  `L1SideBridge` to their account on L1,   `l1acc`.
+- a relayer monitors the L2 logs and when they see the event `TokenBurned(l2acc)`, they send a transaction to the L1 contract `L1CounterPartyBridge` to _unlock_ an `$L1MOVE` token for account `l1acc`,
+- the user (on L1)  requests transfer of one `$L1MOVE` from the  `L1CounterPartyBridge` to their account on L1,   `l1acc`.
 
 This protocol can be implemented with three main components:
 
