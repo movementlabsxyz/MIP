@@ -10,20 +10,20 @@ This MIP describes the high-level architecture of the MOVE token bridge. The arc
 
 ## Definitions
 
-- `$MOVE` (or `$L1MOVE`) : ERC-20 type token with the source contract on L1
-- `$wMOVE` (or `$L2MOVE`) : wrapped `$MOVE` token that has been bridged from L1 to L2. Publicly may also be called `$MOVE` but as this causes confusion, here we stick to `$L2MOVE` to make clear this token lives on L2.
+- `$L1MOVE` (or `$MOVE`) : ERC-20 type token with the source contract on L1
+- `$L2MOVE` :  `$L1MOVE` token that has been bridged from L1 to L2. Publicly may also be called `$MOVE` but as this causes confusion, here we stick to `$L2MOVE` to make clear this token lives on L2.
 
 ## Motivation
 
 
-The Movement chain (L2) uses the \$MOVE token to pay for gas fees. As a result users need to hold \$MOVE tokens to pay for their transactions.
+The Movement chain (L2) uses the `$L2MOVE` token to pay for gas fees. As a result users need to hold `$L2MOVE` tokens to pay for their transactions.
 
 > [!IMPORTANT]
-> The _native_ \$MOVE token is an ERC-20 contract on Ethereum (L1).  By native, we mean that this is the location where the token is minted and burned and where the total supply is set and possibly modified (inflation/deflation). The **\$MOVE token reserve**  is in the L1 contract.
+> The _native_ `$L1MOVE` token is an ERC-20 contract on Ethereum (L1).  By native, we mean that this is the location where the token is minted and burned and where the total supply is set and possibly modified (inflation/deflation). The **`$L1MOVE` token reserve**  is in the L1 contract.
 
-To use the Movement chain and pay for gas fees, a user will acquire \$MOVE (native) tokens on L1, and _bridge_ them to L2. On the L2 they can use the token to pay for gas fees or with any other dApps that transact the \$MOVE token.
-Later, a user can choose to migrate their L2 \$MOVE tokens back to the L1 at any time.
-These Cross-chain assets's transfers are usually done through a component called a _bridge_.
+To use the Movement chain and pay for gas fees, a user will acquire `$L1MOVE` (native) tokens on L1, and _bridge_ them to L2. On the L2 they can use the token to pay for gas fees or with any other dApps that transact the `$L2MOVE` token.
+Later, a user can choose to migrate their `$L2MOVE` tokens back to the L1 at any time (thereby converting them to `$L1MOVE`).
+These cross-chain assets's transfers are usually done through a component called a _bridge_.
 
 ### A standard bridge architecture
 
@@ -62,7 +62,7 @@ This protocol can be implemented with three main components:
 As can be seen the protocol above has distinct phases, and many things can go wrong. For example
 
 - **User becomes unable to retrieve funds**. The user locks their funds in the L1 contract, but the relayer never issues the minting transaction. In that case the user may never be able to retrieve their funds. What we want is some _atomicity_ between the steps: if the user locks their funds, then either the corresponding minting transaction occurs, or if it does not (and we may set a time bound), the funds are returned to the user on L1.
-- **Crediting the wrong user**. Another source of difficulty is to make sure that only the user `l2acc` can redeem the wrapped `$L2MOVE` tokens. i.e. they are not credited to another user.
+- **Crediting the wrong user**. Another source of difficulty is to make sure that only the user `l2acc` can redeem the `$L2MOVE` tokens. i.e. they are not credited to another user.
 
 Many of the possibly issues have been thoroughly studied and bridges have been in operation for several years. However hacks related to bridges account for more than 1/3 of the total hacks value which tends to indicate that bridges are vulnerable, frequently attacked, and should be designed carefully. Infamous attacks are two Ronin bridge attacks and a Nomad bridge attack
 
@@ -81,12 +81,12 @@ Designing a safe bridge is a hard problem.
 Let `user1` be a user with an account on L1, and `user2` be a user with an account on L2.
 
 > [!NOTE]
-> Assume `user1` wants to transfer `k` L1\$MOVE tokens, we refer to as `asset` in the sequel, to `user2` on L2.
+> Assume `user1` wants to transfer `k` L1`$L1MOVE` tokens, we refer to as `asset` in the sequel, to `user2` on L2.
 
 A successful transfer requires the following these steps:
 
-1. _user1_ locks their L1\$MOVE tokens in the `AtomicBridgeInitiatorMOVE.sol` contract on L1. The contract emits an event `BridgeTransferPending` to the L1 logs. At this point in time the transfer becomes `INITIALIZED` on L1.
-2. A _relayer_ monitors the L1 logs and when they see the `BridgeTransferPending` event, they send a transaction to the `atomic_bridge_counterparty.move` module on L2 asking the module to prepare the minting of L2\$MOVE tokens. The status of the bridge transfer on L2 becomes `PENDING`. An event `BridgeTransferLocked` is emitted to the L2 logs.
+1. _user1_ locks their L1`$L1MOVE` tokens in the `AtomicBridgeInitiatorMOVE.sol` contract on L1. The contract emits an event `BridgeTransferPending` to the L1 logs. At this point in time the transfer becomes `INITIALIZED` on L1.
+2. A _relayer_ monitors the L1 logs and when they see the `BridgeTransferPending` event, they send a transaction to the `atomic_bridge_counterparty.move` module on L2 asking the module to prepare the minting of L2`$L1MOVE` tokens. The status of the bridge transfer on L2 becomes `PENDING`. An event `BridgeTransferLocked` is emitted to the L2 logs.
 
 > [!TIP]
 > At that point the bridge transfers details are known by the L1 and the L2.
@@ -94,7 +94,7 @@ A successful transfer requires the following these steps:
 3. _user2_ (or anybody with the secret) sends a transaction to the `atomic_bridge_counterparty.move` module on L2 asking to _complete the bridge transfer_. If the transfer has been properly initialised (step 2 above), this results in minting tokens and transfers the minted tokens to the `user2` account. If successful, an event `BridgeTransferComplete` is emitted to the L2 logs. The status of the transfer on L2 becomes `COMPLETED`.
 
 > [!TIP]
-> At that stage the L2\$MOVE tokens are in the `user2` account on L2.
+> At that stage the L2`$L1MOVE` tokens are in the `user2` account on L2.
 
 4. The relayer monitors the L2 logs and when they see the `BridgeTransferComplete` event, they send a transaction to the `AtomicBridgeInitiatorMOVE.sol` contract on L1 to _complete the bridge transfer_. This closes the status of the transfer on L1 and the status of the transfer becomes `COMPLETED`. An event `BridgeTransferComplete` is emitted to the L1 logs.
 

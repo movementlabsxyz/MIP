@@ -12,11 +12,6 @@ see [MIP-29](../../MIP/mip-29/README.mde)
 see [MIP-29](../../MIP/mip-29/README.mde)
 
 
-### `$WMOVE`
-
-see [MIP-29](../../MIP/mip-29/README.mde)
-
-
 ### `$L2MOVE`
 
 see [MIP-29](../../MIP/mip-29/README.mde)
