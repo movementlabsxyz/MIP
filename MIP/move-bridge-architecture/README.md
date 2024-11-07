@@ -261,6 +261,10 @@ The results of the model-checking verification are as follows: let $maxRelayerDe
 
 Note that [safety-2] does hold if the relayer is down for more than $maxRelayerDelay$, or the timelocks are not set correctly.
 
+### Bridge L2 to L1
+
+The only difference between L1 to L2 is the way assets are created/destroyed. However, the formal model abstracts away this difference and the same properties hold for the L2 to L1 bridge.
+
 <!--
 
   All proposals must contain a section that discusses the various aspects of verification pertinent to the introduced changes. This section should address:
@@ -277,8 +281,6 @@ Note that [safety-2] does hold if the relayer is down for more than $maxRelayerD
 
   TODO: Remove this comment before submitting
 -->
-
-Needs discussion.
 
 ---
 
