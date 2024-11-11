@@ -22,20 +22,22 @@ We acknowledge and apply the conventions of [MIP-53: Conventions for Proposing P
 | Category | Criterion | Evaluation |
 |-----------|-----------|------------|
 | **General** | | |
-|X| When to use | - When a transition between a genesis or centralized phase form of the L2 system is apt but when security and safeness of design and implementation are still contested.<br> - When a secondary centralized phase of the L2 system is desired alongside increasing transparency of centralized operations. |
-|X| Suitable preceding models | - [MIP-55: The Bilbao Model](https://github.com/movementlabsxyz/MIP/pull/53) |
-|X| Suitable succeeding models | - [MIP-40: AB-FFS Decoupled](https://github.com/movementlabsxyz/MIP/pull/40) INCOMPLETE |
-|X| Technological motivations | - Contents with bridge fallibility under operational assumptions.<br> - Begins formal governance, but continues to allow for manual flexibility and recovery. |
-|X| Usership motivations | - Provides network which is more open than [MIP-55: The Bilbao Model](https://github.com/movementlabsxyz/MIP/pull/53), potentially encouraging adoption. |
+|| When to use | When a transition between a genesis or centralized phase form of the L2 system is apt but when security and safeness of design and implementation are still contested.|
+|||When a secondary centralized phase of the L2 system is desired alongside increasing transparency of centralized operations.|
+|| Suitable preceding models | [MIP-55: The Bilbao Model](https://github.com/movementlabsxyz/MIP/pull/53) |
+|| Suitable succeeding models | [MIP-40: AB-FFS Decoupled](https://github.com/movementlabsxyz/MIP/pull/40) INCOMPLETE |
+|| Technological motivations | Contends with bridge fallibility under operational assumptions.|
+||| Begins formal governance, but continues to allow for manual flexibility and recovery. |
+|| Usership motivations | Provides network which is more open than [MIP-55: The Bilbao Model](https://github.com/movementlabsxyz/MIP/pull/53), potentially encouraging adoption. |
 | **Components** | | |
-|X| [MIP-44: AB-FFS Governed Gas Pool](https://github.com/movementlabsxyz/MIP/pulls) | The Governed Gas Pool into which gas fees are deposited and from which the governing body disperses.  |
-|X| [MIP-49: AB-FFS Governed Rewards and Fees](https://github.com/movementlabsxyz/MIP/pull/49) | The means by which gas fees and rewards are adjusted by the governing body. Rewards are migrated manually from the L2 to the L1 by the governing body. |
-|X| [MIP-50: Insured Bridge](https://github.com/movementlabsxyz/MIP/pull/50) | The Bridge Insurance Fund which is used to cover the cost of failed bridge operations. Insures atomically and synchronously that all losses from bridge failures can be covered. |
-|X| L1-L2 Token Correlation | The L1 staking and L2 gas token are bridge 1:1. |
+|| [MIP-44: AB-FFS Governed Gas Pool](https://github.com/movementlabsxyz/MIP/pulls) | The Governed Gas Pool into which gas fees are deposited and from which the governing body disperses.  |
+|| [MIP-49: AB-FFS Governed Rewards and Fees](https://github.com/movementlabsxyz/MIP/pull/49) | The means by which gas fees and rewards are adjusted by the governing body. Rewards are migrated manually from the L2 to the L1 by the governing body. |
+|| [MIP-50: Insured Bridge](https://github.com/movementlabsxyz/MIP/pull/50) | The Bridge Insurance Fund which is used to cover the cost of failed bridge operations. Insures atomically and synchronously that all losses from bridge failures can be covered. |
+|| L1-L2 Token Correlation | The L1 staking and L2 gas token are bridge 1:1. |
 | **Operational Assumptions** | | |
-|X| **Bridge Liveness** | Operators can be relied upon to meet bridge liveness requirements.  |
-|X| **Security of Governance** | Governing body's powers cannot be exploited.  |
-|X| **Trust of Governance** | Users are willing to trust governing body.   |
+|| **Bridge Liveness** | Operators can be relied upon to meet bridge liveness requirements.  |
+|| **Security of Governance** | Governing body's powers cannot be exploited.  |
+|| **Trust of Governance** | Users are willing to trust governing body.   |
 
 ### Pros
 1. **Delayed calculation of rewards to cover centralized expenses**: because fees are held in the gas pool, the governing body need not calculate rewards which would be used to cover their own operating expenses until control of the governance is transferred to the community. The governing body can, for example, decide to use a percentage of captured gas to pay the centralized operators when a more stable token price is known some time after the L2 has been operational.
