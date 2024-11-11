@@ -6,11 +6,11 @@
 
 ## Abstract
 
-We defined the Bilbao Model as an AB-FFS L2 model that features a Gas Deficit Minter, Bridge Insurance Account, low-cost DA, high centralized control, and ultimately high operational assumptions. At the core of this model is the highly controlled use of trusted signers with high liquidity to replace components proposed in the [Biarritz Model](https://github.com/movementlabsxyz/MIP/pull/54).
+We define the Bilbao Model as an AB-FFS L2 model that features a Gas Deficit Minter, Bridge Insurance Account, low-cost DA, high centralized control, and ultimately high operational assumptions. At the core of this model is the highly-controlled use of trusted signers with high liquidity to replace components proposed in the [Biarritz Model](https://github.com/movementlabsxyz/MIP/pull/54).
 
 ## Motivation
 
-The Bilbao Model is a intended as a complete response to [MD-38](https://github.com/movementlabsxyz/MIP/pulls).
+The Bilbao Model is a intended as a complete response to [MD-38](https://github.com/movementlabsxyz/MIP/pulls) and a reduction of the [Biarritz Model](https://github.com/movementlabsxyz/MIP/pull/54).
 
 ## Specification
 
