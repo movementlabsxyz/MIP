@@ -1,7 +1,6 @@
-# MIP-n: Naming Conventions for Movement Protocol Design
+# MIP-28: Naming Conventions for Movement Protocol Design
 - **Description**: Naming conventions for actors in Movement protocol design, tests, and documentation.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Desiderata**: [MD-0](../MD/md-0)
 
 ## Abstract
 
