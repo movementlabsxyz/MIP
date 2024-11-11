@@ -14,11 +14,10 @@ This MIP describes the high-level architecture of the MOVE token bridge. The arc
 
 ## Motivation
 
-
 The Movement chain (L2) uses the `$L2MOVE` token to pay for gas fees. As a result users need to hold `$L2MOVE` tokens to pay for their transactions.
 
 > [!IMPORTANT] Native $MOVE token
-> The _native_ `$L1MOVE` token is an ERC-20 contract on Ethereum (L1).  By native, we mean that this is the location where the token is minted and burned and where the total supply is set and possibly modified (inflation/deflation). The **`$L1MOVE` token reserve**  is in the L1 contract.
+> The _native_ `$L1MOVE`token is an ERC-20 contract on Ethereum (L1).  By native, we mean that this is the location where the token is minted and burned and where the total supply is set and possibly modified (inflation/deflation). The **`$L1MOVE` token reserve**  is in the L1 contract.
 
 To use the Movement chain and pay for gas fees, a user will acquire `$L1MOVE` (native) tokens on L1, and _bridge_ them to L2. On the L2 they can use the token to pay for gas fees or with any other dApps that transact the `$L2MOVE` token.
 Later, a user can choose to migrate their `$L2MOVE` tokens back to the L1 at any time (thereby converting them to `$L1MOVE`).
@@ -29,8 +28,6 @@ These cross-chain assets's transfers are usually done through a component called
 The process of transferring tokens across different chains is implemented with a _bridge_ (between the chains).
 
 There are several choices for the architecture of a bridge, and we describe here a classical bridge with a  _lock-mint_ protocol (see Chainlink's [What Is a Cross-Chain Bridge?](https://chain.link/education-hub/cross-chain-bridge) for a quick introduction to types of bridges).
-
-
 
 > [!WARNING]  This is a bridge, not a swap, so transfer is 1 to 1.
 > The transfer of tokens is one-to-one: a user bridges $k$ `$L1MOVE` tokens to L2, and they receive $k$ `$L2MOVE` tokens. Same one-to-one ratio applies from L2 to L1.  The bridge does not allow for _swapping_ tokens.
@@ -43,7 +40,6 @@ If the user wants to bridge one `$L1MOVE` to L2, then
 - once the contract `L1InitiatorBridge` receives the `$L1MOVE` it emits a corresponding event `FundReceivedFrom(l1acc)` to the L1 (append-only) logs,
 - a _relayer_ monitors the logs on the L1 side, and when they see the `FundReceived(l1acc)` event, they send a transaction to an L2 contract, `L2CounterPartyBridge` asking the contract to mint (one)  `$L2MOVE`,
 - the user requests the transfer of the newly minted `$L2MOVE` to their account `l2acc` on L2.
-
 
 **Burn-and-Unlock**. The transfer from L2 to L1 is similar:
 
@@ -67,7 +63,7 @@ As can be seen the protocol above has distinct phases, and many things can go wr
 
 Many of the possibly issues have been thoroughly studied and bridges have been in operation for several years. However hacks related to bridges account for more than 1/3 of the total hacks value which tends to indicate that bridges are vulnerable, frequently attacked, and should be designed carefully. Infamous attacks are two Ronin bridge attacks and a Nomad bridge attack
 
-- [2022: Crypto Hackers Exploit Ronin Network for $615 Million](https://www.bankinfosecurity.com/crypto-hackers-exploit-ronin-network-for-615-million-a-18810) 
+- [2022: Crypto Hackers Exploit Ronin Network for $615 Million](https://www.bankinfosecurity.com/crypto-hackers-exploit-ronin-network-for-615-million-a-18810)
 - [2024: Ronin Bridge Paused, Restarted After $12M Drained in Whitehat Hack](https://www.coindesk.com/tech/2024/08/06/ronin-bridge-paused-after-9m-drained-in-apparent-whitehat-hack/)
 - [August 2022: Hack Analysis: Nomad Bridge ($192M)](https://medium.com/immunefi/hack-analysis-nomad-bridge-august-2022-5aa63d53814a)
 
@@ -241,7 +237,6 @@ If the value of the parameter `timeLockL2` is larger than `timeLockL1`, the foll
 
 User gets funds on L2, and gets their fund back on L1.
 
-
 <!--
   The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
 
@@ -270,8 +265,10 @@ To reproduce the results and check the properties on the model, you need a worki
 The results of the model-checking verification are as follows: let $maxRelayerDelay$ be the **maximum delay** for the relayer to relay an event, and $timeLock1$ and $timeLock2$ be the timelocks on L1 and L2 respectively.
 
 > [!IMPORTANT]  Verification results
-> We have **proved** (model-checked with UPPAAL) the following properties:
+> We have **proved** (model-checked with UPPAAL) the following properties (valid using the versions of the contracts below):
 >
+> - contract (Move): [atomic_bridge.move](https://github.com/movementlabsxyz/aptos-core/blob/movement/aptos-move/framework/aptos-framework/sources/atomic_bridge.move), commit [c1ecd0a](https://github.com/movementlabsxyz/aptos-core/commit/c1ecd0afd250fd71fe9ffc168b2ba7bafa97ffb3)
+> - contracts (Solidity): [AtomicBridgeInitiatorMOVE.sol](https://github.com/movementlabsxyz/movement/blob/main/protocol-units/bridge/contracts/src/AtomicBridgeInitiatorMOVE.sol) and [AtomicBridgeCounterpartyMOVE.sol](https://github.com/movementlabsxyz/movement/blob/main/protocol-units/bridge/contracts/src/AtomicBridgeCounterpartyMOVE.sol) in this commit  [200c9f9](https://github.com/movementlabsxyz/movement/commit/200c9f9d10fa8863b096ab3cd5442938c358a091)
 > - [safety-1]: there exists an execution path such that `user1` initiates and completes a transfer on L2 within a time window $timeLock1$,
 > - [safety-2]: **Provided** the relayer relays the events within a time window $maxRelayerDelay$, **AND** $timelock1 > timelock2 + 2 \times  maxRelayerDelay$, `user1` cannot get a refund on L1 if the transfer has been completed on L2,
 > - [liveness-1] if the relayer is not down, `user2` can get the funds on L2, after $timelock1 + 2 * maxRelayerDelay$ time units.
