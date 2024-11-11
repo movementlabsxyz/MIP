@@ -1,26 +1,11 @@
-# MD-\<number\>: \<Title\>
-- **Description**: A single sentence description summarizing the items in the desiderata.
-- **Authors**: [Author](mailto:author@email.com)
+# MD-15: Movement Glossary
+- **Description**: Provide a glossary for Movement Vocabulary.
+- **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
+- **Reviewer**: Andreas Penzkofer
 
-<!--
-  This template is for drafting Desiderata. It ensures a structured representation of wishes, requirements, or needs related to the overarching objective mentioned in the title. After filling in the requisite fields, please delete these comments.
-
-  Note that an MD number will be assigned by an editor. When opening a pull request to submit your MD, please use an abbreviated title in the filename, `md-draft_title_abbrev.md`.
-
-  The title should be 44 characters or less. It should not repeat the MD number in title.
-
-  The author should add himself as a code owner in the `.github/CODEOWNERS` file for the MD.
-
-  TODO: Remove this comment before finalizing.
--->
 
 ## Overview
-
-<!--
-  Provide a brief, high-level overview of the desiderata. This section should illuminate the unified objective of the desired elements, functionalities, or features. More granular specifications should be provided below.
-
-  TODO: Remove this comment before finalizing.
--->
+In order to communicate with more specificity in all contexts, Movement Labs should introduce a glossary. This glossary should define terms both unique to Movement Labs and general terms that are used in a unique way, underspecified in the literature, or have a specific meaning in the context of Movement Labs.
 
 ## Desiderata
 
@@ -35,7 +20,7 @@
 
   Format as:
 
-  ### D<number>: Desideratum Title
+  ### Desideratum Title
 
   **User Journey**: [user] can [action].
 
@@ -47,6 +32,21 @@
 
   TODO: Remove this comment before finalizing.
 -->
+### D1: Have a Common Format for a Glossary Entry (Gloss)
+
+**Justification**: A common format for glossary entries will make it easier to maintain and update the glossary.
+
+**Recommendations**: 
+- Create a new formatted document for glossary entries in the MIP repository. Call this document an MG, short for Movement Gloss.
+- Include sections for (1) term, (2) authorship, (3) concise definition, (4) catalog of references to definitions or usages of the term in other contexts, (5) example usages, and (6) errata.
+- Encourage formalism where applicable.
+
+### D2: Introduce Glossary Terms via an MIP
+
+**Justification**: Introducing glossary terms via an MIP will allow for a more formal process for introducing new terms.
+
+**Recommendations**:
+- MD can also introduce MG to further aid in clarity, but they will not be ratified until they have been supported in an MIP.
 
 ## Errata
 <!--
