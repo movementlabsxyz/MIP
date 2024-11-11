@@ -19,8 +19,8 @@ We acknowledge and apply the conventions of [MIP-53: Conventions for Proposing P
 | Category | Criterion | Evaluation |
 |-----------|-----------|------------|
 | **General** | | |
-|X| When to use | - During a genesis period after which the resulting state is intended to be accepted as canonical by a more decentralized network. |
-|X| Suitable preceding models.<br> - The benefits to the network of an immediate release against early technology outstrip the potential costs of failing to correctly resolve vulnerabilities introduce in genesis state. | NONE |
+|X| When to use | - During a genesis period after which the resulting state is intended to be accepted as canonical by a more decentralized network.<br> - The benefits to the network of an immediate release against early technology outstrip the potential costs of failing to correctly resolve vulnerabilities introduce in genesis state. |
+|X| Suitable preceding models.<br> | NONE |
 |X| Suitable succeeding models | - [MIP-54: The Biarritz Model](https://github.com/movementlabsxyz/MIP/pull/54) |
 |X| Technological motivations | - Contends with bridge fallibility under high operational assumptions.<br> - Allows for building genesis state which can be altered prior to open launch. |
 |X| Usership motivations | - Allows for early release of network. |
