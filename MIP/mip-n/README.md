@@ -1,4 +1,4 @@
-# MIP-54: The Bilbao Model
+# MIP-55: The Bilbao Model
 - **Description**: Proposes an AB-FFS L2 model that features a Gas Deficit Minter, Bridge Insurance Account, low-cost DA and settlement, high centralized control, and ultimately high operational assumptions.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
