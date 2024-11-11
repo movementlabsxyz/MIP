@@ -36,13 +36,17 @@ We acknowledge and apply the conventions of [MIP-N: Conventions for Proposing Pr
 ### Summary Table
 All proposed progressive L2 models MUST complete the following table:
 
-| Criterion | Evaluation |
-|-----------|------------|
-| When to use | A brief general description of the circumstances under which the model is appropriate. |
-| Suitable preceding models | A list of models or descriptions of models that are suitable precursors to this model. |
-| Suitable succeeding models | A list of models or descriptions of models that are suitable successors to this model. |
-| Technological motivations | A brief description of the technological motivations for using the model. |
-| Usership motivations | A brief description of the user motivations for using the model. |
+| Category | Criterion | Evaluation |
+|-----------|-----------|------------|
+| **General** | | |
+|X| When to use | A brief general description of the circumstances under which the model is appropriate. |
+|X| Suitable preceding models | A list of models or descriptions of models that are suitable precursors to this model. |
+|X| Suitable succeeding models | A list of models or descriptions of models that are suitable successors to this model. |
+|X| Technological motivations | A brief description of the technological motivations for using the model. |
+|X| Usership motivations | A brief description of the user motivations for using the model. |
+| **Components** | | |
+|X| [Component Name 1](link/to/component/design) | A description of usage of said component.  |
+|X| [Component Name 2](link/to/component/design) | A description of usage of said component.  |
 
 ### Statement Towards Progression
 All proposed progressive L2 models MUST include a statement of how the model suits a progressive approach to L2 design and release. This statement SHOULD be a paragraph in length and immediately follow the summary table--as if it were a caption for the table.
