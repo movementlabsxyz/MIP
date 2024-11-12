@@ -1,7 +1,7 @@
-# MIP-15: Conventions for Proposing Progressive L2 Models
+# MIP-54: Conventions for Proposing Progressive L2 Models
 - **Description**: Introduces conventions for proposing progressive L2 models.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Reviewer**: Andreas Penzkofer
+- **Reviewer**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 - **Desiderata**: $\emptyset$
 
 ## Abstract
@@ -13,7 +13,7 @@ We define a progressive L2 model as a description of an L2 system that is intend
 In order to facilitate the development of L2 systems, it is important to have a clear and consistent way to propose and review models for these systems. This MIP aims to provide a set of conventions for proposing progressive L2 models that will help to ensure that proposals are clear, consistent, and easy to review.
 
 ## Specification
-Progress L2 models should adhere to conventions of the following forms:
+Progressive L2 models should adhere to conventions of the following forms:
 
 - **naming**: apply a standard naming format.
 - **acknowledgement of standards**: acknowledge the conventions of this MIP.
