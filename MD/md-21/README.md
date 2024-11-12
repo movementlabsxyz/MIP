@@ -1,22 +1,64 @@
-# MIP-21: Bridge Based on Attesters
+# MD-21: Bridge Based on Attesters
 - **Description**: Proposal for simplifying the bridge mechanism using an attester-based approach inspired by USDC's CCTP, reducing friction, cost, and complexity for Layer 2 onboarding.
 - **Authors**: [Primata](mailto:primata@movementlabs.xyz)
 
-## Abstract
+## Overview
+
+This MD lays out steps to introduce and leverage an attester-based bridge model to create a frictionless, efficient, and secure cross-chain experience for Movement technologies.
 
 A bridge mechanism is essential for any Layer 2 solution, serving as the user's first interaction with the network. This process must be smooth and frictionless, ensuring that dealing with tokens on L1 and bridging to native gas tokens on L2 does not overcomplicate the user experience. The bridge must balance user onboarding, cost-efficiency, and simplicity, while minimizing transaction complexity. We propose a bridge based on attesters, inspired by the [Cross-Chain Transfer Protocol](https://developers.circle.com/stablecoins/cctp-getting-started) (CCTP) by USDC, which offers an elegant solution to these challenges.
 
-## Motivation
+### Motivation
 
 Our current bridge solution has been increasing in complexity with each iteration. Originally requiring three on-chain transactions, it now requires four, initiate bridge, lock, complete source chain, complete target chain. Additionally, the bridge does not currently support gas charging mechanisms to prevent exploits, and ongoing discussions are leaning toward adding further components, making it even more complex and computationally expensive.
 
 We believe the best approach is to draw from live implementations that have achieved a streamlined user experience with minimal cost to the user. One such example is USDC's [CCTP](https://www.circle.com/en/cross-chain-transfer-protocol), which offers simplicity, security, and efficiency in cross-chain bridging. Instead of increasing the complexity of our current bridge design, we should aim to adopt this proven mechanism.
 
-## Specification
+## Desiderata
+
+### D1: Take inspiration from CCTP
+
+#### User Journey
+
+The developer can understand the CCTP model to design a bridge mechanism that is simple, secure, and efficient.
+
+#### Justification
 
 The Cross-Chain Transfer Protocol (CCTP) operates using a set of attesters that validate all bridge transactions occurring between chains. These attesters listen for bridge events, confirm the validity of transactions, and, if necessary, revert them by providing appropriate proofs. A transfer allowance managed by a centralized authority further ensures that breaches are mitigated by limiting the amount of value transferred.
 
-To align with this approach and reduce complexity:
+The correctness of this approach can be established by leveraging the success of CCTP, which has been operational and widely adopted.
+
+#### Recommendations
+
+**Reference Implementation**
+For more details on how this model operates, refer to USDC's Cross-Chain Transfer Protocol (CCTP) documentation:  
+[USDC CCTP Overview](https://developers.circle.com/stablecoins/docs/generic-message-passing)
+
+### D2: Apply the Attester Model and Multisig Scheme
+
+#### User Journey
+
+The developer can implement a bridge mechanism that uses a multisig scheme.
+
+#### Justification
+
+**Security Implications**:
+The use of a multisig setup adds a layer of security, with aggregated signatures preventing unauthorized access. The transfer allowance mechanism further mitigates potential breaches by limiting how much can be transferred.
+
+**Performance Impacts**:
+Because we would use a multisig off-chain signature to complete bridges, the set of attesters and the multisig address to produce the signature that we have to check the message against it could be the same set of the L2 Settlement signers.
+This method reduces the computational overhead associated with multiple on-chain transactions and simplifies the bridge process. The reliance on a proven mechanism ensures minimal performance degradation. It also provides a bridging service with 1:1 bridging with minimal logic that could be potentially used for exploits.
+It could also facilitate aggregating bridges since a merkle root could be used to handle the validity of the logic.
+
+**Validation Procedures**:
+Formal and machine-aided validation of the off-chain signature and on-chain message handling will be crucial for ensuring the correctness of this proposal.
+
+**Peer Review and Community Feedback**:
+The approach should be subject to review and feedback from the Movement Labs team and the wider community to ensure that it meets the needs of the ecosystem.
+
+#### Recommendations
+
+To align with the CCTP approach and reduce complexity:
 
 - **Bridge Relayer as Attester**: The Bridge Relayer in our system will function as an attester, operating via a multisig scheme (i.e. the attester collects signatures from a threshold number of comittee members that approve of the message). This relayer, through aggregated signatures, produces a proof on a signed message.  
 
@@ -24,7 +66,7 @@ To align with this approach and reduce complexity:
 
 - **Validation Mechanism**: The off-chain signature produced by the multisig scheme is verified against the message on-chain. As a reference, we could use the same automation scheme as the [MIP-18 Stage 0 Upgradeability and Multisigs](https://github.com/movementlabsxyz/MIP/pulls).
 The challenge is to make sure that the signature is only used once so no transaction is replayed, but the beauty is that the signature is provided by a multi-party system that do not need to provide onchain signatures. It's also important to use a solid architecture that prevents hash mining attacks.
-Relying on a protocol like CCTP that has been tested in live environments significantly reduces the risk of any unexpected utilization of off-chain and on-chain proofs.  
+Relying on a protocol like CCTP that has been tested in live environments significantly reduces the risk of any unexpected utilization of off-chain and on-chain proofs.
 
 Or on Circle's own words:
 
@@ -36,7 +78,18 @@ This results in 2 onchain transactions and 1 offchain transaction. Comparatively
 
 This approach minimizes the need for additional components and avoids the reliance on synthetic assets, leading to a simplified and cost-effective bridge solution.
 
-### Flow
+### D3: Specify the Flow
+
+#### User Journey
+
+The developer can understand the flow of the bridge mechanism.
+
+#### Justification
+
+The bridge mechanism should be straightforward and easy to understand.
+
+#### Recommendations
+
 
 1. **User Deposits**:  
    - The user deposits tokens on the source chain, which triggers a deposit event.
@@ -55,39 +108,9 @@ This approach minimizes the need for additional components and avoids the relian
 
 This process is bi-directional, allowing funds to be bridged between Layer 1 and Layer 2, and vice versa, with minimal complexity and friction.
 
-## Reference Implementation
-
-For more details on how this model operates, refer to USDC's Cross-Chain Transfer Protocol (CCTP) documentation:  
-[USDC CCTP Overview](https://developers.circle.com/stablecoins/docs/generic-message-passing)
-
-## Verification
-
-### 1. **Correctness**: 
-The correctness of this proposal can be established by leveraging the success of CCTP, which has been operational and widely adopted.
-
-### 2. **Security Implications**:
-The use of a multisig setup adds a layer of security, with aggregated signatures preventing unauthorized access. The transfer allowance mechanism further mitigates potential breaches by limiting how much can be transferred.
-
-### 3. **Performance Impacts**:
-Because we would use a multisig off-chain signature to complete bridges, the set of attesters and the multisig address to produce the signature that we have to check the message against it could be the same set of the L2 Settlement signers.
-This method reduces the computational overhead associated with multiple on-chain transactions and simplifies the bridge process. The reliance on a proven mechanism ensures minimal performance degradation. It also provides a bridging service with 1:1 bridging with minimal logic that could be potentially used for exploits.
-It could also facilitate aggregating bridges since a merkle root could be used to handle the validity of the logic.
-
-### 4. **Validation Procedures**:
-Formal and machine-aided validation of the off-chain signature and on-chain message handling will be crucial for ensuring the correctness of this proposal.
-
-### 5. **Peer Review and Community Feedback**:
-The proposal is subject to review and feedback from the Movement Labs team and the wider community to ensure that it meets the needs of the ecosystem.
-
 ## Errata
-
-Any post-publication corrections or updates will be documented in this section to maintain transparency and accuracy.
 
 ## Appendix
 
 - [R1] USDC Cross-Chain Transfer Protocol: https://www.circle.com/en/cross-chain-transfer-protocol
 - [R2] USDC CCTP Overview: https://developers.circle.com/stablecoins/docs/generic-message-passing
-
----
-
-This proposal leverages an attester-based bridge model to create a frictionless, efficient, and secure cross-chain experience for Movement technologies.
