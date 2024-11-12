@@ -1,7 +1,7 @@
-# MD-\<number\>: \<Title\>
+# MIP-\<number\>: \<Title\>
 - **Description**: A single sentence summarizing the contents of the proposal.
 - **Authors**: [Author](mailto:author@email.com)
-- **Desiderata**: [MD-\<number\>](../MD/md-\<number\>)
+- **Desiderata**: [MIP-\<number\>](../MIP/mip-\<number\>)
 
 <!--
   READ MIP-1 BEFORE USING THIS TEMPLATE!
@@ -11,6 +11,8 @@
   Note that an MIP number will be assigned by an editor. When opening a pull request to submit your MIP, please use an abbreviated title in the filename, `mip-draft_title_abbrev.md`.
 
   The title should be 44 characters or less. It should not repeat the MIP number in title, irrespective of the category.
+
+  The author should add himself as a code owner in the `.github/CODEOWNERS` file for the MIP.
 
   TODO: Remove this comment before finalizing.
 -->
