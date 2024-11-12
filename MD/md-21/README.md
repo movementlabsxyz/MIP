@@ -20,13 +20,25 @@ We believe the best approach is to draw from live implementations that have achi
 
 #### User Journey
 
-The developer can understand the CCTP model to design a bridge mechanism that is simple, secure, and efficient.
+The developer can understand the [Cross-Chain Transfer Protocol (CCTP)](https://developers.circle.com/stablecoins/docs/generic-message-passing) model to design a bridge mechanism that is simple, secure, and efficient.
+
+#### Description
+
+The CCTP operates using a set of attesters that validate all bridge transactions occurring between chains. These attesters listen for bridge events, confirm the validity of transactions, and, if necessary, revert them by providing appropriate proofs. A transfer allowance managed by a centralized authority further ensures that breaches are mitigated by limiting the amount of value transferred.
 
 #### Justification
 
-The Cross-Chain Transfer Protocol (CCTP) operates using a set of attesters that validate all bridge transactions occurring between chains. These attesters listen for bridge events, confirm the validity of transactions, and, if necessary, revert them by providing appropriate proofs. A transfer allowance managed by a centralized authority further ensures that breaches are mitigated by limiting the amount of value transferred.
+**Already operational**
+Relying on a protocol like CCTP that has been tested in live environments significantly reduces the risk of any unexpected utilization of off-chain and on-chain proofs. It is also operational and widely adopted.
 
-The correctness of this approach can be established by leveraging the success of CCTP, which has been operational and widely adopted.
+**Reduction of messages**
+1. An on-chain component on source domain emits a message.
+2. Circle's off-chain attestation service signs the message.
+3. The on-chain component at the destination domain receives the message, and forwards the message body to the specified recipient.
+
+This results in 2 onchain transactions and 1 offchain transaction. Comparatively, HTLC requires 4 onchain transactions.
+
+This approach minimizes the need for additional components and avoids the reliance on synthetic assets, leading to a simplified and cost-effective bridge solution.
 
 #### Recommendations
 
@@ -58,25 +70,14 @@ The approach should be subject to review and feedback from the Movement Labs tea
 
 #### Recommendations
 
-To align with the CCTP approach and reduce complexity:
-
 - **Bridge Relayer as Attester**: The Bridge Relayer in our system will function as an attester, operating via a multisig scheme (i.e. the attester collects signatures from a threshold number of comittee members that approve of the message). This relayer, through aggregated signatures, produces a proof on a signed message.  
 
 - **User Interaction**: Users, or other parties interested in completing the bridge, retrieve their funds on the target chain by submitting the signature and message.
 
 - **Validation Mechanism**: The off-chain signature produced by the multisig scheme is verified against the message on-chain. As a reference, we could use the same automation scheme as the [MIP-18 Stage 0 Upgradeability and Multisigs](https://github.com/movementlabsxyz/MIP/pulls).
 The challenge is to make sure that the signature is only used once so no transaction is replayed, but the beauty is that the signature is provided by a multi-party system that do not need to provide onchain signatures. It's also important to use a solid architecture that prevents hash mining attacks.
-Relying on a protocol like CCTP that has been tested in live environments significantly reduces the risk of any unexpected utilization of off-chain and on-chain proofs.
 
-Or on Circle's own words:
 
-1. An on-chain component on source domain emits a message.
-2. Circle's off-chain attestation service signs the message.
-3. The on-chain component at the destination domain receives the message, and forwards the message body to the specified recipient.
-
-This results in 2 onchain transactions and 1 offchain transaction. Comparatively, HTLC requires 4 onchain transactions.
-
-This approach minimizes the need for additional components and avoids the reliance on synthetic assets, leading to a simplified and cost-effective bridge solution.
 
 ### D3: Specify the Flow
 
