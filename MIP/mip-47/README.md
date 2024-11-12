@@ -1,7 +1,6 @@
-# MIP-\<number\>: Improve Gas fee collection in phases
+# MIP-47: Improve Gas fee collection in phases
 - **Description**: Transition from a "gas fees are burned" model to paying out of the gas fees to a governed token pool.
-- **Authors**: [Author](mailto:author@email.com)
-- **Desiderata**: [MIP-\<number\>](../MIP/mip-\<number\>)
+- **Authors**: [Author](mailto:andreas.penzkofer@movementlabs.xyz)
 
 <!--
   READ MIP-1 BEFORE USING THIS TEMPLATE!
@@ -29,7 +28,7 @@ Currently gas fees are burned. Eventually gas fees should be redirected to a gas
 
 ## Motivation
 
-Gas fees should be used to pay for services that are required to operate the chain, provide for grants or other. Therefore, they should be captured in a governed pool. 
+Gas fees should be used to pay for services that are required to operate the chain, provide for grants or other. Therefore, they should be captured in a governed pool.
 
 <!--
   The motivation section should include a description of any nontrivial problems the MIP solves. It should not describe how the MIP solves those problems.
