@@ -78,7 +78,8 @@ Designing a safe bridge is a hard problem.
 
 Let `user1` be a user with an account on L1, and `user2` be a user with an account on L2.
 
-> [!NOTE] Simple context (without loss of generality)
+> [!NOTE] 
+> **Simple context (without loss of generality)**
 > Assume `user1` wants to transfer `1` `$L1MOVE` tokens, we refer to as `asset` in the sequel, to `user2` on L2.
 
 #### Transfer steps
@@ -119,7 +120,8 @@ This is done by the use of `timelocks` on the L1 and L2 sides that restrict the 
 In order to ensure that the funds can only be transferred from `user1` to `user2`, `user1` locks (step 1. `init_bridge_transfer()`) the funds with a `secret`.
 To unlock the funds on L2, `user2` needs to prove they know the secret when they request the funds on L2 (step 3. `complete_bridge_transfer()`).
 
-> [!IMPORTANT]  Requirements for the bridge protocol
+> [!IMPORTANT]  
+> **Requirements for the bridge protocol**
 > The desired properties of the bridge protocol (L1 to L2) are  **atomicity** and **liveness**:
 >
 > - [safety-1] `user1` SHOULD be able to initiate a transfer at any time.
@@ -235,11 +237,11 @@ The (Rust) relayer logics are in [service folder](https://github.com/movementlab
 ![alt text](L1ToL2.png)
 
 > [!WARNING]
-If the value of the parameter `timeLockL2` is larger than `timeLockL1`, the following scenario can happen:
-
-- the `completeBridgeTransfer` tx completes on L2 and funds are transferred to the target address on L2,
-- the relayer does not relay the event fast enough,
-- the user on L1 asks for a refund, and the `refund` tx is executed on L1.
+> If the value of the parameter `timeLockL2` is larger than `timeLockL1`, the following scenario can happen:
+>
+> - the `completeBridgeTransfer` tx completes on L2 and funds are transferred to the target address on L2,
+> - the relayer does not relay the event fast enough,
+> - the user on L1 asks for a refund, and the `refund` tx is executed on L1.
 
 User gets funds on L2, and gets their fund back on L1.
 
