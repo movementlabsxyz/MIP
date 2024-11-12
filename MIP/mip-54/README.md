@@ -1,7 +1,7 @@
-# MIP-15: Conventions for Proposing Progressive L2 Models
+# MIP-54: Conventions for Proposing Progressive L2 Models
 - **Description**: Introduces conventions for proposing progressive L2 models.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Reviewer**: Andreas Penzkofer
+- **Reviewer**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 - **Desiderata**: $\emptyset$
 
 ## Abstract
@@ -10,10 +10,10 @@ We define a progressive L2 model as a description of an L2 system that is intend
 
 ## Motivation
 
-In order to communicate with more specificity in all contexts, Movement Labs should introduce a glossary. This glossary should define terms both unique to Movement Labs and general terms that are used in a unique way, underspecified in the literature, or have a specific meaning in the context of Movement Labs.
+In order to communicate with more specificity, Movement Labs should introduce a glossary. This glossary should define terms both unique to Movement Labs and general terms that are used in a unique way, underspecified in the literature, or have a specific meaning in the context of Movement Labs.
 
 ## Specification
-Progress L2 models should adhere to conventions of the following forms:
+Progressive L2 models should adhere to conventions of the following forms:
 
 - **naming**: apply a standard naming format.
 - **acknowledgement of standards**: acknowledge the conventions of this MIP.
