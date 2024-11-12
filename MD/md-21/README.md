@@ -1,18 +1,23 @@
-# MD-21: Bridge Based on Attesters
-- **Description**: Proposal for simplifying the bridge mechanism using an attester-based approach inspired by USDC's CCTP, reducing friction, cost, and complexity for Layer 2 onboarding.
+# MD-21: Native Bridge Based on Attesters
+- **Description**: Proposal for simplifying the native bridge mechanism using an attester-based approach and drawing inspiration from USDC's CCTP. The goal is to reducing friction, cost, and complexity for Layer 2 onboarding.
 - **Authors**: [Primata](mailto:primata@movementlabs.xyz)
 
 ## Overview
 
-This MD lays out steps to introduce and leverage an attester-based bridge model to create a frictionless, efficient, and secure cross-chain experience for Movement technologies.
+This MD lays out steps to introduce and leverage an **attester-based bridge model** to create a frictionless, efficient, and secure cross-chain experience for Movement technologies.
 
-A bridge mechanism is essential for any Layer 2 solution, serving as the user's first interaction with the network. This process must be smooth and frictionless, ensuring that dealing with tokens on L1 and bridging to native gas tokens on L2 does not overcomplicate the user experience. The bridge must balance user onboarding, cost-efficiency, and simplicity, while minimizing transaction complexity. We propose a bridge based on attesters, inspired by the [Cross-Chain Transfer Protocol](https://developers.circle.com/stablecoins/cctp-getting-started) (CCTP) by USDC, which offers an elegant solution to these challenges.
+A bridge mechanism is essential for any Layer 2 solution, serving as the user's first interaction with the network. This process must be smooth and frictionless, ensuring that dealing with tokens on L1 and bridging to native gas tokens on L2 does not overcomplicate the user experience. The bridge must balance user onboarding, cost-efficiency, and simplicity, while minimizing transaction complexity. 
+
+We request to 
+1. draw inspiration from the [Cross-Chain Transfer Protocol](https://developers.circle.com/stablecoins/cctp-getting-started) (CCTP) protocol by USDC, which offers an elegant solution to these challenges.
+1. Apply an attester based model to the native bridge.
+1. Supply a clear flow for the bridge mechanism.
 
 ### Motivation
 
 Our current bridge solution has been increasing in complexity with each iteration. Originally requiring three on-chain transactions, it now requires four, initiate bridge, lock, complete source chain, complete target chain. Additionally, the bridge does not currently support gas charging mechanisms to prevent exploits, and ongoing discussions are leaning toward adding further components, making it even more complex and computationally expensive.
 
-We believe the best approach is to draw from live implementations that have achieved a streamlined user experience with minimal cost to the user. One such example is USDC's [CCTP](https://www.circle.com/en/cross-chain-transfer-protocol), which offers simplicity, security, and efficiency in cross-chain bridging. Instead of increasing the complexity of our current bridge design, we should aim to adopt this proven mechanism.
+We believe the best approach is to draw from live implementations that have achieved a streamlined user experience with minimal cost to the user. One such example is USDC's [CCTP](https://www.circle.com/en/cross-chain-transfer-protocol), which offers simplicity, security, and efficiency in cross-chain bridging. Instead of increasing the complexity of our current bridge design, we should aim to adopt more proven mechanisms.
 
 ## Desiderata
 
