@@ -29,7 +29,8 @@ The process of transferring tokens across different chains is implemented with a
 
 There are several choices for the architecture of a bridge, and we describe here a classical bridge with a  _lock-mint_ protocol (see Chainlink's [What Is a Cross-Chain Bridge?](https://chain.link/education-hub/cross-chain-bridge) for a quick introduction to types of bridges).
 
-> [!WARNING]  This is a bridge, not a swap, so transfer is 1 to 1.
+> [!WARNING]  
+> This is a bridge, not a swap, so transfer is 1 to 1.
 > The transfer of tokens is one-to-one: a user bridges $k$ `$L1MOVE` tokens to L2, and they receive $k$ `$L2MOVE` tokens. Same one-to-one ratio applies from L2 to L1.  The bridge does not allow for _swapping_ tokens.
 
 **Lock-and-Mint**. The main idea of the _lock-mint_ protocol is as follows. For the sake of simplicity, assume the two chains (L1 and L2) have only one user and the user has an account `l1acc` on L1, and another account `l2acc` on L2.  We also assume that each transfer is for one token.
@@ -87,12 +88,14 @@ A successful transfer requires the following these steps:
 1. _user1_ locks their L1`$L1MOVE` tokens in the `AtomicBridgeInitiatorMOVE.sol` contract on L1. The contract emits an event `BridgeTransferPending` to the L1 logs. At this point in time the transfer becomes `INITIALIZED` on L1.
 2. A _relayer_ monitors the L1 logs and when they see the `BridgeTransferPending` event, they send a transaction to the `atomic_bridge_counterparty.move` module on L2 asking the module to prepare the minting of `$L2MOVE` tokens. The status of the bridge transfer on L2 becomes `PENDING`. An event `BridgeTransferLocked` is emitted to the L2 logs.
 
-> [!TIP] Check point: This is the end of the first phase. Next phase must be triggered by `user2`.
+> [!TIP] 
+> Check point: This is the end of the first phase. Next phase must be triggered by `user2`.
 > At that point the bridge transfers details are known by the L1 and the L2.
 
 3. _user2_ (or anybody with the secret) sends a transaction to the `atomic_bridge_counterparty.move` module on L2 asking to _complete the bridge transfer_. If the transfer has been properly initialised (step 2 above), this results in minting tokens and transfers the minted tokens to the `user2` account. If successful, an event `BridgeTransferComplete` is emitted to the L2 logs. The status of the transfer on L2 becomes `COMPLETED`.
 
-> [!TIP] Check point: The transfer is completed on L2.
+> [!TIP] 
+> Check point: The transfer is completed on L2.
 > At that stage the `$L2MOVE` tokens are in the `user2` account on L2.
 
 4. The relayer monitors the L2 logs and when they see the `BridgeTransferComplete` event, they send a transaction to the `AtomicBridgeInitiatorMOVE.sol` contract on L1 to _complete the bridge transfer_. This closes the status of the transfer on L1 and the status of the transfer becomes `COMPLETED`. An event `BridgeTransferComplete` is emitted to the L1 logs.
@@ -108,7 +111,8 @@ The following diagram (Figure 1) illustrates the steps above:
 **Figure 1**: Timechart of the bridge protocol from L1 to L2.
 
 ---
-> [!CAUTION] Fault-tolerance
+> [!CAUTION] 
+> Fault-tolerance
 > As there can be crashes or delays or network partitions, the protocol should be _fault-tolerant_ to a certain extent.
 This is done by the use of `timelocks` on the L1 and L2 sides that restrict the operations above to occur within _bounded time windows_.
 
@@ -163,12 +167,14 @@ A successful transfer from L2 to L1 requires the following these steps:
 1. _user2_ burns their L2\$MOVE tokens in the `atoic_bridge_initiator.move`  contract on L2. The contract emits an event `BridgeTransferInitiated` to the L2 logs. At this point in time the transfer becomes `INITIALIZED` (or pending) on L2.
 2. A _relayer_ monitors the L2 logs and when they see the `BridgeTransferInitiated` event, they send a transaction to the `AtomicBridgeCounperPartyMOVE.sol` contract on L1 asking the module to prepare to _unlock_ L1\$MOVE tokens. The status of the bridge transfer on L1 becomes `PENDING`. An event `BridgeTransferLocked` is emitted to the L1 logs.
 
-> [!TIP] Check point. `user2' does not have the asset on L2 anymore.
+> [!TIP] 
+> Check point. `user2' does not have the asset on L2 anymore.
 > At that point the bridge transfers details are known by the L1 and the L2.
 
 3. _user1_ (or anybody with the secret) sends a transaction to the `AtomicBridgeCounterParty.sol` contract on L1 asking to _complete the bridge transfer_. If the transfer has been properly initialised (step 2 above), this results in transferring $L1MOVE tokens to the `user1` account. If successful, an event `BridgeTransferCompleted` is emitted to the L1 logs. The status of the transfer on L1 becomes `COMPLETED`.
 
-> [!TIP] Check point. `User1` has the asset on L1.
+> [!TIP] 
+> Check point. `User1` has the asset on L1.
 > At that stage the L1\$MOVE tokens are in the `user1` account on L1.
 
 4. The relayer monitors the L1 logs and when they see the `BridgeTransferCompleted` event, they send a transaction to the `atomic_bridge_initiator.move` module on L2 to _complete the bridge transfer_. This closes the status of the transfer on L2 and the status of the transfer becomes `COMPLETED`. An event `BridgeTransferCompleted` is emitted to the L2 logs.
@@ -264,7 +270,8 @@ To reproduce the results and check the properties on the model, you need a worki
 
 The results of the model-checking verification are as follows: let $maxRelayerDelay$ be the **maximum delay** for the relayer to relay an event, and $timeLock1$ and $timeLock2$ be the timelocks on L1 and L2 respectively.
 
-> [!IMPORTANT] Verification results
+> [!IMPORTANT] 
+> **Verification results**
 > We have **proved** (model-checked with UPPAAL) the following properties (valid using the versions of the contracts below):
 >
 > - contract (Move): [atomic_bridge.move](https://github.com/movementlabsxyz/aptos-core/blob/movement/aptos-move/framework/aptos-framework/sources/atomic_bridge.move), commit [c1ecd0a](https://github.com/movementlabsxyz/aptos-core/commit/c1ecd0afd250fd71fe9ffc168b2ba7bafa97ffb3)
