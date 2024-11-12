@@ -1,4 +1,4 @@
-# MD-21: Native Bridge Based on Attesters
+# MD-21: Native Bridge with Attesters
 - **Description**: Proposal for simplifying the native bridge mechanism using an attester-based approach and drawing inspiration from USDC's CCTP. The goal is to reducing friction, cost, and complexity for Layer 2 onboarding.
 - **Authors**: [Primata](mailto:primata@movementlabs.xyz)
 
