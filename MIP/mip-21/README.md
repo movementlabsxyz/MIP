@@ -1,10 +1,10 @@
-# MIP-21: Bridge Based on Attestors
-- **Description**: Proposal for simplifying the bridge mechanism using an attestor-based approach inspired by USDC's CCTP, reducing friction, cost, and complexity for Layer 2 onboarding.
+# MIP-21: Bridge Based on Attesters
+- **Description**: Proposal for simplifying the bridge mechanism using an attester-based approach inspired by USDC's CCTP, reducing friction, cost, and complexity for Layer 2 onboarding.
 - **Authors**: [Primata](mailto:primata@movementlabs.xyz)
 
 ## Abstract
 
-A bridge mechanism is essential for any Layer 2 solution, serving as the user's first interaction with the network. This process must be smooth and frictionless, ensuring that dealing with tokens on L1 and bridging to native gas tokens on L2 does not overcomplicate the user experience. The bridge must balance user onboarding, cost-efficiency, and simplicity, while minimizing transaction complexity. We propose a bridge based on attestors, inspired by the [Cross-Chain Transfer Protocol](https://developers.circle.com/stablecoins/cctp-getting-started) (CCTP) by USDC, which offers an elegant solution to these challenges.
+A bridge mechanism is essential for any Layer 2 solution, serving as the user's first interaction with the network. This process must be smooth and frictionless, ensuring that dealing with tokens on L1 and bridging to native gas tokens on L2 does not overcomplicate the user experience. The bridge must balance user onboarding, cost-efficiency, and simplicity, while minimizing transaction complexity. We propose a bridge based on attesters, inspired by the [Cross-Chain Transfer Protocol](https://developers.circle.com/stablecoins/cctp-getting-started) (CCTP) by USDC, which offers an elegant solution to these challenges.
 
 ## Motivation
 
@@ -14,11 +14,11 @@ We believe the best approach is to draw from live implementations that have achi
 
 ## Specification
 
-The Cross-Chain Transfer Protocol (CCTP) operates using a set of attestors that validate all bridge transactions occurring between chains. These attestors listen for bridge events, confirm the validity of transactions, and, if necessary, revert them by providing appropriate proofs. A transfer allowance managed by a centralized authority further ensures that breaches are mitigated by limiting the amount of value transferred.
+The Cross-Chain Transfer Protocol (CCTP) operates using a set of attesters that validate all bridge transactions occurring between chains. These attesters listen for bridge events, confirm the validity of transactions, and, if necessary, revert them by providing appropriate proofs. A transfer allowance managed by a centralized authority further ensures that breaches are mitigated by limiting the amount of value transferred.
 
 To align with this approach and reduce complexity:
 
-- **Bridge Relayer as Attestor**: The Bridge Relayer in our system will function as an attestor, operating via a multisig scheme (i.e. the attestor collects signatures from a threshold number of comittee members that approve of the message). This relayer, through aggregated signatures, produces a proof on a signed message.  
+- **Bridge Relayer as Attester**: The Bridge Relayer in our system will function as an attester, operating via a multisig scheme (i.e. the attester collects signatures from a threshold number of comittee members that approve of the message). This relayer, through aggregated signatures, produces a proof on a signed message.  
 
 - **User Interaction**: Users, or other parties interested in completing the bridge, retrieve their funds on the target chain by submitting the signature and message.
 
@@ -69,7 +69,7 @@ The correctness of this proposal can be established by leveraging the success of
 The use of a multisig setup adds a layer of security, with aggregated signatures preventing unauthorized access. The transfer allowance mechanism further mitigates potential breaches by limiting how much can be transferred.
 
 ### 3. **Performance Impacts**:
-Because we would use a multisig off-chain signature to complete bridges, the set of attestors and the multisig address to produce the signature that we have to check the message against it could be the same set of the L2 Settlement signers.
+Because we would use a multisig off-chain signature to complete bridges, the set of attesters and the multisig address to produce the signature that we have to check the message against it could be the same set of the L2 Settlement signers.
 This method reduces the computational overhead associated with multiple on-chain transactions and simplifies the bridge process. The reliance on a proven mechanism ensures minimal performance degradation. It also provides a bridging service with 1:1 bridging with minimal logic that could be potentially used for exploits.
 It could also facilitate aggregating bridges since a merkle root could be used to handle the validity of the logic.
 
@@ -90,4 +90,4 @@ Any post-publication corrections or updates will be documented in this section t
 
 ---
 
-This proposal leverages an attestor-based bridge model to create a frictionless, efficient, and secure cross-chain experience for Movement technologies.
+This proposal leverages an attester-based bridge model to create a frictionless, efficient, and secure cross-chain experience for Movement technologies.
