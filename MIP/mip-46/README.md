@@ -1,5 +1,5 @@
-# MIP-\<number\>: Security Assumptions and Fallibility
-- **Description**: ????
+# MIP-46: Security and Fallibility of the Native Bridge
+- **Description**: Addresses the assumptions and requirements to guarantee the security of the Native Bridge.
 - **Authors**: Richard, [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 
 <!--
@@ -20,7 +20,7 @@
 
 The Native Bridge design presented in [MIP-39](../mip-39/) has the following assumptions to achieve secure operation, and which we detail in [Motivation](#motivation).
 
-Given that these hold, the sum of the token supply of `$L1MOVE` and `$L2MOVE` is equal to `MOVE_MAX`. To improve the security of the relayer and protect the total token supply against violations of the above assumptions, we propose several safety mechanisms:
+Given that these hold, the sum of the circulating token supply of `$L1MOVE` and `$L2MOVE` is equal to `MOVE_MAX`. To improve the security of the relayer and protect the total token supply against violations of the above assumptions, we propose several safety mechanisms:
 
 1. The token supply of `$L1MOVE`, as well as `$L2MOVE` cannot exceed the total supply individually.
 1. The total amount of bridge transfers is rate limited.
