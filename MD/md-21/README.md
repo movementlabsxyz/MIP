@@ -25,7 +25,7 @@ We believe the best approach is to draw from live implementations that have achi
 
 #### User Journey
 
-The developer can understand the [Cross-Chain Transfer Protocol (CCTP)](https://developers.circle.com/stablecoins/docs/generic-message-passing) model to design a bridge mechanism that is simple, secure, and efficient.
+The developer can understand the [Cross-Chain Transfer Protocol (CCTP)](https://developers.circle.com/stablecoins/docs/generic-message-passing) model and draw from it to design a bridge mechanism that is simple, secure, and efficient.
 
 #### Description
 
@@ -88,7 +88,7 @@ The challenge is to make sure that the signature is only used once so no transac
 
 #### User Journey
 
-The developer can understand the flow of the bridge mechanism.
+The developer can understand the flow of the bridge mechanism. Hence a flow diagram and description should be provided.
 
 #### Justification
 
