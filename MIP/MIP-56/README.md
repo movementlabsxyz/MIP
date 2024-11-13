@@ -1,20 +1,6 @@
-# MIP-56>: Rate-Limiter for the Native Bridge
+# MIP-56: Rate-Limiter for the Native Bridge
 - **Description**: A rate limitation mechanism for the native bridge.
 - **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
-
-<!--
-  READ MIP-1 BEFORE USING THIS TEMPLATE!
-
-  This is the suggested template for new MIPs. After you have filled in the requisite fields, please delete these comments.
-
-  Note that an MIP number will be assigned by an editor. When opening a pull request to submit your MIP, please use an abbreviated title in the filename, `mip-draft_title_abbrev.md`.
-
-  The title should be 44 characters or less. It should not repeat the MIP number in title, irrespective of the category.
-
-  The author should add himself as a code owner in the `.github/CODEOWNERS` file for the MIP.
-
-  TODO: Remove this comment before finalizing.
--->
 
 ## Abstract
 
