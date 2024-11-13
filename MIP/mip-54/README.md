@@ -32,7 +32,7 @@ In text, the model SHOULD be referred to as "the [Location] Model," that is, the
 At the start of the "Specification" section of the MIP, the author MUST include the following markdown snippet:
 
 ```
-We acknowledge and apply the conventions of [MIP-N: Conventions for Proposing Progressive L2 Models](link/to/this/mip).
+We acknowledge and apply the conventions of [MIP-54: Conventions for Proposing Progressive L2 Models](link/to/this/mip).
 ```
 
 ### Summary Table
