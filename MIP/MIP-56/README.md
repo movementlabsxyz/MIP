@@ -50,7 +50,9 @@ The Governance imposes a risk on the Rate-Limiter, as it could be manipulated by
 
 #### Bad user experience when budget is nearly exhausted
 
-If the budget is nearly exhausted, the Rate-Limiter will reject transfers. This could lead to a bad user experience, as users would not be able to transfer tokens across the bridge. However, this is a necessary trade-off to ensure the security of the bridge. User experience could be improved by having warnings issued by a client that reads the remaining budget from the Rate-Limiter contract.
+If the budget is nearly exhausted, the Rate-Limiter will reject transfers. This could lead to a bad user experience, as users would not be able to transfer tokens across the bridge. However, this is a necessary trade-off to ensure the security of the bridge. 
+
+User experience could be improved by having warnings issued by a client that reads the remaining budget from the Rate-Limiter contract. In particular the error `RATE_LIMIT_EXCEEDED` should be displayed to the user.
 
 ## Reference Implementation
 
