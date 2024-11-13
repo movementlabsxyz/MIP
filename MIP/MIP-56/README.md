@@ -1,4 +1,4 @@
-# MIP-\<number\>: Rate-Limiter for the Native Bridge
+# MIP-56>: Rate-Limiter for the Native Bridge
 - **Description**: A rate limitation mechanism for the native bridge.
 - **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 
