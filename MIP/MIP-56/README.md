@@ -41,6 +41,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 1. The Rate-Limiter COULD consider the budget across both directions as a single budget. This would apply the above equation with a dynamic `weight`. However this raises the question of the asynchrony of events between the two directions, and such an approach should be analyzed carefully.
 1. The `budget_L1L2` and `budget_L2L1` values COULD be reset, if the governance is convinced that all transfers have been processed correctly and are not revertible, however this is risky due to the introduction of human error. Alternatively, an automated approach could be considered that takes into account all completed transfers. However, this is out of scope for this MIP.
 1. Alternatively to the security fund contract updating the `security_fund` value in the Rate-Limiter contract, the Rate-Limter contract could read the `security_fund` value from the security fund contract. However, this raises the question of how regular the Rate-Limiter should update the value, and also it would imply that occasionally the Rate-Limiter could have an outdated value. It is more risky.
+1. Rate limitation could be implemented on both sides of the bridge. This permits to inform the user at the earliest possible point that a transfer is rejected. However, naively, it would require two separate security fund pools (one on L1 and one on L2), and increase the amount of code, as contracts require implementation both on L1 and L2.
 
 ### Limitations
 
