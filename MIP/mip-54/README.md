@@ -1,19 +1,21 @@
-# MIP-15: Conventions for Proposing Progressive L2 Models
+# MIP-54: Conventions for Proposing Progressive L2 Models
 - **Description**: Introduces conventions for proposing progressive L2 models.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Reviewer**: Andreas Penzkofer
+- **Reviewer**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 - **Desiderata**: $\emptyset$
 
 ## Abstract
 
-We define a progressive L2 model as a description of an L2 system that is intended for a particular stage of the said L2's life. To align expectations for reviewing proposals for said models, we propose a set of conventions including naming, formatting, and related standards.
+Movement's L2 system will progress through various changes during its life, and each stage is presented through a new L2 model (which we call **progressive L2 model**). Thus a given progressive L2 model describes as a particular stage in the evolution of the L2 system.  A given progressive L2 model stage is defined through the sum of its improvements and it may encompass unrelated components. 
+
+We propose a set of conventions including naming, formatting, and related standards to assist reviewing proposals for said models. Finally a collection point of these terms to provide an overview
 
 ## Motivation
 
-In order to facilitate the development of L2 systems, it is important to have a clear and consistent way to propose and review models for these systems. This MIP aims to provide a set of conventions for proposing progressive L2 models that will help to ensure that proposals are clear, consistent, and easy to review.
+In order to communicate with more specificity, Movement Labs should introduce a glossary. This glossary should define terms both unique to Movement Labs and general terms that are used in a unique way, underspecified in the literature, or have a specific meaning in the context of Movement Labs.
 
 ## Specification
-Progress L2 models should adhere to conventions of the following forms:
+Progressive L2 models should adhere to conventions of the following forms:
 
 - **naming**: apply a standard naming format.
 - **acknowledgement of standards**: acknowledge the conventions of this MIP.
@@ -24,13 +26,13 @@ Progress L2 models should adhere to conventions of the following forms:
 ### Naming
 All proposed progressive L2 models MUST adopt a name of the form "The [Location] Model" where [Location] is a location where the proposal was drafted or a similarly symbolic location. This name should be the title of the associated MIP. 
 
-In text, the model SHOULD be referred to as "the [Location] Model," that is, the name of the model in lowercase with "the" prepended. 
+In text, the model SHOULD be referred to as "[Location] Model," that is, the name of the model in uppercase. 
 
 ### Acknowledgement of Standards
 At the start of the "Specification" section of the MIP, the author MUST include the following markdown snippet:
 
 ```
-We acknowledge and apply the conventions of [MIP-N: Conventions for Proposing Progressive L2 Models](link/to/this/mip).
+We acknowledge and apply the conventions of [MIP-54: Conventions for Proposing Progressive L2 Models](link/to/this/mip).
 ```
 
 ### Summary Table
