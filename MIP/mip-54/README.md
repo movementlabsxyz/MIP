@@ -6,7 +6,9 @@
 
 ## Abstract
 
-We define a progressive L2 model as a description of an L2 system that is intended for a particular stage of the said L2's life. To align expectations for reviewing proposals for said models, we propose a set of conventions including naming, formatting, and related standards.
+Movement's L2 system will progress through various changes during its life, and each stage is presented through a new L2 model (which we call **progressive L2 model**). Thus a given progressive L2 model describes as a particular stage in the evolution of the L2 system.  A given progressive L2 model stage is defined through the sum of its improvements and it may encompass unrelated components. 
+
+We propose a set of conventions including naming, formatting, and related standards to assist reviewing proposals for said models. Finally a collection point of these terms to provide an overview
 
 ## Motivation
 
