@@ -10,7 +10,7 @@ We define a progressive L2 model as a description of an L2 system that is intend
 
 ## Motivation
 
-In order to communicate with more specificity in all contexts, Movement Labs should introduce a glossary. This glossary should define terms both unique to Movement Labs and general terms that are used in a unique way, underspecified in the literature, or have a specific meaning in the context of Movement Labs.
+In order to facilitate the development of L2 systems, it is important to have a clear and consistent way to propose and review models for these systems. This MIP aims to provide a set of conventions for proposing progressive L2 models that will help to ensure that proposals are clear, consistent, and easy to review.
 
 ## Specification
 Progress L2 models should adhere to conventions of the following forms:
