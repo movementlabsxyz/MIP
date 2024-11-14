@@ -1,52 +1,96 @@
-# MIP-\<number\>: \<Title\>
-- **Description**: A single sentence summarizing the contents of the proposal.
-- **Authors**: [Author](mailto:author@email.com)
-- **Desiderata**: [MIP-\<number\>](../MIP/mip-\<number\>)
-
-<!--
-  READ MIP-1 BEFORE USING THIS TEMPLATE!
-
-  This is the suggested template for new MIPs. After you have filled in the requisite fields, please delete these comments.
-
-  Note that an MIP number will be assigned by an editor. When opening a pull request to submit your MIP, please use an abbreviated title in the filename, `mip-draft_title_abbrev.md`.
-
-  The title should be 44 characters or less. It should not repeat the MIP number in title, irrespective of the category.
-
-  The author should add himself as a code owner in the `.github/CODEOWNERS` file for the MIP.
-
-  TODO: Remove this comment before finalizing.
--->
+# MIP-\<number\>: Informer for the Native Bridge 
+- **Description**: The Informer collects data from L1 and L2 that is critical to the safe operation of the Native Bridge.
+- **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 
 ## Abstract
 
-<!--
-  The Abstract is a multi-sentence (short paragraph) technical summary. This should be a very terse and human-readable version of the specification section. Someone should be able to read only the abstract to get the gist of what this specification does.
-
-  TODO: Remove this comment before finalizing.
--->
+The Informer for the Native Bridge is introduced to collect information about the state from L1 and L2 and provide this information to components of the Native Bridge. The provided information is critical to the safe operation of bridge components such as the Rate-Limiter, the Security Fund, and the Bridge Operator.
 
 ## Motivation
 
-<!--
-  The motivation section should include a description of any nontrivial problems the MIP solves. It should not describe how the MIP solves those problems.
+Several components should react if the bridge is under attack. However these components require knowledge about the states of L1 and L2. In particular, the considered components are the insurance fund, see [MIP-50](https://github.com/movementlabsxyz/MIP/pull/50) and the Rate-Limiter, see [MIP-56](https://github.com/movementlabsxyz/MIP/pull/56). In addition the operation of these components may be handled via a governance, which could also rely on state information.
 
-  TODO: Remove this comment before finalizing.
--->
+The Informer is a trusted component that provides this information.
 
 ## Specification
 
-<!--
-  The Specification section should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations.
-
-  It is recommended to follow RFC 2119 and RFC 8170. Do not remove the key word definitions if RFC 2119 and RFC 8170 are followed.
-
-  TODO: Remove this comment before finalizing
--->
-
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
 
+![Overview](overview.png)
+*Figure 1: Dependencies of components on the Informer mechanism in the Native Bridge.*
+
+The informer collects information about the state of liquid `$L1MOVE` and `$L2MOVE` and provides this information to components of the Native Bridge. The Informer is a trusted component that is critical to the safe operation of the Native Bridge.
+
+1. The Informer is a component that MUST run a node or client on L1 and on L2.
+1. On L1 the Informer SHOULD read the liquid supply `L1MOVE_liquid` of `$L1MOVE` token at the $k$-confirmed state. The definition of $k-confirmed$ is given in [Issue-838](https://github.com/movementlabsxyz/movement/issues/838).
+1. On L2 the Informer SHOULD read the liquid supply `L2MOVE_liquid` of `$L2MOVE` token at the $m$-confirmed state.
+1. The values for $k$ and $m$ MUST be the same as the value of $k$ and $m$ in the bridge parameters.
+1. Since L1 blocks have timestamps we say the Informer reads `L2MOVE_liquid(t_L1)`.
+1. We assume that L2 blocks acquire timestamps from the sequencing protocol, e.g. Celestia. Thus the Informer reads `L2MOVE_liquid(t_L2)`.
+
+**Observations**
+We make the following observations from the above: 
+
+- For L1->L2 bridge transfers: `$L1MOVE` token that have been locked on L1  may not have an equivalent minted token amount on L2. I.e. there exists an amount `L2MOVE_inflight` that is not yet minted on L2.
+- For L2->L1 bridge transfers: `$L2MOVE` token that have been locked on L2 may not have an equivalent minted token amount on L1. I.e. there exists an amount `L1MOVE_inflight` that is not yet minted on L1.
+- The Informer reads `L2MOVE_liquid(t_L1)` and `L2MOVE_liquid(t_L2)` and where `t_L2 > t_L1` typically. Generally it must be assumed that L1 and L2 are not synchronized.
+
+As a consequence of the above, the total counted liquid supply `MOVE_liquid = L2MOVE_liquid(t_L1) + L2MOVE_liquid(t_L2)` can differ from the total supply `MOVE_max` intermittently. Note that even if `t_L1 == t_L2`, then `MOVE_liquid` can still differ from `MOVE_max` due to inflight tokens.
+
+**In-Flight Tokens**
+
+In the following we count times as per perspective of a user, who has insight into both chains. It is feasible that later it is discovered that this is not the best view point, and that a per chain view may be more insightful.
+
+From [MIP-39](https://github.com/movementlabsxyz/MIP/pull/39/files) we can see that (for the user) the minimal time to complete a successful transfer
+
+- on the sender chain is `t_min_sender = 2 * L_sender_finality + 2 * L_receiver_finality`. 
+on the receiver chain is `t_min_receiver = 2 * L_receiver_finality +  L_sender_finality`
+
+And the maximum time to complete an unsuccessful transfer
+
+- on the sender chain is `t_max_sender = 2 * L_sender_finality + timelock_sender`
+- on the receiver chain is `t_max_receiver = L_sender_finality +  L_receiver_finality + timelock_receiver`
+
+#### Hypothesis
+
+Assume
+
+- the bridge is rate limited by the Rate-Limiter, see [MIP-56](https://github.com/movementlabsxyz/MIP/pull/56)
+- The rate limits for bridge transfers are `ratelimit_L1L2` for L1->L2, and `ratelimit_L2L1` for L2->L1.
+- `risk_period >> t_L2 - t_L1`.
+
+Then the maximum amount of tokens that can be inflight
+
+- L1->L2 is `L1MOVE_inflight_max = ratelimit_L1L2 * risk_period * 2` and
+- L2->L1 is `L2MOVE_inflight_max = ratelimit_L2L1 * risk_period * 2`.  
+
+The factor 2 accounts for at most two `risk_periods` are in the in-flight period. Moreover, since the maximum transferred tokens in `t_L2 - t_L1` is `ratelimit_L1L2 * risk_period * 2`.
+
+
+
+
+ and `ratelimit_L2L1 * (t_L2 - t_L1)` respectively, we have that `L1MOVE_inflight <= L1MOVE_inflight_max` and `L2MOVE_inflight <= L2MOVE_inflight_max`.
+
+and that the Rate-Limiter MUST consider the inflight tokens `L2MOVE_inflight` and `L1MOVE_inflight` in addition to the liquid supply `MOVE_liquid`.
+
+
+Rate-Limiter MUST consider the inflight tokens `L2MOVE_inflight` and `L1MOVE_inflight` in addition to the liquid supply `MOVE_liquid`.
+
+
+### Recommendations
+
+1. It is recommended that $k>=32$, i.e. at least one epoch.
+1. It is recommended that $m=3$. 
+On L2 we assume a pBFT-like algorithm for the consensus on transaction-blocks, If the protocol is pipelined, this would indicate that 3 blocks are required to finalize. If all phases of the BFT consensus algorithm are handled within one block, then $m=1$ is sufficient.
+With Celestia this would be approximately after $36sec$. (The block time of $12sec$ is taken from the [Celestia documentation](https://docs.celestia.org/tutorials/integrate-celestia) and the [Celestia explorer](https://celestia.explorers.guru/)).
+
+### Optimizations
+
+1. Instead of reading the $k$-confirmed state, the Informer COULD consider the finalized state. The finalized state is achieved approximately after two epochs (one epoch holds 32 blocks if no blocks are missed), see [this tweet](https://x.com/LogarithmicRex/status/1578540111930699778) and [this article](https://ethos.dev/beacon-chain).
+1. For security purposes the Informer COULD consider only the state produced by L2 blocks that have been [postconfirmed](https://github.com/movementlabsxyz/MIP/pull/37) on L1.
 
 ## Reference Implementation
+
 
 <!--
   The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
