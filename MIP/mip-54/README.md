@@ -6,7 +6,7 @@
 
 ## Abstract
 
-Movement's L2 system will progress through various changes during its life, and each stage is presented through a new L2 model (which we call **progressive L2 model**). Thus a given progressive L2 model describes as a particular stage in the evolution of the L2 system.  A given progressive L2 model stage is defined through the sum of its improvements and it may encompass unrelated components. 
+Movement's L2 system will progress through various changes during its life, and each stage is presented through a new L2 model (which we call **progressive L2 model**). Thus a given progressive L2 model describes as a particular stage in the evolution of the L2 system.  A given progressive L2 model stage is defined through the sum of its improvements and it may encompass components that are not directly related to each other. 
 
 We propose a set of conventions including naming, formatting, and related standards to assist reviewing proposals for said models. Finally a collection point of these terms to provide an overview
 
