@@ -26,7 +26,7 @@ Progressive L2 models should adhere to conventions of the following forms:
 ### Naming
 All proposed progressive L2 models MUST adopt a name of the form "The [Location] Model" where [Location] is a location where the proposal was drafted or a similarly symbolic location. This name should be the title of the associated MIP. 
 
-In text, the model SHOULD be referred to as "[Location] Model," that is, the name of the model in uppercase. 
+In text, the model SHOULD be referred to as "[Location] Model," that is, the name of the model in title case. 
 
 ### Acknowledgement of Standards
 At the start of the "Specification" section of the MIP, the author MUST include the following markdown snippet:
