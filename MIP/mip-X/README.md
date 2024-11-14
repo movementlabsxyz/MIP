@@ -66,17 +66,6 @@ Then the maximum amount of tokens that can be inflight
 
 The factor 2 accounts for at most two `risk_periods` are in the in-flight period. Moreover, since the maximum transferred tokens in `t_L2 - t_L1` is `ratelimit_L1L2 * risk_period * 2`.
 
-
-
-
- and `ratelimit_L2L1 * (t_L2 - t_L1)` respectively, we have that `L1MOVE_inflight <= L1MOVE_inflight_max` and `L2MOVE_inflight <= L2MOVE_inflight_max`.
-
-and that the Rate-Limiter MUST consider the inflight tokens `L2MOVE_inflight` and `L1MOVE_inflight` in addition to the liquid supply `MOVE_liquid`.
-
-
-Rate-Limiter MUST consider the inflight tokens `L2MOVE_inflight` and `L1MOVE_inflight` in addition to the liquid supply `MOVE_liquid`.
-
-
 ### Recommendations
 
 1. It is recommended that $k>=32$, i.e. at least one epoch.
