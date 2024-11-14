@@ -1,4 +1,4 @@
-# MIP-54: Conventions for Proposing Progressive L2 Models
+# MIP-53: Conventions for Proposing Progressive L2 Models
 - **Description**: Introduces conventions for proposing progressive L2 models.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
