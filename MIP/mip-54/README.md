@@ -6,13 +6,13 @@
 
 ## Abstract
 
-Movement's L2 system will progress through various changes during its life, and each stage is presented through a new L2 model (which we call **progressive L2 model**). Thus a given progressive L2 model describes as a particular stage in the evolution of the L2 system.  A given progressive L2 model stage is defined through the sum of its improvements and it may encompass unrelated components. 
+Movement's L2 system will progress through various changes during its life, and each stage is presented through a new L2 model (which we call **progressive L2 model**). Thus a given progressive L2 model describes as a particular stage in the evolution of the L2 system.  A given progressive L2 model stage is defined through the sum of its improvements and it may encompass components that are not directly related to each other. 
 
 We propose a set of conventions including naming, formatting, and related standards to assist reviewing proposals for said models. Finally a collection point of these terms to provide an overview
 
 ## Motivation
 
-In order to communicate with more specificity, Movement Labs should introduce a glossary. This glossary should define terms both unique to Movement Labs and general terms that are used in a unique way, underspecified in the literature, or have a specific meaning in the context of Movement Labs.
+In order to facilitate the development of L2 systems, it is important to have a clear and consistent way to propose and review models for these systems. This MIP aims to provide a set of conventions for proposing progressive L2 models that will help to ensure that proposals are clear, consistent, and easy to review.
 
 ## Specification
 Progressive L2 models should adhere to conventions of the following forms:
