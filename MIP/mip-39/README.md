@@ -8,10 +8,10 @@ This MIP describes the high-level architecture of the MOVE token native bridge. 
 
 ## Definitions
 
-**Native Bridge**: The bridge that allows the transfer of tokens between L1 and L2, which hold `$L1MOVE` and `$L2MOVE` token, respectively. The native bridge has the capability to mint `$L2MOVE` tokens.
+- **Native Bridge**: The bridge that allows the transfer of tokens between L1 and L2, which hold `$L1MOVE` and `$L2MOVE` token, respectively. The native bridge has the capability to mint `$L2MOVE` tokens.
 
-- `$L1MOVE` (or `$MOVE`) : ERC-20 type token with the source contract on L1
-- `$L2MOVE` :  Token that is created on L2 after `$L1MOVE` token is locked on L1. We also say `$L1MOVE` is bridged from L1 to L2. `$L2MOVE` may publicly also be called `$MOVE` but as this causes confusion, here we stick to `$L2MOVE` to make clear this token lives on L2.
+- **`$L1MOVE`** (or `$MOVE`) : ERC-20 type token with the source contract on L1
+- **`$L2MOVE`** :  Token that is created on L2 after `$L1MOVE` token is locked on L1. We also say `$L1MOVE` is bridged from L1 to L2. `$L2MOVE` may publicly also be called `$MOVE` but as this causes confusion, here we stick to `$L2MOVE` to make clear this token lives on L2.
 
 ## Motivation
 
