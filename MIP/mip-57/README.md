@@ -30,11 +30,9 @@ The informer collects information about the state of liquid `$L1MOVE` and `$L2MO
 
 **TLDR: Informer Information and Warnings**
 
-The Informer SHOULD provide the information about the circulating `$L1MOVE` and `$L2MOVE` supply `MOVE_circulating(t)`, [see here](#measuring-circulating-supply). The circulating supply is lowered from the desired maximum circulating supply `MOVE_Max` by the inflight tokens, [see here](#inflight-tokens). 
+The Informer SHOULD provide the information about the circulating `$L1MOVE` and `$L2MOVE` supply `MOVE_circulating(t)`, [see here](#measuring-circulating-supply). The circulating supply is lowered from the desired maximum circulating supply `MOVE_Max` by the inflight tokens, [see here](#inflight-tokens). The inflight-token can be over-approximated.
 
-> ![NOTE] The inflight tokens are in principle known by the Relayer.
-
-The Informer SHOULD provide a warning if the circulating supply exceeds the maximum circulating supply `MOVE_Max`. However, as described [here](#difference-in-layer-timestamps), the measured circulating supply could be above `MOVE_Max` due to the difference in timestamps between L1 and L2, thus any warning has to be taken with caution.
+The Informer SHOULD provide a warning if the circulating supply exceeds the maximum circulating supply `MOVE_Max`. However, due difference in clocks between layers, [see here](#difference-in-layer-timestamps), and the over-approximation of inflight-token, the measured circulating supply could be above `MOVE_Max`.
 
 #### Measuring circulating supply
 
@@ -46,8 +44,6 @@ The circulating supply of `$MOVE` token `MOVE_circulating(t) = L1MOVE_circulatin
 #### Inflight tokens
 
 Inflight tokens are tokens that are locked (burned) on L1 (L2) but that are not yet minted (unlocked) on L2 (L1).
-
-> [!NOTE] The amount of inflight tokens would be known by a trusted centralized relayer.
 
 We refer to the following illustration for a bridge transfer from L1 to L2, which is taken from [MIP-39](https://github.com/movementlabsxyz/MIP/pull/39).
 
@@ -73,14 +69,20 @@ where `inflight_factor = 1 + timelock / risk_period`. If we consider only the go
 - `inflight_L1L2 = ratelimit_L1L2 * risk_period * 2` for L1->L2, and
 - `inflight_L2L1 = ratelimit_L2L1 * risk_period * 2` for L2->L1.
 
+**Measurement of inflight tokens**
+The Informer can provide an estimate on the inflight tokens. In particular it is aware how many tokens are inflight on L1 `token_inflight_L1` and also on L2 `token_inflight_L2`. The sum of which provides an upper, but much preciser bound on the inflight tokens. Note however that
+
+`MOVE_circulating(t) = L1MOVE_circulating(t) + L2MOVE_circulating(t) + token_inflight_L1 + token_inflight_L2 >= MOVE_max`.
+
+I.e. this measurement could overestimate the token supply.
+
 #### Difference in Layer Timestamps
 
 The timestamps of the two layers are not synchronized. We assume that the difference is negligible, however, for correctness, the implications of a drift between the L1 and L2 clocks should be considered. Moreover, the clocks of the layers progress discretely. This means that the Informer has to read at slightly different times on L1 and L2.
 
 This error in the calculation of circulating token `error_token_circulating` due to difference in timestamps between L1 and L2 can be net positive. Thus the measured circulating supply of `$MOVE` could be above `MOVE_max`.
 
-Since the time difference should be small at most two rate limit intervals should be considered, i.e. `error_token_circulating <= (ratelimit_L1L2 + ratelimit_L2L1 ) * risk_period * 2`.
-
+Since the time difference should be small the error should be no more than the rate budget of two intervals, i.e. `error_token_circulating <= (ratelimit_L1L2 + ratelimit_L2L1 ) * risk_period * 2`.
 
 ### Recommendations
 
