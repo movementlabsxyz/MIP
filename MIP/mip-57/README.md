@@ -1,5 +1,5 @@
-# MIP-\<number\>: Informer for the Native Bridge 
-- **Description**: The Informer collects data from L1 and L2 that is critical to the safe operation of the Native Bridge.
+# MIP-57: Informer for the Operation of the Native Bridge
+- **Description**: The Informer collects data from L1 and L2 about the circulating supply of $MOVE tokens, which is critical for the safe operation of the Native Bridge.
 - **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 
 ## Abstract
