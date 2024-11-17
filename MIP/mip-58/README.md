@@ -303,8 +303,8 @@ function completeBridgeTransfer(
     /// @abort If the caller is not the bridge operator.  
     public entry fun complete_bridge_transfer(  
         caller: &signer,  
+        bridge_transfer_id: vector<u8>,
         initiator: vector<u8>,  
-        bridge_transfer_id: vector<u8>,  
         recipient: address,  
         amount: u64,  
         nonce: u64  
@@ -316,8 +316,10 @@ function completeBridgeTransfer(
             recipient,  
             amount,  
             nonce  
-        );  
+        );
 
+        // asserts that parameters are correct  
+        assert!(bridge_transfer_id == bridge_transfer_id(&details), 0x1);
         atomic_bridge_store::add(bridge_transfer_id, details);
         
         // Mint to recipient  
