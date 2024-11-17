@@ -73,6 +73,9 @@ L2 -> L1
 1. **Two-Transaction Model**:
    - **Initiation**: User sends a transaction to initiate the bridge containing recipient and amount.
    - **Completion**: A relayer or multi-signature group completes the transfer on the counterparty contract with the originator, recipient, amount and noce for hash verification.
+   - **No Funds Requirement**: User is not required to have funds on receiving chain and we do not have to build sponsored transactions.
+   - **Less parameters**: Because there is no exchange of secrets between the user and relayer, we have a substantial reduction of logic.
+   - **Only Completable**: Currently we reserve a refunder role to revert transactions. This approach is different where we guarantee delivery of funds through the same party that would guarantee funds being refunded, because bridges can ONLY be completed.
 
 2. **Consolidation of Logic**:
    - Merge lock and completion functionality on the counterparty contract. Once lock is called, funds are already in the control of the user. Once the timelock is over and complete on initiator has not been callde, both the initiator and counterparty funds are available to the user.
