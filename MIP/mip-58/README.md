@@ -123,6 +123,9 @@ L2 -> L1
    - Relayer or multisig completes the transfer with parameter validation.
    - Current HasuraDB built internally can provide enough infrastructure for users to know if their transaction has been completed. It does not differ from the current design in any way since user is not able to see if their transaction is in-flight. We could introduce this by notifying the user if the relayer has been ordered to complete the transaction.
 
+![Transaction History](tx-history.png)
+Here users would be able to see if the bridge has been completed. It's either pending or completed.
+
 2. **Batch Completion**:
    - Multisig relayers process pending transactions in batches during downtime, ensuring timely resolution.
 
@@ -135,13 +138,28 @@ L2 -> L1
 Solidity
 
 ```solidity
-using EnumerableSet for EnumerableSet.Bytes32Set;
 
-mapping(address users => EnumerableSet.Bytes32Set bridgeTransferIds) initiatedBridgeTransfers;
-mapping(bytes32 bridgeTransferId => bool) completedBridgeTransfers;
+import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import {INativeBridge} from "./INativeBridge.sol";
 
-bridgeTransfers
-function initiateBridge(uint256 recipient, uint256 amount) external returns (bytes32 bridgeTransferId)
+contract NativeBridgeCounterpartyMOVE is INativeBridgeCounterpartyMOVE, OwnableUpgradeable {
+
+   using EnumerableSet for EnumerableSet.Bytes32Set;
+   mapping(address users => EnumerableSet.Bytes32Set bridgeTransferIds) initiatedBridgeTransfers;
+   mapping(bytes32 bridgeTransferId => bool) completedBridgeTransfers;
+
+   bytes32 public constant RELAYER_ROLE = keccak256(abi.encodePacked("RELAYER_ROLE"));
+
+    function initialize(address _admin, address _relayer, address _maintainer) public initializer {
+        if (_admin == address(0)) revert ZeroAddress();
+        _grantRole(_admin, DEFAULT_ADMIN_ROLE);
+
+        // relayers can be set afterwards
+        _grantRole(_relayer, RELAYER_ROLE);
+        _grantRole(_maintainer, RELAYER_ROLE);
+    }
+
+ function initiateBridge(uint256 recipient, uint256 amount) external returns (bytes32 bridgeTransferId)
     {
         address originator = msg.sender;
 
@@ -177,6 +195,7 @@ function completeBridgeTransfer(
 
         emit BridgeTransferCompleted(bridgeTransferId, originator, recipient, amount, nonce);
     }
+}
 ```
 
 ```move
