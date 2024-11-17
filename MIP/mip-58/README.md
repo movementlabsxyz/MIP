@@ -130,12 +130,12 @@ function initiateBridge(uint256 recipient, uint256 amount) external returns (byt
 
         // Generate a unique nonce to prevent replay attacks, and generate a transfer ID
         bridgeTransferId =
-            keccak256(abi.encodePacked(originator, recipient, amount, block.timestamp, ++_nonce));
+            keccak256(abi.encodePacked(originator, recipient, amount, ++_nonce));
 
         // We have all bridgeTransferIds available by user because we don't have to re-access it.
         bridgeTransfers[originator].add(bridgeTransferId); 
 
-        emit BridgeTransferInitiated(bridgeTransferId, originator, recipient, amount, block.timestamp, _nonce);
+        emit BridgeTransferInitiated(bridgeTransferId, originator, recipient, amount, _nonce);
         return bridgeTransferId;
     }
 
@@ -144,12 +144,9 @@ function completeBridgeTransfer(
         bytes32 originator,
         address recipient,
         uint256 amount,
-        uint256 initialTimestamp,
         uint256 nonce
         ) external onlyRole(RELAYER_ROLE) {
          require(bridgeTransferId == keccak256(abi.encodePacked(originator, recipient, amount, hashLock, initialTimestamp, nonce)), InvalidBridgeTransferId());
-        require(block.timestamp < initialTimestamp + counterpartyTimeLockDuration, TimeLockExpired());
-
         nativeBridgeInitiatorMOVE.withdrawMOVE(recipient, amount);
         emit BridgeTransferCompleted(bridgeTransferId, originator, recipient, amount, hashLock, initialTimestamp, nonce);
     }
