@@ -83,7 +83,7 @@ L2 -> L1
    - **Only Completable**: Currently we reserve a refunder role to revert transactions. This approach is different where we guarantee delivery of funds through the same party that would guarantee funds being refunded, because bridges can ONLY be completed.
 
 2. **Consolidation of Logic**:
-   - Merge lock and completion functionality on the counterparty contract. Once lock is called, funds are already in the control of the user. Once the timelock is over and complete on initiator has not been callde, both the initiator and counterparty funds are available to the user.
+   - Merge lock and completion functionality on the counterparty contract. Once lock is called, funds are already in the control of the user. On the HTLC implementation, once the timelock is over and complete on initiator has not been called, both the initiator and counterparty funds are available to the user, opening up for an exploit.
    - Remove refund functionality entirely to eliminate associated exploits.
 
 3. **Parameter Validation**:
@@ -126,6 +126,7 @@ L2 -> L1
    - User initiates the transfer.
    - Relayer or multisig completes the transfer with parameter validation.
    - Current HasuraDB built internally can provide enough infrastructure for users to know if their transaction has been completed. It does not differ from the current design in any way since user is not able to see if their transaction is in-flight. We could introduce this by notifying the user if the relayer has been ordered to complete the transaction.
+   - There would be two states for user to reference, initiated or completed and those are the only two possible states. Funds can only be returned by bridging back.
 
 ![Transaction History](tx-history.png)
 Here users would be able to see if the bridge has been completed. It's either pending or completed.
@@ -203,7 +204,136 @@ function completeBridgeTransfer(
 ```
 
 ```move
-// tbd
+// Based on https://github.com/movementlabsxyz/aptos-core/blob/movement/aptos-move/framework/aptos-framework/sources/atomic_bridge.move  
+
+    /// Module-level resource to store the nonce  
+    struct Nonce has key {  
+        value: u64,  
+    }  
+
+    /// Creates bridge transfer details with validation.  
+    ///  
+    /// @param initiator The initiating party of the transfer.  
+    /// @param recipient The receiving party of the transfer.  
+    /// @param amount The amount to be transferred.  
+    /// @param nonce The unique nonce for the transfer.  
+    /// @return A `BridgeTransferDetails` object.  
+    /// @abort If the amount is zero.  
+    internal fun create_details<Initiator: store, Recipient: store>(  
+        initiator: Initiator,  
+        recipient: Recipient,  
+        amount: u64,  
+        nonce: u64  
+    ): BridgeTransferDetails<Initiator, Recipient> {  
+        assert!(amount > 0, EZERO_AMOUNT);  
+
+        BridgeTransferDetails {  
+            addresses: AddressPair {  
+                initiator,  
+                recipient  
+            },  
+            amount,  
+            nonce
+        }  
+    }  
+    
+    /// Increment and get the current nonce  
+    fun increment_and_get_nonce(signer: address): u64 {  
+        let nonce_ref = borrow_global_mut<Nonce>(signer);  
+        nonce_ref.value = nonce_ref.value + 1;  
+        nonce_ref.value  
+    }  
+    
+          
+    /// Initiate a bridge transfer of MOVE from Movement to the base layer  
+    /// Anyone can initiate a bridge transfer from the source chain  
+    /// The amount is burnt from the initiator and the module-level nonce is incremented  
+    /// @param initiator The initiator's Ethereum address as a vector of bytes.  
+    /// @param recipient The address of the recipient on the Aptos blockchain.  
+    /// @param amount The amount of assets to be locked.  
+    public entry fun initiate_bridge_transfer(  
+        initiator: &signer,  
+        recipient: vector<u8>,  
+        amount: u64  
+    ) {  
+        let initiator_address = signer::address_of(initiator);  
+        let ethereum_address = ethereum::ethereum_address(recipient);  
+    
+        // Increment and retrieve the nonce  
+        let nonce = increment_and_get_nonce(initiator_address);  
+    
+        // Create bridge transfer details  
+        let details = atomic_bridge_store::create_details(  
+            initiator_address,  
+            ethereum_address, 
+            amount,  
+            nonce  
+        );  
+    
+        // Generate a unique bridge transfer ID  
+        let bridge_transfer_id = bridge_transfer_id(&details);  
+    
+        // Add the transfer details to storage  
+        atomic_bridge_store::add(bridge_transfer_id, details);  
+    
+        // Burn the amount from the initiator  
+        atomic_bridge::burn(initiator_address, amount);  
+    
+        // Emit an event with nonce  
+        event::emit(  
+            BridgeTransferInitiatedEvent {  
+                bridge_transfer_id,  
+                initiator: initiator_address,  
+                recipient,  
+                amount,  
+                nonce,  
+            }  
+        );  
+    }  
+
+    /// Completes a bridge transfer by the initiator.  
+    ///  
+    /// @param caller The signer representing the bridge operator.  
+    /// @param initiator The initiator's Ethereum address as a vector of bytes.  
+    /// @param bridge_transfer_id The unique identifier for the bridge transfer.  
+    /// @param recipient The address of the recipient on the Aptos blockchain.  
+    /// @param amount The amount of assets to be locked.  
+    /// @param nonce The unique nonce for the transfer.  
+    
+    /// @abort If the caller is not the bridge operator.  
+    public entry fun complete_bridge_transfer(  
+        caller: &signer,  
+        initiator: vector<u8>,  
+        bridge_transfer_id: vector<u8>,  
+        recipient: address,  
+        amount: u64,  
+        nonce: u64  
+    ) {  
+        atomic_bridge_configuration::assert_is_caller_operator(caller);  
+        let ethereum_address = ethereum::ethereum_address(initiator);
+        let details = atomic_bridge_store::create_details(  
+            ethereum_address,  
+            recipient,  
+            amount,  
+            nonce  
+        );  
+
+        atomic_bridge_store::add(bridge_transfer_id, details);
+        
+        // Mint to recipient  
+        atomic_bridge::mint(recipient, amount);  
+
+        event::emit(  
+            BridgeTransferCompletedEvent {  
+                bridge_transfer_id,  
+                initiator,  
+                recipient,  
+                amount,  
+                nonce,  
+            },  
+        );  
+    }  
+
 ```
 
 ## Verification
