@@ -11,13 +11,14 @@ This proposal advocates for replacing the current HTLC-based bridge design, whic
 ## Motivation
 
 The current bridge design poses numerous challenges, including inefficiency, cost, and user frustration:
+
 1. **Transaction Complexity**: Requires four interactions:
    - Two by the user (initiation and finalization).
    - One by the relayer to complete the transaction.
    - One by a third party (tasked by the relayer) to finalize refunds in case of failure.
    - If any of these fails, users and the protocol face losses.
-2. **High Cost**: 
-   - The multi-transaction setup is expensive for both users and the protocol. 
+2. **High Cost**:
+   - The multi-transaction setup is expensive for both users and the protocol.
    - Misestimations in fee calculations could result in significant losses.
    - Example: At 16 gwei, bridging costs $20 for 10k transactions. If fees are miscalculated by 25%, this leads to a $25k loss. At 100 gwei, the loss escalates dramatically.
 3. **Unfriendly User Experience**:
@@ -128,8 +129,8 @@ L2 -> L1
    - Current HasuraDB built internally can provide enough infrastructure for users to know if their transaction has been completed. It does not differ from the current design in any way since user is not able to see if their transaction is in-flight. We could introduce this by notifying the user if the relayer has been ordered to complete the transaction.
    - There would be two states for user to reference, initiated or completed and those are the only two possible states. Funds can only be returned by bridging back.
 
-![Transaction History](tx-history.png)
-Here users would be able to see if the bridge has been completed. It's either pending or completed.
+   ![Transaction History](tx-history.png)
+   Here users would be able to see if the bridge has been completed. It's either pending or completed.
 
 2. **Batch Completion**:
    - Multisig relayers process pending transactions in batches during downtime, ensuring timely resolution.
@@ -363,14 +364,17 @@ function completeBridgeTransfer(
 ## Appendix
 
 ### A1: Related Issues
+
 - [Movement Issue #838](https://github.com/movementlabsxyz/movement/issues/838)
 - [Movement Issue #842](https://github.com/movementlabsxyz/movement/issues/842)
 
 ### A2: Gas Cost Comparison
+
 - **Current Design**: ~400k gas per bridge round trip.
 - **Simplified Design**: ~200k gas per bridge round trip.
 
 ### A3: Referenced Designs
+
 - [Arbitrum Bridge](https://bridge.arbitrum.io/?destinationChain=arbitrum-one&sourceChain=ethereum)
 - [Blast Bridge](https://docs.blast.io/building/bridges/mainnet)
 
