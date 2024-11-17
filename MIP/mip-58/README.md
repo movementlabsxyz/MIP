@@ -46,6 +46,28 @@ The proposed two-transaction design mitigates these issues, creating a safer, fa
 
 The simplified bridge design focuses on minimizing complexity and maximizing security:
 
+### Protocol Description
+
+The bridge is a simpler version of the current implementation, which relies on the assumption that the Relayer Keys are not to be compromised.
+
+L1 -> L2
+
+1. User initiates a bridge transfer on L1. Contract stores a mapping of the user bridgeTransferIds for easy access. It transfers from the user MOVE amount to the contract. Transaction emits originator, recipient, amount and nonce.
+2. Relayer awaits for finalization of the transaction on L1.
+3. Relayer completes the bridge on L2.
+4. Completion transaction verifies that the transaction is truthful by comparing the provided bridgeTransferId hash and the emitted values of originator, recipient, amount and nonce. Finally, it mints MOVE to the recipient address.
+5. User is notified on the frontend that their transaction has been completed.
+6. In case of a rare caase of a reorg on the recipient network that leads to the transaction removal from the user perspective, the transaction can be redone and relayer multisig can handle it.
+
+L2 -> L1
+
+1. User initiates a bridge transfer on L2. Contract stores a mapping of the user bridgeTransferIds for easy access. It transfers from the user MOVE amount to the contract and burns it. Transaction emits originator, recipient, amount and nonce.
+2. Relayer awaits for finalization of the transaction on L2.
+3. Relayer completes the bridge on L1.
+4. Completion transaction verifies that the transaction is truthful by comparing the provided bridgeTransferId hash and the emitted values of originator, recipient, amount and nonce. Finally, it transfers MOVE to the recipient address, which has been previously bridged from L1.
+5. User is notified on the frontend that their transaction has been completed.
+6. In case of a rare caase of a reorg on the recipient network that leads to the transaction removal from the user perspective, the transaction can be redone and relayer multisig can handle it.
+
 ### Key Features
 
 1. **Two-Transaction Model**:
@@ -111,7 +133,8 @@ Initiator
 ```solidity
 using EnumerableSet for EnumerableSet.Bytes32Set;
 
-mapping(address users => EnumerableSet.Bytes32Set bridgeTransferIds) bridgeTransfers;
+mapping(address users => EnumerableSet.Bytes32Set bridgeTransferIds) initiatedBridgeTransfers;
+mapping(bytes32 bridgeTransferId => bool) completedBridgeTransfers;
 
 bridgeTransfers
 function initiateBridge(uint256 recipient, uint256 amount) external returns (bytes32 bridgeTransferId)
@@ -129,7 +152,7 @@ function initiateBridge(uint256 recipient, uint256 amount) external returns (byt
             keccak256(abi.encodePacked(originator, recipient, amount, ++_nonce));
 
         // We have all bridgeTransferIds available by user because we don't have to re-access it.
-        bridgeTransfers[originator].add(bridgeTransferId); 
+        initiatedBridgeTransfers[originator].add(bridgeTransferId); 
 
         emit BridgeTransferInitiated(bridgeTransferId, originator, recipient, amount, _nonce);
         return bridgeTransferId;
@@ -143,7 +166,11 @@ function completeBridgeTransfer(
         uint256 nonce
         ) external onlyRole(RELAYER_ROLE) {
          require(bridgeTransferId == keccak256(abi.encodePacked(originator, recipient, amount, nonce)), InvalidBridgeTransferId());
+        require(!completedBridgeTransfers[bridgeTranserId]);
         if (moveToken.transfer(recipient, amount)) revert MOVETransferFailed();
+
+        completedBridgeTransfers[bridgeTranserId] = true;
+
         emit BridgeTransferCompleted(bridgeTransferId, originator, recipient, amount, nonce);
     }
 ```
