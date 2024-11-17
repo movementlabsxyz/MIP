@@ -147,7 +147,7 @@ function completeBridgeTransfer(
         uint256 nonce
         ) external onlyRole(RELAYER_ROLE) {
          require(bridgeTransferId == keccak256(abi.encodePacked(originator, recipient, amount, hashLock, initialTimestamp, nonce)), InvalidBridgeTransferId());
-        nativeBridgeInitiatorMOVE.withdrawMOVE(recipient, amount);
+        if (moveToken.transfer(recipient, amount)) revert MOVETransferFailed();
         emit BridgeTransferCompleted(bridgeTransferId, originator, recipient, amount, hashLock, initialTimestamp, nonce);
     }
 ```
