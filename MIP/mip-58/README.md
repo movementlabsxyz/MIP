@@ -1,7 +1,7 @@
 # MIP-28: Simplified Bridge Design
 
 - **Description**: Proposes a simplified bridge design to address inefficiencies, security risks, and high costs in the current implementation.
-- **Authors**: [Author](mailto:primata@movementlabs.xyz)
+- **Authors**: [Primata](mailto:primata@movementlabs.xyz)
 - **Desiderata**: [MD-21](../MD/md-21)
 
 ## Abstract
@@ -34,9 +34,10 @@ The current bridge design poses numerous challenges, including inefficiency, cos
    - The current design requires a complete UI/UX overhaul, adding complexity and delay.
 6. **Unnecessary Complexity**:
    - HTLC-based bridges are largely abandoned in favor of simpler, more effective designs.
-   - Examples like the Consensys HTLC bridge demonstrate the pitfalls of such approaches.
+   - Examples like the [Consensys HTLC](https://github.com/Consensys/htlc-bridge) bridge demonstrate the [pitfalls of such approaches](https://entethalliance.org/crosschain-bridges-overview-where-we-are-now/).
 7. **Infrastructure Simplification**:
-   - Infrastructure is still incomplete for the current HTLC bridge design and we are struggling to find sound solutions that balance UI/UX and security.
+   - Infrastructure is still incomplete for the current HTLC bridge design and we are struggling to find sound solutions that balance UI/UX and security. For example, [this issue](https://github.com/movementlabsxyz/movement/issues/838) regarding UX vs number of confirmations to require on the Ethereum side, is still under debate.
+   - Because of the over-engineered design, infrastructure is prone to error and we might end up being damaged by the amount of infrastructure we have not built yet and has to be built for the relayer to fully function.
    - We could strip down the Relayer code and achieve a final design much more quickly.
 
 The proposed two-transaction design mitigates these issues, creating a safer, faster, and user-friendly bridge while maintaining operational reliability.
@@ -98,6 +99,7 @@ The simplified bridge design focuses on minimizing complexity and maximizing sec
 1. **Two-Transaction Flow**:
    - User initiates the transfer.
    - Relayer or multisig completes the transfer with parameter validation.
+   - Current HasuraDB built internally can provide enough infrastructure for users to know if their transaction has been completed. It does not differ from the current design in any way since user is not able to see if their transaction is in-flight. We could introduce this by notifying the user if the relayer has been ordered to complete the transaction.
 
 2. **Batch Completion**:
    - Multisig relayers process pending transactions in batches during downtime, ensuring timely resolution.
