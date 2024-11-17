@@ -71,6 +71,7 @@ The simplified bridge design focuses on minimizing complexity and maximizing sec
    - Avoid refund logic to close exploit windows.
    - Protect against key compromise through key isolation or known by no parties and multi-signature relayer setups.
    - There is no scenario where a bridge could lead to double-spending. It's either completed by relayers or not.
+   - User currently can loose its bridge `preImage` which could lead to them being unable to complete the bridge. By not relying on a `preImage` from the user, it minimizes issues. It is not a loss in security because the purpose of the `preImage` is solely for refunding.
 
 7. **Batch Processing for Downtime**:
    - Multi-signature relayers can process multiple pending transactions in a single batch during downtime.
@@ -81,7 +82,6 @@ The simplified bridge design focuses on minimizing complexity and maximizing sec
 9. **Best Practices**:
    - Adopt currently used bridge designs from established designs like Arbitrum, LayerZero and Blast bridges which use a relayer to finalize the bridge.
    - User is not required to have funds on counterparty contract to finalize the bridge.
-
 
 ## Exploits and Potential Losses
 
@@ -107,9 +107,57 @@ The simplified bridge design focuses on minimizing complexity and maximizing sec
 3. **Contract Simplification**:
    - Combine lock and completion functionality on the counterparty contract.
    - Remove refund logic to streamline operations and improve security.
+   - Cheaper transactions because of reduction of logic.
+   - Consolidate Initiator and Counterparty into a single contract (this might be the most dangerous thing proposed but it has already been proposed for current implementation).
 
-4. **Gas Optimization**:
-   - Minimize gas usage by reducing the number of interactions.
+Initiator
+
+```solidity
+using EnumerableSet for EnumerableSet.Bytes32Set;
+
+mapping(address users => EnumerableSet.Bytes32Set bridgeTransferIds) bridgeTransfers;
+
+bridgeTransfers
+function initiateBridge(uint256 recipient, uint256 amount) external returns (bytes32 bridgeTransferId)
+    {
+        address originator = msg.sender;
+
+        // Ensure there is a valid amount
+        require(amount > 0, ZeroAmount());
+
+        // Transfer the MOVE tokens from the user to the contract
+        if (moveToken.transferFrom(originator, address(this), amount)) revert MOVETransferFailed();
+
+        // Generate a unique nonce to prevent replay attacks, and generate a transfer ID
+        bridgeTransferId =
+            keccak256(abi.encodePacked(originator, recipient, amount, block.timestamp, ++_nonce));
+
+        // We have all bridgeTransferIds available by user because we don't have to re-access it.
+        bridgeTransfers[originator].add(bridgeTransferId); 
+
+        emit BridgeTransferInitiated(bridgeTransferId, originator, recipient, amount, block.timestamp, _nonce);
+        return bridgeTransferId;
+    }
+
+function completeBridgeTransfer(
+        bytes32 bridgeTransferId,
+        bytes32 originator,
+        address recipient,
+        uint256 amount,
+        uint256 initialTimestamp,
+        uint256 nonce
+        ) external {
+         require(bridgeTransferId == keccak256(abi.encodePacked(originator, recipient, amount, hashLock, initialTimestamp, nonce)), InvalidBridgeTransferId());
+        require(block.timestamp < initialTimestamp + counterpartyTimeLockDuration, TimeLockExpired());
+
+        nativeBridgeInitiatorMOVE.withdrawMOVE(recipient, amount);
+        emit BridgeTransferCompleted(bridgeTransferId, originator, recipient, amount, hashLock, initialTimestamp, nonce);
+    }
+```
+
+```move
+// tbd
+```
 
 ## Verification
 
