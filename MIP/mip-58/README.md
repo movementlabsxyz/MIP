@@ -146,7 +146,7 @@ function completeBridgeTransfer(
         uint256 amount,
         uint256 initialTimestamp,
         uint256 nonce
-        ) external {
+        ) external onlyRole(RELAYER_ROLE) {
          require(bridgeTransferId == keccak256(abi.encodePacked(originator, recipient, amount, hashLock, initialTimestamp, nonce)), InvalidBridgeTransferId());
         require(block.timestamp < initialTimestamp + counterpartyTimeLockDuration, TimeLockExpired());
 
