@@ -22,9 +22,9 @@ The current bridge design poses numerous challenges, including inefficiency, cos
    - Example: At 16 gwei, bridging costs $20 for 10k transactions. If fees are miscalculated by 25%, this leads to a $25k loss. At 100 gwei, the loss escalates dramatically.
 3. **Unfriendly User Experience**:
    - The current design requires users to have funds on the destination chain for finalization. This increases friction and discourages adoption.
-   - Sponsored transactions are essential but remain unimplemented, leaving users stranded without funds.
+   - Sponsored transactions are essential to the current implementation but remain unimplemented, leaving users stranded without funds.
 4. **Security Risks**:
-   - Relayer keys are a critical point of failure.
+   - Relayer keys are a critical point of failure. This assumption cannot be avoided.
    - Refund logic introduces vulnerabilities where attackers could exploit the rate limit and relayer downtime.
    - For instance, if the relayer fails to finalize on the initiator, a malicious actor could:
      - Take over the refund keys.
@@ -57,7 +57,9 @@ L1 -> L2
 3. Relayer completes the bridge on L2.
 4. Completion transaction verifies that the transaction is truthful by comparing the provided bridgeTransferId hash and the emitted values of originator, recipient, amount and nonce. Finally, it mints MOVE to the recipient address.
 5. User is notified on the frontend that their transaction has been completed.
-6. In case of a rare caase of a reorg on the recipient network that leads to the transaction removal from the user perspective, the transaction can be redone and relayer multisig can handle it.
+6. In case of a rare case of a reorg on the recipient network that leads to the transaction removal from the user perspective, the transaction can be redone and relayer multisig can handle it.
+
+![L1-L2](l1l2.png)
 
 L2 -> L1
 
@@ -67,6 +69,8 @@ L2 -> L1
 4. Completion transaction verifies that the transaction is truthful by comparing the provided bridgeTransferId hash and the emitted values of originator, recipient, amount and nonce. Finally, it transfers MOVE to the recipient address, which has been previously bridged from L1.
 5. User is notified on the frontend that their transaction has been completed.
 6. In case of a rare caase of a reorg on the recipient network that leads to the transaction removal from the user perspective, the transaction can be redone and relayer multisig can handle it.
+
+![L2-L1](l2l1.png)
 
 ### Key Features
 
