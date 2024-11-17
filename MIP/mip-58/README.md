@@ -1,4 +1,4 @@
-# MIP-28: Simplified Bridge Design
+# MIP-58: Simplified Bridge Design
 
 - **Description**: Proposes a simplified bridge design to address inefficiencies, security risks, and high costs in the current implementation.
 - **Authors**: [Primata](mailto:primata@movementlabs.xyz)
@@ -49,8 +49,8 @@ The simplified bridge design focuses on minimizing complexity and maximizing sec
 ### Key Features
 
 1. **Two-Transaction Model**:
-   - **Initiation**: User sends a transaction to initiate the bridge.
-   - **Completion**: A relayer or multi-signature group completes the transfer on the counterparty contract.
+   - **Initiation**: User sends a transaction to initiate the bridge containing recipient and amount.
+   - **Completion**: A relayer or multi-signature group completes the transfer on the counterparty contract with the originator, recipient, amount and noce for hash verification.
 
 2. **Consolidation of Logic**:
    - Merge lock and completion functionality on the counterparty contract. Once lock is called, funds are already in the control of the user. Once the timelock is over and complete on initiator has not been callde, both the initiator and counterparty funds are available to the user.
@@ -85,14 +85,10 @@ The simplified bridge design focuses on minimizing complexity and maximizing sec
 
 ## Exploits and Potential Losses
 
-1. **Rate-Limit Exploits**:
-   - If the relayer is down, an attacker could exploit refund functionality to repeatedly bridge funds within the rate limit.
-2. **Key Compromise**:
-   - Relayer or refund keys could be compromised, leading to unauthorized transactions.
-3. **Fee Misestimation**:
+1. **Key Compromise**:
+   - The compromise of the Relayer keys would lead to unauthorized transactions up to the rate-limit value. The protocol must absorb the losses and rotate Relayers.
+2. **Fee Misestimation**:
    - Incorrect fee calculations (e.g., underestimating gas) can cause significant financial losses for the protocol.
-4. **User Abandonment**:
-   - High costs and complexity deter users, leading to lower adoption and reputational damage.
 
 ## Reference Implementation
 
