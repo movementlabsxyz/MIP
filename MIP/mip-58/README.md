@@ -132,7 +132,7 @@ L2 -> L1
    - Cheaper transactions because of reduction of logic.
    - Consolidate Initiator and Counterparty into a single contract (this might be the most dangerous thing proposed but it has already been proposed for current implementation).
 
-Initiator
+Solidity
 
 ```solidity
 using EnumerableSet for EnumerableSet.Bytes32Set;
