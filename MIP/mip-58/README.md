@@ -153,9 +153,7 @@ import {INativeBridge} from "./INativeBridge.sol";
 
 contract NativeBridgeCounterpartyMOVE is INativeBridgeCounterpartyMOVE, OwnableUpgradeable {
 
-   using EnumerableSet for EnumerableSet.Bytes32Set;
-   mapping(address users => EnumerableSet.Bytes32Set bridgeTransferIds) initiatedBridgeTransfers;
-   mapping(bytes32 bridgeTransferId => bool) completedBridgeTransfers;
+   mapping(bytes32 bridgeTransferId => bool) bridgeTransfers;
 
    bytes32 public constant RELAYER_ROLE = keccak256(abi.encodePacked("RELAYER_ROLE"));
 
@@ -182,9 +180,10 @@ contract NativeBridgeCounterpartyMOVE is INativeBridgeCounterpartyMOVE, OwnableU
         // Generate a unique nonce to prevent replay attacks, and generate a transfer ID
         bridgeTransferId =
             keccak256(abi.encodePacked(originator, recipient, amount, ++_nonce));
+         require(!bridgeTransfers[bridgeTransferId], ExistentBridgeTransferId());
 
         // We have all bridgeTransferIds available by user because we don't have to re-access it.
-        initiatedBridgeTransfers[originator].add(bridgeTransferId); 
+        bridgeTransfers[bridgeTransferId] = true;
 
         emit BridgeTransferInitiated(bridgeTransferId, originator, recipient, amount, _nonce);
         return bridgeTransferId;
@@ -199,10 +198,10 @@ function completeBridgeTransfer(
         ) external onlyRole(RELAYER_ROLE) {
          _l2l1RateLimit(amount);
          require(bridgeTransferId == keccak256(abi.encodePacked(originator, recipient, amount, nonce)), InvalidBridgeTransferId());
-        require(!completedBridgeTransfers[bridgeTranserId]);
-        if (moveToken.transfer(recipient, amount)) revert MOVETransferFailed();
-
+        require(!bridgeTransfers[bridgeTranserId]);
         completedBridgeTransfers[bridgeTranserId] = true;
+
+        if (moveToken.transfer(recipient, amount)) revert MOVETransferFailed();
 
         emit BridgeTransferCompleted(bridgeTransferId, originator, recipient, amount, nonce);
     }
