@@ -140,6 +140,9 @@ Here users would be able to see if the bridge has been completed. It's either pe
    - Cheaper transactions because of reduction of logic.
    - Consolidate Initiator and Counterparty into a single contract (this might be the most dangerous thing proposed but it has already been proposed for current implementation).
 
+4. **Rate Limiting**:
+   - Rate limiting & insurance fund has been a very fruitful and important security aspect that secures the ecosystem as a whole and should be implemented here.
+
 Solidity
 
 ```solidity
