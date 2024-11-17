@@ -166,6 +166,7 @@ contract NativeBridgeCounterpartyMOVE is INativeBridgeCounterpartyMOVE, OwnableU
 
  function initiateBridge(uint256 recipient, uint256 amount) external returns (bytes32 bridgeTransferId)
     {
+        _l1l2RateLimit(amount);
         address originator = msg.sender;
 
         // Ensure there is a valid amount
@@ -192,6 +193,7 @@ function completeBridgeTransfer(
         uint256 amount,
         uint256 nonce
         ) external onlyRole(RELAYER_ROLE) {
+         _l2l1RateLimit(amount);
          require(bridgeTransferId == keccak256(abi.encodePacked(originator, recipient, amount, nonce)), InvalidBridgeTransferId());
         require(!completedBridgeTransfers[bridgeTranserId]);
         if (moveToken.transfer(recipient, amount)) revert MOVETransferFailed();
