@@ -149,13 +149,29 @@ Solidity
 ```solidity
 
 import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import {RateLimiter} from "./RateLimiter.sol";
 import {INativeBridge} from "./INativeBridge.sol";
 
 contract NativeBridgeCounterpartyMOVE is INativeBridgeCounterpartyMOVE, OwnableUpgradeable {
+   
+   struct OutgoingBridgeTransfer {
+      address originator,
+      bytes32 recipient,
+      uint256 amount,
+      uint256 nonce
+   }
+   mapping(bytes32 bridgeTransferId => OutgoingBridgeTransfer) outgoingBridgeTransfers;
 
-   mapping(bytes32 bridgeTransferId => bool) bridgeTransfers;
+   struct IncomingBridgeTransfer {
+      bytes32 originator,
+      address recipient,
+      uint256 amount,
+      uint256 nonce
+   }
+   mapping(bytes32 bridgeTransferId => IncomingBridgeTransfer) incomingBridgeTransfers;
 
    bytes32 public constant RELAYER_ROLE = keccak256(abi.encodePacked("RELAYER_ROLE"));
+   uint256 private _nonce;
 
     function initialize(address _admin, address _relayer, address _maintainer) public initializer {
         if (_admin == address(0)) revert ZeroAddress();
@@ -180,16 +196,20 @@ contract NativeBridgeCounterpartyMOVE is INativeBridgeCounterpartyMOVE, OwnableU
         // Generate a unique nonce to prevent replay attacks, and generate a transfer ID
         bridgeTransferId =
             keccak256(abi.encodePacked(originator, recipient, amount, ++_nonce));
-         require(!bridgeTransfers[bridgeTransferId], ExistentBridgeTransferId());
 
         // We have all bridgeTransferIds available by user because we don't have to re-access it.
-        bridgeTransfers[bridgeTransferId] = true;
+        bridgeTransfers[bridgeTransferId] = OutgoingBridgeTransfer({
+         originator,
+         recipient,
+         amount,
+         _nonce
+        });
 
         emit BridgeTransferInitiated(bridgeTransferId, originator, recipient, amount, _nonce);
         return bridgeTransferId;
     }
 
-function completeBridgeTransfer(
+function completeBridge(
         bytes32 bridgeTransferId,
         bytes32 originator,
         address recipient,
@@ -198,8 +218,13 @@ function completeBridgeTransfer(
         ) external onlyRole(RELAYER_ROLE) {
          _l2l1RateLimit(amount);
          require(bridgeTransferId == keccak256(abi.encodePacked(originator, recipient, amount, nonce)), InvalidBridgeTransferId());
-        require(!bridgeTransfers[bridgeTranserId]);
-        completedBridgeTransfers[bridgeTranserId] = true;
+         require(bridgeTransfers[bridgeTranserId].amount == 0);
+        incomingBridgeTransfers[bridgeTranserId] = ({
+         originator,
+         recipient,
+         amount,
+         nonce
+        });
 
         if (moveToken.transfer(recipient, amount)) revert MOVETransferFailed();
 
