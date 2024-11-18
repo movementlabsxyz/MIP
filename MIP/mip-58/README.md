@@ -216,20 +216,50 @@ function completeBridge(
         uint256 amount,
         uint256 nonce
         ) external onlyRole(RELAYER_ROLE) {
-         _l2l1RateLimit(amount);
-         require(bridgeTransferId == keccak256(abi.encodePacked(originator, recipient, amount, nonce)), InvalidBridgeTransferId());
-         require(bridgeTransfers[bridgeTranserId].amount == 0);
-        incomingBridgeTransfers[bridgeTranserId] = ({
-         originator,
-         recipient,
-         amount,
-         nonce
-        });
-
-        if (moveToken.transfer(recipient, amount)) revert MOVETransferFailed();
-
-        emit BridgeTransferCompleted(bridgeTransferId, originator, recipient, amount, nonce);
+         _completeBridge(bridgeTransferId, originator, recipient, amount, nonce);
+         
     }
+function batchCompleteBridge(
+   bytes32[] bridgeTransferIds,
+   bytes32[] originators,
+   address[] recipients,
+   uint256[] amounts,
+   uint256[] nonces
+) external onlyRole(RELAYER_ROLE) {
+   uint256 length = bridgeTransferIds.length;
+   require(originators.length == length && recipients.length == length && amounts.length == length && nonces.length == length, InvalidLenghts());
+   for (uint256 i; i < length; i++) {
+      _completeBridge(
+         bridgeTransferIds[i],
+         originators[i],
+         recipients[i],
+         amounts[i],
+         nonces[i]
+      )
+   }
+}
+
+function _completeBridge(
+   bytes32 bridgeTransferId,
+   bytes32 originator,
+   address recipient,
+   uint256 amount,
+   uint256 nonce
+) internal {
+   _l2l1RateLimit(amount);
+   require(bridgeTransferId == keccak256(abi.encodePacked(originator, recipient, amount, nonce)), InvalidBridgeTransferId());
+   require(bridgeTransfers[bridgeTranserId].amount == 0);
+   incomingBridgeTransfers[bridgeTranserId] = ({
+   originator,
+   recipient,
+   amount,
+   nonce
+   });
+
+   if (moveToken.transfer(recipient, amount)) revert MOVETransferFailed();
+
+   emit BridgeTransferCompleted(bridgeTransferId, originator, recipient, amount, nonce);
+   }
 }
 ```
 
