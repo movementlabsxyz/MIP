@@ -1,5 +1,5 @@
-# MIP-39: MOVE Token -- Bridge Design
-- **Description**: Architecture of the Native Bridge for Move token.
+# MIP-39: MOVE Token -- HTLC-based Native Bridge Design
+- **Description**: Architecture of the HTLC-based Native Bridge for $MOVE token.
 - **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz), [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 
 ## Abstract
