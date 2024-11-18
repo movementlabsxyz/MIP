@@ -152,7 +152,7 @@ import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/Own
 import {RateLimiter} from "./RateLimiter.sol";
 import {INativeBridge} from "./INativeBridge.sol";
 
-contract NativeBridgeCounterpartyMOVE is INativeBridgeCounterpartyMOVE, OwnableUpgradeable {
+contract NativeBridgeMOVE is INativeBridgeMOVE, OwnableUpgradeable {
    
    struct OutgoingBridgeTransfer {
       address originator,
