@@ -1,15 +1,14 @@
 # MIP-39: MOVE Token -- Bridge Design
 - **Description**: Architecture of the Native Bridge for Move token.
-- **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz)
+- **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz), [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 
 ## Abstract
 
-This MIP describes the high-level architecture of the MOVE token native bridge. The architecture describes the main bridge components and high-level requirements.
+This MIP describes the high-level architecture of the [HTLC-based](https://bitcoinwiki.org/wiki/hashed-timelock-contracts) `$MOVE` token Native Bridge. The architecture describes the main bridge components and high-level requirements.
 
 ## Definitions
 
 - **Native Bridge**: The bridge that allows the transfer of tokens between L1 and L2, which hold `$L1MOVE` and `$L2MOVE` token, respectively. The native bridge has the capability to mint `$L2MOVE` tokens.
-
 - **`$L1MOVE`** (or `$MOVE`) : ERC-20 type token with the source contract on L1
 - **`$L2MOVE`** :  Token that is created on L2 after `$L1MOVE` token is locked on L1. We also say `$L1MOVE` is bridged from L1 to L2. `$L2MOVE` may publicly also be called `$MOVE` but as this causes confusion, here we stick to `$L2MOVE` to make clear this token lives on L2.
 
@@ -21,8 +20,9 @@ The Movement chain (L2) uses the `$L2MOVE` token to pay for gas fees. As a resul
 > The _native_ `$L1MOVE`token is an ERC-20 contract on Ethereum (L1).  By native, we mean that this is the location where the token is minted and burned and where the total supply is set and possibly modified (inflation/deflation). The **`$L1MOVE` token reserve**  is in the L1 contract.
 
 To use the Movement chain and pay for gas fees, a user will acquire `$L1MOVE` (native) tokens on L1, and _bridge_ them to L2. On the L2 they can use the token to pay for gas fees or with any other dApps that transact the `$L2MOVE` token.
-Later, a user can choose to migrate their `$L2MOVE` tokens back to the L1 at any time (thereby converting them to `$L1MOVE`).
-These cross-chain assets's transfers are usually done through a component called a _bridge_.
+Later, a user can choose to migrate their `$L2MOVE` tokens back to the L1 at any time (thereby converting them to `$L1MOVE`). These cross-chain assets's transfers are usually done through a component called a _bridge_.
+
+In this MIP an HTLC-based bridge, which is the current implementation, is discussed which provides trustlessness.
 
 ### A standard bridge architecture
 
@@ -55,6 +55,15 @@ This protocol can be implemented with three main components:
 - two contracts on the L1 side,
 - one contract (module) on the L2 (Move) side,
 - a relayer.
+
+### Hash-time-lock contracts (HTLC)
+
+The proposed native bridge employs Hash-time-lock-contracts ([HTLC](https://bitcoinwiki.org/wiki/hashed-timelock-contracts)). HTLC utilizes two main concepts:
+
+- Time Locks: These ensure transactions complete within a set period. Or funds revert to their owners, preventing loss from delays or non-completion.
+- Hash Locks: A secret is required to unlock funds, ensuring only participants who fulfill the swap conditions can access the assets.
+
+These two mechanisms guarantee atomicity (complete swap or no swap) and  trustlessness (no reliance on the counterparty's honesty), making the transfer secure for cryptocurrency bridging.
 
 ### Attacks on bridges
 
