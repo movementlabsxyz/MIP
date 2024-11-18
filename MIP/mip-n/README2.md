@@ -109,6 +109,8 @@ Optionally, the UI can be open on any device and show the history. On notificati
 ### Software implementation (sketch of possible Rust code)
 No code in the spec only description.
 
+### History data
+
 The new part from existing code is how to get the user history. There's 2 possibilities: use the blockchain and query the smart contract to have pending transfer for a user or user the indexer and query the DB.
 Use smart contract:
  Pro:
@@ -124,6 +126,11 @@ Use indexer:
   * centralized need a specific infra.
   * likeness issue.
 
+### Wait for finality
+### Ethereum
+On Ethereum RPC API, there's a specific parameters to get finalized block. So the actual event monitoring pulling will be updated to get only finalized block.
+
+On Movement, Suzuka node provide a specific RPC API entry point for finalized data. The same as Eth the Movement monitoring will be updated to use this access point.
 
 ## Verification
 
