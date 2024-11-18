@@ -1,4 +1,4 @@
-# MIP-\<number\>: FFS-Postconfirmation
+# MIP-37: FFS-Postconfirmation
 - **Description**: L1-confirmation of superBlocks. A sub-protocol of FFS.
 - **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 <!-- - **Desiderata**: [MIP-\<number\>](../MIP/mip-\<number\>) -->
@@ -18,7 +18,7 @@
 
 ## Abstract
 
-Fast-Finality-Settlement (FFS) is proposed in [MIP-???](), with two confirmation mechanisms. This MIP details the mechanism on Layer 1 (L1), which is called ***postconfirmation***.
+Fast-Finality-Settlement (FFS) is proposed in [MIP-34](https://github.com/movementlabsxyz/MIP/pull/34), with two confirmation mechanisms. This MIP details the mechanism on Layer 1 (L1), which is called ***postconfirmation***.
 
 At certain intervals validators commit a _sequence of L2Blocks_, which is called ***superBlock***, to L1. The L1 contract will verify if >2/3 of the validators have attested to a given superBlock height. For a given superBlock height the acceptor will initiate the process of confirmation on the contract.
 
