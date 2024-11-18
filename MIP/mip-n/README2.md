@@ -116,6 +116,7 @@ Use smart contract:
 
  Pro:
   * no specific infra and decentralized.
+  
  Cons:
   * increase the fee of the contract Tx to manage the data onchain.
   * can me more complexe to develop because the hisotry need to be fetch from 2 chains: L1/L2.
@@ -124,6 +125,7 @@ Use indexer:
 
  Pro:
   * easier to develop only a graphql query
+
  Cons:
   * centralized need a specific infra.
   * likeness issue.
