@@ -128,7 +128,7 @@ Use indexer:
 
 ### Wait for finality
 ### Ethereum
-On Ethereum RPC API, there's a specific parameters to get finalized block. So the actual event monitoring pulling will be updated to get only finalized block.
+On Ethereum RPC API, there's a specific [parameters](https://docs.tatum.io/docs/evm-block-finality-and-confidence#checking-the-latest-finalized-block) to get finalized block. So the actual event monitoring pulling will be updated to get only finalized block.
 
 On Movement, Suzuka node provide a specific RPC API entry point for finalized data. The same as Eth the Movement monitoring will be updated to use this access point.
 
