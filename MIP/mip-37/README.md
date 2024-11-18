@@ -1,20 +1,7 @@
 # MIP-37: FFS-Postconfirmation
+
 - **Description**: L1-confirmation of superBlocks. A sub-protocol of FFS.
 - **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
-<!-- - **Desiderata**: [MIP-\<number\>](../MIP/mip-\<number\>) -->
-
-
-<!--
-  READ MIP-1 BEFORE USING THIS TEMPLATE!
-
-  This is the suggested template for new MIPs. After you have filled in the requisite fields, please delete these comments.
-
-  Note that an MIP number will be assigned by an editor. When opening a pull request to submit your MIP, please use an abbreviated title in the filename, `mip-draft_title_abbrev.md`.
-
-  The title should be 44 characters or less. It should not repeat the MIP number in title, irrespective of the category.
-
-  TODO: Remove this comment before finalizing.
--->
 
 ## Abstract
 
@@ -32,13 +19,15 @@ This provides an L1-protected guarantee that a superBlock (i.e. a sequence of bl
 
 #### Definitions
 
-- **superBlock** : a sequence of L2Blocks to which the postconfirmation protocol commits to, on L1.
-- **acceptor**: a specific validator selected for a some interval by using parameters from the L1, with the role to activate the postconfirmation functionality on the L1 contract.
+- **SuperBlock** : a sequence of L2Blocks to which the postconfirmation protocol commits to, on L1.
+- **Acceptor**: a specific validator selected for some interval by using parameters from the L1, with the role to activate the postconfirmation functionality on the L1 contract.
+**L2Block**
+A block of transactions that are ordered and executed by the execution module. An L2Block is created from a protoBlock.
 
 
 ## Motivation
 
-We require from the FFS protocol that it is secure and efficient, yet simple in its _initial_ design. In order for the protocol to fullfill the requirement for simplicity, validators only communicate to the L1-contract and not with each other. This is a key design decision to reduce the complexity of the protocol, but can be improved in the future.
+We require from the FFS protocol that it is secure and efficient, yet simple in its _initial_ design. In order for the protocol to fulfill the requirement for simplicity, validators only communicate to the L1-contract and not with each other. This is a key design decision to reduce the complexity of the protocol, but can be improved in the future.
 
 We also request that rewards and costs are made more predictable for validators. For this, we propose a special role -- the acceptor -- to perform the postconfirmation process.
 
@@ -127,6 +116,32 @@ Votes are counted in the current `acceptingEpoch`. If there are enough commitmen
 ##### Staking and Unstaking
 
 ????
+
+##### Slashing
+
+> [!NOTE] Slashing is only required if we implement L2-confirmations.
+
+Nodes SHOULD get slashed if it has been proven that the validator voted more than once for a given block height on L2. This is a security measure to protect against long-range attacks.
+
+> [!WARNING] How do we prove that a validator has voted twice for a given block height?
+
+With postconfirmations alone nodes do not need to get slashed if they voted for the minority opinion. There is no advantage for slashing as only their first opinion matters and with postconfirmation there is consensus on the L1 what the first opinion was.
+
+```solidity
+function slash(
+    address[] calldata custodians,
+    address[] calldata attesters,
+    uint256[] calldata amounts,
+    uint256[] calldata refundAmounts
+) external override {
+    for (some sort of loop over the arrays) {
+        // Call _slashStake with the specific custodian, attester, and amount
+        // ??? how do we get the domain and epoch?
+        _slashStake(domain, epoch, custodian, attester, amount);
+        // Optionally handle refunds here using `refundAmounts[i]` if applicable
+    }
+}
+```
 
 ##### Rollover
 
