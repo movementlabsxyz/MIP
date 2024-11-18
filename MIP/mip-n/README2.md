@@ -113,6 +113,7 @@ No code in the spec only description.
 
 The new part from existing code is how to get the user history. There's 2 possibilities: use the blockchain and query the smart contract to have pending transfer for a user or user the indexer and query the DB.
 Use smart contract:
+
  Pro:
   * no specific infra and decentralized.
  Cons:
@@ -120,6 +121,7 @@ Use smart contract:
   * can me more complexe to develop because the hisotry need to be fetch from 2 chains: L1/L2.
 
 Use indexer:
+
  Pro:
   * easier to develop only a graphql query
  Cons:
