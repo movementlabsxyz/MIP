@@ -110,7 +110,19 @@ L2 -> L1
 8. **BridgeTransferId**:
    - Continue using unique identifier to prevent double-spending and track transactions securely.
 
-9. **Best Practices**:
+9. **Bridge Fee**:
+   - On the L1 to L2 bridge, do not charge fees.
+   - On the L2 to L1 bridge, charge a fee estimated by admin. It's set to the gas spent in ethereum in move. This requires an oracle and can only be implemented after oracles are live and we are able to have a maintainer that is able to set the fees on L2.
+   - Bridge fee should be a estimated by being a threshold between the current cost to perform the completeBridgeTransfer transaction on L1 (aka. `cost`) + 20%. Then, we set `cost` as the `upperbound`. The `lowerbound` is the `cost` - 10%. This prevents us from updating the fee too often and guaranteeing profit on bridges. We do have to consider gas spikes, but it should be a momentarily loss compensated by the extra charged and maintained by the `upperbound` and `lowerbound`.
+
+   ```
+   entry fun set_fee(caller: &signer, fee: u64) {
+      assert_is_maintainer(caller);
+      borrow_global<BridgeConfig>(@aptos_framework).fee = fee;
+   }
+   ```
+
+10. **Best Practices**:
    - Adopt currently used bridge designs from established designs like Arbitrum, LayerZero and Blast bridges which use a relayer to finalize the bridge.
    - User is not required to have funds on counterparty contract to finalize the bridge.
 
