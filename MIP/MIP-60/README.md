@@ -92,26 +92,8 @@ Other criteria can be used to accept a block as _almost-final_ with a risk that 
 > [!IMPORTANT]
 > Since the introduction on blobs on Ethereum, the [probability of a 1-confirmed block being reverted is approximately 0.3%](https://ethresear.ch/t/big-blocks-blobs-and-reorgs/19674), so 3 out of 1000, approximately once every hour. In contrast if a block is final, the probability of it being reverted is negligible as it is protected by the fully economic security of the Ethereum finality mechanism.
 
-## Trade-offs
 
-### HTLC-based design
-
-Our initial bridge design, [RFC-40](https://github.com/movementlabsxyz/rfcs/blob/main/0040-atomic-bridge/rfc-0040-atomic-bridge.md), is based on an _atomic swap_ (4. above).  The current architecture of our bridge, [MIP-39](https://github.com/movementlabsxyz/MIP/blob/mip-move-bridge-architecture/MIP/mip-39/README.md), borrows ideas from _lock/mint_ and _swap_ ([HTLC](https://en.bitcoin.it/wiki/Hash_Time_Locked_Contracts)):
- 
-- if a user wants to bridge from Ethereum to Movement Network, they have to submit two independent transactions: one on Ethereum (lock) and one on Movement Network (mint). This is not user friendly and may be a barrier to adoption.
-<!-- A bridge is slightly different to a swap in the sense that the two transactions (lock and mint) are not meant to be decoupled.-->
-- another issue is that the first transfer of MOVE tokens requires a user to have some _gas tokens_ (the token used to pay execution fees on the Movement Network). If the gas token is the `$L2MOVE` token, we have to implement a mechanism to sponsor the first transfer of MOVE tokens.
-
-### Trusted-Relayer design
-
-> [!TIP] 
-> A simple _lock/mint_, _burn/mint_ or _lock/unlock_ mechanism requires only one transaction from the user and is probably more user friendly.
-
-A simple design that is adopted by many L2 chains is the _lock/mint_ design. A user initiates a transfer on the source chain and the bridge operator is responsible for completing the transfer on the target chain. In this design, the trust assumptions are that the contracts on the source chain and the target chain are _correct_ and implement the lock and mint operations correctly (respectively burn and unlock for the opposite direction).
-
-[MIP-58](https://github.com/movementlabsxyz/MIP/pull/58/files) is an instance of a _lock/mint_ bridge. Once initiated on the L1 (source chain), the user does not need to interact with the L2 (target chain) to complete the transfer. The bridge operator is responsible for bundling/coupling the lock/mint transactions.  (Similarly for the opposite direction, the user only needs to interact with the L2 chain and the bridge operator is responsible for the coupling of the burn/unlock transactions.)
-
-### Relayer
+### Trusted Relayer
 
 Using a trusted relayer is a popular choice. The trust assumption on the relayer are:
 
@@ -127,6 +109,25 @@ Even if the relayer is not compromised, it is hard to guarantee that the relayer
 1. The message delivery network can be slow or congested.
 2. The relayer submits a transaction (to mint the assets on the target chain) to the mempool of the target chain. But the target chain may be down, congested or slow, or the relayer's transaction may be low priority.
 3. The relayer must cover the cost of submitting transactions on the target chain. If the relayer's funds are low (or gas price is high), the relayer may not be able to submit the transaction.
+
+### Designs
+
+**HTLC-based design**
+
+Our initial bridge design, [RFC-40](https://github.com/movementlabsxyz/rfcs/blob/main/0040-atomic-bridge/rfc-0040-atomic-bridge.md), is based on an _atomic swap_ (4. above).  The current architecture of our bridge, [MIP-39](https://github.com/movementlabsxyz/MIP/blob/mip-move-bridge-architecture/MIP/mip-39/README.md), borrows ideas from _lock/mint_ and _swap_ ([HTLC](https://en.bitcoin.it/wiki/Hash_Time_Locked_Contracts)):
+ 
+- if a user wants to bridge from Ethereum to Movement Network, they have to submit two independent transactions: one on Ethereum (lock) and one on Movement Network (mint). This is not user friendly and may be a barrier to adoption.
+<!-- A bridge is slightly different to a swap in the sense that the two transactions (lock and mint) are not meant to be decoupled.-->
+- another issue is that the first transfer of MOVE tokens requires a user to have some _gas tokens_ (the token used to pay execution fees on the Movement Network). If the gas token is the `$L2MOVE` token, we have to implement a mechanism to sponsor the first transfer of MOVE tokens.
+
+**Trusted-Relayer design**
+
+> [!TIP] 
+> A simple _lock/mint_, _burn/mint_ or _lock/unlock_ mechanism requires only one transaction from the user and is probably more user friendly.
+
+A simple design that is adopted by many L2 chains is the _lock/mint_ design. A user initiates a transfer on the source chain and the bridge operator is responsible for completing the transfer on the target chain. In this design, the trust assumptions are that the contracts on the source chain and the target chain are _correct_ and implement the lock and mint operations correctly (respectively burn and unlock for the opposite direction).
+
+[MIP-58](https://github.com/movementlabsxyz/MIP/pull/58/files) is an instance of a _lock/mint_ bridge. Once initiated on the L1 (source chain), the user does not need to interact with the L2 (target chain) to complete the transfer. The bridge operator is responsible for bundling/coupling the lock/mint transactions.  (Similarly for the opposite direction, the user only needs to interact with the L2 chain and the bridge operator is responsible for the coupling of the burn/unlock transactions.)
 
 ## Security
 
