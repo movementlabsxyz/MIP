@@ -31,8 +31,7 @@ The process of transferring tokens across different chains is implemented with a
 There are several choices for the architecture of a bridge, and we describe here a classical bridge with a  _lock-mint_ protocol (see Chainlink's [What Is a Cross-Chain Bridge?](https://chain.link/education-hub/cross-chain-bridge) for a quick introduction to types of bridges).
 
 > [!WARNING]  
-> This is a bridge, not a swap, so transfer is 1 to 1.
-> The transfer of tokens is one-to-one: a user bridges $k$ `$L1MOVE` tokens to L2, and they receive $k$ `$L2MOVE` tokens. Same one-to-one ratio applies from L2 to L1.  The bridge does not allow for _swapping_ tokens.
+> The transfer of tokens is one-to-one: a user bridges $k$ `$L1MOVE` tokens to L2, and they receive $k$ `$L2MOVE` tokens. Same one-to-one ratio applies from L2 to L1.  The bridge does not allow for _swapping_ tokens against other tokens.
 
 **Lock-and-Mint**. The main idea of the _lock-mint_ protocol is as follows. For the sake of simplicity, assume the two chains (L1 and L2) have only one user and the user has an account `l1acc` on L1, and another account `l2acc` on L2.  We also assume that each transfer is for one token.
 
@@ -63,7 +62,7 @@ The proposed native bridge employs Hash-time-lock-contracts ([HTLC](https://bitc
 - Time Locks: These ensure transactions complete within a set period. Or funds revert to their owners, preventing loss from delays or non-completion.
 - Hash Locks: A secret is required to unlock funds, ensuring only participants who fulfill the swap conditions can access the assets.
 
-These two mechanisms guarantee atomicity (complete swap or no swap) and  trustlessness (no reliance on the counterparty's honesty), making the transfer secure for cryptocurrency bridging.
+These two mechanisms guarantee atomicity (complete swap or no swap) and trustlessness (no reliance on the counterparty's honesty), making the transfer secure for cryptocurrency bridging.
 
 ### Attacks on bridges
 
