@@ -47,10 +47,16 @@ In our setting the intermediary IS the final token, and this could be interprete
 
 There are four types of crosschain bridges. They differ in the way they handle the native assets (source chain) and the representation of the assets (wrapped asset) on the target chain.
 
-1. **burn/mint**: the asset is burned on the source chain and an asset is minted on the target chain. The bridge operator is in control of the total supply on either chain.
-1. **lock/mint**: the native asset (minted e.g. in an ERC20 contract) is locked on the source chain and a wrapped asset is minted on the target chain (which is L2 in our case). Hence the bridge operator is only in control of the total supply on the target chain (L2).
-1. **lock/unlock**: although difficult to classify in literature, this variant naturally completes the above two types. The closest similar concept in literature could be a **liquidity network** as described above or it could be understood at a trusted [Automated Market Maker (AMM) with a constant sum invariant](https://medium.com/@0xmirai77/curve-v1-the-stableswap-invariant-f87ad7641aa0). The asset is locked on the source chain and unlocked on the target chain. The bridge operator is neither in control of the supply on the source chain nor on the target chain.
-1. **swap (atomic)**: A swap is a generic mechanism and allows to swap any asset for any other asset. As a result it can be used to implement a bridge. Assets are swapped from the source chain against, potentially non-equivalent tokens on the target chain. A swap involves two parties, Alice on chain A and Bob on chain B. Both Alice and Bob can withdraw from the swap deals at any time and have a time window to accept the swap deal [[1]][REF1],[[2]][REF2]. A swap mechanism usually requires an _escrow_ and a _time lock_ mechanism.
+1. **burn/mint**: the asset is burned on the source chain and an asset is minted on the target chain.
+_Supply: The bridge operator is in control of creating supply on both chains._
+1. **lock/mint**: the native asset (minted e.g. in an ERC20 contract) is locked on the source chain and a wrapped asset is minted on the target chain (which is L2 in our case).
+_Supply: The bridge operator is only in control of minting supply on the target chain (L2). On L1 the bridge operator holds a token pool into/from which tokens get locked/unlocked._
+1. **lock/unlock**: although difficult to classify in literature, this variant naturally completes the above two types. It may be classified as a subcategory of a swap, a **liquidity network** (see above), or it could be interpreted as a trusted [Automated Market Maker (AMM) with a constant sum invariant](https://medium.com/@0xmirai77/curve-v1-the-stableswap-invariant-f87ad7641aa0). The asset is locked on the source chain and unlocked on the target chain. 
+_Supply: The bridge operator is neither in control of creating new supply on the source chain nor on the target chain. The bridge operator only holds token pools into/from which tokens get locked/unlocked._
+
+To complete the lingo, we also mention the definition of swaps:
+
+4. **swap (atomic)**: A swap is a generic mechanism and allows to swap any asset for any other asset. As a result it can be used to implement a bridge. Assets are swapped from the source chain against, potentially non-equivalent tokens on the target chain. A swap involves two parties, Alice on chain A and Bob on chain B. Both Alice and Bob can withdraw from the swap deals at any time and have a time window to accept the swap deal [[1]][REF1],[[2]][REF2]. A swap mechanism usually requires an _escrow_ and a _time lock_ mechanism.
 
 > [!WARNING]
 > As both parties can decide to withdraw or accept the swap, a swap requires each party to independently issue a transaction on their chain.
