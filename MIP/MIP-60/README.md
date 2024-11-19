@@ -1,4 +1,4 @@
-# MIP-60: crosschain bridges architectures
+# MIP-60: Crosschain bridges architectures
 - **Description**: This MIP provides some background on crosschain bridges designs and trade-offs related to security, decentralization, and performance.
 - **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz)
 - **Desiderata**: [MIP-\<number\>](../MIP/mip-\<number\>)
@@ -10,13 +10,13 @@ Crosschain bridges allow assets to be transferred between different blockchains.
 
 ## Motivation
 
-To bridge from Ethereum to Move Rollup, we have to build a bridge. Ideally we would re-use an existing bridge, but there is no bridge from Ethereum to Move-based Rollups. So we have to build one.
+To transfer assets from Ethereum to Move Rollup (and back), we have to build a _bridge_. Ideally we would re-use an existing bridge, but there is no available bridge template from Ethereum to Move-based Rollups, so we have to build one.
 Designing a bridge between two blockchains is a complex task. As pointed out in [Bridges – Ethereum Foundation](https://ethereum.org/en/developers/docs/bridges/#integrating-bridges):
 
 > 1. **Building your own bridge** – Building a secure and reliable bridge is not easy, especially if you take a more trust-minimized route. Moreover, it requires years of experience and technical expertise related to scalability and interoperability studies. Additionally, it would require a hands-on team to maintain a bridge and attract sufficient liquidity to make it feasible.
 
 To design our bridge, it may be useful to understand the main types of architectures, their strengths and weaknesses.
-It can also enable us to reflect on the different discussions and proposals (MIPs, MDs) and how they relate to the different architectures.
+It can also help us reflect on the different discussions and proposals (MIPs, MDs) and how they relate to the different architectures.
 
 
 ## Specification
@@ -28,22 +28,22 @@ There are three types of crosschain bridges. They differ in the way they handle 
 2. **burn/mint**: the native asset is burned on the source chain and a wrapped asset is minted on the target chain.
 3. **swap (atomic)**: assets are swapped on the source chain and the target chain.
 
-Our initial bridge design [RFC-40](https://github.com/movementlabsxyz/rfcs/blob/main/0040-atomic-bridge/rfc-0040-atomic-bridge.md) is based on an _atomic swap_ (3. above).  The current architecture of our bridge is further detailed in [MIP-39](https://github.com/movementlabsxyz/MIP/blob/mip-move-bridge-architecture/MIP/mip-39/README.md) and mixes ingredients from _lock/mint_ and _swap_ (HTLC).
 
-A swap is very generic mechanism and allows to swap any asset for any other asset. As a result it can be used to implement a bridge.  A swap involves two parties, Alice on chain A and Bob on chain B. Both Alice and Bob can withdraw from the swap deals at any time and have a time window to accept the swap deal [1, 2]. A swap mechanism usually requires an _escrow_ and a _time lock_ mechanism. 
+
+A swap is a generic mechanism and allows to swap any asset for any other asset. As a result it can be used to implement a bridge.  A swap involves two parties, Alice on chain A and Bob on chain B. Both Alice and Bob can withdraw from the swap deals at any time and have a time window to accept the swap deal [1, 2]. A swap mechanism usually requires an _escrow_ and a _time lock_ mechanism. 
 
 > [!WARNING] 
 >  As both parties can decide to withdraw or accept the swap, a swap requires each party to independently issue a transaction on their chain. 
 
-In our context, 
-- if a user wants to bridge from Ethereum to Move Rollup, they have to submit two transactions: one on Ethereum and one on Move Rollup. This is not user friendly and may be a barrier to adoption.
-- the first transfer of Move tokens requires a user to have some _gas tokens_ (the token used to pay execution fees on the Move chain). If the gas token is the Move token, we have to implement a mechanism to sponsor the first transfer of Move tokens.
-
+Our initial bridge design, [RFC-40](https://github.com/movementlabsxyz/rfcs/blob/main/0040-atomic-bridge/rfc-0040-atomic-bridge.md), is based on an _atomic swap_ (3. above).  The current architecture of our bridge, [MIP-39](https://github.com/movementlabsxyz/MIP/blob/mip-move-bridge-architecture/MIP/mip-39/README.md), borrows ideas from _lock/mint_ and _swap_ (HTLC):
+ 
+- if a user wants to bridge from Ethereum to Move Rollup, they have to submit two independent transactions: one on Ethereum (lock) and one on Move Rollup (mint). This is not user friendly and may be a barrier to adoption. A bridge is slightly different to a swap in the sense that the two transactions (lock and mint) are not meant to be decoupled. 
+- another issue is that the first transfer of Move tokens requires a user to have some _gas tokens_ (the token used to pay execution fees on the Move chain). If the gas token is the Move token, we have to implement a mechanism to sponsor the first transfer of Move tokens.
 
 > [!TIP] 
-> A _lock/mint_ or _burn/mint_ mechanism requires only one transaction from the user and is probably more user friendly.
+> A simple _lock/mint_ or _burn/mint_ mechanism requires only one transaction from the user and is probably more user friendly. 
 
-[MIP-58](https://github.com/movementlabsxyz/MIP/pull/58/files) is a  _lock/mint_ bridge.
+[MIP-58](https://github.com/movementlabsxyz/MIP/pull/58/files) is an instance of a _lock/mint_ bridge. Once initiated on the L1 (source chain), the user does not need to interact with the L2 (target chain) to complete the transfer. The bridge operator is responsible for bundling/coupling the lock and mint transactions.
 
 ### Crosschain communication 
 
@@ -64,10 +64,10 @@ Untrusted relayers (trustless bridges) rely on the trust assumptions on the sour
 Theer are several MIPs and MDs that discuss the relayer mechanism: [MD-21](https://github.com/movementlabsxyz/MIP/tree/primata/bridge-attestors/MD/md-21), [MIP-46](https://github.com/movementlabsxyz/MIP/pull/46), [MIP-56](https://github.com/movementlabsxyz/MIP/pull/56), [MIP-57](https://github.com/movementlabsxyz/MIP/pull/57), [MIP-58](https://github.com/movementlabsxyz/MIP/pull/58).
 
 
-### Relaying information
+### What is communicated?
 
 The relayer mechanism is used to relay information about the _state_ of one chain to the other chain. 
-The relayer monitors the logs of of chain and relays event emitted to the logs. The logs are part of the state of the chain.
+The relayer monitors the logs of a chain and relays event emitted to the logs. The logs are part of the _state_ of the chain.
 
 > [!WARNING] 
 > The information relayed by the relayer should be reliable and ideally immutable. 
@@ -75,17 +75,17 @@ The relayer monitors the logs of of chain and relays event emitted to the logs. 
 If the relayer relays incorrect information, the bridge can be _hacked_ and assets _duplicated_ or _stolen_ (see [MIP-39](https://github.com/movementlabsxyz/MIP/blob/mip-move-bridge-architecture/MIP/mip-39/README.md).)
 This problem is addressed in [issue-838](https://github.com/movementlabsxyz/movement/issues/838).
 
-On Ethereum, a block is immutable when it is declared final.
-Other criteria can be used to accept a block as almost-final (with a risk that it is not final), e.g. k-confirmations, where k is the number of blocks that have been added to the chain since the block was added. 
+On Ethereum, a block is immutable when it is declared _final_. Until is is final, a block can be _reverted_ (i.e., the transactions in the block are not executed).
+Other criteria can be used to accept a block as _almost-final_ (with a risk that it is reverted), e.g. k-confirmations, where k is the number of blocks that have been added to the chain since the block was added. 
 
 > [!IMPORTANT] 
-> What is known is that for k=1, after the introduction on blobs on Ethereum, the probability of a block being reverted is approximately 1 every hour.
+> Since the introduction on blobs on Ethereum, the probability of a 1-confirmed block being reverted is approximately 0.3%, so 3 out of 1000, so it can happen once every hour.
 If a block is final, the probability of it being reverted is negligible.
 
 ## Trade-offs
 
 ### Type of bridge 
-A simple design that is adopted by many L2 chains is the _lock/mint_ design. 
+A simple design that is adopted by many L2 chains is the _lock/mint_ design. A user initiates a transfer on the source chain and the bridge operator is responsible for completing the transfer on the target chain.
 In this design, the trust assumptions are that the contracts on the source chain and the target chain are _correct_ and implement the lock and mint operations correctly.
 
 ### Relayer
@@ -99,9 +99,9 @@ If the relayer is compromised, the assets can be duplicated or stolen.
 Special care should be taken to ensure that the relayer is not compromised (multisig?).
 
 Even if the relayer is not compromised, it is hard to guarantee that the relayer will relay each event within a fixed time bound. 
-- First, the relayer uses a network to relay the information. The network can be slow or congested.
-- Second, the relayer submits a transaction (to mint the assets on the target chain) to the mempool of the target chain. The target chain may be congested or slow, or the relayer's transaction may be low priority.
-- Third, the relayer must cover the cost of submitting transactions on the target chain. If the relayer's funds are low (or gas price is high), the relayer may not be able to submit the transaction.
+1. The network can be slow or congested.
+2. the relayer submits a transaction (to mint the assets on the target chain) to the mempool of the target chain. The target chain may be down, congested or slow, or the relayer's transaction may be low priority.
+3. the relayer must cover the cost of submitting transactions on the target chain. If the relayer's funds are low (or gas price is high), the relayer may not be able to submit the transaction.
 
 ## Security 
 
@@ -110,13 +110,14 @@ Assuming we have a _correct_ implementation of the lock/mint contracts on the so
 - relayer down (or network slow): how do we detect that the relayer is down?
 - How long does it take to complete a transfer? After what time can we consider the transfer as unsuccessful?
 - how do we cancel transfers? Is it a manual process or do we have a mechanism to automatically cancel transfers and refund users?
+- how do we mitigate the risk of gas fees manipulation? For example, if gas fees are low on the L2 chain (which is the expectation), users can submit thousands of trabsfer transactions. If at the same time, the gas fees are high on the L1, the relayer will incur some large costs to unlock the locked assets.
 
-The bridging mechanisms on Arbitrum and Optimism use a [generic message passing framework](https://docs.arbitrum.io/build-decentralized-apps/cross-chain-messaging) to communicate between chains. This relies on _retryable transactions_ up to a certain number of retries or deadline.
+The bridging mechanisms on Arbitrum and Optimism use a [generic message passing framework](https://docs.arbitrum.io/build-decentralized-apps/cross-chain-messaging) to communicate between chains. This relies on _retryable transactions_ up to a certain number of retries or deadline. 
 
 
 > [!TIP] 
 The [crosschain risk framework](https://crosschainriskframework.github.io/framework/01intro/introduction/) provides some guidelines and criteria for evaluating crosschain protocols security. 
-Risk mitigation strategies are also discussed in [XChainWatcher](https://arxiv.org/abs/2410.02029) [3] and [SoK](https://doi.org/10.48550/arXiv.2403.00405) [4].
+Risk mitigation strategies are also discussed in [XChainWatcher](https://arxiv.org/abs/2410.02029) [3] and [SoK: Cross-Chain Bridging Architectural Design Flaws and Mitigations](https://doi.org/10.48550/arXiv.2403.00405) [4].
 
 <!--
   The Specification section should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations.
