@@ -1,4 +1,4 @@
-# MIP-58: Simplified Bridge Design
+# MIP-58: Trusted-Relayer focused Bridge Design
 
 - **Description**: Proposes a simplified bridge design to address inefficiencies, security risks, and high costs in the current implementation.
 - **Authors**: [Primata](mailto:primata@movementlabs.xyz)
