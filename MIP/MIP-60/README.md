@@ -122,7 +122,7 @@ Our initial bridge design, [RFC-40](https://github.com/movementlabsxyz/rfcs/blob
 
 **Trusted-Relayer design**
 
-> [!TIP] 
+> [!TIP]
 > A simple _lock/mint_, _burn/mint_ or _lock/unlock_ mechanism requires only one transaction from the user and is probably more user friendly.
 
 A simple design that is adopted by many L2 chains is the _lock/mint_ design. A user initiates a transfer on the source chain and the bridge operator is responsible for completing the transfer on the target chain. In this design, the trust assumptions are that the contracts on the source chain and the target chain are _correct_ and implement the lock and mint operations correctly (respectively burn and unlock for the opposite direction).
