@@ -1,54 +1,81 @@
-# MIP-60: Crosschain bridges architectures
+# MIP-60: Crosschain bridge architectures
 - **Description**: This MIP provides some background on crosschain bridges designs and trade-offs related to security, decentralization, and performance.
-- **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz)
-- **Desiderata**: [MIP-\<number\>](../MIP/mip-\<number\>)
-
+- **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz), [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 
 ## Abstract
 
-Crosschain bridges allow assets to be transferred between different blockchains. This MIP provides some background on crosschain bridges designs and the trade-offs related to security, decentralization, and performance.
+Crosschain bridges allow assets to be transferred between different blockchains. This MIP provides some background on crosschain bridge designs and the trade-offs related to security, decentralization, and performance.
 
 ## Motivation
 
-To transfer assets from Ethereum to Move Rollup (and back), we have to build a _bridge_. Ideally we would re-use an existing bridge, but there is no available bridge template from Ethereum to Move-based Rollups, so we have to build one.
+To transfer assets from Ethereum to Move Rollup (and back), we have to employ a _bridge_. Ideally we would re-use an existing bridge, but there is no available bridge template from Ethereum to Move-based Rollups, so we have to design one.
 Designing a bridge between two blockchains is a complex task. As pointed out in [Bridges – Ethereum Foundation](https://ethereum.org/en/developers/docs/bridges/#integrating-bridges):
 
 > 1. **Building your own bridge** – Building a secure and reliable bridge is not easy, especially if you take a more trust-minimized route. Moreover, it requires years of experience and technical expertise related to scalability and interoperability studies. Additionally, it would require a hands-on team to maintain a bridge and attract sufficient liquidity to make it feasible.
 
-To design our bridge, it may be useful to understand the main types of architectures, their strengths and weaknesses.
-It can also help us reflect on the different discussions and proposals (MIPs, MDs) and how they relate to the different architectures.
+To design our bridge, it may be useful to understand the main types of architectures, their strengths and weaknesses. It can also help us reflect on the different discussions and proposals (MIPs, MDs) and how they relate to the different architectures.
 
+
+## Bridge introduction and terminology
+
+Bridge terminology is frequently ambiguous as the following shows but we attempt to clarify the terms used in this MIP.
+
+**Base classes of bridges** [[5]][REF5]
+
+There are several base classes of bridges to apply to our setting. We select **Native Bridge** as the most appropriate for our use case.
+
+- **Native Bridges** bootstrap liquidity of a base chain into a different chain, e.g. to onboard users and move value into a L2 network.
+- **Canonical Bridges** is a term typically used to refer to L1 to L2 bridges, and have a similar meaning to Native Bridges. They typically take a longer period of time to bridge assets than liquidity networks as they require a time period for finality to be established, such as the challenge period for optimistic
+rollups. 
+- **Validating Bridges** are bridges between Ethereum and a rollup, where the bridge contract verifies the state updates proposed by the offchain system.
+- **Validator or Oracle-based Bridges** rely on a set of external validators or oracles to validate cross-chain transfers.
+
+> [!NOTE]
+> The term **Native Bridge** is used to refer to a bridge that transfers the native ERC-20 `$L1MOVE` token from a base chain (L1) to the `$L2MOVE` token on a different chain (L2).
+
+**Liquidity Networks** [[5]][REF5]
+
+The term of Liquidity Networks is associated with 
+
+- **Continuous Liquidity Pools** The majority of Liquidity Networks consist of two liquidity pools of assets - one on the source and the other on the destination chain. In this structure, an intermediary token can act as an exchange medium allowing accurate amounts of the final token to be transferred to the user and to rebalance the pools once a transaction has occurred, e.g. RUNE in Thorchain, or stablecoins such as USDC in Stargate. 
+
+In our setting the intermediary IS the final token, and this could be interpreted as a **lock/unlock** bridge.
+
+- **Continuous Liquidity Pools (CLP) with AMMs** are a subset of Continuous Liquidity Pools that use Automated Market Makers (AMMs) in series. [MIP-40](https://github.com/movementlabsxyz/MIP/pull/40) has proposed such a design.
+
+**Types of bridge mechanisms**
+
+There are four types of crosschain bridges. They differ in the way they handle the native assets (source chain) and the representation of the assets (wrapped asset) on the target chain.
+
+1. **burn/mint**: the asset is burned on the source chain and an asset is minted on the target chain. The bridge operator is in control of the total supply on either chain.
+1. **lock/mint**: the native asset (minted e.g. in an ERC20 contract) is locked on the source chain and a wrapped asset is minted on the target chain (which is L2 in our case). Hence the bridge operator is only in control of the total supply on the target chain (L2).
+1. **lock/unlock**: although difficult to classify in literature, this variant naturally completes the above two types. The closest similar concept in literature could be a **liquidity network** as described above or it could be understood at a trusted [Automated Market Maker (AMM) with a constant sum invariant](https://medium.com/@0xmirai77/curve-v1-the-stableswap-invariant-f87ad7641aa0). The asset is locked on the source chain and unlocked on the target chain. The bridge operator is neither in control of the supply on the source chain nor on the target chain.
+1. **swap (atomic)**: A swap is a generic mechanism and allows to swap any asset for any other asset. As a result it can be used to implement a bridge. Assets are swapped from the source chain against, potentially non-equivalent tokens on the target chain. A swap involves two parties, Alice on chain A and Bob on chain B. Both Alice and Bob can withdraw from the swap deals at any time and have a time window to accept the swap deal [[1]][REF1],[[2]][REF2]. A swap mechanism usually requires an _escrow_ and a _time lock_ mechanism.
+
+> [!WARNING]
+> As both parties can decide to withdraw or accept the swap, a swap requires each party to independently issue a transaction on their chain.
+
+> [!NOTE]
+> Source and target imply direction: e.g. for a swap, burn/mint and lock/unlock between a user1 on chain A and a user2 on chain B, the source chain of user1 is chain A and the target chain is chain B. For these three bridge mechanisms the transfer in opposite direction would be called the same. In contrast, **lock/mint** implies that the source chain is the chain where the native asset lives. But the bridge also operates in the opposite direction - however a more correct term for the opposite directin would be a **burn/unlock** mechanism instead.
 
 ## Specification
 
-### Different types of bridges
+### Current design
 
-There are three types of crosschain bridges. They differ in the way they handle the native assets (source chain) and the representation of the assets (wrapped asset) on the target chain.
-1. **lock/mint**: the native asset is locked on the source chain and a wrapped asset is minted on the target chain.
-2. **burn/mint**: the native asset is burned on the source chain and a wrapped asset is minted on the target chain.
-3. **swap (atomic)**: assets are swapped on the source chain and the target chain.
-
-
-
-A swap is a generic mechanism and allows to swap any asset for any other asset. As a result it can be used to implement a bridge.  A swap involves two parties, Alice on chain A and Bob on chain B. Both Alice and Bob can withdraw from the swap deals at any time and have a time window to accept the swap deal [1, 2]. A swap mechanism usually requires an _escrow_ and a _time lock_ mechanism. 
-
-> [!WARNING] 
->  As both parties can decide to withdraw or accept the swap, a swap requires each party to independently issue a transaction on their chain. 
-
-Our initial bridge design, [RFC-40](https://github.com/movementlabsxyz/rfcs/blob/main/0040-atomic-bridge/rfc-0040-atomic-bridge.md), is based on an _atomic swap_ (3. above).  The current architecture of our bridge, [MIP-39](https://github.com/movementlabsxyz/MIP/blob/mip-move-bridge-architecture/MIP/mip-39/README.md), borrows ideas from _lock/mint_ and _swap_ (HTLC):
+Our initial bridge design, [RFC-40](https://github.com/movementlabsxyz/rfcs/blob/main/0040-atomic-bridge/rfc-0040-atomic-bridge.md), is based on an _atomic swap_ (4. above).  The current architecture of our bridge, [MIP-39](https://github.com/movementlabsxyz/MIP/blob/mip-move-bridge-architecture/MIP/mip-39/README.md), borrows ideas from _lock/mint_ and _swap_ (HTLC):
  
-- if a user wants to bridge from Ethereum to Move Rollup, they have to submit two independent transactions: one on Ethereum (lock) and one on Move Rollup (mint). This is not user friendly and may be a barrier to adoption. A bridge is slightly different to a swap in the sense that the two transactions (lock and mint) are not meant to be decoupled. 
-- another issue is that the first transfer of Move tokens requires a user to have some _gas tokens_ (the token used to pay execution fees on the Move chain). If the gas token is the Move token, we have to implement a mechanism to sponsor the first transfer of Move tokens.
+- if a user wants to bridge from Ethereum to Movement Network, they have to submit two independent transactions: one on Ethereum (lock) and one on Movement Network (mint). This is not user friendly and may be a barrier to adoption.
+<!-- A bridge is slightly different to a swap in the sense that the two transactions (lock and mint) are not meant to be decoupled.-->
+- another issue is that the first transfer of MOVE tokens requires a user to have some _gas tokens_ (the token used to pay execution fees on the Movement Network). If the gas token is the `$L2MOVE` token, we have to implement a mechanism to sponsor the first transfer of MOVE tokens.
 
 > [!TIP] 
-> A simple _lock/mint_ or _burn/mint_ mechanism requires only one transaction from the user and is probably more user friendly. 
+> A simple _lock/mint_, _burn/mint_ or _lock/unlock_ mechanism requires only one transaction from the user and is probably more user friendly.
 
-[MIP-58](https://github.com/movementlabsxyz/MIP/pull/58/files) is an instance of a _lock/mint_ bridge. Once initiated on the L1 (source chain), the user does not need to interact with the L2 (target chain) to complete the transfer. The bridge operator is responsible for bundling/coupling the lock and mint transactions.
+[MIP-58](https://github.com/movementlabsxyz/MIP/pull/58/files) is an instance of a _lock/mint_ bridge. Once initiated on the L1 (source chain), the user does not need to interact with the L2 (target chain) to complete the transfer. The bridge operator is responsible for bundling/coupling the lock/mint transactions.  (Similarly for the opposite direction, the user only needs to interact with the L2 chain and the bridge operator is responsible for the coupling of the burn/unlock transactions.)
 
-### Crosschain communication 
+### Crosschain communication
 
-The transfer of assets between two chains requires a mechanism to communicate between the two chains. 
-This mechanism is necessarily off-chain: a chain can emit events/messages to a channel but cannot receive event from a channel (they need to be converted to transactions).
+The transfer of assets between two chains requires a mechanism to communicate between the two chains. This mechanism is necessarily off-chain: a chain can emit events/messages to a channel but cannot receive event from a channel (they need to be converted to transactions).
 
 > [!TIP]
 > Crosschain communications can be implemented using different strategies. For a bridge the most common
@@ -175,36 +202,27 @@ Needs discussion.
   TODO: Maintain this comment.
 -->
 
+## References
 
---- 
+[1] Maurice Herlihy: "Atomic Cross-Chain Swaps". PODC 2018: 245-254 [DOI][REF1]
 
-## References 
+[2] Maurice Herlihy, Barbara Liskov, Liuba Shrira: "Cross-chain deals and adversarial commerce". VLDB J. 31(6): 1291-1309 (2022) [DOI][REF2]
 
-[1] Maurice Herlihy: Atomic Cross-Chain Swaps. PODC 2018: 245-254 [DOI](https://dl.acm.org/doi/10.1145/3212734.3212736)
+[3] André Augusto, Rafael Belchior, Jonas Pfannschmidt, André Vasconcelos, Miguel Correia: "XChainWatcher: Monitoring and Identifying Attacks in Cross-Chain Bridges". (2024) [CoRR abs/2410.02029][REF3]
 
-[2] Maurice Herlihy, Barbara Liskov, Liuba Shrira: Cross-chain deals and adversarial commerce. VLDB J. 31(6): 1291-1309 (2022) [DOI](https://dl.acm.org/doi/10.1007/s00778-021-00686-1)
+[4] Jakob Svennevik Notland, Jinguye Li, Mariusz Nowostawski, Peter Halland Haro: "SoK: Cross-Chain Bridging Architectural Design Flaws and Mitigations". (2024) [CoRR abs/2403.00405][REF4]
 
-[3] André Augusto, Rafael Belchior, Jonas Pfannschmidt, André Vasconcelos, Miguel Correia:
-XChainWatcher: Monitoring and Identifying Attacks in Cross-Chain Bridges.  (2024) [CoRR abs/2410.02029](https://arxiv.org/abs/2410.02029)
+[5] "SoK: Crosschain Token Bridges and Risk", 2024 IEEE International Conference on Blockchain and Cryptocurrency (ICBC), Dublin, Ireland, 2024, pp. 696-711. [IEEE Xplore][REF5]
+
+[REF1]: https://dl.acm.org/doi/10.1145/3212734.3212736
+[REF2]: https://dl.acm.org/doi/10.1007/s00778-021-00686-1
+[REF3]: https://arxiv.org/abs/2410.02029
+[REF4]: https://doi.org/10.48550/arXiv.2403.00405
 
 
-[4] Jakob Svennevik Notland, Jinguye Li, Mariusz Nowostawski, Peter Halland Haro: SoK: Cross-Chain Bridging Architectural Design Flaws and Mitigations. (2024)
-[CoRR abs/2403.00405](https://doi.org/10.48550/arXiv.2403.00405)
-
----
+[REF5]: https://ieeexplore.ieee.org/document/10634379
 
 ## Appendix
-<!--
-  The Appendix should contain an enumerated list of reference materials and notes.
-
-  When referenced elsewhere each appendix should be called out with [A<number>](#A<number>) and should have a matching header.
-
-  TODO: Remove this comment before finalizing.
-
--->
-
-### A1
-Nothing important here.
 
 ---
 ## Copyright
