@@ -1,6 +1,6 @@
 # MIP-58: Trusted-Relayer focused Bridge Design
 
-- **Description**: Proposes a simplified bridge design to address inefficiencies, security risks, and high costs in the current implementation.
+- **Description**: Proposes a bridge design that capitalizes on the trust-assumption on the relayer, reduces the number of messages, and potentially cost.
 - **Authors**: [Primata](mailto:primata@movementlabs.xyz)
 - **Desiderata**: [MD-21](../MD/md-21)
 
