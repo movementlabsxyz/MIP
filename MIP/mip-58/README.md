@@ -75,7 +75,7 @@ L2 -> L1
 
 ### Key Features
 
-1. **Two-Transaction Model**:
+1. **Lock/Mint mechanism**:
    - **Initiation**: User sends a transaction to initiate the bridge containing recipient and amount.
    - **Completion**: A relayer or multi-signature group completes the transfer on the counterparty contract with the originator, recipient, amount and noce for hash verification.
    - **No Funds Requirement**: User is not required to have funds on receiving chain and we do not have to build sponsored transactions.
