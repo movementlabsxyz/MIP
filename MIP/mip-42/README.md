@@ -1,24 +1,24 @@
-# MIP-15: AB-FFS Decoupled Demurrage
+# MIP-15: NB-FFS Decoupled Demurrage
 - **Description**: 
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
 - **Desiderata**: [MD-15](../MD/md-15/README.md)
 
 ## Abstract
-We propose AB-FFS Decoupled Demurrage as a variant of [AB-FFS Decoupled](https://github.com/movementlabsxyz/MIP/pull/40) which issues a demurrage token as an LP Token reward. This approach allows the FFS reward mechanism to manipulate the supply of its rewards s.t. a new token generation event is not strictly required. We review demurrage strategies in general, highlighting several approaches which are particularly applicable in the AB-FFS context. 
+We propose NB-FFS Decoupled Demurrage as a variant of [NB-FFS Decoupled](https://github.com/movementlabsxyz/MIP/pull/40) which issues a demurrage token as an LP Token reward. This approach allows the FFS reward mechanism to manipulate the supply of its rewards s.t. a new token generation event is not strictly required. We review demurrage strategies in general, highlighting several approaches which are particularly applicable in the NB-FFS context. 
 
 We also introduce [MG-n](../../MG/mg-n/README.md) which defines the term "demurrage token."
 
 ## Motivation
 
-AB-FFS Decoupled Demurrage is an extension to the response to [MD-38](https://github.com/movementlabsxyz/MIP/pull/38). It provides usage of the Atomic Bridge and Fast Finality Settlement with a fixed token supply. This extension allows for greater flexibility in the reward mechanism.
+NB-FFS Decoupled Demurrage is an extension to the response to [MD-38](https://github.com/movementlabsxyz/MIP/pull/38). It provides usage of the Native Bridge and Fast Finality Settlement with a fixed token supply. This extension allows for greater flexibility in the reward mechanism.
 
 
 ## Specification
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
 
-AB-FFS Decoupled Demurrage identifies two primary controls over the LP token with respect to the L1 staking token:
+NB-FFS Decoupled Demurrage identifies two primary controls over the LP token with respect to the L1 staking token:
 
 1. The supply of the LP token.
 2. Vouchers issued for purchasing the L1 staking token with the LP token.
@@ -87,7 +87,7 @@ There are several categories of general demurrage strategies which may be applie
 
 
 ### Standard Demurrage Strategy
-We propose a standard demurrage strategy for AB-FFS Decoupled Demurrage consisting of three key components:
+We propose a standard demurrage strategy for NB-FFS Decoupled Demurrage consisting of three key components:
 
 1. **Step-down to Asymptotic (SDA) Voucher Curve**: 
     - The governing body issues vouchers with a step-down curve. This curve is defined by a series of steps, each with a fixed value of the L1 staking token that can be purchased with the LP token.

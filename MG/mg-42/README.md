@@ -1,4 +1,4 @@
-# MG-n: demurrage token
+# MG-42: demurrage token
 - **Authors**: [Liam Monninger](liam@movementlabs.xyz)
 
 A token that is subject to a demurrage fee, which is a fee charged for holding the token. The fee is typically charged as a percentage of the token's value and is intended to encourage spending or investment rather than hoarding.
