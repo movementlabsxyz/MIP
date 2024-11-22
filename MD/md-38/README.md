@@ -1,5 +1,5 @@
-# MD-38: Provide for Fixed Token Supply when Using Atomic Bridge and Fast Finality Settlement (FFS)
-- **Description**: Requests for Movement Improvement Proposals (MIPs) to provide for fixed token supply when using the Atomic Bridge and Fast Finality Settlement (FFS).
+# MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)
+- **Description**: Requests for Movement Improvement Proposals (MIPs) to provide for fixed token supply when using the Native Bridge and Fast Finality Settlement (FFS).
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 
@@ -8,7 +8,7 @@
 ![Fixed Supply Rewarding Problem](./fixed-supply-rewarding-problem.png)
 
 
-Using Fast Finality Settlement with the Atomic Bridge presents a challenge when the token supply is fixed. 
+Using Fast Finality Settlement with the Native Bridge presents a challenge when the token supply is fixed. 
 
 Burning token on the L2 without a way to return it to pools on the L2 or the L1 will result in a **deflationary token**, i.e., the supply decreases over time and eventually reaches 0 rendering any operations relying on gas impossible. 
 
@@ -16,7 +16,7 @@ On the other hand, providing minting capabilities which involve the operation of
 
 Using FFS-Postconfirmation requires a reward scheme on L1. On the other hand, users pay fees on L2 into an L2 pool. Namely, in this context, trying to use the same token for both L2 gas and L1 rewards requires that the token be bridged back over from L2 to L1, or else rely on a trusted signer to relay the gas. This document outlines the challenges and potential solutions for this problem.
 
-Users of the Movement SDK should be **informed of different approaches and trade-offs when using the Atomic Bridge and Fast Finality Settlement with a fixed token supply.** This document provides an initial conceptual framing towards that end. 
+Users of the Movement SDK should be **informed of different approaches and trade-offs when using the Native Bridge and Fast Finality Settlement with a fixed token supply.** This document provides an initial conceptual framing towards that end. 
 
 This document also seeks a response to the concerns raised in [MD-20](https://github.com/movementlabsxyz/MIP/pull/20).
 
@@ -24,15 +24,15 @@ This document also seeks a response to the concerns raised in [MD-20](https://gi
 
 ### D1: Provide MIPs for Approaches Presented in Appendix A1 and Similar
 
-**User Journey**: Developers can reference MIPs for **different approaches to using the Atomic Bridge and Fast Finality Settlement with a fixed token supply.** Developers can also **reference rejected MIPs** to understand why certain approaches are not recommended.
+**User Journey**: Developers can reference MIPs for **different approaches to using the Native Bridge and Fast Finality Settlement with a fixed token supply.** Developers can also **reference rejected MIPs** to understand why certain approaches are not recommended.
 
-**Justification**: Developers need a clear understanding of the different approaches to using the Atomic Bridge and Fast Finality Settlement with a fixed token supply. MIPs provide a clear and standardized way to document these approaches.
+**Justification**: Developers need a clear understanding of the different approaches to using the Native Bridge and Fast Finality Settlement with a fixed token supply. MIPs provide a clear and standardized way to document these approaches.
 
-### D2: Provide Staged Approaches for Networks Building on the Atomic Bridge and Fast Finality Settlement
+### D2: Provide Staged Approaches for Networks Building on the Native Bridge and Fast Finality Settlement
 
-**User Journey**: Developers can reference approaches spawned from these desiderata to understand how to build networks using the Atomic Bridge and Fast Finality Settlement with a fixed token supply **in stages.** For example, developers can initially roll out a network using the **"Free Execution" approach and then transition to the "Noble Attester"** approach and so on. Some formats may be more suitable for certain stages of network development and release than others. 
+**User Journey**: Developers can reference approaches spawned from these desiderata to understand how to build networks using the Native Bridge and Fast Finality Settlement with a fixed token supply **in stages.** For example, developers can initially roll out a network using the **"Free Execution" approach and then transition to the "Noble Attester"** approach and so on. Some formats may be more suitable for certain stages of network development and release than others. 
 
-**Justification**: Developers need a clear understanding of how to build networks using the Atomic Bridge and Fast Finality Settlement with a fixed token supply in stages. This allows developers to roll out networks in a more controlled and manageable way.
+**Justification**: Developers need a clear understanding of how to build networks using the Native Bridge and Fast Finality Settlement with a fixed token supply in stages. This allows developers to roll out networks in a more controlled and manageable way.
 
 **Recommendations**:
 - Ensure that achieving upgrades for each execution layer to support these transitions are also documented in MIPs.
@@ -41,13 +41,13 @@ This document also seeks a response to the concerns raised in [MD-20](https://gi
 
 **User Journey**: Developers can use **modules from the Movement SDK** to achieve the approaches presented in Appendix A1 and similar.
 
-**Justification**: Developers need a clear understanding of how to use the Movement SDK to achieve the approaches presented in Appendix A1 and similar. This allows developers to build networks using the Atomic Bridge and Fast Finality Settlement with a fixed token supply more easily.
+**Justification**: Developers need a clear understanding of how to use the Movement SDK to achieve the approaches presented in Appendix A1 and similar. This allows developers to build networks using the Native Bridge and Fast Finality Settlement with a fixed token supply more easily.
 
-### D4: Provide Guides and Software for Genesis Procedures and Initial Conditions of L1 and L2 Networks Using the Atomic Bridge and Fast Finality Settlement
+### D4: Provide Guides and Software for Genesis Procedures and Initial Conditions of L1 and L2 Networks Using the Native Bridge and Fast Finality Settlement
 
-**User Journey**: Developers can use guides and software from the Movement SDK to understand how to set up the **initial conditions of L1 and L2 networks** using the Atomic Bridge and Fast Finality Settlement.
+**User Journey**: Developers can use guides and software from the Movement SDK to understand how to set up the **initial conditions of L1 and L2 networks** using the Native Bridge and Fast Finality Settlement.
 
-**Justification**: Developers need a clear understanding of how to set up the initial conditions of L1 and L2 networks using the Atomic Bridge and Fast Finality Settlement. This allows developers to build networks using the Atomic Bridge and Fast Finality Settlement with a fixed token supply more easily. For example, one possible usage approach could be to generate an initial supply on the L1 and run a privileged bridge and voucher swap exchange to the L2 such that overall circulation is grounded in the L1 mint.
+**Justification**: Developers need a clear understanding of how to set up the initial conditions of L1 and L2 networks using the Native Bridge and Fast Finality Settlement. This allows developers to build networks using the Native Bridge and Fast Finality Settlement with a fixed token supply more easily. For example, one possible usage approach could be to generate an initial supply on the L1 and run a privileged bridge and voucher swap exchange to the L2 such that overall circulation is grounded in the L1 mint.
 
 ### D5: Provide and Argument Agains the Need to Resolve AB-FFS Fixed Supply Concerns
 
