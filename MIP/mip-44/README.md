@@ -1,5 +1,5 @@
-# MIP-42: AB-FFS Governed Gas Pool
-- **Description**: Introduces a governed gas pool for AB-FFS which allows for initial period wherein used gas is not recirculated.
+# MIP-44: NB-FFS Governed Gas Pool
+- **Description**: Introduces a governed gas pool for NB-FFS which allows for initial period wherein used gas is not recirculated.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
 - **Desiderata**: [MD-38](https://github.com/movementlabsxyz/MIP/pull/38)
@@ -10,7 +10,7 @@ We propose a governed gas pool both as provisional and potentially permanent sol
 The concept of a governed gas pool can be applied generally to manage migrations between systems. For example, the governed gas pool could be used to transition from the "Trickle-back" mechanism referenced in [MD-38](https://github.com/movementlabsxyz/MIP/pull/38) to [MIP-42](https://github.com/movementlabsxyz/MIP/pull/42), as is used as an example amongst others herein.
 
 ## Motivation
-The AB-FFS under fixed supply presents several challenges presented in [MD-38](https://github.com/movementlabsxyz/MIP/pull/38). This MIP seeks to address the question of where used gas funds should be deposited with a simple and flexible solution. By simply depositing funds into a pool and holding votes against actions for the recirculation of said funds, we can create a system that can provide a short-term solution to the supply problem and generalize to other systems. 
+The NB-FFS under fixed supply presents several challenges presented in [MD-38](https://github.com/movementlabsxyz/MIP/pull/38). This MIP seeks to address the question of where used gas funds should be deposited with a simple and flexible solution. By simply depositing funds into a pool and holding votes against actions for the recirculation of said funds, we can create a system that can provide a short-term solution to the supply problem and generalize to other systems. 
 
 ## Specification
 ![Governed Gas Pool](governed-gas-pool.png)
