@@ -41,11 +41,11 @@ The current bridge design poses numerous challenges, including inefficiency, cos
    - Because of the over-engineered design, infrastructure is prone to error and we might end up being damaged by the amount of infrastructure we have not built yet and has to be built for the relayer to fully function.
    - We could strip down the Relayer code and achieve a final design much more quickly.
 
-The proposed two-transaction design mitigates these issues, creating a safer, faster, and user-friendly bridge while maintaining operational reliability.
+The proposed lock/mint bridge design mitigates these issues, creating a safer, faster, and user-friendly bridge while maintaining operational reliability.
 
 ## Specification
 
-The simplified bridge design focuses on minimizing complexity and maximizing security:
+The lock/mint bridge design focuses on minimizing complexity and maximizing security:
 
 ### Protocol Description
 
@@ -64,10 +64,10 @@ L1 -> L2
 
 L2 -> L1
 
-1. User initiates a bridge transfer on L2. Contract stores a mapping of the user bridgeTransferIds for easy access. It transfers from the user MOVE amount to the contract and burns it. Transaction emits originator, recipient, amount and nonce.
+1. User initiates a bridge transfer on L2. Contract stores a mapping of the user nonce to bridge details for easy access. It transfers from the user MOVE amount to the contract and burns it. Transaction emits originator, recipient, amount and nonce.
 2. Relayer awaits for finalization of the transaction on L2.
 3. Relayer completes the bridge on L1.
-4. Completion transaction verifies that the transaction is truthful by comparing the provided bridgeTransferId hash and the emitted values of originator, recipient, amount and nonce. Finally, it transfers MOVE to the recipient address, which has been previously bridged from L1.
+4. Completion transaction verifies that the transaction is truthful by comparing the provided bridgeTransferId hash and the emitted values of initiator, recipient, amount and nonce. Finally, it transfers MOVE to the recipient address, which has been previously bridged from L1.
 5. User is notified on the frontend that their transaction has been completed.
 6. In case of a rare caase of a reorg on the recipient network that leads to the transaction removal from the user perspective, the transaction can be redone and relayer multisig can handle it.
 
