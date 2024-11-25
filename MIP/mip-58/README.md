@@ -60,7 +60,7 @@ L1 -> L2
 5. User is notified on the frontend that their transaction has been completed.
 6. In case of a rare case of a reorg on the recipient network that leads to the transaction removal from the user perspective, the transaction can be redone and relayer multisig can handle it.
 
-![L1-L2](l1l2.png)
+![L1-L2](L1ToL2.png)
 
 L2 -> L1
 
@@ -71,7 +71,7 @@ L2 -> L1
 5. User is notified on the frontend that their transaction has been completed.
 6. In case of a rare caase of a reorg on the recipient network that leads to the transaction removal from the user perspective, the transaction can be redone and relayer multisig can handle it.
 
-![L2-L1](l2l1.png)
+![L2-L1](L2ToL1.png)
 
 ### Key Features
 
