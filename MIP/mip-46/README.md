@@ -25,7 +25,7 @@ Given that these hold, the sum of the circulating token supply of `$L1MOVE` and 
 1. The token supply of `$L1MOVE`, as well as `$L2MOVE` cannot exceed the total supply individually.
 1. The total amount of bridge transfers is rate limited.
 1. The relayer shall maximize security measurements to protect its keys.
-
+1. Transfer amount has a min and max amount.
 
 ## Motivation
 
