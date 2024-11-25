@@ -45,7 +45,7 @@ In our setting the intermediary IS the final token, and this could be interprete
 
 **Types of bridge mechanisms**
 
-There are four types of crosschain bridges. They differ in the way they handle the native assets (source chain) and the representation of the assets (wrapped asset) on the target chain.
+There are three types of crosschain bridges. They differ in the way they handle the native assets (source chain) and the representation of the assets (wrapped asset) on the target chain.
 
 1. **burn/mint**: the asset is burned on the source chain and an asset is minted on the target chain.
 _Supply: The bridge operator is in control of creating supply on both chains._
@@ -126,14 +126,14 @@ Our initial bridge design, [RFC-40](https://github.com/movementlabsxyz/rfcs/blob
 <!-- A bridge is slightly different to a swap in the sense that the two transactions (lock and mint) are not meant to be decoupled.-->
 - another issue is that the first transfer of MOVE tokens requires a user to have some _gas tokens_ (the token used to pay execution fees on the Movement Network). If the gas token is the `$L2MOVE` token, we have to implement a mechanism to sponsor the first transfer of MOVE tokens.
 
-**Trusted-Relayer design**
+**Lock/Mint design**
 
 > [!TIP]
-> A simple _lock/mint_, _burn/mint_ or _lock/unlock_ mechanism requires only one transaction from the user and is probably more user friendly.
+> A simple _lock/mint_, _burn/mint_ or _lock/unlock_ mechanism requires only one transaction from the user and is probably more user friendly than the HTLC-based design.
 
 A simple design that is adopted by many L2 chains is the _lock/mint_ design. A user initiates a transfer on the source chain and the bridge operator is responsible for completing the transfer on the target chain. In this design, the trust assumptions are that the contracts on the source chain and the target chain are _correct_ and implement the lock and mint operations correctly (respectively burn and unlock for the opposite direction).
 
-[MIP-58](https://github.com/movementlabsxyz/MIP/pull/58/files) is an instance of a _lock/mint_ bridge. Once initiated on the L1 (source chain), the user does not need to interact with the L2 (target chain) to complete the transfer. The bridge operator is responsible for bundling/coupling the lock/mint transactions.  (Similarly for the opposite direction, the user only needs to interact with the L2 chain and the bridge operator is responsible for the coupling of the burn/unlock transactions.)
+[MIP-58](https://github.com/movementlabsxyz/MIP/pull/58/files) is an instance of a _lock/mint_ bridge. Once initiated on the source chain, the user does not need to interact with the target chain to complete the transfer. The bridge operator is responsible for coupling the lock/mint transactions for L1->L2 transfers. Similarly for L2->L1 transfers, the bridge operator is responsible for the coupling of the burn/unlock transactions.
 
 ## Security
 
