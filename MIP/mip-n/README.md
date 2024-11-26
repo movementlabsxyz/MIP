@@ -219,9 +219,9 @@ Introduce a status `transfer_init` to differentiate a state between nonce creati
 
 ### Bootstrap
 
-Next we describe how the reboot algorithm works and differs from the above.
+Next we describe how the bootstrap algorithm works and differs from the above.
 
-!!! . A node that is rebooting MUST start the [Continuous-Processing](#continuous-processing) algorithm in parallel.
+!!! . A node that is bootstrapping MUST start the [Continuous-Processing](#continuous-processing) algorithm in parallel.
 
 ![alt text](process_reboot.png)
 
@@ -240,7 +240,7 @@ The Algorithm differs from the Continuous-Processing in that it runs in parallel
 Based on knowledge of when the relayer stopped, we can inject a parameter about the source block height from which the relayer should start to bootstrap.
 
 **Reading from local memory**
-In the Continuous-Processing Algorithm the Relayer also records the most recent source block height of `block_processed` in a file. When rebooting the node, the relayer can start from the last point it left.
+In the Continuous-Processing Algorithm the Relayer also records the most recent source block height of `block_processed` in a file. When rebooting or bootstrapping the node, the relayer can start from the last point it left.
 
 **Reading from chain**
 The relayer records on the source or target chain (whichever is cheaper) the current highest completed source block. This can happen infrequent. A separate algorithm needs to be spelled out which records the highest source block, below which all source blocks with transfers are completed.
