@@ -1,4 +1,4 @@
-# MIP-\<number\>: Relayer in the lock/mint bridge - Algorithm and Bootstrapping 
+# MIP-61: Relayer in the lock/mint bridge - Algorithm and Bootstrapping 
 - **Description**: This MIP describes the process for continuous operation as well as the bootstrapping of the relayer in the lock/mint bridge. 
 - **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz), [Phillipe]()
 
