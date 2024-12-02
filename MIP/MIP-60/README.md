@@ -8,7 +8,7 @@ Crosschain bridges allow assets to be transferred between different blockchains.
 
 ## Motivation
 
-To transfer assets from Ethereum to Move Rollup (and back), we have to employ a _bridge_. Ideally we would re-use an existing bridge, but there is no available bridge template from Ethereum to Move-based Rollups, so we have to design one.
+To transfer assets from Ethereum to the chain (and back), we have to employ a _bridge_. Ideally we would re-use an existing bridge, but there is no available bridge template from Ethereum to Move-based chains, so we have to design one.
 Designing a bridge between two blockchains is a complex task. As pointed out in [Bridges – Ethereum Foundation](https://ethereum.org/en/developers/docs/bridges/#integrating-bridges):
 
 > 1. **Building your own bridge** – Building a secure and reliable bridge is not easy, especially if you take a more trust-minimized route. Moreover, it requires years of experience and technical expertise related to scalability and interoperability studies. Additionally, it would require a hands-on team to maintain a bridge and attract sufficient liquidity to make it feasible.
@@ -24,10 +24,10 @@ Bridge terminology is frequently ambiguous as the following shows but we attempt
 
 There are several base classes of bridges to apply to our setting. We select **Native Bridge** as the most appropriate for our use case.
 
-- **Native Bridges** bootstrap liquidity of a base chain into a different chain, e.g. to onboard users and move value into a L2 network.
+- **Native Bridges** bootstrap liquidity from a base chain into a different chain, e.g. to onboard users and move value into a chain.
 - **Canonical Bridges** is a term typically used to refer to L1 to L2 bridges, and have a similar meaning to Native Bridges. They typically take a longer period of time to bridge assets than liquidity networks as they require a time period for finality to be established, such as the challenge period for optimistic
 rollups. 
-- **Validating Bridges** are bridges between Ethereum and a rollup, where the bridge contract verifies the state updates proposed by the offchain system.
+- **Validating Bridges** are bridges between Ethereum and another chain, where the bridge contract verifies the state updates proposed by the off-chain system.
 - **Validator or Oracle-based Bridges** rely on a set of external validators or oracles to validate cross-chain transfers.
 
 > [!NOTE]
@@ -49,7 +49,7 @@ There are three types of crosschain bridges. They differ in the way they handle 
 
 1. **burn/mint**: the asset is burned on the source chain and an asset is minted on the target chain.
 _Supply: The bridge operator is in control of creating supply on both chains._
-1. **lock/mint**: the native asset (minted e.g. in an ERC20 contract) is locked on the source chain and a wrapped asset is minted on the target chain (which is L2 in our case).
+1. **lock/mint**: the native asset (minted e.g. in an ERC20 contract) is locked on the source chain and a wrapped asset is minted on the target chain.
 _Supply: The bridge operator is only in control of minting supply on the target chain (L2). On L1 the bridge operator holds a token pool into/from which tokens get locked/unlocked._
 1. **lock/unlock**: although difficult to classify in literature, this variant naturally completes the above two types. It may be classified as a subcategory of a swap, a **liquidity network** (see above), or it could be interpreted as a trusted [Automated Market Maker (AMM) with a constant sum invariant](https://medium.com/@0xmirai77/curve-v1-the-stableswap-invariant-f87ad7641aa0). The asset is locked on the source chain and unlocked on the target chain. 
 _Supply: The bridge operator is neither in control of creating new supply on the source chain nor on the target chain. The bridge operator only holds token pools into/from which tokens get locked/unlocked._
@@ -143,7 +143,7 @@ See [MIP-39](https://github.com/movementlabsxyz/MIP/blob/mip-move-bridge-archite
 
 ### Security - Trusted-Relayer design
 
-See [Trusted Relayer design](#trusted-relayer-design).
+See [Trusted Relayer design](#58).
 
 Assuming we have a _correct_ implementation of the lock/mint contracts on the source and target chains, and a trusted relayer, we may still have to deal with the following issues:
 
