@@ -10,7 +10,7 @@ We describe an algorithm that
 - Issues a `complete_transfer` transaction on the target chain if not done so far.
 - Records the height, before which all transfers are completed.
 - Checks on the completion of transfers on the target chain.
-- Provides a bootstrap algorithm for the relayer. 
+- Provides a bootstrap algorithm for the relayer.
 
 In this algorithm the contract's complete transfer function verifies that a transfer hasn't been already done. This is to protect against re-issuance of complete_transfer more than one time for the same transfer.
 
@@ -25,7 +25,7 @@ Several complications:
 - The relayer may have to be replaced.
 - The relayer MUST not ignore a single transfer.
 - The relayer MUST deliver eventually all transfers.
-- The finality criterias on the source chain and target chain MUST be considered.
+- The finality criteria on the source chain and target chain MUST be considered.
 
 **Bootstrapping**
 The relayer can go offline or crash. It needs to automatically understand from where it should start with sending messages to the target chains, i.e. what is the lowest nonce for which the transfer is not complete.
@@ -104,7 +104,6 @@ Introduce a status `transfer_init` to differentiate a state between nonce creati
 ![alt text](init_optimization.png)
 
 **Calculation-Completed-Block-Height**
-
 In this section the process is defined to calculate the completed part of the source chain `completed_block_height` and `completed_nonce_height`.
 
 ![alt text](complete_block_height.png)
@@ -162,15 +161,6 @@ The relayer records on the source or target chain (whichever is cheaper) the `co
 
 This creates a dependency to another component. For example, if the postgres db has an issue, the relayer has an issue. Even thought the relayer doesn't need the db to process.
 
-2. Use only the nonce. (???? what does this mean???)
-
-
-!!! WARNING I did not understand the following. The nonce is well defined by the source contract. We cannot miss a transfer.
-
-We can use only the nonce and initiate the `last_L1nonce` with it. The difficulty is we are not sure that this value correspond to the current source block and the event pulling use block so we can miss an transfer if we don't validate the first block we get correspond to this nonce. That why the algo use only block to update nonce.
-
-
-
 ## Reference Implementation
 
 <!--
@@ -188,6 +178,7 @@ Needs discussion.
 ## Errata
 
 ## Appendix
+
 ---
 ## Copyright
 
