@@ -41,7 +41,7 @@ This algo is defined using the lock/mint-type Native Bridge protocol, described 
 - `Initiate_transfer` on the source chain (called by user)
 - `Complete_transfer` on the target chain (called by relayer)
 
-This algo is compatible with using finalized blocks (see the remark on L2 complete verification). By pulling only finalized source blocks, the  nonce are always updated on finalization.
+This algorithm is compatible with using finalized blocks (see the remark on L2 complete verification). By pulling only finalized source blocks, the  nonce are always updated on finalization.
 
 In this MIP we consider the lock/mint Native Bridge, see [MIP-60](https://github.com/movementlabsxyz/MIP/pull/60). We will discuss a single direction of transfer - from **source chain** to **target chain**.
 
