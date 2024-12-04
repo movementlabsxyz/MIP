@@ -61,24 +61,48 @@ The relayer can get its state from the source chain and target chain. The algo h
 
 The relayer manages only one state of transfer: pending, which exists during the time between the reception of the `initiate_transfer` event from the source chain and the success of the `complete_transfer` tx on the target chain.
 
-The Native Bridge protocol MUST implement the assignment on the source chain of an incrementing `nonce`. Since there are two directions there MUST be two counters - one for each direction. The `nonce` is used to order the transfers.
+The Native Bridge protocol MUST implement the assignment of an incrementing `nonce` on the source chain. Since there are two directions there MUST be two counters - one for each direction. The `nonce` is used to order the transfers.
 
 For each `initiate_transfer` event do the following:
 
 ![alt text](event_processing.png)
 
-1. Get the `nonce`.
-1. If a nonce has been skipped this should not happen and we should report / throw an error.
-1. If nonce already is recorded check the `status_transfer`.
-    1. If completed set status transfer as `transfer_completed` and return.
-    1. Else create `nonce` entry locally and query target chain if `complete_transfer` transaction has been submitted.
-        1. If `complete_transfer` transaction is on target chain
-            1. If the transaction is final, set `transfer_complete` for the status of the `nonce`
-            1. Else set status us `transfer_pending` and set a timeout, for the relayer to check later again.
-        1. Else 
-            1. send `complete_transfer` transaction to target chain
-            1. set the status as `transfer_pending`.
-            1. set a timeout after which the timeout-process should trigger for the transfer.
+```javascript
+EVENT_PROCESSING:
+// Input: initiate_transfer_event from source chain
+// Input: target_chain_state - current state of the target chain
+`nonce` = `initiate_transfer_event.nonce`
+`transfer_uid` = `initiate_transfer_event.transfer_uid`
+
+// Check if the `nonce` is valid
+IF `nonce` is skipped THEN:
+    REPORT error and EXIT
+
+// Check if the `nonce` is already recorded
+IF `nonce` is recorded THEN:
+    IF `nonce.status_transfer` is `transfer_completed` THEN:
+        RETURN.
+ELSE: 
+    CREATE new `nonce` entry locally
+
+QUERY target chain contract for `nonce`
+        
+// If `complete_transfer`transfer` transaction was executed successfully
+IF `nonce` is found THEN:
+    IF `transfer_uid` does not match THEN:
+        REPORT error and EXIT
+
+    IF `nonce` transfer is final THEN:
+        SET `nonce.status_transfer` to `transfer_completed`
+    ELSE:
+        SET `nonce.status_transfer` to `transfer_pending`
+        SET timeout for relayer to re-check later
+// If no `complete_transfer` transaction was executed 
+ELSE:
+    SEND `complete_transfer` transaction to target chain
+    SET `nonce.status_transfer` to `transfer_pending`
+    SET timeout for relayer to re-check later
+```
 
 #### Continuous-Processing
 
@@ -90,11 +114,18 @@ Next describe the processing of source blocks and the completion of a transfer o
 
 ![alt text](continuous_processing.png)
 
-1. Receive new non-processed finalized `source_block`.
-1. If a block height is missing put the block into a queue. DO NOT process blocks out of order.
-1. Get `initiate_transfer` events from the `source_block`.
-1. For each `initiate_transfer` event run the event_processing script.
-1. Set the block height as `block_processed`.
+```javascript
+CONTINUOUS_PROCESSING: 
+// Input: source_block - newly finalized block from source chain
+`block_height` = `source_block.height`
+
+// Process each initiate_transfer event
+FOR EACH `event` IN `source_block.initiate_transfer_events` DO:
+    RUN EVENT_PROCESSING(`event`)
+
+// Mark the block as processed
+SET `block_height` as `block_processed`
+```
 
 **Optimizations to consider errors in the above procedure**
 This step is optional but should be considered.
@@ -108,17 +139,30 @@ In this section the process is defined to calculate the completed part of the so
 
 ![alt text](complete_block_height.png)
 
-1. If completed set status transfer as `transfer_completed` and return.
+Replace
 
-is replaced by
+```javascript
+IF `nonce.status_transfer` is `transfer_completed` THEN:
+    RETURN
+```
 
-1. If completed set status transfer as `transfer_completed`.
-1. If the nonce is not `completed_nonce_height + 1` then return.
-1. Else
-    1. Set `completed_nonce_height += 1`.
-    1. If this nonce is the last nonce in the source block set `completed_block_height += 1`.
-    1. If the next nonce is completed start from step 1.
-    1. Else return.
+with
+
+
+```javascript
+PROCESS_COMPLETED_NONCE_HEIGHT:
+IF `nonce.status_transfer` is `transfer_completed` THEN:    
+    IF `nonce` is not `completed_nonce_height + 1` THEN:
+        RETURN
+    ELSE:
+        SET `completed_nonce_height += 1`
+        IF this `nonce` is the last nonce in the source block THEN:
+            SET `completed_block_height += 1`
+        IF the next `nonce.status_transfer` is `transfer_completed` THEN:
+            GOTO PROCESS_COMPLETED_NONCE_HEIGHT
+        ELSE:
+            RETURN
+```
 
 ### Timeout algorithm
 
@@ -137,12 +181,23 @@ Next we describe how the bootstrap algorithm works and differs from the above.
 
 The Algorithm differs from the Continuous-Processing in that it runs in parallel and will catch up with missing transfers eventually. While not hindering the Continuous Operation of the Relayer. It implements a delay to start at the beginning, which conveniently prevents that `complete_transfer` transactions would be sent accidentally twice to the target chain.
 
-1. Start the Continuous-Processing protocol.
-1. Set the first processed source block by the Continuous-Processing protocol as `first_continuous_processed_block`.
-1. Set `end_source_block = first_continuous_processed_block - 1`
-1. Set `start_source_block` according to some input.
-1. Wait for some time `wait_time`, e.g. 10 minutes. This is to ensure that all relevant source blocks have arrived. It may be not necessary but it also does not hurt.
-1. For each source block between `start_source_block` and `end_source_block` perform the same algorithm as Continuous-Processing (apart from using the next source block height in the loop rather than a new source block)
+```javascript
+// Start the Continuous-Processing protocol in parrallel to this algorithm
+START CONTINUOUS_PROCESSING protocol 
+SET `first_CP_block` = first processed block by CONTINUOUS_PROCESSING;
+
+// Set initial processed block parameters
+SET `end_source_block` = `first_CP_block - 1`.
+SET `start_source_block` = INPUT value.
+
+// Wait for a predefined time (e.g. 10 minutes) 
+// to ensure all relevant blocks have arrived
+WAIT for `wait_time` 
+
+// Process source blocks in the specified range
+FOR `current_block` = `start_source_block` TO `end_source_block` DO:
+    RUN CONTINUOUS_PROCESSING using `current_block` as the source block.
+```
 
 #### Bootstrap input types
 
