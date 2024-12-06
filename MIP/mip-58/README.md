@@ -123,8 +123,9 @@ L2 -> L1
    ```
 
 10. **Best Practices**:
-   - Adopt currently used bridge designs from established designs like Arbitrum, LayerZero and Blast bridges which use a relayer to finalize the bridge.
-   - User is not required to have funds on counterparty contract to finalize the bridge.
+
+- Adopt currently used bridge designs from established designs like Arbitrum, LayerZero and Blast bridges which use a relayer to finalize the bridge.
+- User is not required to have funds on counterparty contract to finalize the bridge.
 
 ## Exploits and Potential Losses
 
@@ -154,14 +155,24 @@ L2 -> L1
    - Consolidate Initiator and Counterparty into a single contract (this might be the most dangerous thing proposed but it has already been proposed for current implementation).
 
 4. **Rate Limiting**:
-   - Rate limiting should be implemented on the L1 and maps each day to a budget, for each direction. Once the budget is reached on one of the directions, no more tokens can be transferred on that direction. The bridge is financially secured by an insurance fund maintained by Movement Labs and the maximum amount of tokens to be transferred per day, per direction is one quarter of the insurance fund balance. This is meant to account for the insurance fund to be able to insure all current funds already transferred and all tokens inflight, per direction.
+   1. Single-sided rate limiting
+      - Rate limiting should be implemented on the L1 and maps each day to a budget, for each direction. Once the budget is reached on one of the directions, no more tokens can be transferred on that direction. The bridge is financially secured by an `insurance fund` maintained by Movement Labs and the maximum amount of tokens to be transferred per day, per direction is one quarter of the `insurance fund` balance. This is meant to account for the insurance fund to be able to insure all current funds already transferred and all tokens inflight, per direction.
+      - The `insurance fund` maintains the rate limit budget by adjusting its own `$MOVE` balance. It should be either the Movement Labs multisig or a new multisig 1/3 if we choose to adopt an approach that requires more direct ability by the personnel.
+      - Once the rate limit budget is reached, if no issues have been observed, operators should simply wait for the next day.
+      - If an issue has been observed, an operator should simply transfer to the bridge contract the sum of the exploit size, being the result of additional supply on L1, outside of the bridge address, and the additional supply on L2. This action covers both cases where tokens were extracted from the bridge contract on L1 or over-minted on L2. Movement Foundation should evaluate the amount of tokens that should be held by the `insurance fund` after the incident and transfer to it the amount to reach that amount.
+      - This approach is open to exploits where the relayer key is compromised. It would enable the exploiter to freely mint on L2.
+   2. Inbound rate limiting
+      - Rate limiting should be implemented on both L1 and L2 for inbound transactions only. It maps a daily budget of inbound transactions and once it's reached, the relayer cannot complete more transactions. The bridge is financially secured by two `insurance funds`, one on each side, maintained by Movement Labs, and the maximum amount of tokens to be transferred per day, per direction is half of each of its `insurance funds` balances. This is meant to account for all tokens already transferred and inflight, per direction.
+      - The `insurance funds` maintain the rate limit budgets by adjusting its own `$MOVE` balance. They should be either Movement Labs multisigs or new multisigs 1/3 if we choose to adopt an approach that requires more direct ability by the personnel.
+      - Once the rate limit budget is reached, if no issues have been observed, operators should simply wait for the next day.
+      - If an issue has been observed, operators should transfer to the bridge address the exploit amount on the L1 and burn the exploit amount on the L2. Movement Foundation should evaluate the amount of tokens that should be held by the `insurance funds` and operators should receive those tokens and bridge tokens if an exploit occurred on L2.
+      - This approach is more succetible to issues on the frontend because the frontend has to acknowledge rate limit budget and inflight tokens and inform users if the rate limit is about to be reached, not only if it has been reached.
 
 5. **Bridge Fee**:
    - When bridging from L1 to L2, the protocol, through the Relayer, sponsors the gas cost on Movement. We do not need to make any modification on contracts or Relayer to support it.
    - When bridging from L2 to L1, we have a few viable solutions but it's preferrable to highlight two.
       1. Relayer sets a fee on L2, a global variable that can be set at any given time. Considering that block validation time on L1 is bigger than on L2, it becomes a viable approach since L2 can rapidly adjust the fee according to the current block and always charge an above gas cost fee to assure that despite hiccups, the bridge is net positive. $MOVE is deducted from the amount of tokens that are currently being bridged and transferred to a funds manager. Input of the user is on the final value of tokens that it should receive on the L1. This gives the protocol a very reliable way to estimate how much MOVE will be charged and feed to the user a precise amount of tokens.
       2. Enable the Relayer to specify on the L1 completeBridgeTransfer transaction, the bridge fee per transaction. The amount is deducted from the total amount of tokens that were bridged and transferred to a funds manager. The dangerous situation is that we expect to way for over 10 minutes before the transfer can occur, and this could lead to a big disparity between the expected amout of funds and the actual amount of tokens received.
-
 
 [Solidity Implementation](https://github.com/movementlabsxyz/movement/tree/primata/simple-native-bridge)
 
