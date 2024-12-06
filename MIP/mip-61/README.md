@@ -231,7 +231,7 @@ ON timeoutTriggered(`timeoutTriggeredEvent`) DO:
 
 Next we describe how the bootstrap algorithm works and differs from the above.
 
-!!! . A node that is bootstrapping SHOULD start the [CONTINUOUS_BLOCK_PROCESSING](#continuous-block-processing) algorithm in parallel. This allows to immediately assume normal operation while 
+!!! . A node that is bootstrapping SHOULD start the [CONTINUOUS_BLOCK_PROCESSING](#continuous-block-processing) algorithm in parallel. This allows to immediately assume normal operation while attempting to catch up with what has been missed.
 
 ![alt text](bootstrap.png)
 
