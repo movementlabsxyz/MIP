@@ -110,7 +110,7 @@ The Native Bridge protocol MUST implement the assignment of an incrementing `non
 
 For each `initiate_transfer` event do the following:
 
-![alt text](event_processing.png)
+![event_processing](event_processing.png)
 
 ```javascript
 EVENT_PROCESSING:
@@ -119,10 +119,6 @@ EVENT_PROCESSING:
 SET `nonce` = `initiate_transfer_event.nonce`
 SET `transfer_uid` = `initiate_transfer_event.transfer_uid`
 
-// Check if the `nonce` is valid
-IF `nonce` is skipped THEN:
-    REPORT error and EXIT
-
 // Check if the `nonce` is already recorded
 IF `nonce` is recorded THEN:
     IF `nonce.status_transfer` is `transfer_completed` THEN:
@@ -130,9 +126,9 @@ IF `nonce` is recorded THEN:
 ELSE: 
     CREATE new `nonce` entry locally
 
-QUERY target chain contract for `nonce`
+QUERY target chain contract for `nonce` // this includes non-final state!
         
-// If `complete_transfer`transfer` transaction was executed successfully
+// If `complete_transfer` transaction was sent previously to target chain
 IF `nonce` is found THEN:
     IF `transfer_uid` does not match THEN:
         REPORT error and EXIT
@@ -140,9 +136,12 @@ IF `nonce` is found THEN:
     IF `nonce` transfer is final THEN:
         SET `nonce.status_transfer` to `transfer_completed`
     ELSE:
+        // the status should be `transfer_pending`
+        IF `nonce.status_transfer` is NOT `transfer_pending` THEN:
+            LOG "error: nonce.status_transfer is not transfer_pending"
         SET `nonce.status_transfer` to `transfer_pending`
         SET timeout for relayer to re-check later
-// If no `complete_transfer` transaction was executed 
+// If no `complete_transfer` transaction was sent 
 ELSE:
     SEND `complete_transfer` transaction to target chain
     SET `nonce.status_transfer` to `transfer_pending`
@@ -153,7 +152,7 @@ ELSE:
 
 Next we describe the processing of source blocks and the completion of a transfer on the target chain, assuming the relayer is always online. Since this is a strong assumption, we reduce this requirement in the next section.
 
-![alt text](continuous_processing.png)
+![continuous_processing](continuous_processing.png)
 
 ```javascript
 CONTINUOUS_BLOCK_PROCESSING: 
@@ -170,17 +169,17 @@ SET `block.status` as `block_processed`
 
 !!! . Setting the source_block.status as processed and storing that information in a file, or similar, could help with bootstrapping the relayer in the future.
 
-#### Optimizations to consider errors in the above procedure**
+#### Optimizations to consider errors in the above procedure
 This step is optional but should be considered.
 
 Introduce a status `transfer_init` to differentiate a state between nonce creation locally and sending successfully a `complete_transfer` transaction to the target chain.
 
-![alt text](init_optimization.png)
+![init_optimization](init_optimization.png)
 
-#### Calculation of Completed Source Block Height**
+#### Calculation of Completed Source Block Height
 In this section the process is defined to calculate the completed part of the source chain `completed_block_height` and `completed_nonce_height`.
 
-![alt text](complete_block_height.png)
+![complete_block_height](complete_block_height.png)
 
 Replace
 
@@ -232,7 +231,7 @@ ON timeoutTriggered(`timeoutTriggeredEvent`) DO:
 
 Next we describe how the bootstrap algorithm works and differs from the above.
 
-!!! . A node that is bootstrapping MUST start the [CONTINUOUS_BLOCK_PROCESSING](#continuous-block-processing) algorithm in parallel.
+!!! . A node that is bootstrapping SHOULD start the [CONTINUOUS_BLOCK_PROCESSING](#continuous-block-processing) algorithm in parallel. This allows to immediately assume normal operation while 
 
 ![alt text](bootstrap.png)
 
