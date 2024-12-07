@@ -37,11 +37,11 @@ This MIP is correct insofar as it uses a structure established by Ethereum for I
 
 2. **Security Implications**: Each MIP should be evaluated for any potential security risks it might introduce to Movement technologies.
 
-The primary security concern associated with this MIP is the exposure of proprietary techologies or information via the ill-advised formation of an MIP which the MIP process might encourage.
+The primary security concern associated with this MIP is the exposure of proprietary technologies or information via the ill-advised formation of an MIP which the MIP process might encourage.
 
 3. **Performance Impacts**: The implications of the proposal on system performance should be analyzed.
 
-The primarry performance concern associated with this MIP is its potential for overuse. Only specifications that are non-trivial and very high-quality should be composed as MIPs.
+The primary performance concern associated with this MIP is its potential for overuse. Only specifications that are non-trivial and very high-quality should be composed as MIPs.
 
 4. **Validation Procedures**: To the extent possible, formal, analytical, or machined-aided validation of the above should be pursued. 
 
@@ -49,7 +49,7 @@ I'm using spellcheck while writing this MIP. You can verify that I am using vali
 
 5. **Peer Review and Community Feedback**: A section should be included that captures significant feedback from the community, which may influence the final specifications of the MIP.
 
-The Movement Labs team is currently reviewing and assessig this process.
+The Movement Labs team is currently reviewing and assessing this process.
 
 ## Errata
 
