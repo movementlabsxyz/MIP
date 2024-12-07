@@ -63,7 +63,8 @@ On the source chain the following structure is used:
 // Source Chain Structure
 {
     nonce: Number,          // Unique incrementing value for ordering transfers
-    targetAccount: String,  // Address of the recipient on the target chain
+    recipient: String,  // Address of the recipient on the target chain
+    initiator: String,   // Address of the initiator on the source chain
     amount: Number          // Amount being transferred
 }
 ```
@@ -76,6 +77,7 @@ On the target chain the following structure is used:
     nonce: Number,         // Matching nonce from the source chain
     transferUID: String,   // Unique identifier for the transfer
     recipient: String,     // Address of the recipient
+    initiator: String,      // Address of the initiator
     amount: Number         // Amount that was transferred
 }
 ```
