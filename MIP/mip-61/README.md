@@ -84,6 +84,9 @@ On the target chain the following structure is used:
 
 Locally the relayer stores the following structure:
 
+
+!!! . TODO should be replaced by ordered list of transferIDs and a nonce list (ordered) and a block height
+
 ```javascript
 // Relayer Local Structure
 {
@@ -126,9 +129,10 @@ IF `nonce` is recorded THEN:
     IF `nonce.status_transfer` is `transfer_completed` THEN:
         RETURN.
 ELSE: 
-    CREATE new `nonce` entry locally
+    CREATE new `nonce` entry locally and save it in ORDERED_SET.
 
-QUERY target chain contract for `nonce` // this includes non-final state!
+// note this is note the final state as is the case for most other state reads in this algorithm
+QUERY target chain contract for `nonce` in non-final state 
         
 // If `complete_transfer` transaction was sent previously to target chain
 IF `nonce` is found THEN:
@@ -195,11 +199,13 @@ with
 
 ```javascript
 PROCESS_COMPLETED_NONCE_HEIGHT:
-IF `nonce.status_transfer` is `transfer_completed` THEN:    
-    IF `nonce` is not `completed_nonce_height + 1` THEN:
+IF `nonce.status_transfer` is `transfer_completed` THEN:
+    IF `nonce` is not `completed_nonce_height + 1` THEN: 
         RETURN
     ELSE:
         SET `completed_nonce_height += 1`
+        // the following pruning is required to keep the memory sane.
+        DELETE every `nonce` with `nonce` < `completed_nonce_height`
         IF this `nonce` is the last nonce in the source block THEN:
             SET `completed_block_height += 1`
         IF the next `nonce.status_transfer` is `transfer_completed` THEN:
