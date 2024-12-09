@@ -1,5 +1,5 @@
-# MIP-65: Fastconfirmations
-- **Description**: Fastconfirmations for confirmations on the L2.
+# MIP-65: FFS: Fastconfirmations
+- **Description**: Fast-Finality Settlement : Fastconfirmations as confirmations on the L2.
 - **Authors**: [Andreas Penzkofer](andreas.penzkofer@movementlabs.xyz)
 
 <!--
@@ -17,6 +17,9 @@
 -->
 
 ## Abstract
+
+We introduce postconfirmations on L1 in 
+
 
 <!--
   The Abstract is a multi-sentence (short paragraph) technical summary. This should be a very terse and human-readable version of the specification section. Someone should be able to read only the abstract to get the gist of what this specification does.
