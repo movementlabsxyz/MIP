@@ -1,15 +1,15 @@
 # MIP-37: FFS-Postconfirmation
 
-- **Description**: L1-confirmation of superBlocks. A sub-protocol of FFS.
+- **Description**: Confirmations of superBlocks on L1. A sub-protocol of Fast Finality Settlement.
 - **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 
 ## Abstract
 
 Fast-Finality-Settlement (FFS) is proposed in [MIP-34](https://github.com/movementlabsxyz/MIP/pull/34), with two confirmation mechanisms. This MIP details the mechanism on Layer 1 (L1), which is called ***postconfirmation***.
 
-At certain intervals validators commit a _sequence of L2Blocks_, which is called ***superBlock***, to L1. The L1 contract will verify if >2/3 of the validators have attested to a given superBlock height. For a given superBlock height the acceptor will initiate the process of confirmation on the contract.
+At certain intervals validators commit a _sequence of L2blocks_, which is called ***superBlock***, to L1. The L1 contract will verify if >2/3 of the validators have attested to a given superBlock height. For a given superBlock height the acceptor will initiate the process of confirmation on the L1 contract.
 
-This provides an L1-protected guarantee that a superBlock (i.e. a sequence of blocks) is confirmed and correctly executed. This anchoring mechanism increases the security of the L2 as it protects the L2-state against long range attacks and can provide a way to slash validators that have attested against the majority.
+This provides an L1-protected guarantee that a superBlock (i.e. a sequence of blocks) is accepted and correctly executed. This anchoring mechanism increases the security of the L2 as it protects the L2-state against long range attacks and can provide a way to slash validators that have attested against the majority.
 
 <!--
   The Abstract is a multi-sentence (short paragraph) technical summary. This should be a very terse and human-readable version of the specification section. Someone should be able to read only the abstract to get the gist of what this specification does.
