@@ -3,10 +3,10 @@ name: Build mipBook
 on:
   push:
     branches:
-      - main
+      - '*'
   pull_request:
     branches:
-      - main
+      - '*'
 
 env:
   MIPBOOK_VERSION: 0.4.40
