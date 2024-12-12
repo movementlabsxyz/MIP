@@ -3,7 +3,7 @@
 
 We differentiate between MD and MIPs.
 
-An overview of the MIPs and MDs can be found in the [OVERVIEW](https://github.com/movementlabsxyz/MIP).
+An overview of the MIPs and MDs can be found in the [OVERVIEW](https://movementlabsxyz.github.io/MIP/).
 
 In addition MG serves as a glossary for terms defined in the MIPs and MDs.
 
