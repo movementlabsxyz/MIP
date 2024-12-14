@@ -1,4 +1,4 @@
-# MD-71: \<Title\>
+# MD-71: Informer service
 - **Description**: Provide a component that informs about the total circulating supply of \$MOVE across L1 and L2.
 - **Authors**: [Author](mailto:andreas.penzkofer@movementlabs.xyz)
 
@@ -15,6 +15,12 @@
 -->
 
 ## Overview
+
+Several components should react if the bridge is under attack or faulty. In particular, the considered components are the Security Fund, see [MIP-50](https://github.com/movementlabsxyz/MIP/pull/50) and the Rate Limiter, see [MIP-56](https://github.com/movementlabsxyz/MIP/pull/56).
+
+The Operator that controls these components requires knowledge about the states of minted or locked tokens on L1 and L2. Moreover, the operation of these components may be handled via a governance, which could also rely on state information.
+
+This MD requests to provide an informing service that satisfies the above.
 
 <!--
   Provide a brief, high-level overview of the desiderata. This section should illuminate the unified objective of the desired elements, functionalities, or features. More granular specifications should be provided below.
