@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Exit script on error
 set -e
@@ -8,8 +8,7 @@ GITHUB_OWNER="movementlabsxyz"
 GITHUB_REPO="MIP"
 API_URL="https://api.github.com"
 
-# Use GITHUB_TOKEN from environment variable for authentication
-AUTH_HEADER="Authorization: token $GITHUB_TOKEN"  # Remove hardcoded token
+AUTH_HEADER="Authorization: token $GITHUB_TOKEN"
 
 # Check if jq is installed
 if ! command -v jq >/dev/null 2>&1; then
@@ -156,50 +155,61 @@ process_main_branch() {
     if ! git --git-dir=MIP_repo --work-tree="$branch_temp_dir" checkout -f "$branch"; then
         echo "Error: Failed to checkout main branch"
         rm -rf "$branch_temp_dir"
-        exit 1  # Cannot proceed without the main branch
+        exit 1
     fi
+
+    # Debug: List contents of checkout directory
+    echo "Contents of $branch_temp_dir:"
+    ls -la "$branch_temp_dir"
 
     for type in "MD" "MIP"; do
         local type_lower=$(echo "$type" | tr '[:upper:]' '[:lower:]')
         local type_upper="$type"
-        local type_dir="$branch_temp_dir/$type_lower"
-        if [ ! -d "$type_dir" ]; then
-            echo "Directory $type_dir does not exist in main branch. Skipping."
-            continue
-        fi
+        
+        # Try both uppercase and lowercase directories
+        for type_dir in "$branch_temp_dir/$type_upper" "$branch_temp_dir/$type_lower"; do
+            if [ -d "$type_dir" ]; then
+                echo "Found directory: $type_dir"
+                echo "Contents of $type_dir:"
+                ls -la "$type_dir"
+                
+                # Process the directory contents
+                for folder in "$type_dir"/*; do
+                    folder_name=$(basename "$folder")
 
-        for folder in "$type_dir"/*; do
-            folder_name=$(basename "$folder")
+                    # Skip folders named md-0 or mip-0
+                    if [[ "$folder_name" == "${type_lower}-0" ]]; then
+                        echo "Skipping folder $folder_name in main branch because it is ${type_upper}-0."
+                        continue
+                    fi
 
-            # Skip folders named md-0 or mip-0
-            if [[ "$folder_name" == "${type_lower}-0" ]]; then
-                echo "Skipping folder $folder_name in main branch because it is ${type_upper}-0."
-                continue
-            fi
+                    # Skip folders that do not match the expected pattern
+                    if [[ ! "$folder_name" =~ ^${type_lower}-[0-9]+$ ]]; then
+                        echo "Skipping folder $folder_name in main branch because it does not match the expected naming convention."
+                        continue
+                    fi
 
-            # Skip folders that do not match the expected pattern
-            if [[ ! "$folder_name" =~ ^${type_lower}-[0-9]+$ ]]; then
-                echo "Skipping folder $folder_name in main branch because it does not match the expected naming convention."
-                continue
-            fi
+                    # Extract the MIP/MD number
+                    mip_number=$(echo "$folder_name" | grep -o '[0-9]\+')
 
-            # Extract the MIP/MD number
-            mip_number=$(echo "$folder_name" | grep -o '[0-9]\+')
+                    # Check if mip_number is empty
+                    if [ -z "$mip_number" ]; then
+                        echo "Skipping folder $folder_name in main branch because it does not contain a valid MIP/MD number."
+                        continue
+                    fi
 
-            # Check if mip_number is empty
-            if [ -z "$mip_number" ]; then
-                echo "Skipping folder $folder_name in main branch because it does not contain a valid MIP/MD number."
-                continue
-            fi
+                    # Process folder if it contains a README.md
+                    if [ -d "$folder" ] && [ -f "$folder/README.md" ]; then
+                        # Copy folder to the Approved category in src
+                        mkdir -p "src/$category/$branch/$type"
+                        cp -r "$folder" "src/$category/$branch/$type/$folder_name"
 
-            # Process folder if it contains a README.md
-            if [ -d "$folder" ] && [ -f "$folder/README.md" ]; then
-                # Copy folder to the Approved category in src
-                mkdir -p "src/$category/$branch/$type"
-                cp -r "$folder" "src/$category/$branch/$type/$folder_name"
-
-                # Process the README files for main and sidebar links
-                process_readme_files "src/$category/$branch" "$category" "$type" "$mip_number" "$branch"
+                        # Process the README files for main and sidebar links
+                        process_readme_files "src/$category/$branch" "$category" "$type" "$mip_number" "$branch"
+                    fi
+                done
+            else
+                echo "Directory $type_dir does not exist"
             fi
         done
     done
@@ -243,56 +253,67 @@ copy_branch_content() {
         return  # Skip to the next branch
     fi
 
+    # Debug: List contents of checkout directory
+    echo "Contents of $branch_temp_dir:"
+    ls -la "$branch_temp_dir"
+
     for type in "MD" "MIP"; do
         local type_lower=$(echo "$type" | tr '[:upper:]' '[:lower:]')
         local type_upper="$type"
-        local type_dir="$branch_temp_dir/$type_lower"
-        if [ ! -d "$type_dir" ]; then
-            echo "Directory $type_dir does not exist in branch $branch. Skipping."
-            continue
-        fi
+        
+        # Try both uppercase and lowercase directories
+        for type_dir in "$branch_temp_dir/$type_upper" "$branch_temp_dir/$type_lower"; do
+            if [ -d "$type_dir" ]; then
+                echo "Found directory: $type_dir"
+                echo "Contents of $type_dir:"
+                ls -la "$type_dir"
+                
+                # Process the directory contents
+                for folder in "$type_dir"/*; do
+                    folder_name=$(basename "$folder")
 
-        for folder in "$type_dir"/*; do
-            folder_name=$(basename "$folder")
+                    # Skip folders named md-0 or mip-0
+                    if [[ "$folder_name" == "${type_lower}-0" ]]; then
+                        echo "Skipping folder $folder_name in branch $branch because it is ${type_upper}-0."
+                        continue
+                    fi
 
-            # Skip folders named md-0 or mip-0
-            if [[ "$folder_name" == "${type_lower}-0" ]]; then
-                echo "Skipping folder $folder_name in branch $branch because it is ${type_upper}-0."
-                continue
-            fi
+                    # Skip folders that do not match the expected pattern
+                    if [[ ! "$folder_name" =~ ^${type_lower}-[0-9]+$ ]]; then
+                        echo "Skipping folder $folder_name in branch $branch because it does not match the expected naming convention."
+                        continue
+                    fi
 
-            # Skip folders that do not match the expected pattern
-            if [[ ! "$folder_name" =~ ^${type_lower}-[0-9]+$ ]]; then
-                echo "Skipping folder $folder_name in branch $branch because it does not match the expected naming convention."
-                continue
-            fi
+                    # Extract the MIP/MD number
+                    mip_number=$(echo "$folder_name" | grep -o '[0-9]\+')
 
-            # Extract the MIP/MD number
-            mip_number=$(echo "$folder_name" | grep -o '[0-9]\+')
+                    # Check if mip_number is empty
+                    if [ -z "$mip_number" ]; then
+                        echo "Skipping folder $folder_name in branch $branch because it does not contain a valid MIP/MD number."
+                        continue
+                    fi
 
-            # Check if mip_number is empty
-            if [ -z "$mip_number" ]; then
-                echo "Skipping folder $folder_name in branch $branch because it does not contain a valid MIP/MD number."
-                continue
-            fi
+                    # Skip entry if it's already in Approved
+                    if [ "$type" == "MIP" ] && [[ "${approved_mips["$mip_number"]}" == 1 ]]; then
+                        echo "Skipping MIP-$mip_number in branch $branch because it already exists in Approved."
+                        continue
+                    elif [ "$type" == "MD" ] && [[ "${approved_mds["$mip_number"]}" == 1 ]]; then
+                        echo "Skipping MD-$mip_number in branch $branch because it already exists in Approved."
+                        continue
+                    fi
 
-            # Skip entry if it's already in Approved
-            if [ "$type" == "MIP" ] && [[ "${approved_mips["$mip_number"]}" == 1 ]]; then
-                echo "Skipping MIP-$mip_number in branch $branch because it already exists in Approved."
-                continue
-            elif [ "$type" == "MD" ] && [[ "${approved_mds["$mip_number"]}" == 1 ]]; then
-                echo "Skipping MD-$mip_number in branch $branch because it already exists in Approved."
-                continue
-            fi
+                    # Process folder if it contains a README.md
+                    if [ -d "$folder" ] && [ -f "$folder/README.md" ]; then
+                        # Copy folder to the Review category in src
+                        mkdir -p "src/$category/$branch/$type"
+                        cp -r "$folder" "src/$category/$branch/$type/$folder_name"
 
-            # Process folder if it contains a README.md
-            if [ -d "$folder" ] && [ -f "$folder/README.md" ]; then
-                # Copy folder to the Review category in src
-                mkdir -p "src/$category/$branch/$type"
-                cp -r "$folder" "src/$category/$branch/$type/$folder_name"
-
-                # Process the README files for main and sidebar links
-                process_readme_files "src/$category/$branch" "$category" "$type" "$mip_number" "$branch"
+                        # Process the README files for main and sidebar links
+                        process_readme_files "src/$category/$branch" "$category" "$type" "$mip_number" "$branch"
+                    fi
+                done
+            else
+                echo "Directory $type_dir does not exist"
             fi
         done
     done
