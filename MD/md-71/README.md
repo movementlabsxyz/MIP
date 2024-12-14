@@ -1,6 +1,6 @@
-# MD-\<number\>: \<Title\>
-- **Description**: A single sentence description summarizing the items in the desiderata.
-- **Authors**: [Author](mailto:author@email.com)
+# MD-71: \<Title\>
+- **Description**: Provide a component that informs about the total circulating supply of \$MOVE across L1 and L2.
+- **Authors**: [Author](mailto:andreas.penzkofer@movementlabs.xyz)
 
 <!--
   This template is for drafting Desiderata. It ensures a structured representation of wishes, requirements, or needs related to the overarching objective mentioned in the title. After filling in the requisite fields, please delete these comments.
