@@ -1,4 +1,4 @@
-# MIP-72: The SanFran Model
+# MIP-73: The SanFran Model
 - **Description**: Proposes an L2 model that improves the Biarritz model. It transitions to a Lock/Mint-Native Bridge, adds Bridge fees.
 - **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 
