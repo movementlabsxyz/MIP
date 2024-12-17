@@ -1,10 +1,10 @@
-# MIP-57: Informer for the Operation of the Native Bridge
-- **Description**: The Informer collects data from L1 and L2 about the circulating supply of $MOVE tokens, which is critical for the safe operation of the Native Bridge.
+# MIP-57: Informer for the Operation of the HTLC-based Native Bridge
+- **Description**: The Informer collects data from L1 and L2 about the circulating supply of \$MOVE tokens, which is critical for the safe operation of the HTLC-based Native Bridge.
 - **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 
 ## Abstract
 
-The Informer for the Native Bridge is introduced to collect information about the state from L1 and L2 and provide this information to components of the Native Bridge. The provided information is critical to the safe operation of bridge components such as the Rate-Limiter, the Security Fund, and the Bridge Operator.
+The Informer for the HTLC-based Native Bridge (in the following called simply the Native Bridge) is introduced to collect information about the state from L1 and L2 and provide this information to components of the Native Bridge. The provided information is critical to the safe operation of bridge components such as the Rate-Limiter, the Security Fund, and the Bridge Operator.
 
 ## Motivation
 
@@ -19,24 +19,24 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 ![Overview](overview.png)
 *Figure 1: Dependencies of components on the Informer mechanism in the Native Bridge.*
 
-The informer collects information about the state of liquid `$L1MOVE` and `$L2MOVE` and provides this information to components of the Native Bridge. The Informer is a trusted component that is critical to the safe operation of the Native Bridge.
+The informer collects information about the state of liquid \$L1MOVE and \$L2MOVE and provides this information to components of the Native Bridge. The Informer is a trusted component that is critical to the safe operation of the Native Bridge.
 
 1. The Informer is a component that MUST run a node or client on L1 and on L2.
-1. On L1 the Informer SHOULD read the liquid supply `L1MOVE_circulating` of `$L1MOVE` token at the $k$-confirmed state. The definition of $k-confirmed$ is given in [Issue-838](https://github.com/movementlabsxyz/movement/issues/838).
-1. On L2 the Informer SHOULD read the liquid supply `L2MOVE_circulating` of `$L2MOVE` token at the $m$-confirmed state.
+1. On L1 the Informer SHOULD read the liquid supply `L1MOVE_circulating` of \$L1MOVE token at the $k$-confirmed state. The definition of $k-confirmed$ is given in [Issue-838](https://github.com/movementlabsxyz/movement/issues/838).
+1. On L2 the Informer SHOULD read the liquid supply `L2MOVE_circulating` of \$L2MOVE token at the $m$-confirmed state.
 1. The values for $k$ and $m$ MUST be the same as the value of $k$ and $m$ in the bridge parameters.
 1. Since L1 blocks have timestamps we say the Informer reads `L1MOVE_circulating(t_L1)`.
 1. We assume that L2 blocks acquire timestamps from the sequencing protocol, e.g. Celestia. Thus the Informer reads `L2MOVE_circulating(t_L2)`.
 
 **TLDR: Informer Information and Warnings**
 
-The Informer SHOULD provide the information about the circulating `$L1MOVE` and `$L2MOVE` supply `MOVE_circulating(t)`, [see here](#measuring-circulating-supply). The circulating supply is lowered from the desired maximum circulating supply `MOVE_Max` by the inflight tokens, [see here](#inflight-tokens). The inflight-token can be over-approximated.
+The Informer SHOULD provide the information about the circulating \$L1MOVE and \$L2MOVE supply `MOVE_circulating(t)`, [see here](#measuring-circulating-supply). The circulating supply is lowered from the desired maximum circulating supply `MOVE_Max` by the inflight tokens, [see here](#inflight-tokens). The inflight-token can be over-approximated.
 
 The Informer SHOULD provide a warning if the circulating supply exceeds the maximum circulating supply `MOVE_Max`. However, due difference in clocks between layers, [see here](#difference-in-layer-timestamps), and the over-approximation of inflight-token, the measured circulating supply could be above `MOVE_Max`.
 
 #### Measuring circulating supply
 
-The circulating supply of `$MOVE` token `MOVE_circulating(t) = L1MOVE_circulating(t) + L2MOVE_circulating(t)`.
+The circulating supply of \$MOVE token `MOVE_circulating(t) = L1MOVE_circulating(t) + L2MOVE_circulating(t)`.
 
 > [!WARNING] If we do not want to run into the risk that measured circulating supply may become invalidated through reorgs we COULD consider finalized states only, i.e. we would require `t_now - t > max{t_L1finality,t_L2finality}`.
 
@@ -50,10 +50,10 @@ We refer to the following illustration for a bridge transfer from L1 to L2, whic
 ![L1 to L2 Transfer](L1ToL2.png)
 *Figure 2: Illustration of L1 to L2 token transfer process. Both the good path (transfer succeeds) and the bad path (transfer fails due to timeout) is shown.*
 
-Assume some `$L1MOVE` is locked (with finalization) at time $t_1$.
+Assume some \$L1MOVE is locked (with finalization) at time $t_1$.
 
-- On the **good path** the equivalent `$L2MOVE` token is minted on L2 at time $t_2$, where $\Delta t = t_2 - t_1 \in$`[2 * t_L2finality, t_L2finality + timelock2]`. In other words the total circulating supply of `$MOVE` is decreased by the amount of locked `$L1MOVE` tokens for $\Delta t$.
-- On the **bad path** there is no equivalent minted `$L2MOVE` token on L2 minted. Instead, after `timelock1` the locked `$L1MOVE` token is unlocked on L1. The total circulating supply of `$MOVE` is decreased by the amount of locked `$L1MOVE` tokens for `timelock1`.
+- On the **good path** the equivalent \$L2MOVE token is minted on L2 at time $t_2$, where $\Delta t = t_2 - t_1 \in$`[2 * t_L2finality, t_L2finality + timelock2]`. In other words the total circulating supply of \$MOVE is decreased by the amount of locked \$L1MOVE tokens for $\Delta t$.
+- On the **bad path** there is no equivalent minted \$L2MOVE token on L2 minted. Instead, after `timelock1` the locked \$L1MOVE token is unlocked on L1. The total circulating supply of \$MOVE is decreased by the amount of locked \$L1MOVE tokens for `timelock1`.
 
 For the inverse transfer from L2 to L1 the same arguments hold.
 
@@ -80,7 +80,7 @@ I.e. this measurement could overestimate the token supply.
 
 The timestamps of the two layers are not synchronized. We assume that the difference is negligible, however, for correctness, the implications of a drift between the L1 and L2 clocks should be considered. Moreover, the clocks of the layers progress discretely. This means that the Informer has to read at slightly different times on L1 and L2.
 
-This error in the calculation of circulating token `error_token_circulating` due to difference in timestamps between L1 and L2 can be net positive. Thus the measured circulating supply of `$MOVE` could be above `MOVE_max`.
+This error in the calculation of circulating token `error_token_circulating` due to difference in timestamps between L1 and L2 can be net positive. Thus the measured circulating supply of \$MOVE could be above `MOVE_max`.
 
 Since the time difference should be small the error should be no more than the rate budget of two intervals, i.e. `error_token_circulating <= (ratelimit_L1L2 + ratelimit_L2L1 ) * risk_period * 2`.
 
