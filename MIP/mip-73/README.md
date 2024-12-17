@@ -10,7 +10,7 @@ The SanFran Model applies the following changes
 - proposes detailed Bridge fees, see [MD-69](https://github.com/movementlabsxyz/MIP/pull/69)
 - proposes Relayer - Continuous Operation and Bootstrapping algorithm, see [MIP-61](https://github.com/movementlabsxyz/MIP/pull/61)
 - proposes changes to the Informer, see [MIP-71](https://github.com/movementlabsxyz/MIP/pull/71)
-- proposes changes to the Rate Limiter
+- proposes changes to the Rate Limiter, see [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74)
 - proposes fast-confirmations on L2, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65)
 
 ## Motivation
@@ -46,7 +46,7 @@ With the change of the Native Bridge design the requirements, conditions and par
 
 ### Adjust the Rate Limiter to the Lock/Mint Native Bridge design
 
-With the change of the Native Bridge design the requirements, conditions and parameters have changed. MIP-??? updates the Rate Limiter to the new setting.
+With the change of the Native Bridge design the requirements, conditions and parameters have changed. [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74) updates the Rate Limiter to the new setting.
 
 ### Add fastconfirmations
 
