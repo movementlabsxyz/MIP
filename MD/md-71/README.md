@@ -1,18 +1,6 @@
-# MD-71: Informer service
+# MD-71: Informer service for the Lock/Mint-based Native Bridge
 - **Description**: Provide a component that informs about the total circulating supply of \$MOVE across L1 and L2.
 - **Authors**: [Author](mailto:andreas.penzkofer@movementlabs.xyz)
-
-<!--
-  This template is for drafting Desiderata. It ensures a structured representation of wishes, requirements, or needs related to the overarching objective mentioned in the title. After filling in the requisite fields, please delete these comments.
-
-  Note that an MD number will be assigned by an editor. When opening a pull request to submit your MD, please use an abbreviated title in the filename, `md-draft_title_abbrev.md`.
-
-  The title should be 44 characters or less. It should not repeat the MD number in title.
-
-  The author should add himself as a code owner in the `.github/CODEOWNERS` file for the MD.
-
-  TODO: Remove this comment before finalizing.
--->
 
 ## Overview
 
@@ -24,40 +12,28 @@ This MD requests to provide an informing service that satisfies the above.
 
 ## Desiderata
 
-### D1: Implications if relayer does not utilize postconfirmations.
+### D1: Provide information about the circulating supply on L2
+
+On the L2 the bridge contract mints \$MOVE token when token should be transferred to L2. When tokens are transferred to L1, the user burns provably some tokens. The Informer should learn about those two supplies and provide the current circulating \$MOVE supply.
+
+### D2: Provide information about the locked supply on L2.
+
+On the L1 the L1 bridge contract locks any \$MOVE token that should be transferred to L2 in a bridge pool. When \$MOVE token should be transferred to L1 the L1 bridge contract releases tokens held by the bridge pool. The operator should be informed about the locked amount.
+
+### D3: Optional: Provide information about the inflight tokens.
+
+Provide information about the inflight tokens. This includes tokens that are not yet processed by the relayer, as well as tokens that are processed (i.e. the `complete` transaction is in a block on the target chain) but not yet finalized.
+
+### D4: Define what it means for the Native Bridge to be secure.
+
+Based on the variables above the informer should derive a metric that can provide a warning if the metric seems incorrect. It has to be defined what means incorrect.
+
+### D5: Explore implications if relayer does not utilize postconfirmations.
 
 The postconfirmation process is a synchronization mechanism for L2 to L1, see [MIP-37](https://github.com/movementlabsxyz/MIP/pull/37).
 
 If the Relayer completes transfers from L2 to L1 without awaiting postconfirmation of the L2 `initiate` transaction, synchronization guarantees are reduced. The postconfirmation is an anchoring mechanism that binds the L2 to a certain L2 block height and hash, and hinders reorgs beyond a certain depth on L2.
 
 We need to check the implications for the Informer if the Relayer ignores postconfirmations.
-
-### D2: 
-
-
-
-<!--
-  List out the specific desiderata. Each entry should consist of:
-
-  1. Title: A concise name for the desideratum.
-  2. User Journey: A one or two-sentence statement focusing on the "user" (could be a human, machine, software, etc.) and their interaction or experience.
-  3. Description (optional): A more detailed explanation if needed.
-  4. Justification: The reasoning behind the desideratum. Why is it necessary or desired?
-  5. Recommendations (optional): Suggestions or guidance related to the desideratum.
-
-  Format as:
-
-  ### D<number>: Desideratum Title
-
-  **User Journey**: [user] can [action].
-
-  **Description**: <More detailed explanation if needed (optional)>
-
-  **Justification**: <Why this is a significant or required desideratum>
-
-  **Recommendations**: <Any specific guidance or suggestions (optional)>
-
-  TODO: Remove this comment before finalizing.
--->
 
 ## Errata
