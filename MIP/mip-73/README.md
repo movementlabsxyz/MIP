@@ -38,7 +38,7 @@ In order to operate sustainably we require that the bridge fees cover expenditur
 
 ### Relayer - Continuous Operation and Bootstrapping
 
-Introduce an algorithm for continuous operation and bootstrapping for the Relayer, see [.](https://github.com/movementlabsxyz/MIP/pull/61).
+Introduce an algorithm for continuous operation and bootstrapping for the Relayer, see [MIP-61](https://github.com/movementlabsxyz/MIP/pull/61).
 
 ### Adjust Informer to the Lock/Mint Native Bridge design
 
