@@ -1,106 +1,72 @@
 # MIP-73: The SanFran Model
-- **Description**: Proposes an L2 model that improves the Biarritz model. It transitions to a Lock/Mint-Native Bridge, adds Bridge fees.
+- **Description**: Proposes an L2 model that improves the Biarritz model. It transitions to a Lock/Mint-Native Bridge, adds Bridge fees, and proposes changes to existing components.
 - **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
-
-<!--
-  READ MIP-1 BEFORE USING THIS TEMPLATE!
-
-  This is the suggested template for new MIPs. After you have filled in the requisite fields, please delete these comments.
-
-  Note that an MIP number will be assigned by an editor. When opening a pull request to submit your MIP, please use an abbreviated title in the filename, `mip-draft_title_abbrev.md`.
-
-  The title should be 44 characters or less. It should not repeat the MIP number in title, irrespective of the category.
-
-  The author should add himself as a code owner in the `.github/CODEOWNERS` file for the MIP.
-
-  TODO: Remove this comment before finalizing.
--->
 
 ## Abstract
 
-<!--
-  The Abstract is a multi-sentence (short paragraph) technical summary. This should be a very terse and human-readable version of the specification section. Someone should be able to read only the abstract to get the gist of what this specification does.
+The SanFran Model applies the following changes
 
-  TODO: Remove this comment before finalizing.
--->
+- formally adds the Lock/Mint-Native Bridge, see [MIP-58](https://github.com/movementlabsxyz/MIP/pull/58)
+- proposes detailed Bridge fees, see [MD-69](https://github.com/movementlabsxyz/MIP/pull/69)
+- proposes Relayer - Continuous Operation and Bootstrapping algorithm, see [MIP-61](https://github.com/movementlabsxyz/MIP/pull/61)
+- proposes changes to the Informer, see [MIP-71](https://github.com/movementlabsxyz/MIP/pull/71)
+- proposes changes to the Rate Limiter
+- proposes fast-confirmations on L2, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65)
 
 ## Motivation
 
-<!--
-  The motivation section should include a description of any nontrivial problems the MIP solves. It should not describe how the MIP solves those problems.
-
-  TODO: Remove this comment before finalizing.
--->
+This model is the result of the co-location.
 
 ## Specification
 
-<!--
-  The Specification section should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations.
-
-  It is recommended to follow RFC 2119 and RFC 8170. Do not remove the key word definitions if RFC 2119 and RFC 8170 are followed.
-
-  TODO: Remove this comment before finalizing
--->
-
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
 
+The following Diagram gives an overview of the modified or added components.
+
+![alt text](overview.png)
+_Modified or added components are shown in orange._
+
+### Lock/Mint-Native Bridge
+
+Factually the Lock/Mint-Native Bridge has been introduced prior to the co-location. However, to categorize it within a model, the SanFran Model seems suitable.
+
+We are moving away from the HTLC Native Bridge, see [MIP-39](https://github.com/movementlabsxyz/MIP/tree/main/MIP/mip-39) to the subjectively simpler design of a Lock/Mint Native Bridge, see [MIP-58](https://github.com/movementlabsxyz/MIP/pull/58). For a general overview of bridge designs, see [MIP-60](https://github.com/movementlabsxyz/MIP/pull/60).
+
+### Bridge fees
+
+In order to operate sustainably we require that the bridge fees cover expenditures of the operator sufficiently. We propose an approach for appropriate fee calculation in [MIP-58](https://github.com/movementlabsxyz/MIP/pull/58).
+
+### Relayer - Continuous Operation and Bootstrapping
+
+Introduce an algorithm for continuous operation and bootstrapping for the Relayer, see [.](https://github.com/movementlabsxyz/MIP/pull/61).
+
+### Adjust Informer to the Lock/Mint Native Bridge design
+
+With the change of the Native Bridge design the requirements, conditions and parameters have changed. [MIP-71](https://github.com/movementlabsxyz/MIP/pull/71) updates the Informer to the new setting.
+
+### Adjust the Rate Limiter to the Lock/Mint Native Bridge design
+
+With the change of the Native Bridge design the requirements, conditions and parameters have changed. MIP-??? updates the Rate Limiter to the new setting.
+
+### Add fastconfirmations
+
+In order to facility fast confirmations as requested by the Fast-Finality Settlement mechanism, we require confirmations on the L2 in addition to the confirmations on the L1 (postconfirmations, see [MIP-37](https://github.com/movementlabsxyz/MIP/pull/37)).
+
+We propose such a mechanism called fastconfirmation in [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65).
 
 ## Reference Implementation
 
-<!--
-  The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
-
-  TODO: Remove this comment before submitting
--->
-
 ## Verification
-
-<!--
-
-  All proposals must contain a section that discusses the various aspects of verification pertinent to the introduced changes. This section should address:
-
-  1. **Correctness**: Ensure that the proposed changes behave as expected in all scenarios. Highlight any tests, simulations, or proofs done to validate the correctness of the changes.
-
-  2. **Security Implications**: Address the potential security ramifications of the proposal. This includes discussing security-relevant design decisions, potential vulnerabilities, important discussions, implementation-specific guidance, and pitfalls. Mention any threats, risks, and mitigation strategies associated with the proposal.
-
-  3. **Performance Impacts**: Outline any performance tests conducted and the impact of the proposal on system performance. This could be in terms of speed, resource consumption, or other relevant metrics.
-
-  4. **Validation Procedures**: Describe any procedures, tools, or methodologies used to validate the proposal against its requirements or objectives. 
-
-  5. **Peer Review and Community Feedback**: Highlight any feedback from peer reviews or the community that played a crucial role in refining the verification process or the proposal itself.
-
-
-  TODO: Remove this comment before submitting
--->
 
 Needs discussion.
 
 ---
 
 ## Errata
-<!--
-  Errata should be maintained after publication.
-
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the proposal in which the error was identified.
-
-  TODO: Maintain this comment.
--->
 
 ---
 
 ## Appendix
-<!--
-  The Appendix should contain an enumerated list of reference materials and notes.
-
-  When referenced elsewhere each appendix should be called out with [A<number>](#A<number>) and should have a matching header.
-
-  TODO: Remove this comment before finalizing.
-
--->
 
 ### A1
 Nothing important here.
