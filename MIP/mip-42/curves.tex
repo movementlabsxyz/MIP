@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{pgfplots}
+\begin{document}
+
+\begin{tikzpicture}
+    \begin{axis}[
+        width=12cm,
+        height=8cm,
+        xlabel={Redeemed LP Token (Billions)},
+        ylabel={L1 Staking Token Value},
+        title={Step-Down to Asymptotic (SDA) Voucher Curve with Tail Approaching 0},
+        xmin=0, xmax=10,
+        ymin=0, ymax=1.2,
+        grid=both,
+        legend pos=north east,
+        every axis plot/.append style={ultra thick}
+    ]
+    
+    \addplot [
+        domain=0:2,
+        samples=100,
+        blue
+    ] {1.0};
+    
+    \addplot [
+        domain=2:5,
+        samples=100,
+        blue
+    ] {0.7};
+    
+    \addplot [
+        domain=5:8,
+        samples=100,
+        blue
+    ] {0.5};
+    
+    \addplot [
+        domain=8:10,
+        samples=100,
+        blue
+    ] {0.5 / (x - 7.5)};
+    
+    \legend{SDA Voucher Curve}
+    \end{axis}
+\end{tikzpicture}
+
+\end{document}
