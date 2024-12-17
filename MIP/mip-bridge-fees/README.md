@@ -171,7 +171,20 @@ Option 2 is an _off-chain_ solution and may provide more flexibility but probabl
 ### Completion and adjustment of bridge fees
 
 If we follow Options 1 (resp. 3), the bridging fees are adjusted either in the Move (resp. Solidity) contract that provides the `initialize` (resp. `unlock`) function.
-For option 2, the Relayer keeps track of the estimates and implements the adjustment
+For option 2, the Relayer keeps track of the estimates and implements the adjustment.
+
+### When do we make an adjustment?
+
+There are several options:
+
+- at each request (every transaction), or every $k$ transactions,
+- at time intervals (to be defined).
+
+> [!IMPORTANT]
+> In between two adjustments, the fees remain constant. We refer to the **adjustment window** as the intervals in which the fees are constant.
+
+The choice may depend on the frequency of bridging requests: if bridging are rare, we may update at every request at most.
+If they are frequent and we cannot afford to query oracles too frequently, we may decide on a time interval.
 
 ### Strategies to adjust the bridge fees
 
@@ -195,6 +208,30 @@ To start with we may use:
 - the estimated max gas price, \$ETH/\$MOVE prices when the next `unlock` transaction will be processed,
 - the current difference between the revenues (in \$MOVE) and expenses (in \$ETH), i.e. the gap surplus or deficit in our pools,
 - the time (seconds or blocks or transactions) we would like to cover a deficit.
+
+As discussed during the co-location we may start with a simple strategy limited to increasing the fees by a constant factor. The decision to increase or decrease can be taken using oracles or simply based on the funds in pools $A$ and $B$.
+
+### Simple strategies
+
+Denote $Balance(A, B)$ the difference of the balances, in USD, of pools $A$ and $B$.
+
+$$ Balance(A, B) = Balance(A).USD - Balance(B).USD \mathpunct. $$
+
+If $Balance(A, B) \geq 0$ we are running a _surplus_, otherwise a _deficit_.
+
+#### Balance based strategy
+
+A simple strategy is to increase/decrease the bridge fees by a $K$ (\$MOVE) tokens every time we update the fees.
+If $Balance(A, B) == 0$, we keep the fees as they are, if $Balance(A, B) > 0$, we increase and otherwise decrease.
+
+Assume we want to adjust the fees according to:
+
+- the most recent value of $Balance(A, B)$,
+- estimates of L1 gas price, \$ETH/\$MOVE prices in the next window.
+
+If we run a deficit we want to cover it by the next time window, and if we run a surplus, we may keep the fees unchanged or decrease them.
+
+#### Estimate and balcne based strategies
 
 <!--
   The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
