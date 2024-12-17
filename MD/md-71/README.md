@@ -16,29 +16,25 @@
 
 ## Overview
 
-Several components should react if the bridge is under attack or faulty. In particular, the considered components are the Security Fund, see [MIP-50](https://github.com/movementlabsxyz/MIP/pull/50) and the Rate Limiter, see [MIP-56](https://github.com/movementlabsxyz/MIP/pull/56).
+Several components should react if the bridge is under attack or faulty. In particular, the considered components are the Security Fund, see [MIP-50](https://github.com/movementlabsxyz/MIP/pull/50) and the Rate Limiter, see [MIP-56](https://github.com/movementlabsxyz/MIP/pull/56), and more generally the governance operator.
 
 The Operator that controls these components requires knowledge about the states of minted or locked tokens on L1 and L2. Moreover, the operation of these components may be handled via a governance, which could also rely on state information.
 
 This MD requests to provide an informing service that satisfies the above.
 
-<!--
-  Provide a brief, high-level overview of the desiderata. This section should illuminate the unified objective of the desired elements, functionalities, or features. More granular specifications should be provided below.
-
-  TODO: Remove this comment before finalizing.
--->
-
 ## Desiderata
 
-### D1: Implications if relayer does not utilize postconfirmations. 
+### D1: Implications if relayer does not utilize postconfirmations.
 
-The postconfirmation process is a synchronization mechanism for L2 to L1, see MIP-????.
+The postconfirmation process is a synchronization mechanism for L2 to L1, see [MIP-37](https://github.com/movementlabsxyz/MIP/pull/37).
 
-!!! . MIP link missing.
-
-If the Relayer completes transfers from L2 to L1 without awaiting postconfirmation of the L2 `initiation` transaction, synchronization guarantees are reduced. The postconfirmation is an anchoring mechanism that binds the L2 to a certain state hight and hash, and hinders reorgs beyond a certain depth on L2. 
+If the Relayer completes transfers from L2 to L1 without awaiting postconfirmation of the L2 `initiate` transaction, synchronization guarantees are reduced. The postconfirmation is an anchoring mechanism that binds the L2 to a certain L2 block height and hash, and hinders reorgs beyond a certain depth on L2.
 
 We need to check the implications for the Informer if the Relayer ignores postconfirmations.
+
+### D2: 
+
+
 
 <!--
   List out the specific desiderata. Each entry should consist of:
@@ -65,14 +61,3 @@ We need to check the implications for the Informer if the Relayer ignores postco
 -->
 
 ## Errata
-<!--
-  Errata should be maintained after publication.
-
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the desiderata in which the error was identified.
-
-  TODO: Maintain this comment.
--->
