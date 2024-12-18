@@ -75,7 +75,7 @@ After acceptance the MIP/MD is merged into `main` and the branch should be delet
 Additionally, the following statuses are used for MIPs/MDs that are not actively being worked on:
 
 - **Stagnant** - an MIP/MD that has not been updated for 6 months.
-- **Withdrawn** - an MIP/MD that has not been withdrawn.
+- **Withdrawn** - an MIP/MD that has been withdrawn.
 
 Finally, an MIP/MD can also be updated:
 
