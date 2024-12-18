@@ -56,15 +56,17 @@ Provide definitions that you think will empower the reader to quickly dive into 
 **Guidance and suggestions**:
 - As referenced above, the formalized proposals supported by the desired process should be reserved for changes to Movement technologies that are of the highest complexity and quality. Otherwise, the effort of the standardization will likely be counterproductive.
 
-## Errata
+## Changelog
+
 <!--
-  Errata should be maintained after publication.
+  The changelog should be maintained after publication.
 
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
+  1. **Transparency and Clarity**: The changelog acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
 
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
+  2. **Accountability**: By noting changes openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
 
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the desiderata in which the error was identified.
+  Each changelog should briefly describe each change made, accompanied by a reference to the date, version and PR in which the change was implemented.
 
   TODO: Maintain this comment.
+
 -->

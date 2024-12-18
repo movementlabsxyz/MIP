@@ -1,14 +1,14 @@
-# MIP-\<number\>: \<Title\>
+# MD-\<number\>: \<Title\>
 - **Description**: A single sentence summarizing the contents of the proposal.
 - **Authors**: [Author](mailto:author@email.com)
-- **Desiderata**: [MIP-\<number\>](../MIP/mip-\<number\>)
+- **Desiderata**: [MD-\<number\>](../MD/md-\<number\>)
 
 <!--
   READ MIP-1 BEFORE USING THIS TEMPLATE!
 
   This is the suggested template for new MIPs. After you have filled in the requisite fields, please delete these comments.
 
-  Note that an MIP number will be assigned by an editor. When opening a pull request to submit your MIP, please use an abbreviated title in the filename, `mip-draft_title_abbrev.md`.
+  Note that an MIP number will be assigned by an editor. When opening a pull request to submit your MIP, please use an abbreviated title in the filename, `README.md`.
 
   The title should be 44 characters or less. It should not repeat the MIP number in title, irrespective of the category.
 
@@ -78,17 +78,19 @@ Needs discussion.
 
 ---
 
-## Errata
+## Changelog
+
 <!--
-  Errata should be maintained after publication.
+  The changelog should be maintained after publication.
 
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
+  1. **Transparency and Clarity**: The changelog acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
 
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
+  2. **Accountability**: By noting changes openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
 
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the proposal in which the error was identified.
+  Each changelog should briefly describe each change made, accompanied by a reference to the date, version and PR in which the change was implemented.
 
   TODO: Maintain this comment.
+
 -->
 
 ---

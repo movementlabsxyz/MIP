@@ -94,8 +94,19 @@ Several suggestions are made to resolve this problem in [MD-2](../MD/md-2).
 ENTL assumes a valid Client program is one that (1) can provide the correct nonce and (2) 
 
 
-## Errata
+## Changelog
 
-Post-publication corrections, if any, to the MIPs should be documented in this section. This ensures transparency and provides readers with accurate and up-to-date information.
+<!--
+  The changelog should be maintained after publication.
+
+  1. **Transparency and Clarity**: The changelog acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
+
+  2. **Accountability**: By noting changes openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
+
+  Each changelog should briefly describe each change made, accompanied by a reference to the date, version and PR in which the change was implemented.
+
+  TODO: Maintain this comment.
+
+-->
 
 ## Appendix
