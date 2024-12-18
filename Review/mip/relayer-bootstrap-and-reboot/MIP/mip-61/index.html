@@ -1,0 +1,459 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>MIP-61: Relayer in the lock/mint bridge - Algorithm and Bootstrapping  - MIP</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../../../Approved/main/MD/md-15/index.html">Glossary</a></li><li class="chapter-item expanded "><a href="../../../../../index.html">Approved</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../index.html">MIPs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-1/index.html">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-15/index.html">MIP-15: MG (Movement Gloss)</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-39/index.html">MIP-39: MOVE Token -- HTLC-based Native Bridge Design</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-53/index.html">MIP-53: Conventions for Proposing Progressive L2 Models</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MDs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-1/index.html">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-3/index.html">MD-3: MCR under Network Partitions and Asynchrony</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-15/index.html">MD-15: Movement Glossary</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">Review</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../index.html">MIPs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/mikhail/suzuka-da-migrations/MIP/mip-13/index.html">MIP-13:  Suzuka DA Migrations Format</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled-demurrage/MIP/mip-42/index.html">MIP-15: NB-FFS Decoupled Demurrage</a></li><li class="chapter-item expanded "><a href="../../../../../Review/gas-fee-calculation/MIP/mip-16/index.html">MIP-16: Calculation of gas fees </a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mip-18/MIP/mip-18/index.html">MIP-18: Stage 0 Upgradeability and Multisigs</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andyjsbell/unwanted-framework/MIP/mip-24/index.html">MIP-24: Removal of redundant functionality from framework</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andyjsbell/proxy-root/MIP/mip-25/index.html">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mip-27/MIP/mip-27/index.html">MIP-27: Contract Pipeline</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/actor-naming-conventions/MIP/mip-28/index.html">MIP-28: Naming Conventions for Movement Protocol Design</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/FFS/MIP/mip-34/index.html">MIP-34: Fast-Finality Settlement</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled/MIP/mip-40/index.html">MIP-40: NB-FFS Decoupled</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-governed-gas-pool/MIP/mip-44/index.html">MIP-44: NB-FFS Governed Gas Pool</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/security_falliblity/MIP/mip-46/index.html">MIP-46: Security and Fallibility of the Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/gas-fees-incremental-additions/MIP/mip-47/index.html">MIP-47: Improve Gas fee collection in phases</a></li><li class="chapter-item expanded "><a href="../../../../../Review/0xmovses/aptos-gov-pool/MIP/mip-48/index.html">MIP-48: aptos_governance for Goverened Gas Pool</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/just-reward/MIP/mip-49/index.html">MIP-49: NB-FFS Governed Fees and Rewards</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/insured-bridge/MIP/mip-50/index.html">MIP-50: Insured Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/the-biarritz-model/MIP/mip-54/index.html">MIP-54: The Biarritz Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/the-bilbao-model/MIP/mip-55/index.html">MIP-55: The Bilbao Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/rate-limiter/MIP/mip-56/index.html">MIP-56: Rate-Limiter for the Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer/MIP/mip-57/index.html">MIP-57: Informer for the Operation of the HTLC-based Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip-58/MIP/mip-58/index.html">MIP-58: Trusted-Relayer focused Bridge Design</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip-crosschain-bridges-background/MIP/mip-60/index.html">MIP-60: Crosschain bridge architectures</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/index.html" class="active">MIP-61: Relayer in the lock/mint bridge - Algorithm and Bootstrapping </a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/L2confirmation/MIP/mip-65/index.html">MIP-65: FFS: Fastconfirmations</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer-lockmintbridge/MIP/mip-71/index.html">MIP-71: Informer for the Operation of the Lock/Mint Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/sanfran-model/MIP/mip-73/index.html">MIP-73: The SanFran Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/index.html">MIP-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MDs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/index.html">MD-2: Enclave Crash-resistant Key Management</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/long-range-attacks/MD/md-5/index.html">MD-4: Long Range Attacks</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/gas-offset/MD/md-4/index.html">MD-4: MCR Offsetting Gas Costs</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/block-validation/MD/md-6/index.html">MD-6: Suzuka Block Validation</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/block-validation/MD/md-7/index.html">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mikhail/suzuka-da-migrations/MD/md-13/index.html">MD-13: Suzuka DA Migrations Format</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/bridge-timelock-as-state/MD/md-14/index.html">MD-14: Bridge Should Use A More Secure Timelock</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andygolay/move-on-bitcoin/MD/md-16/index.html">MD-16: Create MOVE fungible asset on Bitcoin using runes</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/md-17/MD/md-17/index.html">MD-17: Bridge Fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/bridge-attestors/MD/md-21/index.html">MD-21: Native Bridge with Attesters</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andygolay/md-26/MD/md-26/index.html">MD-26: User-facing checks</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/md-30/MD/md-30/index.html">MD-30: Movement Name Service</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/index.html">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/just-reward/MD/md-49/index.html">MD-49: Movement L2 Gas Fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer-lockmintbridge/MD/md-71/index.html">MD-71: Informer service for the Lock/Mint-based Native Bridge</a></li></ol></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">MIP</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/movementlabsxyz/MIP-Testing" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="mip-61-relayer-in-the-lockmint-bridge---algorithm-and-bootstrapping"><a class="header" href="#mip-61-relayer-in-the-lockmint-bridge---algorithm-and-bootstrapping">MIP-61: Relayer in the lock/mint bridge - Algorithm and Bootstrapping</a></h1>
+<ul>
+<li><strong>Description</strong>: This MIP describes the process for continuous operation as well as the bootstrapping of the relayer in the lock/mint bridge.</li>
+<li><strong>Authors</strong>: <a href="mailto:andreas.penzkofer@movementlabs.xyz">Andreas Penzkofer</a>, <a href="">Phillipe</a></li>
+</ul>
+<h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
+<p>We describe an algorithm that</p>
+<ul>
+<li>Continuously checks for <code>initiate_transfer</code> events on the source chain.</li>
+<li>Issues a <code>complete_transfer</code> transaction on the target chain if not done so far.</li>
+<li>Checks the completion of transfers on the target chain.</li>
+<li>Records the source chain block height, below which all transfers are completed on the target chain.</li>
+<li>Provides a bootstrap algorithm for the relayer.</li>
+</ul>
+<p>In this algorithm the target chain contract offers a <code>complete_transfer</code> function that records transfer by <code>nonce</code> and protects against re-issuance as any nonce can be only mapped to one transfer.</p>
+<h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
+<p>We would like to minimize the number of trusted components. In a minimal solution the relayer should only trust the source chain, the target chain and itself. Other trusted sources can be proposed optionally, but ideally no other trust assumptions should be utilized.</p>
+<p>Several complications:</p>
+<ul>
+<li>The <code>complete_transfer</code> message to the target chain for bridge transfers may fail, get lost, or other. Hence we cannot rely on delivery.</li>
+<li>The relayer may loose local memory.</li>
+<li>The relayer may have to be replaced.</li>
+<li>The relayer (or its replacement) MUST not ignore a single transfer.</li>
+<li>The relayer (or its replacement) MUST deliver eventually all transfers.</li>
+<li>The finality criteria on the source chain and target chain MUST be considered.</li>
+</ul>
+<p><strong>Bootstrapping</strong>
+Currently, when the relayer starts, it doesn’t reload the state that it has when it shuts down. If transfers are processed when the relayer stops, the transfers are lost and the relayer is not able to continue the transfer.</p>
+<p>Moreover, even if the data would be stored on where to continue, the relayer may crash for a variety of reasons. The relayer can go offline or crash. It needs to automatically understand which <code>complete_transfer</code> messages it still needs to send to the target chain.</p>
+<h2 id="context"><a class="header" href="#context">Context</a></h2>
+<p>This algo is defined using the lock/mint-type Native Bridge protocol, described in <a href="https://github.com/movementlabsxyz/MIP/pull/58">MIP-58</a>.This bridge protocol has two function calls :</p>
+<ul>
+<li><code>initiate_transfer</code> on the source chain (called by user)</li>
+<li><code>complete_transfer</code> on the target chain (called by relayer)</li>
+</ul>
+<p>This algorithm is compatible with using finalized blocks (see the remark on L2 complete verification). By pulling only finalized source blocks, the nonce are always updated on finalization.</p>
+<p>In this MIP we consider the lock/mint Native Bridge, see <a href="https://github.com/movementlabsxyz/MIP/pull/60">MIP-60</a>. We will discuss a single direction of transfer - from <strong>source chain</strong> to <strong>target chain</strong>.</p>
+<h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+<p>!!! . The algorithm is the same in both directions. Hence each algorithm has to be implemented twice. Once for the transfer direction L1 –&gt; L2, and once for the L2 –&gt; L1 direction.</p>
+<p>The relayer can get its state from the source chain and target chain. The relayer operates two processes - potentially in parallel:</p>
+<p><strong>1. CONTINUOUS_BLOCK_PROCESSING</strong>: The relayer pulls transfer events from new finalized blocks from the source chain and processes them. Since we consider finalized blocks and this is a blockchain, new blocks are processed in order. For each transfer the relayer has to check if the transfer is completed on the target chain, and if not it has to complete the transfer.</p>
+<p><strong>2. BOOTSTRAPPING:</strong> The relayer initiate the event polling at some point in the past. This point is either the genesis, some configurable source block height, or some checkpoint (possibly set on-chain)</p>
+<h3 id="structures"><a class="header" href="#structures">Structures</a></h3>
+<p>On the source chain the following structure is used:</p>
+<pre><code class="language-javascript">// Source Chain Structure
+{
+    nonce: Number,          // Unique incrementing value for ordering transfers
+    recipient: String,  // Address of the recipient on the target chain
+    initiator: String,   // Address of the initiator on the source chain
+    amount: Number          // Amount being transferred
+}
+</code></pre>
+<p>On the target chain the following structure is used:</p>
+<pre><code class="language-javascript">// Target Chain Structure
+{
+    nonce: Number,         // Matching nonce from the source chain
+    transferUID: String,   // Unique identifier for the transfer
+    recipient: String,     // Address of the recipient
+    initiator: String,      // Address of the initiator
+    amount: Number         // Amount that was transferred
+}
+</code></pre>
+<p>Locally the relayer stores the following structure:</p>
+<p>!!! . TODO should be replaced by ordered list of transferIDs and a nonce list (ordered) and a block height</p>
+<pre><code class="language-javascript">// Relayer Local Structure
+{
+    blocks: [                          // Array of blocks being tracked
+        {
+            blockHeight: Number,       // Height of the block
+            status: String,            // Status of the block (e.g., "processed", "completed")
+            events: [                  // Array of events in the block
+                {
+                    eventUID: String,  // Unique identifier for the event
+                    nonce: Number,     // Matching nonce from the source chain
+                    status: String     // Status of the event (e.g., "pending", "completed")
+                }
+            ]
+        }
+    ]
+}
+</code></pre>
+<h3 id="event_processing"><a class="header" href="#event_processing">EVENT_PROCESSING</a></h3>
+<p>The relayer may send a message <code>complete_transfer</code> to the target chain for an event that has the status <code>transfer_pending</code>. This status exists during the time between the reception of the <code>initiate_transfer</code> event from the source chain and the success of the <code>complete_transfer</code> transaction on the target chain. (However, it is possible that a <code>complete_transfer</code> messages is not yet finalized on the target chain, in which case the relayer DOES NOT send a new <code>complete_transfer</code> message, but waits instead.)</p>
+<p>The Native Bridge protocol MUST implement the assignment of an incrementing <code>nonce</code> on the source chain. Since there are two directions there MUST be two types of counters (<code>nonces</code>) - one for each transfer direction. The <code>nonce</code> is used to order the transfers.</p>
+<p>For each <code>initiate_transfer</code> event do the following:</p>
+<p><img src="event_processing.png" alt="event_processing" /></p>
+<pre><code class="language-javascript">EVENT_PROCESSING:
+// Input: initiate_transfer_event from source chain
+// Input: target_chain_state - current state of the target chain
+SET `nonce` = `initiate_transfer_event.nonce`
+SET `transfer_uid` = `initiate_transfer_event.transfer_uid`
+
+// Check if the `nonce` is already recorded
+IF `nonce` is recorded THEN:
+    IF `nonce.status_transfer` is `transfer_completed` THEN:
+        RETURN.
+ELSE: 
+    CREATE new `nonce` entry locally and save it in ORDERED_SET.
+
+// note this is note the final state as is the case for most other state reads in this algorithm
+QUERY target chain contract for `nonce` in non-final state 
+        
+// If `complete_transfer` transaction was sent previously to target chain
+IF `nonce` is found THEN:
+    IF `transfer_uid` does not match THEN:
+        REPORT error and EXIT
+
+    IF `nonce` transfer is final THEN:
+        SET `nonce.status_transfer` to `transfer_completed`
+    ELSE:
+        // the status should be `transfer_pending`
+        IF `nonce.status_transfer` is NOT `transfer_pending` THEN:
+            LOG "error: nonce.status_transfer is not transfer_pending"
+        SET `nonce.status_transfer` to `transfer_pending`
+        SET timeout for relayer to re-check later
+// If no `complete_transfer` transaction was sent 
+ELSE:
+    SEND `complete_transfer` transaction to target chain
+    SET `nonce.status_transfer` to `transfer_pending`
+    SET timeout for relayer to re-check later
+</code></pre>
+<h3 id="continuous_block_processing"><a class="header" href="#continuous_block_processing">CONTINUOUS_BLOCK_PROCESSING</a></h3>
+<p>Next we describe the processing of source blocks and the completion of a transfer on the target chain, assuming the relayer is always online. Since this is a strong assumption, we reduce this requirement in the next section.</p>
+<p><img src="continuous_processing.png" alt="continuous_processing" /></p>
+<pre><code class="language-javascript">CONTINUOUS_BLOCK_PROCESSING: 
+// Input: source_block - newly finalized block from source chain
+NEW `block` with blockHeight `source_block.height` in `blocks`
+
+// Process each initiate_transfer event
+FOR EACH `event` IN `source_block.initiate_transfer_events` DO:
+    RUN EVENT_PROCESSING(`event`)
+
+// Mark the block as processed, this 
+SET `block.status` as `block_processed`
+</code></pre>
+<p>!!! . Setting the source_block.status as processed and storing that information in a file, or similar, could help with bootstrapping the relayer in the future.</p>
+<h4 id="optimizations-to-consider-errors-in-the-above-procedure"><a class="header" href="#optimizations-to-consider-errors-in-the-above-procedure">Optimizations to consider errors in the above procedure</a></h4>
+<p>This step is optional but should be considered.</p>
+<p>Introduce a status <code>transfer_init</code> to differentiate a state between nonce creation locally and sending successfully a <code>complete_transfer</code> transaction to the target chain.</p>
+<p><img src="init_optimization.png" alt="init_optimization" /></p>
+<h4 id="calculation-of-completed-source-block-height"><a class="header" href="#calculation-of-completed-source-block-height">Calculation of Completed Source Block Height</a></h4>
+<p>In this section the process is defined to calculate the completed part of the source chain <code>completed_block_height</code> and <code>completed_nonce_height</code>.</p>
+<p><img src="complete_block_height.png" alt="complete_block_height" /></p>
+<p>Replace</p>
+<pre><code class="language-javascript">IF `nonce.status_transfer` is `transfer_completed` THEN:
+    RETURN
+</code></pre>
+<p>with</p>
+<pre><code class="language-javascript">PROCESS_COMPLETED_NONCE_HEIGHT:
+IF `nonce.status_transfer` is `transfer_completed` THEN:
+    IF `nonce` is not `completed_nonce_height + 1` THEN: 
+        RETURN
+    ELSE:
+        SET `completed_nonce_height += 1`
+        // the following pruning is required to keep the memory sane.
+        DELETE every `nonce` with `nonce` &lt; `completed_nonce_height`
+        IF this `nonce` is the last nonce in the source block THEN:
+            SET `completed_block_height += 1`
+        IF the next `nonce.status_transfer` is `transfer_completed` THEN:
+            GOTO PROCESS_COMPLETED_NONCE_HEIGHT
+        ELSE:
+            RETURN
+</code></pre>
+<h3 id="timeout-algorithm"><a class="header" href="#timeout-algorithm">TIMEOUT algorithm</a></h3>
+<ol>
+<li>Whenever the timeout of a transfer (which has <code>transfer_pending</code> status) is triggered. Start the event processing.</li>
+</ol>
+<pre><code class="language-javascript">TIMEOUT:
+// Input: timeoutTriggeredEvent - Event whose timeout has been triggered
+
+ON timeoutTriggered(`timeoutTriggeredEvent`) DO:
+    // Check if the transfer has a pending status
+    IF `timeoutTriggeredEvent.status` is `transfer_pending` THEN:
+        // Start the event processing for the triggered event
+        RUN EVENT_PROCESSING(`timeoutTriggeredEvent`).
+    ELSE:
+        // If status is not pending, ignore or log
+        LOG "Timeout triggered for a non-pending transfer.";
+</code></pre>
+<p><img src="timeout.png" alt="alt text" /></p>
+<h3 id="bootstrapping"><a class="header" href="#bootstrapping">BOOTSTRAPPING</a></h3>
+<p>Next we describe how the bootstrap algorithm works and differs from the above.</p>
+<p>!!! . A node that is bootstrapping SHOULD start the <a href="#continuous-block-processing">CONTINUOUS_BLOCK_PROCESSING</a> algorithm in parallel. This allows to immediately assume normal operation while attempting to catch up with what has been missed.</p>
+<p><img src="bootstrap.png" alt="alt text" /></p>
+<p>The Algorithm differs from the CONTINUOUS_BLOCK_PROCESSING in that it runs in parallel and will catch up with missing transfers eventually. While not hindering the continuous operation of the Relayer. It implements a delay to start at the beginning, which conveniently prevents that <code>complete_transfer</code> transactions would be sent accidentally twice to the target chain (and which if it would happen frequent could turn out to be expensive).</p>
+<pre><code class="language-javascript">BOOTSTRAPPING
+// Start the continuous block pocessing protocol in parrallel to this algorithm
+START CONTINUOUS_BLOCK_PROCESSING protocol 
+SET `first_CP_block` = first processed block by CONTINUOUS_BLOCK_PROCESSING
+
+// Set initial processed block parameters
+SET `end_source_block` = `first_CP_block` - 1
+SET `start_source_block` = some INPUT value
+
+// Wait for a predefined time (e.g. 10 minutes) 
+// to ensure all relevant blocks have arrived
+WAIT for `wait_time` 
+
+// Process source blocks in the specified range
+FOR `current_block` = `start_source_block` TO `end_source_block` DO:
+    RUN CONTINUOUS_BLOCK_PROCESSING using `current_block` as the source block.
+</code></pre>
+<h4 id="bootstrap-input-types"><a class="header" href="#bootstrap-input-types">Bootstrap input types</a></h4>
+<p><strong>Manual input</strong>
+Based on knowledge of when the relayer stopped, we can inject a parameter about the source block height from which the relayer should start to bootstrap. Default is the genesis or some arbitrary long interval in the past, e.g. 2 weeks.</p>
+<p><strong>Reading from local memory</strong>
+In the CONTINUOUS_BLOCK_PROCESSING Algorithm the Relayer can record the height of the source block <code>completed_block_height</code> as described in the Calculation-Completed-Block-Height algorithm. When rebooting or bootstrapping the node, the relayer can start from the last point it left.</p>
+<p><strong>Reading from chain</strong>
+The relayer records on the source or target chain (whichever is cheaper) the <code>completed_block_height</code> (see <a href="#calculation-of-completed-source-block-height">PROCESS_COMPLETED_NONCE_HEIGHT</a>. This can happen infrequent. A separate algorithm needs to be spelled out which records the highest source block, below which all source blocks with transfers are completed.</p>
+<h2 id="considered-alternatives"><a class="header" href="#considered-alternatives">Considered Alternatives</a></h2>
+<ol>
+<li>Use of indexer DB.</li>
+</ol>
+<p>This creates a dependency to another component. For example, if the postgres db has an issue, the relayer has an issue. Even thought the relayer doesn’t need the db to process.</p>
+<h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
+<!--
+  The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
+
+  TODO: Remove this comment before submitting
+-->
+<h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
+<p>Needs discussion.</p>
+<hr />
+<h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
+<h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
+<hr />
+<h2 id="copyright"><a class="header" href="#copyright">Copyright</a></h2>
+<p>Copyright and related rights waived via <a href="../LICENSE.html">CC0</a>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../../Review/mip-crosschain-bridges-background/MIP/mip-60/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../../../Review/mip/L2confirmation/MIP/mip-65/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../../Review/mip-crosschain-bridges-background/MIP/mip-60/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../../../Review/mip/L2confirmation/MIP/mip-65/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../../../elasticlunr.min.js"></script>
+        <script src="../../../../../mark.min.js"></script>
+        <script src="../../../../../searcher.js"></script>
+
+        <script src="../../../../../clipboard.min.js"></script>
+        <script src="../../../../../highlight.js"></script>
+        <script src="../../../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

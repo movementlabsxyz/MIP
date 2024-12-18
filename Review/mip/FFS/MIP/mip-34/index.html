@@ -1,0 +1,419 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>MIP-34: Fast-Finality Settlement - MIP</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../../../Approved/main/MD/md-15/index.html">Glossary</a></li><li class="chapter-item expanded "><a href="../../../../../index.html">Approved</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../index.html">MIPs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-1/index.html">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-15/index.html">MIP-15: MG (Movement Gloss)</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-39/index.html">MIP-39: MOVE Token -- HTLC-based Native Bridge Design</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-53/index.html">MIP-53: Conventions for Proposing Progressive L2 Models</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MDs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-1/index.html">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-3/index.html">MD-3: MCR under Network Partitions and Asynchrony</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-15/index.html">MD-15: Movement Glossary</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">Review</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../index.html">MIPs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/mikhail/suzuka-da-migrations/MIP/mip-13/index.html">MIP-13:  Suzuka DA Migrations Format</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled-demurrage/MIP/mip-42/index.html">MIP-15: NB-FFS Decoupled Demurrage</a></li><li class="chapter-item expanded "><a href="../../../../../Review/gas-fee-calculation/MIP/mip-16/index.html">MIP-16: Calculation of gas fees </a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mip-18/MIP/mip-18/index.html">MIP-18: Stage 0 Upgradeability and Multisigs</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andyjsbell/unwanted-framework/MIP/mip-24/index.html">MIP-24: Removal of redundant functionality from framework</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andyjsbell/proxy-root/MIP/mip-25/index.html">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mip-27/MIP/mip-27/index.html">MIP-27: Contract Pipeline</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/actor-naming-conventions/MIP/mip-28/index.html">MIP-28: Naming Conventions for Movement Protocol Design</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/FFS/MIP/mip-34/index.html" class="active">MIP-34: Fast-Finality Settlement</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled/MIP/mip-40/index.html">MIP-40: NB-FFS Decoupled</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-governed-gas-pool/MIP/mip-44/index.html">MIP-44: NB-FFS Governed Gas Pool</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/security_falliblity/MIP/mip-46/index.html">MIP-46: Security and Fallibility of the Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/gas-fees-incremental-additions/MIP/mip-47/index.html">MIP-47: Improve Gas fee collection in phases</a></li><li class="chapter-item expanded "><a href="../../../../../Review/0xmovses/aptos-gov-pool/MIP/mip-48/index.html">MIP-48: aptos_governance for Goverened Gas Pool</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/just-reward/MIP/mip-49/index.html">MIP-49: NB-FFS Governed Fees and Rewards</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/insured-bridge/MIP/mip-50/index.html">MIP-50: Insured Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/the-biarritz-model/MIP/mip-54/index.html">MIP-54: The Biarritz Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/the-bilbao-model/MIP/mip-55/index.html">MIP-55: The Bilbao Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/rate-limiter/MIP/mip-56/index.html">MIP-56: Rate-Limiter for the Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer/MIP/mip-57/index.html">MIP-57: Informer for the Operation of the HTLC-based Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip-58/MIP/mip-58/index.html">MIP-58: Trusted-Relayer focused Bridge Design</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip-crosschain-bridges-background/MIP/mip-60/index.html">MIP-60: Crosschain bridge architectures</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/index.html">MIP-61: Relayer in the lock/mint bridge - Algorithm and Bootstrapping </a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/L2confirmation/MIP/mip-65/index.html">MIP-65: FFS: Fastconfirmations</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer-lockmintbridge/MIP/mip-71/index.html">MIP-71: Informer for the Operation of the Lock/Mint Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/sanfran-model/MIP/mip-73/index.html">MIP-73: The SanFran Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/index.html">MIP-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MDs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/index.html">MD-2: Enclave Crash-resistant Key Management</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/long-range-attacks/MD/md-5/index.html">MD-4: Long Range Attacks</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/gas-offset/MD/md-4/index.html">MD-4: MCR Offsetting Gas Costs</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/block-validation/MD/md-6/index.html">MD-6: Suzuka Block Validation</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/block-validation/MD/md-7/index.html">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mikhail/suzuka-da-migrations/MD/md-13/index.html">MD-13: Suzuka DA Migrations Format</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/bridge-timelock-as-state/MD/md-14/index.html">MD-14: Bridge Should Use A More Secure Timelock</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andygolay/move-on-bitcoin/MD/md-16/index.html">MD-16: Create MOVE fungible asset on Bitcoin using runes</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/md-17/MD/md-17/index.html">MD-17: Bridge Fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/bridge-attestors/MD/md-21/index.html">MD-21: Native Bridge with Attesters</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andygolay/md-26/MD/md-26/index.html">MD-26: User-facing checks</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/md-30/MD/md-30/index.html">MD-30: Movement Name Service</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/index.html">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/just-reward/MD/md-49/index.html">MD-49: Movement L2 Gas Fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer-lockmintbridge/MD/md-71/index.html">MD-71: Informer service for the Lock/Mint-based Native Bridge</a></li></ol></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">MIP</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/movementlabsxyz/MIP-Testing" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="mip-34-fast-finality-settlement"><a class="header" href="#mip-34-fast-finality-settlement">MIP-34: Fast-Finality Settlement</a></h1>
+<ul>
+<li><strong>Description</strong>: Establish the scope and components that are part of the Fast-Finality Settlement mechanism.</li>
+<li><strong>Authors</strong>: <a href="">Franck Cassez</a>, <a href="mailto:andreas.penzkofer@movementlabs.xyz">Andreas Penzkofer</a></li>
+</ul>
+<h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
+<p>Fast-Finality Settlement (FFS) is a mechanism that allows for fast <em>confirmation</em> of transactions backed by crypto-economic security. This MIP outlines the high-level specifications and architecture of FFS.</p>
+<p>FFS is divided into</p>
+<ul>
+<li><strong>Postconfirmation</strong>: a mechanism to confirm the validity of a block on L1</li>
+<li><strong>L2-confirmation</strong>: a mechanism to confirm the validity of a block on L2</li>
+</ul>
+<h2 id="definitions"><a class="header" href="#definitions">Definitions</a></h2>
+<p>We make a note for the following terms:</p>
+<ul>
+<li><strong>batch</strong> (not recommended)
+Less clean, but more common term for sequencer-batch. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of blocks that should be processed by the L1-contract.</li>
+<li><strong>block</strong>
+More common term for L2-block. May be mixed up with the batch of transactions sent to the sequencer, the L1-block or with the batch of L2-blocks that should be processed by the L1-contract. Here we mean L2-block when we say block.</li>
+<li><strong>attester</strong>  (not recommended)
+The term attester has been deprecated in favor of validator.</li>
+<li><strong>quorum certificate</strong> (not recommended)
+The term quorum certificate has been deprecated in favor of L2-confirmation certificate.</li>
+</ul>
+<h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
+<p>Layer 2s (L2), including rollups, publish or secure transaction data in a data availability (DA) layer or at Ethereum mainnet (Layer 1, L1). Validity and optimistic rollups can finalize (confirm) transactions within approximately 30 minutes, resp. ~1 week. Until a transaction is finalized, there is no assurance about its validity and result (success or failure). This can be a limiting factor for certain types of DeFi applications.</p>
+<p>Our objective is to enable transaction issuers to quickly get some guarantees that their transactions are correctly included in a block. The crypto-economic security is provided by a Proof-of-Stake (PoS) protocol.</p>
+<p>The mechanism can be deployed independently for a chain, or used in combination with existing settlement mechanisms, such as ZK and optimistic settlements.</p>
+<p>As a result, users can rely and trust the <strong>L2-confirmation</strong> (sometimes also described as L2-finality) to use as confirmation, or if the chain is configured to do so, wait for <strong>L1-finality</strong>, such as end of challenge window for fraud proofs (optimistic L2) or verification of a ZK-proof (validity L2).</p>
+<p>A introduction to FFS can be found in <a href="https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement">this blog post on Fast-Finality Settlement</a>. A more detailed description of a (partial) implementation of the mechanism is available at <a href="https://blog.movementlabs.xyz/article/postconfirmations-L2s-rollups-blockchain-movement">this blog post on postconfirmations</a>.</p>
+<p>This MIP provides an overview of an architecture of FFS, and its main components.</p>
+<h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
+<h3 id="overview"><a class="header" href="#overview">Overview</a></h3>
+<p><strong>FFS</strong>. The objective of Fast Finality Settlement (FFS) is to confirm that transactions are <em>processed</em> correctly and that the node has <em>read</em> the transactions in the correct order. It does not impact the already established order of transactions by the sequencer.</p>
+<p>At an abstract level, the L2-blockchain increases by a new block in each (L2) round, and this block is the successor of the block in the previous round, the <em>predecessor</em>. Initially, there is a <em>genesis</em> block with no predecessor.</p>
+<p><strong>Sequencer-Batch</strong>. Each round corresponds to the processing of a <em>sequencer-batch</em> of transactions which is proposed by the <em>sequencer</em> (can be centralized, decentralized, shared).</p>
+<p><strong>L2-Block</strong>. For the vast majority of cases we mean L2-blocks, thus we will omit the “L2-” prefix, i.e. by <em>block</em> we mean L2-block. A node with execution capability is in charge of validating the transactions in a sequencer-batch and calculate the new state. Since the sequencer-batches are provided by the sequencer, the new state and the state roots for a block are deterministic. For a sequencer-batch $b$ the state is $S_b$ and the state root is $H(S_b)$. From the sequencer-batch $b$ and the state $S_b$ the block $B$ is computed (which contains the information of the sequencer-batch and the state root).</p>
+<p><strong>Block-range</strong>. L2-Blocks can be constructed and confirmed on L2 at a higher rate than is feasible for L1. We group L2-blocks into a <em>block-range</em> that is confirmed together.</p>
+<p><strong>Local validation</strong>. Since a block is deterministically calculated we say a block (and the associated new state) is <em>validated locally</em> once the execution engine calculates it from the sequencer-batch.</p>
+<p>The validity judgement to be made is:</p>
+<blockquote>
+<p>[!NOTE]
+Given a block $B$ (predecessor), a sequencer-batch of transactions $txs$ and a successor block $B’$, is $B’$ the^[the MoveVM is deterministic and there can be only valid successor.] <em>correct</em> successor of $B$ after executing the sequence of transactions $txs$?</p>
+</blockquote>
+<p>The term <em>correct</em> means that the successor block $B’$ (and the state it represents) has been computed in accordance with the semantics of the MoveVM, which we denote  $B \xrightarrow{\ txs \ } B’$.</p>
+<p><strong>Validator</strong>. A node that is responsible for validating transactions and confirming L2-blocks. To guarantee the validity of a new block $B’$, we use a set of <em>validators</em> who are in charge of verifying the transition $B \xrightarrow{\ txs \ } B’$.</p>
+<p><strong>Attestation</strong>. A validator <em>attests</em> for a new block $B’$. This can be done, for example, by casting a vote :white_check_mark: (true) or :x: (false) for a proposal by a leader validator. Or by each validator sending the hash of the block they have validated.</p>
+<p><strong>L2-confirmation certificate</strong>. When enough validators have attested for a new block $B’$, the block is <em>L2-confirmed</em> (sometimes referred to as <em>L2-final</em>). The accumulation of enough votes is aggregated in an L2-confirmation certificate. A naive implementation of the L2-confirmation certificate is a list of votes.</p>
+<blockquote>
+<p>[!NOTE]
+Until a better definition arises we consider <em><strong>confirmation</strong></em> to be defined as <em>L2-finality</em> (i.e. <em>L2-confirmation</em>).</p>
+</blockquote>
+<p><strong>L2-confirmation</strong>. FFS aims to <em>confirm</em> the validity of each produced L2-block, at every L2-block height.</p>
+<blockquote>
+<p>[!IMPORTANT]
+If we confirm each successor block before adding it to the (confirmed) L2-chain, there cannot be any fork, except if the sequencer would provide equivocating sequencer-batches for a given height AND there is a sufficiently strong Byzantine attack on the confirmation process.</p>
+</blockquote>
+<p>If the validators can attest blocks quickly and make their attestations available to third-parties, we have a fast confirmation mechanism supported by crypto-economic security, the  level of which depends on what is at stake for the confirmation of a block.</p>
+<p><strong>Postconfirmation</strong>. At certain intervals confirmation will also be achieved on L1. The L1 contract will verify the satisfaction of the super-majority criteria. This provides an L1-protected <em>postconfirmation</em> that the block (or a batch of blocks, which we call <em>block range</em>) is confirmed. This additional anchoring mechanism increases the security of the L2-confirmation as it locks in the L2-confirmation, reduces the risk of long range attacks and provides a way to slash validators that have attested for invalid blocks.</p>
+<p><strong>Slashing</strong>. The security of the mechanism relies on a PoS protocol. Each validator has to stake some assets, and if they are malicious they <em>should</em> be slashed.
+The condition for slashing may be met by several quiteria, and not all slashing conditions may be used:</p>
+<ul>
+<li>equivocate (send a different vote to different validators or users)</li>
+<li>vote :white_check_mark: for an invalid block</li>
+<li>vote :x: for a valid block</li>
+</ul>
+<h3 id="main-challenges"><a class="header" href="#main-challenges">Main challenges</a></h3>
+<p>To achieve crypto-economically secured fast finality, we need to solve the following problems:</p>
+<ol>
+<li>design a <em>staking</em> mechanism for the validators to stake assets, distribute rewards and manage slashing</li>
+<li><em>define and verify</em> the threshold (e.g. 2/3 of validators attest :white_check_mark:) for L2-confirmation</li>
+<li><em>communicate</em> the L2-confirmation status.</li>
+</ol>
+<p>In addition the following may require separate discussion, as it is a different procedure (postconfirmations are handled in smart contracts on L1, whereas L2-confirmations are handled off-chain)</p>
+<ol start="4">
+<li><em>define and verify</em> the threshold (e.g. 2/3 of validators attest :white_check_mark:) for postconfirmation.</li>
+</ol>
+<h3 id="components"><a class="header" href="#components">Components</a></h3>
+<h4 id="staking-addresses-1-and-2"><a class="header" href="#staking-addresses-1-and-2">Staking (addresses 1. and 2.)</a></h4>
+<p>The staking mechanism is implemented in a contract on L1.
+This contract provides the following functionalities:</p>
+<ul>
+<li>join: a new validator can join the set of validators by staking some assets</li>
+<li>exit: a validator exits and  get their stakes back</li>
+<li>vote: receive a vote or a set of votes, verify the integrity of the votes (signatures) and the minimum threshold (e.g. 2/3)</li>
+</ul>
+<h4 id="handle-l2-confirmation-addreses-3"><a class="header" href="#handle-l2-confirmation-addreses-3">Handle L2-confirmation (addreses 3.)</a></h4>
+<p>To ensure that the L2-confirmation status is made available to third-parties, we may publish our <em>proof</em>  (2/3 of attestations :white_check_mark:) to a data availability layer and get a <em>certificate</em> that the proof is available.<br />
+This DA layer should offer a reliable <em>mempool</em> for example as described <a href="https://arxiv.org/pdf/2105.11827">in this paper</a>.</p>
+<h4 id="handle-postconfirmations-addresses-4"><a class="header" href="#handle-postconfirmations-addresses-4">Handle postconfirmations (addresses 4.)</a></h4>
+<p>The L1 contract will verify the L2-confirmation certificate. If the certificate is correct the block (or sequence of blocks) are <em>postconfirmed</em>. This requires handling who should send the certificate to the L1 contract, and how to verify the certificate.</p>
+<h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
+<p>To simplify we assume that each validator stakes the same amount.
+The set of validators is in charge of validating sequenced batches and producing blocks that also commit to the state root of the sequenced batch.</p>
+<p>There may be different protocols for the postconfirmation and the L2-confirmation. Version A and version B address Postconfirmation. Version C includes L2-confirmation.</p>
+<h4 id="version-a-postconfirmation-with-leader-dependent-blocks"><a class="header" href="#version-a-postconfirmation-with-leader-dependent-blocks">Version A: Postconfirmation with leader-dependent blocks</a></h4>
+<p>A leader validator is elected for a certain interval. The leader proposes the next transition (block-range $B_r’$):  $B_r \xrightarrow{\ txs \ } B_r’$. The leader can do so by sending a digest of $txs$ (Merkle root) and a digest of $B_r’$ (Merkle root hash of $B_r’$), or a <em>change set</em>. The leader commits on L1 to $B_r’$. Every validator checks the validity of $B_r’$ and prepares a vote message (:white_check_mark: or :x:).</p>
+<p><strong>Direct L1 commitments</strong>. The vote messages of each validator are directly sent to the L1 contract. Once enough votes are available on L1, the leader initiates the postconfirmation process.</p>
+<p><strong>Leader collects votes</strong>. The vote messages of each validator are directly sent to the L1 contract. Once the votes reach the required threshold :white_check_mark: for $B_r’$, the leader initiates the postconfirmation process with the proof of the votes.</p>
+<p><img src="postconfirmationV1.png" alt="Version A Diagram" />
+<em>Figure 1: <strong>Postconfirmation</strong>: Leader-dependent L2-block generation process in Version A.</em></p>
+<h4 id="version-b-postconfirmation-with-deterministic-blocks"><a class="header" href="#version-b-postconfirmation-with-deterministic-blocks">Version B: Postconfirmation with deterministic blocks</a></h4>
+<p>Blocks are deterministically derived from the sequencer-batch, and consequently the block-range $B_r’$ is deterministic. This is in contrast to Version A, where a leader proposes the next transition.Validators then attest for the next transition directly:  $B_r \xrightarrow{\ txs \ } B_r’$. E.g. by commiting to the the hash of $B_r’$.</p>
+<p>An additional actor - the <code>acceptor</code> - is introduced that initiates the postconfirmation process. This is necessary, as this step requires additional gas costs on L1 and thus this role requires additional rewards. The <code>acceptor</code> serves for a specified period and is then replaced by another validator.</p>
+<blockquote>
+<p>[!NOTE]
+Since the block derivation is deterministic, $f+1$ may be sufficient to confirm the block. (However, we require $2f+1$ to cover potential edge cases, such as that the sequencer cannot be trusted.)</p>
+</blockquote>
+<p><strong>Direct L1 commitments</strong>. In the scenario where validators commit individually they send the block hashes of the calculated blocks directly to the L1 contract.</p>
+<p><strong>Acceptor collects commitments</strong>. In a more optimised scenario, the acceptor sends the super-majority proof to the L1 contract.</p>
+<p><img src="postconfirmationV2.png" alt="Version A Diagram" />
+<em>Figure 2: <strong>Postconfirmation</strong>: Leader-independent (deterministic) L2-block generation process in Version B.</em></p>
+<h4 id="version-c-l2-confirmation-with-deterministic-blocks"><a class="header" href="#version-c-l2-confirmation-with-deterministic-blocks">Version C: L2-confirmation with deterministic blocks</a></h4>
+<p>This approach extends Version B.</p>
+<p>A p2p layer is established between validators. Validators communicate to aggregate a threshold of votes on each deterministically determined L2-block. This provides L2-confirmations in the order of seconds.</p>
+<p>Since this approach already collects commitments off-L1, the natural choice is to use Version B where the acceptor collects the commitments and sends the super-majority proof to the L1 contract. This provides postconfirmations in the order of minutes.</p>
+<p><img src="fullDesign.png" alt="Version A Diagram" />
+<em>Figure 3: <strong>Postconfirmation + L2-confirmation</strong>: Leader-independent (deterministic) L2-block generation process in Version C. Validators co-operate to create a L2-confirmation certificate before L1 is involved.</em></p>
+<h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
+<h3 id="correctness-and-security"><a class="header" href="#correctness-and-security">Correctness and Security</a></h3>
+<p>A more detailed discussion on the correctness and security is discussed in <a href="https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement">this blog post on FFS</a>.</p>
+<p>The level of security depends on the total stake of the L2 validators. The higher the more secure.</p>
+<p>The correctness of the mechanism relies on a few trust assumptions.</p>
+<p><strong>Byzantine assumption</strong>.
+We assume that at most $f$ of the total $n=3f+1$ (L2) validators can be malicious.
+This implies that if more than $2f +1$ attest :white_check_mark: for a new block, at least $f + 1$ honest validators have attested :white_check_mark:, so at least one honest validator has :white_check_mark: $B’$ and $B’$ is valid. Thus, we request that &gt;$\frac{2}{3}n$ (super-majority)  validators have :white_check_mark: $B’$ to validate $B’$.</p>
+<p><strong>Postconfirmations</strong>. We assume that the contract that validates the proof of super-majority is correct (there are no bugs in the implementation of the contract). As a result, when the staking contract verification step is confirmed on L1 (L1-finality), the super-majority proof verification is L1-secure.</p>
+<p>Combining the two results above we have: confirmation (L1 contract) that &gt;2/3 of validators have attested :white_check_mark: and if &gt;2/3 have attested :white_check_mark: then $B’$ is valid. So overall, if the &gt;2/3 super-majority is verified by the staking contract, $B’$ is valid.</p>
+<p><strong>L2-confirmation</strong> The L2 validators also publish the proofs to a DA layer and once the proof is available it cannot be tampered with. Thus, we can provide some guarantees about the irreversibility of transactions when the availability certificate (of the L2-confirmation certificate) is delivered, and before the actual proof is verified on L1. If validators misbehave, they <em>will</em> be slashed on L1, which provides strong incentives for validators not to act malicious.</p>
+<p>This is conditional to:</p>
+<ul>
+<li>ensuring that the validators send the same proof to the L1 staking contract and to the DA.</li>
+<li>validators cannot exit too early (not before the proof they are committed to are confirmed on L1).</li>
+</ul>
+<h3 id="performance"><a class="header" href="#performance">Performance</a></h3>
+<p>There are several aspects that can impact performance and should be properly addressed:</p>
+<ul>
+<li>time to collect the super-majority votes</li>
+<li>time to get an availability certificate for the super-majority proof</li>
+<li>number and size of messages and transactions, specifically containing the signatures</li>
+</ul>
+<h2 id="detailed-plan-and-implementation"><a class="header" href="#detailed-plan-and-implementation">Detailed plan and implementation</a></h2>
+<p>A detailed plan should be proposed addressing the implementation of the different components, and ideally MIPs to capture the requirements for each component.</p>
+<ul>
+<li><strong>validators network</strong>: how they communicate and build the <em>super-majority proof</em>.</li>
+<li><strong>L2-confirmation</strong>: communication of the super-majority proof to the DA. Validators should certificate in the order of seconds to provide confirmation guarantees in the order of seconds.</li>
+<li><strong>postconfirmation</strong>: L1 validation contract, how it verifies the super-majority proof and if and how there is interaction with the DA layer.</li>
+<li><strong>staking</strong>: what crypto-coin is used for staking, safeguards to prevent validators from exiting too early etc</li>
+</ul>
+<h2 id="optimizations"><a class="header" href="#optimizations">Optimizations</a></h2>
+<p>There are several aspects that could be optimized and refined:</p>
+<ul>
+<li><strong>super-majority proof</strong>: it can be a list of votes, but could also be a zk-proof (more compact). The suer-majority proof is not a proof of correct execution (as in zkVM) but simply of super-majority and this is cheaper to compute.</li>
+<li><strong>signatures aggregation</strong>: we want to avoid sending large transactions to the L1 as it increases operational costs. How to aggregate signatures to send more compact messages/transactions?</li>
+<li><strong>delegation/weighted stakes</strong>: a mechanism for validators to delegate their voting power to other validators. Ability for validators to stake different amounts (and use weighted stakes super-majority).</li>
+<li><strong>commit to a sequence of L2-blocks</strong>. The L2-confirmation certificate could be per block. However, on L1 we may want to commit to a sequence of blocks. This can be done by committing to the state root of the last block in the sequence or more complicated approaches using Merkle roots.</li>
+<li><strong>involvement of DA layer</strong>. Validators sent their votes or commitments to a DA layer off-L1. This ensures that votes remain available and can be used for potential slashing. This step should take O(1) second if we use a fast reliable mempool.</li>
+</ul>
+<!-- 
+4. **Validation Procedures**:
+
+n/a
+
+5. **Peer Review and Community Feedback**:
+
+n/a -->
+<h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
+<!--
+  Errata should be maintained after publication.
+
+  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
+
+  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
+
+  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the proposal in which the error was identified.
+
+  TODO: Maintain this comment.
+-->
+<p>n/a</p>
+<h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
+<!--
+  The Appendix should contain an enumerated list of reference materials and notes.
+
+  When referenced elsewhere each appendix should be called out with [A<number>](#A<number>) and should have a matching header.
+
+  TODO: Remove this comment before finalizing.
+
+-->
+<p>n/a</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../../Review/l-monninger/actor-naming-conventions/MIP/mip-28/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../../../Review/l-monninger/ab-ffs-decoupled/MIP/mip-40/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../../Review/l-monninger/actor-naming-conventions/MIP/mip-28/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../../../Review/l-monninger/ab-ffs-decoupled/MIP/mip-40/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../../../elasticlunr.min.js"></script>
+        <script src="../../../../../mark.min.js"></script>
+        <script src="../../../../../searcher.js"></script>
+
+        <script src="../../../../../clipboard.min.js"></script>
+        <script src="../../../../../highlight.js"></script>
+        <script src="../../../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
