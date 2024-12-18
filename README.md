@@ -1,15 +1,24 @@
 
 # MIP, MD and MG
 
-We differentiate between MD and MIPs.
+We differentiate between issues, MD and MIPs.
 
 An overview of the MIPs and MDs can be found in the [OVERVIEW](https://movementlabsxyz.github.io/MIP/).
+
+The lifecycle of a proposal should be:
+
+1. create a [new issue](https://github.com/movementlabsxyz/MIP/issues) to register the intent to write an MD/MIP and its scope.
+2. If 1. is approved (this may require some discussions), start writing an MD and create a PR for it using [this Draft](../../md-template.md).
+3. if 2. is approved (this may require some discussions on the MD PR) start writing the MIP and create a PR for it using [this Draft](../../mip-template.md).
+
+```mermaid
+graph LR
+    A[Idea: issue] --> B[Request: MD] --> C[Solution: MIP]
+```
 
 In addition MG serves as a glossary for terms defined in the MIPs and MDs.
 
 ## Movement Desiderata (MD)
-
-See [MD-0](./MD/md-0) to get started. A template is provided at [md-template](md-template.md).
 
 MDs serve to capture the **objectives** behind the **introduction** of a particular MIP. Any  
 
@@ -19,9 +28,11 @@ MDs serve to capture the **objectives** behind the **introduction** of a particu
 
 related to MIPs should be documented as an MD and stored in the MD directory.
 
+A template with instructions is provided at [md-template](md-template.md). See [MIP-0](./MIP/mip-0) for a definition of its functionality.
+
 ## Movement Improvement Proposal (MIP)
 
-See [MIP-0](./MIP/mip-0) to get started. A template is provided at [mip-template](mip-template.md).
+A template with instructions is provided at [mip-template](mip-template.md). See [MIP-0](./MIP/mip-0) for a definition of its functionality.
 
 ### Deciding whether to propose
 
