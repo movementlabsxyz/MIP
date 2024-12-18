@@ -1,4 +1,5 @@
 # MIP-74: Rate-Limiter for the Lock/Mint-type Native Bridge
+
 - **Description**: A rate limitation mechanism for the Lock/Mint-type Native Bridge.
 - **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 - **Desiderata**: [MD-74](../../MD/md-74/README.md)
@@ -94,6 +95,7 @@ The rate limitation works as follows:
 I can convert the following into pseudo code, after we have discussed the algorithm and it makes sense.
 
 **Algorithm for the Native Bridge contract on the source chain**
+
 1. A user wants to transfer value from source to target chain.
 1. The user sends a transaction to the source chain Native Bridge contract.
 1. The source chain Native Bridge contract checks if the rate limit `rate_limit_source` is exceeded if it would apply the transaction.
@@ -101,19 +103,19 @@ I can convert the following into pseudo code, after we have discussed the algori
     1. Else the transaction is accepted.
   
 **Algorithm for the Native Bridge contract on the target chain**
-1. The target chain Native Bridge contract checks if the rate limit `rate_limit_target` is exceeded if it would apply the transaction. 
+
+1. The target chain Native Bridge contract checks if the rate limit `rate_limit_target` is exceeded if it would apply the transaction.
     1. If the rate limit is exceeded the transaction is rejected.
     1. If the rate limit is not exceeded the transaction is accepted.
 
 The following algorithm is a recommendation for the operation of the Relayer:
 
 **(Optional) Algorithm for the Relayer**
+
 1. The Relayer receives an event that a transaction was accepted.
 1. The Relayer checks if the rate limit `rate_limit_target` is exceeded if it would apply the transaction. (The Relayer may keep locally the budget on the target chain, or it could read the contract state).
     1. If the rate limit is exceeded the transaction has to be put on hold.
     1. Else the Relayer sends a transfer transaction to the target chain.
-
-
 
 ## Reference Implementation
 
@@ -123,16 +125,18 @@ Needs discussion.
 
 ---
 
-## Errata
+## Change Log
 
 ---
 
 ## Appendix
 
 ### A1
+
 Nothing important here.
 
 ---
+
 ## Copyright
 
 Copyright and related rights waived via [CC0](../LICENSE.md).
