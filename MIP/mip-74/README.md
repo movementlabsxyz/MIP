@@ -6,11 +6,13 @@
 
 ## Abstract
 
-We propose a Rate-Limiter to protect the Lock/Mint-type Native Bridge (hereafter called the "Native Bridge"), see [MIP-58](https://github.com/movementlabsxyz/MIP/pull/58) against faulty or compromised behavior of components. It limits the volume of transferred value per time interval.
+We propose a Rate-Limiter to protect the Lock/Mint-type Native Bridge, hereafter called the _Native Bridge_^[see [MIP-58](https://github.com/movementlabsxyz/MIP/pull/58)] against faulty or compromised behavior of the bridge components. It limits the volume of assets that can be transferred within a time window. This MIP proposes a solution to mitigate attacks and limit damages, and if paired with an insurance fund it may cover the potential losses incurred by our users.
 
 ## Motivation
 
-There are several components and actors in control of behavior of the Native Bridge. A Rate-Limiter can help to protect the Native Bridge against faulty components or attacks. It can limit the volume of transferred value per time interval, the maximum value transferred with a given transfer, or the number of transactions.
+There are several components and actors in control of the behavior of the Native Bridge including contracts, relayer that we assume trusted and of course the network. If an attacker can control one these components they can potentially mint and transfer assets thereby compromising the bridge.
+
+A Rate-Limiter can help to protect the Native Bridge against faulty components or attacks. It can limit the volume of transferred value per time interval, the maximum value transferred with a given transfer, or the number of transactions.
 
 ## Specification
 
@@ -33,7 +35,7 @@ In addition to protect the Native Bridge against faulty components, the Rate-Lim
 1. **Rate Limiter**: The Rate Limiter is a set of contracts (one on the L1 and one on the L2) that is used to limit the volume of transferred value per time interval.
 
 ![alt text](overview.png)
-*Figure 1: Architecture of the Rate Limitation*
+_Figure 1: Architecture of the Rate Limitation_
 
 ### Actors, components and Trust assumptions
 
