@@ -4,7 +4,7 @@
 
 ## Overview
 
-Several components should react if the bridge is under attack or faulty. In particular, the considered components are the Security Fund, see [MIP-50](https://github.com/movementlabsxyz/MIP/pull/50) and the Rate Limiter, see [MIP-56](https://github.com/movementlabsxyz/MIP/pull/56), and more generally the governance operator.
+Several components should react if the bridge is under attack or faulty. In particular, the considered components are the Insurance Fund, see [MIP-50](https://github.com/movementlabsxyz/MIP/pull/50) and the Rate Limiter, see [MIP-56](https://github.com/movementlabsxyz/MIP/pull/56), and more generally the governance operator.
 
 The Operator that controls these components requires knowledge about the states of minted or locked tokens on L1 and L2. Moreover, the operation of these components may be handled via a governance, which could also rely on state information.
 

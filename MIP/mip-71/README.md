@@ -6,11 +6,11 @@
 
 ## Abstract
 
-The Informer for the Lock/Mint-Native Bridge (in the following simply referred to as Native Bridge) is introduced to collect information about the state from L1 and L2 and provide this information to components of the **Governance** or the **Governance Operator**. The provided information is critical for the safe operation of bridge components such as the Rate Limiter, the Security Fund, and the Bridge Operator.
+The Informer for the Lock/Mint-Native Bridge (in the following simply referred to as Native Bridge) is introduced to collect information about the state from L1 and L2 Bridge Contracts and provide this information to components of the **Governance** or the **Governance Operator**. The information is not on the total supply but rather circulating supply on L2 and locked supply on L1. The provided information is critical for the safe operation of bridge components such as the Rate Limiter, the Security Fund, and the Bridge Operator.
 
 ## Motivation
 
-Several components should react if the bridge is under attack or faulty. In particular, the considered components are the Security Fund, see [MIP-50](https://github.com/movementlabsxyz/MIP/pull/50) and the Rate Limiter, see [MIP-56](https://github.com/movementlabsxyz/MIP/pull/56).
+Several components should react if the bridge is under attack or faulty. In particular, the considered components are the Insurance Fund, see [MIP-50](https://github.com/movementlabsxyz/MIP/pull/50) and the Rate Limiter, see [MIP-56](https://github.com/movementlabsxyz/MIP/pull/56).
 
 The Operator that controls these components requires knowledge about the states of minted or locked tokens on L1 and L2. Moreover, the operation of these components may be handled via a governance, which could also rely on state information.
 
