@@ -129,9 +129,28 @@ initialize_glossary_and_summary() {
     mkdir -p glossary_parts
     echo "# Welcome to the Movement Network MIP Book" > src/README.md
     echo "" >> src/README.md
-    echo "[Glossary](Approved/main)" >> src/GLOSSARY.md
+    
+    # Create the GLOSSARY.md file directly instead of copying
+    cat > src/GLOSSARY.md << 'EOL'
+## Glossary
+
+Alphabetically ordered list of terms defined through MGs.
+
+**$L1MOVE** - 
+ERC-20 type token for the Movement Network with the source contract on L1. See also $MOVE. [→ MG-39](Approved/main/MG/mg-39/)
+
+**$L2MOVE** - 
+wrapped version of the $L1MOVE token. [→ MG-39](Approved/main/MG/mg-39/)
+
+**$MOVE** - 
+ERC-20 type token for the Movement Network with the source contract on L1. See also $L1MOVE. [→ MG-39](Approved/main/MG/mg-39/)
+
+**Native Bridge** - 
+The bridge that allows the transfer of tokens between L1 and L2, which hold $L1MOVE and $L2MOVE token, respectively. The native bridge has the capability to mint $L2MOVE tokens. [→ MG-39](Approved/main/MG/mg-39/)
+EOL
+    
     echo "# Summary" > src/SUMMARY.md
-    echo "[Glossary](Approved/main/GLOSSARY.md)" >> src/SUMMARY.md
+    echo "[Glossary](GLOSSARY.md)" >> src/SUMMARY.md
     echo "" >> src/SUMMARY.md
 }
 
