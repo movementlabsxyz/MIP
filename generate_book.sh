@@ -128,9 +128,9 @@ initialize_glossary_and_summary() {
     mkdir -p glossary_parts
     echo "# Welcome to the Movement Network MIP Book" > src/README.md
     echo "" >> src/README.md
-    echo "[Glossary](Approved/main/MD/md-15)" >> src/README.md
+    echo "[Glossary](Approved/main/)" >> src/GLOSSARY.md
     echo "# Summary" > src/SUMMARY.md
-    echo "[Glossary](Approved/main/MD/md-15/README.md)" >> src/SUMMARY.md
+    echo "[Glossary](Approved/main/GLOSSARY.md)" >> src/SUMMARY.md
     echo "" >> src/SUMMARY.md
 }
 
