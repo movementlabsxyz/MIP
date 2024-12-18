@@ -10,20 +10,23 @@ We propose a Rate-Limiter to protect the Lock/Mint-type Native Bridge, hereafter
 
 ## Motivation
 
-There are several components and actors in control of the behavior of the Native Bridge including contracts, relayer that we assume trusted and of course the network. If an attacker can control one these components they can potentially mint and transfer assets thereby compromising the bridge.
+There are several components and actors in control of the behavior of the Native Bridge including contracts (we may assume they are trusted, our relayer and of course the network. If an attacker can control one these components they can potentially mint and transfer assets thereby compromising the bridge.
 
-A Rate-Limiter can help to protect the Native Bridge against faulty components or attacks. It can limit the volume of transferred value per time interval, the maximum value transferred with a given transfer, or the number of transactions.
+A Rate-Limiter can help to protect the Native Bridge against faulty components (relayer or network) or attacks. It can limit the volume of transferred value per time interval, the maximum value transferred with a given transfer, or the number of transactions within a time window.
 
 ## Specification
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
 
+> [!WARNING]
+> Hereafter we use **L2** for the **Move Chain** which is at Level 2 in the layered architecture of the Movement Network.
+
 ### Actors and components
 
-The Native Bridge is operated via contracts, actors and components. The following actors and components are involved:
+The Native Bridge is operated via contracts, key holders and a relayer. The following actors and components are involved:
 
 1. **User**: The user is the entity that interacts with the Native Bridge. The user can be a contract or an external account.
-1. **L1 Native Bridge contract**: The L1 Native Bridge contract is the contract that is deployed on the L1 chain. It is responsible for locking and releasing assets on the L1 chain.
+1. **L1 Native Bridge contract**: The L1 Native Bridge contract is the contract that is deployed on the L1 chain. It is responsible for locking and releasing (unlocking) assets on the L1 chain.
 1. **L2 Native Bridge contract**: The L2 Native Bridge contract is the contract that is deployed on the L2 chain. It is responsible for minting and burning assets on the L2 chain.
 1. **L2-Minter**: The L2-Minter is an L2-contract that is responsible for minting assets on the L2 chain.
 1. **Governance contract**: The governance contract is an L2 contract on L2 that is used to adjust the parameters of the Native Bridge components on L2.
