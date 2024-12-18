@@ -62,8 +62,8 @@ title = "MIP"
 [output.html]
 smart-punctuation = true
 no-section-label = true
-git-repository-url = "https://github.com/movementlabsxyz/MIP"
-site-url = "/MIP/"
+git-repository-url = "https://github.com/movementlabsxyz/MIP-Testing"
+site-url = "/MIP-Testing/"
 
 [output.html.search]
 heading-split-level = 0
@@ -128,7 +128,9 @@ initialize_glossary_and_summary() {
     mkdir -p glossary_parts
     echo "# Welcome to the Movement Network MIP Book" > src/README.md
     echo "" >> src/README.md
+    echo "[Glossary](Approved/main/MD/md-15)" >> src/README.md
     echo "# Summary" > src/SUMMARY.md
+    echo "[Glossary](Approved/main/MD/md-15/README.md)" >> src/SUMMARY.md
     echo "" >> src/SUMMARY.md
 }
 
@@ -136,8 +138,12 @@ get_standardized_path() {
     local type="$1"    # MD or MIP (uppercase)
     local number="$2"  # number part
     
+    # Force type to uppercase and ensure consistent formatting
+    type="${type^^}"  # Convert to uppercase
+    number="${number#0}"  # Remove leading zeros
+    
     # Keep type folder uppercase, but subfolder lowercase
-    echo "${type}/${type,,}-${number}"  # ${type,,} converts to lowercase
+    echo "${type}/${type,,}-${number}"
 }
 
 process_readme_files() {
@@ -149,6 +155,29 @@ process_readme_files() {
 
     local standardized_path=$(get_standardized_path "$type" "$mip_number")
     local folder="$SRC_DIR/$category/$branch/$standardized_path"
+    local entry_key="${type^^}|$mip_number"
+    
+    # Skip if we're trying to add a Review entry but the path contains "Approved"
+    if [ "$category" == "Review" ] && [[ "$folder" == *"/Approved/"* ]]; then
+        echo "DEBUG: Skipping review entry because path contains 'Approved': $folder"
+        return
+    fi
+    
+    # Enhanced duplicate checking
+    if [ "$category" == "Review" ]; then
+        if [ "${type^^}" == "MIP" ] && [ -n "${approved_mips[$mip_number]}" ]; then
+            echo "DEBUG: Skipping review entry for MIP-$mip_number (exists in approved)"
+            return
+        elif [ "${type^^}" == "MD" ] && [ -n "${approved_mds[$mip_number]}" ]; then
+            echo "DEBUG: Skipping review entry for MD-$mip_number (exists in approved)"
+            return
+        fi
+        
+        if [ -n "${approved_entries_readme[$entry_key]}" ] || [ -n "${review_entries_readme[$entry_key]}" ]; then
+            echo "DEBUG: Skipping duplicate review entry for $type-$mip_number"
+            return
+        fi
+    fi
     
     if [ -d "$folder" ]; then
         if [ -f "$folder/README.md" ]; then
@@ -161,7 +190,7 @@ process_readme_files() {
 
             # Create paths - note the difference between README and SUMMARY
             relative_path="${category}/${branch}/${standardized_path}"
-            entry_key="$type|$mip_number"
+            entry_key="${type^^}|$mip_number"
             # For README.md, link to directory without README.md
             readme_entry="- [$readme_title]($relative_path/)"
             # For SUMMARY.md, keep the README.md in the path
@@ -227,10 +256,13 @@ process_main_branch() {
                     continue
                 fi
 
-                if [[ ! "$lowercase_folder_name" =~ ^${type,,}-[0-9]+$ ]]; then
-                    echo "Skipping folder $folder_name in main branch because it does not match the expected naming convention."
+                # Make the pattern matching case-insensitive by using shopt
+                shopt -s nocasematch
+                if [[ ! "$folder_name" =~ ^${type,,}-[0-9]+$ ]]; then
+                    echo "Skipping folder $folder_name because it does not match the expected naming convention."
                     continue
                 fi
+                shopt -u nocasematch
 
                 mip_number=$(echo "$lowercase_folder_name" | grep -o '[0-9]\+')
 
@@ -320,11 +352,16 @@ copy_branch_content() {
                     continue
                 fi
 
-                if [ "$type" == "MIP" ] && [ -n "${approved_mips[$mip_number]}" ]; then
-                    echo "DEBUG: Skipping MIP-$mip_number in branch $branch because it exists in Approved"
+                # Enhanced duplicate checking before processing
+                entry_key="${type}|${mip_number}"
+                if [ -n "${approved_mips[$mip_number]}" ] && [ "$type" == "MIP" ]; then
+                    echo "DEBUG: Skipping MIP-$mip_number in branch $branch (exists in approved)"
                     continue
-                elif [ "$type" == "MD" ] && [ -n "${approved_mds[$mip_number]}" ]; then
-                    echo "DEBUG: Skipping MD-$mip_number in branch $branch because it exists in Approved"
+                elif [ -n "${approved_mds[$mip_number]}" ] && [ "$type" == "MD" ]; then
+                    echo "DEBUG: Skipping MD-$mip_number in branch $branch (exists in approved)"
+                    continue
+                elif [ -n "${approved_entries_readme[$entry_key]}" ] || [ -n "${review_entries_readme[$entry_key]}" ]; then
+                    echo "DEBUG: Skipping duplicate entry for $type-$mip_number in branch $branch"
                     continue
                 fi
 
@@ -389,12 +426,34 @@ for category in "Approved" "Review"; do
     # Sort entries by type and number
     for key in "${entries_array[@]}"; do
         IFS='|' read -r type number <<< "$key"
+        
         if [ "$category" == "Approved" ]; then
             readme_value="${approved_entries_readme[$key]}"
             summary_value="${approved_entries_summary[$key]}"
         else
+            # Skip if this is a review entry but exists in approved arrays
+            if [ "$type" == "MIP" ] && [ -n "${approved_mips[$number]}" ]; then
+                echo "DEBUG: SKIPPING review entry MIP-$number (exists in approved_mips)"
+                continue
+            elif [ "$type" == "MD" ] && [ -n "${approved_mds[$number]}" ]; then
+                echo "DEBUG: SKIPPING review entry MD-$number (exists in approved_mds)"
+                continue
+            elif [[ "${review_entries_readme[$key]}" == *"/Approved/"* ]]; then
+                echo "DEBUG: SKIPPING review entry $type-$number (path contains Approved)"
+                continue
+            elif [[ "${review_entries_readme[$key]}" =~ ^.*\(Approved/.*\)$ ]]; then
+                echo "DEBUG: SKIPPING review entry $type-$number (link points to Approved)"
+                continue
+            fi
+            
             readme_value="${review_entries_readme[$key]}"
             summary_value="${review_entries_summary[$key]}"
+        fi
+
+        # Additional check to ensure the path doesn't contain "Approved"
+        if [ "$category" == "Review" ] && [[ "$readme_value" =~ Approved/ ]]; then
+            echo "DEBUG: SKIPPING review entry $type-$number (contains Approved in path)"
+            continue
         fi
 
         if [ "$type" == "MD" ]; then
@@ -405,6 +464,51 @@ for category in "Approved" "Review"; do
             mip_entries_summary+=("$summary_value")
         fi
     done
+
+    # Before writing entries, filter out any approved entries from review arrays
+    if [ "$category" == "Review" ]; then
+        # Create temporary arrays
+        declare -a filtered_mip_entries_readme
+        declare -a filtered_mip_entries_summary
+        declare -a filtered_md_entries_readme
+        declare -a filtered_md_entries_summary
+
+        # Filter MIP entries
+        for entry in "${mip_entries_readme[@]}"; do
+            if [[ ! "$entry" =~ ^.*\(Approved/.*\)$ ]] && [[ ! "$entry" =~ Approved/ ]]; then
+                filtered_mip_entries_readme+=("$entry")
+            fi
+        done
+        for entry in "${mip_entries_summary[@]}"; do
+            if [[ ! "$entry" =~ ^.*\(Approved/.*\)$ ]] && [[ ! "$entry" =~ Approved/ ]]; then
+                filtered_mip_entries_summary+=("$entry")
+            fi
+        done
+
+        # Filter MD entries
+        for entry in "${md_entries_readme[@]}"; do
+            if [[ ! "$entry" =~ ^.*\(Approved/.*\)$ ]] && [[ ! "$entry" =~ Approved/ ]]; then
+                filtered_md_entries_readme+=("$entry")
+            fi
+        done
+        for entry in "${md_entries_summary[@]}"; do
+            if [[ ! "$entry" =~ ^.*\(Approved/.*\)$ ]] && [[ ! "$entry" =~ Approved/ ]]; then
+                filtered_md_entries_summary+=("$entry")
+            fi
+        done
+
+        # Replace original arrays with filtered ones
+        mip_entries_readme=("${filtered_mip_entries_readme[@]}")
+        mip_entries_summary=("${filtered_mip_entries_summary[@]}")
+        md_entries_readme=("${filtered_md_entries_readme[@]}")
+        md_entries_summary=("${filtered_md_entries_summary[@]}")
+    fi
+
+    # Debug output before writing
+    if [ "$category" == "Review" ]; then
+        echo "DEBUG: Final filtered MIP entries for Review section:"
+        printf '%s\n' "${mip_entries_readme[@]}"
+    fi
 
     # Sort arrays
     if [ ${#md_entries_readme[@]} -gt 0 ]; then
