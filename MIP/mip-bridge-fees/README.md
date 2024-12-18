@@ -231,7 +231,7 @@ Assume we want to adjust the fees according to:
 
 If we run a deficit we want to cover it by the next time window, and if we run a surplus, we may keep the fees unchanged or decrease them.
 
-#### Estimate and balcne based strategies
+#### Estimate and balance based strategies
 
 <!--
   The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
@@ -262,7 +262,7 @@ Needs discussion.
 
 ---
 
-## Errata
+## Change Log
 <!--
   Errata should be maintained after publication.
 
