@@ -28,7 +28,7 @@ The Native Bridge is operated via contracts, key holders and a relayer. The foll
 1. **User**: The user is the entity that interacts with the Native Bridge. The user can be a contract or an external account.
 1. **L1 Native Bridge contract**: The L1 Native Bridge contract is the contract that is deployed on the L1 chain. It is responsible for locking and releasing (unlocking) assets on the L1 chain.
 1. **L2 Native Bridge contract**: The L2 Native Bridge contract is the contract that is deployed on the L2 chain. It is responsible for minting and burning assets on the L2 chain.
-1. **L2-Minter**: The L2-Minter is an L2-contract that is responsible for minting assets on the L2 chain.
+<!-- 1. **L2-Minter**: The L2-Minter is an L2-contract that is responsible for minting assets on the L2 chain. -->
 1. **Governance contract**: The governance contract is an L2 contract on L2 that is used to adjust the parameters of the Native Bridge components on L2.
 1. **Governance Operator**: The governance operator is the entity that can adjust the parameters of the Native Bridge via the governance contract or directly. Hereafter we simply refer to the Operator.
 
