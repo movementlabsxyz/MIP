@@ -1,4 +1,4 @@
-# MIP-71: Informer for the Operation of the Lock/Mint Native Bridge
+# MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge
 
 - **Description**: The Informer collects data from L1 and L2 about the supply of \$MOVE tokens and forwards the information to relevant parties, which is critical for the safe operation of the Native Bridge.
 - **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
@@ -6,13 +6,15 @@
 
 ## Abstract
 
-The Informer for the Lock/Mint-Native Bridge (in the following simply referred to as Native Bridge) is introduced to collect information about the state from L1 and L2 Bridge Contracts and provide this information to components of the **Governance** or the **Governance Operator**. The information is not on the total supply but rather circulating supply on L2 and locked supply on L1. The provided information is critical for the safe operation of bridge components such as the Rate Limiter, the Security Fund, and the Bridge Operator.
+The Informer V1 (hereafter simply called Informer) for the Lock/Mint-Native Bridge (in the following simply referred to as Native Bridge) is introduced to collect information about the state from L1 and L2 and provide this information to components of the **Governance** or the **Governance Operator**. The information is not based on the total supply but rather circulating supply on L2 and locked supply on L1. The provided information is critical for the safe operation of bridge components such as the Rate Limiter, the Security Fund, and the Bridge Operator.
+
+The Informer V1 is limited in scope and capabilities with the intention that future releases will expand its monitoring capabilities. For example the calculation of inflight tokens is optional in this version, and is listed for future versions.
 
 ## Motivation
 
 Several components should react if the bridge is under attack or faulty. In particular, the considered components are the Insurance Fund, see [MIP-50](https://github.com/movementlabsxyz/MIP/pull/50) and the Rate Limiter, see [MIP-56](https://github.com/movementlabsxyz/MIP/pull/56).
 
-The Operator that controls these components requires knowledge about the states of minted or locked tokens on L1 and L2. Moreover, the operation of these components may be handled via a governance, which could also rely on state information.
+The Operator that controls these components requires knowledge about the states of minted or locked tokens on L1 and L2. The Operator is an entity (e.g. multisig human) that has the ability to sign transactions and send funds from the Security Fund. Moreover, the operation of the components may also be handled via a governance, which could also rely on state information.
 
 ## Context
 
@@ -28,7 +30,6 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 ![Overview](overview.png)
 *Figure 1: Dependencies of components on the Informer mechanism in the Native Bridge.*
 
-
 The Informer collects information about the state of \$L1MOVE and \$L2MOVE and provides this information to the Governance Operator who controls relevant components of the Native Bridge. The Informer is a trusted component that is critical to the safe operation of the Native Bridge.
 
 1. The Informer is a component that MUST run a node or client on L1 and on L2 to be able to extract information about the states of the chains.
@@ -40,10 +41,13 @@ The Informer collects information about the state of \$L1MOVE and \$L2MOVE and p
 > [!NOTE]
 Instead of the finalized state we could also consider the $k$-confirmed state for the L1. The definition of $k$-confirmed is given in [Issue-838](https://github.com/movementlabsxyz/movement/issues/838). Similarly, for the L2, we could assume some different confirmation level like the fast-confirmation, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65).
 
-
 Since the Relayer may use a confirmation level that is not the finalization, we add the following requirement:
 
 6. The confirmation levels for the Informer MUST be the same as for the Relayer.
+
+#### Dissemination of information
+
+We do not prescribe a particular dissemination method.  In case the Informer detects possible threat, the Informer MAY provide the information to the Governance Operator via publishing a notification and which then alerts the Operator via a PagerDuty service to relevant personal.
 
 #### Locked and minted supply difference
 
@@ -54,7 +58,7 @@ The Informer MUST measure `MOVE_diff(t) = L1MOVE_locked(t_L1) - L2MOVE_mint(t_L2
 > [!NOTE]
 `CONDITION_1` :  The Informer warns if `is_MOVE_DIFF` is false. This is because in this scenario the circulating supply exceeds the maximum circulating supply `MOVE_Max`.
 
-#### Inflight tokens
+#### (Optional:) Inflight tokens
 
 The Informer MAY calculate the in-flight tokens. Inflight tokens are tokens that are locked (burned) on L1 (L2) but that are not yet minted (unlocked) on L2 (L1) with a **finalized state**. With respect to finalized states it should be `MOVE_inflight = MOVE_diff`.
 
@@ -72,8 +76,6 @@ The Informer can measure `L1MOVE_inflight_processing` and `L2MOVE_inflight_proce
 #### Possible measurement errors
 
 The timestamps of the two layers are not synchronized. We assume that the difference is negligible, however, for correctness, the implications of a drift between the L1 and L2 clocks should be considered. Moreover, the clocks of the layers progress discretely. This means that the Informer reads events from L1 and L2 with slightly different time stamps. This timestamp difference can introduce errors in the calculation of circulating token.
-
-It is recommended that the Informer SHOULD not rely on timestamps.
 
 #### Slow chain
 
