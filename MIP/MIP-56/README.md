@@ -1,10 +1,10 @@
-# MIP-56: Rate-Limiter for the Native Bridge
-- **Description**: A rate limitation mechanism for the native bridge.
+# MIP-56: Rate-Limiter for the HTLC-based Native Bridge
+- **Description**: A rate limitation mechanism for the HTLC-based Native Bridge.
 - **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 
 ## Abstract
 
-The **Rate-Limiter** for the Native Bridge is introduced to de-escalate the risk of double-spends through the bridge by limiting the number of tokens that can be transferred during a certain time frame. The rate limit is determined by the reaction time of the bridge operator, called the **Risk Period**, and the value locked in the **Security Fund**, see [MIP-50](https://github.com/movementlabsxyz/MIP/pull/50).
+The **Rate-Limiter** for the HTLC-based Native Bridge (hereafter called Native Bridge) is introduced to de-escalate the risk of double-spends through the Native Bridge by limiting the number of tokens that can be transferred during a certain time frame. The rate limit is determined by the reaction time of the bridge operator, called the **Risk Period**, and the value locked in the **Security Fund**, see [MIP-50](https://github.com/movementlabsxyz/MIP/pull/50).
 
 The Native Bridge Rate Limiter is implemented through a contract on L1. This contract is governed by the Aptos governance framework, see [MIP-48](https://github.com/movementlabsxyz/MIP/pull/48/), and can be updated through a governance process.
 
@@ -14,9 +14,7 @@ The correct operation of the Native Bridge relies on liveness and safety assumpt
 
 ## Specification
 
-
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
-
 
 ![Overview](overview.png)
 *Figure 1: Overview of the Rate-Limiter mechanism for the Native Bridge.*
