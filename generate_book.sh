@@ -17,6 +17,7 @@ declare -A review_entries_readme=()
 declare -A review_entries_summary=()
 declare -A approved_mips=()
 declare -A approved_mds=()
+declare -A approved_mgs=()
 
 # Variables
 GITHUB_OWNER="movementlabsxyz"
@@ -135,7 +136,7 @@ initialize_glossary_and_summary() {
 }
 
 get_standardized_path() {
-    local type="$1"    # MD or MIP (uppercase)
+    local type="$1"    # MD, MG or MIP (uppercase)
     local number="$2"  # number part
     
     # Force type to uppercase and ensure consistent formatting
@@ -170,6 +171,9 @@ process_readme_files() {
             return
         elif [ "${type^^}" == "MD" ] && [ -n "${approved_mds[$mip_number]}" ]; then
             echo "DEBUG: Skipping review entry for MD-$mip_number (exists in approved)"
+            return
+        elif [ "${type^^}" == "MG" ] && [ -n "${approved_mgs[$mip_number]}" ]; then
+            echo "DEBUG: Skipping review entry for MG-$mip_number (exists in approved)"
             return
         fi
         
@@ -206,6 +210,9 @@ process_readme_files() {
                 elif [ "$type" == "MD" ]; then
                     approved_mds["$mip_number"]=1
                     echo "DEBUG: Marked MD-$mip_number as approved"
+                elif [ "$type" == "MG" ]; then
+                    approved_mgs["$mip_number"]=1
+                    echo "DEBUG: Marked MG-$mip_number as approved"
                 fi
             else
                 if [ "$type" == "MIP" ] && [ -n "${approved_mips[$mip_number]}" ]; then
@@ -213,6 +220,9 @@ process_readme_files() {
                     return
                 elif [ "$type" == "MD" ] && [ -n "${approved_mds[$mip_number]}" ]; then
                     echo "DEBUG: Skipping review entry for MD-$mip_number as it exists in approved"
+                    return
+                elif [ "$type" == "MG" ] && [ -n "${approved_mgs[$mip_number]}" ]; then
+                    echo "DEBUG: Skipping review entry for MG-$mip_number as it exists in approved"
                     return
                 fi
                 
@@ -251,8 +261,8 @@ process_main_branch() {
             fi
         done
     fi
-    
-    for type in "MD" "MIP"; do
+
+    for type in "MD" "MIP" "MG"; do
         if [ -d "$branch_temp_dir/$type" ]; then
             echo "Found directory: $branch_temp_dir/$type"
             
@@ -340,7 +350,7 @@ copy_branch_content() {
         return
     fi
 
-    for type in "MD" "MIP"; do
+    for type in "MD" "MIP" "MG"; do
         if [ -d "$branch_temp_dir/$type" ]; then
             echo "Found directory: $branch_temp_dir/$type"
             
@@ -369,6 +379,9 @@ copy_branch_content() {
                     continue
                 elif [ -n "${approved_mds[$mip_number]}" ] && [ "$type" == "MD" ]; then
                     echo "DEBUG: Skipping MD-$mip_number in branch $branch (exists in approved)"
+                    continue
+                elif [ -n "${approved_mgs[$mip_number]}" ] && [ "$type" == "MG" ]; then
+                    echo "DEBUG: Skipping MG-$mip_number in branch $branch (exists in approved)"
                     continue
                 elif [ -n "${approved_entries_readme[$entry_key]}" ] || [ -n "${review_entries_readme[$entry_key]}" ]; then
                     echo "DEBUG: Skipping duplicate entry for $type-$mip_number in branch $branch"
@@ -422,8 +435,10 @@ for category in "Approved" "Review"; do
     echo "- [$category](README.md)" >> "$SRC_DIR/SUMMARY.md"
 
     declare -a md_entries_readme
+    declare -a mg_entries_readme
     declare -a mip_entries_readme
     declare -a md_entries_summary
+    declare -a mg_entries_summary
     declare -a mip_entries_summary
 
     # Use the appropriate arrays based on category
@@ -448,6 +463,9 @@ for category in "Approved" "Review"; do
             elif [ "$type" == "MD" ] && [ -n "${approved_mds[$number]}" ]; then
                 echo "DEBUG: SKIPPING review entry MD-$number (exists in approved_mds)"
                 continue
+            elif [ "$type" == "MG" ] && [ -n "${approved_mgs[$number]}" ]; then
+                echo "DEBUG: SKIPPING review entry MG-$number (exists in approved_mgs)"
+                continue
             elif [[ "${review_entries_readme[$key]}" == *"/Approved/"* ]]; then
                 echo "DEBUG: SKIPPING review entry $type-$number (path contains Approved)"
                 continue
@@ -469,6 +487,9 @@ for category in "Approved" "Review"; do
         if [ "$type" == "MD" ]; then
             md_entries_readme+=("$readme_value")
             md_entries_summary+=("$summary_value")
+        elif [ "$type" == "MG" ]; then
+            mg_entries_readme+=("$readme_value")
+            mg_entries_summary+=("$summary_value")
         else
             mip_entries_readme+=("$readme_value")
             mip_entries_summary+=("$summary_value")
@@ -482,6 +503,8 @@ for category in "Approved" "Review"; do
         declare -a filtered_mip_entries_summary
         declare -a filtered_md_entries_readme
         declare -a filtered_md_entries_summary
+        declare -a filtered_mg_entries_readme
+        declare -a filtered_mg_entries_summary
 
         # Filter MIP entries
         for entry in "${mip_entries_readme[@]}"; do
@@ -507,11 +530,25 @@ for category in "Approved" "Review"; do
             fi
         done
 
+        # Filter MG entries
+        for entry in "${mg_entries_readme[@]}"; do
+            if [[ ! "$entry" =~ ^.*\(Approved/.*\)$ ]] && [[ ! "$entry" =~ Approved/ ]]; then
+                filtered_mg_entries_readme+=("$entry")
+            fi
+        done
+        for entry in "${mg_entries_summary[@]}"; do
+            if [[ ! "$entry" =~ ^.*\(Approved/.*\)$ ]] && [[ ! "$entry" =~ Approved/ ]]; then
+                filtered_mg_entries_summary+=("$entry")
+            fi
+        done
+
         # Replace original arrays with filtered ones
         mip_entries_readme=("${filtered_mip_entries_readme[@]}")
         mip_entries_summary=("${filtered_mip_entries_summary[@]}")
         md_entries_readme=("${filtered_md_entries_readme[@]}")
         md_entries_summary=("${filtered_md_entries_summary[@]}")
+        mg_entries_readme=("${filtered_mg_entries_readme[@]}")
+        mg_entries_summary=("${filtered_mg_entries_summary[@]}")
     fi
 
     # Debug output before writing
@@ -524,6 +561,10 @@ for category in "Approved" "Review"; do
     if [ ${#md_entries_readme[@]} -gt 0 ]; then
         IFS=$'\n' md_entries_readme=($(sort -V <<<"${md_entries_readme[*]}"))
         IFS=$'\n' md_entries_summary=($(sort -V <<<"${md_entries_summary[*]}"))
+    fi
+    if [ ${#mg_entries_readme[@]} -gt 0 ]; then
+        IFS=$'\n' mg_entries_readme=($(sort -V <<<"${mg_entries_readme[*]}"))
+        IFS=$'\n' mg_entries_summary=($(sort -V <<<"${mg_entries_summary[*]}"))
     fi
     if [ ${#mip_entries_readme[@]} -gt 0 ]; then
         IFS=$'\n' mip_entries_readme=($(sort -V <<<"${mip_entries_readme[*]}"))
@@ -554,6 +595,22 @@ for category in "Approved" "Review"; do
             echo "${md_entries_readme[$i]}" >> "$SRC_DIR/README.md"
             if [[ "${md_entries_summary[$i]}" == "- "* ]]; then
                 link_line="${md_entries_summary[$i]#- }"
+                link_text="${link_line%%]*}"
+                link_text="${link_text#\[}"
+                link_url="${link_line##*\(}"
+                link_url="${link_url%\)}"
+                echo "    - [$link_text]($link_url)" >> "$SRC_DIR/SUMMARY.md"
+            fi
+        done
+    fi
+
+    if [ ${#mg_entries_readme[@]} -gt 0 ]; then
+        echo "### MGs" >> "$SRC_DIR/README.md"
+        echo "  - [MGs](README.md)" >> "$SRC_DIR/SUMMARY.md"
+        for i in "${!mg_entries_readme[@]}"; do
+            echo "${mg_entries_readme[$i]}" >> "$SRC_DIR/README.md"
+            if [[ "${mg_entries_summary[$i]}" == "- "* ]]; then
+                link_line="${mg_entries_summary[$i]#- }"
                 link_text="${link_line%%]*}"
                 link_text="${link_text#\[}"
                 link_url="${link_line##*\(}"
