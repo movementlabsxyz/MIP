@@ -40,14 +40,14 @@ In addition to protect the Native Bridge against faulty components, the Rate-Lim
 ![alt text](overview.png)
 _Figure 1: Architecture of the Rate Limitation_
 
-### Actors, components and Trust assumptions
+### Actors, Components and Trust assumptions
 
 We assume the following trust assumptions:
 
 1. The Governance contract is implemented correctly.
-1. The Bridge contract and the L2-Minter contract are implemented correctly.
+1. The Bridge contract and the L2 Native Bridge contract are implemented correctly.
 1. The Governance Operator is trusted. For example it COULD be a multisig human.
-1. The Relayer is trusted and automated.
+1. The Relayer is a trusted software component.
 
 ### Risks and mitigation strategies
 
@@ -57,14 +57,26 @@ The following risks are associated with the Native Bridge:
 1. In order to rate limit the bridge (e.g. stop the bridge transfers entirely) there should be a higher instance than the relayer in setting rate limits. Thus the rate limit on the target chain SHOULD be set by the Operator.
 1. The Relayer may go down, while the number of transactions and requested transfer value across the bridge still increases on the source chain. Due to rate limit on the target chain the Relayer may struggle to process all initiated transfers. Thus the Relayer or the Operator MUST rate limit the source chain as well.
 
+### Objectives
+
+The objectives of the rate-limiter are to guarantee the following properties:
+
+- the value of assets being bridged MUST always be less than the insurance funds
+- property 2
+- property 3 ...
+
 ### Rate-Limiter
 
 In the Native Bridge, the Rate-Limiter MUST be implemented as part of the L1 Native Bridge contract and the L2 Native Bridge contract.
 
-**Rate limit on the target chain**
- We assume there is a Insurance Fund on both L1 and L2, with values `insurance_fund_L1` and `insurance_fund_L2`, respectively.
+#### Insurance funds
 
-The Insurance Fund rate limits the outbound transfers, i.e. for a given transfer from source chain to target chain the Insurance Fund on the target chain is responsible for the rate limit, and thus we will refer to the `insurance_fund_target`. I.e. for a transfer from L1 to L2 the `insurance_fund_target = insurance_fund_L2` is responsible for the rate limit. While for a transfer from L2 to L1 the `insurance_fund_target = insurance_fund_L1` is responsible for the rate limit.
+ We assume there is a Insurance Fund on both L1 and L2, with values `insurance_fund_L1` and `insurance_fund_L2`, respectively.
+ These values are considered constant in the sequel. There may be updated if needed or if new funds are added to the pools.
+
+The Insurance Fund rate-limits the outbound transfers, i.e. for a given transfer from source chain to target chain the Insurance Fund on the target chain is responsible for the rate limit, and thus we will refer to the `insurance_fund_target`. I.e. for a transfer from L1 to L2 the `insurance_fund_target = insurance_fund_L2` is responsible for the rate limit. While for a transfer from L2 to L1 the `insurance_fund_target = insurance_fund_L1` is responsible for the rate limit.
+
+#### Rate limit on the target chain
 
 The rate limit is dependent on the fund size in the Insurance Fund. In particular the maximum rate limit
 
@@ -84,7 +96,7 @@ The following are possible ways to adjust the rate limit:
 1. The Operator may adjust the rate limit by changing the `reaction_time`.
 1. The Operator may adjust the rate limit by changing the `rate_reduction_target`.
 
-**Rate limit on the source chain**
+#### Rate limit on the source chain
 
 On the source chain the rate limit MAY be lowered by the Relayer. This is to ensure that the rate limit on the target chain is not exceeded. It also permits the Relayer to catch up in case of the Relayer has been down for some time.
 
@@ -96,8 +108,8 @@ where `rate_reduction_source \in {0,1}` is a parameter that is set by the Relaye
 
 The rate limitation works as follows:
 
-[!NOTE]
-I can convert the following into pseudo code, after we have discussed the algorithm and it makes sense.
+> [!NOTE]
+> I can convert the following into pseudo code, after we have discussed the algorithm and it makes sense.
 
 **Algorithm for the Native Bridge contract on the source chain**
 
