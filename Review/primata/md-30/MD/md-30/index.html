@@ -1,0 +1,370 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>MD-30: Movement Name Service - MIP</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../../../Approved/main/GLOSSARY.html">Glossary</a></li><li class="chapter-item expanded "><a href="../../../../../index.html">Approved</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../index.html">MIPs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-1/index.html">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-15/index.html">MIP-15: MG (Movement Gloss)</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-39/index.html">MIP-39: MOVE Token -- HTLC-based Native Bridge Design</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-53/index.html">MIP-53: Conventions for Proposing Progressive L2 Models</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MDs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-1/index.html">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-3/index.html">MD-3: MCR under Network Partitions and Asynchrony</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-15/index.html">MD-15: Movement Glossary</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MGs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MG/mg-39/index.html">MG-39:  MOVE Token -- Bridge Design</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">Review</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../index.html">MIPs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/mikhail/suzuka-da-migrations/MIP/mip-13/index.html">MIP-13:  Suzuka DA Migrations Format</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled-demurrage/MIP/mip-42/index.html">MIP-15: NB-FFS Decoupled Demurrage</a></li><li class="chapter-item expanded "><a href="../../../../../Review/gas-fee-calculation/MIP/mip-16/index.html">MIP-16: Calculation of gas fees </a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mip-18/MIP/mip-18/index.html">MIP-18: Stage 0 Upgradeability and Multisigs</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andyjsbell/unwanted-framework/MIP/mip-24/index.html">MIP-24: Removal of redundant functionality from framework</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andyjsbell/proxy-root/MIP/mip-25/index.html">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mip-27/MIP/mip-27/index.html">MIP-27: Contract Pipeline</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/actor-naming-conventions/MIP/mip-28/index.html">MIP-28: Naming Conventions for Movement Protocol Design</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/FFS/MIP/mip-34/index.html">MIP-34: Fast-Finality Settlement</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled/MIP/mip-40/index.html">MIP-40: NB-FFS Decoupled</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-governed-gas-pool/MIP/mip-44/index.html">MIP-44: NB-FFS Governed Gas Pool</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/security_falliblity/MIP/mip-46/index.html">MIP-46: Security and Fallibility of the Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/gas-fees-incremental-additions/MIP/mip-47/index.html">MIP-47: Improve Gas fee collection in phases</a></li><li class="chapter-item expanded "><a href="../../../../../Review/0xmovses/aptos-gov-pool/MIP/mip-48/index.html">MIP-48: aptos_governance for Goverened Gas Pool</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/just-reward/MIP/mip-49/index.html">MIP-49: NB-FFS Governed Fees and Rewards</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/insured-bridge/MIP/mip-50/index.html">MIP-50: Insured Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/the-biarritz-model/MIP/mip-54/index.html">MIP-54: The Biarritz Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/the-bilbao-model/MIP/mip-55/index.html">MIP-55: The Bilbao Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/rate-limiter/MIP/mip-56/index.html">MIP-56: Rate-Limiter for the HTLC-based Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer/MIP/mip-57/index.html">MIP-57: Informer for the Operation of the HTLC-based Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip-58/MIP/mip-58/index.html">MIP-58: Trusted-Relayer focused Bridge Design</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip-crosschain-bridges-background/MIP/mip-60/index.html">MIP-60: Crosschain bridge architectures</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/index.html">MIP-61: Relayer in the lock/mint bridge - Algorithm and Bootstrapping </a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/L2confirmation/MIP/mip-65/index.html">MIP-65: FFS: Fastconfirmations</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer-lockmintbridge/MIP/mip-71/index.html">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/sanfran-model/MIP/mip-73/index.html">MIP-73: The SanFran Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/index.html">MIP-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MDs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/index.html">MD-2: Enclave Crash-resistant Key Management</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/long-range-attacks/MD/md-5/index.html">MD-4: Long Range Attacks</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/gas-offset/MD/md-4/index.html">MD-4: MCR Offsetting Gas Costs</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/block-validation/MD/md-6/index.html">MD-6: Suzuka Block Validation</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/block-validation/MD/md-7/index.html">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mikhail/suzuka-da-migrations/MD/md-13/index.html">MD-13: Suzuka DA Migrations Format</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/bridge-timelock-as-state/MD/md-14/index.html">MD-14: Bridge Should Use A More Secure Timelock</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andygolay/move-on-bitcoin/MD/md-16/index.html">MD-16: Create MOVE fungible asset on Bitcoin using runes</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/md-17/MD/md-17/index.html">MD-17: Bridge Fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/bridge-attestors/MD/md-21/index.html">MD-21: Native Bridge with Attesters</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andygolay/md-26/MD/md-26/index.html">MD-26: User-facing checks</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/md-30/MD/md-30/index.html" class="active">MD-30: Movement Name Service</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/index.html">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/just-reward/MD/md-49/index.html">MD-49: Movement L2 Gas Fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer-lockmintbridge/MD/md-71/index.html">MD-71: Informer service for the Lock/Mint-based Native Bridge</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MGs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/mip/FFS/MG/mg-34/index.html">MG-34: </a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled-demurrage/MG/mg-42/index.html">MG-42: demurrage token</a></li></ol></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">MIP</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/movementlabsxyz/MIP-Testing" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="md-30-movement-name-service"><a class="header" href="#md-30-movement-name-service">MD-30: Movement Name Service</a></h1>
+<ul>
+<li><strong>Description</strong>: Define the structure for the Movement Name Service (MNS) on the Movement blockchain, providing a user-friendly way for users to interact with names and rooms through bonding curve-based access keys.</li>
+<li><strong>Authors</strong>: <a href="mailto:primata@movementlabs.xyz">Primata</a></li>
+<li><strong>Collaborators</strong>: Community contributions welcome</li>
+</ul>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>The Move Name Service (MNS) is a system that allows users to register human-readable names on the Movement blockchain. It is designed to facilitate user-friendly interactions, registrations, and transactions on-chain. Expanding beyond traditional name services, MNS introduces the concept of access keys tied to a bonding curve, which determines the minting and burning prices of these keys. The MNS also provides revenue generation mechanisms for both the protocol and name owners.</p>
+<p>MNS falls under the SoFi category, offering a decentralized, permissionless framework that encourages community participation to build and iterate on infrastructure and services centered on Names and Rooms.</p>
+<h2 id="definitions"><a class="header" href="#definitions">Definitions</a></h2>
+<ul>
+<li><strong>Names</strong>: Human-readable identifiers registered on-chain. Should be freely tradeable. Room ownership is tied to Name. Names domain is <code>.move</code>. E.g. <code>[owned_name].move</code>.</li>
+<li><strong>Rooms</strong>: Digital spaces associated with a registered Name, accessible by the Name’s owner or key holders.</li>
+<li><strong>Keys</strong>: Access key to Name’s rooms. Mintable and burnable according to a bonding curve.</li>
+<li><strong>Bonding Curve</strong>: A mathematical model used to determine minting and burning prices for access keys.</li>
+</ul>
+<h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
+<h3 id="d1-decentralized-and-permissionless-name-system"><a class="header" href="#d1-decentralized-and-permissionless-name-system">D1: Decentralized and Permissionless Name System</a></h3>
+<p><strong>User Journey</strong>: Users can register human-readable names on the blockchain and access related services.</p>
+<p><strong>Justification</strong>: A decentralized name system is essential for empowering users with on-chain identities and ensuring they can interact with the blockchain without technical friction.</p>
+<p><strong>Guidance and suggestions</strong>:</p>
+<ul>
+<li>Names should be fully decentralized and governed by the community, adhering to the principles of openness and transparency.</li>
+</ul>
+<h3 id="d2-bonding-curve-for-key-minting-and-burning"><a class="header" href="#d2-bonding-curve-for-key-minting-and-burning">D2: Bonding Curve for Key Minting and Burning</a></h3>
+<p><strong>User Journey</strong>: Users or services can mint or burn access keys based on a bonding curve.</p>
+<p><strong>Justification</strong>: A bonding curve ensures that access keys’ prices are dynamically adjusted, preventing speculation and enabling fair access to Names and Rooms.</p>
+<h3 id="d3-community-driven-revenue-models"><a class="header" href="#d3-community-driven-revenue-models">D3: Community-Driven Revenue Models</a></h3>
+<p><strong>User Journey</strong>: The community can implement their own revenue models via Rooms and Keys. Movement drives the first implementation with Ductus, a backend serving the name service and rooms, and Domus, the frontend that allows minting, trading, viewing of names and keys, and using chat rooms.</p>
+<p><strong>Justification</strong>: Allowing the community to drive revenue through their traffic contributions promotes incentivized participation, enabling them to earn protocol-generated funds.</p>
+<p><strong>Guidance and suggestions</strong>:</p>
+<ul>
+<li>For Rooms and Keys, community members should be able to pass their address as <code>application_fee_recipient</code> to receive funds generated by the traffic they drive to the protocol.</li>
+</ul>
+<h3 id="d4-expandable-name-and-room-ecosystem"><a class="header" href="#d4-expandable-name-and-room-ecosystem">D4: Expandable Name and Room Ecosystem</a></h3>
+<p><strong>User Journey</strong>: Developers can build custom applications and infrastructure using the Name and Room system.</p>
+<p><strong>Justification</strong>: A flexible framework encourages innovation, enabling third-party developers to create services, tools, or applications that enhance the user experience within the MNS ecosystem.</p>
+<p><strong>Guidance and suggestions</strong>:</p>
+<ul>
+<li>Name and Room ownership should be tied to flexible access key resources, allowing for extensibility through third-party integrations and custom services.</li>
+</ul>
+<h3 id="d5-each-movement-name-should-grant-access-to-its-own-domain-for-move-tld"><a class="header" href="#d5-each-movement-name-should-grant-access-to-its-own-domain-for-move-tld">D5: Each Movement Name should grant access to its own Domain for .move TLD</a></h3>
+<p><strong>User Journey</strong>: Users acquire a <code>.move</code> domain. This allows the user to host an application running on http/https.</p>
+<p><strong>Justification</strong>: Domains are yet to be fully implemented for any web3 name service and <code>.move</code> is an elegant TLD with intrinsic value for a global market.</p>
+<h2 id="design"><a class="header" href="#design">Design</a></h2>
+<h3 id="protocol-units"><a class="header" href="#protocol-units">Protocol Units</a></h3>
+<ul>
+<li><strong>NameRegistry</strong>: Manages the registration and ownership of Names on the Movement blockchain, similar to the Aptos Name Service.</li>
+<li><strong>NameKeys</strong>: Manages the minting and burning of access keys tied to Rooms and Names using the bonding curve mechanism.</li>
+<li><strong>Ductus</strong> (temporary name): A server responsible for generating and serving Rooms’ content off-chain.</li>
+<li><strong>Domus</strong> (temporary name): A frontend interface where users can access, message, and manage their Rooms, including features like messaging, timeline integration, and third-party service integration (such as Parthenon).</li>
+<li><strong>Community Integrations</strong>: The community can generate revenue on existing infrastructure by driving Keys trading on their own interface by utilizing the <code>application_fee</code> feature. This allows them to find new revenue models that either compete with or improve the Ductus and Domus ecosystem.</li>
+</ul>
+<p>The community can modify these temporary names or replace them with their own infrastructure and branding.</p>
+<h2 id="background--motivation"><a class="header" href="#background--motivation">Background &amp; Motivation</a></h2>
+<p>Name services are integral to establishing on-chain identities, creating a user-friendly interface for interaction. Move-based name services have historically been owned by the network. The MNS maintains this model while also allowing the community to contribute content and services. The goal is to create a more innovative, community-driven Name Service on the Movement blockchain.</p>
+<h3 id="expanded"><a class="header" href="#expanded">Expanded</a></h3>
+<p>The Movement Name Service (MNS) goes beyond simply assigning human-readable names by introducing the concept of access keys tied to a bonding curve. This mechanism provides users with more than just an identifier—it adds a layer of value through the potential for ownership, community-building, and monetization. Access keys allow users to unlock private Rooms associated with Names, creating a user-driven ecosystem where participation and engagement with specific names hold tangible economic and social value.</p>
+<h4 id="keys-and-bonding-curve"><a class="header" href="#keys-and-bonding-curve">Keys and Bonding Curve</a></h4>
+<p>Keys are pivotal to this system. By tying the issuance of keys to a bonding curve, the cost of minting and burning keys dynamically adjusts based on demand, ensuring a fair and transparent market for entry into exclusive rooms. Users who acquire these keys not only gain access to specific digital spaces but also gain a stake in the name’s ecosystem. For example, as more users mint keys to access a popular room, the minting price rises, reflecting the increased demand for that space.</p>
+<p>This incentivizes early participation in popular rooms and encourages users to build brands around their names. When these names and associated rooms grow in value and demand, users can sell the keys on secondary markets, benefiting from increased key prices and potential residual earnings tied to those trades.</p>
+<h4 id="integrating-sofi-into-mns"><a class="header" href="#integrating-sofi-into-mns">Integrating SoFi into MNS</a></h4>
+<p>The integration of SoFi (Social Finance) into the MNS framework amplifies the value of the name service. Rather than tying a name’s worth to external platforms like Twitter or Discord, SoFi enables names to exist as self-contained ecosystems where the owner can control not only their brand but also the flow of interactions and transactions within their domain.</p>
+<p>By allowing people to trade well-established names, MNS unlocks additional value—when acquiring a prominent name, users can also gain access to that name’s followers and established community. This creates opportunities for individuals or brands to sell and transfer their influence on the blockchain in a decentralized manner. For developers and entrepreneurs, the introduction of an application fee tied to keys incentivizes the creation of third-party applications that route trades and interactions through their platforms, driving a thriving secondary market for names and keys.</p>
+<p>In this model, the name service and key market extend far beyond the initial design, encouraging continual growth and evolution as users build their own applications on top of the MNS framework.</p>
+<h4 id="userdeveloper-experience"><a class="header" href="#userdeveloper-experience">User/Developer Experience</a></h4>
+<p>For users, the experience of interacting with MNS is streamlined and intuitive. Registering a name or purchasing access keys involves interacting with simple on-chain functions, all while benefiting from the bonding curve’s dynamic pricing. As users participate in these interactions, they become integral parts of the MNS ecosystem, with the potential to trade, mint, or burn keys as demand shifts. This flexibility provides users with agency over their digital spaces and monetization paths.</p>
+<p>For developers, MNS presents a unique opportunity to create value-added services. By integrating with the bonding curve for keys, developers can create custom frontends or applications where users manage their names and keys, while collecting application fees on trades. This creates a lucrative ecosystem where developers benefit from user engagement and traffic on their platforms.</p>
+<h2 id="goals-and-non-goals"><a class="header" href="#goals-and-non-goals">Goals and Non-Goals</a></h2>
+<h3 id="goals"><a class="header" href="#goals">Goals</a></h3>
+<ul>
+<li>Establish a framework for the MNS system that is open and permissionless.</li>
+<li>Provide the minimum viable feature set for registering and managing Names and Rooms.</li>
+<li>Enable the community to iterate on the system and create content, infrastructure, and services based on Names and Rooms.</li>
+</ul>
+<h3 id="non-goals"><a class="header" href="#non-goals">Non-Goals</a></h3>
+<ul>
+<li>Define the full scope of the MNS system beyond its initial implementation.</li>
+<li>Prescribe how the Community Movement will build upon or extend the system.</li>
+</ul>
+<h2 id="timeline"><a class="header" href="#timeline">Timeline</a></h2>
+<ul>
+<li><strong>Q4 2024</strong>:
+<ul>
+<li>Finalize module designs and implementation.</li>
+<li>Deploy modules to testnet.</li>
+<li>Design and build the Domus frontend interface and Ductus server.</li>
+</ul>
+</li>
+<li><strong>Q1 2025</strong>:
+<ul>
+<li>Launch the NameRegistry and key management modules on mainnet.</li>
+<li>Community-driven integrations incentives.</li>
+</ul>
+</li>
+</ul>
+<h2 id="operations"><a class="header" href="#operations">Operations</a></h2>
+<p>The protocol should utilize a bonding curve model for minting and burning access keys, with funds flowing through the following structure:</p>
+<pre><code class="language-move">struct Settings {
+    protocol_fee_destination: address,
+    application_fee_percent: u64,
+    protocol_fee_percent: u64,
+    subject_fee_percent: u64,
+}
+
+#[event]
+struct Trade {
+    trader: address,
+    domain: address,
+    application: address,
+    is_buy: bool,
+    key_amount: u64,
+    move_amount: u64,
+    protocol_amount: u64,
+    domain_amount: u64,
+    application_amount: u64,
+    new_supply: u64,
+}
+</code></pre>
+<p><a href="https://github.com/0xPrimata/movement-names-contracts">preliminary sketch of the implementation on GitHub</a></p>
+<h2 id="securityprivacycompliance"><a class="header" href="#securityprivacycompliance">Security/Privacy/Compliance</a></h2>
+<p>As this system is decentralized and permissionless, Movement Labs is not responsible for third-party content or services built by the Community Movement. The community may establish their own privacy and security mechanisms.</p>
+<h2 id="risks"><a class="header" href="#risks">Risks</a></h2>
+<p>Community-driven services may introduce unforeseen vulnerabilities or suboptimal practices if not properly vetted.</p>
+<h2 id="disclaimers"><a class="header" href="#disclaimers">Disclaimers</a></h2>
+<ul>
+<li>This initiative is a potential continuation of the “Building the Parthenon” project.</li>
+<li>The MNS system is open and permissionless, meaning Movement Labs is not responsible for content or services built by the Community Movement.</li>
+</ul>
+<h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
+<ul>
+<li>Revisions:
+<ul>
+<li>Initial RFC Creation: 02232024</li>
+<li>Update: Moved timeline to Q4 2024 to include community contributions. Final design and implementation shifted accordingly.</li>
+<li>There is a <a href="https://github.com/0xPrimata/movement-names-contracts">preliminary sketch of the implementation on GitHub</a>. If accepted, this should be moved to the official Movement Labs GitHub repository for further development and refinement.</li>
+<li>First reference to Movement Name Service is available as an <a href="https://github.com/movementlabsxyz/rfcs/blob/move-name-service/draft-move-name-service/rfc-move-name-service.md">RFC</a>.</li>
+</ul>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../../Review/andygolay/md-26/MD/md-26/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../../../Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../../Review/andygolay/md-26/MD/md-26/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../../../Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../../../elasticlunr.min.js"></script>
+        <script src="../../../../../mark.min.js"></script>
+        <script src="../../../../../searcher.js"></script>
+
+        <script src="../../../../../clipboard.min.js"></script>
+        <script src="../../../../../highlight.js"></script>
+        <script src="../../../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

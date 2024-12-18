@@ -1,0 +1,291 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>MIP-40: NB-FFS Decoupled - MIP</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../../../Approved/main/GLOSSARY.html">Glossary</a></li><li class="chapter-item expanded "><a href="../../../../../index.html">Approved</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../index.html">MIPs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-1/index.html">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-15/index.html">MIP-15: MG (Movement Gloss)</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-39/index.html">MIP-39: MOVE Token -- HTLC-based Native Bridge Design</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-53/index.html">MIP-53: Conventions for Proposing Progressive L2 Models</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MDs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-1/index.html">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-3/index.html">MD-3: MCR under Network Partitions and Asynchrony</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-15/index.html">MD-15: Movement Glossary</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MGs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MG/mg-39/index.html">MG-39:  MOVE Token -- Bridge Design</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">Review</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../index.html">MIPs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/mikhail/suzuka-da-migrations/MIP/mip-13/index.html">MIP-13:  Suzuka DA Migrations Format</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled-demurrage/MIP/mip-42/index.html">MIP-15: NB-FFS Decoupled Demurrage</a></li><li class="chapter-item expanded "><a href="../../../../../Review/gas-fee-calculation/MIP/mip-16/index.html">MIP-16: Calculation of gas fees </a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mip-18/MIP/mip-18/index.html">MIP-18: Stage 0 Upgradeability and Multisigs</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andyjsbell/unwanted-framework/MIP/mip-24/index.html">MIP-24: Removal of redundant functionality from framework</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andyjsbell/proxy-root/MIP/mip-25/index.html">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mip-27/MIP/mip-27/index.html">MIP-27: Contract Pipeline</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/actor-naming-conventions/MIP/mip-28/index.html">MIP-28: Naming Conventions for Movement Protocol Design</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/FFS/MIP/mip-34/index.html">MIP-34: Fast-Finality Settlement</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled/MIP/mip-40/index.html" class="active">MIP-40: NB-FFS Decoupled</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-governed-gas-pool/MIP/mip-44/index.html">MIP-44: NB-FFS Governed Gas Pool</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/security_falliblity/MIP/mip-46/index.html">MIP-46: Security and Fallibility of the Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/gas-fees-incremental-additions/MIP/mip-47/index.html">MIP-47: Improve Gas fee collection in phases</a></li><li class="chapter-item expanded "><a href="../../../../../Review/0xmovses/aptos-gov-pool/MIP/mip-48/index.html">MIP-48: aptos_governance for Goverened Gas Pool</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/just-reward/MIP/mip-49/index.html">MIP-49: NB-FFS Governed Fees and Rewards</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/insured-bridge/MIP/mip-50/index.html">MIP-50: Insured Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/the-biarritz-model/MIP/mip-54/index.html">MIP-54: The Biarritz Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/the-bilbao-model/MIP/mip-55/index.html">MIP-55: The Bilbao Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/rate-limiter/MIP/mip-56/index.html">MIP-56: Rate-Limiter for the HTLC-based Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer/MIP/mip-57/index.html">MIP-57: Informer for the Operation of the HTLC-based Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip-58/MIP/mip-58/index.html">MIP-58: Trusted-Relayer focused Bridge Design</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip-crosschain-bridges-background/MIP/mip-60/index.html">MIP-60: Crosschain bridge architectures</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/index.html">MIP-61: Relayer in the lock/mint bridge - Algorithm and Bootstrapping </a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/L2confirmation/MIP/mip-65/index.html">MIP-65: FFS: Fastconfirmations</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer-lockmintbridge/MIP/mip-71/index.html">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/sanfran-model/MIP/mip-73/index.html">MIP-73: The SanFran Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/index.html">MIP-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MDs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/index.html">MD-2: Enclave Crash-resistant Key Management</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/long-range-attacks/MD/md-5/index.html">MD-4: Long Range Attacks</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/gas-offset/MD/md-4/index.html">MD-4: MCR Offsetting Gas Costs</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/block-validation/MD/md-6/index.html">MD-6: Suzuka Block Validation</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/block-validation/MD/md-7/index.html">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mikhail/suzuka-da-migrations/MD/md-13/index.html">MD-13: Suzuka DA Migrations Format</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/bridge-timelock-as-state/MD/md-14/index.html">MD-14: Bridge Should Use A More Secure Timelock</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andygolay/move-on-bitcoin/MD/md-16/index.html">MD-16: Create MOVE fungible asset on Bitcoin using runes</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/md-17/MD/md-17/index.html">MD-17: Bridge Fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/bridge-attestors/MD/md-21/index.html">MD-21: Native Bridge with Attesters</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andygolay/md-26/MD/md-26/index.html">MD-26: User-facing checks</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/md-30/MD/md-30/index.html">MD-30: Movement Name Service</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/index.html">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/just-reward/MD/md-49/index.html">MD-49: Movement L2 Gas Fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer-lockmintbridge/MD/md-71/index.html">MD-71: Informer service for the Lock/Mint-based Native Bridge</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MGs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/mip/FFS/MG/mg-34/index.html">MG-34: </a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled-demurrage/MG/mg-42/index.html">MG-42: demurrage token</a></li></ol></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">MIP</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/movementlabsxyz/MIP-Testing" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="mip-40-nb-ffs-decoupled"><a class="header" href="#mip-40-nb-ffs-decoupled">MIP-40: <em>NB-FFS Decoupled</em></a></h1>
+<ul>
+<li><strong>Description</strong>: Introduces architectural guide for <em><strong>NB-FFS Decoupled</strong></em>.</li>
+<li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
+<li><strong>Reviewer</strong>: <a href="mailto:andreas.penzkofer@movementlabs.xyz">Andreas Penzkofer</a></li>
+<li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/pull/38">MD-38</a></li>
+</ul>
+<h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
+<p>This MIP introduces the architectural guide for implementing <em><strong>NB-FFS Decoupled</strong></em>, a means of using the Native Bridge and Fast-finality Settlement with a fixed supply of token. This decoupled approach relies on burning gas on the L2 into an L2 pool and issuing rewards in an LP token on the L1. Details of the L2 pool recirculation and the L1 LP token issuance are largely left to follow-on MIPs, however we do specify general constraints and guidelines.</p>
+<p>We also propose the usage of intermediary tokens for bridging to fully decouple the L1 and L2 systems. This allows for the L2 pool to be recirculated without the need for a direct bridge to the L1 and exposure to fallibility of the bridge on either side.</p>
+<p>Without the usage of intermediary tokens, we refer to this system as <em><strong>NB-FFS Partially Decoupled</strong></em>, for which we do not intend a separate MIP.</p>
+<h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
+<p>The <em>NB-FFS Decoupled</em> system is intended to address <a href="https://github.com/movementlabsxyz/MIP/pull/38">MD-38</a>. That is, <em>NB-FFS Decoupled</em> provides a means for using the Native Bridge and Fast-finality Settlement with a fixed supply of token.</p>
+<p>Fundamentally, <em>NB-FFS Decoupled</em> contends with the fallibility of the Native Bridge by (a) removing any need for its involvement in returning funds to the L1 and (b) using intermediary tokens to avoid any locking, minting, burning, or other operations that would potentially modify the total supply of either the L1 staking token or the L2 staking token.</p>
+<p><em>NB-FFS Partially Decoupled</em> still removes the need for the Native Bridge to return funds to the L1, but does not protect the total supply from all bridge failures. Hence <em>NB-FFS Partially Decoupled</em> is not a sound solution for <a href="https://github.com/movementlabsxyz/MIP/pull/38">MD-38</a>.</p>
+<h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+<p><img src="./ab-ffs-decoupled.png" alt="NB-FFS Decoupled" /></p>
+<p>An <em>NB-FFS Decoupled</em> system is defined by the following requirements:</p>
+<ol>
+<li>The L1 staking token MUST be a unique token issued in a fixed supply.</li>
+<li>The L2 gas token MUST be a unique token issued in a fixed supply.</li>
+<li>Rewards issued via FFS MUST NOT be issued in the L1 staking token, but instead in an LP token on the L1.</li>
+<li>The LP Token MAY elect to maintain a supply or value correlated with the L1 staking token or the L2 gas token. But, this supply or value correlation MUST NOT rely on special capabilities of the LP token or trusted third parties.</li>
+<li>The L2 staking token MUST be burned on the L2 to deposit gas into an L2 pool.</li>
+</ol>
+<p>If the LP Token supply is not fixed, the NB-FFS solution implemented is referred to as <em>NB-FFS Decoupled</em> Demurrage. <a href="todo">MIP-n</a> provides a more complete specification for <em>NB-FFS Decoupled</em> Demurrage.</p>
+<p>Otherwise, the NB-FFS solution implemented implemented is referred to as <em>NB-FFS Decoupled</em> Grant. <a href="todo">MIP-n</a> provides a more complete specification for <em>NB-FFS Decoupled</em> Grant.</p>
+<h3 id="l1-lp-token"><a class="header" href="#l1-lp-token">L1 LP Token</a></h3>
+<ol>
+<li>The L1 LP Token MUST NOT enshrine any special capabilities to mint or otherwise unlock the L1 staking token. That is, the L1 LP token must be independent of the L1 staking token and only effectively be used to purchase the L1 staking token.</li>
+<li>The governing system MAY provide vouchers or other means of redeeming the L1 LP token for the L1 staking token from a dedicate allocation. The object of these vouchers SHOULD be to peg the value of the L1 LP token to the L1 staking token.</li>
+</ol>
+<p>A more complete proposal for the usage L1 LP tokens with FFS is provided in <a href="todo">MIP-n</a>.</p>
+<h3 id="l2-token-pool-gas-pool"><a class="header" href="#l2-token-pool-gas-pool">L2 Token Pool (Gas Pool)</a></h3>
+<ol>
+<li>Burning gas an amount of gas $\alpha$ on the L2 MUST result in depositing that same amount of gas $\alpha$ into an L2 pool.</li>
+<li>The L2 pool MUST be recirculated to the L2 users in a manner that is not specified in this MIP. Generally, this means the L2 pool must either be used to issue rewards or otherwise be a reliable means of purchasing gas token on the L2.</li>
+</ol>
+<p>A system adhering to these requirements is referred to as a Gas Pool. A more complete proposal for the usage of Gas Pools is provided in <a href="todo">MIP-n</a>.</p>
+<h3 id="intermediary-tokens"><a class="header" href="#intermediary-tokens">Intermediary Tokens</a></h3>
+<ol>
+<li>A complete implementation of <em>NB-FFS Decoupled</em> SHOULD use intermediary tokens to bridge the L1 and L2 systems. An implementation not using intermediary tokens is referred to as <em>NB-FFS Partially Decoupled</em>.</li>
+<li>The intermediary tokens MAY manage their own exchange rates, markets, and fees between each other, the L1 staking token, the L2 staking token, and the L1 LP token.</li>
+</ol>
+<p>A more complete proposal for the usage of intermediary tokens is provided in <a href="todo">MIP-n</a>.</p>
+<h3 id="genesis"><a class="header" href="#genesis">Genesis</a></h3>
+<p><a href="https://github.com/movementlabsxyz/MIP/pull/38">MD-38</a> requests provisions for genesis for any system addressing its desiderata. The genesis for <em>NB-FFS Decoupled</em> is not fully specified in this MIP and such full specification is provided under <a href="todo">MIP-n</a>. However, generally, there are two strategies for genesis:</p>
+<ol>
+<li><strong>Separate Mints</strong>: mint the L1 staking token and the L2 gas token simultaneously in fixed supplies amounting to the intended total supply.</li>
+<li><strong>Genesis Bridge Transfer</strong>: mint the L1 staking or L2 gas token in a fixed supply and transfer the other token from the L1 to the L2 s.t. a successful bridge transfer occurs before the system is operational.</li>
+</ol>
+<h3 id="on-the-nature-of-the-tokens"><a class="header" href="#on-the-nature-of-the-tokens">On the Nature of the Tokens</a></h3>
+<p>Fundamentally, the L1 staking and L2 gas token in an <em>NB-FFS Decoupled</em> system are independent, i.e., not constituting a representation of the same token redeemable on different chains. The comprise two closed token systems where assets cannot be lost or gained.</p>
+<p>The usage of <em>NB-FFS Decoupled</em> is then suitable for systems wherein the governing body wishes to prioritize the security of the total supply of the staking tokens. To the extent the governing body wishes for the economics of the L1 staking token and L2 gas token to remain correlated, the governing body shall make efforts to peg the value of the L1 LP token to the L1 staking token.</p>
+<p>In the case that <em>NB-FFS Decoupled</em> Grant is implemented, FFS shall require a new token generation event at some point determined by the size of the grant. Thus, FFS has a lifespan w.r.t. to the L1 staking token. This lifespan is further detailed in <a href="todo">MIP-n</a>.</p>
+<p>In the case that <em>NB-FFS Decoupled</em> Demurrage is implemented, the value of L1 LP Token shall tend to zero over time. This may also be remedies by new token generation events. This phenomenon is further detailed in <a href="todo">MIP-n</a>.</p>
+<h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
+<h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
+<h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
+<h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../../Review/mip/FFS/MIP/mip-34/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../../../Review/l-monninger/ab-ffs-governed-gas-pool/MIP/mip-44/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../../Review/mip/FFS/MIP/mip-34/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../../../Review/l-monninger/ab-ffs-governed-gas-pool/MIP/mip-44/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../../../elasticlunr.min.js"></script>
+        <script src="../../../../../mark.min.js"></script>
+        <script src="../../../../../searcher.js"></script>
+
+        <script src="../../../../../clipboard.min.js"></script>
+        <script src="../../../../../highlight.js"></script>
+        <script src="../../../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

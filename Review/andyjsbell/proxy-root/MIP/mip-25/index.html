@@ -1,0 +1,669 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>MIP-25: Proxy Aptos Framework for Stage 0 governance - MIP</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../../../Approved/main/GLOSSARY.html">Glossary</a></li><li class="chapter-item expanded "><a href="../../../../../index.html">Approved</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../index.html">MIPs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-1/index.html">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-15/index.html">MIP-15: MG (Movement Gloss)</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-39/index.html">MIP-39: MOVE Token -- HTLC-based Native Bridge Design</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-53/index.html">MIP-53: Conventions for Proposing Progressive L2 Models</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MDs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-1/index.html">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-3/index.html">MD-3: MCR under Network Partitions and Asynchrony</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-15/index.html">MD-15: Movement Glossary</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MGs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MG/mg-39/index.html">MG-39:  MOVE Token -- Bridge Design</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">Review</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../index.html">MIPs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/mikhail/suzuka-da-migrations/MIP/mip-13/index.html">MIP-13:  Suzuka DA Migrations Format</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled-demurrage/MIP/mip-42/index.html">MIP-15: NB-FFS Decoupled Demurrage</a></li><li class="chapter-item expanded "><a href="../../../../../Review/gas-fee-calculation/MIP/mip-16/index.html">MIP-16: Calculation of gas fees </a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mip-18/MIP/mip-18/index.html">MIP-18: Stage 0 Upgradeability and Multisigs</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andyjsbell/unwanted-framework/MIP/mip-24/index.html">MIP-24: Removal of redundant functionality from framework</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andyjsbell/proxy-root/MIP/mip-25/index.html" class="active">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mip-27/MIP/mip-27/index.html">MIP-27: Contract Pipeline</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/actor-naming-conventions/MIP/mip-28/index.html">MIP-28: Naming Conventions for Movement Protocol Design</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/FFS/MIP/mip-34/index.html">MIP-34: Fast-Finality Settlement</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled/MIP/mip-40/index.html">MIP-40: NB-FFS Decoupled</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-governed-gas-pool/MIP/mip-44/index.html">MIP-44: NB-FFS Governed Gas Pool</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/security_falliblity/MIP/mip-46/index.html">MIP-46: Security and Fallibility of the Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/gas-fees-incremental-additions/MIP/mip-47/index.html">MIP-47: Improve Gas fee collection in phases</a></li><li class="chapter-item expanded "><a href="../../../../../Review/0xmovses/aptos-gov-pool/MIP/mip-48/index.html">MIP-48: aptos_governance for Goverened Gas Pool</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/just-reward/MIP/mip-49/index.html">MIP-49: NB-FFS Governed Fees and Rewards</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/insured-bridge/MIP/mip-50/index.html">MIP-50: Insured Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/the-biarritz-model/MIP/mip-54/index.html">MIP-54: The Biarritz Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/the-bilbao-model/MIP/mip-55/index.html">MIP-55: The Bilbao Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/rate-limiter/MIP/mip-56/index.html">MIP-56: Rate-Limiter for the HTLC-based Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer/MIP/mip-57/index.html">MIP-57: Informer for the Operation of the HTLC-based Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip-58/MIP/mip-58/index.html">MIP-58: Trusted-Relayer focused Bridge Design</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip-crosschain-bridges-background/MIP/mip-60/index.html">MIP-60: Crosschain bridge architectures</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/index.html">MIP-61: Relayer in the lock/mint bridge - Algorithm and Bootstrapping </a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/L2confirmation/MIP/mip-65/index.html">MIP-65: FFS: Fastconfirmations</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer-lockmintbridge/MIP/mip-71/index.html">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/sanfran-model/MIP/mip-73/index.html">MIP-73: The SanFran Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/index.html">MIP-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MDs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/index.html">MD-2: Enclave Crash-resistant Key Management</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/long-range-attacks/MD/md-5/index.html">MD-4: Long Range Attacks</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/gas-offset/MD/md-4/index.html">MD-4: MCR Offsetting Gas Costs</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/block-validation/MD/md-6/index.html">MD-6: Suzuka Block Validation</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/block-validation/MD/md-7/index.html">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mikhail/suzuka-da-migrations/MD/md-13/index.html">MD-13: Suzuka DA Migrations Format</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/bridge-timelock-as-state/MD/md-14/index.html">MD-14: Bridge Should Use A More Secure Timelock</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andygolay/move-on-bitcoin/MD/md-16/index.html">MD-16: Create MOVE fungible asset on Bitcoin using runes</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/md-17/MD/md-17/index.html">MD-17: Bridge Fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/bridge-attestors/MD/md-21/index.html">MD-21: Native Bridge with Attesters</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andygolay/md-26/MD/md-26/index.html">MD-26: User-facing checks</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/md-30/MD/md-30/index.html">MD-30: Movement Name Service</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/index.html">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/just-reward/MD/md-49/index.html">MD-49: Movement L2 Gas Fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer-lockmintbridge/MD/md-71/index.html">MD-71: Informer service for the Lock/Mint-based Native Bridge</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MGs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/mip/FFS/MG/mg-34/index.html">MG-34: </a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled-demurrage/MG/mg-42/index.html">MG-42: demurrage token</a></li></ol></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">MIP</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/movementlabsxyz/MIP-Testing" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="mip-25-proxy-aptos-framework-for-stage-0-governance"><a class="header" href="#mip-25-proxy-aptos-framework-for-stage-0-governance">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></h1>
+<ul>
+<li><strong>Description</strong>: Proxy Aptos Framework signing for stage 0 of the Movement network governance</li>
+<li><strong>Authors</strong>: <a href="mailto:andy.bell@movementlabs.xyz">Andy Bell</a></li>
+<li><strong>Desiderata</strong>: <a href="../MD/md-0">MD-0</a></li>
+</ul>
+<h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
+<p>This MIP describes a means by which during Stage 0 of the Movement network a signing key, single or multi, is able to manage the Aptos Framework without relying on the governance module included in the Aptos Framework.  This facilitating a more agile method in which Aptos Framework updates and modifications can be executed rapidly during this stage of the network.  This method would be deprecated in favour of decentralized governance in the future.</p>
+<h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
+<p>During Stage 0 of the Movement network Movement Labs would hold centralized control of the node and Aptos Framework.  In order to update or modify the Aptos Framework this would involve the deployment of new node binaries to operators in the network who would then upgrade.  One option to facilitate Aptos Framework upgrades is the use of the governance module which forms part of the Aptos Framework.  This, however, is not optimal for stage 0 of the network and the proposal here is to include a new module in the framework which proxies functions executed with the priviledges of the Aptos Framework.  Following a similiar strategy as the governance module but allowing voting to be circumvented with the use of a trusted multisig wallet held and managed by Movement Labs.</p>
+<h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
+<ol>
+<li>The Proxy module MUST be made available as part of the Aptos Framework.</li>
+<li>A single or multi-signature MUST be required to temporarily acquire the signing privileges of the Aptos Framework.</li>
+<li>Only one authorized key MUST be able to operate the Proxy module and acquire the signing privileges.</li>
+<li>The controller key MUST be rotated, and the Proxy module MUST provide functionality to support key rotation.</li>
+<li>Updates to the framework MUST use a Move script signed by the controller account to acquire the signing privileges of the Aptos Framework during the script’s execution.</li>
+<li>The controller account SHOULD be multisig, and this MUST be a strict requirement for the Proxy module. For testing purposes, this requirement MAY be relaxed to allow a single account.</li>
+<li>The Proxy module MUST allow the controller to remove the signing capabilities and render the module inoperable.  This MUST allow an upgrade path to a new governance like module.  This MUST be an irreversible action.</li>
+</ol>
+<h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
+<pre><code class="language-rust">module aptos_framework::proxy {
+    use std::hash::sha3_256;
+    use std::signer;
+    use std::vector;
+    use aptos_std::smart_table;
+    use aptos_std::smart_table::SmartTable;
+    use aptos_framework::account::{create_signer_with_capability, SignerCapability};
+    use aptos_framework::aptos_coin::AptosCoin;
+    use aptos_framework::coin;
+    use aptos_framework::coin::Coin;
+    use aptos_framework::event;
+    use aptos_framework::system_addresses;
+    use aptos_framework::transaction_context;
+    use aptos_std::ed25519;
+    use aptos_std::from_bcs;
+    use aptos_framework::timestamp::now_seconds;
+
+    friend aptos_framework::genesis;
+
+    struct ProxyController has key {
+        controller: address,
+        next_proposal_id: u64,
+        proposals: SmartTable&lt;u64, Proposal&gt;,
+        nonce: u64,
+    }
+
+    struct ProxySignerCapabilities has key {
+        aptos_framework_signer_cap: SignerCapability,
+    }
+
+    struct Proposal has store {
+        creator: address,
+        execution_hash: vector&lt;u8&gt;,
+        stake: Coin&lt;AptosCoin&gt;,
+        approved: bool,
+        expiration: u64,
+    }
+
+    #[event]
+    struct ProposalCreated has store, drop {
+        creator: address,
+        proposal_id: u64
+    }
+
+    #[event]
+    struct ProposalRejected has store, drop {
+        proposal_id: u64,
+    }
+
+    #[event]
+    struct ProposalApproved has store, drop {
+        proposal_id: u64,
+    }
+
+    #[event]
+    struct ProposalRemoved has store, drop {
+        proposal_id: u64,
+    }
+
+    const EINVALID_CONTROLLER : u64 = 0x1;
+    const ENOT_APPROVED : u64 = 0x2;
+    const EEXECUTION_HASH_INVALID : u64 = 0x3;
+    const ENONCE_MISMATCH : u64 = 0x4;
+    const EINVALID_SIGNATURE : u64 = 0x5;
+    const EINVALID_CHALLENGE : u64 = 0x5;
+    const EPROPOSAL_TIMEOUT : u64 = 0x6;
+    const ENOT_CREATOR : u64 = 0x7;
+    const EAPPROVED : u64 = 0x8;
+
+    const PROPOSAL_LENGTH_IN_SECS : u64 = 2 * 24 * 60 * 60;
+
+    #[event]
+    /// An event triggered when the controller is updated
+    struct ControllerUpdated has store, drop {
+        old_controller: address,
+        new_controller: address,
+    }
+
+    /// Only called during genesis.
+    public(friend) fun initialize(aptos_framework: &amp;signer, aptos_framework_signer_cap: SignerCapability) {
+        system_addresses::assert_aptos_framework(aptos_framework);
+
+        move_to(
+            aptos_framework,
+            ProxyController {
+                controller: @aptos_framework,
+                next_proposal_id: 1,
+                proposals: smart_table::new(),
+                nonce: 0,
+            }
+        );
+
+        move_to(
+            aptos_framework,
+            ProxySignerCapabilities {
+                aptos_framework_signer_cap,
+            }
+        )
+    }
+
+    /// Destroy the proxy and release SignerCapability to the caller
+    /// The controller is voided with 0xdead as the new controlling address.
+    /// Warning from this point the proxy module will be inoperable
+    public fun destroy(caller: &amp;signer) : SignerCapability acquires ProxySignerCapabilities, ProxyController {
+        let proxy_controller = borrow_global_mut&lt;ProxyController&gt;(@aptos_framework);
+        assert!(signer::address_of(caller) == proxy_controller.controller, EINVALID_CONTROLLER);
+        proxy_controller.controller = @0xdead;
+
+        let ProxySignerCapabilities {
+            aptos_framework_signer_cap
+        } = move_from&lt;ProxySignerCapabilities&gt;(@aptos_framework);
+
+        aptos_framework_signer_cap
+    }
+
+    /// Update the controller of the proxy. Requires signature over challenge which is at the moment an abitrary vector
+    /// of bytes with a length of 32
+    /// Aborts if signed by anyone else except the controller or @aptos_framework
+    /// Aborts if nonce invalid
+    /// Aborts etc
+    /// Emits an event on updating the controller
+    public fun update_controller(signer: &amp;signer,
+                                 new_controller_pubkey: vector&lt;u8&gt;,
+                                 new_controller_signature: vector&lt;u8&gt;,
+                                 challenge: vector&lt;u8&gt;,
+                                 provided_nonce: u64
+    ) acquires ProxyController {
+        let proxy_controller = borrow_global_mut&lt;ProxyController&gt;(@aptos_framework);
+
+        assert!(
+            proxy_controller.controller == signer::address_of(signer),
+            EINVALID_CONTROLLER
+        );
+
+        assert!(
+            provided_nonce == proxy_controller.nonce,
+            ENONCE_MISMATCH
+        );
+
+        let new_controller = sha3_256(new_controller_pubkey);
+
+        let public_key = ed25519::new_unvalidated_public_key_from_bytes(new_controller_pubkey);
+        let signature = ed25519::new_signature_from_bytes(new_controller_signature);
+        assert!(
+            ed25519::signature_verify_strict_t(&amp;signature, &amp;public_key, challenge),
+            EINVALID_SIGNATURE
+        );
+
+        assert!(
+            vector::length(&amp;challenge) == 32,
+            EINVALID_CHALLENGE
+        );
+
+        let new_controller = from_bcs::to_address(new_controller);
+        let old_controller = proxy_controller.controller;
+        proxy_controller.controller = new_controller;
+
+        proxy_controller.nonce = proxy_controller.nonce + 1;
+
+        event::emit(
+            ControllerUpdated {
+                old_controller,
+                new_controller,
+            },
+        );
+    }
+
+    /// Propose a script to be executed providing its hash and a stake
+    /// Stake is returned on approval and execution or rejection
+    public entry fun propose(caller: &amp;signer, execution_hash: vector&lt;u8&gt;) acquires ProxyController {
+        let proxy_controller = borrow_global_mut&lt;ProxyController&gt;(@aptos_framework);
+        let stake: Coin&lt;AptosCoin&gt; = coin::withdraw&lt;AptosCoin&gt;(caller, 10_000_000);
+
+        let creator = signer::address_of(caller);
+        let proposal_id = proxy_controller.next_proposal_id;
+        let proposal = Proposal {
+            creator,
+            execution_hash,
+            stake,
+            approved: false,
+            expiration: now_seconds() + PROPOSAL_LENGTH_IN_SECS,
+        };
+
+        proxy_controller.next_proposal_id = proxy_controller.next_proposal_id + 1;
+
+        smart_table::add(&amp;mut proxy_controller.proposals, proposal_id, proposal);
+
+        event::emit(ProposalCreated {
+            creator,
+            proposal_id,
+        });
+    }
+
+    /// Approve proposal
+    public entry fun approve(caller: &amp;signer, proposal_id: u64) acquires ProxyController {
+        let proxy_controller = borrow_global_mut&lt;ProxyController&gt;(@aptos_framework);
+        assert!(signer::address_of(caller) == proxy_controller.controller, EINVALID_CONTROLLER);
+        let proposal = smart_table::borrow_mut(&amp;mut proxy_controller.proposals, proposal_id);
+        assert!(now_seconds() &lt; proposal.expiration, EPROPOSAL_TIMEOUT);
+        proposal.approved = true;
+
+        event::emit(ProposalApproved {
+            proposal_id,
+        });
+    }
+
+    /// Remove proposal to be called by the creator of the proposal and only after the proposal has expired and has not
+    /// been approved
+    public entry fun remove(caller: &amp;signer, proposal_id: u64) acquires ProxyController {
+        let proxy_controller = borrow_global_mut&lt;ProxyController&gt;(@aptos_framework);
+        let Proposal {
+            creator,
+            execution_hash: _,
+            stake,
+            approved,
+            expiration,
+        } = smart_table::remove(&amp;mut proxy_controller.proposals, proposal_id);
+
+        assert!(creator == signer::address_of(caller), ENOT_CREATOR);
+        assert!(approved == false, EAPPROVED);
+        assert!(expiration &lt; now_seconds(), EPROPOSAL_TIMEOUT);
+
+        coin::deposit(creator, stake);
+        event::emit(ProposalRemoved {
+            proposal_id,
+        });
+    }
+
+    /// Reject proposal
+    public entry fun reject(caller: &amp;signer, proposal_id: u64) acquires ProxyController {
+        let proxy_controller = borrow_global_mut&lt;ProxyController&gt;(@aptos_framework);
+        assert!(signer::address_of(caller) == proxy_controller.controller, EINVALID_CONTROLLER);
+
+        let Proposal {
+            creator,
+            execution_hash: _,
+            stake,
+            approved,
+            expiration,
+        } = smart_table::remove(&amp;mut proxy_controller.proposals, proposal_id);
+
+        assert!(approved == false, EAPPROVED);
+        assert!(expiration &lt; now_seconds(), EPROPOSAL_TIMEOUT);
+
+        coin::deposit(creator, stake);
+        event::emit(ProposalRejected {
+            proposal_id,
+        });
+    }
+
+    /// Delegate Aptos Framework's signing cap to proxy providing proposal id for approved proposal and calling from
+    /// the proposed script
+    public fun delegate_to_proxy(proposal_id: u64) : signer acquires ProxyController, ProxySignerCapabilities {
+        let proxy_controller = borrow_global_mut&lt;ProxyController&gt;(@aptos_framework);
+
+        let Proposal {
+            creator,
+            execution_hash,
+            stake,
+            approved,
+            expiration: _,
+        } = smart_table::remove(&amp;mut proxy_controller.proposals, proposal_id);
+
+        assert!(approved, ENOT_APPROVED);
+        assert!(transaction_context::get_script_hash() == execution_hash, EEXECUTION_HASH_INVALID);
+
+        let aptos_framework_signer_cap = &amp;borrow_global&lt;ProxySignerCapabilities&gt;(@aptos_framework).aptos_framework_signer_cap;
+        coin::deposit(creator, stake);
+        create_signer_with_capability(aptos_framework_signer_cap)
+    }
+
+    #[view]
+    /// Return the controller of the proxy
+    public fun get_controller(): address acquires ProxyController {
+        borrow_global&lt;ProxyController&gt;(@aptos_framework).controller
+    }
+}</code></pre>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Create the Move script you want to execute.  An example can be found below.</li>
+<li>With the hash of the script call <code>proxy::propose(execution_hash)</code> to initiate the request to proxy the script providing a refundable stake.  An off chain mechanism would track the newly created <code>proposal_id</code></li>
+<li>The controller would call <code>proxy::approve(proposal_id)</code> which would approve the proposal</li>
+<li>Alternatively the controller would call <code>proxy::reject(proposal_id)</code> to reject the proposal resulting in the return of the stake to the <code>creator</code></li>
+<li>With a proposal being approved the proposed script can now be executed and will be delegated proxy, <code>proxy::delegate_to_proxy</code> to the signing capabilities of the Aptos Framework.</li>
+<li>On receiving the proxy the proposal is removed with the stake being returned to the <code>creator</code></li>
+</ol>
+<pre><code class="language-rust">script {
+    use aptos_framework::proxy;
+    use aptos_framework::atomic_bridge_configuration;
+
+    // Called by anyone with an approved proposal id to be delegated proxy to the framework to 
+    // update the bridge operator
+    fun main(proposal_id: u64, new_operator: address) {
+        let framework_signer = proxy::delegate_to_proxy(proposal_id);
+        atomic_bridge_configuration::update_bridge_operator(&amp;framework_signer, new_operator);
+    }
+}</code></pre>
+<p><strong>Proposals</strong></p>
+<p>Proposals expire 2 days after creation, after which they can no longer be approved or rejected. Only the creator of the proposal can remove it using the <code>remove(caller, proposal_id)</code> function.</p>
+<p><strong>Key Rotation</strong></p>
+<p>The controlling key can be rotated using <code>update_controller()</code> by providing the new controller’s public key along with a signed challenge, which proves ownership of the private key corresponding to the new public key.</p>
+<p><strong>Genesis</strong></p>
+<p>At Genesis, the <code>genesis.move</code> module is invoked to initialize a series of modules, including the <code>proxy</code> module. At this stage, the <code>core_resources_key</code> account would serve as the initial controller of the Proxy.</p>
+<p>The following patch outlines an approach to side-load the proxy module alongside Aptos Governance, enabling a pathway for transitioning to Aptos Governance and deprecating the Proxy module after Genesis.</p>
+<pre><code class="language-patch">Index: aptos-move/framework/aptos-framework/sources/genesis.move
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+&lt;+&gt;UTF-8
+===================================================================
+diff --git a/aptos-move/framework/aptos-framework/sources/genesis.move b/aptos-move/framework/aptos-framework/sources/genesis.move
+--- a/aptos-move/framework/aptos-framework/sources/genesis.move	(revision 70be3926ff79ff4cdb0cee928f717fafcd41ecdd)
++++ b/aptos-move/framework/aptos-framework/sources/genesis.move	(date 1729089687774)
+@@ -19,6 +19,7 @@
+     use aptos_framework::execution_config;
+     use aptos_framework::create_signer::create_signer;
+     use aptos_framework::gas_schedule;
++    use aptos_framework::proxy;
+     use aptos_framework::reconfiguration;
+     use aptos_framework::stake;
+     use aptos_framework::staking_contract;
+@@ -95,8 +96,8 @@
+             b"epilogue",
+         );
+ 
+-        // Give the decentralized on-chain governance control over the core framework account.
+-        aptos_governance::store_signer_cap(&amp;aptos_framework_account, @aptos_framework, aptos_framework_signer_cap);
++        // Give the proxy module the core framework account.
++        proxy::initialize(&amp;aptos_framework_account, aptos_framework_signer_cap);
+ 
+         // put reserved framework reserved accounts under aptos governance
+         let framework_reserved_addresses = vector&lt;address&gt;[@0x2, @0x3, @0x4, @0x5, @0x6, @0x7, @0x8, @0x9, @0xa];
+@@ -150,6 +151,14 @@
+         transaction_fee::store_aptos_coin_mint_cap(aptos_framework, mint_cap);
+     }
+ 
++    /// Genesis step 3: Initialize Proxy
++    fun update_proxy_controller_to_core_resources(
++        aptos_framework: &amp;signer,
++        core_resources_auth_key: vector&lt;u8&gt;,
++    ) {
++        proxy::update_controller_unvalidated(aptos_framework, core_resources_auth_key);
++    }
++
+     /// Only called for testnets and e2e tests.
+     fun initialize_core_resources_and_aptos_coin(
+         aptos_framework: &amp;signer,
+Index: aptos-move/vm-genesis/src/lib.rs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+&lt;+&gt;UTF-8
+===================================================================
+diff --git a/aptos-move/vm-genesis/src/lib.rs b/aptos-move/vm-genesis/src/lib.rs
+--- a/aptos-move/vm-genesis/src/lib.rs	(revision 70be3926ff79ff4cdb0cee928f717fafcd41ecdd)
++++ b/aptos-move/vm-genesis/src/lib.rs	(date 1729089624756)
+@@ -260,6 +260,8 @@
+     } else {
+         initialize_aptos_coin(&amp;mut session);
+     }
++    initialize_proxy(&amp;mut session, core_resources_key);
++
+     initialize_config_buffer(&amp;mut session);
+     initialize_dkg(&amp;mut session);
+     initialize_reconfiguration_state(&amp;mut session);
+@@ -606,6 +608,23 @@
+         ]),
+     );
+ }
++
++fn initialize_proxy(
++    session: &amp;mut SessionExt,
++    core_resources_key: &amp;Ed25519PublicKey,
++) {
++    let core_resources_auth_key = AuthenticationKey::ed25519(core_resources_key);
++    exec_function(
++        session,
++        GENESIS_MODULE_NAME,
++        "update_proxy_controller_to_core_resources",
++        vec![],
++        serialize_values(&amp;vec![
++            MoveValue::Signer(CORE_CODE_ADDRESS),
++            MoveValue::vector_u8(core_resources_auth_key.to_vec()),
++        ]),
++    );
++}
+ 
+ /// Create and initialize Association and Core Code accounts.
+ fn initialize_on_chain_governance(session: &amp;mut SessionExt, genesis_config: &amp;GenesisConfiguration) {
+</code></pre>
+<p><strong>Post Genesis</strong><br />
+Ideally, the <code>proxy</code> module would eventually be replaced by Aptos Governance. To facilitate this transition, the following Move script would deactivate the <code>proxy</code> module and transfer the <code>SignerCapability</code> from the proxy to Aptos Governance. This process can also be applied to upgrade to any other governance module if needed.</p>
+<pre><code class="language-rust">script {
+    use aptos_framework::proxy;
+    use aptos_framework::aptos_governance;
+
+    fun main(proposal_id: u64) {
+        // Request proxy
+        let core_signer = proxy::delegate_to_proxy(proposal_id);
+        let framework_signer = &amp;core_signer;
+        // Pass `SignerCapability` over to Aptos Governance
+        let aptos_framework_signer_cap = proxy::destroy(framework_signer);
+        aptos_governance::store_signer_cap(framework_signer, @aptos_framework, aptos_framework_signer_cap);
+        // Proxy is now inactive
+    }
+}</code></pre>
+<h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
+<h3 id="1-correctness"><a class="header" href="#1-correctness">1. Correctness:</a></h3>
+<p>The reference implementation has been integrated with the Aptos Framework. The <code>multisig_account.move</code> module has been verified as a mechanism to allow the proxy controller to be managed by a predefined set of signers. A review of <code>aptos_governance.move</code> provided a useful framework for validating and executing approved scripts based on their script hash. Further testing, including integration tests, will be conducted to validate the reference implementation presented here, and this will be supported by specification files for formal verification.</p>
+<h3 id="2-security-implications"><a class="header" href="#2-security-implications">2. Security Implications:</a></h3>
+<p>The controller’s ability to approve proposals that proxy the signing capabilities of the Aptos Framework introduces certain security risks. These risks are mitigated by ensuring that only the controller can approve or reject proposals. Additionally, cryptographic methods are employed to verify key rotations using a signed challenge, along with a nonce to prevent replay attacks. Malicious scripts are further safeguarded by validating their hash at the time of execution, ensuring that only approved scripts can be executed.
+Changes will be required at Genesis to initialize the module, which will involve providing the <code>SignerCapability</code> to the module. A potential area of concern is the scope of control the proxy has during script execution. This could be addressed with more granular access control over the modules, but such a solution is beyond the scope of this MIP and would warrant its own proposal. Since this module is designed for upgrading the framework during Stage 0, it is expected to be superseded and made inoperative once the network transitions to a later stage of governance, potentially using Aptos Governance.</p>
+<h3 id="3-performance-impacts"><a class="header" href="#3-performance-impacts">3. Performance Impacts:</a></h3>
+<p>The proxy model offers an efficient way to govern the Aptos Framework through a multisig setup, bypassing the delays and staking requirements typically involved when using the Aptos Governance system.</p>
+<h3 id="4-validation-procedures"><a class="header" href="#4-validation-procedures">4. Validation Procedures:</a></h3>
+<p>Tests were conducted using Move scripts to confirm that they can successfully acquire the <code>SignerCapability</code> for the Aptos Framework. These tests were aligned with the existing capabilities provided by the Aptos Governance system.</p>
+<h3 id="5-peer-review-and-community-feedback"><a class="header" href="#5-peer-review-and-community-feedback">5. Peer Review and Community Feedback:</a></h3>
+<p>The proposal is subject to review and feedback from the Movement Labs team and the wider community to ensure that it meets the needs of the ecosystem.</p>
+<h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
+<h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../../Review/andyjsbell/unwanted-framework/MIP/mip-24/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../../../Review/primata/mip-27/MIP/mip-27/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../../Review/andyjsbell/unwanted-framework/MIP/mip-24/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../../../Review/primata/mip-27/MIP/mip-27/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../../../elasticlunr.min.js"></script>
+        <script src="../../../../../mark.min.js"></script>
+        <script src="../../../../../searcher.js"></script>
+
+        <script src="../../../../../clipboard.min.js"></script>
+        <script src="../../../../../highlight.js"></script>
+        <script src="../../../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
