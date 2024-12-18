@@ -43,6 +43,14 @@ We assume the following trust assumptions:
 1. The Governance Operator is trusted. For example it COULD be a multisig human.
 1. The Relayer is trusted and automated.
 
+### Risks and mitigation strategies
+
+The following risks are associated with the Native Bridge:
+
+1. The trusted relayer is compromised or faulty. We thus want to ensure that the relayer has not unlimited power to release or mint assets. For this we MUST implement a rate limiter on the target chain.
+1. In order to rate limit the bridge (e.g. stop the bridge transfers entirely) there should be a higher instance than the relayer in setting rate limits. Thus the rate limit on the target chain SHOULD be set by the Operator.
+1. The Relayer may go down, while the number of transactions and requested transfer value across the bridge still increases on the source chain. Due to rate limit on the target chain the Relayer may struggle to process all initiated transfers. Thus the Relayer or the Operator MUST rate limit the source chain as well.
+
 ### Rate-Limiter
 
 In the Native Bridge, the Rate-Limiter MUST be implemented as part of the L1 Native Bridge contract and the L2 Native Bridge contract.
