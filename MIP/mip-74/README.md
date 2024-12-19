@@ -150,15 +150,11 @@ Needs discussion.
 
 ---
 
-## Change Log
+## Changelog
 
 ---
 
 ## Appendix
-
-### A1
-
-Nothing important here.
 
 ---
 
