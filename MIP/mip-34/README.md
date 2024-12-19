@@ -17,7 +17,7 @@ FFS is divided into
 We make a note for the following terms:
 
 - **batch** (not recommended)
-Less clean, but more common term for sequencer-batch. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of blocks that should be processed by the L1-contract.
+Less clean, but more common term for protoBlock. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of blocks that should be processed by the L1-contract.
 - **block**
 More common term for L2Block. May be mixed up with the batch of transactions sent to the sequencer, the L1-block or with the batch of L2Blocks that should be processed by the L1-contract. Here we mean L2Block when we say block.
 - **attester**  (not recommended)
@@ -47,17 +47,17 @@ This MIP provides an overview of an architecture of FFS, and its main components
 
 At an abstract level, the L2 chain increases by a new block in each (L2) round, and this block is the successor of the block in the previous round, the _predecessor_. Initially, there is a _genesis_ block with no predecessor.
 
-**Sequencer-Batch**. Each round corresponds to the processing of a _sequencer-batch_ of transactions which is proposed by the _sequencer_ (can be centralized, decentralized, shared).
+**ProtoBlock**. Each round corresponds to the processing of a batch of transactions, called _protoBlock_, which is proposed by the _sequencer_ (can be centralized, decentralized, shared).
 
-**L2Block**. For the vast majority of cases we mean L2Blocks, thus we will omit the "L2-" prefix, i.e. by _block_ we mean L2Block. A node with execution capability is in charge of validating the transactions in a sequencer-batch and calculate the new state. Since the sequencer-batches are provided by the sequencer, the new state and the state roots for a block are deterministic. For a sequencer-batch $b$ the state is $S_b$ and the state root is $H(S_b)$. From the sequencer-batch $b$ and the state $S_b$ the block $B$ is computed (which contains the information of the sequencer-batch and the state root).
+**L2Block**. For the vast majority of cases we mean L2Blocks, thus we will omit the "L2-" prefix, i.e. by _block_ we mean L2Block. A node with execution capability is in charge of validating the transactions in a protoBlock and calculate the new state. Since the protoBlockes are provided by the sequencer, the new state and the state roots for a block are deterministic. For a protoBlock $b$ the state is $S_b$ and the state root is $H(S_b)$. From the protoBlock $b$ and the state $S_b$ the block $B$ is computed (which contains the information of the protoBlock and the state root).
 
 **superBlock**. L2Blocks can be constructed and confirmed on L2 at a higher rate than is feasible for L1. We group L2Blocks into a _superBlock_ that is confirmed together.
 
-**Local validation**. Since a block is deterministically calculated we say a block (and the associated new state) is _validated locally_ once the execution engine calculates it from the sequencer-batch.
+**Local validation**. Since a block is deterministically calculated we say a block (and the associated new state) is _validated locally_ once the execution engine calculates it from the protoBlock.
 
 The validity judgement to be made is:
 > [!NOTE]
-> Given a block $B$ (predecessor), a sequencer-batch of transactions $txs$ and a successor block $B'$, is $B'$ the^[the MoveVM is deterministic and there can be only valid successor.] _correct_ successor of $B$ after executing the sequence of transactions $txs$?
+> Given a block $B$ (predecessor), a protoBlock of transactions $txs$ and a successor block $B'$, is $B'$ the^[the MoveVM is deterministic and there can be only valid successor.] _correct_ successor of $B$ after executing the sequence of transactions $txs$?
 
 The term _correct_ means that the successor block $B'$ (and the state it represents) has been computed in accordance with the semantics of the MoveVM, which we denote  $B \xrightarrow{\ txs \ } B'$.
 
@@ -72,7 +72,7 @@ The term _correct_ means that the successor block $B'$ (and the state it represe
 
 **fastconfirmation**. FFS aims to _confirm_ the validity of each produced L2Block, at every L2Block height.
 > [!IMPORTANT]
-> If we confirm each successor block before adding it to the (confirmed) L2-chain, there cannot be any fork, except if the sequencer would provide equivocating sequencer-batches for a given height AND there is a sufficiently strong Byzantine attack on the confirmation process.
+> If we confirm each successor block before adding it to the (confirmed) L2-chain, there cannot be any fork, except if the sequencer would provide equivocating protoBlockes for a given height AND there is a sufficiently strong Byzantine attack on the confirmation process.
 
 If the validators can attest blocks quickly and make their attestations available to third-parties, we have a fast confirmation mechanism supported by crypto-economic security, the  level of which depends on what is at stake for the confirmation of a block.
 
@@ -138,7 +138,7 @@ A leader validator is elected for a certain interval. The leader proposes the ne
 
 #### Version B: Postconfirmation with deterministic blocks
 
-Blocks are deterministically derived from the sequencer-batch, and consequently the superBlock $B_r'$ is deterministic. This is in contrast to Version A, where a leader proposes the next transition.Validators then attest for the next transition directly:  $B_r \xrightarrow{\ txs \ } B_r'$. E.g. by committing to the the hash of $B_r'$.
+Blocks are deterministically derived from the protoBlock, and consequently the superBlock $B_r'$ is deterministic. This is in contrast to Version A, where a leader proposes the next transition.Validators then attest for the next transition directly:  $B_r \xrightarrow{\ txs \ } B_r'$. E.g. by committing to the the hash of $B_r'$.
 
 An additional actor - the `acceptor` - is introduced that initiates the postconfirmation process. This is necessary, as this step requires additional gas costs on L1 and thus this role requires additional rewards. The `acceptor` serves for a specified period and is then replaced by another validator.
 
