@@ -67,8 +67,8 @@ The objectives of the rate-limiter are to guarantee the following properties:
 
 The guiding principles of the design of the rate-limiter are:
 
-1. the operator monitors the bridge, and in case of an attack or fault, it may take some time $\Delta$ to detect the issue.
-2. we want to make sure that the amount that is transferred within $\Delta$ time units is ALWAYS covered by the insurance fund.
+1. the operator monitors the bridge, and in case of an attack or fault, it SHOULD take at most $\Delta$ time units to detect the issue and pause the bridge.
+2. we want to make sure that the total amount that is transferred within $\Delta$ time units (and that could potentially result from  malicious behaviours) is ALWAYS covered by the insurance fund.
 
 ### Rate-Limiter
 
@@ -86,7 +86,7 @@ For a transfer from L1 (resp. L2) to L2 (resp. L1) the `insurance_fund_target = 
 
 #### Rate limit on the target chain
 
-The rate limit is dependent on the fund size in the Insurance Fund. In particular the maximum rate limit
+The rate limit is dependent on the fund size in the Insurance Fund. In particular the maximum rate limit is defined by
 
 `max_rate_limit_target = insurance_fund_target / reaction_time`,
 
@@ -96,7 +96,7 @@ The rate limit MAY also be adjusted by the Operator.
 
 `rate_limit_target = rate_reduction_target * max_rate_limit_target`,
 
-where `rate_reduction_target \in {0,1}` is a parameter that is set by the Operator. Note the `rate_limit_target` MUST not be larger than `max_rate_limit_target`.
+where `rate_reduction_target` is in `{0,1}` is a parameter that is set by the Operator. Note the `rate_limit_target` MUST not be larger than `max_rate_limit_target`.
 
 The following are possible ways to adjust the rate limit:
 
@@ -112,7 +112,7 @@ On the source chain the rate limit MAY be lowered by the Relayer. This is to ens
 
 where `rate_reduction_source \in {0,1}` is a parameter that is set by the Relayer. `rate_limit_operator_source` is a parameter that is set by the Operator. Note the `rate_limit_source` SHOULD not be larger than `rate_limit_operator_source`.
 
-### Rate limitation algorithm
+### Rate limitation adjustment algorithm
 
 The rate limitation works as follows:
 
