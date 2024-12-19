@@ -39,7 +39,7 @@ You **SHOULD NOT** draft an MIP, if any of the following are true:
 
 ## Movement Glossary (MG)
 
-See [MG-0](./MIP/mg-0) to get started. A template is provided at [mg-template](mg-template.md).
+See [MG-0](./MG/mg-0) to get started. A template is provided at [mg-template](mg-template.md).
 
 An alphabetically ordered list of terms is provided in the [glossary](GLOSSARY.md).
 
@@ -75,7 +75,7 @@ After acceptance the MIP/MD is merged into `main` and the branch should be delet
 Additionally, the following statuses are used for MIPs/MDs that are not actively being worked on:
 
 - **Stagnant** - an MIP/MD that has not been updated for 6 months.
-- **Withdrawn** - an MIP/MD that has not been withdrawn.
+- **Withdrawn** - an MIP/MD that has been withdrawn.
 
 Finally, an MIP/MD can also be updated:
 
