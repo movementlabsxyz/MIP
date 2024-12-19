@@ -192,11 +192,11 @@
 <h3 id="actors-and-components"><a class="header" href="#actors-and-components">Actors and components</a></h3>
 <p>The Native Bridge is operated via contracts, key holders and a relayer. The following actors and components are involved:</p>
 <ol>
-<li><strong>User</strong>: The user is the entity that interacts with the Native Bridge. The user can be a contract or an external account.</li>
-<li><strong>L1 Native Bridge contract</strong>: The L1 Native Bridge contract is the contract that is deployed on the L1 chain. It is responsible for locking and releasing (unlocking) assets on the L1 chain.</li>
-<li><strong>L2 Native Bridge contract</strong>: The L2 Native Bridge contract is the contract that is deployed on the L2 chain. It is responsible for minting and burning assets on the L2 chain.</li>
-<li><strong>Governance contract</strong>: The governance contract is an L2 contract on L2 that is used to adjust the parameters of the Native Bridge components on L2.</li>
-<li><strong>Governance operator</strong>: The governance operator is the entity that can adjust the parameters of the Native Bridge via the governance contract or directly. Hereafter we simply refer to the Operator.</li>
+<li><strong>User</strong>: this is the entity that interacts with the Native Bridge. The user can be a contract or an external account.</li>
+<li><strong>L1 Native Bridge contract</strong>: this is the contract that is deployed on the L1 chain. It is responsible for locking and releasing (unlocking) assets on the L1 chain.</li>
+<li><strong>L2 Native Bridge contract</strong>: this is the contract that is deployed on the L2 chain. It is responsible for minting and burning assets on the L2 chain.</li>
+<li><strong>Governance contract</strong>: this is an L2 contract on L2 that is used to adjust the parameters of the Native Bridge components on L2.</li>
+<li><strong>Governance Operator</strong>: this is the entity that can adjust the parameters of the Native Bridge via the governance contract or directly.</li>
 </ol>
 <p>In addition to protect the Native Bridge against faulty components, the Rate Limiter and the Insurance Fund are introduced. Figure 1 shows the architecture of the Native Bridge including the following components:</p>
 <ol>
@@ -217,22 +217,22 @@
 <p>The following risks are associated with the Native Bridge:</p>
 <ol>
 <li>The trusted Relayer is compromised or faulty. We thus want to ensure that the Relayer has not unlimited power to release or mint assets. For this we MUST implement the Rate Limiter on the target chain.</li>
-<li>In order to rate limit the bridge (e.g. stop the bridge transfers entirely) there should be a higher instance than the Relayer in setting rate limits. Thus the rate limit on the target chain SHOULD be set by the Operator.</li>
-<li>If the target chain is rate limited but the source chain is not, users could request for more transfers on the source chain than the Relayer could complete on the target chain. This could lead to a situation where the Relayer is not able to process all transactions. To mitigate this the Relayer or the Operator MUST rate limit the source chain as well.</li>
-<li>The Relayer may go down, while the number of transactions and requested transfer value across the bridge still increases on the source chain. Due to the rate limit on the target chain the Relayer may struggle or be incapable to process all initiated transfers. Thus the Relayer or the Operator MUST be able to rate limit the source chain temporarily or permanently lower than the target chain rate limit.</li>
+<li>In order to rate limit the bridge (e.g. stop the bridge transfers entirely) there should be a higher instance than the Relayer in setting rate limits. Thus the rate limit on the target chain SHOULD be set by the Governance Operator.</li>
+<li>If the target chain is rate limited but the source chain is not, users could request for more transfers on the source chain than the Relayer could complete on the target chain. This could lead to a situation where the Relayer is not able to process all transactions. To mitigate this the Relayer or the Governance Operator MUST rate limit the source chain as well.</li>
+<li>The Relayer may go down, while the number of transactions and requested transfer value across the bridge still increases on the source chain. Due to the rate limit on the target chain the Relayer may struggle or be incapable to process all initiated transfers. Thus the Relayer or the Governance Operator MUST be able to rate limit the source chain temporarily or permanently lower than the target chain rate limit.</li>
 </ol>
 <p>To elaborate on the last point, consider that the Native Bridge operates at the maximum rate continuously and both source and target chain have the same rate limit. Then, if the Relayer goes down for some time Delta, the Relayer will start to process transactions at the maximum rate. Consequently, all transactions would be delayed for Delta time units as long as the rate limit on the target chain is entirely exhausted.</p>
 <h3 id="objectives"><a class="header" href="#objectives">Objectives</a></h3>
 <p>The objectives of the Rate Limiter are to guarantee the following properties:</p>
 <ol>
 <li>the value of assets being transferred across the Native Bridge, within a configurable time window $\Delta$, MUST always be less than the insurance funds.</li>
-<li>the Operator MUST be able to adjust the rate limit on the source and target chain.</li>
+<li>the Governance Operator MUST be able to adjust the rate limit on the source and target chain.</li>
 <li>the Relayer MUST be able to catch up with the transfers in case it has been down for some time.</li>
 <li>the Relayer MAY adjust the rate limit on the source chain.</li>
 </ol>
 <p>The guiding principles of the design of the Rate Limiter are:</p>
 <ol>
-<li>the Operator monitors the Native Bridge, and in case of an attack or fault, it SHOULD take at most $\Delta$ time units to detect the issue and pause the bridge.</li>
+<li>the Governance Operator monitors the Native Bridge, and in case of an attack or fault, it SHOULD take at most $\Delta$ time units to detect the issue and pause the bridge.</li>
 <li>we want to make sure that the total amount that is transferred within $\Delta$ time units (and that could potentially result from  malicious behaviors) is ALWAYS covered by the insurance fund.</li>
 </ol>
 <h3 id="rate-limiter"><a class="header" href="#rate-limiter">Rate Limiter</a></h3>
@@ -248,20 +248,20 @@ For a transfer from L1 (L2) to L2 (L1) the <code>insurance_fund_target = insuran
 <h4 id="rate-limit-on-the-target-chain"><a class="header" href="#rate-limit-on-the-target-chain">Rate limit on the target chain</a></h4>
 <p>The rate limit is dependent on the fund size in the Insurance Fund. In particular the maximum rate limit is defined by</p>
 <p><code>max_rate_limit_target = insurance_fund_target / reaction_time</code>,</p>
-<p>where the <code>reaction_time</code> is the time it takes for the Operator to react to a faulty or compromised component. The <code>reaction_time</code> is a parameter that is set by the Operator. The Operator MAY set the actual rate limit lower than the <code>max_rate_limit_target</code>. However the Rate Limiter MUST NOT set the rate limit higher than the <code>max_rate_limit_target</code>.</p>
-<p>The rate limit MAY also be adjusted by the Operator.</p>
+<p>where the <code>reaction_time</code> is the time it takes for the Governance Operator to react to a faulty or compromised component. The <code>reaction_time</code> is a parameter that is set by the Governance Operator. The Governance Operator MAY set the actual rate limit lower than the <code>max_rate_limit_target</code>. However the Rate Limiter MUST NOT set the rate limit higher than the <code>max_rate_limit_target</code>.</p>
+<p>The rate limit MAY also be adjusted by the Governance Operator.</p>
 <p><code>rate_limit_target = rate_reduction_target * max_rate_limit_target</code>,</p>
-<p>where <code>rate_reduction_target</code> is in <code>[0,1]</code> is a parameter that is set by the Operator. Note the <code>rate_limit_target</code> MUST not be larger than <code>max_rate_limit_target</code>.</p>
+<p>where <code>rate_reduction_target</code> $\in$ <code>[0,1]</code> is a parameter that is set by the Governance Operator. Note the <code>rate_limit_target</code> MUST not be larger than <code>max_rate_limit_target</code>.</p>
 <p>The following are possible ways to adjust the rate limit:</p>
 <ol>
-<li>The Operator can adjust the rate limit by adding or removing funds from the Insurance Fund.</li>
-<li>The Operator may adjust the rate limit by changing the <code>reaction_time</code>.</li>
-<li>The Operator may adjust the rate limit by changing the <code>rate_reduction_target</code>.</li>
+<li>The Governance Operator can adjust the rate limit by adding or removing funds from the Insurance Fund.</li>
+<li>The Governance Operator may adjust the rate limit by changing the <code>reaction_time</code>.</li>
+<li>The Governance Operator may adjust the rate limit by changing the <code>rate_reduction_target</code>.</li>
 </ol>
 <h4 id="rate-limit-on-the-source-chain"><a class="header" href="#rate-limit-on-the-source-chain">Rate limit on the source chain</a></h4>
 <p>On the source chain the rate limit MAY be lowered by the Relayer. This is to ensure that the rate limit on the target chain is not exceeded. It also permits the Relayer to catch up in case of the Relayer has been down for some time.</p>
 <p><code>rate_limit_source = min{rate_reduction_source * rate_limit_target, rate_limit_operator_source}</code>,</p>
-<p>where <code>rate_reduction_source \in [0,1] is a parameter that is set by the Relayer. </code>rate_limit_operator_source<code>is a parameter that is set by the Operator. Note the</code>rate_limit_source<code>SHOULD not be larger than</code>rate_limit_operator_source`.</p>
+<p>where <code>rate_reduction_source</code> $\in$ <code>[0,1]</code> is a parameter that is set by the Relayer. <code>rate_limit_operator_source</code> is a parameter that is set by the Governance Operator. Note the <code>rate_limit_source</code> SHOULD not be larger than <code>rate_limit_operator_source</code>.</p>
 <h3 id="rate-limitation-adjustment-algorithm"><a class="header" href="#rate-limitation-adjustment-algorithm">Rate limitation adjustment algorithm</a></h3>
 <p>The rate limitation works as follows:</p>
 <blockquote>
