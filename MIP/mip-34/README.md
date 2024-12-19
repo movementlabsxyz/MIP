@@ -1,12 +1,12 @@
-# MIP-34: Fast-Finality Settlement
+# MIP-34: Fast Finality Settlement
 
-- **Description**: Establish the scope and components that are part of the Fast-Finality Settlement mechanism.
+- **Description**: Establish the scope and components that are part of the Fast Finality Settlement mechanism.
 - **Authors**: [Franck Cassez](), [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 
 
 ## Abstract
 
-Fast-Finality Settlement (FFS) is a mechanism that allows for fast _confirmation_ of transactions backed by crypto-economic security. Moreover it capitalizes on the economic security from the L1. This MIP outlines the high-level specifications and architecture of FFS.
+Fast Finality Settlement (FFS) is a mechanism that allows for fast _confirmation_ of transactions backed by crypto-economic security. Moreover it capitalizes on the economic security from the L1. This MIP outlines the high-level specifications and architecture of FFS.
 
 FFS is divided into
 
@@ -18,14 +18,13 @@ FFS is divided into
 We make a note for the following terms:
 
 - **batch** (not recommended)
-Less clean, but more common term for sequencer-batch. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of blocks that should be processed by the L1-contract. 
-- **block** 
+Less clean, but more common term for sequencer-batch. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of blocks that should be processed by the L1-contract.
+- **block**
 More common term for L2-block. May be mixed up with the batch of transactions sent to the sequencer, the L1-block or with the batch of L2-blocks that should be processed by the L1-contract. Here we mean L2-block when we say block.
 - **attester**  (not recommended)
 The term attester has been deprecated in favor of validator.
 - **quorum certificate** (not recommended)
 The term quorum certificate has been deprecated in favor of fastconfirmation certificate.
-
 
 ## Motivation
 
@@ -37,7 +36,7 @@ The mechanism can be deployed independently for a chain, or used in combination 
 
 As a result, users can rely and trust the **fastconfirmation** (sometimes also described as L2-finality) to use as confirmation, or if the chain is configured to do so, wait for **L1-finality**, such as end of challenge window for fraud proofs (optimistic L2) or verification of a ZK-proof (validity L2).
 
-A introduction to FFS can be found in [this blog post on Fast-Finality Settlement](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement). A more detailed description of a (partial) implementation of the mechanism is available at [this blog post on postconfirmations](https://blog.movementlabs.xyz/article/postconfirmations-L2s-rollups-blockchain-movement).
+A introduction to FFS can be found in [this blog post on Fast Finality Settlement](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement). A more detailed description of a (partial) implementation of the mechanism is available at [this blog post on postconfirmations](https://blog.movementlabs.xyz/article/postconfirmations-L2s-rollups-blockchain-movement).
 
 This MIP provides an overview of an architecture of FFS, and its main components.
 
@@ -45,20 +44,19 @@ This MIP provides an overview of an architecture of FFS, and its main components
 
 ### Overview
 
-
 **FFS**. The objective of Fast Finality Settlement (FFS) is to confirm that transactions are _processed_ correctly and that the node has *read* the transactions in the correct order. It does not impact the already established order of transactions by the sequencer.
 
 At an abstract level, the L2-blockchain increases by a new block in each (L2) round, and this block is the successor of the block in the previous round, the _predecessor_. Initially, there is a _genesis_ block with no predecessor.
 
-**Sequencer-Batch**. Each round corresponds to the processing of a _sequencer-batch_ of transactions which is proposed by the _sequencer_ (can be centralized, decentralized, shared). 
+**Sequencer-Batch**. Each round corresponds to the processing of a _sequencer-batch_ of transactions which is proposed by the _sequencer_ (can be centralized, decentralized, shared).
 
-**L2-Block**. For the vast majority of cases we mean L2-blocks, thus we will omit the "L2-" prefix, i.e. by _block_ we mean L2-block. A node with execution capability is in charge of validating the transactions in a sequencer-batch and calculate the new state. Since the sequencer-batches are provided by the sequencer, the new state and the state roots for a block are deterministic. For a sequencer-batch $b$ the state is $S_b$ and the state root is $H(S_b)$. From the sequencer-batch $b$ and the state $S_b$ the block $B$ is computed (which contains the information of the sequencer-batch and the state root). 
+**L2-Block**. For the vast majority of cases we mean L2-blocks, thus we will omit the "L2-" prefix, i.e. by _block_ we mean L2-block. A node with execution capability is in charge of validating the transactions in a sequencer-batch and calculate the new state. Since the sequencer-batches are provided by the sequencer, the new state and the state roots for a block are deterministic. For a sequencer-batch $b$ the state is $S_b$ and the state root is $H(S_b)$. From the sequencer-batch $b$ and the state $S_b$ the block $B$ is computed (which contains the information of the sequencer-batch and the state root).
 
-**Block-range**. L2-Blocks can be constructed and confirmed on L2 at a higher rate than is feasible for L1. We group L2-blocks into a _block-range_ that is confirmed together. 
+**Block-range**. L2-Blocks can be constructed and confirmed on L2 at a higher rate than is feasible for L1. We group L2-blocks into a _block-range_ that is confirmed together.
 
-**Local validation**. Since a block is deterministically calculated we say a block (and the associated new state) is _validated locally_ once the execution engine calculates it from the sequencer-batch. 
+**Local validation**. Since a block is deterministically calculated we say a block (and the associated new state) is _validated locally_ once the execution engine calculates it from the sequencer-batch.
 
-The validity judgement to be made is: 
+The validity judgement to be made is:
 > [!NOTE]
 > Given a block $B$ (predecessor), a sequencer-batch of transactions $txs$ and a successor block $B'$, is $B'$ the^[the MoveVM is deterministic and there can be only valid successor.] _correct_ successor of $B$ after executing the sequence of transactions $txs$?
 
@@ -73,19 +71,19 @@ The term _correct_ means that the successor block $B'$ (and the state it represe
 > [!NOTE]
 > Until a better definition arises we consider _**confirmation**_ to be defined as _L2-finality_ (i.e. _fastconfirmation_).
 
-**fastconfirmation**. FFS aims to _confirm_ the validity of each produced L2-block, at every L2-block height. 
+**fastconfirmation**. FFS aims to _confirm_ the validity of each produced L2-block, at every L2-block height.
 > [!IMPORTANT]
 > If we confirm each successor block before adding it to the (confirmed) L2-chain, there cannot be any fork, except if the sequencer would provide equivocating sequencer-batches for a given height AND there is a sufficiently strong Byzantine attack on the confirmation process.
 
 If the validators can attest blocks quickly and make their attestations available to third-parties, we have a fast confirmation mechanism supported by crypto-economic security, the  level of which depends on what is at stake for the confirmation of a block.
 
-
 **Postconfirmation**. At certain intervals confirmation will also be achieved on L1. The L1 contract will verify the satisfaction of the super-majority criteria. This provides an L1-protected _postconfirmation_ that the block (or a batch of blocks, which we call _block range_) is confirmed. This additional anchoring mechanism increases the security of the fastconfirmation as it locks in the fastconfirmation, reduces the risk of long range attacks and provides a way to slash validators that have attested for invalid blocks.
 
 **Slashing**. The security of the mechanism relies on a PoS protocol. Each validator has to stake some assets, and if they are malicious they _should_ be slashed.
-The condition for slashing may be met by several quiteria, and not all slashing conditions may be used:
+The condition for slashing may be met by several criteria, and not all slashing conditions may be used:
+
 - equivocate (send a different vote to different validators or users)
-- vote :white_check_mark: for an invalid block 
+- vote :white_check_mark: for an invalid block
 - vote :x: for a valid block
 
 ### Main challenges
@@ -143,7 +141,7 @@ A leader validator is elected for a certain interval. The leader proposes the ne
 
 #### Version B: Postconfirmation with deterministic blocks
 
-Blocks are deterministically derived from the sequencer-batch, and consequently the block-range $B_r'$ is deterministic. This is in contrast to Version A, where a leader proposes the next transition.Validators then attest for the next transition directly:  $B_r \xrightarrow{\ txs \ } B_r'$. E.g. by commiting to the the hash of $B_r'$.
+Blocks are deterministically derived from the sequencer-batch, and consequently the block-range $B_r'$ is deterministic. This is in contrast to Version A, where a leader proposes the next transition.Validators then attest for the next transition directly:  $B_r \xrightarrow{\ txs \ } B_r'$. E.g. by committing to the the hash of $B_r'$.
 
 An additional actor - the `acceptor` - is introduced that initiates the postconfirmation process. This is necessary, as this step requires additional gas costs on L1 and thus this role requires additional rewards. The `acceptor` serves for a specified period and is then replaced by another validator. 
 
@@ -152,7 +150,7 @@ An additional actor - the `acceptor` - is introduced that initiates the postconf
 
 **Direct L1 commitments**. In the scenario where validators commit individually they send the block hashes of the calculated blocks directly to the L1 contract. 
 
-**Acceptor collects commitments**. In a more optimised scenario, the acceptor sends the super-majority proof to the L1 contract. 
+**Acceptor collects commitments**. In a more optimized scenario, the acceptor sends the super-majority proof to the L1 contract.
 
 ![Version A Diagram](postconfirmationV2.png)
 *Figure 2: **Postconfirmation**: Leader-independent (deterministic) L2-block generation process in Version B.*
@@ -160,7 +158,7 @@ An additional actor - the `acceptor` - is introduced that initiates the postconf
 
 #### Version C: fastconfirmation with deterministic blocks
 
-This approach extends Version B. 
+This approach extends Version B.
 
 A p2p layer is established between validators. Validators communicate to aggregate a threshold of votes on each deterministically determined L2-block. This provides fastconfirmations in the order of seconds.
 
@@ -220,44 +218,9 @@ There are several aspects that could be optimized and refined:
 - **super-majority proof**: it can be a list of votes, but could also be a zk-proof (more compact). The suer-majority proof is not a proof of correct execution (as in zkVM) but simply of super-majority and this is cheaper to compute.
 - **signatures aggregation**: we want to avoid sending large transactions to the L1 as it increases operational costs. How to aggregate signatures to send more compact messages/transactions?
 - **delegation/weighted stakes**: a mechanism for validators to delegate their voting power to other validators. Ability for validators to stake different amounts (and use weighted stakes super-majority).
-- **commit to a sequence of L2-blocks**. The fastconfirmation certificate could be per block. However, on L1 we may want to commit to a sequence of blocks. This can be done by committing to the state root of the last block in the sequence or more complicated approaches using Merkle roots. 
+- **commit to a sequence of L2-blocks**. The fastconfirmation certificate could be per block. However, on L1 we may want to commit to a sequence of blocks. This can be done by committing to the state root of the last block in the sequence or more complicated approaches using Merkle roots.
 - **involvement of DA layer**. Validators sent their votes or commitments to a DA layer off-L1. This ensures that votes remain available and can be used for potential slashing. This step should take O(1) second if we use a fast reliable mempool.
-
-
-<!-- 
-4. **Validation Procedures**:
-
-n/a
-
-5. **Peer Review and Community Feedback**:
-
-n/a -->
 
 ## Errata
 
-<!--
-  Errata should be maintained after publication.
-
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the proposal in which the error was identified.
-
-  TODO: Maintain this comment.
--->
-
-n/a
-
 ## Appendix
-
-<!--
-  The Appendix should contain an enumerated list of reference materials and notes.
-
-  When referenced elsewhere each appendix should be called out with [A<number>](#A<number>) and should have a matching header.
-
-  TODO: Remove this comment before finalizing.
-
--->
-
-n/a
