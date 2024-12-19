@@ -65,6 +65,11 @@ The objectives of the rate-limiter are to guarantee the following properties:
 - property 2
 - property 3 ...
 
+The guiding principles of the design of the rate-limiter are:
+
+1. the operator monitors the bridge, and in case of an attack or fault, it may take some time $\Delta$ to detect the issue.
+2. we want to make sure that the amount that is transferred within $\Delta$ time units is ALWAYS covered by the insurance fund.
+
 ### Rate-Limiter
 
 In the Native Bridge, the Rate-Limiter MUST be implemented as part of the L1 Native Bridge contract and the L2 Native Bridge contract.
@@ -72,9 +77,12 @@ In the Native Bridge, the Rate-Limiter MUST be implemented as part of the L1 Nat
 #### Insurance funds
 
  We assume there is a Insurance Fund on both L1 and L2, with values `insurance_fund_L1` and `insurance_fund_L2`, respectively.
- These values are considered constant in the sequel. There may be updated if needed or if new funds are added to the pools.
 
-The Insurance Fund rate-limits the outbound transfers, i.e. for a given transfer from source chain to target chain the Insurance Fund on the target chain is responsible for the rate limit, and thus we will refer to the `insurance_fund_target`. I.e. for a transfer from L1 to L2 the `insurance_fund_target = insurance_fund_L2` is responsible for the rate limit. While for a transfer from L2 to L1 the `insurance_fund_target = insurance_fund_L1` is responsible for the rate limit.
+> [!NOTE]
+> These values are considered constant in the sequel. There may be updated if needed or if new funds are added to the pools.
+
+The Insurance Fund rate-limits the outbound transfers i.e., for a given transfer from source chain to target chain the Insurance Fund on the _target chain_ is responsible for the rate limit, and thus we will refer to the `insurance_fund_target`.
+For a transfer from L1 (resp. L2) to L2 (resp. L1) the `insurance_fund_target = insurance_fund_L2` (resp. `insurance_fund_L1`) is responsible for the rate limit.
 
 #### Rate limit on the target chain
 
