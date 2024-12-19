@@ -13,3 +13,6 @@ ERC-20 type token for the Movement Network with the source contract on L1. See a
 
 **Native Bridge**
 The bridge that allows the transfer of tokens between L1 and L2, which hold `$L1MOVE` and `$L2MOVE` token, respectively. The native bridge has the capability to mint `$L2MOVE` tokens. > [MG-39](./MG/mg-39/README.md)
+
+**Level 2 (L2)**
+Two chains are present in our architecture: a base chain (or L1) and a second chain (or L2).
