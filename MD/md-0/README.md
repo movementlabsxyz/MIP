@@ -46,7 +46,7 @@ Provide definitions that you think will empower the reader to quickly dive into 
 ### D1: Draft and publish standardized proposals
 **User Journey**: Proposer/Researcher can adhere to a standardized template for proposing changes to Movement technologies.
 
-**Justification**: Offering a standardized means for researching a proposing changes to Movement technologies will help guide research both in written structure and by facilitating engagment. The likelihood of producing successful proposals from such a structure should be expected to be higher than otherwise.
+**Justification**: Offering a standardized means for researching a proposing changes to Movement technologies will help guide research both in written structure and by facilitating engagement. The likelihood of producing successful proposals from such a structure should be expected to be higher than otherwise.
 
 ### D2: Implement against clear and accountable specifications
 **User Journey**: Developers can confidently implement complex systems against a clear and accountable specification.
