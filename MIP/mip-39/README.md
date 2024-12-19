@@ -298,37 +298,7 @@ Note that [safety-2] does hold if the relayer is down for more than $maxRelayerD
 
 The only difference between L1 to L2 is the way assets are created/destroyed. However, the formal model abstracts away this difference and the same properties hold for the L2 to L1 bridge.
 
-<!--
-
-  All proposals must contain a section that discusses the various aspects of verification pertinent to the introduced changes. This section should address:
-
-  1. **Correctness**: Ensure that the proposed changes behave as expected in all scenarios. Highlight any tests, simulations, or proofs done to validate the correctness of the changes.
-
-  2. **Security Implications**: Address the potential security ramifications of the proposal. This includes discussing security-relevant design decisions, potential vulnerabilities, important discussions, implementation-specific guidance, and pitfalls. Mention any threats, risks, and mitigation strategies associated with the proposal.
-
-  3. **Performance Impacts**: Outline any performance tests conducted and the impact of the proposal on system performance. This could be in terms of speed, resource consumption, or other relevant metrics.
-
-  4. **Validation Procedures**: Describe any procedures, tools, or methodologies used to validate the proposal against its requirements or objectives. 
-
-  5. **Peer Review and Community Feedback**: Highlight any feedback from peer reviews or the community that played a crucial role in refining the verification process or the proposal itself.
-
-  TODO: Remove this comment before submitting
--->
-
-<!-- ---
-
-## Errata -->
-<!--
-  Errata should be maintained after publication.
-
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the proposal in which the error was identified.
-
-  TODO: Maintain this comment.
--->
+## Changelog
 
 ---
 
@@ -338,18 +308,6 @@ The UPPAAL models of the L1 to L2 tranfers are available in the [uppaal-models](
 The simplest model is [bridge-up-v2.xml](./uppaal-models/bridge-up-v2.xml) and the more complex model is [bridge-up-v3.xml](./uppaal-models/bridge-up-v3.xml) with probabilities.
 
 You can request a license to use UPPAAL at [UPPAAL](http://www.uppaal.org/).
-<!--
-  The Appendix should contain an enumerated list of reference materials and notes.
-
-  When referenced elsewhere each appendix should be called out with [A<number>](#A<number>) and should have a matching header.
-
-  TODO: Remove this comment before finalizing.
-
--->
-<!-- 
-### A1
-
-Nothing important here. -->
 
 ---
 
