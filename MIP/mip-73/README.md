@@ -15,7 +15,7 @@ The SanFran Model applies the following changes
 
 ## Motivation
 
-This model is the result of the co-location.
+This model is the result of the co-location. The [MIP-54: Biarritz Model](https://github.com/movementlabsxyz/MIP/pull/54) has been the starting point. The SanFran Model is a further development of the Biarritz Model, which includes the Lock/Mint-Native Bridge, and adds the features or components mentioned in the Abstract. It focuses on providing fast finality settlement, see [MIP-37](https://github.com/movementlabsxyz/MIP/pull/37), as well as a sustainable operation of the bridge.
 
 ## Specification
 
