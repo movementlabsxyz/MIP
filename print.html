@@ -4512,35 +4512,42 @@ Instead of the finalized state we could also consider the $k$-confirmed state fo
 <li><strong>Desiderata</strong>: <a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/../../MD/md-74/README.html">MD-74</a></li>
 </ul>
 <h2 id="abstract-30"><a class="header" href="#abstract-30">Abstract</a></h2>
-<p>We propose a Rate-Limiter to protect the Lock/Mint-type Native Bridge (hereafter called the “Native Bridge”), see <a href="https://github.com/movementlabsxyz/MIP/pull/58">MIP-58</a> against faulty or compromised behavior of components. It limits the volume of transferred value per time interval.</p>
+<p>We propose a Rate-Limiter to protect the Lock/Mint-type Native Bridge, hereafter called the <em>Native Bridge</em>^[see <a href="https://github.com/movementlabsxyz/MIP/pull/58">MIP-58</a>] against faulty or compromised behavior of the bridge components. It limits the volume of assets that can be transferred within a time window. This MIP proposes a solution to mitigate attacks and limit damages, and if paired with an insurance fund it may cover the potential losses incurred by our users.</p>
 <h2 id="motivation-30"><a class="header" href="#motivation-30">Motivation</a></h2>
-<p>There are several components and actors in control of behavior of the Native Bridge. A Rate-Limiter can help to protect the Native Bridge against faulty components or attacks. It can limit the volume of transferred value per time interval, the maximum value transferred with a given transfer, or the number of transactions.</p>
+<p>There are several components and actors in control of the behavior of the Native Bridge including contracts (we may assume they are trusted, our relayer and of course the network. If an attacker can control one these components they can potentially mint and transfer assets thereby compromising the bridge.</p>
+<p>A Rate-Limiter can help to protect the Native Bridge against faulty components (relayer or network) or attacks. It can limit the volume of transferred value per time interval, the maximum value transferred with a given transfer, or the number of transactions within a time window.</p>
 <h2 id="specification-29"><a class="header" href="#specification-29">Specification</a></h2>
 <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+<blockquote>
+<p>[!WARNING]
+Hereafter we use <strong>L2</strong> for the <strong>Move Chain</strong> which is at Level 2 in the layered architecture of the Movement Network.</p>
+</blockquote>
 <h3 id="actors-and-components"><a class="header" href="#actors-and-components">Actors and components</a></h3>
-<p>The Native Bridge is operated via contracts, actors and components. The following actors and components are involved:</p>
+<p>The Native Bridge is operated via contracts, key holders and a relayer. The following actors and components are involved:</p>
 <ol>
 <li><strong>User</strong>: The user is the entity that interacts with the Native Bridge. The user can be a contract or an external account.</li>
-<li><strong>L1 Native Bridge contract</strong>: The L1 Native Bridge contract is the contract that is deployed on the L1 chain. It is responsible for locking and releasing assets on the L1 chain.</li>
+<li><strong>L1 Native Bridge contract</strong>: The L1 Native Bridge contract is the contract that is deployed on the L1 chain. It is responsible for locking and releasing (unlocking) assets on the L1 chain.</li>
 <li><strong>L2 Native Bridge contract</strong>: The L2 Native Bridge contract is the contract that is deployed on the L2 chain. It is responsible for minting and burning assets on the L2 chain.</li>
-<li><strong>L2-Minter</strong>: The L2-Minter is an L2-contract that is responsible for minting assets on the L2 chain.</li>
+</ol>
+<!-- 1. **L2-Minter**: The L2-Minter is an L2-contract that is responsible for minting assets on the L2 chain. -->
+<ol>
 <li><strong>Governance contract</strong>: The governance contract is an L2 contract on L2 that is used to adjust the parameters of the Native Bridge components on L2.</li>
 <li><strong>Governance Operator</strong>: The governance operator is the entity that can adjust the parameters of the Native Bridge via the governance contract or directly. Hereafter we simply refer to the Operator.</li>
 </ol>
 <p>In addition to protect the Native Bridge against faulty components, the Rate-Limiter and the Insurance Fund are introduced. Figure 1 shows the architecture of the Native Bridge including the following components:</p>
 <ol>
 <li><strong>Insurance fund</strong>: The insurance fund is a contract that is used to cover potential losses in case of a faulty component, see <a href="https://github.com/movementlabsxyz/MIP/pull/50">MIP-50</a>.</li>
-<li><strong>Rate Limiter</strong>: The Rate Limiter is a set of contracts (one on the L1 and one on the L2) that is used to limit the volume of transferred value per time interval.</li>
+<li><strong>Rate Limiter</strong>: The Rate Limiter is a set of contracts (one on the L1 and one on the L2) that is used to limit the volume of transferred value per time window.</li>
 </ol>
 <p><img src="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/overview.png" alt="alt text" />
 <em>Figure 1: Architecture of the Rate Limitation</em></p>
-<h3 id="actors-components-and-trust-assumptions"><a class="header" href="#actors-components-and-trust-assumptions">Actors, components and Trust assumptions</a></h3>
+<h3 id="actors-components-and-trust-assumptions"><a class="header" href="#actors-components-and-trust-assumptions">Actors, Components and Trust assumptions</a></h3>
 <p>We assume the following trust assumptions:</p>
 <ol>
 <li>The Governance contract is implemented correctly.</li>
-<li>The Bridge contract and the L2-Minter contract are implemented correctly.</li>
+<li>The Bridge contract and the L2 Native Bridge contract are implemented correctly.</li>
 <li>The Governance Operator is trusted. For example it COULD be a multisig human.</li>
-<li>The Relayer is trusted and automated.</li>
+<li>The Relayer is a trusted software component.</li>
 </ol>
 <h3 id="risks-and-mitigation-strategies"><a class="header" href="#risks-and-mitigation-strategies">Risks and mitigation strategies</a></h3>
 <p>The following risks are associated with the Native Bridge:</p>
@@ -4549,31 +4556,51 @@ Instead of the finalized state we could also consider the $k$-confirmed state fo
 <li>In order to rate limit the bridge (e.g. stop the bridge transfers entirely) there should be a higher instance than the relayer in setting rate limits. Thus the rate limit on the target chain SHOULD be set by the Operator.</li>
 <li>The Relayer may go down, while the number of transactions and requested transfer value across the bridge still increases on the source chain. Due to rate limit on the target chain the Relayer may struggle to process all initiated transfers. Thus the Relayer or the Operator MUST rate limit the source chain as well.</li>
 </ol>
+<h3 id="objectives"><a class="header" href="#objectives">Objectives</a></h3>
+<p>The objectives of the rate-limiter are to guarantee the following properties:</p>
+<ul>
+<li>the value of assets being bridged MUST always be less than the insurance funds</li>
+<li>property 2</li>
+<li>property 3 …</li>
+</ul>
+<p>The guiding principles of the design of the rate-limiter are:</p>
+<ol>
+<li>the operator monitors the bridge, and in case of an attack or fault, it SHOULD take at most $\Delta$ time units to detect the issue and pause the bridge.</li>
+<li>we want to make sure that the total amount that is transferred within $\Delta$ time units (and that could potentially result from  malicious behaviours) is ALWAYS covered by the insurance fund.</li>
+</ol>
 <h3 id="rate-limiter"><a class="header" href="#rate-limiter">Rate-Limiter</a></h3>
 <p>In the Native Bridge, the Rate-Limiter MUST be implemented as part of the L1 Native Bridge contract and the L2 Native Bridge contract.</p>
-<p><strong>Rate limit on the target chain</strong>
-We assume there is a Insurance Fund on both L1 and L2, with values <code>insurance_fund_L1</code> and <code>insurance_fund_L2</code>, respectively.</p>
-<p>The Insurance Fund rate limits the outbound transfers, i.e. for a given transfer from source chain to target chain the Insurance Fund on the target chain is responsible for the rate limit, and thus we will refer to the <code>insurance_fund_target</code>. I.e. for a transfer from L1 to L2 the <code>insurance_fund_target = insurance_fund_L2</code> is responsible for the rate limit. While for a transfer from L2 to L1 the <code>insurance_fund_target = insurance_fund_L1</code> is responsible for the rate limit.</p>
-<p>The rate limit is dependent on the fund size in the Insurance Fund. In particular the maximum rate limit</p>
+<h4 id="insurance-funds"><a class="header" href="#insurance-funds">Insurance funds</a></h4>
+<p>We assume there is a Insurance Fund on both L1 and L2, with values <code>insurance_fund_L1</code> and <code>insurance_fund_L2</code>, respectively.</p>
+<blockquote>
+<p>[!NOTE]
+These values are considered constant in the sequel. There may be updated if needed or if new funds are added to the pools.</p>
+</blockquote>
+<p>The Insurance Fund rate-limits the outbound transfers i.e., for a given transfer from source chain to target chain the Insurance Fund on the <em>target chain</em> is responsible for the rate limit, and thus we will refer to the <code>insurance_fund_target</code>.
+For a transfer from L1 (resp. L2) to L2 (resp. L1) the <code>insurance_fund_target = insurance_fund_L2</code> (resp. <code>insurance_fund_L1</code>) is responsible for the rate limit.</p>
+<h4 id="rate-limit-on-the-target-chain"><a class="header" href="#rate-limit-on-the-target-chain">Rate limit on the target chain</a></h4>
+<p>The rate limit is dependent on the fund size in the Insurance Fund. In particular the maximum rate limit is defined by</p>
 <p><code>max_rate_limit_target = insurance_fund_target / reaction_time</code>,</p>
 <p>where the <code>reaction_time</code> is the time it takes for the Operator to react to a faulty or compromised component. The <code>reaction_time</code> is a parameter that is set by the Operator. The Operator MAY set the actual rate limit lower than the <code>max_rate_limit_target</code>. However the Rate Limiter MUST NOT set the rate limit higher than the <code>max_rate_limit_target</code>.</p>
 <p>The rate limit MAY also be adjusted by the Operator.</p>
 <p><code>rate_limit_target = rate_reduction_target * max_rate_limit_target</code>,</p>
-<p>where <code>rate_reduction_target \in {0,1}</code> is a parameter that is set by the Operator. Note the <code>rate_limit_target</code> MUST not be larger than <code>max_rate_limit_target</code>.</p>
+<p>where <code>rate_reduction_target</code> is in <code>{0,1}</code> is a parameter that is set by the Operator. Note the <code>rate_limit_target</code> MUST not be larger than <code>max_rate_limit_target</code>.</p>
 <p>The following are possible ways to adjust the rate limit:</p>
 <ol>
 <li>The Operator can adjust the rate limit by adding or removing funds from the Insurance Fund.</li>
 <li>The Operator may adjust the rate limit by changing the <code>reaction_time</code>.</li>
 <li>The Operator may adjust the rate limit by changing the <code>rate_reduction_target</code>.</li>
 </ol>
-<p><strong>Rate limit on the source chain</strong></p>
+<h4 id="rate-limit-on-the-source-chain"><a class="header" href="#rate-limit-on-the-source-chain">Rate limit on the source chain</a></h4>
 <p>On the source chain the rate limit MAY be lowered by the Relayer. This is to ensure that the rate limit on the target chain is not exceeded. It also permits the Relayer to catch up in case of the Relayer has been down for some time.</p>
 <p><code>rate_limit_source = min{rate_reduction_source * rate_limit_target, rate_limit_operator_source}</code>,</p>
 <p>where <code>rate_reduction_source \in {0,1}</code> is a parameter that is set by the Relayer. <code>rate_limit_operator_source</code> is a parameter that is set by the Operator. Note the <code>rate_limit_source</code> SHOULD not be larger than <code>rate_limit_operator_source</code>.</p>
-<h3 id="rate-limitation-algorithm"><a class="header" href="#rate-limitation-algorithm">Rate limitation algorithm</a></h3>
+<h3 id="rate-limitation-adjustment-algorithm"><a class="header" href="#rate-limitation-adjustment-algorithm">Rate limitation adjustment algorithm</a></h3>
 <p>The rate limitation works as follows:</p>
+<blockquote>
 <p>[!NOTE]
 I can convert the following into pseudo code, after we have discussed the algorithm and it makes sense.</p>
+</blockquote>
 <p><strong>Algorithm for the Native Bridge contract on the source chain</strong></p>
 <ol>
 <li>A user wants to transfer value from source to target chain.</li>
@@ -4609,7 +4636,7 @@ I can convert the following into pseudo code, after we have discussed the algori
 <h2 id="verification-29"><a class="header" href="#verification-29">Verification</a></h2>
 <p>Needs discussion.</p>
 <hr />
-<h2 id="errata-27"><a class="header" href="#errata-27">Errata</a></h2>
+<h2 id="change-log"><a class="header" href="#change-log">Change Log</a></h2>
 <hr />
 <h2 id="appendix-25"><a class="header" href="#appendix-25">Appendix</a></h2>
 <h3 id="a1-3"><a class="header" href="#a1-3">A1</a></h3>
@@ -4730,7 +4757,7 @@ I can convert the following into pseudo code, after we have discussed the algori
 <h3 id="d3-time-lock-key-usage-1"><a class="header" href="#d3-time-lock-key-usage-1">D3: Time-Lock Key Usage</a></h3>
 <p><strong>User Journey</strong>: MLABSO can only reliably replace software using a key in a time-locked manner.</p>
 <p><strong>Justification</strong>: The software using a given key may require updates or replacement. Time-locking can allow this to occur without diminishing the benefits of attestations.</p>
-<h2 id="errata-28"><a class="header" href="#errata-28">Errata</a></h2>
+<h2 id="errata-27"><a class="header" href="#errata-27">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -4769,7 +4796,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <h3 id="d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof"><a class="header" href="#d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof">D3: Evaluate the Opportunity for Stake-bleeding Long-range Attacks and Detection Thereof</a></h3>
 <p><strong>User Journey</strong>: A researcher or protocol implementer can understand how a stake-bleeding long-range attack could be executed and detected in MCR.</p>
 <p><strong>Justification</strong>: Stake-bleeding long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a stake-bleeding long-range attack could be executed and detected in MCR could enable us to derive preventative measures.</p>
-<h2 id="errata-29"><a class="header" href="#errata-29">Errata</a></h2>
+<h2 id="errata-28"><a class="header" href="#errata-28">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="md-4-mcr-offsetting-gas-costs"><a class="header" href="#md-4-mcr-offsetting-gas-costs">MD-4: MCR Offsetting Gas Costs</a></h1>
 <ul>
 <li><strong>Description</strong>: Provide models for the game theory of offsetting gas costs in MCR.</li>
@@ -4815,7 +4842,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <h3 id="d3-models-for-information-incomplete-gas-cost-offset"><a class="header" href="#d3-models-for-information-incomplete-gas-cost-offset">D3: Models for Information Incomplete Gas Cost Offset</a></h3>
 <p><strong>User Journey</strong>: A researcher or protocol implementer can understand the game theory of gas costs in MCR with incomplete information.</p>
 <p><strong>Justification</strong>: Information incompleteness may improve the game theory of offsetting gas costs. Provide models which demonstrate this for incompleteness derived from (1) general network latency, (2) a round-robin rewarding scheme, and (3) a Pedersen Commitment scheme.</p>
-<h2 id="errata-30"><a class="header" href="#errata-30">Errata</a></h2>
+<h2 id="errata-29"><a class="header" href="#errata-29">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -4891,7 +4918,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <li>This would be a highly experimental feature and should be researched and implemented with caution.</li>
 <li>Deterministic transaction and block ordering should cover most of the cases of unfairness. These are discussed in <a href="Review/l-monninger/block-validation/MD/md-6/../md-7/README.html">MD-7</a>. However, in theory you could also slash on conditions like including too many transactions from one user, sending too many blocks at a given time, sending too few blocks at a given time, sending blocks of unequal size when transactions are available, etc.</li>
 </ul>
-<h2 id="errata-31"><a class="header" href="#errata-31">Errata</a></h2>
+<h2 id="errata-30"><a class="header" href="#errata-30">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -4965,7 +4992,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 </ol>
 </li>
 </ul>
-<h2 id="errata-32"><a class="header" href="#errata-32">Errata</a></h2>
+<h2 id="errata-31"><a class="header" href="#errata-31">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5007,7 +5034,7 @@ that is deployed on the node by the operator in a timely fashion, to read blobs 
 in the future. Migrations should be performed on the live chain so that
 by the designated height, all sequenced transaction data that has been submitted by compliant
 nodes is available on the DA in uniform format.</p>
-<h2 id="errata-33"><a class="header" href="#errata-33">Errata</a></h2>
+<h2 id="errata-32"><a class="header" href="#errata-32">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5076,7 +5103,7 @@ move_to(resource,BridgeConfig {
         });
 </code></pre>
 <p>handle consumption depending on the condition on if it’s an initiator or a counterparty</p>
-<h2 id="errata-34"><a class="header" href="#errata-34">Errata</a></h2>
+<h2 id="errata-33"><a class="header" href="#errata-33">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="md-16-create-move-fungible-asset-on-bitcoin-using-runes"><a class="header" href="#md-16-create-move-fungible-asset-on-bitcoin-using-runes">MD-16: Create MOVE fungible asset on Bitcoin using runes</a></h1>
 <ul>
 <li><strong>Description</strong>:</li>
@@ -5102,7 +5129,7 @@ move_to(resource,BridgeConfig {
 <li>etch MOVE rune on Bitcoin testnet</li>
 <li>add capability for the Movement atomic bridge to swap MOVE on Bitcoin for MOVE on Movement</li>
 </ul>
-<h2 id="errata-35"><a class="header" href="#errata-35">Errata</a></h2>
+<h2 id="errata-34"><a class="header" href="#errata-34">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="md-17-bridge-fees"><a class="header" href="#md-17-bridge-fees">MD-17: Bridge Fees</a></h1>
 <p>Description: Bridges requires fees to assure it’s not drained and can self-sustain its operations.</p>
 <h2 id="overview-12"><a class="header" href="#overview-12">Overview</a></h2>
@@ -5172,7 +5199,7 @@ move_to(resource, BridgeConfig {
 block.eth_gas
 block.eth_priority_gas
 </code></pre>
-<h2 id="errata-36"><a class="header" href="#errata-36">Errata</a></h2>
+<h2 id="errata-35"><a class="header" href="#errata-35">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="md-21-native-bridge-with-attesters"><a class="header" href="#md-21-native-bridge-with-attesters">MD-21: Native Bridge with Attesters</a></h1>
 <ul>
 <li><strong>Description</strong>: Proposal for simplifying the native bridge mechanism using an attester-based approach and drawing inspiration from USDC’s CCTP. The goal is to reducing friction, cost, and complexity for Layer 2 onboarding.</li>
@@ -5277,7 +5304,7 @@ The challenge is to make sure that the signature is only used once so no transac
 </li>
 </ol>
 <p>This process is bi-directional, allowing funds to be bridged between Layer 1 and Layer 2, and vice versa, with minimal complexity and friction.</p>
-<h2 id="errata-37"><a class="header" href="#errata-37">Errata</a></h2>
+<h2 id="errata-36"><a class="header" href="#errata-36">Errata</a></h2>
 <h2 id="appendix-26"><a class="header" href="#appendix-26">Appendix</a></h2>
 <ul>
 <li>[R1] USDC Cross-Chain Transfer Protocol: https://www.circle.com/en/cross-chain-transfer-protocol</li>
@@ -5318,7 +5345,7 @@ The challenge is to make sure that the signature is only used once so no transac
 <p>We will need the address for this job allowlisted to use the Suzuka testnet faucet.</p>
 <p><strong>Reference Implementation</strong>:</p>
 <p><a href="https://github.com/movementlabsxyz/movement/pull/726/"><code>movement</code> PR 726</a></p>
-<h2 id="errata-38"><a class="header" href="#errata-38">Errata</a></h2>
+<h2 id="errata-37"><a class="header" href="#errata-37">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5504,7 +5531,7 @@ struct Trade {
 <h3 id="d5-provide-and-argument-agains-the-need-to-resolve-ab-ffs-fixed-supply-concerns"><a class="header" href="#d5-provide-and-argument-agains-the-need-to-resolve-ab-ffs-fixed-supply-concerns">D5: Provide and Argument Agains the Need to Resolve AB-FFS Fixed Supply Concerns</a></h3>
 <p><strong>User Journey</strong>: Developers, exchanges, and users can understand why the bridge can be assumed reasonably secure and inherent fallibility is within network security contraints given a set of assumptions.</p>
 <p><strong>Justification</strong>: We can argue, for example, that many other bridge services use a trusted signer and that said trusted signer is uncomprimised is a fundamental and acceptable assumption.</p>
-<h2 id="errata-39"><a class="header" href="#errata-39">Errata</a></h2>
+<h2 id="errata-38"><a class="header" href="#errata-38">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5574,7 +5601,7 @@ struct Trade {
 <h3 id="d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties"><a class="header" href="#d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties">D5: Specify How to Distribute Gas Fees to the Appropriate Parties</a></h3>
 <p><strong>User Journey</strong>: A network participant can understand how gas fees are distributed.</p>
 <p><strong>Justification</strong>: Gas fees must ultimately be used to pay extrinsic costs or else be considered as rewards. It is important to specify how gas fees are distributed to ensure that the system is fair and that the incentives for participation are aligned with the goals of the Movement Network.</p>
-<h2 id="errata-40"><a class="header" href="#errata-40">Errata</a></h2>
+<h2 id="errata-39"><a class="header" href="#errata-39">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5608,7 +5635,7 @@ struct Trade {
 <p>The postconfirmation process is a synchronization mechanism for L2 to L1, see <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>.</p>
 <p>If the Relayer completes transfers from L2 to L1 without awaiting postconfirmation of the L2 <code>initiate</code> transaction, synchronization guarantees are reduced. The postconfirmation is an anchoring mechanism that binds the L2 to a certain L2 block height and hash, and hinders reorgs beyond a certain depth on L2.</p>
 <p>We need to check the implications for the Informer if the Relayer ignores postconfirmations.</p>
-<h2 id="errata-41"><a class="header" href="#errata-41">Errata</a></h2>
+<h2 id="errata-40"><a class="header" href="#errata-40">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="md-74-rate-limiter-for-the-lockmint-type-native-bridge"><a class="header" href="#md-74-rate-limiter-for-the-lockmint-type-native-bridge">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></h1>
 <ul>
 <li><strong>Description</strong>: A rate limitation mechanism for the Lock/Mint-type Native Bridge.</li>
@@ -5627,7 +5654,7 @@ struct Trade {
 <h3 id="d3-define-the-rate-limiting-mechanism"><a class="header" href="#d3-define-the-rate-limiting-mechanism">D3: Define the rate-limiting mechanism</a></h3>
 <p><strong>User Journey</strong>: The developer should understand the rate-limiting mechanism.</p>
 <p><strong>Description</strong>: The rate-limiting mechanism should be defined in a way that it is clear how it works and how it can be adjusted. Moreover all components and their parameters should be defined. It should also be defined what is being rate-limited.</p>
-<h2 id="errata-42"><a class="header" href="#errata-42">Errata</a></h2>
+<h2 id="errata-41"><a class="header" href="#errata-41">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="welcome-to-the-movement-network-mip-book-7"><a class="header" href="#welcome-to-the-movement-network-mip-book-7">Welcome to the Movement Network MIP Book</a></h1>
 <h2 id="approved-7"><a class="header" href="#approved-7">Approved</a></h2>
 <h3 id="mips-14"><a class="header" href="#mips-14">MIPs</a></h3>
@@ -5727,7 +5754,7 @@ struct Trade {
 <ol>
 <li>He updated the <strong>gloss</strong> to include a more detailed explanation.</li>
 </ol>
-<h3 id="errata-43"><a class="header" href="#errata-43">Errata</a></h3>
+<h3 id="errata-42"><a class="header" href="#errata-42">Errata</a></h3>
 <!--
     Document any post-publication corrections to the glossary entry.
 -->
