@@ -63,8 +63,9 @@ title = "MIP"
 [output.html]
 smart-punctuation = true
 no-section-label = true
-git-repository-url = "https://github.com/movementlabsxyz/MIP-Testing"
-site-url = "/MIP-Testing/"
+git-repository-url = "https://github.com/movementlabsxyz/MIP"
+site-url = "/MIP/"
+mathjax-support = true
 
 [output.html.search]
 heading-split-level = 0
