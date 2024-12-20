@@ -27,13 +27,13 @@ The term quorum certificate has been deprecated in favor of fastconfirmation cer
 
 ## Motivation
 
-L2s, including rollups, publish or secure transaction data in a data availability (DA) layer or at Ethereum mainnet (Layer 1, L1). Validity and optimistic rollups can finalize (confirm) transactions within approximately 30 minutes, resp. ~1 week. Until a transaction is finalized, there is no assurance about its validity and result (success or failure). This can be a limiting factor for certain types of DeFi applications.
+Two chains are present in our architecture: a base chain (or L1) and a second chain (or L2). We refer to L2 as a chain that is not the base chain.Rollups and other types of chains may publish or secure transaction data in a data availability (DA) layer or at Ethereum mainnet (L1).
 
-Our objective is to enable transaction issuers to quickly get some guarantees that their transactions are correctly included in a block. The crypto-economic security is provided by a Proof-of-Stake (PoS) protocol.
+Validity and optimistic rollups can finalize transactions within approximately 30 minutes and ~1 week, respectively. Until a transaction is finalized, there is no assurance about its validity and result (success or failure). This can be a limiting factor for certain types of DeFi applications.
 
-The mechanism can be deployed independently for a chain, or used in combination with existing settlement mechanisms, such as ZK and optimistic settlements.
+Our objective is to enable transaction issuers to quickly get some guarantees that their transactions are correctly and successfully included in a block. The crypto-economic security is provided by a Proof-of-Stake (PoS) protocol. This mechanism can be deployed independently for a chain, or used in combination with existing settlement mechanisms, such as ZK and optimistic settlements.
 
-As a result, users can rely and trust the **fastconfirmation** (sometimes also described as L2-finality) to use as confirmation, or if the chain is configured to do so, wait for **L1-finality**, such as end of challenge window for fraud proofs (optimistic L2) or verification of a ZK-proof (validity L2).
+As a result, users can rely and trust the **fastconfirmation** (sometimes also described as L2-finality) to use as confirmation, or if the chain is configured to do so, wait for L1-finality, such as through **postconfirmation**, end of challenge window for fraud proofs (optimistic rollup), or verification of a ZK-proof (validity rollup).
 
 A introduction to FFS can be found in [this blog post on Fast Finality Settlement](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement). A more detailed description of a (partial) implementation of the mechanism is available at [this blog post on postconfirmations](https://blog.movementlabs.xyz/article/postconfirmations-L2s-rollups-blockchain-movement).
 
@@ -49,11 +49,11 @@ At an abstract level, the L2 chain increases by a new block in each (L2) round, 
 
 **ProtoBlock**. Each round corresponds to the processing of a batch of transactions, called _protoBlock_, which is proposed by the _sequencer_ (can be centralized, decentralized, shared).
 
-**L2Block**. For the vast majority of cases we mean L2Blocks, thus we will omit the "L2-" prefix, i.e. by _block_ we mean L2Block. A node with execution capability is in charge of validating the transactions in a protoBlock and calculate the new state. Since the protoBlockes are provided by the sequencer, the new state and the state roots for a block are deterministic. For a protoBlock $b$ the state is $S_b$ and the state root is $H(S_b)$. From the protoBlock $b$ and the state $S_b$ the block $B$ is computed (which contains the information of the protoBlock and the state root).
+**L2Block**. A node with execution capability is in charge of validating the transactions in a protoBlock and calculates the new state. This results in a block with state commitments, and we call this block L2Block. For the vast majority of cases when we refer to blocks we mean L2Blocks, thus we will omit the "L2-" prefix. Since protoBlocks are provided by the sequencer, the new state and the state roots for a block are deterministic. For a protoBlock $b$ the state is $S_b$ and the state root is $H(S_b)$. From the protoBlock $b$ and the state $S_b$ the block $B$ is computed (which contains the information of the protoBlock and the state root).
 
 **SuperBlock**. L2Blocks can be constructed and confirmed on L2 at a higher rate than is feasible for L1. We group L2Blocks into a _superBlock_ that is confirmed together.
 
-**Local validation**. Since a block is deterministically calculated we say a block (and the associated new state) is _validated locally_ once the execution engine calculates it from the protoBlock.
+**Local validation**. Since a block is deterministically calculated we say that a block (and the associated new state) is _validated locally_ once the execution engine calculates it from the protoBlock.
 
 The validity judgement to be made is:
 > [!NOTE]
@@ -65,14 +65,14 @@ The term _correct_ means that the successor block $B'$ (and the state it represe
 
 **Attestation**. A validator _attests_ for a new block $B'$. This can be done, for example, by casting a vote :white_check_mark: (true) or :x: (false) for a proposal by a leader validator. Or by each validator sending the hash of the block they have validated.
 
-**Fastconfirmation certificate**. When enough validators have attested for a new block $B'$, the block is _L2-confirmed_ (sometimes referred to as _L2-final_). The accumulation of enough votes is aggregated in an fastconfirmation certificate. A naive implementation of the fastconfirmation certificate is a list of votes.
+**Fastconfirmation certificate**. When enough validators have attested for a new block $B'$, the block is _L2-confirmed_ (sometimes referred to as _L2-final_). The accumulation of enough votes is aggregated in a fastconfirmation certificate. A naive implementation of the fastconfirmation certificate is a list of votes.
 
 > [!NOTE]
 > Until a better definition arises we consider _**confirmation**_ to be defined as _L2-finality_ (i.e. _fastconfirmation_).
 
 **Fastconfirmation**. FFS aims to _confirm_ the validity of each produced L2Block, at every L2Block height.
 > [!IMPORTANT]
-> If we confirm each successor block before adding it to the (confirmed) L2-chain, there cannot be any fork, except if the sequencer would provide equivocating protoBlocks for a given height AND there is a sufficiently strong Byzantine attack on the confirmation process.
+> If we confirm each successor block before adding it to the (confirmed) part of the ledger, there cannot be any fork, except if the sequencer would provide equivocating protoBlocks for a given height AND there is a sufficiently strong Byzantine attack on the confirmation process.
 
 If the validators can attest blocks quickly and make their attestations available to third-parties, we have a fast confirmation mechanism supported by crypto-economic security, the  level of which depends on what is at stake for the confirmation of a block.
 
@@ -82,20 +82,18 @@ If the validators can attest blocks quickly and make their attestations availabl
 The condition for slashing may be met by several criteria, and not all slashing conditions may be used:
 
 - equivocate (send a different vote to different validators or users)
-- vote :white_check_mark: for an invalid block
-- vote :x: for a valid block
+- vote for an invalid block
+- (if possible) vote against a valid block
 
 ### Main challenges
 
 To achieve crypto-economically secured fast finality, we need to solve the following problems:
 
 1. design a _staking_ mechanism for the validators to stake assets, distribute rewards and manage slashing
-1. _define and verify_ the threshold (e.g. 2/3 of validators attest :white_check_mark:) for fastconfirmation
-1. _communicate_ the fastconfirmation status.
-
-In addition the following may require separate discussion, as it is a different procedure (postconfirmations are handled in smart contracts on L1, whereas fastconfirmations are handled off-chain)
-
-4. _define and verify_ the threshold (e.g. 2/3 of validators attest :white_check_mark:) for postconfirmation.
+1. _define and verify_ the threshold (e.g. 2/3 of validators attest)  for fastconfirmation.
+1. _communicate_ the fastconfirmation and postconfirmation status.
+1. _define and verify_ the threshold (e.g. 2/3 of validators attest :white_check_mark:) for postconfirmation.
+1. _communicate_ the postconfirmation status.
 
 ### Components
 
