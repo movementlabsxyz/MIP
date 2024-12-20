@@ -148,6 +148,8 @@ The following algorithm is a recommendation for the operation of the Relayer:
 
 Needs discussion.
 
+A model?
+
 ---
 
 ## Changelog
