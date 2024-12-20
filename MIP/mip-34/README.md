@@ -16,18 +16,18 @@ FFS is divided into
 
 We make a note for the following terms:
 
-- **Batch** (not recommended)
-Less clean, but more common term for protoBlock. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of blocks that should be processed by the L1-contract.
-- **Block**
-More common term for L2Block. May be mixed up with the batch of transactions sent to the sequencer, the L1-block or with the batch of L2Blocks that should be processed by the L1-contract. Here we mean L2Block when we say block.
-- **Attester**  (not recommended)
+**Batch** (not recommended)
+Less clean, but more common term for sequencer batch. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of L2Blocks (superBlocks) that should be processed for postconfirmations. Use with care.
+
+**Attester** (not recommended)
 The term attester has been deprecated in favor of validator.
-- **Quorum certificate** (not recommended)
+
+**Quorum certificate** (not recommended)
 The term quorum certificate has been deprecated in favor of fastconfirmation certificate.
 
 ## Motivation
 
-Layer 2s (L2), including rollups, publish or secure transaction data in a data availability (DA) layer or at Ethereum mainnet (Layer 1, L1). Validity and optimistic rollups can finalize (confirm) transactions within approximately 30 minutes, resp. ~1 week. Until a transaction is finalized, there is no assurance about its validity and result (success or failure). This can be a limiting factor for certain types of DeFi applications.
+L2s, including rollups, publish or secure transaction data in a data availability (DA) layer or at Ethereum mainnet (Layer 1, L1). Validity and optimistic rollups can finalize (confirm) transactions within approximately 30 minutes, resp. ~1 week. Until a transaction is finalized, there is no assurance about its validity and result (success or failure). This can be a limiting factor for certain types of DeFi applications.
 
 Our objective is to enable transaction issuers to quickly get some guarantees that their transactions are correctly included in a block. The crypto-economic security is provided by a Proof-of-Stake (PoS) protocol.
 
