@@ -16,13 +16,13 @@ FFS is divided into
 
 We make a note for the following terms:
 
-- **batch** (not recommended)
+- **Batch** (not recommended)
 Less clean, but more common term for protoBlock. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of blocks that should be processed by the L1-contract.
-- **block**
+- **Block**
 More common term for L2Block. May be mixed up with the batch of transactions sent to the sequencer, the L1-block or with the batch of L2Blocks that should be processed by the L1-contract. Here we mean L2Block when we say block.
-- **attester**  (not recommended)
+- **Attester**  (not recommended)
 The term attester has been deprecated in favor of validator.
-- **quorum certificate** (not recommended)
+- **Quorum certificate** (not recommended)
 The term quorum certificate has been deprecated in favor of fastconfirmation certificate.
 
 ## Motivation
