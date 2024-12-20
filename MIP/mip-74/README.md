@@ -148,7 +148,7 @@ The following algorithm is a recommendation for the operation of the Relayer:
 
 Needs discussion.
 
-We may add a model?
+We may add a formal model?
 
 ---
 
