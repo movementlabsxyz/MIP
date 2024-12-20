@@ -47,7 +47,7 @@ MGs serve to capture the **definitions** of terms introduced in the MIPs and MDs
 
 ## Files and numbering
 
-Each MIP, MD or MG is stored in a separate subdirectory with the a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a `README.md` that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
+Each MIP, MD or MG is stored in a separate subdirectory with a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a `README.md` that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
 
 An MIP/MD starts as **Draft**s. They DO NOT acquire a number at this point.
 
