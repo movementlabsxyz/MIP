@@ -31,8 +31,6 @@
 
         <!-- Custom theme stylesheets -->
 
-        <!-- MathJax -->
-        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     </head>
     <body class="sidebar-visible no-js">
     <div id="body-container">
@@ -150,7 +148,7 @@
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/movementlabsxyz/MIP" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/movementlabsxyz/MIP-Testing" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -4604,6 +4602,7 @@ I can convert the following into pseudo code, after we have discussed the algori
 <h2 id="reference-implementation-25"><a class="header" href="#reference-implementation-25">Reference Implementation</a></h2>
 <h2 id="verification-29"><a class="header" href="#verification-29">Verification</a></h2>
 <p>Needs discussion.</p>
+<p>A model?</p>
 <hr />
 <h2 id="changelog-1"><a class="header" href="#changelog-1">Changelog</a></h2>
 <hr />
@@ -5762,9 +5761,7 @@ struct Trade {
 
         <script>
         window.addEventListener('load', function() {
-            MathJax.Hub.Register.StartupHook('End', function() {
-                window.setTimeout(window.print, 100);
-            });
+            window.setTimeout(window.print, 100);
         });
         </script>
 
