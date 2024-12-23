@@ -87,34 +87,57 @@ The condition for slashing may be met by several criteria, and not all slashing 
 
 ### Main challenges
 
+See also [MD-34](../../MD/md-34/README.md).
+
 To achieve crypto-economically secured fast finality, we need to solve the following problems:
 
+**Postconfirmation**
+
 1. design a _staking_ mechanism for the validators to stake assets, distribute rewards and manage slashing
-1. _define and verify_ the threshold (e.g. 2/3 of validators attest)  for fastconfirmation.
-1. _communicate_ the fastconfirmation and postconfirmation status.
-1. _define and verify_ the threshold (e.g. 2/3 of validators attest :white_check_mark:) for postconfirmation.
-1. _communicate_ the postconfirmation status.
+1. _define and verify_ the threshold (e.g. 2/3 of validators attest)  for postconfirmation.
+
+**Fastconfirmation**
+
+3. design a _staking_ mechanism for the validators to stake assets, distribute rewards and manage slashing
+1. _define and verify_ the threshold (e.g. 2/3 of validators attest) for fastconfirmation.
+1. _communicate_ the fastconfirmation status and compare to the postconfirmation status.
 
 ### Components
 
-#### Staking (addresses 1. and 2.)
+#### Staking for postconfirmations (addresses 1.)
 
-The staking mechanism is implemented in a contract on L1.
+For postconfirmation a staking mechanism is implemented in a contract on L1.
 This contract provides the following functionalities:
 
 - join: a new validator can join the set of validators by staking some assets
 - exit: a validator exits and  get their stakes back
-- vote: receive a vote or a set of votes, verify the integrity of the votes (signatures) and the minimum threshold (e.g. 2/3)
 
-#### Handle fastconfirmation (addresses 3.)
+
+#### Handle postconfirmations (addresses 2.)
+
+- vote: receive a vote or a set of votes, verify the integrity of the votes (signatures) and the minimum threshold (e.g. 2/3)
+- confirm: once the threshold is reached, confirm the block (or sequence of blocks) on L1
+
+#### Staking for fastconfirmations (addresses 3.)
+
+For fastconfirmation a staking mechanism is implemented in a contract on L2.
+
+This contract provides the following functionalities:
+
+- join: a new validator can join the set of validators by staking some assets
+- exit: a validator exits and  get their stakes back
+
+#### Handle fastconfirmation (addresses 4.)
+
+- vote: receive a vote or a set of votes, verify the integrity of the votes (signatures) and the minimum threshold (e.g. 2/3)
+- confirm: once the threshold is reached, confirm the block (or sequence of blocks) on L2
+
+#### Communication of fastconfirmation status (addresses 5.)
+
+This step synchronizes the fastconfirmation with the postconfirmation. The postconfirmation is the final confirmation of the block on L1, and the fastconfirmation is the fast confirmation of the block on L2.
 
 To ensure that the fastconfirmation status is made available to third-parties, we may publish our _proof_  (2/3 of attestations :white_check_mark:) to a data availability layer and get a _certificate_ that the proof is available.  
 This DA layer should offer a reliable _mempool_ for example as described [in this paper](https://arxiv.org/pdf/2105.11827).
-
-#### Handle postconfirmations (addresses 4.)
-
-The L1 contract will verify the fastconfirmation certificate. If the certificate is correct the block (or sequence of blocks) are _postconfirmed_. This requires handling who should send the certificate to the L1 contract, and how to verify the certificate.
-
 
 ## Reference Implementation
 
