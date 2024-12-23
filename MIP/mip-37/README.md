@@ -1,7 +1,7 @@
-# MIP-37: FFS-Postconfirmation
+# MIP-37: FFS: Postconfirmation
 
 - **Description**: Confirmations of superBlocks on L1. A sub-protocol of Fast Finality Settlement.
-- **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
+- **Authors**: [Andreas Penzkofer]()
 
 ## Abstract
 
