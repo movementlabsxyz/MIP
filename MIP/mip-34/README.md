@@ -112,8 +112,9 @@ This contract provides the following functionalities:
 - join: a new validator can join the set of validators by staking some assets
 - exit: a validator exits and  get their stakes back
 
-
 #### Handle postconfirmations (addresses 2.)
+
+For postconfirmation, the following steps are implemented in a contract on L1:
 
 - vote: receive a vote or a set of votes, verify the integrity of the votes (signatures) and the minimum threshold (e.g. 2/3)
 - confirm: once the threshold is reached, confirm the block (or sequence of blocks) on L1
@@ -129,6 +130,8 @@ This contract provides the following functionalities:
 
 #### Handle fastconfirmation (addresses 4.)
 
+For fastconfirmation, the following steps are implemented in a contract on L2:
+
 - vote: receive a vote or a set of votes, verify the integrity of the votes (signatures) and the minimum threshold (e.g. 2/3)
 - confirm: once the threshold is reached, confirm the block (or sequence of blocks) on L2
 
@@ -139,14 +142,38 @@ This step synchronizes the fastconfirmation with the postconfirmation. The postc
 To ensure that the fastconfirmation status is made available to third-parties, we may publish our _proof_  (2/3 of attestations :white_check_mark:) to a data availability layer and get a _certificate_ that the proof is available.  
 This DA layer should offer a reliable _mempool_ for example as described [in this paper](https://arxiv.org/pdf/2105.11827).
 
-## Reference Implementation
+## Implementation Details
 
-To simplify we assume that each validator stakes the same amount.
-The set of validators is in charge of validating sequenced batches and producing blocks that also commit to the state root of the sequenced batch.
+To simplify we assume that each validator stakes the same amount. The set of validators is in charge of validating sequenced batches and producing blocks that also commit to the state root of the sequenced batch.
 
-There may be different protocols for the postconfirmation and the fastconfirmation. Version A and version B address Postconfirmation. Version C includes fastconfirmation.
+There may be different protocols for the postconfirmation and the fastconfirmation.
 
-#### Version A: Postconfirmation with leader-dependent blocks
+#### Postconfirmation with deterministic blocks
+
+L2Blocks are deterministically derived from the protoBlock, and consequently the superBlock $B_r'$ is deterministic. Validators then attest for the next transition directly:  $B_r \xrightarrow{\ txs \ } B_r'$. E.g. by committing to the the hash of $B_r'$.
+
+An additional actor - the `acceptor` - is introduced that initiates the postconfirmation process. This is necessary, as this step requires additional gas costs on L1 and thus this role requires additional rewards. We also don't want to burden regular validators with additional gas costs, as we would like the gas costs for validators to be predictable. The `acceptor` serves for a specified period and is then replaced by another validator.
+
+> [!NOTE]
+> Since the block derivation is deterministic, $f+1$ may be sufficient to confirm the block. (However, we require $2f+1$ to cover potential edge cases, such as that the sequencer cannot be trusted.)
+
+**Direct L1 commitments**. In the scenario where validators commit individually they send the block hashes of the calculated blocks directly to the L1 contract.
+
+**Acceptor collects commitments**. In a more optimized scenario, the acceptor could also send the super-majority proof to the L1 contract.
+
+![Version A Diagram](postconfirmationV2.png)
+*Figure 2: **Postconfirmation**: Leader-independent (deterministic) L2Block generation process in Version B.*
+
+#### Fastconfirmation with deterministic blocks
+
+A p2p layer is established between validators. Validators communicate to aggregate a threshold of votes on each deterministically determined L2Block. This provides fastconfirmations in the order of seconds.
+
+Since this approach already collects commitments off-L1, an acceptor could collect commitments and send the super-majority proof to the L1 contract. This would provide postconfirmations in the order of minutes.
+
+![Version A Diagram](fullDesign.png)
+*Figure 3: **Postconfirmation + fastconfirmation**: Leader-independent (deterministic) L2Block generation process in Version C. Validators co-operate to create a fastconfirmation certificate before L1 is involved.*
+
+#### Alternative Version (not implemented): Postconfirmation with leader-dependent blocks
 
 A leader validator is elected for a certain interval. The leader proposes the next transition (superBlock $B_r'$):  $B_r \xrightarrow{\ txs \ } B_r'$. The leader can do so by sending a digest of $txs$ (Merkle root) and a digest of $B_r'$ (Merkle root hash of $B_r'$), or a _change set_. The leader commits on L1 to $B_r'$. Every validator checks the validity of $B_r'$ and prepares a vote message (:white_check_mark: or :x:).
 
@@ -156,33 +183,6 @@ A leader validator is elected for a certain interval. The leader proposes the ne
 
 ![Version A Diagram](postconfirmationV1.png)
 *Figure 1: **Postconfirmation**: Leader-dependent L2Block generation process in Version A.*
-
-#### Version B: Postconfirmation with deterministic blocks
-
-Blocks are deterministically derived from the protoBlock, and consequently the superBlock $B_r'$ is deterministic. This is in contrast to Version A, where a leader proposes the next transition.Validators then attest for the next transition directly:  $B_r \xrightarrow{\ txs \ } B_r'$. E.g. by committing to the the hash of $B_r'$.
-
-An additional actor - the `acceptor` - is introduced that initiates the postconfirmation process. This is necessary, as this step requires additional gas costs on L1 and thus this role requires additional rewards. The `acceptor` serves for a specified period and is then replaced by another validator.
-
-> [!NOTE]
-> Since the block derivation is deterministic, $f+1$ may be sufficient to confirm the block. (However, we require $2f+1$ to cover potential edge cases, such as that the sequencer cannot be trusted.)
-
-**Direct L1 commitments**. In the scenario where validators commit individually they send the block hashes of the calculated blocks directly to the L1 contract.
-
-**Acceptor collects commitments**. In a more optimized scenario, the acceptor sends the super-majority proof to the L1 contract.
-
-![Version A Diagram](postconfirmationV2.png)
-*Figure 2: **Postconfirmation**: Leader-independent (deterministic) L2Block generation process in Version B.*
-
-#### Version C: fastconfirmation with deterministic blocks
-
-This approach extends Version B.
-
-A p2p layer is established between validators. Validators communicate to aggregate a threshold of votes on each deterministically determined L2Block. This provides fastconfirmations in the order of seconds.
-
-Since this approach already collects commitments off-L1, the natural choice is to use Version B where the acceptor collects the commitments and sends the super-majority proof to the L1 contract. This provides postconfirmations in the order of minutes.
-
-![Version A Diagram](fullDesign.png)
-*Figure 3: **Postconfirmation + fastconfirmation**: Leader-independent (deterministic) L2Block generation process in Version C. Validators co-operate to create a fastconfirmation certificate before L1 is involved.*
 
 ## Verification
 
@@ -194,46 +194,31 @@ The level of security depends on the total stake of the L2 validators. The highe
 
 The correctness of the mechanism relies on a few trust assumptions.
 
-**Byzantine assumption**. 
+**Byzantine assumption**.
 We assume that at most $f$ of the total $n=3f+1$ (L2) validators can be malicious.
-This implies that if more than $2f +1$ attest :white_check_mark: for a new block, at least $f + 1$ honest validators have attested :white_check_mark:, so at least one honest validator has :white_check_mark: $B'$ and $B'$ is valid. Thus, we request that >$\frac{2}{3}n$ (super-majority)  validators have :white_check_mark: $B'$ to validate $B'$.
+This implies that if more than $2f +1$ attest for a new block, at least $f + 1$ honest validators have attested, so at least one honest validator has attested to $B'$. Thus, we request that >$\frac{2}{3}n$ (super-majority)  validators have attest for $B'$.
 
-**Postconfirmations**. We assume that the contract that validates the proof of super-majority is correct (there are no bugs in the implementation of the contract). As a result, when the staking contract verification step is confirmed on L1 (L1-finality), the super-majority proof verification is L1-secure.
+**Postconfirmations**. We assume that the contract that validates the proof of super-majority is correct (there are no bugs in the implementation of the contract). As a result, when the contract verification step is confirmed on L1 (L1-finality), the super-majority proof verification is L1-secure.
 
-Combining the two results above we have: confirmation (L1 contract) that >2/3 of validators have attested :white_check_mark: and if >2/3 have attested :white_check_mark: then $B'$ is valid. So overall, if the >2/3 super-majority is verified by the staking contract, $B'$ is valid.
+Combining the two results above we have: confirmation (L1 contract) that >2/3 of validators have attested to a certain superBlock and if >2/3 have attested then $B'$ is valid. So overall, if the >2/3 super-majority is verified by the L1 contract, $B'$ is valid.
 
-**fastconfirmation** The L2 validators also publish the proofs to a DA layer and once the proof is available it cannot be tampered with. Thus, we can provide some guarantees about the irreversibility of transactions when the availability certificate (of the fastconfirmation certificate) is delivered, and before the actual proof is verified on L1. If validators misbehave, they _will_ be slashed on L1, which provides strong incentives for validators not to act malicious.
+**Fastconfirmation**. The same applies as for Postconfirmations.
+
+In addition the L2 validators also publish the proofs to a DA layer and once the proof is available it cannot be tampered with. Thus, we can provide some guarantees about the irreversibility of transactions when the availability certificate (of the fastconfirmation certificate) is delivered, and before the actual proof is verified on L1. If validators misbehave, they _will_ be slashed on L1, which provides strong incentives for validators not to act malicious.
 
 This is conditional to:
 
 - ensuring that the validators send the same proof to the L1 staking contract and to the DA.
 - validators cannot exit too early (not before the proof they are committed to are confirmed on L1).
 
-### Performance
-
-There are several aspects that can impact performance and should be properly addressed:
-
-- time to collect the super-majority votes
-- time to get an availability certificate for the super-majority proof
-- number and size of messages and transactions, specifically containing the signatures
-
-## Detailed plan and implementation
-
-A detailed plan should be proposed addressing the implementation of the different components, and ideally MIPs to capture the requirements for each component.
-
-- **validators network**: how they communicate and build the _super-majority proof_.
-- **fastconfirmation**: communication of the super-majority proof to the DA. Validators should certificate in the order of seconds to provide confirmation guarantees in the order of seconds.
-- **postconfirmation**: L1 validation contract, how it verifies the super-majority proof and if and how there is interaction with the DA layer.
-- **staking**: what crypto-coin is used for staking, safeguards to prevent validators from exiting too early etc
-
 ## Optimizations
 
 There are several aspects that could be optimized and refined:
 
-- **super-majority proof**: it can be a list of votes, but could also be a zk-proof (more compact). The suer-majority proof is not a proof of correct execution (as in zkVM) but simply of super-majority and this is cheaper to compute.
+- **super-majority proof**: it can be a list of votes, but could also be a zk-proof (more compact). The super-majority proof is not a proof of correct execution (as in zkVM) but simply of super-majority and this is cheaper to compute.
 - **signatures aggregation**: we want to avoid sending large transactions to the L1 as it increases operational costs. How to aggregate signatures to send more compact messages/transactions?
 - **delegation/weighted stakes**: a mechanism for validators to delegate their voting power to other validators. Ability for validators to stake different amounts (and use weighted stakes super-majority).
-- **commit to a sequence of L2Blocks**. The fastconfirmation certificate could be per block. However, on L1 we may want to commit to a sequence of blocks. This can be done by committing to the state root of the last block in the sequence or more complicated approaches using Merkle roots.
+- **commit to a sequence of L2Blocks**. The fastconfirmation certificate could be per block. However, on L1 we want to commit to a sequence of blocks (a superBlock). This can be done by committing to the state root of the last block in the sequence or more complicated approaches using Merkle roots.
 - **involvement of DA layer**. Validators sent their votes or commitments to a DA layer off-L1. This ensures that votes remain available and can be used for potential slashing. This step should take O(1) second if we use a fast reliable mempool.
 
 ## Errata
