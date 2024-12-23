@@ -1,20 +1,6 @@
 # MIP-65: FFS: Fastconfirmations
 - **Description**: Fast-Finality Settlement : Fastconfirmations as confirmations on the L2.
-- **Authors**: [Andreas Penzkofer](andreas.penzkofer@movementlabs.xyz)
-
-<!--
-  READ MIP-1 BEFORE USING THIS TEMPLATE!
-
-  This is the suggested template for new MIPs. After you have filled in the requisite fields, please delete these comments.
-
-  Note that an MIP number will be assigned by an editor. When opening a pull request to submit your MIP, please use an abbreviated title in the filename, `mip-draft_title_abbrev.md`.
-
-  The title should be 44 characters or less. It should not repeat the MIP number in title, irrespective of the category.
-
-  The author should add himself as a code owner in the `.github/CODEOWNERS` file for the MIP.
-
-  TODO: Remove this comment before finalizing.
--->
+- **Authors**: [Andreas Penzkofer]()
 
 ## Abstract
 
@@ -48,26 +34,16 @@ The sequencer outputs protoBlocks, which are ingested by validators. From these 
 
 The shared sequencer can serve multiple ledgers (also called _chains_). Validators can query for new protoBlocks and separate their transactions out by namespace. Alternatively validators could request based on namespace and receive a transaction stream specific to the chain. For simplicity we continue to refer to a protoBlock when discussing the pre-stage of the next L2block but in a shared setting protoBlock(namespace) would be more accurate.
 
-### operater chain
-
-
+### Operater chain
 
 ### fastConfirmations
 
 The L2 is a chain that ingests protoBlocks from a sequencer. This sequencer may or may not b
 
 
-
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
 
-
 ## Reference Implementation
-
-<!--
-  The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
-
-  TODO: Remove this comment before submitting
--->
 
 ## Verification
 
