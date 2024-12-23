@@ -139,7 +139,7 @@ For fastconfirmation, the following steps are implemented in a contract on L2:
 
 This step synchronizes the fastconfirmation with the postconfirmation. The postconfirmation is the final confirmation of the block on L1, and the fastconfirmation is the fast confirmation of the block on L2.
 
-To ensure that the fastconfirmation status is made available to third-parties, we may publish our _proof_  (2/3 of attestations :white_check_mark:) to a data availability layer and get a _certificate_ that the proof is available.  
+To ensure that the fastconfirmation status is made available to third-parties, we may publish our _proof_  (2/3 of attestations) to a data availability layer and get a _certificate_ that the proof is available.  
 This DA layer should offer a reliable _mempool_ for example as described [in this paper](https://arxiv.org/pdf/2105.11827).
 
 ## Implementation Details
@@ -161,8 +161,8 @@ An additional actor - the `acceptor` - is introduced that initiates the postconf
 
 **Acceptor collects commitments**. In a more optimized scenario, the acceptor could also send the super-majority proof to the L1 contract.
 
-![Version A Diagram](postconfirmationV2.png)
-*Figure 2: **Postconfirmation**: Leader-independent (deterministic) L2Block generation process in Version B.*
+![Diagram 2](postconfirmationV2.png)
+*Figure 2: **Postconfirmation**: Leader-independent (deterministic) L2Block generation process.*
 
 #### Fastconfirmation with deterministic blocks
 
@@ -170,19 +170,19 @@ A p2p layer is established between validators. Validators communicate to aggrega
 
 Since this approach already collects commitments off-L1, an acceptor could collect commitments and send the super-majority proof to the L1 contract. This would provide postconfirmations in the order of minutes.
 
-![Version A Diagram](fullDesign.png)
-*Figure 3: **Postconfirmation + fastconfirmation**: Leader-independent (deterministic) L2Block generation process in Version C. Validators co-operate to create a fastconfirmation certificate before L1 is involved.*
+![Diagram 3](fullDesign.png)
+*Figure 3: **Postconfirmation + fastconfirmation**: Leader-independent (deterministic) L2Block generation process. Validators co-operate to create a fastconfirmation certificate before L1 is involved.*
 
 #### Alternative Version (not implemented): Postconfirmation with leader-dependent blocks
 
-A leader validator is elected for a certain interval. The leader proposes the next transition (superBlock $B_r'$):  $B_r \xrightarrow{\ txs \ } B_r'$. The leader can do so by sending a digest of $txs$ (Merkle root) and a digest of $B_r'$ (Merkle root hash of $B_r'$), or a _change set_. The leader commits on L1 to $B_r'$. Every validator checks the validity of $B_r'$ and prepares a vote message (:white_check_mark: or :x:).
+A leader validator is elected for a certain interval. The leader proposes the next transition (superBlock $B_r'$):  $B_r \xrightarrow{\ txs \ } B_r'$. The leader can do so by sending a digest of $txs$ (Merkle root) and a digest of $B_r'$ (Merkle root hash of $B_r'$), or a _change set_. The leader commits on L1 to $B_r'$. Every validator checks the validity of $B_r'$ and prepares a vote message.
 
 **Direct L1 commitments**. The vote messages of each validator are directly sent to the L1 contract. Once enough votes are available on L1, the leader initiates the postconfirmation process.
 
-**Leader collects votes**. The vote messages of each validator are directly sent to the L1 contract. Once the votes reach the required threshold :white_check_mark: for $B_r'$, the leader initiates the postconfirmation process with the proof of the votes.
+**Leader collects votes**. The vote messages of each validator are directly sent to the L1 contract. Once the votes reach the required threshold for $B_r'$, the leader initiates the postconfirmation process with the proof of the votes.
 
 ![Version A Diagram](postconfirmationV1.png)
-*Figure 1: **Postconfirmation**: Leader-dependent L2Block generation process in Version A.*
+*Figure 1: **Postconfirmation**: Leader-dependent L2Block generation process.*
 
 ## Verification
 
