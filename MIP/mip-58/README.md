@@ -18,16 +18,17 @@ This proposal advocates for replacing the current HTLC-based bridge design, with
 
 The HTLC-type Native Bridge design poses numerous challenges, including inefficiency, cost, and user frustration:
 
-1. **Transaction Complexity**: Requires four interactions:
+1. **Transaction Complexity**
+Requires four interactions:
    - Two by the user (initiation and finalization).
    - One by the Relayer to complete the transaction.
    - One by a third party (tasked by the Relayer) to finalize refunds in case of failure.
    - If any of these fails, users and the operator face losses.
-2. **High Cost**:
+2. **High Cost**
    - The multi-transaction setup is expensive for both users and the operator.
    - Estimations in fee calculation that are too far off real values could result in significant losses.
    - Example: At 16 gwei, bridging costs \$20 for 10k transactions. If fees are miscalculated by 25\%, this leads to a \$25k loss. At 100 gwei, the loss escalates dramatically.
-3. **Unfriendly User Experience**:
+3. **Unfriendly User Experience**
    - The current design requires users to have funds on the target chain for finalization. This increases friction and discourages adoption.
    - Sponsored transactions are essential to the current implementation but remain unimplemented, leaving users stranded without funds.
 4. **Security Risks**:
@@ -89,7 +90,7 @@ L1 -> L2
 Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides additional reorg protection.
 
 [!NOTE]
-We may consider Fastconfirmation instead of Postconfirmation, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65), if the L2 is extremely unlikely to reorg AND the committee is considered to be safe. However, this should be studied carefully.
+We MAY consider Fastconfirmation instead of Postconfirmation, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65). This assumes the L2 is extremely unlikely to reorg AND the committee is considered to be safe.
 
 ![L1-L2](L1ToL2.png)
 
@@ -102,7 +103,7 @@ L2 -> L1
 5. User is notified on the frontend that their transaction has been completed.
 
 [!NOTE]
-We may consider Fastconfirmation instead of Postconfirmation, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65), if the L2 is extremely unlikely to reorg AND the committee is considered to be safe. However, this should be studied carefully.
+Due to gas price fluctuation on L1 we SHOULD consider Fastconfirmation instead of Postconfirmation, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65). This assumes the L2 is extremely unlikely to reorg AND the committee is considered to be safe. 
 
 ![L2-L1](L2ToL1.png)
 
@@ -110,7 +111,7 @@ We may consider Fastconfirmation instead of Postconfirmation, see [MIP-65](https
 
 We discuss the key features also in relation to the HTLC-based bridge to provide a comparison with the previous design.
 
-1. **Lock/Mint mechanism**:
+1. **Lock/Mint mechanism**
    - **Initiation**: User sends a transaction to initiate the bridge containing recipient and amount.
    - **Completion**: A Relayer or multi-signature group completes the transfer on the counterparty contract with the originator, recipient, amount and `nonce` for hash verification.
    - **No Funds Requirement**: User is not required to have funds on target chain and we do not have to build sponsored transactions.
@@ -118,22 +119,22 @@ We discuss the key features also in relation to the HTLC-based bridge to provide
    - **Less parameters**: Because there is no exchange of secrets between the user and Relayer, we have a substantial reduction of logic.
    - **Only Completable**: Previously we reserve a refunder role to revert transactions. In this approach this is different as we guarantee delivery of funds through the same party that would guarantee funds being refunded, because bridges can ONLY be completed.
 
-2. **Consolidation of Logic**:
+2. **Consolidation of Logic**
    - Merge lock and completion functionality on the counterparty contract. Once lock is called, funds are already in the control of the user. In the HTLC implementation, once the timelock is over and complete on initiator has not been called, both the initiator and counterparty funds are available to the user, opening up for an exploit.
    - Removes the refund functionality entirely to eliminate associated exploits.
 
-3. **Parameter Validation**:
+3. **Parameter Validation**
    - Ensure parameter validation on the counterparty to prevent invalid transactions.
 
-4. **Relayer Redundancy**:
+4. **Relayer Redundancy**
    - Use two types of Relayers:
      - **Automated Relayer**: Operated with minimal human involvement; its private key is highly secured.
      - **Multi-Signature Relayer**: Managed by the team to guarantee transaction completion in case of failures.
 
-5. **Cost Efficiency**:
+5. **Cost Efficiency**
    - Minimize gas costs by reducing the number of interactions and simplifying fee calculations.
 
-6. **Enhanced Security**:
+6. **Enhanced Security**
    - Avoid refund logic to close exploit windows.
    - Protect against key compromise through key isolation or known by no parties and multi-signature Relayer setups.
    - There is no scenario where a bridge could lead to double-spending. It's either completed by Relayer or not.
@@ -156,7 +157,7 @@ We discuss the key features also in relation to the HTLC-based bridge to provide
    }
    ```
 
-10. **Best Practices**:
+10. **Best Practices**
 
 - Adopt currently used bridge designs from established designs like Arbitrum, LayerZero and Blast bridges, which use a Relayer to finalize the bridge.
 - User is not required to have funds on counterparty contract to finalize the bridge.
@@ -170,7 +171,11 @@ We discuss the key features also in relation to the HTLC-based bridge to provide
 
 ## Reference Implementation
 
-### 1. **Two-Transaction Flow**:
+[Solidity Implementation](https://github.com/movementlabsxyz/movement/tree/primata/simple-native-bridge)
+
+[Move Implementation](https://github.com/movementlabsxyz/aptos-core/tree/andygolay/simplified-bridge)
+
+### 1. **Two-Transaction Flow**
 
 - User initiates the transfer.
 - Relayer or multisig completes the transfer with parameter validation.
@@ -180,18 +185,18 @@ We discuss the key features also in relation to the HTLC-based bridge to provide
 ![Transaction History](tx-history.png)
 *Figure: Users would be able to see if the bridge has been completed. It's either pending or completed.*
 
-### 2. **Batch Completion**:
+### 2. **Batch Completion**
 
 - Multisig Relayers could process pending transactions in batches during downtime of the standard Relayer, ensuring timely resolution.
 
-### 3. **Contract Simplification (compared to HTLC-based Native Bridge)**:
+### 3. **Contract Simplification (compared to HTLC-based Native Bridge)**
 
 - Combine lock and completion functionality on the counterparty contract.
 - Remove refund logic to streamline operations and improve security.
 - Cheaper transactions because of reduction of logic.
 - Consolidate Initiator and Counterparty into a single contract (this might be the most dangerous thing proposed but it has already been proposed for HTLC Native Bridge implementation).
 
-### 4. **Rate Limiting designs**:
+### 4. **Rate Limiting designs**
 
 Here we discuss three options for rate limiting. [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74) discusses option C.
 
@@ -225,7 +230,7 @@ C. **Two sided full rate limiting**
 - Initiating transfers get rejected on the source chain, which improves safety and fullfils rate limit requirements on the source chain.
 - On the source chain the rate limit is not related to the Insurance Fund. This opens the question who sets the rate limit on the source chain. We answer this in [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74).
 
-### 5. **Bridge Fee**:
+### 5. **Bridge Fee**
 
 [!WARNING]
 Details such as this should be moved to the MIP of Bridge Fees, and different options should be listed as "Alternatives".
@@ -235,24 +240,20 @@ Details such as this should be moved to the MIP of Bridge Fees, and different op
    1. Relayer sets a fee on L2, a global variable that can be set at any given time. Considering that block validation time on L1 is bigger than on L2, it becomes a viable approach since L2 can rapidly adjust the fee according to the current block and always charge an above L1 gas cost fee to attempt that the bridge is net positive. \$L2MOVE is deducted from the amount of tokens that are currently being bridged and transferred to a funds manager. This gives the protocol a very reliable way to estimate how much MOVE will be charged and feed to the user a precise amount of tokens. However, bridge transfers cannot always immediately be initiated on the L1, e.g. if there is a surge in transactions. 
    2. Enable the Relayer to specify on the L1 `completeBridgeTransfer` transaction, the bridge fee per transaction. The amount is deducted from the total amount of tokens that were bridged and transferred to a funds manager. The dangerous situation is that we expect is this takes much more than 10 minutes before the transfer can occur, and this could lead to a big disparity between the expected amount of funds and the actual amount of tokens received.
 
-[Solidity Implementation](https://github.com/movementlabsxyz/movement/tree/primata/simple-native-bridge)
-
-[Move Implementation](https://github.com/movementlabsxyz/aptos-core/tree/andygolay/simplified-bridge)
-
 ## Verification
 
-1. **Correctness**:
+1. **Correctness**
    - Simulate multiple transaction scenarios to ensure robustness.
    - Test edge cases, including Relayer downtime and batch processing.
 
-2. **Security Implications**:
+2. **Security Implications**
    - Conduct audits focused on the simplified design.
    - Implement rate-limiting safeguards and validate parameters in contracts.
 
-3. **Performance Impacts**:
+3. **Performance Impacts**
    - Benchmark gas costs and transaction throughput.
 
-4. **Validation Procedures**:
+4. **Validation Procedures**
    - Perform an audit and thorough testing, alongside an open invite to the community to verify the bridge.
    - Seek community feedback and incorporate suggestions.
 
