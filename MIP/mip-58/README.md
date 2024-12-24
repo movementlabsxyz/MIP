@@ -220,7 +220,7 @@ We discuss the key features also in relation to the HTLC-based bridge to provide
 
 [Move Implementation](https://github.com/movementlabsxyz/aptos-core/tree/andygolay/simplified-bridge)
 
-### 1. **Transaction flow**
+#### 1. **Transaction flow**
 
 - There are two possible states, `transfer_initiated` or `transfer_completed`.
 - User initiates the transfer.
@@ -239,22 +239,23 @@ sequenceDiagram
     Relayer ->> Target_Contract: Complete Transfer
     Target_Contract -->> User: Tokens Delivered
 ```
+*Interaction flow diagram.*
 
 ![Transaction History](tx-history.png)
 *Figure: Users would be able to see if the bridge has been completed. It's either pending or completed.*
 
-### 2. **(Optional) batch completion for multisig Relayer**
+#### 2. **(Optional) batch completion for multisig Relayer**
 
 Multisig Relayers could process pending transactions in batches during downtime of the standard Relayer, ensuring timely resolution.
 
-### 3. **Contract simplification (compared to HTLC-based Native Bridge)**
+#### 3. **Contract simplification (compared to HTLC-based Native Bridge)**
 
 - Combine lock and completion functionality on the counterparty contract.
 - Remove refund logic to streamline operations and improve security.
 - Cheaper transactions because of reduction of logic.
 - Consolidate Initiator and Counterparty into a single contract (this might be the most dangerous thing proposed but it has already been proposed for HTLC Native Bridge implementation).
 
-### 4. **Rate limiting designs**
+#### 4. **Rate limiting designs**
 
 Here we discuss three options for rate limiting. [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74) discusses option C.
 
@@ -287,7 +288,7 @@ C. **Two sided full rate limiting**
 - Initiating transfers get rejected on the source chain, which improves safety and fulfills rate limit requirements on the source chain.
 - On the source chain the rate limit is not related to the Insurance Fund. This opens the question who sets the rate limit on the source chain. We answer this in [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74).
 
-### 5. **Bridge fee**
+#### 5. **Bridge fee**
 
 > **TODO:** Details such as this should be moved to the MIP of Bridge Fees, and different options should be listed as "Alternatives".
 
@@ -295,6 +296,10 @@ C. **Two sided full rate limiting**
 - When bridging from L2 to L1, we have a few viable solutions but it's preferable to highlight two.
    1. Relayer sets a fee on L2, a global variable that can be set at any given time. Considering that block validation time on L1 is bigger than on L2, it becomes a viable approach since L2 can rapidly adjust the fee according to the current block and always charge an above L1 gas cost fee to attempt that the bridge is net positive. \$L2MOVE is deducted from the amount of tokens that are currently being bridged and transferred to a funds manager. This gives the protocol a very reliable way to estimate how much MOVE will be charged and feed to the user a precise amount of tokens. However, bridge transfers cannot always immediately be initiated on the L1, e.g. if there is a surge in transactions. 
    2. Enable the Relayer to specify on the L1 `completeBridgeTransfer` transaction, the bridge fee per transaction. The amount is deducted from the total amount of tokens that were bridged and transferred to a funds manager. The dangerous situation is that we expect is this takes much more than 10 minutes before the transfer can occur, and this could lead to a big disparity between the expected amount of funds and the actual amount of tokens received.
+
+#### 4. Relayer operation
+
+The operation of the Relayer, including the bootstrapping process, is detailed in [MIP-61](https://github.com/movementlabsxyz/MIP/pull/61).
 
 ## Verification
 
