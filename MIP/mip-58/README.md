@@ -6,7 +6,7 @@
 
 ## Abstract
 
-We propose a lock/mint-type Native Bridge. The lock/mint bridge design streamlines operations, enhances security, and improves user experience, making it easier to bridge assets between chains.
+We propose a lock/mint-type Native Bridge. The lock/mint bridge design streamlines operations, enhances security, and improves user experience (compared to the previously employed HTLC-based Native Bridge) making it easier to bridge assets between chains.
 
 ## Motivation
 
@@ -20,14 +20,14 @@ The HTLC-type Native Bridge design poses numerous challenges, including ineffici
 
 1. **Transaction Complexity**
 Requires four interactions:
-   - Two by the user (initiation and finalization).
-   - One by the Relayer to complete the transaction.
-   - One by a third party (tasked by the Relayer) to finalize refunds in case of failure.
+   - Two by the user (initiate the transfer and finalize the transfer).
+   - One by the Relayer to complete the transfer.
+   - One by a third party (tasked to the Relayer) to finalize refunds in case of failure.
    - If any of these fails, users and the operator face losses.
 2. **High Cost**
    - The multi-transaction setup is expensive for both users and the operator.
-   - Estimations in fee calculation that are too far off real values could result in significant losses.
-   - Example: At 16 gwei, bridging costs \$20 for 10k transactions. If fees are miscalculated by 25\%, this leads to a \$25k loss. At 100 gwei, the loss escalates dramatically.
+   - Estimations in fee calculation that are too far off can result in significant losses.
+   - If fees are miscalculated by 25\%, this leads to a 25\% loss. When L1 fees increase, the loss can escalate dramatically in absolute terms.
 3. **Unfriendly User Experience**
    - The current design requires users to have funds on the target chain for finalization. This increases friction and discourages adoption.
    - Sponsored transactions are essential to the current implementation but remain unimplemented, leaving users stranded without funds.
@@ -71,18 +71,70 @@ An address which collects \$L1MOVE that are transferred L1→L2 and from which t
 A contract capable of minting \$L2MOVE.
 
 **(Trusted) Relayer**
-An off-chain component that can read relevant events from either chain. It MAY operate nodes on both chains to learn about the completion of complete transfer transactions.
+An off-chain component that can read relevant events from either chain. It MAY operate nodes on both chains to learn about the finalization of `complete_transfer` transactions.
+
+> **TODO:** Some of the following variables may not be required. This should be reviewed and updated.
+
+### Storage fields
+
+The storage fields are directional, hence we need to mirror the mapping for L1->L2, as well as L2->L1. Hence, we will talk about source and target chain.
+
+#### Source bridge contract
+
+```rust
+struct SourceBridgeTransfers {
+    /// A list of unique bridge transfer IDs.
+    bridge_transfer_ids: Vec<u64>,
+    /// A mapping of `bridge_transfer_id` to the bridge details.
+    bridge_transfer: HashMap<u64, SourceBridgeDetails>,
+}
+
+/// Details of a bridge transfer on the source chain.
+struct SourceBridgeDetails {
+    /// The address of the user initiating the bridge transfer.
+    originator: Address,
+    /// The address of the user receiving the bridge transfer.
+    recipient: Address,
+    /// The amount of tokens being transferred.
+    amount: u128,
+    /// A unique identifier for each bridge transfer, incremented by the contract.
+    nonce: u64,
+}
+```
+
+#### Target bridge contract
+
+```rust
+struct TargetBridgeTransfers {
+    /// A list of unique bridge transfer IDs.
+    bridge_transfer_ids: Vec<u64>,
+    /// A mapping of `bridge_transfer_id` to the bridge details.
+    bridge_transfer: HashMap<u64, TargetBridgeDetails>,
+}
+
+/// Details of a bridge transfer on the target chain.
+struct TargetBridgeDetails {
+    /// The address of the user initiating the bridge transfer.
+    originator: String, // or `Address` if using an Ethereum-compatible type
+    /// The address of the user receiving the bridge transfer.
+    recipient: String,
+    /// The amount of tokens being transferred.
+    amount: u128,
+    /// A unique identifier for each bridge transfer, incremented by the contract.
+    nonce: u64,
+}
+```
 
 ### Protocol Description
 
-The bridge is a simpler version of the current implementation, which relies on the assumption that the Relayer Keys are not to be compromised.
+This bridge design is a simpler version compared to the previous HTLC-based implementation.
 
-L1 -> L2
+#### L1 → L2
 
-1. User initiates a bridge transfer on L1. Contract stores a mapping of the user `bridgeTransferId` for easy access. It transfers from the user \$L1MOVE to the contract. The transaction emits originator, recipient, amount and a `nonce`.
-2. Relayer awaits for finalization of the transaction on L1.
-3. Relayer sends a complete transaction on L2 to complete the transfer.
-4. The completion transaction verifies that the transaction is truthful by comparing the provided bridgeTransferId hash and the emitted values of originator, recipient, amount and `nonce`. Finally, it mints \$L2MOVE and sends it to the recipient address.
+1. User initiates a bridge transfer on L1 via a `initiate_transfer` transaction. Contract stores a mapping of the user `bridgeTransferId` for easy access. It transfers from the user \$L1MOVE to the contract. The transaction emits `originator`, `recipient`, `amount` and a `nonce`.
+2. Relayer awaits for finalization of the `initiate_transfer` transaction on L1.
+3. Relayer sends a `complete_transfer` transaction on L2 to complete the transfer.
+4. The contract verifies that the transaction is correct by comparing the provided `bridgeTransferId` hash and the emitted values of `originator`, `recipient`, `amount` and `nonce`. Finally, it mints \$L2MOVE and sends it to the recipient address.
 5. User is notified on the frontend that their transaction has been completed.
 6. The time to finality for the complete transaction on the L2 should be considered after the postconfirmation, see [MIP-37](https://github.com/movementlabsxyz/MIP/pull/37), to provide strong finality guarantees.
 
@@ -92,7 +144,7 @@ L1 -> L2
 
 ![L1-L2](L1ToL2.png)
 
-L2 -> L1
+#### L2 → L1
 
 1. User initiates a bridge transfer on L2. Contract stores a mapping of the user `nonce` to bridge details for easy access. User transfers \$L2MOVE amount to the contract which burns it. The transaction emits originator, recipient, amount and `nonce`.
 2. Relayer awaits for finalization of the transaction on L2. This should be considered after the postconfirmation, see [MIP-37](https://github.com/movementlabsxyz/MIP/pull/37), to provide strong finality guarantees.
@@ -172,7 +224,7 @@ We discuss the key features also in relation to the HTLC-based bridge to provide
 
 [Move Implementation](https://github.com/movementlabsxyz/aptos-core/tree/andygolay/simplified-bridge)
 
-### 1. **Two-Transaction Flow**
+### 1. **Transaction Flow**
 
 - User initiates the transfer.
 - Relayer or multisig completes the transfer with parameter validation.
