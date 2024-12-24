@@ -190,7 +190,7 @@
 <p><strong>Reminder: HTLC-based bridge</strong></p>
 <p>The HTLC-type Native Bridge design poses numerous challenges, including inefficiency, cost, and user frustration:</p>
 <ol>
-<li><strong>Transaction Complexity</strong>
+<li><strong>Transaction complexity</strong>
 Requires four interactions:
 <ul>
 <li>Two by the user (initiate the transfer and finalize the transfer).</li>
@@ -199,20 +199,20 @@ Requires four interactions:
 <li>If any of these fails, users and the operator face losses.</li>
 </ul>
 </li>
-<li><strong>High Cost</strong>
+<li><strong>High cost</strong>
 <ul>
 <li>The multi-transaction setup is expensive for both users and the operator.</li>
 <li>Estimations in fee calculation that are too far off can result in significant losses.</li>
 <li>If fees are miscalculated by 25%, this leads to a 25% loss. When L1 fees increase, the loss can escalate dramatically in absolute terms.</li>
 </ul>
 </li>
-<li><strong>Unfriendly User Experience</strong>
+<li><strong>Unfriendly user experience</strong>
 <ul>
 <li>The current design requires users to have funds on the target chain for finalization. This increases friction and discourages adoption.</li>
 <li>Sponsored transactions are essential to the current implementation but remain unimplemented, leaving users stranded without funds.</li>
 </ul>
 </li>
-<li><strong>Security Risks</strong>
+<li><strong>Security risks</strong>
 <ul>
 <li>Relayer keys are a critical point of failure. This assumption cannot be avoided.</li>
 <li>Refund logic introduces vulnerabilities where attackers could exploit the rate limit and Relayer downtime.</li>
@@ -224,19 +224,19 @@ Requires four interactions:
 </li>
 </ul>
 </li>
-<li><strong>Maintenance Burden</strong>
+<li><strong>Maintenance burden</strong>
 <ul>
 <li>The current audit is outdated and does not reflect the significant changes made since.</li>
 <li>The current design requires a complete UI/UX overhaul, adding complexity and delay.</li>
 </ul>
 </li>
-<li><strong>Unnecessary Complexity</strong>
+<li><strong>Unnecessary complexity</strong>
 <ul>
 <li>HTLC-based bridges are largely abandoned in favor of simpler, more effective designs.</li>
 <li>Examples like the <a href="https://github.com/Consensys/htlc-bridge">Consensys HTLC</a> bridge demonstrate the <a href="https://entethalliance.org/crosschain-bridges-overview-where-we-are-now/">pitfalls of such approaches</a>.</li>
 </ul>
 </li>
-<li><strong>Infrastructure Simplification</strong>
+<li><strong>Infrastructure simplification</strong>
 <ul>
 <li>Infrastructure is still incomplete for the current HTLC bridge design and we are struggling to find sound solutions that balance UI/UX and security. For example, <a href="https://github.com/movementlabsxyz/movement/issues/838">this issue</a> regarding UX vs number of confirmations to require on the Ethereum side, is still under debate.</li>
 <li>Because of the over-engineered design, infrastructure is prone to error and we might end up being damaged by the amount of infrastructure we have not built yet and has to be built for the Relayer to fully function.</li>
@@ -259,10 +259,10 @@ An address which collects $L1MOVE that are transferred L1→L2 and from which to
 A contract capable of minting $L2MOVE.</p>
 <p><strong>(Trusted) Relayer</strong>
 An off-chain component that can read relevant events from either chain. It MAY operate nodes on both chains to learn about the finalization of <code>complete_transfer</code> transactions.</p>
+<h3 id="storage-fields"><a class="header" href="#storage-fields">Storage fields</a></h3>
 <blockquote>
 <p><strong>TODO:</strong> Some of the following variables may not be required. This should be reviewed and updated.</p>
 </blockquote>
-<h3 id="storage-fields"><a class="header" href="#storage-fields">Storage fields</a></h3>
 <p>The storage fields are directional, hence we need to mirror the mapping for L1-&gt;L2, as well as L2-&gt;L1. Hence, we will talk about source and target chain.</p>
 <h4 id="source-bridge-contract"><a class="header" href="#source-bridge-contract">Source bridge contract</a></h4>
 <pre><code class="language-rust">struct SourceBridgeTransfers {
@@ -302,8 +302,8 @@ struct TargetBridgeDetails {
     /// A unique identifier for each bridge transfer, incremented by the contract.
     nonce: u64,
 }</code></pre>
-<h3 id="protocol-description"><a class="header" href="#protocol-description">Protocol Description</a></h3>
-<p>This bridge design is a simpler version compared to the previous HTLC-based implementation.</p>
+<h3 id="protocol-description"><a class="header" href="#protocol-description">Protocol description</a></h3>
+<p>This bridge design is a simpler version compared to the previous HTLC-based implementation, thus less steps are required to complete a bridge transfer. The bridge is initiated by the user and completed by the Relayer. The Relayer is a trusted party that finalizes the bridge transfer on the target chain. The user is not required to have funds on the target chain to complete the transfer. The Relayer is responsible for completing the transfer on the target chain.</p>
 <h4 id="l1--l2"><a class="header" href="#l1--l2">L1 → L2</a></h4>
 <ol>
 <li>User initiates a bridge transfer on L1 via a <code>initiate_transfer</code> transaction. Contract stores a mapping of the user <code>bridgeTransferId</code> for easy access. It transfers from the user $L1MOVE to the contract. The transaction emits <code>originator</code>, <code>recipient</code>, <code>amount</code> and a <code>nonce</code>.</li>
@@ -314,25 +314,19 @@ struct TargetBridgeDetails {
 <li>The time to finality for the complete transaction on the L2 should be considered after the postconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>, to provide strong finality guarantees.</li>
 </ol>
 <blockquote>
-<p><strong>Reminder:</strong> Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides additional reorg protection.</p>
-</blockquote>
-<blockquote>
-<p><strong>Note:</strong>  We MAY consider Fastconfirmation instead of Postconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-65</a>. This assumes the L2 is extremely unlikely to reorg AND the committee is considered to be safe.</p>
+<p><strong>Note:</strong>  Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides additional reorg protection. We MAY consider Fastconfirmation instead of Postconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-65</a>. This assumes the L2 is extremely unlikely to reorg AND the committee is considered to be safe.</p>
 </blockquote>
 <p><img src="L1ToL2.png" alt="L1-L2" /></p>
 <h4 id="l2--l1"><a class="header" href="#l2--l1">L2 → L1</a></h4>
 <ol>
 <li>User initiates a bridge transfer on L2. Contract stores a mapping of the user <code>nonce</code> to bridge details for easy access. User transfers $L2MOVE amount to the contract which burns it. The transaction emits originator, recipient, amount and <code>nonce</code>.</li>
-<li>Relayer awaits for finalization of the transaction on L2. This should be considered after the postconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>, to provide strong finality guarantees.</li>
-<li>Relayer completes the transfer on L1.</li>
-<li>Completion transaction verifies that the transaction is truthful by comparing the provided <code>bridgeTransferId</code> hash and the emitted values of initiator, recipient, amount and <code>nonce</code>. Finally, it transfers $L1MOVE to the recipient address from the locked token pool.</li>
+<li>Relayer awaits for finalization of the transaction on L2. Finality COULD be considered the postconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>, to provide strong finality guarantees. However, we suggest the Relayer SHOULD consider fastconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-65</a> instead, due to high fluctuation of gas prices on L1 within time that is required for postconfirmation. Nevertheless, this introduces dependency on that the L2 is extremely unlikely to reorg AND the committee is considered to be safe.</li>
+<li>Relayer completes the transfer on L1 by sending a <code>complete_transfer</code> transaction.</li>
+<li>L1 contract verifies that <code>complete_transfer</code> is correct by comparing the provided <code>bridgeTransferId</code> hash and the emitted values of initiator, recipient, amount and <code>nonce</code>. Also <code>nonce</code> must not be used yet. Finally, it transfers $L1MOVE to the recipient address from the locked token pool.</li>
 <li>User is notified on the frontend that their transaction has been completed.</li>
 </ol>
-<blockquote>
-<p><strong>Note:</strong> Due to gas price fluctuation on L1 we SHOULD consider Fastconfirmation instead of Postconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-65</a>. This assumes the L2 is extremely unlikely to reorg AND the committee is considered to be safe.</p>
-</blockquote>
 <p><img src="L2ToL1.png" alt="L2-L1" /></p>
-<h3 id="key-features"><a class="header" href="#key-features">Key Features</a></h3>
+<h3 id="key-features"><a class="header" href="#key-features">Key features</a></h3>
 <p>We discuss the key features also in relation to the HTLC-based bridge to provide a comparison with the previous design.</p>
 <ol>
 <li>
@@ -340,44 +334,44 @@ struct TargetBridgeDetails {
 <ul>
 <li><strong>Initiation</strong>: User sends a transaction to initiate the bridge containing recipient and amount.</li>
 <li><strong>Completion</strong>: A Relayer or multi-signature group completes the transfer on the counterparty contract with the originator, recipient, amount and <code>nonce</code> for hash verification.</li>
-<li><strong>No Funds Requirement</strong>: User is not required to have funds on target chain and we do not have to build sponsored transactions.</li>
+<li><strong>No funds requirement</strong>: User is not required to have funds on target chain and we do not have to build sponsored transactions.</li>
 <li><strong>Delivery by Relayer</strong>: Because the Relayer delivers the funds, there is no requirement for the user to complete the transaction on target chain, therefore simplifying the user experience and allowing a smooth onboarding on the network for transfers from L1 to L2. User only has to await for the finalization on the source chain and for the Relayer to perform the completion on target chain. This is standard practice for every major bridge in the ecosystem.</li>
 <li><strong>Less parameters</strong>: Because there is no exchange of secrets between the user and Relayer, we have a substantial reduction of logic.</li>
-<li><strong>Only Completable</strong>: Previously we reserve a refunder role to revert transactions. In this approach this is different as we guarantee delivery of funds through the same party that would guarantee funds being refunded, because bridges can ONLY be completed.</li>
+<li><strong>Only completable</strong>: Previously we reserve a refunder role to revert transactions. In this approach this is different as we guarantee delivery of funds through the same party that would guarantee funds being refunded, because bridges can ONLY be completed.</li>
 </ul>
 </li>
 <li>
-<p><strong>Consolidation of Logic</strong></p>
+<p><strong>Consolidation of logic</strong></p>
 <ul>
 <li>Merge lock and completion functionality on the counterparty contract. Once lock is called, funds are already in the control of the user. In the HTLC implementation, once the timelock is over and complete on initiator has not been called, both the initiator and counterparty funds are available to the user, opening up for an exploit.</li>
 <li>Removes the refund functionality entirely to eliminate associated exploits.</li>
 </ul>
 </li>
 <li>
-<p><strong>Parameter Validation</strong></p>
+<p><strong>Parameter validation</strong></p>
 <ul>
 <li>Ensure parameter validation on the counterparty to prevent invalid transactions.</li>
 </ul>
 </li>
 <li>
-<p><strong>Relayer Redundancy</strong></p>
+<p><strong>Relayer redundancy</strong></p>
 <ul>
 <li>Use two types of Relayers:
 <ul>
-<li><strong>Automated Relayer</strong>: Operated with minimal human involvement; its private key is highly secured.</li>
-<li><strong>Multi-Signature Relayer</strong>: Managed by the team to guarantee transaction completion in case of failures.</li>
+<li><strong>Automated relayer</strong>: Operated with minimal human involvement; its private key is highly secured.</li>
+<li><strong>Multi-signature Relayer</strong>: Managed by the team to guarantee transaction completion in case of failures.</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
-<p><strong>Cost Efficiency</strong></p>
+<p><strong>Cost efficiency</strong></p>
 <ul>
 <li>Minimize gas costs by reducing the number of interactions and simplifying fee calculations.</li>
 </ul>
 </li>
 <li>
-<p><strong>Enhanced Security</strong></p>
+<p><strong>Enhanced security</strong></p>
 <ul>
 <li>Avoid refund logic to close exploit windows.</li>
 <li>Protect against key compromise through key isolation or known by no parties and multi-signature Relayer setups.</li>
@@ -386,7 +380,7 @@ struct TargetBridgeDetails {
 </ul>
 </li>
 <li>
-<p><strong>Batch Processing for Downtime</strong></p>
+<p><strong>Batch processing for downtime</strong></p>
 <ul>
 <li>Multi-signature Relayers can process multiple pending transactions in a single batch to compensate for downtime.</li>
 </ul>
@@ -398,7 +392,7 @@ struct TargetBridgeDetails {
 </ul>
 </li>
 <li>
-<p><strong>Initial Bridge Fee proposals</strong></p>
+<p><strong>Initial bridge fee proposals</strong></p>
 <ul>
 <li>On the L1 to L2 bridge, do not charge fees.</li>
 <li>On the L2 to L1 bridge, charge a fee estimated by admin. It’s set to the gas spent in ethereum in move. This requires an oracle and can only be implemented after oracles are live and we are able to have a maintainer that is able to set the fees on L2.</li>
@@ -410,16 +404,16 @@ struct TargetBridgeDetails {
 </code></pre>
 </li>
 <li>
-<p><strong>Best Practices</strong></p>
+<p><strong>Best practices</strong></p>
 </li>
 </ol>
 <ul>
 <li>Adopt currently used bridge designs from established designs like Arbitrum, LayerZero and Blast bridges, which use a Relayer to finalize the bridge.</li>
 <li>User is not required to have funds on counterparty contract to finalize the bridge.</li>
 </ul>
-<h2 id="exploits-and-potential-losses"><a class="header" href="#exploits-and-potential-losses">Exploits and Potential Losses</a></h2>
+<h2 id="exploits-and-potential-losses"><a class="header" href="#exploits-and-potential-losses">Exploits and potential losses</a></h2>
 <ol>
-<li><strong>Key Compromise</strong>
+<li><strong>Key compromise</strong>
 <ul>
 <li>The compromise of the Relayer keys would lead to unauthorized transactions, putting the protocol at risk of unlimited value exploit.  The protocol must absorb the losses and rotate Relayers. To minimize this risk <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a> proposes a rate limitation even for the Relayer.</li>
 </ul>
@@ -430,30 +424,39 @@ struct TargetBridgeDetails {
 </ul>
 </li>
 </ol>
-<h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
+<h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference implementation</a></h2>
 <p><a href="https://github.com/movementlabsxyz/movement/tree/primata/simple-native-bridge">Solidity Implementation</a></p>
 <p><a href="https://github.com/movementlabsxyz/aptos-core/tree/andygolay/simplified-bridge">Move Implementation</a></p>
-<h3 id="1-transaction-flow"><a class="header" href="#1-transaction-flow">1. <strong>Transaction Flow</strong></a></h3>
+<h3 id="1-transaction-flow"><a class="header" href="#1-transaction-flow">1. <strong>Transaction flow</strong></a></h3>
 <ul>
+<li>There are two possible states, <code>transfer_initiated</code> or <code>transfer_completed</code>.</li>
 <li>User initiates the transfer.</li>
-<li>Relayer or multisig completes the transfer with parameter validation.</li>
+<li>Relayer completes the transfer with parameter validation.</li>
 <li>Current HasuraDB built internally can provide enough infrastructure for users to know if their transaction has been completed. It does not differ from the current (HTLC-based) design in any way since user is not able to see if their transaction is in-flight. We could introduce this by notifying the user if the Relayer has been ordered to complete the transaction.</li>
-<li>There would be two states for user to reference, <code>transfer_initiated</code> or <code>transfer_completed</code> and those are the only two possible states. Funds can only be returned by bridging back.</li>
 </ul>
+<pre><code class="language-mermaid">sequenceDiagram
+    participant User
+    participant Source_Contract as Source Chain Contract
+    participant Relayer
+    participant Target_Contract as Target Chain Contract
+
+    User -&gt;&gt; Source_Contract: Initiate Transfer
+    Source_Contract --&gt;&gt; Relayer: Emit Transfer Event
+    Relayer -&gt;&gt; Target_Contract: Complete Transfer
+    Target_Contract --&gt;&gt; User: Tokens Delivered
+</code></pre>
 <p><img src="tx-history.png" alt="Transaction History" />
 <em>Figure: Users would be able to see if the bridge has been completed. It’s either pending or completed.</em></p>
-<h3 id="2-batch-completion"><a class="header" href="#2-batch-completion">2. <strong>Batch Completion</strong></a></h3>
-<ul>
-<li>Multisig Relayers could process pending transactions in batches during downtime of the standard Relayer, ensuring timely resolution.</li>
-</ul>
-<h3 id="3-contract-simplification-compared-to-htlc-based-native-bridge"><a class="header" href="#3-contract-simplification-compared-to-htlc-based-native-bridge">3. <strong>Contract Simplification (compared to HTLC-based Native Bridge)</strong></a></h3>
+<h3 id="2-optional-batch-completion-for-multisig-relayer"><a class="header" href="#2-optional-batch-completion-for-multisig-relayer">2. <strong>(Optional) batch completion for multisig Relayer</strong></a></h3>
+<p>Multisig Relayers could process pending transactions in batches during downtime of the standard Relayer, ensuring timely resolution.</p>
+<h3 id="3-contract-simplification-compared-to-htlc-based-native-bridge"><a class="header" href="#3-contract-simplification-compared-to-htlc-based-native-bridge">3. <strong>Contract simplification (compared to HTLC-based Native Bridge)</strong></a></h3>
 <ul>
 <li>Combine lock and completion functionality on the counterparty contract.</li>
 <li>Remove refund logic to streamline operations and improve security.</li>
 <li>Cheaper transactions because of reduction of logic.</li>
 <li>Consolidate Initiator and Counterparty into a single contract (this might be the most dangerous thing proposed but it has already been proposed for HTLC Native Bridge implementation).</li>
 </ul>
-<h3 id="4-rate-limiting-designs"><a class="header" href="#4-rate-limiting-designs">4. <strong>Rate Limiting designs</strong></a></h3>
+<h3 id="4-rate-limiting-designs"><a class="header" href="#4-rate-limiting-designs">4. <strong>Rate limiting designs</strong></a></h3>
 <p>Here we discuss three options for rate limiting. <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a> discusses option C.</p>
 <blockquote>
 <p><strong>TODO:</strong> Details such as this should be moved to the MIP of Rate Limitation, and different options should be listed as “Alternatives”.</p>
@@ -485,7 +488,7 @@ struct TargetBridgeDetails {
 <li>Initiating transfers get rejected on the source chain, which improves safety and fulfills rate limit requirements on the source chain.</li>
 <li>On the source chain the rate limit is not related to the Insurance Fund. This opens the question who sets the rate limit on the source chain. We answer this in <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a>.</li>
 </ul>
-<h3 id="5-bridge-fee"><a class="header" href="#5-bridge-fee">5. <strong>Bridge Fee</strong></a></h3>
+<h3 id="5-bridge-fee"><a class="header" href="#5-bridge-fee">5. <strong>Bridge fee</strong></a></h3>
 <blockquote>
 <p><strong>TODO:</strong> Details such as this should be moved to the MIP of Bridge Fees, and different options should be listed as “Alternatives”.</p>
 </blockquote>
@@ -508,20 +511,20 @@ struct TargetBridgeDetails {
 </ul>
 </li>
 <li>
-<p><strong>Security Implications</strong></p>
+<p><strong>Security implications</strong></p>
 <ul>
 <li>Conduct audits focused on the simplified design.</li>
 <li>Implement rate-limiting safeguards and validate parameters in contracts.</li>
 </ul>
 </li>
 <li>
-<p><strong>Performance Impacts</strong></p>
+<p><strong>Performance impacts</strong></p>
 <ul>
 <li>Benchmark gas costs and transaction throughput.</li>
 </ul>
 </li>
 <li>
-<p><strong>Validation Procedures</strong></p>
+<p><strong>Validation procedures</strong></p>
 <ul>
 <li>Perform an audit and thorough testing, alongside an open invite to the community to verify the bridge.</li>
 <li>Seek community feedback and incorporate suggestions.</li>
@@ -529,17 +532,17 @@ struct TargetBridgeDetails {
 </li>
 </ol>
 <h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
-<h3 id="a1-related-issues"><a class="header" href="#a1-related-issues">A1: Related Issues</a></h3>
+<h3 id="a1-related-issues"><a class="header" href="#a1-related-issues">A1: Related issues</a></h3>
 <ul>
 <li><a href="https://github.com/movementlabsxyz/movement/issues/838">Movement Issue #838</a></li>
 <li><a href="https://github.com/movementlabsxyz/movement/issues/842">Movement Issue #842</a></li>
 </ul>
-<h3 id="a2-gas-cost-comparison"><a class="header" href="#a2-gas-cost-comparison">A2: Gas Cost Comparison</a></h3>
+<h3 id="a2-gas-cost-comparison"><a class="header" href="#a2-gas-cost-comparison">A2: Gas cost comparison</a></h3>
 <ul>
 <li><strong>Current Design</strong>: ~400k gas per bridge round trip.</li>
 <li><strong>Simplified Design</strong>: ~200k gas per bridge round trip.</li>
 </ul>
-<h3 id="a3-referenced-designs"><a class="header" href="#a3-referenced-designs">A3: Referenced Designs</a></h3>
+<h3 id="a3-referenced-designs"><a class="header" href="#a3-referenced-designs">A3: Referenced designs</a></h3>
 <ul>
 <li><a href="https://bridge.arbitrum.io/?destinationChain=arbitrum-one&amp;sourceChain=ethereum">Arbitrum Bridge</a></li>
 <li><a href="https://docs.blast.io/building/bridges/mainnet">Blast Bridge</a></li>
