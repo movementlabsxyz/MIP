@@ -89,8 +89,9 @@ L1 -> L2
 [!REMINDER]
 Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides additional reorg protection.
 
-[!NOTE]
+:::note
 We MAY consider Fastconfirmation instead of Postconfirmation, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65). This assumes the L2 is extremely unlikely to reorg AND the committee is considered to be safe.
+:::
 
 ![L1-L2](L1ToL2.png)
 
@@ -102,8 +103,9 @@ L2 -> L1
 4. Completion transaction verifies that the transaction is truthful by comparing the provided `bridgeTransferId` hash and the emitted values of initiator, recipient, amount and `nonce`. Finally, it transfers \$L1MOVE to the recipient address from the locked token pool.
 5. User is notified on the frontend that their transaction has been completed.
 
-[!NOTE]
-Due to gas price fluctuation on L1 we SHOULD consider Fastconfirmation instead of Postconfirmation, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65). This assumes the L2 is extremely unlikely to reorg AND the committee is considered to be safe. 
+:::note
+Due to gas price fluctuation on L1 we SHOULD consider Fastconfirmation instead of Postconfirmation, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65). This assumes the L2 is extremely unlikely to reorg AND the committee is considered to be safe.
+:::
 
 ![L2-L1](L2ToL1.png)
 
@@ -200,8 +202,9 @@ We discuss the key features also in relation to the HTLC-based bridge to provide
 
 Here we discuss three options for rate limiting. [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74) discusses option C.
 
-[!WARNING]
+:::warning
 Details such as this should be moved to the MIP of Rate Limitation, and different options should be listed as "Alternatives".
+:::
 
 A. **Single-sided rate limiting (on source chain)**
 
@@ -227,7 +230,7 @@ C. **Two sided full rate limiting**
 - Therefore, rate limiting should be implemented on both L1 and L2 for inbound and outbound transactions.
 - This approach extends the previous approach.
 - It protects against exploits of the Relayer.
-- Initiating transfers get rejected on the source chain, which improves safety and fullfils rate limit requirements on the source chain.
+- Initiating transfers get rejected on the source chain, which improves safety and fulfills rate limit requirements on the source chain.
 - On the source chain the rate limit is not related to the Insurance Fund. This opens the question who sets the rate limit on the source chain. We answer this in [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74).
 
 ### 5. **Bridge Fee**
