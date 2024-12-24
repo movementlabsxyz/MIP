@@ -31,19 +31,19 @@ Requires four interactions:
 3. **Unfriendly User Experience**
    - The current design requires users to have funds on the target chain for finalization. This increases friction and discourages adoption.
    - Sponsored transactions are essential to the current implementation but remain unimplemented, leaving users stranded without funds.
-4. **Security Risks**:
+4. **Security Risks**
    - Relayer keys are a critical point of failure. This assumption cannot be avoided.
    - Refund logic introduces vulnerabilities where attackers could exploit the rate limit and Relayer downtime.
    - For instance, if the Relayer fails to finalize on the initiator, a malicious actor could:
      - Take over the refund keys.
      - Exploit both directions of the bridge (e.g., \$L1MOVE→\$L2MOVE and \$L2MOVE→\$L1MOVE) repeatedly, draining funds.
-5. **Maintenance Burden**:
+5. **Maintenance Burden**
    - The current audit is outdated and does not reflect the significant changes made since.
    - The current design requires a complete UI/UX overhaul, adding complexity and delay.
-6. **Unnecessary Complexity**:
+6. **Unnecessary Complexity**
    - HTLC-based bridges are largely abandoned in favor of simpler, more effective designs.
    - Examples like the [Consensys HTLC](https://github.com/Consensys/htlc-bridge) bridge demonstrate the [pitfalls of such approaches](https://entethalliance.org/crosschain-bridges-overview-where-we-are-now/).
-7. **Infrastructure Simplification**:
+7. **Infrastructure Simplification**
    - Infrastructure is still incomplete for the current HTLC bridge design and we are struggling to find sound solutions that balance UI/UX and security. For example, [this issue](https://github.com/movementlabsxyz/movement/issues/838) regarding UX vs number of confirmations to require on the Ethereum side, is still under debate.
    - Because of the over-engineered design, infrastructure is prone to error and we might end up being damaged by the amount of infrastructure we have not built yet and has to be built for the Relayer to fully function.
    - We could strip down the Relayer code and achieve a final design much more quickly.
@@ -86,12 +86,9 @@ L1 -> L2
 5. User is notified on the frontend that their transaction has been completed.
 6. The time to finality for the complete transaction on the L2 should be considered after the postconfirmation, see [MIP-37](https://github.com/movementlabsxyz/MIP/pull/37), to provide strong finality guarantees.
 
-[!REMINDER]
-Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides additional reorg protection.
+> **Reminder:** Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides additional reorg protection.
 
-:::note
-We MAY consider Fastconfirmation instead of Postconfirmation, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65). This assumes the L2 is extremely unlikely to reorg AND the committee is considered to be safe.
-:::
+> **Note:**  We MAY consider Fastconfirmation instead of Postconfirmation, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65). This assumes the L2 is extremely unlikely to reorg AND the committee is considered to be safe.
 
 ![L1-L2](L1ToL2.png)
 
@@ -103,9 +100,7 @@ L2 -> L1
 4. Completion transaction verifies that the transaction is truthful by comparing the provided `bridgeTransferId` hash and the emitted values of initiator, recipient, amount and `nonce`. Finally, it transfers \$L1MOVE to the recipient address from the locked token pool.
 5. User is notified on the frontend that their transaction has been completed.
 
-:::note
-Due to gas price fluctuation on L1 we SHOULD consider Fastconfirmation instead of Postconfirmation, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65). This assumes the L2 is extremely unlikely to reorg AND the committee is considered to be safe.
-:::
+> **Note:** Due to gas price fluctuation on L1 we SHOULD consider Fastconfirmation instead of Postconfirmation, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65). This assumes the L2 is extremely unlikely to reorg AND the committee is considered to be safe.
 
 ![L2-L1](L2ToL1.png)
 
@@ -142,13 +137,13 @@ We discuss the key features also in relation to the HTLC-based bridge to provide
    - There is no scenario where a bridge could lead to double-spending. It's either completed by Relayer or not.
    - In the HTLC bridge the user can loose its bridge `preImage` which could lead to them being unable to complete the bridge. By not relying on a `preImage` from the user, it minimizes issues. It is not a loss in security because the purpose of the `preImage` is solely for refunding.
 
-7. **Batch Processing for Downtime**:
+7. **Batch Processing for Downtime**
    - Multi-signature Relayers can process multiple pending transactions in a single batch to compensate for downtime.
 
-8. **BridgeTransferId**:
+8. **BridgeTransferId**
    - Continue using unique identifier to prevent double-spending and track transactions securely.
 
-9. **Initial Bridge Fee proposals**:
+9. **Initial Bridge Fee proposals**
    - On the L1 to L2 bridge, do not charge fees.
    - On the L2 to L1 bridge, charge a fee estimated by admin. It's set to the gas spent in ethereum in move. This requires an oracle and can only be implemented after oracles are live and we are able to have a maintainer that is able to set the fees on L2.
 
@@ -166,9 +161,9 @@ We discuss the key features also in relation to the HTLC-based bridge to provide
 
 ## Exploits and Potential Losses
 
-1. **Key Compromise**:
+1. **Key Compromise**
    - The compromise of the Relayer keys would lead to unauthorized transactions, putting the protocol at risk of unlimited value exploit.  The protocol must absorb the losses and rotate Relayers. To minimize this risk [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74) proposes a rate limitation even for the Relayer.
-2. **Fee wrong estimation**:
+2. **Fee wrong estimation**
    - Incorrect fee calculations (e.g., underestimating gas) can cause significant financial losses for the operator.
 
 ## Reference Implementation
@@ -202,9 +197,7 @@ We discuss the key features also in relation to the HTLC-based bridge to provide
 
 Here we discuss three options for rate limiting. [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74) discusses option C.
 
-:::warning
-Details such as this should be moved to the MIP of Rate Limitation, and different options should be listed as "Alternatives".
-:::
+> **TODO:** Details such as this should be moved to the MIP of Rate Limitation, and different options should be listed as "Alternatives".
 
 A. **Single-sided rate limiting (on source chain)**
 
@@ -235,8 +228,7 @@ C. **Two sided full rate limiting**
 
 ### 5. **Bridge Fee**
 
-[!WARNING]
-Details such as this should be moved to the MIP of Bridge Fees, and different options should be listed as "Alternatives".
+> **TODO:** Details such as this should be moved to the MIP of Bridge Fees, and different options should be listed as "Alternatives".
 
 - When bridging from L1 to L2, the protocol, through the Relayer, sponsors the gas cost on Movement. We do not need to make any modification on contracts or Relayer to support it.
 - When bridging from L2 to L1, we have a few viable solutions but it's preferable to highlight two.
