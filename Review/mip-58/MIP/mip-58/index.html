@@ -427,7 +427,7 @@ struct TargetBridgeDetails {
 <h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference implementation</a></h2>
 <p><a href="https://github.com/movementlabsxyz/movement/tree/primata/simple-native-bridge">Solidity Implementation</a></p>
 <p><a href="https://github.com/movementlabsxyz/aptos-core/tree/andygolay/simplified-bridge">Move Implementation</a></p>
-<h3 id="1-transaction-flow"><a class="header" href="#1-transaction-flow">1. <strong>Transaction flow</strong></a></h3>
+<h4 id="1-transaction-flow"><a class="header" href="#1-transaction-flow">1. <strong>Transaction flow</strong></a></h4>
 <ul>
 <li>There are two possible states, <code>transfer_initiated</code> or <code>transfer_completed</code>.</li>
 <li>User initiates the transfer.</li>
@@ -445,18 +445,19 @@ struct TargetBridgeDetails {
     Relayer -&gt;&gt; Target_Contract: Complete Transfer
     Target_Contract --&gt;&gt; User: Tokens Delivered
 </code></pre>
+<p><em>Interaction flow diagram.</em></p>
 <p><img src="tx-history.png" alt="Transaction History" />
 <em>Figure: Users would be able to see if the bridge has been completed. It’s either pending or completed.</em></p>
-<h3 id="2-optional-batch-completion-for-multisig-relayer"><a class="header" href="#2-optional-batch-completion-for-multisig-relayer">2. <strong>(Optional) batch completion for multisig Relayer</strong></a></h3>
+<h4 id="2-optional-batch-completion-for-multisig-relayer"><a class="header" href="#2-optional-batch-completion-for-multisig-relayer">2. <strong>(Optional) batch completion for multisig Relayer</strong></a></h4>
 <p>Multisig Relayers could process pending transactions in batches during downtime of the standard Relayer, ensuring timely resolution.</p>
-<h3 id="3-contract-simplification-compared-to-htlc-based-native-bridge"><a class="header" href="#3-contract-simplification-compared-to-htlc-based-native-bridge">3. <strong>Contract simplification (compared to HTLC-based Native Bridge)</strong></a></h3>
+<h4 id="3-contract-simplification-compared-to-htlc-based-native-bridge"><a class="header" href="#3-contract-simplification-compared-to-htlc-based-native-bridge">3. <strong>Contract simplification (compared to HTLC-based Native Bridge)</strong></a></h4>
 <ul>
 <li>Combine lock and completion functionality on the counterparty contract.</li>
 <li>Remove refund logic to streamline operations and improve security.</li>
 <li>Cheaper transactions because of reduction of logic.</li>
 <li>Consolidate Initiator and Counterparty into a single contract (this might be the most dangerous thing proposed but it has already been proposed for HTLC Native Bridge implementation).</li>
 </ul>
-<h3 id="4-rate-limiting-designs"><a class="header" href="#4-rate-limiting-designs">4. <strong>Rate limiting designs</strong></a></h3>
+<h4 id="4-rate-limiting-designs"><a class="header" href="#4-rate-limiting-designs">4. <strong>Rate limiting designs</strong></a></h4>
 <p>Here we discuss three options for rate limiting. <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a> discusses option C.</p>
 <blockquote>
 <p><strong>TODO:</strong> Details such as this should be moved to the MIP of Rate Limitation, and different options should be listed as “Alternatives”.</p>
@@ -488,7 +489,7 @@ struct TargetBridgeDetails {
 <li>Initiating transfers get rejected on the source chain, which improves safety and fulfills rate limit requirements on the source chain.</li>
 <li>On the source chain the rate limit is not related to the Insurance Fund. This opens the question who sets the rate limit on the source chain. We answer this in <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a>.</li>
 </ul>
-<h3 id="5-bridge-fee"><a class="header" href="#5-bridge-fee">5. <strong>Bridge fee</strong></a></h3>
+<h4 id="5-bridge-fee"><a class="header" href="#5-bridge-fee">5. <strong>Bridge fee</strong></a></h4>
 <blockquote>
 <p><strong>TODO:</strong> Details such as this should be moved to the MIP of Bridge Fees, and different options should be listed as “Alternatives”.</p>
 </blockquote>
@@ -501,6 +502,8 @@ struct TargetBridgeDetails {
 </ol>
 </li>
 </ul>
+<h4 id="4-relayer-operation"><a class="header" href="#4-relayer-operation">4. Relayer operation</a></h4>
+<p>The operation of the Relayer, including the bootstrapping process, is detailed in <a href="https://github.com/movementlabsxyz/MIP/pull/61">MIP-61</a>.</p>
 <h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
 <ol>
 <li>
