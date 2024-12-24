@@ -183,7 +183,7 @@
 <li><strong>Desiderata</strong>: <a href="../MD/md-21">MD-21</a></li>
 </ul>
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
-<p>We propose a lock/mint-type Native Bridge. The lock/mint bridge design streamlines operations, enhances security, and improves user experience, making it easier to bridge assets between chains.</p>
+<p>We propose a lock/mint-type Native Bridge. The lock/mint bridge design streamlines operations, enhances security, and improves user experience (compared to the previously employed HTLC-based Native Bridge) making it easier to bridge assets between chains.</p>
 <h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
 <p>Different types of bridges have been considered for the Native Bridge, see <a href="https://github.com/movementlabsxyz/MIP/pull/60">MIP-60</a>. The initial design employed a HTLC-based bridge, which has been found to lead to bad UX requires four transactions and a complex design.</p>
 <p>This proposal advocates for replacing the current HTLC-based bridge design, with a lock/mint-type bridge with a simpler and more efficient two-transaction mechanism. The proposed design reduces costs, enhances security, minimizes user friction, and avoids potential exploits caused by refund logic. It addresses long-standing issues such as reliance on sponsored transactions, outdated audits, and unimplemented fee mechanisms speeding the process to achieve a fully functional bridge that movement yet has been unable to complete, and lots of under issues raised and still pending.</p>
@@ -193,17 +193,17 @@
 <li><strong>Transaction Complexity</strong>
 Requires four interactions:
 <ul>
-<li>Two by the user (initiation and finalization).</li>
-<li>One by the Relayer to complete the transaction.</li>
-<li>One by a third party (tasked by the Relayer) to finalize refunds in case of failure.</li>
+<li>Two by the user (initiate the transfer and finalize the transfer).</li>
+<li>One by the Relayer to complete the transfer.</li>
+<li>One by a third party (tasked to the Relayer) to finalize refunds in case of failure.</li>
 <li>If any of these fails, users and the operator face losses.</li>
 </ul>
 </li>
 <li><strong>High Cost</strong>
 <ul>
 <li>The multi-transaction setup is expensive for both users and the operator.</li>
-<li>Estimations in fee calculation that are too far off real values could result in significant losses.</li>
-<li>Example: At 16 gwei, bridging costs $20 for 10k transactions. If fees are miscalculated by 25%, this leads to a $25k loss. At 100 gwei, the loss escalates dramatically.</li>
+<li>Estimations in fee calculation that are too far off can result in significant losses.</li>
+<li>If fees are miscalculated by 25%, this leads to a 25% loss. When L1 fees increase, the loss can escalate dramatically in absolute terms.</li>
 </ul>
 </li>
 <li><strong>Unfriendly User Experience</strong>
@@ -258,15 +258,58 @@ An address which collects $L1MOVE that are transferred L1→L2 and from which to
 <p><strong>L2 Mint contract</strong>
 A contract capable of minting $L2MOVE.</p>
 <p><strong>(Trusted) Relayer</strong>
-An off-chain component that can read relevant events from either chain. It MAY operate nodes on both chains to learn about the completion of complete transfer transactions.</p>
+An off-chain component that can read relevant events from either chain. It MAY operate nodes on both chains to learn about the finalization of <code>complete_transfer</code> transactions.</p>
+<blockquote>
+<p><strong>TODO:</strong> Some of the following variables may not be required. This should be reviewed and updated.</p>
+</blockquote>
+<h3 id="storage-fields"><a class="header" href="#storage-fields">Storage fields</a></h3>
+<p>The storage fields are directional, hence we need to mirror the mapping for L1-&gt;L2, as well as L2-&gt;L1. Hence, we will talk about source and target chain.</p>
+<h4 id="source-bridge-contract"><a class="header" href="#source-bridge-contract">Source bridge contract</a></h4>
+<pre><code class="language-rust">struct SourceBridgeTransfers {
+    /// A list of unique bridge transfer IDs.
+    bridge_transfer_ids: Vec&lt;u64&gt;,
+    /// A mapping of `bridge_transfer_id` to the bridge details.
+    bridge_transfer: HashMap&lt;u64, SourceBridgeDetails&gt;,
+}
+
+/// Details of a bridge transfer on the source chain.
+struct SourceBridgeDetails {
+    /// The address of the user initiating the bridge transfer.
+    originator: Address,
+    /// The address of the user receiving the bridge transfer.
+    recipient: Address,
+    /// The amount of tokens being transferred.
+    amount: u128,
+    /// A unique identifier for each bridge transfer, incremented by the contract.
+    nonce: u64,
+}</code></pre>
+<h4 id="target-bridge-contract"><a class="header" href="#target-bridge-contract">Target bridge contract</a></h4>
+<pre><code class="language-rust">struct TargetBridgeTransfers {
+    /// A list of unique bridge transfer IDs.
+    bridge_transfer_ids: Vec&lt;u64&gt;,
+    /// A mapping of `bridge_transfer_id` to the bridge details.
+    bridge_transfer: HashMap&lt;u64, TargetBridgeDetails&gt;,
+}
+
+/// Details of a bridge transfer on the target chain.
+struct TargetBridgeDetails {
+    /// The address of the user initiating the bridge transfer.
+    originator: String, // or `Address` if using an Ethereum-compatible type
+    /// The address of the user receiving the bridge transfer.
+    recipient: String,
+    /// The amount of tokens being transferred.
+    amount: u128,
+    /// A unique identifier for each bridge transfer, incremented by the contract.
+    nonce: u64,
+}</code></pre>
 <h3 id="protocol-description"><a class="header" href="#protocol-description">Protocol Description</a></h3>
-<p>The bridge is a simpler version of the current implementation, which relies on the assumption that the Relayer Keys are not to be compromised.</p>
-<p>L1 -&gt; L2</p>
+<p>This bridge design is a simpler version compared to the previous HTLC-based implementation.</p>
+<h4 id="l1--l2"><a class="header" href="#l1--l2">L1 → L2</a></h4>
 <ol>
-<li>User initiates a bridge transfer on L1. Contract stores a mapping of the user <code>bridgeTransferId</code> for easy access. It transfers from the user $L1MOVE to the contract. The transaction emits originator, recipient, amount and a <code>nonce</code>.</li>
-<li>Relayer awaits for finalization of the transaction on L1.</li>
-<li>Relayer sends a complete transaction on L2 to complete the transfer.</li>
-<li>The completion transaction verifies that the transaction is truthful by comparing the provided bridgeTransferId hash and the emitted values of originator, recipient, amount and <code>nonce</code>. Finally, it mints $L2MOVE and sends it to the recipient address.</li>
+<li>User initiates a bridge transfer on L1 via a <code>initiate_transfer</code> transaction. Contract stores a mapping of the user <code>bridgeTransferId</code> for easy access. It transfers from the user $L1MOVE to the contract. The transaction emits <code>originator</code>, <code>recipient</code>, <code>amount</code> and a <code>nonce</code>.</li>
+<li>Relayer awaits for finalization of the <code>initiate_transfer</code> transaction on L1.</li>
+<li>Relayer sends a <code>complete_transfer</code> transaction on L2 to complete the transfer.</li>
+<li>The contract verifies that the transaction is correct by comparing the provided <code>bridgeTransferId</code> hash and the emitted values of <code>originator</code>, <code>recipient</code>, <code>amount</code> and <code>nonce</code>. Finally, it mints $L2MOVE and sends it to the recipient address.</li>
 <li>User is notified on the frontend that their transaction has been completed.</li>
 <li>The time to finality for the complete transaction on the L2 should be considered after the postconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>, to provide strong finality guarantees.</li>
 </ol>
@@ -277,7 +320,7 @@ An off-chain component that can read relevant events from either chain. It MAY o
 <p><strong>Note:</strong>  We MAY consider Fastconfirmation instead of Postconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-65</a>. This assumes the L2 is extremely unlikely to reorg AND the committee is considered to be safe.</p>
 </blockquote>
 <p><img src="L1ToL2.png" alt="L1-L2" /></p>
-<p>L2 -&gt; L1</p>
+<h4 id="l2--l1"><a class="header" href="#l2--l1">L2 → L1</a></h4>
 <ol>
 <li>User initiates a bridge transfer on L2. Contract stores a mapping of the user <code>nonce</code> to bridge details for easy access. User transfers $L2MOVE amount to the contract which burns it. The transaction emits originator, recipient, amount and <code>nonce</code>.</li>
 <li>Relayer awaits for finalization of the transaction on L2. This should be considered after the postconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>, to provide strong finality guarantees.</li>
@@ -390,7 +433,7 @@ An off-chain component that can read relevant events from either chain. It MAY o
 <h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
 <p><a href="https://github.com/movementlabsxyz/movement/tree/primata/simple-native-bridge">Solidity Implementation</a></p>
 <p><a href="https://github.com/movementlabsxyz/aptos-core/tree/andygolay/simplified-bridge">Move Implementation</a></p>
-<h3 id="1-two-transaction-flow"><a class="header" href="#1-two-transaction-flow">1. <strong>Two-Transaction Flow</strong></a></h3>
+<h3 id="1-transaction-flow"><a class="header" href="#1-transaction-flow">1. <strong>Transaction Flow</strong></a></h3>
 <ul>
 <li>User initiates the transfer.</li>
 <li>Relayer or multisig completes the transfer with parameter validation.</li>
