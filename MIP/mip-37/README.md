@@ -2,28 +2,15 @@
 
 - **Description**: Confirmations of superBlocks on L1. A sub-protocol of Fast Finality Settlement.
 - **Authors**: [Andreas Penzkofer]()
+- **Desiderata**: [MD-37](../../MD/md-37)
 
 ## Abstract
 
-Fast-Finality-Settlement (FFS) is proposed in [MIP-34](https://github.com/movementlabsxyz/MIP/pull/34), with two confirmation mechanisms. This MIP details the mechanism on Layer 1 (L1), which is called ***postconfirmation***.
+Fast-Finality-Settlement (FFS) is proposed in [MIP-34](https://github.com/movementlabsxyz/MIP/pull/34), with two confirmation mechanisms, one the base level (L1) and one the chain level (L2). This MIP details the mechanism on Level 1 (L1), which is called ***postconfirmation***.
 
-At certain intervals validators commit a _sequence of L2blocks_, which is called ***superBlock***, to L1. The L1 contract will verify if >2/3 of the validators have attested to a given superBlock height. For a given superBlock height the acceptor will initiate the process of confirmation on the L1 contract.
+L2 produces **L2Blocks**. At certain intervals validators commit a sequence of L2Blocks in a ***superBlock***, to L1. The L1 contract will verify if >2/3 of the validators have attested to a given superBlock height. The action for this validation is called postconfirmation and it is initiated by the ***acceptor***. The acceptor is a specific validator selected for some interval.
 
-This provides an L1-protected guarantee that a superBlock (i.e. a sequence of blocks) is accepted and correctly executed. This anchoring mechanism increases the security of the L2 as it protects the L2-state against long range attacks and can provide a way to slash validators that have attested against the majority.
-
-<!--
-  The Abstract is a multi-sentence (short paragraph) technical summary. This should be a very terse and human-readable version of the specification section. Someone should be able to read only the abstract to get the gist of what this specification does.
-
-  TODO: Remove this comment before finalizing.
--->
-
-#### Definitions
-
-- **SuperBlock** : a sequence of L2Blocks to which the postconfirmation protocol commits to, on L1.
-- **Acceptor**: a specific validator selected for some interval by using parameters from the L1, with the role to activate the postconfirmation functionality on the L1 contract.
-**L2Block**
-A block of transactions that are ordered and executed by the execution module. An L2Block is created from a protoBlock.
-
+This provides an L1-protected guarantee that a superBlock (i.e. a sequence of L2Blocks) is accepted and correctly executed. This anchoring mechanism increases the security of the L2 as it protects the L2-state against long range attacks and can provide a way to slash validators that have attested against the majority.
 
 ## Motivation
 
@@ -34,6 +21,8 @@ We also request that rewards and costs are made more predictable for validators.
 ## Specification
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
+
+Since this document introduces a large number of new terms, we provide a specification by defining the terms and their interactions.
 
 ##### Domains - One contract to rule them all
 
@@ -52,10 +41,10 @@ The postconfirmation protocol cannot attest to each individual L2Block. This res
 Validators commit the hash of the superBlock on the L1-contract. It commits the validator to a certain superBlock at a given height, with no option for changing their opinion. (This is intentional - validators should not be able to revert).
 
 ```solidity
-struct BlockRangeCommitment {
+struct superBlockCommitment {
   uint256 height;
   bytes32 commitment;
-  bytes32 blockRangeId;
+  bytes32 superBlockId;
 }
 ```
 
@@ -63,11 +52,15 @@ struct BlockRangeCommitment {
 
 We require epochs in order to facilitate `staking` and `unstaking` of # validators, as well as manage rewards and penalties. The `epochDuration` MUST be set when initializing a chain. It MAY be changeable later on through a governance mechanism.
 
+The `epochDuration` should be set to a value that is large enough to allow for the `staking` and `unstaking` process to be completed. Moreover, it should be long enough for human operators to react.
+
+!!! tip :bulb: The initial recommendation for `epochDuration` is 1 day.
+
 There are three relevant epoch types
 
-1. **`presentEpoch`** is the epoch that is currently active on L1. Acceptors exist in the `presentEpoch` 
+1. **`presentEpoch`** is the epoch that is currently active on L1. Acceptors exist in the `presentEpoch`.
 
-!!! . TODO the selection of the acceptor must depend on the stake. but this may conflict with the rollover function which handles epochs that may be far in the past. thus we need to check if this concept conflicts with the rollover function
+!!! warning the selection of the acceptor must depend on the stake. but this may conflict with the rollover function which handles epochs that may be far in the past. thus we need to check if this concept conflicts with the rollover function
 
 ```solidity
 uint256 presentEpoch = getEpochByL1BlockTime();
@@ -85,29 +78,27 @@ function getEpochByL1BlockTime(address domain) public view returns (uint256) {
 
 ```solidity
 /// map each block height to an epoch
-mapping(uint256 blockHeight => uint256 epoch) public blockRangeHeightToAssignedEpoch;
-BlockRangeCommitment memory blockRangeCommitment
+mapping(uint256 blockHeight => uint256 epoch) public superBlockHeightToAssignedEpoch;
+superBlockCommitment memory superBlockCommitment
 
-if (blockRangeHeightToAssignedEpoch[blockCommitment.height] == 0) {
-  blockRangeHeightToAssignedEpoch[blockCommitment.height] = getEpochByL1BlockTime();
+if (superBlockHeightToAssignedEpoch[blockCommitment.height] == 0) {
+  superBlockHeightToAssignedEpoch[blockCommitment.height] = getEpochByL1BlockTime();
 }
 ```
-> [!NOTE]
-> Note this is susceptible to an attack where the adversary could commit to far in the future blockRanges. However, since no honest validator would attest to it, the rollover function should update to the correct epoch for a given superBlock height.
 
-> !!! . Any validator can commit the hash of a superBlock, the height of the superBlock should not be able to be set too far into the future.
-> !!! . TODO leading Block Tolerance. why do we need it? I assume it was meant as a protection against posting too far into the future block-heights but is this really necessary? What in particular does this protect against? Could setting far in the future impose a cost on the honest validators or acceptor in any way?
+Any validator can commit the hash of a superBlock, the height of the superBlock should not be able to be set too far into the future. Note that an adversary could commit to far in the future superBlocks. However, since no honest validator would attest to it, the rollover function should update to the correct epoch for a given superBlock height.
+
+!!! warning TODO leading Block Tolerance. why do we need it? I assume it was meant as a protection against posting too far into the future block-heights but is this really necessary? What in particular does this protect against? Could setting far in the future impose a cost on the honest validators or acceptor in any way?
 
 ```solidity
 if (lastAcceptedBlockHeight + leadingBlockTolerance < blockCommitment.height) revert ValidatorAlreadyCommitted();
 ```
 
-> [!NOTE]
-> The validator has to check if the current superBlock height (off-L1) is within the above window. Otherwise the commitment of the (honest) validator will not be added to the L1 contract.
+The validator has to check if the current superBlock height (off-L1) is within the above window. Otherwise the commitment of the (honest) validator will not be added to the L1 contract.
 
 3. **`acceptingEpoch`**
 
-Votes are counted in the current `acceptingEpoch`. If there are enough commitments for a `blockRangeId` the superBlock height receives a postconfirmation status.
+Votes are counted in the current `acceptingEpoch`. If there are enough commitments for a `superBlockId` the superBlock height receives a postconfirmation status.
 
 ```solidity
 ??? relevant code
@@ -115,15 +106,33 @@ Votes are counted in the current `acceptingEpoch`. If there are enough commitmen
 
 ##### Staking and Unstaking
 
-????
+Validators can stake and unstake their tokens. The staking and unstaking process is managed by the L1-contract. Validators can stake their tokens for a certain epoch. The staking process is initiated by the validator. The validator can also unstake their tokens to the end of the next epoch. 
+
+The reason for the delay in the unstaking process is to prevent validators from harming the protocol towards the end of an epoch without implications, and to remain accountable for at least one epoch.
+
+```mermaid
+gantt
+    title Unstaking Timeline
+    dateFormat  DD HH:mm
+    axisFormat  %d %H:%M
+
+    section Epochs
+    Current Epoch: active, currentEpoch, 01 00:00, 02 00:00
+    Unstake Epoch: unstakeEpoch, 02 00:00, 03 00:00
+    Next epoch: releaseOfFundsEpoch, 03 00:01, 04 00:00
+
+    section Actions
+    Request for unstaking: milestone, 01 16:00, 1min
+    Release of Funds: milestone, 03 00:00, 0min
+```
 
 ##### Slashing
 
-> [!NOTE] Slashing is only required if we implement L2-confirmations.
+> :bulb: Slashing may only be required if we implement fastconfirmations, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65).
 
-Nodes SHOULD get slashed if it has been proven that the validator voted more than once for a given block height on L2. This is a security measure to protect against long-range attacks.
+Nodes SHOULD get slashed if it has been proven that the validator voted more than once for a given block height. This is a security measure to protect against long-range attacks.
 
-> [!WARNING] How do we prove that a validator has voted twice for a given block height?
+> :warning: How do we prove that a validator has voted twice for a given block height?
 
 With postconfirmations alone nodes do not need to get slashed if they voted for the minority opinion. There is no advantage for slashing as only their first opinion matters and with postconfirmation there is consensus on the L1 what the first opinion was.
 
@@ -153,7 +162,7 @@ A rollover can occur in two types of paths:
 
 ```solidity
 uint256 NextBlockHeight
-uint256 NextBlockEpoch = blockRangeHeightToAssignedEpoch[NextBlockHeight];
+uint256 NextBlockEpoch = superBlockHeightToAssignedEpoch[NextBlockHeight];
 while (getAcceptingEpoch() < NextBlockEpoch) {
   rollOverEpoch();  // this also increments the acceptingEpoch
 }
