@@ -24,42 +24,47 @@ Postconfirmations can draw from the consensus progress on L1. Similarly, Fastcon
 
 ## Specification
 
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
+
 ### Assumption
 
-Abstractly the L2 chain consist of the following main components:
+Abstractly an L2 chain consist of the following main components:
 
 - a ledger
 - a (shared) sequencer with Data Availability
 - a validator set that confirms the ledger.
 
-The sequencer outputs protoBlocks, which are ingested by validators. From these protoBlocks, the validators calculate the state of the ledger and calculates the next L2block.
+The sequencer outputs protoBlocks, which are ingested by validators. From these protoBlocks, the validators calculate the state of the ledger and calculates the next L2Block.
 
-The shared sequencer can serve multiple ledgers (also called _chains_). Validators can query for new protoBlocks and separate their transactions out by namespace. Alternatively validators could request based on namespace and receive a transaction stream specific to the chain. For simplicity we continue to refer to a protoBlock when discussing the pre-stage of the next L2block but in a shared setting protoBlock(namespace) would be more accurate.
+![alt text](design.png)
+*Figure 1: Fastconfirmation design.*
 
-### Operater chain
+A shared sequencer can serve multiple ledgers (also called _chains_). Validators can query for new protoBlocks and separate their transactions out by namespace. Alternatively validators could request based on namespace and receive a transaction stream specific to the chain. For simplicity we continue to refer to a protoBlock when discussing the pre-stage of the next L2Block but in a shared setting protoBlock(namespace) would be more accurate.
 
-### Fastconfirmations
+### Operator chain
 
-The L2 is a chain that ingests protoBlocks from a sequencer. This sequencer may or may not b
+We assume the sequencer operate a chain to handle the protoBlocks and reward distribution to sequencer nodes. This chain is called the _operator chain_.
 
+We require the following additional properties:
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
+- It performs a consensus algorithm that is fast and has a low finality time.
+- It has a high security level.
+- It can run simple smart contracts. In particular we require to run a contract that can check supermajority of validators have signed an L2Block.
+
+### Fastconfirmation
+
+We take inspiration from the Postconfirmation design, see [MIP-37](https://github.com/movementlabsxyz/MIP/pull/37). We introduce Fastconfirmations as a way to settle transactions on the L2 with fast confirmation times. This is achieved by using the ledger of the sequencer as a settlement layer for the Fast Finality Settlement mechanism.
+
+The design is rather similar to the Postconfirmation design. However it requests additional properties from the operator chain, see above. The sequencer chain acts as the settlement layer and we thus inherit the security properties of the operator chain for the supermajority check.
 
 ## Reference Implementation
 
 ## Verification
 
-Needs discussion.
-
----
-
 ## Changelog
-
----
 
 ## Appendix
 
----
 ## Copyright
 
 Copyright and related rights waived via [CC0](../LICENSE.md).
