@@ -1,33 +1,35 @@
 # MIP-65: FFS: Fastconfirmations
+
 - **Description**: Fast-Finality Settlement : Fastconfirmations as confirmations on the L2.
 - **Authors**: [Andreas Penzkofer]()
+- **Desiderata**: [MD-65](../../MD/md-65/README.md)
 
 ## Abstract
 
-This MIP introduces fastConfirmations on L2 as confirmations in addition to L2-level confirmations. fastCconfirmations are a way to settle transactions on the L2 with fast confirmation times. This is achieved by using the L2 as a settlement layer for the [Fast Finality Settlement mechanism](https://github.com/movementlabsxyz/MIP/pull/34).
+This MIP introduces Fastconfirmations on level 2 (L2) as confirmations in addition to Postconfirmations. Fastconfirmations are a way to settle transactions on the L2 with fast confirmation times. This is achieved by using the L2 as a settlement layer for the [Fast Finality Settlement mechanism](https://github.com/movementlabsxyz/MIP/pull/34).
 
 ## Motivation
 
-We introduce postConfirmations on L1 in [MIP-37](https://github.com/movementlabsxyz/MIP/pull/37). While postConfirmations partially draw from Ethereum security, they are  slow due to the finality time on Ethereum, and also expensive due to high L1 (Ethereum) fees.
+We introduce Postconfirmations on L1 in [MIP-37](https://github.com/movementlabsxyz/MIP/pull/37). While Postconfirmations partially draw from Ethereum security, they are  slow due to the finality time on Ethereum, and also expensive due to high L1 (Ethereum) fees.
 
-In contrast finality times on the L2 are much faster and fees are much lower. This justifies the introduction of fastConfirmations on the L2 as a way to settle transactions on the L2 with fast confirmation times, but without any additional security guarantees from the L1.
+In contrast, finality times on the L2 are much faster and fees are much lower. This justifies the introduction of Fastconfirmations on the L2 as a way to settle transactions on the L2 with fast confirmation times, but without any additional security guarantees from the L1.
 
-However, postConfirmations are a simple yet elegant design which permits implementation with
+Postconfirmations are a simple yet elegant design which permits implementation with
 
 - high decentralization capability
 - no requirements on p2p networking between validators
 - no consensus required.
 
-PostConfirmations can draw from the consensus progress on L1. Similarly, fastConfirmations can draw from the consensus progress on block-content on L2, which is independent of the confirmation of states.
+Postconfirmations can draw from the consensus progress on L1. Similarly, Fastconfirmations can draw from the consensus progress on protoBlocks on L2, which is independent of the confirmation of states.
 
 ## Specification
 
 ### Assumption
 
-Abstractly chain consist of the following main components:
+Abstractly the L2 chain consist of the following main components:
 
 - a ledger
-- a shared sequencer with Data Availability
+- a (shared) sequencer with Data Availability
 - a validator set that confirms the ledger.
 
 The sequencer outputs protoBlocks, which are ingested by validators. From these protoBlocks, the validators calculate the state of the ledger and calculates the next L2block.
@@ -36,7 +38,7 @@ The shared sequencer can serve multiple ledgers (also called _chains_). Validato
 
 ### Operater chain
 
-### fastConfirmations
+### Fastconfirmations
 
 The L2 is a chain that ingests protoBlocks from a sequencer. This sequencer may or may not b
 
