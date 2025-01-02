@@ -60,7 +60,7 @@ PRs that don't introduce a new MIP/MD are also accepted, for example MIPs/MDs ca
 
 ## Status Terms
 
-An MIP/MD is proposed through a PR. Each MIP/MG-introducing PR should have a status in the name in the form `[Status] ...`.
+An MIP/MD is proposed through a PR. Each MIP/MD-introducing PR should have a status in the name in the form `[Status] ...`.
 
 An MIP/MG should at all times have one of the following statuses:
 
