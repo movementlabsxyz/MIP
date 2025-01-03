@@ -260,6 +260,8 @@ Acceptors are rewarded for their service. The reward is calculated proportional 
 
 ## Reference Implementation
 
+A reference implementation for Postconfirmation is provided by MCR, see [here](https://github.com/movementlabsxyz/movement/tree/714831820d78b3910729a194cd0508fa1efd9aa9/protocol-units/settlement/mcr).
+
 ## Verification
 
 ## Errata
