@@ -346,17 +346,35 @@ copy_branch_content() {
     branch_url_encoded=$(urlencode "$branch")
     pr_info=$(curl -s -H "$AUTH_HEADER" "$API_URL/repos/$GITHUB_OWNER/$GITHUB_REPO/pulls?head=$GITHUB_OWNER:$branch_url_encoded&state=open")
 
-    pr_count=$(echo "$pr_info" | jq '. | length')
+    # Enhanced error handling for API response
+    if [ -z "$pr_info" ]; then
+        echo "Error: Empty response from GitHub API for branch $branch"
+        return
+    fi
 
-    if [ "$pr_count" -eq 0 ]; then
+    if ! echo "$pr_info" | jq empty 2>/dev/null; then
+        echo "Error: Invalid JSON response from GitHub API for branch $branch"
+        return
+    fi
+
+    # Check if the response is an empty array
+    if [ "$(echo "$pr_info" | jq 'length')" -eq 0 ]; then
         echo "No open PR associated with branch $branch. Skipping."
         return
     fi
 
-    is_draft=$(echo "$pr_info" | jq '.[0].draft')
+    # Safely get PR information with null checks
+    is_draft=$(echo "$pr_info" | jq -r '.[0].draft // false')
+    pr_title=$(echo "$pr_info" | jq -r '.[0].title // empty')
 
-    if [ "$is_draft" == "true" ]; then
-        echo "Branch $branch is associated with a draft PR. Skipping."
+    if [ -z "$pr_title" ]; then
+        echo "Error: Could not get PR title for branch $branch"
+        return
+    fi
+
+    # Check both the draft status and if the title contains [draft] or [Draft]
+    if [ "$is_draft" == "true" ] || [[ "$pr_title" =~ \[([Dd]raft)\] ]]; then
+        echo "Branch $branch is associated with a draft PR or has [draft] in title. Skipping."
         return
     fi
 
