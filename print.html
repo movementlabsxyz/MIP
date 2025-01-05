@@ -4384,41 +4384,48 @@ The relayer records on the source or target chain (whichever is cheaper) the <co
 <ul>
 <li><strong>Description</strong>: Fast-Finality Settlement : Fastconfirmations as confirmations on the L2.</li>
 <li><strong>Authors</strong>: <a href="Review/mip/L2confirmation/MIP/mip-65/">Andreas Penzkofer</a></li>
+<li><strong>Desiderata</strong>: <a href="Review/mip/L2confirmation/MIP/mip-65/../../MD/md-65/README.html">MD-65</a></li>
 </ul>
 <h2 id="abstract-27"><a class="header" href="#abstract-27">Abstract</a></h2>
-<p>This MIP introduces fastConfirmations on L2 as confirmations in addition to L2-level confirmations. fastCconfirmations are a way to settle transactions on the L2 with fast confirmation times. This is achieved by using the L2 as a settlement layer for the <a href="https://github.com/movementlabsxyz/MIP/pull/34">Fast Finality Settlement mechanism</a>.</p>
+<p>This MIP introduces Fastconfirmations on level 2 (L2) as confirmations in addition to Postconfirmations. Fastconfirmations are a way to settle transactions on the L2 with fast confirmation times. This is achieved by using the L2 as a settlement layer for the <a href="https://github.com/movementlabsxyz/MIP/pull/34">Fast Finality Settlement mechanism</a>.</p>
 <h2 id="motivation-27"><a class="header" href="#motivation-27">Motivation</a></h2>
-<p>We introduce postConfirmations on L1 in <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>. While postConfirmations partially draw from Ethereum security, they are  slow due to the finality time on Ethereum, and also expensive due to high L1 (Ethereum) fees.</p>
-<p>In contrast finality times on the L2 are much faster and fees are much lower. This justifies the introduction of fastConfirmations on the L2 as a way to settle transactions on the L2 with fast confirmation times, but without any additional security guarantees from the L1.</p>
-<p>However, postConfirmations are a simple yet elegant design which permits implementation with</p>
+<p>We introduce Postconfirmations on L1 in <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>. While Postconfirmations partially draw from Ethereum security, they are  slow due to the finality time on Ethereum, and also expensive due to high L1 (Ethereum) fees.</p>
+<p>In contrast, finality times on the L2 are much faster and fees are much lower. This justifies the introduction of Fastconfirmations on the L2 as a way to settle transactions on the L2 with fast confirmation times, but without any additional security guarantees from the L1.</p>
+<p>Postconfirmations are a simple yet elegant design which permits implementation with</p>
 <ul>
 <li>high decentralization capability</li>
 <li>no requirements on p2p networking between validators</li>
 <li>no consensus required.</li>
 </ul>
-<p>PostConfirmations can draw from the consensus progress on L1. Similarly, fastConfirmations can draw from the consensus progress on block-content on L2, which is independent of the confirmation of states.</p>
+<p>Postconfirmations can draw from the consensus progress on L1. Similarly, Fastconfirmations can draw from the consensus progress on protoBlocks on L2, which is independent of the confirmation of states.</p>
 <h2 id="specification-26"><a class="header" href="#specification-26">Specification</a></h2>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
 <h3 id="assumption"><a class="header" href="#assumption">Assumption</a></h3>
-<p>Abstractly chain consist of the following main components:</p>
+<p>Abstractly an L2 chain consist of the following main components:</p>
 <ul>
 <li>a ledger</li>
-<li>a shared sequencer with Data Availability</li>
+<li>a (shared) sequencer with Data Availability</li>
 <li>a validator set that confirms the ledger.</li>
 </ul>
-<p>The sequencer outputs protoBlocks, which are ingested by validators. From these protoBlocks, the validators calculate the state of the ledger and calculates the next L2block.</p>
-<p>The shared sequencer can serve multiple ledgers (also called <em>chains</em>). Validators can query for new protoBlocks and separate their transactions out by namespace. Alternatively validators could request based on namespace and receive a transaction stream specific to the chain. For simplicity we continue to refer to a protoBlock when discussing the pre-stage of the next L2block but in a shared setting protoBlock(namespace) would be more accurate.</p>
-<h3 id="operater-chain"><a class="header" href="#operater-chain">Operater chain</a></h3>
-<h3 id="fastconfirmations"><a class="header" href="#fastconfirmations">fastConfirmations</a></h3>
-<p>The L2 is a chain that ingests protoBlocks from a sequencer. This sequencer may or may not b</p>
-<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+<p>The sequencer outputs protoBlocks, which are ingested by validators. From these protoBlocks, the validators calculate the state of the ledger and calculates the next L2Block.</p>
+<p><img src="Review/mip/L2confirmation/MIP/mip-65/design.png" alt="alt text" />
+<em>Figure 1: Fastconfirmation design.</em></p>
+<p>A shared sequencer can serve multiple ledgers (also called <em>chains</em>). Validators can query for new protoBlocks and separate their transactions out by namespace. Alternatively validators could request based on namespace and receive a transaction stream specific to the chain. For simplicity we continue to refer to a protoBlock when discussing the pre-stage of the next L2Block but in a shared setting protoBlock(namespace) would be more accurate.</p>
+<h3 id="operator-chain"><a class="header" href="#operator-chain">Operator chain</a></h3>
+<p>We assume the sequencer operate a chain to handle the protoBlocks and reward distribution to sequencer nodes. This chain is called the <em>operator chain</em>.</p>
+<p>We require the following additional properties:</p>
+<ul>
+<li>It performs a consensus algorithm that is fast and has a low finality time.</li>
+<li>It has a high security level.</li>
+<li>It can run simple smart contracts. In particular we require to run a contract that can check supermajority of validators have signed an L2Block.</li>
+</ul>
+<h3 id="fastconfirmation"><a class="header" href="#fastconfirmation">Fastconfirmation</a></h3>
+<p>We take inspiration from the Postconfirmation design, see <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>. We introduce Fastconfirmations as a way to settle transactions on the L2 with fast confirmation times. This is achieved by using the ledger of the sequencer as a settlement layer for the Fast Finality Settlement mechanism.</p>
+<p>The design is rather similar to the Postconfirmation design. However it requests additional properties from the operator chain, see above. The sequencer chain acts as the settlement layer and we thus inherit the security properties of the operator chain for the supermajority check.</p>
 <h2 id="reference-implementation-21"><a class="header" href="#reference-implementation-21">Reference Implementation</a></h2>
 <h2 id="verification-26"><a class="header" href="#verification-26">Verification</a></h2>
-<p>Needs discussion.</p>
-<hr />
 <h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
-<hr />
 <h2 id="appendix-23"><a class="header" href="#appendix-23">Appendix</a></h2>
-<hr />
 <h2 id="copyright-11"><a class="header" href="#copyright-11">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Review/mip/L2confirmation/MIP/mip-65/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="mip-71-informer-v1-for-the-operation-of-the-lockmint-native-bridge"><a class="header" href="#mip-71-informer-v1-for-the-operation-of-the-lockmint-native-bridge">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></h1>
@@ -4549,7 +4556,7 @@ Instead of the finalized state we could also consider the $k$-confirmed state fo
 <p>We propose a rate limitation mechanism to protect the Lock/Mint-type Native Bridge, hereafter called the <em>Native Bridge</em>, see <a href="https://github.com/movementlabsxyz/MIP/pull/58">MIP-58</a>, against faulty or compromised behavior of the bridge components. It limits the volume of assets that can be transferred within a time window. This MIP proposes a solution to mitigate attacks and limit damages, and if paired with an insurance fund it may cover the potential losses incurred by our users.</p>
 <h2 id="motivation-30"><a class="header" href="#motivation-30">Motivation</a></h2>
 <p>There are several components and actors in control of the behavior of the Native Bridge including contracts (we may assume they are trusted), our Relayer and of course the network. If an attacker can control one these components they can potentially mint and transfer assets thereby compromising the bridge.</p>
-<p>T Rate Limiter can help to protect the Native Bridge against faulty components (Relayer or network) or attacks. It can limit the volume of transferred value per time interval, the maximum value transferred with a given transfer, or the number of transactions within a time window.</p>
+<p>The Rate Limiter can help to protect the Native Bridge against faulty components (Relayer or network) or attacks. It can limit the volume of transferred value per time interval, the maximum value transferred with a given transfer, or the number of transactions within a time window.</p>
 <h2 id="specification-29"><a class="header" href="#specification-29">Specification</a></h2>
 <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
 <h3 id="actors-and-components"><a class="header" href="#actors-and-components">Actors and components</a></h3>
