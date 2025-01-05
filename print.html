@@ -4595,7 +4595,7 @@ The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL 
 <li>The Relayer may go down, while the number of transactions and requested transfer value across the bridge still increases on the source chain. Due to the rate limit on the target chain the Relayer may struggle or be incapable to process all initiated transfers. Thus the Relayer or the Governance Operator MUST be able to rate limit the source chain temporarily or permanently lower than the target chain rate limit.</li>
 </ol>
 <p>To elaborate on the last point, consider that the Native Bridge operates at the maximum rate continuously and both source and target chain have the same rate limit. Then, if the Relayer goes down for some time $\Delta$, the Relayer will start to process transactions at the maximum rate. Consequently, all transactions would be delayed by $\Delta$ time units as long as the rate limit on the target chain is entirely exhausted.</p>
-<h3 id="objectives"><a class="header" href="#objectives">Objectives</a></h3>
+<h3 id="expected-properties-of-the-rate-limiter"><a class="header" href="#expected-properties-of-the-rate-limiter">Expected Properties of the Rate Limiter</a></h3>
 <p>The objectives of the Rate Limiter are to guarantee the following properties:</p>
 <ol>
 <li>the value of assets being transferred across the Native Bridge, within a configurable time window $\Delta$, MUST always be less than the insurance funds.</li>
@@ -4605,11 +4605,11 @@ The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL 
 </ol>
 <p>The guiding principles of the design of the Rate Limiter are:</p>
 <ol>
-<li>the Governance Operator monitors the Native Bridge, and in case of an attack or fault, it SHOULD take at most $\Delta$ time units to detect the issue and pause the bridge.</li>
-<li>we want to make sure that the total amount that is transferred within $\Delta$ time units (and that could potentially result from  malicious behaviors) is ALWAYS covered by the insurance fund.</li>
+<li>The Governance Operator monitors the Native Bridge, and in case of an attack or fault, it SHOULD take at most $\Delta$ time units to detect the issue and pause the bridge.</li>
+<li>We want to make sure that the total amount that is transferred within $\Delta$ time units (and that could potentially result from malicious behaviors) is ALWAYS covered by the insurance fund.</li>
 </ol>
 <h3 id="rate-limiter"><a class="header" href="#rate-limiter">Rate Limiter</a></h3>
-<p>The Rate Limiter limits the volume of assets that can be transferred within a time window. The Rate Limiter MUST be implemented as part of the L1 Native Bridge contract and the L2 Native Bridge contract.</p>
+<p>The Rate Limiter limits the volume of assets that can be transferred within a time window. The assets are managed by the smart contracts on L2 and L1, and we MAY build the rate limiter logics as part of the L1 Native Bridge contract and the L2 Native Bridge contract.</p>
 <h4 id="insurance-funds"><a class="header" href="#insurance-funds">Insurance funds</a></h4>
 <p>We assume there is a Insurance Fund on both L1 and L2, with values <code>insurance_fund_L1</code> and <code>insurance_fund_L2</code>, respectively.</p>
 <blockquote>
