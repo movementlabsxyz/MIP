@@ -39,23 +39,23 @@ _Figure 1: Architecture of the Rate Limitation system_
 
 ### Trust assumptions
 
-We assume the following trust assumptions:
+We assume the following _trust assumptions_:
 
-1. The governance contract is implemented correctly.
-1. The Bridge contract and the L2 Native Bridge contract are implemented correctly.
-1. The Governance Operator is trusted. For example it COULD be a multisig human.
+1. The Governance contract is implemented correctly.
+1. The Bridge contracts (L1 and L2) are implemented correctly.
+1. The Governance Operator is trusted. For exampl, it COULD be a multisig human.
 1. The Relayer is a trusted software component.
 
 ### Risks and mitigation strategies
 
-The following risks are associated with the Native Bridge:
+The following attack vectors are considered:
 
 1. The trusted Relayer is compromised or faulty. We thus want to ensure that the Relayer has not unlimited power to release or mint assets. For this we MUST implement the Rate Limiter on the target chain.
-1. In order to rate limit the bridge (e.g. stop the bridge transfers entirely) there should be a higher instance than the Relayer in setting rate limits. Thus the rate limit on the target chain SHOULD be set by the Governance Operator.
-1. If the target chain is rate limited but the source chain is not, users could request for more transfers on the source chain than the Relayer could complete on the target chain. This could lead to a situation where the Relayer is not able to process all transactions. To mitigate this the Relayer or the Governance Operator MUST rate limit the source chain as well.
+1. In order to rate-limit the bridge (e.g. stop the bridge transfers entirely) there should be a higher instance than the Relayer in setting rate limits. Thus the rate limit on the target chain SHOULD be set by the Governance Operator.
+1. If the target chain is rate limited but the source chain is not, users could request for more transfers on the source chain than the Relayer could complete on the target chain. This could lead to a situation where the Relayer is not able to process all transactions. To mitigate this the Relayer or the Governance Operator MUST rate limit the source chain as well. The rate limts on both chains SHOULD be consistent.
 1. The Relayer may go down, while the number of transactions and requested transfer value across the bridge still increases on the source chain. Due to the rate limit on the target chain the Relayer may struggle or be incapable to process all initiated transfers. Thus the Relayer or the Governance Operator MUST be able to rate limit the source chain temporarily or permanently lower than the target chain rate limit.
 
-To elaborate on the last point, consider that the Native Bridge operates at the maximum rate continuously and both source and target chain have the same rate limit. Then, if the Relayer goes down for some time Delta, the Relayer will start to process transactions at the maximum rate. Consequently, all transactions would be delayed for Delta time units as long as the rate limit on the target chain is entirely exhausted.
+To elaborate on the last point, consider that the Native Bridge operates at the maximum rate continuously and both source and target chain have the same rate limit. Then, if the Relayer goes down for some time $\Delta$, the Relayer will start to process transactions at the maximum rate. Consequently, all transactions would be delayed by $\Delta$ time units as long as the rate limit on the target chain is entirely exhausted.
 
 ### Objectives
 
