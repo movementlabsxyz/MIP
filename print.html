@@ -4558,7 +4558,10 @@ Instead of the finalized state we could also consider the $k$-confirmed state fo
 <p>There are several components and actors in control of the behavior of the Native Bridge including contracts (we may assume they are trusted), our Relayer and of course the network. If an attacker can control one these components they can potentially mint and transfer assets thereby compromising the bridge.</p>
 <p>The Rate Limiter can help to protect the Native Bridge against faulty components (Relayer or network) or attacks. It can limit the volume of transferred value per time interval, the maximum value transferred with a given transfer, or the number of transactions within a time window.</p>
 <h2 id="specification-29"><a class="header" href="#specification-29">Specification</a></h2>
-<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+<blockquote>
+<p>[!NOTE]
+The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+</blockquote>
 <h3 id="actors-and-components"><a class="header" href="#actors-and-components">Actors and components</a></h3>
 <p>The Native Bridge is operated via contracts, key holders and a relayer. The following actors and components are involved:</p>
 <ol>
