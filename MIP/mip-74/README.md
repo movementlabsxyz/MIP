@@ -31,13 +31,13 @@ The Native Bridge is operated via contracts, key holders and a relayer. The foll
 
 In addition to protect the Native Bridge against faulty components, the Rate Limiter and the Insurance Fund are introduced. Figure 1 shows the architecture of the Native Bridge including the following components:
 
-1. **Insurance Fund**: The Insurance Fund is a contract that is used to cover potential losses in case of a faulty component, see [MIP-50](https://github.com/movementlabsxyz/MIP/pull/50).
+1. **Insurance Fund**: The Insurance Fund is a pool of tokens held in a contract that is used to cover potential losses in case of a faulty component, see [MIP-50](https://github.com/movementlabsxyz/MIP/pull/50).
 1. **Rate Limiter**: The Rate Limiter is a set of contracts (one on the L1 and one on the L2) that is used to limit the volume of transferred value per time window.
 
 ![alt text](overview.png)
-_Figure 1: Architecture of the Rate Limitation_
+_Figure 1: Architecture of the Rate Limitation system_
 
-### Actors, components and trust assumptions
+### Trust assumptions
 
 We assume the following trust assumptions:
 
