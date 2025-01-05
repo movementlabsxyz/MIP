@@ -57,7 +57,7 @@ The following attack vectors are considered:
 
 To elaborate on the last point, consider that the Native Bridge operates at the maximum rate continuously and both source and target chain have the same rate limit. Then, if the Relayer goes down for some time $\Delta$, the Relayer will start to process transactions at the maximum rate. Consequently, all transactions would be delayed by $\Delta$ time units as long as the rate limit on the target chain is entirely exhausted.
 
-### Objectives
+### Expected Properties of the Rate Limiter
 
 The objectives of the Rate Limiter are to guarantee the following properties:
 
@@ -68,12 +68,12 @@ The objectives of the Rate Limiter are to guarantee the following properties:
 
 The guiding principles of the design of the Rate Limiter are:
 
-1. the Governance Operator monitors the Native Bridge, and in case of an attack or fault, it SHOULD take at most $\Delta$ time units to detect the issue and pause the bridge.
-2. we want to make sure that the total amount that is transferred within $\Delta$ time units (and that could potentially result from  malicious behaviors) is ALWAYS covered by the insurance fund.
+1. The Governance Operator monitors the Native Bridge, and in case of an attack or fault, it SHOULD take at most $\Delta$ time units to detect the issue and pause the bridge.
+2. We want to make sure that the total amount that is transferred within $\Delta$ time units (and that could potentially result from malicious behaviors) is ALWAYS covered by the insurance fund.
 
 ### Rate Limiter
 
-The Rate Limiter limits the volume of assets that can be transferred within a time window. The Rate Limiter MUST be implemented as part of the L1 Native Bridge contract and the L2 Native Bridge contract.
+The Rate Limiter limits the volume of assets that can be transferred within a time window. The assets are managed by the smart contracts on L2 and L1, and we MAY build the rate limiter logics as part of the L1 Native Bridge contract and the L2 Native Bridge contract.
 
 #### Insurance funds
 
