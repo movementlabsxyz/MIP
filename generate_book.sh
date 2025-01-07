@@ -161,6 +161,18 @@ escape_dollar_signs() {
     local file="$1"
     local temp_file="${file}.tmp"
     
+    # Check if the source file exists
+    if [ ! -f "$file" ]; then
+        echo "Warning: Source file $file does not exist, skipping dollar sign escaping"
+        return 0
+    fi
+    
+    # Check if we can create and write to the temp file
+    if ! touch "$temp_file" 2>/dev/null; then
+        echo "Warning: Cannot create temporary file $temp_file, skipping dollar sign escaping"
+        return 0
+    fi
+    
     while IFS= read -r line; do
         # Skip lines that are already properly escaped
         if [[ "$line" =~ ^\\\\ || "$line" =~ ^/\\\\ ]]; then
@@ -211,10 +223,24 @@ escape_dollar_signs() {
             line="${line// \$/ \\$}"
         fi
         
-        echo "$line" >> "$temp_file"
+        echo "$line" >> "$temp_file" || {
+            echo "Warning: Failed to write to $temp_file, keeping original file unchanged"
+            rm -f "$temp_file"
+            return 0
+        }
     done < "$file"
     
-    mv "$temp_file" "$file"
+    # Only move the temp file if it exists and has content
+    if [ -f "$temp_file" ] && [ -s "$temp_file" ]; then
+        mv "$temp_file" "$file" || {
+            echo "Warning: Failed to replace $file with processed version, keeping original file"
+            rm -f "$temp_file"
+            return 0
+        }
+    else
+        echo "Warning: Temporary file $temp_file is missing or empty, keeping original file"
+        rm -f "$temp_file"
+    fi
 }
 
 # Initialize README and SUMMARY.md
