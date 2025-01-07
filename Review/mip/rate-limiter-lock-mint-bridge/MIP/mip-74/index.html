@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light sidebar-visible" dir="ltr">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-
+        
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -30,19 +30,15 @@
 
         <!-- Custom theme stylesheets -->
 
-        <!-- MathJax -->
-        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../../../../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
-        <!-- Start loading toc.js asap -->
-        <script src="../../../../../toc.js"></script>
-    </head>
-    <body>
-    <div id="body-container">
+
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -64,16 +60,19 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            const html = document.documentElement;
+            var html = document.querySelector('html');
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add("js");
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
+            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,25 +82,45 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <!-- populated by js -->
-            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
-            <noscript>
-                <iframe class="sidebar-iframe-outer" src="../../../../../toc.html"></iframe>
-            </noscript>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../../../GLOSSARY.html">Glossary</a></li><li class="chapter-item expanded "><a href="../../../../../index.html">Approved</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../index.html">MIPs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-1/index.html">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-15/index.html">MIP-15: MG (Movement Gloss)</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-39/index.html">MIP-39: MOVE Token -- HTLC-based Native Bridge Design</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-53/index.html">MIP-53: Conventions for Proposing Progressive L2 Models</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MDs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-1/index.html">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-3/index.html">MD-3: MCR under Network Partitions and Asynchrony</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-15/index.html">MD-15: Movement Glossary</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MGs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MG/mg-39/index.html">MG-39:  MOVE Token -- Bridge Design</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">Review</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../index.html">MIPs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/mikhail/suzuka-da-migrations/MIP/mip-13/index.html">MIP-13:  Suzuka DA Migrations Format</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled-demurrage/MIP/mip-42/index.html">MIP-15: NB-FFS Decoupled Demurrage</a></li><li class="chapter-item expanded "><a href="../../../../../Review/gas-fee-calculation/MIP/mip-16/index.html">MIP-16: Calculation of gas fees </a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mip-18/MIP/mip-18/index.html">MIP-18: Stage 0 Upgradeability and Multisigs</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andyjsbell/unwanted-framework/MIP/mip-24/index.html">MIP-24: Removal of redundant functionality from framework</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andyjsbell/proxy-root/MIP/mip-25/index.html">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mip-27/MIP/mip-27/index.html">MIP-27: Contract Pipeline</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/actor-naming-conventions/MIP/mip-28/index.html">MIP-28: Naming Conventions for Movement Protocol Design</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/FFS/MIP/mip-34/index.html">MIP-34: Fast Finality Settlement</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled/MIP/mip-40/index.html">MIP-40: NB-FFS Decoupled</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-governed-gas-pool/MIP/mip-44/index.html">MIP-44: NB-FFS Governed Gas Pool</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/security_falliblity/MIP/mip-46/index.html">MIP-46: Security and Fallibility of the Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/gas-fees-incremental-additions/MIP/mip-47/index.html">MIP-47: Improve Gas fee collection in phases</a></li><li class="chapter-item expanded "><a href="../../../../../Review/0xmovses/aptos-gov-pool/MIP/mip-48/index.html">MIP-48: aptos_governance for Goverened Gas Pool</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/just-reward/MIP/mip-49/index.html">MIP-49: NB-FFS Governed Fees and Rewards</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/insured-bridge/MIP/mip-50/index.html">MIP-50: Insured Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/the-biarritz-model/MIP/mip-54/index.html">MIP-54: The Biarritz Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/the-bilbao-model/MIP/mip-55/index.html">MIP-55: The Bilbao Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/rate-limiter/MIP/mip-56/index.html">MIP-56: Rate-Limiter for the HTLC-based Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer/MIP/mip-57/index.html">MIP-57: Informer for the Operation of the HTLC-based Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip-58/MIP/mip-58/index.html">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip-crosschain-bridges-background/MIP/mip-60/index.html">MIP-60: Crosschain bridge architectures</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/index.html">MIP-61: Relayer in the lock/mint bridge - Algorithm and Bootstrapping </a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/L2confirmation/MIP/mip-65/index.html">MIP-65: FFS: Fastconfirmations</a></li><li class="chapter-item expanded "><a href="../../../../../Review/issue66/MDMIP-for-bridge-fees/MIP/mip-69/index.html">MIP-69: Bridge Fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer-lockmintbridge/MIP/mip-71/index.html">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/sanfran-model/MIP/mip-73/index.html">MIP-73: The SanFran Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/index.html" class="active">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mainnet-feature-flags/MIP/mip-81/index.html">MIP-81</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MDs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/index.html">MD-2: Enclave Crash-resistant Key Management</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/long-range-attacks/MD/md-5/index.html">MD-4: Long Range Attacks</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/gas-offset/MD/md-4/index.html">MD-4: MCR Offsetting Gas Costs</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/block-validation/MD/md-6/index.html">MD-6: Suzuka Block Validation</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/block-validation/MD/md-7/index.html">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mikhail/suzuka-da-migrations/MD/md-13/index.html">MD-13: Suzuka DA Migrations Format</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/bridge-timelock-as-state/MD/md-14/index.html">MD-14: Bridge Should Use A More Secure Timelock</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andygolay/move-on-bitcoin/MD/md-16/index.html">MD-16: Create MOVE fungible asset on Bitcoin using runes</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/md-17/MD/md-17/index.html">MD-17: Bridge Fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/bridge-attestors/MD/md-21/index.html">MD-21: Native Bridge with Attesters</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andygolay/md-26/MD/md-26/index.html">MD-26: User-facing checks</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/md-30/MD/md-30/index.html">MD-30: Movement Name Service</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/FFS/MD/md-34/index.html">MD-34: Fast Finality Settlement</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/index.html">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/just-reward/MD/md-49/index.html">MD-49: Movement L2 Gas Fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/L2confirmation/MD/md-65/index.html">MD-65: FFS: Fastconfirmations</a></li><li class="chapter-item expanded "><a href="../../../../../Review/issue66/MDMIP-for-bridge-fees/MD/md-69/index.html">MD-69: Bridge fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer-lockmintbridge/MD/md-71/index.html">MD-71: Informer service for the Lock/Mint-based Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/index.html">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mainnet-feature-flags/MD/md-81/index.html">MD-81: Movement Mainnet Feature Flags</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MGs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled-demurrage/MG/mg-42/index.html">MG-42: demurrage token</a></li></ol></li></ol></li></ol>
+            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
             </div>
         </nav>
 
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                <div id="menu-bar-hover-placeholder"></div>
+                                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -128,7 +147,7 @@
                         <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/movementlabsxyz/MIP" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/movementlabsxyz/MIP-Testing" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -157,8 +176,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="mip-74-rate-limiter-for-the-lockmint-type-native-bridge"><a class="header" href="#mip-74-rate-limiter-for-the-lockmint-type-native-bridge">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></h1>
+                        <h1 id="mip-74-rate-limiter-for-the-lockmint-type-native-bridge"><a class="header" href="#mip-74-rate-limiter-for-the-lockmint-type-native-bridge">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></h1>
 <ul>
 <li><strong>Description</strong>: A rate limitation mechanism for the Lock/Mint-type Native Bridge.</li>
 <li><strong>Authors</strong>: Andreas Penzkofer, Primata</li>
@@ -218,19 +236,19 @@ In order to protect the protocol from exploits and potential losses, rate limiti
 <li>If the target chain is rate limited but the source chain is not, users could request for more transfers on the source chain than the Relayer could complete on the target chain. This could lead to a situation where the Relayer is not able to process all transactions. To mitigate this the Relayer or the Governance Operator MUST rate limit the source chain as well. The rate limts on both chains SHOULD be consistent.</li>
 <li>The Relayer may go down, while the number of transactions and requested transfer value across the Native Bridge still increases on the source chain. Due to the rate limit on the target chain the Relayer may struggle or be incapable to process all initiated transfers. Thus the Relayer or the Governance Operator MUST be able to rate limit the source chain temporarily or permanently lower than the target chain rate limit.</li>
 </ol>
-<p>To elaborate on the last point, consider that the Native Bridge operates at the maximum rate continuously and both source and target chain have the same rate limit. Then, if the Relayer goes down for some time <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">Δ</span></span></span></span>, the Relayer will start to process transactions at the maximum rate. Consequently, all transactions would be delayed by <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">Δ</span></span></span></span> time units as long as the rate limit on the target chain is entirely exhausted.</p>
+<p>To elaborate on the last point, consider that the Native Bridge operates at the maximum rate continuously and both source and target chain have the same rate limit. Then, if the Relayer goes down for some time $\Delta$, the Relayer will start to process transactions at the maximum rate. Consequently, all transactions would be delayed by $\Delta$ time units as long as the rate limit on the target chain is entirely exhausted.</p>
 <h3 id="expected-properties-of-the-rate-limiter"><a class="header" href="#expected-properties-of-the-rate-limiter">Expected Properties of the Rate Limiter</a></h3>
 <p>The objectives of the Rate Limiter are to guarantee the following properties:</p>
 <ol>
-<li>the value of assets being transferred across the Native Bridge, within a configurable time window <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">Δ</span></span></span></span>, MUST always be less than the insurance funds.</li>
+<li>the value of assets being transferred across the Native Bridge, within a configurable time window $\Delta$, MUST always be less than the insurance funds.</li>
 <li>the Governance Operator MUST be able to adjust the rate limit on the source and target chain.</li>
 <li>the Relayer MUST be able to catch up with the transfers in case it has been down for some time.</li>
 <li>the Relayer MAY adjust the rate limit on the source chain.</li>
 </ol>
 <p>The guiding principles of the design of the Rate Limiter are:</p>
 <ol>
-<li>The Governance Operator monitors the Native Bridge, and in case of an attack or fault, it SHOULD take at most <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">Δ</span></span></span></span> time units to detect the issue and pause the Native Bridge.</li>
-<li>We want to make sure that the total amount that is transferred within <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">Δ</span></span></span></span> time units (and that could potentially result from malicious behaviors) is ALWAYS covered by the insurance fund.</li>
+<li>The Governance Operator monitors the Native Bridge, and in case of an attack or fault, it SHOULD take at most $\Delta$ time units to detect the issue and pause the Native Bridge.</li>
+<li>We want to make sure that the total amount that is transferred within $\Delta$ time units (and that could potentially result from malicious behaviors) is ALWAYS covered by the insurance fund.</li>
 </ol>
 <h3 id="rate-limitation"><a class="header" href="#rate-limitation">Rate limitation</a></h3>
 <p>The Rate Limiter limits the volume of assets that can be transferred within a time window. The assets are managed by the smart contracts on L2 and L1, and we MAY build the rate limiter logics directly as part of the L1 Native Bridge contract and the L2 Native Bridge contract.</p>
@@ -248,7 +266,7 @@ For a transfer from L1 (L2) to L2 (L1) the <code>insurance_fund_target = insuran
 <p><strong>(Optional) Direct adjustment of rate limit by Governance Operator</strong></p>
 <p>The rate limit MAY also be adjusted by the Governance Operator directly by a parameter <code>rate_reduction_target</code>. However the Rate Limiter MUST NOT set the rate limit higher than the <code>max_rate_limit_target</code>. In equation</p>
 <p><code>rate_limit_target = rate_reduction_target * max_rate_limit_target</code>,</p>
-<p>where <code>rate_reduction_target</code> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">∈</span></span></span></span> <code>[0,1]</code> is a parameter that is set by the Governance Operator. As mentioned the <code>rate_limit_target</code> MUST not be larger than <code>max_rate_limit_target</code>.</p>
+<p>where <code>rate_reduction_target</code> $\in$ <code>[0,1]</code> is a parameter that is set by the Governance Operator. As mentioned the <code>rate_limit_target</code> MUST not be larger than <code>max_rate_limit_target</code>.</p>
 <p><strong>Summary of Adjustment mechanisms</strong>
 The following are possible ways to adjust the rate limit:</p>
 <ol>
@@ -260,7 +278,7 @@ The following are possible ways to adjust the rate limit:</p>
 <p>On the source chain the rate limit MUST be limited by the Governance Operator to match the rate limit on the target chain. if only the target chain would be rate limited users could successfully continue to request transfers on the source chain while the budget on the target chain is already consumed. Consequently the  Relayer would not be capable to complete the transfers.</p>
 <p>On the source chain the rate limit MAY be lowered by the Relayer. This is to ensure that the rate limit on the target chain is not exceeded. It also permits the Relayer to catch up in case of the Relayer has been down for some time.</p>
 <p><code>rate_limit_source = min{rate_reduction_source * rate_limit_target, rate_limit_operator_source}</code>,</p>
-<p>where <code>rate_reduction_source</code> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">∈</span></span></span></span> <code>[0,1]</code> is a parameter that is set by the Relayer. <code>rate_limit_operator_source</code> is a parameter that is set by the Governance Operator. Note the <code>rate_limit_source</code> SHOULD not be larger than <code>rate_limit_operator_source</code>.</p>
+<p>where <code>rate_reduction_source</code> $\in$ <code>[0,1]</code> is a parameter that is set by the Relayer. <code>rate_limit_operator_source</code> is a parameter that is set by the Governance Operator. Note the <code>rate_limit_source</code> SHOULD not be larger than <code>rate_limit_operator_source</code>.</p>
 <h3 id="rate-limitation-adjustment-algorithm"><a class="header" href="#rate-limitation-adjustment-algorithm">Rate limitation adjustment algorithm</a></h3>
 <p>The rate limitation works as follows:</p>
 <p>!!! warning I can convert the following into pseudo code, after we have discussed the algorithm and it makes sense.</p>
@@ -299,7 +317,7 @@ The following are possible ways to adjust the rate limit:</p>
 <li>Rate limiting should be implemented on the L1 and maps each day to a budget, for each direction. Once the budget is reached on one of the directions, no more tokens can be transferred on that direction.</li>
 <li>The bridge is financially secured by an Insurance Fund, see <a href="https://github.com/movementlabsxyz/MIP/pull/50">MIP-50</a>, which determines  the maximum amount of tokens to be transferred per day, called the budget. The insurance fund is maintained by Movement Labs.</li>
 <li>The budget is one quarter of the Insurance Fund balance. This is meant to account for the insurance fund to be able to insure all current funds already transferred and all tokens inflight, per direction.</li>
-<li>The Insurance Fund maintains the rate limit budget by adjusting its own <code>\</code> balance. It should be either the Movement Labs multisig or a new multisig 1/3 if we choose to adopt an approach that requires more direct ability by the personnel.</li>
+<li>The Insurance Fund maintains the rate limit budget by adjusting its own <code>$MOVE</code> balance. It should be either the Movement Labs multisig or a new multisig 1/3 if we choose to adopt an approach that requires more direct ability by the personnel.</li>
 <li>Once the rate limit budget is reached, if no issues have been observed, operators should simply wait for the next day.</li>
 <li>If an issue has been observed, an operator should simply transfer to the bridge contract the sum of the exploit size, being the result of additional supply on L1, outside of the bridge address, and the additional supply on L2. This action covers both cases where tokens were extracted from the bridge contract on L1 or over-minted on L2. Movement Foundation should evaluate the amount of tokens that should be held by the Insurance Fund after the incident and transfer to it the amount to reach that amount.</li>
 <li>This approach is open to exploits where the Relayer key is compromised. It would enable the exploiter to freely mint on L2.</li>
@@ -307,7 +325,7 @@ The following are possible ways to adjust the rate limit:</p>
 <p>B. <strong>Two-sided partial rate limiting (target chain only)</strong></p>
 <ul>
 <li>Rate limiting should be implemented on both L1 and L2 for inbound transactions only. It maps a daily budget of inbound transactions and once it’s reached, the Relayer cannot complete more transactions. The bridge is financially secured by two Insurance Funds, one on each side, maintained by Movement Labs, and the maximum amount of tokens to be transferred per day, per direction is half of each of its Insurance Funds balances. This is meant to account for all tokens already transferred and inflight, per direction.</li>
-<li>The Insurance Funds determine the rate limit budgets. Thus the rate limit can be adjusted by changing the <code>\</code> balance. They should be either Movement Labs multisigs or new multisigs 1/3 if we choose to adopt an approach that requires more direct ability by the personnel.</li>
+<li>The Insurance Funds determine the rate limit budgets. Thus the rate limit can be adjusted by changing the <code>$MOVE</code> balance. They should be either Movement Labs multisigs or new multisigs 1/3 if we choose to adopt an approach that requires more direct ability by the personnel.</li>
 <li>Once the rate limit budget is reached, if no issues have been observed, operators should simply wait for the next day.</li>
 <li>If an issue has been observed, operators should transfer to the bridge address the exploit amount on the L1 and burn the exploit amount on the L2. Movement Foundation should evaluate the amount of tokens that should be held by the Insurance Funds and operators should receive those tokens and bridge tokens if an exploit occurred on L2.</li>
 <li>This approach is more susceptible to issues on the frontend because the frontend has to acknowledge rate limit budget and inflight tokens and inform users if the rate limit is about to be reached, not only if it has been reached.</li>
@@ -330,11 +348,11 @@ The following are possible ways to adjust the rate limit:</p>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../../../Review/mip/informer-lockmintbridge/MIP/mip-71/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../../../Review/mip/sanfran-model/MIP/mip-73/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../../../index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../../../Review/primata/mainnet-feature-flags/MIP/mip-81/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -344,11 +362,11 @@ The following are possible ways to adjust the rate limit:</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../../../Review/mip/informer-lockmintbridge/MIP/mip-71/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../../../Review/mip/sanfran-model/MIP/mip-73/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../../../index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../../../Review/primata/mainnet-feature-flags/MIP/mip-81/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
