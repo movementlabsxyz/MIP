@@ -111,6 +111,8 @@ The following are possible ways to adjust the rate limit:
 
 #### Rate limit on the source chain
 
+On the source chain the rate limit MUST be limited by the Governance Operator to match the rate limit on the target chain. if only the target chain would be rate limited users could successfully continue to request transfers on the source chain while the budget on the target chain is already consumed. Consequently the  Relayer would not be capable to complete the transfers.
+
 On the source chain the rate limit MAY be lowered by the Relayer. This is to ensure that the rate limit on the target chain is not exceeded. It also permits the Relayer to catch up in case of the Relayer has been down for some time.
 
 `rate_limit_source = min{rate_reduction_source * rate_limit_target, rate_limit_operator_source}`,
