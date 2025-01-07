@@ -24,8 +24,8 @@ The Rate Limiter can help to protect the Native Bridge against faulty components
 The Native Bridge is operated via contracts, key holders and a relayer. The following actors and components are involved:
 
 1. **User**: this is the entity that interacts with the Native Bridge. The user can be a contract or an external account.
-1. **L1 (Native) Bridge contract**: this is the contract that is deployed on the L1 chain. It is responsible for locking and releasing (unlocking) assets on the L1 chain.
-1. **L2 (Native) Bridge contract**: this is the contract that is deployed on the L2 chain. It is responsible for minting and burning assets on the L2 chain.
+1. **L1 Native Bridge contract**: this is the contract that is deployed on the L1 chain. It is responsible for locking and releasing (unlocking) assets on the L1 chain.
+1. **L2 Native Bridge contract**: this is the contract that is deployed on the L2 chain. It is responsible for minting and burning assets on the L2 chain.
 1. **Governance contract**: this is an L2 contract on L2 that is used to adjust the parameters of the Native Bridge components on L2.
 1. **Governance Operator**: this is the entity that can adjust the parameters of the Native Bridge via the governance contract or directly.
 
