@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# --------------------------- Info -----------------------------
+# We are testing this script in a different repo to make it work.
+# https://github.com/movementlabsxyz/mip-testing
+#
+# Thus, to not introduce errors to the public mdBook 
+# test first in the above repo before updating scripts in this repo.
+# --------------------------------------------------------------
+
 # Ensure we're running with bash 4 or higher (needed for associative arrays)
 if ((BASH_VERSINFO[0] < 4)); then
     echo "This script requires bash version 4 or higher"
@@ -55,8 +63,11 @@ rm -rf src
 # Create src folder
 mkdir -p src
 
+# Install mdbook-katex
+cargo install mdbook-katex
+
 # Generate book.toml file with the correct title and GitHub repository
-cat >book.toml <<EOL
+cat >book.toml <<'EOL'
 [book]
 title = "MIP"
 
@@ -72,6 +83,26 @@ heading-split-level = 0
 
 [output.html.playground]
 runnable = false
+
+[preprocessor.katex]
+after = ["links"]
+output = "html"
+leqno = false
+fleqn = false
+throw-on-error = false
+error-color = "#cc0000"
+min-rule-thickness = -1.0
+max-size = "Infinity"
+max-expand = 1000
+trust = true
+no-css = false
+include-src = false
+block-delimiter = { left = '$$', right = '$$' }
+inline-delimiter = { left = '$', right = '$' }
+pre-render = false
+
+[preprocessor.katex.macros]
+"\\" = "\\textbackslash"
 EOL
 
 # Clone MIP repository
@@ -123,6 +154,67 @@ sanitize_title_for_summary() {
     title="${title//</}"       # Remove <
     title="${title//>/}"       # Remove >
     echo "$title"
+}
+
+# Update the escape_dollar_signs function to handle Markdown headers and math better
+escape_dollar_signs() {
+    local file="$1"
+    local temp_file="${file}.tmp"
+    
+    while IFS= read -r line; do
+        # Skip lines that are already properly escaped
+        if [[ "$line" =~ ^\\\\ || "$line" =~ ^/\\\\ ]]; then
+            echo "$line" >> "$temp_file"
+            continue
+        fi
+        
+        # Handle Markdown headers with dollar signs
+        if [[ "$line" =~ ^#+ ]]; then
+            # This is a header line - escape any dollar signs
+            line="${line//\$/\\$}"
+            echo "$line" >> "$temp_file"
+            continue
+        fi
+        
+        # Handle math expressions
+        if [[ "$line" =~ \$\$.+\$\$ ]]; then
+            # Block math - preserve as is
+            echo "$line" >> "$temp_file"
+            continue
+        fi
+        
+        if [[ "$line" =~ \$[^#]+\$ ]]; then
+            # Inline math that doesn't contain headers - preserve as is
+            echo "$line" >> "$temp_file"
+            continue
+        fi
+        
+        # Escape token references
+        line="${line//\$L1MOVE/\\$L1MOVE}"
+        line="${line//\$L2MOVE/\\$L2MOVE}"
+        line="${line//\$MOVE/\\$MOVE}"
+        line="${line//\$ETH/\\$ETH}"
+        
+        # Handle special cases in SUMMARY.md
+        if [[ "$file" == *"SUMMARY.md" ]]; then
+            # Fix markdown links without over-escaping
+            line="${line//\]\(/](}"
+            # Only escape backslashes that aren't already escaped
+            line="${line//\\/\\\\}"
+            line="${line//\\\\\\/\\\\}"  # Fix double escapes
+        fi
+        
+        # Handle any remaining standalone dollar signs
+        # but only if they're not part of a math expression
+        if ! [[ "$line" =~ \$[^#]*\$ ]]; then
+            line="${line//\$ /\\$ }"
+            line="${line// \$/ \\$}"
+        fi
+        
+        echo "$line" >> "$temp_file"
+    done < "$file"
+    
+    mv "$temp_file" "$file"
 }
 
 # Initialize README and SUMMARY.md
@@ -205,6 +297,9 @@ process_readme_files() {
     
     if [ -d "$folder" ]; then
         if [ -f "$folder/README.md" ]; then
+            # Escape dollar signs in the README.md file
+            escape_dollar_signs "$folder/README.md"
+            
             readme_title=$(head -n 10 "$folder/README.md" | grep -m 1 '^# ' || true)
             if [ -n "$readme_title" ]; then
                 readme_title="${readme_title#\# }"
@@ -269,7 +364,6 @@ process_main_branch() {
         exit 1
     fi
 
-    echo "Contents of $branch_temp_dir:"
     ls -la "$branch_temp_dir"
 
     # Copy root-level files (like GLOSSARY.md) into the Approved directory
@@ -357,6 +451,10 @@ copy_branch_content() {
         return
     fi
 
+    # Debugging: Print the JSON response to understand its structure
+    #echo "DEBUG: JSON response for branch $branch:"
+    #echo "$pr_info" | jq .
+
     # Check if the response is an empty array
     if [ "$(echo "$pr_info" | jq 'length')" -eq 0 ]; then
         echo "No open PR associated with branch $branch. Skipping."
@@ -392,7 +490,19 @@ copy_branch_content() {
         if [ -d "$branch_temp_dir/$type" ]; then
             echo "Found directory: $branch_temp_dir/$type"
             
+            # Add check for empty directory
+            if [ -z "$(ls -A "$branch_temp_dir/$type")" ]; then
+                echo "Directory $branch_temp_dir/$type is empty, skipping"
+                continue
+            fi
+            
             for folder in "$branch_temp_dir/$type"/*; do
+                # Check if folder exists and is a directory
+                if [ ! -d "$folder" ]; then
+                    echo "Skipping non-directory: $folder"
+                    continue
+                fi
+                
                 folder_name=$(basename "$folder")
                 lowercase_folder_name=$(echo "$folder_name" | tr '[:upper:]' '[:lower:]')
 

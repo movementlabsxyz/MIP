@@ -4,3 +4,4 @@
 # in the main script when transfering code from test code.
 AUTH_HEADER="Authorization: token $GITHUB_TOKEN"
 
+echo "$AUTH_HEADER"
