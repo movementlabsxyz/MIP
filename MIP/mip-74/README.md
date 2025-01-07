@@ -1,7 +1,7 @@
 # MIP-74: Rate limiter for the Lock/Mint-type Native Bridge
 
 - **Description**: A rate limitation mechanism for the Lock/Mint-type Native Bridge.
-- **Authors**: Andreas Penzkofer
+- **Authors**: Andreas Penzkofer, Primata
 - **Desiderata**: [MD-74](../../MD/md-74/README.md)
 
 ## Abstract
@@ -14,10 +14,24 @@ There are several components and actors in control of the behavior of the Native
 
 The Rate Limiter can help to protect the Native Bridge against faulty components (Relayer or network) or attacks. It can limit the volume of transferred value per time interval, the maximum value transferred with a given transfer, or the number of transactions within a time window.
 
+**Background**
+In order to protect the protocol from exploits and potential losses, rate limiting is essential. For comparison the white paper [EigenLayer: The Restaking Collective](https://docs.eigenlayer.xyz/assets/files/EigenLayer_WhitePaper-88c47923ca0319870c611decd6e562ad.pdf) proposes that AVS (Actively Validated Services) can run for a bridge and the stake of validators protects the transferred value crypto-economically through slashing conditions. More specifically section `3.4 Risk Management` mentions
+
+> [...] to restrict the Profit from Corruption of any particular AVS [...] a bridge can restrict the value flow within the period of slashing.
+
+In essence this boils down to rate limit the bridge by considering
+
+- how long does it take to finalize transfers (ZK, optimistic)
+- how much value can be protected economically
+
+In our setting we trust the bridge operator, and thus we replace
+
+- finalization by the reaction time of the operator
+- the staked value by the insurance fund
+
 ## Specification
 
-> [!NOTE]
-> The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
+_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
 
 ### Actors and components
 
@@ -156,6 +170,39 @@ We may add a formal model?
 ## Changelog
 
 ## Appendix
+
+### A1: Alternative designs
+
+This MIP proposes a rate limiting mechanism for the Lock/Mint-type Native Bridge with symmetrical design. Below we discuss how we got here and which alternatives exist. The version discussed in this MIP is option C.
+
+A. **Single-sided rate limiting (on source chain)**
+
+- Rate limiting should be implemented on the L1 and maps each day to a budget, for each direction. Once the budget is reached on one of the directions, no more tokens can be transferred on that direction.
+- The bridge is financially secured by an Insurance Fund, see [MIP-50](https://github.com/movementlabsxyz/MIP/pull/50), which determines  the maximum amount of tokens to be transferred per day, called the budget. The insurance fund is maintained by Movement Labs.
+- The budget is one quarter of the Insurance Fund balance. This is meant to account for the insurance fund to be able to insure all current funds already transferred and all tokens inflight, per direction.
+- The Insurance Fund maintains the rate limit budget by adjusting its own `$MOVE` balance. It should be either the Movement Labs multisig or a new multisig 1/3 if we choose to adopt an approach that requires more direct ability by the personnel.
+- Once the rate limit budget is reached, if no issues have been observed, operators should simply wait for the next day.
+- If an issue has been observed, an operator should simply transfer to the bridge contract the sum of the exploit size, being the result of additional supply on L1, outside of the bridge address, and the additional supply on L2. This action covers both cases where tokens were extracted from the bridge contract on L1 or over-minted on L2. Movement Foundation should evaluate the amount of tokens that should be held by the Insurance Fund after the incident and transfer to it the amount to reach that amount.
+- This approach is open to exploits where the Relayer key is compromised. It would enable the exploiter to freely mint on L2.
+
+B. **Two-sided partial rate limiting (target chain only)**
+
+- Rate limiting should be implemented on both L1 and L2 for inbound transactions only. It maps a daily budget of inbound transactions and once it's reached, the Relayer cannot complete more transactions. The bridge is financially secured by two Insurance Funds, one on each side, maintained by Movement Labs, and the maximum amount of tokens to be transferred per day, per direction is half of each of its Insurance Funds balances. This is meant to account for all tokens already transferred and inflight, per direction.
+- The Insurance Funds determine the rate limit budgets. Thus the rate limit can be adjusted by changing the `$MOVE` balance. They should be either Movement Labs multisigs or new multisigs 1/3 if we choose to adopt an approach that requires more direct ability by the personnel.
+- Once the rate limit budget is reached, if no issues have been observed, operators should simply wait for the next day.
+- If an issue has been observed, operators should transfer to the bridge address the exploit amount on the L1 and burn the exploit amount on the L2. Movement Foundation should evaluate the amount of tokens that should be held by the Insurance Funds and operators should receive those tokens and bridge tokens if an exploit occurred on L2.
+- This approach is more susceptible to issues on the frontend because the frontend has to acknowledge rate limit budget and inflight tokens and inform users if the rate limit is about to be reached, not only if it has been reached.
+
+C. **Two sided full rate limiting**
+
+This proposal is discussed in this MIP.
+
+- The previous approaches may break the rate limit if users can directly initiate the bridge transfer via the bridge contracts. Since we MUST guarantee the completion of transfers the rate limit on the source chain could get exceeded, leading to ever increasing backlog of transfers.
+- Therefore, rate limiting should be implemented on both L1 and L2 for inbound and outbound transactions.
+- This approach extends the previous approach.
+- It protects against exploits of the Relayer.
+- Initiating transfers get rejected on the source chain, which improves safety and fulfills rate limit requirements on the source chain.
+- On the source chain the rate limit is not related to the Insurance Fund. This opens the question who sets the rate limit on the source chain. We answer this in this MIP.
 
 ---
 
