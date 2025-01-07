@@ -249,7 +249,8 @@ For a transfer from L1 (L2) to L2 (L1) the <code>insurance_fund_target = insuran
 <p>The rate limit is dependent on the fund size in the Insurance Fund. In particular the maximum rate limit is defined by</p>
 <p><code>max_rate_limit_target = insurance_fund_target / reaction_time</code>,</p>
 <p>where the <code>reaction_time</code> is the time it takes for the Governance Operator to react to a faulty or compromised component. The <code>reaction_time</code> is a parameter that is set by the Governance Operator.</p>
-<p>Implementation recommendation: The target Native Bridge contract checks at every transfer first, whether the relevant Insurance Fund size has changed before calculating the current rate limit and whether the budget is exceeded.</p>
+<p><em>Implementation recommendation #1</em>: The default value is 24h. In the initial implementation this value is fixed to avoid complications in gas.</p>
+<p><em>Implementation recommendation #2</em>: The target Native Bridge contract checks at every transfer first, whether the relevant Insurance Fund size has changed before calculating the current rate limit and whether the budget is exceeded.</p>
 <p><strong>(Optional) Direct adjustment of rate limit by Governance Operator</strong></p>
 <p>The rate limit MAY also be adjusted by the Governance Operator directly by a parameter <code>rate_reduction_target</code>. However the Rate Limiter MUST NOT set the rate limit higher than the <code>max_rate_limit_target</code>. In equation</p>
 <p><code>rate_limit_target = rate_reduction_target * max_rate_limit_target</code>,</p>
@@ -258,7 +259,7 @@ For a transfer from L1 (L2) to L2 (L1) the <code>insurance_fund_target = insuran
 The following are possible ways to adjust the rate limit:</p>
 <ol>
 <li>The Governance Operator indirectly adjusts the rate limit by adding or removing funds from the Insurance Fund.</li>
-<li>The Governance Operator indirectly adjusts the rate limit by changing the <code>reaction_time</code>.</li>
+<li>The Governance Operator indirectly MAY adjust the rate limit by changing the <code>reaction_time</code>.</li>
 <li>The Governance Operator MAY adjust the rate limit by changing the <code>rate_reduction_target</code>.</li>
 </ol>
 <h4 id="rate-limit-on-the-source-chain"><a class="header" href="#rate-limit-on-the-source-chain">Rate limit on the source chain</a></h4>
