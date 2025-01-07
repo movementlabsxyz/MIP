@@ -1,8 +1,8 @@
 # MD-15: Movement Mainnet Feature Flags
 
 - **Description**: Define and manage feature flags for the Movement mainnet to optimize the network's launch with community-driven and developer-focused features.
-- **Authors**: [Liam Monninger](mailto\:liam@movementlabs.xyz)
-- **Reviewer**: Andreas Penzkofer
+- **Authors**: [Primata](mailto:primata@movementlabs.xyz)
+- **Reviewer**: 
 
 ## Overview
 
