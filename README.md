@@ -47,7 +47,7 @@ MGs serve to capture the **definitions** of terms introduced in the MIPs and MDs
 
 ## Files and numbering
 
-Each MIP, MD or MG is stored in a separate subdirectory with the a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a `README.md` that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
+Each MIP, MD or MG is stored in a separate subdirectory with a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a `README.md` that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
 
 An MIP/MD starts as **Draft**s. They DO NOT acquire a number at this point.
 
@@ -60,7 +60,7 @@ PRs that don't introduce a new MIP/MD are also accepted, for example MIPs/MDs ca
 
 ## Status Terms
 
-An MIP/MD is proposed through a PR. Each MIP/MDG-introducing PR should have a status in the name in the form `[Status] ...`.
+An MIP/MD is proposed through a PR. Each MIP/MD-introducing PR should have a status in the name in the form `[Status] ...`.
 
 An MIP/MG should at all times have one of the following statuses:
 
