@@ -17,7 +17,7 @@ This MIP describes the high-level architecture of the [HTLC-based](https://bitco
 The Movement chain (L2) uses the \$L2MOVE token to pay for gas fees. As a result users need to hold \$L2MOVE tokens to pay for their transactions.
 
 > [!IMPORTANT] 
-> The _native_ \$L1MOVEtoken is an ERC-20 contract on Ethereum (L1).  By native, we mean that this is the location where the token is minted and burned and where the total supply is set and possibly modified (inflation/deflation). The **\$L1MOVE token reserve**  is in the L1 contract.
+> The _native_ \$L1MOVE token is an ERC-20 contract on Ethereum (L1).  By native, we mean that this is the location where the token is minted and burned and where the total supply is set and possibly modified (inflation/deflation). The **\$L1MOVE token reserve**  is in the L1 contract.
 
 To use the Movement chain and pay for gas fees, a user will acquire \$L1MOVE (native) tokens on L1, and _bridge_ them to L2. On the L2 they can use the token to pay for gas fees or with any other dApps that transact the \$L2MOVE token.
 Later, a user can choose to migrate their \$L2MOVE tokens back to the L1 at any time (thereby converting them to \$L1MOVE). These cross-chain assets's transfers are usually done through a component called a _bridge_.
@@ -73,9 +73,9 @@ As can be seen the protocol above has distinct phases, and many things can go wr
 
 Many of the possibly issues have been thoroughly studied and bridges have been in operation for several years. However hacks related to bridges account for more than 1/3 of the total hacks value which tends to indicate that bridges are vulnerable, frequently attacked, and should be designed carefully. Infamous attacks are two Ronin bridge attacks and a Nomad bridge attack
 
-- [2022: Crypto Hackers Exploit Ronin Network for $615 Million](https://www.bankinfosecurity.com/crypto-hackers-exploit-ronin-network-for-615-million-a-18810)
-- [2024: Ronin Bridge Paused, Restarted After $12M Drained in Whitehat Hack](https://www.coindesk.com/tech/2024/08/06/ronin-bridge-paused-after-9m-drained-in-apparent-whitehat-hack/)
-- [August 2022: Hack Analysis: Nomad Bridge ($192M)](https://medium.com/immunefi/hack-analysis-nomad-bridge-august-2022-5aa63d53814a)
+- [2022: Crypto Hackers Exploit Ronin Network for \$615 Million](https://www.bankinfosecurity.com/crypto-hackers-exploit-ronin-network-for-615-million-a-18810)
+- [2024: Ronin Bridge Paused, Restarted After \$12M Drained in Whitehat Hack](https://www.coindesk.com/tech/2024/08/06/ronin-bridge-paused-after-9m-drained-in-apparent-whitehat-hack/)
+- [August 2022: Hack Analysis: Nomad Bridge (\$192M)](https://medium.com/immunefi/hack-analysis-nomad-bridge-august-2022-5aa63d53814a)
 
 Some solutions [XChainWatcher](https://arxiv.org/abs/2410.02029) rely on monitoring bridges and detect attacks.
 
@@ -182,7 +182,7 @@ A successful transfer from L2 to L1 requires the following these steps:
 > Check point. `user2' does not have the asset on L2 anymore.
 > At that point the bridge transfers details are known by the L1 and the L2.
 
-3. _user1_ (or anybody with the secret) sends a transaction to the `AtomicBridgeCounterParty.sol` contract on L1 asking to _complete the bridge transfer_. If the transfer has been properly initialized (step 2 above), this results in transferring $L1MOVE tokens to the `user1` account. If successful, an event `BridgeTransferCompleted` is emitted to the L1 logs. The status of the transfer on L1 becomes `COMPLETED`.
+3. _user1_ (or anybody with the secret) sends a transaction to the `AtomicBridgeCounterParty.sol` contract on L1 asking to _complete the bridge transfer_. If the transfer has been properly initialized (step 2 above), this results in transferring \$L1MOVE tokens to the `user1` account. If successful, an event `BridgeTransferCompleted` is emitted to the L1 logs. The status of the transfer on L1 becomes `COMPLETED`.
 
 > [!TIP] 
 > Check point. `User1` has the asset on L1.
