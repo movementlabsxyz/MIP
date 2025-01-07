@@ -80,7 +80,7 @@ A contract capable of minting \$L2MOVE.
 An entity that can set the bridge fee and adjust the rate limit.
 
 **Rate limiter**
-A mechanism that limits the number of tokens that can be transferred. The rate limitation is discussed in [Appendix 5](#a5-rate-limiting).
+A mechanism that limits the number of tokens that can be transferred. The rate limitation is discussed in [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74).
 
 **(Partially Trusted) Relayer**
 An off-chain partially trusted component (except for bugs or theft of keys) that can read relevant events from either chain and processes transfer requests by completing them on the target chain. It MAY operate nodes on both chains to learn about the finalization of `complete_transfer` transactions. The operation of the Relayer, including the bootstrapping process, is detailed in [MIP-61](https://github.com/movementlabsxyz/MIP/pull/61).
