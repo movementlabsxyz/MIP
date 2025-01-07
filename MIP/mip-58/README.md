@@ -1,7 +1,7 @@
 # MIP-58: Lock/Mint-type Native Bridge with trusted Relayer
 
 - **Description**: Proposes a lock/mint-type Native Bridge that capitalizes on the trust-assumption on the Relayer.
-- **Authors**: [Primata](mailto:primata@movementlabs.xyz)
+- **Authors**: [Primata](mailto:primata@movementlabs.xyz), Andreas Penzkofer
 
 ## Abstract
 
@@ -47,7 +47,14 @@ Requires four interactions:
    - Because of the over-engineered design, infrastructure is prone to error and we might end up being damaged by the amount of infrastructure we have not built yet and has to be built for the Relayer to fully function.
    - We could strip down the Relayer code and achieve a final design much more quickly.
 
+**Protocol simplification (compared to HTLC-based Native Bridge)**
+
 The proposed lock/mint bridge design mitigates these issues, creating a safer, faster, and user-friendly bridge while maintaining operational reliability.
+
+- Combine lock and completion functionality on the counterparty contract.
+- Remove refund logic to streamline operations and improve security.
+- Cheaper transactions because of reduction of logic.
+- Consolidate Initiator and Counterparty into a single contract (this might be the most dangerous thing proposed but it has already been proposed for HTLC Native Bridge implementation).
 
 ## Specification
 
@@ -57,10 +64,10 @@ The lock/mint bridge design focuses on minimizing complexity and maximizing secu
 
 The following components are involved
 
-**L1 Bridge contract**
+**L1 Native Bridge contract**
 The contract to which a user can request a bridge transfer L1→L2 and through which the Relayer completes transfers L2→L1.
 
-**L2 Bridge contract**
+**L2 Native Bridge contract**
 The contract to which a user can request a bridge transfer L2→L1 and through which the Relayer completes transfers L1→L2.
 
 **L1 token pool**
@@ -69,12 +76,18 @@ An address which collects \$L1MOVE that are transferred L1→L2 and from which t
 **L2 Mint contract**
 A contract capable of minting \$L2MOVE.
 
-**(Trusted) Relayer**
-An off-chain component that can read relevant events from either chain. It MAY operate nodes on both chains to learn about the finalization of `complete_transfer` transactions.
+**Governance operator**
+An entity that can set the bridge fee and adjust the rate limit.
+
+**Rate limiter**
+A mechanism that limits the number of tokens that can be transferred. The rate limitation is discussed in [Appendix 5](#a5-rate-limiting).
+
+**(Partially Trusted) Relayer**
+An off-chain partially trusted component (except for bugs or theft of keys) that can read relevant events from either chain and processes transfer requests by completing them on the target chain. It MAY operate nodes on both chains to learn about the finalization of `complete_transfer` transactions. The operation of the Relayer, including the bootstrapping process, is detailed in [MIP-61](https://github.com/movementlabsxyz/MIP/pull/61).
 
 ### Storage fields
 
-> **TODO:** Some of the following variables may not be required. This should be reviewed and updated.
+!!! warning TODO: Some of the following variables may not be required. This should be reviewed and updated.
 
 The storage fields are directional, hence we need to mirror the mapping for L1->L2, as well as L2->L1. Hence, we will talk about source and target chain.
 
@@ -124,9 +137,34 @@ struct TargetBridgeDetails {
 }
 ```
 
-### Protocol description
+### Transaction flow
+
 
 This bridge design is a simpler version compared to the previous HTLC-based implementation, thus less steps are required to complete a bridge transfer. The bridge is initiated by the user and completed by the Relayer. The Relayer is a trusted party that finalizes the bridge transfer on the target chain. The user is not required to have funds on the target chain to complete the transfer. The Relayer is responsible for completing the transfer on the target chain.
+
+- There are two possible states, `transfer_initiated` or `transfer_completed`.
+- User initiates the transfer.
+- Relayer completes the transfer with parameter validation.
+- Current HasuraDB built internally can provide enough infrastructure for users to know if their transaction has been completed. It does not differ from the current (HTLC-based) design in any way since user is not able to see if their transaction is in-flight. We could introduce this by notifying the user if the Relayer has been ordered to complete the transaction.
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Source_Contract as Source Chain Contract
+    participant Relayer
+    participant Target_Contract as Target Chain Contract
+
+    User ->> Source_Contract: Initiate Transfer
+    Source_Contract -->> Relayer: Emit Transfer Event
+    Relayer ->> Target_Contract: Complete Transfer
+    Target_Contract -->> User: Tokens Delivered
+```
+*Figure: Interaction flow diagram.*
+
+![Transaction History](tx-history.png)
+*Figure: Users would be able to see if the bridge has been completed. It's either pending or completed.*
+
+### Protocol description
 
 #### L1 → L2
 
@@ -219,100 +257,11 @@ We discuss the key features also in relation to the HTLC-based bridge to provide
 
 [Move Implementation](https://github.com/movementlabsxyz/aptos-core/tree/andygolay/simplified-bridge)
 
-#### 1. **Transaction flow**
+### (Optional) Recommendations
 
-- There are two possible states, `transfer_initiated` or `transfer_completed`.
-- User initiates the transfer.
-- Relayer completes the transfer with parameter validation.
-- Current HasuraDB built internally can provide enough infrastructure for users to know if their transaction has been completed. It does not differ from the current (HTLC-based) design in any way since user is not able to see if their transaction is in-flight. We could introduce this by notifying the user if the Relayer has been ordered to complete the transaction.
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant Source_Contract as Source Chain Contract
-    participant Relayer
-    participant Target_Contract as Target Chain Contract
-
-    User ->> Source_Contract: Initiate Transfer
-    Source_Contract -->> Relayer: Emit Transfer Event
-    Relayer ->> Target_Contract: Complete Transfer
-    Target_Contract -->> User: Tokens Delivered
-```
-*Figure: Interaction flow diagram.*
-
-![Transaction History](tx-history.png)
-*Figure: Users would be able to see if the bridge has been completed. It's either pending or completed.*
-
-#### 2. **(Optional) batch completion for multisig Relayer**
+#### Batch completion for multisig Relayer**
 
 Multisig Relayers could process pending transactions in batches during downtime of the standard Relayer, ensuring timely resolution.
-
-#### 3. **Contract simplification (compared to HTLC-based Native Bridge)**
-
-- Combine lock and completion functionality on the counterparty contract.
-- Remove refund logic to streamline operations and improve security.
-- Cheaper transactions because of reduction of logic.
-- Consolidate Initiator and Counterparty into a single contract (this might be the most dangerous thing proposed but it has already been proposed for HTLC Native Bridge implementation).
-
-#### 4. **Rate limiting designs**
-
-In order to protect the protocol from exploits and potential losses, rate limiting is essential.
-
-For comparison the white paper [EigenLayer: The Restaking Collective](https://docs.eigenlayer.xyz/assets/files/EigenLayer_WhitePaper-88c47923ca0319870c611decd6e562ad.pdf) proposes that AVS (Actively Validated Services) can run for a bridge and the stake of validators protects the transferred value crypto-economically through slashing conditions. More specifically section `3.4 Risk Management` mentions
-
-> [...] to restrict the Profit from Corruption of any particular AVS [...] a bridge can restrict the value flow within the period of slashing.
-
-In essence this boils down to rate limit the bridge by considering
-- how long does it take to finalize transfers (ZK, optimistic)
-- how much value can be protected economically
-
-In our setting we trust the bridge operator, and thus we replace 
-- finalization by the reaction time of the operator
-- the staked value by the insurance fund
-
-Below we discuss three options for rate limiting.
-
-A. **Single-sided rate limiting (on source chain)**
-
-- Rate limiting should be implemented on the L1 and maps each day to a budget, for each direction. Once the budget is reached on one of the directions, no more tokens can be transferred on that direction.
-- The bridge is financially secured by an Insurance Fund, see [MIP-50](https://github.com/movementlabsxyz/MIP/pull/50), which determines  the maximum amount of tokens to be transferred per day, called the budget. The insurance fund is maintained by Movement Labs.
-- The budget is one quarter of the Insurance Fund balance. This is meant to account for the insurance fund to be able to insure all current funds already transferred and all tokens inflight, per direction.
-- The Insurance Fund maintains the rate limit budget by adjusting its own `$MOVE` balance. It should be either the Movement Labs multisig or a new multisig 1/3 if we choose to adopt an approach that requires more direct ability by the personnel.
-- Once the rate limit budget is reached, if no issues have been observed, operators should simply wait for the next day.
-- If an issue has been observed, an operator should simply transfer to the bridge contract the sum of the exploit size, being the result of additional supply on L1, outside of the bridge address, and the additional supply on L2. This action covers both cases where tokens were extracted from the bridge contract on L1 or over-minted on L2. Movement Foundation should evaluate the amount of tokens that should be held by the Insurance Fund after the incident and transfer to it the amount to reach that amount.
-- This approach is open to exploits where the Relayer key is compromised. It would enable the exploiter to freely mint on L2.
-
-B. **Two-sided partial rate limiting (target chain only)**
-
-- Rate limiting should be implemented on both L1 and L2 for inbound transactions only. It maps a daily budget of inbound transactions and once it's reached, the Relayer cannot complete more transactions. The bridge is financially secured by two Insurance Funds, one on each side, maintained by Movement Labs, and the maximum amount of tokens to be transferred per day, per direction is half of each of its Insurance Funds balances. This is meant to account for all tokens already transferred and inflight, per direction.
-- The Insurance Funds determine the rate limit budgets. Thus the rate limit can be adjusted by changing the `$MOVE` balance. They should be either Movement Labs multisigs or new multisigs 1/3 if we choose to adopt an approach that requires more direct ability by the personnel.
-- Once the rate limit budget is reached, if no issues have been observed, operators should simply wait for the next day.
-- If an issue has been observed, operators should transfer to the bridge address the exploit amount on the L1 and burn the exploit amount on the L2. Movement Foundation should evaluate the amount of tokens that should be held by the Insurance Funds and operators should receive those tokens and bridge tokens if an exploit occurred on L2.
-- This approach is more susceptible to issues on the frontend because the frontend has to acknowledge rate limit budget and inflight tokens and inform users if the rate limit is about to be reached, not only if it has been reached.
-
-C. **Two sided full rate limiting**
-
-This proposal is discussed in [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74).
-
-- The previous approaches may break the rate limit if users can directly initiate the bridge transfer via the bridge contracts. Since we MUST guarantee the completion of transfers the rate limit on the source chain could get exceeded, leading to ever increasing backlog of transfers.
-- Therefore, rate limiting should be implemented on both L1 and L2 for inbound and outbound transactions.
-- This approach extends the previous approach.
-- It protects against exploits of the Relayer.
-- Initiating transfers get rejected on the source chain, which improves safety and fulfills rate limit requirements on the source chain.
-- On the source chain the rate limit is not related to the Insurance Fund. This opens the question who sets the rate limit on the source chain. We answer this in [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74).
-
-#### 5. **Bridge fee**
-
-!!! warning **TODO:** Details such as this should be moved to the MIP of Bridge Fees, and different options should be listed as "Alternatives".
-
-- When bridging from L1 to L2, the protocol, through the Relayer, sponsors the gas cost on Movement. We do not need to make any modification on contracts or Relayer to support it.
-- When bridging from L2 to L1, we have a few viable solutions but it's preferable to highlight two.
-   1. Relayer sets a fee on L2, a global variable that can be set at any given time. Considering that block validation time on L1 is bigger than on L2, it becomes a viable approach since L2 can rapidly adjust the fee according to the current block and always charge an above L1 gas cost fee to attempt that the bridge is net positive. \$L2MOVE is deducted from the amount of tokens that are currently being bridged and transferred to a funds manager. This gives the protocol a very reliable way to estimate how much MOVE will be charged and feed to the user a precise amount of tokens. However, bridge transfers cannot always immediately be initiated on the L1, e.g. if there is a surge in transactions. 
-   2. Enable the Relayer to specify on the L1 `completeBridgeTransfer` transaction, the bridge fee per transaction. The amount is deducted from the total amount of tokens that were bridged and transferred to a funds manager. The dangerous situation is that we expect is this takes much more than 10 minutes before the transfer can occur, and this could lead to a big disparity between the expected amount of funds and the actual amount of tokens received.
-
-#### 4. Relayer operation
-
-The operation of the Relayer, including the bootstrapping process, is detailed in [MIP-61](https://github.com/movementlabsxyz/MIP/pull/61).
 
 ## Verification
 
@@ -347,6 +296,65 @@ The operation of the Relayer, including the bootstrapping process, is detailed i
 
 - [Arbitrum Bridge](https://bridge.arbitrum.io/?destinationChain=arbitrum-one&sourceChain=ethereum)
 - [Blast Bridge](https://docs.blast.io/building/bridges/mainnet)
+
+
+### A4: Bridge fee
+
+!!! warning **TODO:** Details such as this should be moved to the MIP of Bridge Fees, and different options should be listed as "Alternatives".
+
+- When bridging from L1 to L2, the protocol, through the Relayer, sponsors the gas cost on Movement. We do not need to make any modification on contracts or Relayer to support it.
+- When bridging from L2 to L1, we have a few viable solutions but it's preferable to highlight two.
+   1. Relayer sets a fee on L2, a global variable that can be set at any given time. Considering that block validation time on L1 is bigger than on L2, it becomes a viable approach since L2 can rapidly adjust the fee according to the current block and always charge an above L1 gas cost fee to attempt that the bridge is net positive. \$L2MOVE is deducted from the amount of tokens that are currently being bridged and transferred to a funds manager. This gives the protocol a very reliable way to estimate how much MOVE will be charged and feed to the user a precise amount of tokens. However, bridge transfers cannot always immediately be initiated on the L1, e.g. if there is a surge in transactions. 
+   2. Enable the Relayer to specify on the L1 `completeBridgeTransfer` transaction, the bridge fee per transaction. The amount is deducted from the total amount of tokens that were bridged and transferred to a funds manager. The dangerous situation is that we expect is this takes much more than 10 minutes before the transfer can occur, and this could lead to a big disparity between the expected amount of funds and the actual amount of tokens received.
+
+### A5: Rate limiting
+
+!!! warning **TODO:** Details such as this should be moved to the MIP of Rate limiting designs?
+
+In order to protect the protocol from exploits and potential losses, rate limiting is essential. For comparison the white paper [EigenLayer: The Restaking Collective](https://docs.eigenlayer.xyz/assets/files/EigenLayer_WhitePaper-88c47923ca0319870c611decd6e562ad.pdf) proposes that AVS (Actively Validated Services) can run for a bridge and the stake of validators protects the transferred value crypto-economically through slashing conditions. More specifically section `3.4 Risk Management` mentions
+
+> [...] to restrict the Profit from Corruption of any particular AVS [...] a bridge can restrict the value flow within the period of slashing.
+
+In essence this boils down to rate limit the bridge by considering
+
+- how long does it take to finalize transfers (ZK, optimistic)
+- how much value can be protected economically
+
+In our setting we trust the bridge operator, and thus we replace
+
+- finalization by the reaction time of the operator
+- the staked value by the insurance fund
+
+Below we discuss three options for rate limiting.
+
+A. **Single-sided rate limiting (on source chain)**
+
+- Rate limiting should be implemented on the L1 and maps each day to a budget, for each direction. Once the budget is reached on one of the directions, no more tokens can be transferred on that direction.
+- The bridge is financially secured by an Insurance Fund, see [MIP-50](https://github.com/movementlabsxyz/MIP/pull/50), which determines  the maximum amount of tokens to be transferred per day, called the budget. The insurance fund is maintained by Movement Labs.
+- The budget is one quarter of the Insurance Fund balance. This is meant to account for the insurance fund to be able to insure all current funds already transferred and all tokens inflight, per direction.
+- The Insurance Fund maintains the rate limit budget by adjusting its own `$MOVE` balance. It should be either the Movement Labs multisig or a new multisig 1/3 if we choose to adopt an approach that requires more direct ability by the personnel.
+- Once the rate limit budget is reached, if no issues have been observed, operators should simply wait for the next day.
+- If an issue has been observed, an operator should simply transfer to the bridge contract the sum of the exploit size, being the result of additional supply on L1, outside of the bridge address, and the additional supply on L2. This action covers both cases where tokens were extracted from the bridge contract on L1 or over-minted on L2. Movement Foundation should evaluate the amount of tokens that should be held by the Insurance Fund after the incident and transfer to it the amount to reach that amount.
+- This approach is open to exploits where the Relayer key is compromised. It would enable the exploiter to freely mint on L2.
+
+B. **Two-sided partial rate limiting (target chain only)**
+
+- Rate limiting should be implemented on both L1 and L2 for inbound transactions only. It maps a daily budget of inbound transactions and once it's reached, the Relayer cannot complete more transactions. The bridge is financially secured by two Insurance Funds, one on each side, maintained by Movement Labs, and the maximum amount of tokens to be transferred per day, per direction is half of each of its Insurance Funds balances. This is meant to account for all tokens already transferred and inflight, per direction.
+- The Insurance Funds determine the rate limit budgets. Thus the rate limit can be adjusted by changing the `$MOVE` balance. They should be either Movement Labs multisigs or new multisigs 1/3 if we choose to adopt an approach that requires more direct ability by the personnel.
+- Once the rate limit budget is reached, if no issues have been observed, operators should simply wait for the next day.
+- If an issue has been observed, operators should transfer to the bridge address the exploit amount on the L1 and burn the exploit amount on the L2. Movement Foundation should evaluate the amount of tokens that should be held by the Insurance Funds and operators should receive those tokens and bridge tokens if an exploit occurred on L2.
+- This approach is more susceptible to issues on the frontend because the frontend has to acknowledge rate limit budget and inflight tokens and inform users if the rate limit is about to be reached, not only if it has been reached.
+
+C. **Two sided full rate limiting**
+
+This proposal is discussed in [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74).
+
+- The previous approaches may break the rate limit if users can directly initiate the bridge transfer via the bridge contracts. Since we MUST guarantee the completion of transfers the rate limit on the source chain could get exceeded, leading to ever increasing backlog of transfers.
+- Therefore, rate limiting should be implemented on both L1 and L2 for inbound and outbound transactions.
+- This approach extends the previous approach.
+- It protects against exploits of the Relayer.
+- Initiating transfers get rejected on the source chain, which improves safety and fulfills rate limit requirements on the source chain.
+- On the source chain the rate limit is not related to the Insurance Fund. This opens the question who sets the rate limit on the source chain. We answer this in [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74).
 
 ---
 
