@@ -71,18 +71,17 @@ The guiding principles of the design of the Rate Limiter are:
 1. The Governance Operator monitors the Native Bridge, and in case of an attack or fault, it SHOULD take at most $\Delta$ time units to detect the issue and pause the Native Bridge.
 2. We want to make sure that the total amount that is transferred within $\Delta$ time units (and that could potentially result from malicious behaviors) is ALWAYS covered by the insurance fund.
 
-### Rate Limiter
+### Rate limitation
 
-The Rate Limiter limits the volume of assets that can be transferred within a time window. The assets are managed by the smart contracts on L2 and L1, and we MAY build the rate limiter logics as part of the L1 Native Bridge contract and the L2 Native Bridge contract.
+The Rate Limiter limits the volume of assets that can be transferred within a time window. The assets are managed by the smart contracts on L2 and L1, and we MAY build the rate limiter logics directly as part of the L1 Native Bridge contract and the L2 Native Bridge contract.
 
 #### Insurance funds
 
- We assume there is a Insurance Fund on both L1 and L2, with values `insurance_fund_L1` and `insurance_fund_L2`, respectively.
+We assume there is a Insurance Fund on both L1 and L2, with values `insurance_fund_L1` and `insurance_fund_L2`, respectively.
 
-> [!NOTE]
-> These values are considered constant in the sequel. There may be updated if needed or if new funds are added to the pools.
+!!! warning These values are considered constant in the sequel. There may be updated if needed or if new funds are added to the pools.
 
-The Insurance Fund rate-limits the transfers i.e., for a given transfer from source chain to target chain the Insurance Fund on the _target chain_ is responsible for the rate limit, and thus we will refer to the `insurance_fund_target`.
+The Insurance Fund indirectly rate-limits the transfers i.e., for a given transfer from source chain to target chain the Insurance Fund on the _target chain_ is responsible for the rate limit, and thus we will refer to the `insurance_fund_target`.
 For a transfer from L1 (L2) to L2 (L1) the `insurance_fund_target = insurance_fund_L2` (`insurance_fund_L1`) is responsible for the rate limit.
 
 #### Rate limit on the target chain
@@ -91,19 +90,24 @@ The rate limit is dependent on the fund size in the Insurance Fund. In particula
 
 `max_rate_limit_target = insurance_fund_target / reaction_time`,
 
-where the `reaction_time` is the time it takes for the Governance Operator to react to a faulty or compromised component. The `reaction_time` is a parameter that is set by the Governance Operator. The Governance Operator MAY set the actual rate limit lower than the `max_rate_limit_target`. However the Rate Limiter MUST NOT set the rate limit higher than the `max_rate_limit_target`.
+where the `reaction_time` is the time it takes for the Governance Operator to react to a faulty or compromised component. The `reaction_time` is a parameter that is set by the Governance Operator.
 
-The rate limit MAY also be adjusted by the Governance Operator.
+Implementation recommendation: The target Native Bridge contract checks at every transfer first, whether the relevant Insurance Fund size has changed before calculating the current rate limit and whether the budget is exceeded.
+
+**(Optional) Direct adjustment of rate limit by Governance Operator**
+
+The rate limit MAY also be adjusted by the Governance Operator directly by a parameter `rate_reduction_target`. However the Rate Limiter MUST NOT set the rate limit higher than the `max_rate_limit_target`. In equation
 
 `rate_limit_target = rate_reduction_target * max_rate_limit_target`,
 
-where `rate_reduction_target` $\in$ `[0,1]` is a parameter that is set by the Governance Operator. Note the `rate_limit_target` MUST not be larger than `max_rate_limit_target`.
+where `rate_reduction_target` $\in$ `[0,1]` is a parameter that is set by the Governance Operator. As mentioned the `rate_limit_target` MUST not be larger than `max_rate_limit_target`.
 
+**Summary of Adjustment mechanisms**
 The following are possible ways to adjust the rate limit:
 
-1. The Governance Operator can adjust the rate limit by adding or removing funds from the Insurance Fund.
-1. The Governance Operator may adjust the rate limit by changing the `reaction_time`.
-1. The Governance Operator may adjust the rate limit by changing the `rate_reduction_target`.
+1. The Governance Operator indirectly adjusts the rate limit by adding or removing funds from the Insurance Fund.
+1. The Governance Operator indirectly adjusts the rate limit by changing the `reaction_time`.
+1. The Governance Operator MAY adjust the rate limit by changing the `rate_reduction_target`.
 
 #### Rate limit on the source chain
 
