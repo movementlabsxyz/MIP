@@ -24,7 +24,7 @@ GITHUB_OWNER="movementlabsxyz"
 GITHUB_REPO="MIP"
 API_URL="https://api.github.com"
 
-AUTH_HEADER="Authorization: token $GITHUB_TOKEN"
+AUTH_HEADER=$(bash get_auth_token.sh)
 
 # Set up absolute paths
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
