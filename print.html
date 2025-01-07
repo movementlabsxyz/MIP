@@ -482,43 +482,43 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold $L1M
 <li><strong>Authors</strong>: <a href="mailto:franck.cassez@movementlabs.xyz">Franck Cassez</a></li>
 </ul>
 <h2 id="abstract-2"><a class="header" href="#abstract-2">Abstract</a></h2>
-<p>This MIP describes the high-level architecture of the <a href="https://bitcoinwiki.org/wiki/hashed-timelock-contracts">HTLC-based</a> <code>$MOVE</code> token Native Bridge. The architecture describes the main bridge components and high-level requirements.</p>
+<p>This MIP describes the high-level architecture of the <a href="https://bitcoinwiki.org/wiki/hashed-timelock-contracts">HTLC-based</a> $MOVE token Native Bridge. The architecture describes the main bridge components and high-level requirements.</p>
 <h2 id="definitions"><a class="header" href="#definitions">Definitions</a></h2>
 <ul>
-<li><strong>Native Bridge</strong>: The bridge that allows the transfer of tokens between L1 and L2, which hold <code>$L1MOVE</code> and <code>$L2MOVE</code> token, respectively. The native bridge has the capability to mint <code>$L2MOVE</code> tokens.</li>
-<li><strong><code>$L1MOVE</code></strong> (or <code>$MOVE</code>) : ERC-20 type token with the source contract on L1</li>
-<li><strong><code>$L2MOVE</code></strong> :  Token that is created on L2 after <code>$L1MOVE</code> token is locked on L1. We also say <code>$L1MOVE</code> is bridged from L1 to L2. <code>$L2MOVE</code> may publicly also be called <code>$MOVE</code> but as this causes confusion, here we stick to <code>$L2MOVE</code> to make clear this token lives on L2.</li>
+<li><strong>Native Bridge</strong>: The bridge that allows the transfer of tokens between L1 and L2, which hold $L1MOVE and $L2MOVE token, respectively. The native bridge has the capability to mint $L2MOVE tokens.</li>
+<li><strong>$L1MOVE</strong> (or $MOVE) : ERC-20 type token with the source contract on L1</li>
+<li><strong>$L2MOVE</strong> :  Token that is created on L2 after $L1MOVE token is locked on L1. We also say $L1MOVE is bridged from L1 to L2. $L2MOVE may publicly also be called $MOVE but as this causes confusion, here we stick to $L2MOVE to make clear this token lives on L2.</li>
 </ul>
 <h2 id="motivation-2"><a class="header" href="#motivation-2">Motivation</a></h2>
-<p>The Movement chain (L2) uses the <code>$L2MOVE</code> token to pay for gas fees. As a result users need to hold <code>$L2MOVE</code> tokens to pay for their transactions.</p>
+<p>The Movement chain (L2) uses the $L2MOVE token to pay for gas fees. As a result users need to hold $L2MOVE tokens to pay for their transactions.</p>
 <blockquote>
 <p>[!IMPORTANT]
-The <em>native</em> <code>$L1MOVE</code>token is an ERC-20 contract on Ethereum (L1).  By native, we mean that this is the location where the token is minted and burned and where the total supply is set and possibly modified (inflation/deflation). The <strong><code>$L1MOVE</code> token reserve</strong>  is in the L1 contract.</p>
+The <em>native</em> $L1MOVEtoken is an ERC-20 contract on Ethereum (L1).  By native, we mean that this is the location where the token is minted and burned and where the total supply is set and possibly modified (inflation/deflation). The <strong>$L1MOVE token reserve</strong>  is in the L1 contract.</p>
 </blockquote>
-<p>To use the Movement chain and pay for gas fees, a user will acquire <code>$L1MOVE</code> (native) tokens on L1, and <em>bridge</em> them to L2. On the L2 they can use the token to pay for gas fees or with any other dApps that transact the <code>$L2MOVE</code> token.
-Later, a user can choose to migrate their <code>$L2MOVE</code> tokens back to the L1 at any time (thereby converting them to <code>$L1MOVE</code>). These cross-chain assets’s transfers are usually done through a component called a <em>bridge</em>.</p>
+<p>To use the Movement chain and pay for gas fees, a user will acquire $L1MOVE (native) tokens on L1, and <em>bridge</em> them to L2. On the L2 they can use the token to pay for gas fees or with any other dApps that transact the $L2MOVE token.
+Later, a user can choose to migrate their $L2MOVE tokens back to the L1 at any time (thereby converting them to $L1MOVE). These cross-chain assets’s transfers are usually done through a component called a <em>bridge</em>.</p>
 <p>In this MIP an HTLC-based bridge, which is the current implementation, is discussed which provides trustlessness.</p>
 <h3 id="a-standard-bridge-architecture"><a class="header" href="#a-standard-bridge-architecture">A standard bridge architecture</a></h3>
 <p>The process of transferring tokens across different chains is implemented with a <em>bridge</em> (between the chains).</p>
 <p>There are several choices for the architecture of a bridge, and we describe here a classical bridge with a  <em>lock-mint</em> protocol (see Chainlink’s <a href="https://chain.link/education-hub/cross-chain-bridge">What Is a Cross-Chain Bridge?</a> for a quick introduction to types of bridges).</p>
 <blockquote>
 <p>[!WARNING]<br />
-The transfer of tokens is one-to-one: a user bridges $k$ <code>$L1MOVE</code> tokens to L2, and they receive $k$ <code>$L2MOVE</code> tokens. Same one-to-one ratio applies from L2 to L1.  The bridge does not allow for <em>swapping</em> tokens against other tokens.</p>
+The transfer of tokens is one-to-one: a user bridges $k$ $L1MOVE tokens to L2, and they receive $k$ $L2MOVE tokens. Same one-to-one ratio applies from L2 to L1.  The bridge does not allow for <em>swapping</em> tokens against other tokens.</p>
 </blockquote>
 <p><strong>Lock-and-Mint</strong>. The main idea of the <em>lock-mint</em> protocol is as follows. For the sake of simplicity, assume the two chains (L1 and L2) have only one user and the user has an account <code>l1acc</code> on L1, and another account <code>l2acc</code> on L2.  We also assume that each transfer is for one token.</p>
-<p>If the user wants to bridge one <code>$L1MOVE</code> to L2, then</p>
+<p>If the user wants to bridge one $L1MOVE to L2, then</p>
 <ul>
-<li>they <em>lock</em> (one) <code>$L1MOVE</code> into a (escrow) contract <code>L1InitiatorBridge</code> on the L1 side. To do so they transfer (one) <code>$L1MOVE</code> from <code>l1acc</code> to the <code>L1InitiatorBridge</code> contract;</li>
-<li>once the contract <code>L1InitiatorBridge</code> receives the <code>$L1MOVE</code> it emits a corresponding event <code>FundReceivedFrom(l1acc)</code> to the L1 (append-only) logs,</li>
-<li>a <em>relayer</em> monitors the logs on the L1 side, and when they see the <code>FundReceived(l1acc)</code> event, they send a transaction to an L2 contract, <code>L2CounterPartyBridge</code> asking the contract to mint (one)  <code>$L2MOVE</code>,</li>
-<li>the user requests the transfer of the newly minted <code>$L2MOVE</code> to their account <code>l2acc</code> on L2.</li>
+<li>they <em>lock</em> (one) $L1MOVE into a (escrow) contract <code>L1InitiatorBridge</code> on the L1 side. To do so they transfer (one) $L1MOVE from <code>l1acc</code> to the <code>L1InitiatorBridge</code> contract;</li>
+<li>once the contract <code>L1InitiatorBridge</code> receives the $L1MOVE it emits a corresponding event <code>FundReceivedFrom(l1acc)</code> to the L1 (append-only) logs,</li>
+<li>a <em>relayer</em> monitors the logs on the L1 side, and when they see the <code>FundReceived(l1acc)</code> event, they send a transaction to an L2 contract, <code>L2CounterPartyBridge</code> asking the contract to mint (one)  $L2MOVE,</li>
+<li>the user requests the transfer of the newly minted $L2MOVE to their account <code>l2acc</code> on L2.</li>
 </ul>
 <p><strong>Burn-and-Unlock</strong>. The transfer from L2 to L1 is similar:</p>
 <ul>
-<li>the user transfers (one) <code>$L2MOVE</code> to the <code>L2InitiatorBridge</code> contract. The <code>L2InitiatorBridge</code> burns (destroys) the token and emits an event
+<li>the user transfers (one) $L2MOVE to the <code>L2InitiatorBridge</code> contract. The <code>L2InitiatorBridge</code> burns (destroys) the token and emits an event
 <code>TokenBurned(l2acc)</code> to the L2 (append-only) logs,</li>
-<li>a relayer monitors the L2 logs and when they see the event <code>TokenBurned(l2acc)</code>, they send a transaction to the L1 contract <code>L1CounterPartyBridge</code> to <em>unlock</em> an <code>$L1MOVE</code> token for account <code>l1acc</code>,</li>
-<li>the user (on L1)  requests transfer of one <code>$L1MOVE</code> from the  <code>L1CounterPartyBridge</code> to their account on L1,   <code>l1acc</code>.</li>
+<li>a relayer monitors the L2 logs and when they see the event <code>TokenBurned(l2acc)</code>, they send a transaction to the L1 contract <code>L1CounterPartyBridge</code> to <em>unlock</em> an $L1MOVE token for account <code>l1acc</code>,</li>
+<li>the user (on L1)  requests transfer of one $L1MOVE from the  <code>L1CounterPartyBridge</code> to their account on L1,   <code>l1acc</code>.</li>
 </ul>
 <p>This protocol can be implemented with three main components:</p>
 <ul>
@@ -537,7 +537,7 @@ The transfer of tokens is one-to-one: a user bridges $k$ <code>$L1MOVE</code> to
 <p>As can be seen the protocol above has distinct phases, and many things can go wrong. For example</p>
 <ul>
 <li><strong>User becomes unable to retrieve funds</strong>. The user locks their funds in the L1 contract, but the relayer never issues the minting transaction. In that case the user may never be able to retrieve their funds. What we want is some <em>atomicity</em> between the steps: if the user locks their funds, then either the corresponding minting transaction occurs, or if it does not (and we may set a time bound), the funds are returned to the user on L1.</li>
-<li><strong>Crediting the wrong user</strong>. Another source of difficulty is to make sure that only the user <code>l2acc</code> can redeem the <code>$L2MOVE</code> tokens. i.e. they are not credited to another user.</li>
+<li><strong>Crediting the wrong user</strong>. Another source of difficulty is to make sure that only the user <code>l2acc</code> can redeem the $L2MOVE tokens. i.e. they are not credited to another user.</li>
 </ul>
 <p>Many of the possibly issues have been thoroughly studied and bridges have been in operation for several years. However hacks related to bridges account for more than 1/3 of the total hacks value which tends to indicate that bridges are vulnerable, frequently attacked, and should be designed carefully. Infamous attacks are two Ronin bridge attacks and a Nomad bridge attack</p>
 <ul>
@@ -553,13 +553,13 @@ The transfer of tokens is one-to-one: a user bridges $k$ <code>$L1MOVE</code> to
 <blockquote>
 <p>[!NOTE]
 <strong>Simple context (without loss of generality)</strong>
-Assume <code>user1</code> wants to transfer <code>1</code> <code>$L1MOVE</code> tokens, we refer to as <code>asset</code> in the sequel, to <code>user2</code> on L2.</p>
+Assume <code>user1</code> wants to transfer <code>1</code> $L1MOVE tokens, we refer to as <code>asset</code> in the sequel, to <code>user2</code> on L2.</p>
 </blockquote>
 <h4 id="transfer-steps"><a class="header" href="#transfer-steps">Transfer steps</a></h4>
 <p>A successful transfer requires the following these steps:</p>
 <ol>
-<li><em>user1</em> locks their L1<code>$L1MOVE</code> tokens in the <code>AtomicBridgeInitiatorMOVE.sol</code> contract on L1. The contract emits an event <code>BridgeTransferPending</code> to the L1 logs. At this point in time the transfer becomes <code>INITIALIZED</code> on L1.</li>
-<li>A <em>relayer</em> monitors the L1 logs and when they see the <code>BridgeTransferPending</code> event, they send a transaction to the <code>atomic_bridge_counterparty.move</code> module on L2 asking the module to prepare the minting of <code>$L2MOVE</code> tokens. The status of the bridge transfer on L2 becomes <code>PENDING</code>. An event <code>BridgeTransferLocked</code> is emitted to the L2 logs.</li>
+<li><em>user1</em> locks their L1$L1MOVE tokens in the <code>AtomicBridgeInitiatorMOVE.sol</code> contract on L1. The contract emits an event <code>BridgeTransferPending</code> to the L1 logs. At this point in time the transfer becomes <code>INITIALIZED</code> on L1.</li>
+<li>A <em>relayer</em> monitors the L1 logs and when they see the <code>BridgeTransferPending</code> event, they send a transaction to the <code>atomic_bridge_counterparty.move</code> module on L2 asking the module to prepare the minting of $L2MOVE tokens. The status of the bridge transfer on L2 becomes <code>PENDING</code>. An event <code>BridgeTransferLocked</code> is emitted to the L2 logs.</li>
 </ol>
 <blockquote>
 <p>[!TIP]
@@ -572,7 +572,7 @@ At that point the bridge transfers details are known by the L1 and the L2.</p>
 <blockquote>
 <p>[!TIP]
 Check point: The transfer is completed on L2.
-At that stage the <code>$L2MOVE</code> tokens are in the <code>user2</code> account on L2.</p>
+At that stage the $L2MOVE tokens are in the <code>user2</code> account on L2.</p>
 </blockquote>
 <ol start="4">
 <li>
@@ -637,8 +637,8 @@ The desired properties of the bridge protocol (L1 to L2) are  <strong>atomicity<
 <h4 id="transfer-steps-1"><a class="header" href="#transfer-steps-1">Transfer steps</a></h4>
 <p>A successful transfer from L2 to L1 requires the following these steps:</p>
 <ol>
-<li><em>user2</em> burns their L2$MOVE tokens in the <code>atoic_bridge_initiator.move</code>  contract on L2. The contract emits an event <code>BridgeTransferInitiated</code> to the L2 logs. At this point in time the transfer becomes <code>INITIALIZED</code> (or pending) on L2.</li>
-<li>A <em>relayer</em> monitors the L2 logs and when they see the <code>BridgeTransferInitiated</code> event, they send a transaction to the <code>AtomicBridgeCounperPartyMOVE.sol</code> contract on L1 asking the module to prepare to <em>unlock</em> L1$MOVE tokens. The status of the bridge transfer on L1 becomes <code>PENDING</code>. An event <code>BridgeTransferLocked</code> is emitted to the L1 logs.</li>
+<li><em>user2</em> burns their $L2MOVE tokens in the <code>atoic_bridge_initiator.move</code>  contract on L2. The contract emits an event <code>BridgeTransferInitiated</code> to the L2 logs. At this point in time the transfer becomes <code>INITIALIZED</code> (or pending) on L2.</li>
+<li>A <em>relayer</em> monitors the L2 logs and when they see the <code>BridgeTransferInitiated</code> event, they send a transaction to the <code>AtomicBridgeCounperPartyMOVE.sol</code> contract on L1 asking the module to prepare to <em>unlock</em> $L1MOVE tokens. The status of the bridge transfer on L1 becomes <code>PENDING</code>. An event <code>BridgeTransferLocked</code> is emitted to the L1 logs.</li>
 </ol>
 <blockquote>
 <p>[!TIP]
@@ -651,7 +651,7 @@ At that point the bridge transfers details are known by the L1 and the L2.</p>
 <blockquote>
 <p>[!TIP]
 Check point. <code>User1</code> has the asset on L1.
-At that stage the L1$MOVE tokens are in the <code>user1</code> account on L1.</p>
+At that stage the $L1MOVE tokens are in the <code>user1</code> account on L1.</p>
 </blockquote>
 <ol start="4">
 <li>
@@ -688,7 +688,7 @@ This introduces possible concurrent unwanted behaviors, and a timelock has to be
 <li>Solidity contract <a href="https://github.com/movementlabsxyz/movement/blob/main/protocol-units/bridge/contracts/src/AtomicBridgeInitiatorMOVE.sol">AtomicBridgeInitiatorMOVE.sol</a> on L1.</li>
 <li>Move Module <a href="https://github.com/movementlabsxyz/aptos-core/blob/061155119258caab512aec6aa860b086e5f312e0/aptos-move/framework/aptos-framework/sources/atomic_bridge.move#L1163">atomic_bridge_counterparty.move</a> on L2.</li>
 </ul>
-<p>The current implementation is a <em>lock-mint</em> bridge. The user locks their <code>$L1MOVE</code> tokens in the <code>AtomicBridgeInitiatorMOVE</code> contract, and the <code>atomic_bridge_counterparty.move</code> module mints the corresponding <code>$L2MOVE</code> tokens.</p>
+<p>The current implementation is a <em>lock-mint</em> bridge. The user locks their $L1MOVE tokens in the <code>AtomicBridgeInitiatorMOVE</code> contract, and the <code>atomic_bridge_counterparty.move</code> module mints the corresponding $L2MOVE tokens.</p>
 <h3 id="bridging-from-l2-to-l1-1"><a class="header" href="#bridging-from-l2-to-l1-1">Bridging from L2 to L1</a></h3>
 <p>The contracts involved are:</p>
 <ul>
@@ -744,53 +744,11 @@ We have <strong>proved</strong> (model-checked with UPPAAL) the following proper
 <p>Note that [safety-2] does hold if the relayer is down for more than $maxRelayerDelay$, or the timelocks are not set correctly.</p>
 <h3 id="bridge-l2-to-l1"><a class="header" href="#bridge-l2-to-l1">Bridge L2 to L1</a></h3>
 <p>The only difference between L1 to L2 is the way assets are created/destroyed. However, the formal model abstracts away this difference and the same properties hold for the L2 to L1 bridge.</p>
-<!--
-
-  All proposals must contain a section that discusses the various aspects of verification pertinent to the introduced changes. This section should address:
-
-  1. **Correctness**: Ensure that the proposed changes behave as expected in all scenarios. Highlight any tests, simulations, or proofs done to validate the correctness of the changes.
-
-  2. **Security Implications**: Address the potential security ramifications of the proposal. This includes discussing security-relevant design decisions, potential vulnerabilities, important discussions, implementation-specific guidance, and pitfalls. Mention any threats, risks, and mitigation strategies associated with the proposal.
-
-  3. **Performance Impacts**: Outline any performance tests conducted and the impact of the proposal on system performance. This could be in terms of speed, resource consumption, or other relevant metrics.
-
-  4. **Validation Procedures**: Describe any procedures, tools, or methodologies used to validate the proposal against its requirements or objectives. 
-
-  5. **Peer Review and Community Feedback**: Highlight any feedback from peer reviews or the community that played a crucial role in refining the verification process or the proposal itself.
-
-  TODO: Remove this comment before submitting
--->
-<!-- ---
-
-## Errata -->
-<!--
-  Errata should be maintained after publication.
-
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the proposal in which the error was identified.
-
-  TODO: Maintain this comment.
--->
 <hr />
 <h2 id="appendix-2"><a class="header" href="#appendix-2">Appendix</a></h2>
 <p>The UPPAAL models of the L1 to L2 tranfers are available in the <a href="Approved/main/MIP/mip-39/./uppaal-models">uppaal-models</a> directory.
 The simplest model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-up-v2.xml">bridge-up-v2.xml</a> and the more complex model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-up-v3.xml">bridge-up-v3.xml</a> with probabilities.</p>
 <p>You can request a license to use UPPAAL at <a href="http://www.uppaal.org/">UPPAAL</a>.</p>
-<!--
-  The Appendix should contain an enumerated list of reference materials and notes.
-
-  When referenced elsewhere each appendix should be called out with [A<number>](#A<number>) and should have a matching header.
-
-  TODO: Remove this comment before finalizing.
-
--->
-<!-- 
-### A1
-
-Nothing important here. -->
 <hr />
 <h2 id="copyright"><a class="header" href="#copyright">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Approved/main/MIP/mip-39/../LICENSE.html">CC0</a>.</p>
