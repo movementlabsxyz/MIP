@@ -1,17 +1,17 @@
-# MIP-\<number\>: Bridge Fees
+# MIP-69: Bridge Fees
 
 - **Description**: How to charge bridges fees when bridging \$L2MOVE to \$L1MOVE.
 - **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz)
-- **Desiderata**: [MD-bridge-fees](../../MD/md-bridge-fees/README.md)
+- **Desiderata**: [MD-69](../../MD/md-69/README.md)
 
 ## Abstract
 
-As pointed out in [MD-bridge-fees](../../MD/md-bridge-fees/README.md), bridging \$MOVE tokens from Movement Chain to Ethereum (L1) requires the _relayer_ to pay for Ethereum (L1) part of bridge transaction, the _L1 fees_.
+As pointed out in [MD-69](../../MD/md-69/README.md), bridging \$MOVE tokens from Movement Chain to Ethereum (L1) requires the _relayer_ to pay for Ethereum (L1) part of bridge transaction, the _L1 fees_.
 Ethereum's transaction fees are substantially higher than Move Chain fees, and we may not sponsor the L1 fees but instead charge the user
 for the L1 fees.
 As a result the operator has to charge some transfer fees on top pf the Move Chain _initiate_ transaction fees.
 
-The requirements for the bridge fees from Move Chain to L1 are gathered in  [MD-bridge-fees](../../MD/md-bridge-fees/README.md) and this
+The requirements for the bridge fees from Move Chain to L1 are gathered in  [MD-69](../../MD/md-69/README.md) and this
 MIP proposes some strategies to satisfy these requirements.
 
 More specifically, this MIP covers the following topics:
@@ -27,7 +27,7 @@ More specifically, this MIP covers the following topics:
 
 Bridging \$L2MOVE to \$L1MOVE involves the 4 following steps (Figure 1):
 
-1. User request a transfer of `n` \$L2MOVE, which initiates a _burn_ transaction on Move Chain. D1 in [MD-bridge-fees](../../MD/md-bridge-fees/README.md).
+1. User request a transfer of `n` \$L2MOVE, which initiates a _burn_ transaction on Move Chain. D1 in [MD-69](../../MD/md-69/README.md).
 1. the _burn_ transaction executes and completes and an event `FundsBurnt!` is appended to the Move Chain logs. `n` tokens are burnt on Move Chain.
 1. The relayer _relays_ the `FundsBurnt!` event to the L1 by submitting a _unlock_ transaction.
 1. The _unlock_ transaction executes and completes and an event  `FundsUnlocked!`. `n` tokens are transferred from the L1 Bridge to the user (on L1).
@@ -43,7 +43,7 @@ Bridging \$L2MOVE to \$L1MOVE involves the 4 following steps (Figure 1):
 
 ### Fees
 
-The relayer pays the L1 fees (D2, [MD-bridge-fees](../../MD/md-bridge-fees/README.md)) and it is hard to predict them _at the time_ the user requests the funds transfer. Indeed the fees depend on the L1 _gas price_ that evolves dynamically according to rules that take into account the network congestion (how full blocks are, gas-wise), which is described in [EIP-1559](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1559.md). On top of that, the L1 fees are paid in \$ETH by the relayer and the price of \$ETH is also time-dependent.
+The relayer pays the L1 fees (D2, [MD-69](../../MD/md-69/README.md)) and it is hard to predict them _at the time_ the user requests the funds transfer. Indeed the fees depend on the L1 _gas price_ that evolves dynamically according to rules that take into account the network congestion (how full blocks are, gas-wise), which is described in [EIP-1559](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1559.md). On top of that, the L1 fees are paid in \$ETH by the relayer and the price of \$ETH is also time-dependent.
 
 Figure 2 below examplifies the changes in gas price, \$ETH price and their effect on the L1 fees paid by the relayer.
 
@@ -58,9 +58,9 @@ Figure 2 below examplifies the changes in gas price, \$ETH price and their effec
 ---
 
 > [!WARNING]
-> To cover the L1 fees, we need to collect some fees from the user (D3, [MD-bridge-fees](../../MD/md-bridge-fees/README.md)), and adjust the fees to 1) cover the costs incurred by the relayer to submit the _unlock_ transaction (D4, [MD-bridge-fees](../../MD/md-bridge-fees/README.md)), and 2) minimise the difference between what we charge the user and what we actually pay (D5, [MD-bridge-fees](../../MD/md-bridge-fees/README.md)).
+> To cover the L1 fees, we need to collect some fees from the user (D3, [MD-69](../../MD/md-69/README.md)), and adjust the fees to 1) cover the costs incurred by the relayer to submit the _unlock_ transaction (D4, [MD-69](../../MD/md-69/README.md)), and 2) minimise the difference between what we charge the user and what we actually pay (D5, [MD-69](../../MD/md-69/README.md)).
 
-This MIP proposes strategies to satisfy the requirements D1-D5, [MD-bridge-fees](../../MD/md-bridge-fees/README.md).
+This MIP proposes strategies to satisfy the requirements D1-D5, [MD-69](../../MD/md-69/README.md).
 
 ## Specification
 
@@ -233,63 +233,26 @@ If we run a deficit we want to cover it by the next time window, and if we run a
 
 #### Estimate and balance based strategies
 
-<!--
-  The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
-
-  TODO: Remove this comment before submitting
--->
-
 ## Verification
-
-<!--
-
-  All proposals must contain a section that discusses the various aspects of verification pertinent to the introduced changes. This section should address:
-
-  1. **Correctness**: Ensure that the proposed changes behave as expected in all scenarios. Highlight any tests, simulations, or proofs done to validate the correctness of the changes.
-
-  2. **Security Implications**: Address the potential security ramifications of the proposal. This includes discussing security-relevant design decisions, potential vulnerabilities, important discussions, implementation-specific guidance, and pitfalls. Mention any threats, risks, and mitigation strategies associated with the proposal.
-
-  3. **Performance Impacts**: Outline any performance tests conducted and the impact of the proposal on system performance. This could be in terms of speed, resource consumption, or other relevant metrics.
-
-  4. **Validation Procedures**: Describe any procedures, tools, or methodologies used to validate the proposal against its requirements or objectives. 
-
-  5. **Peer Review and Community Feedback**: Highlight any feedback from peer reviews or the community that played a crucial role in refining the verification process or the proposal itself.
-
-  TODO: Remove this comment before submitting
--->
 
 Needs discussion.
 
 ---
 
 ## Change Log
-<!--
-  Errata should be maintained after publication.
-
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the proposal in which the error was identified.
-
-  TODO: Maintain this comment.
--->
 
 ---
 
 ## Appendix
-<!--
-  The Appendix should contain an enumerated list of reference materials and notes.
 
-  When referenced elsewhere each appendix should be called out with [A<number>](#A<number>) and should have a matching header.
+### A1: Notes from [MIP-58](https://github.com/movementlabsxyz/MIP/pull/58)
 
-  TODO: Remove this comment before finalizing.
+!!! warning These notes were present in MIP-58. However they do belong here instead. Please consider how to incorporate these.
 
--->
-
-### A1
-
-Nothing important here.
+- When bridging from L1 to L2, the protocol, through the Relayer, sponsors the gas cost on Movement. We do not need to make any modification on contracts or Relayer to support it.
+- When bridging from L2 to L1, we have a few viable solutions but it's preferable to highlight two.
+   1. Relayer sets a fee on L2, a global variable that can be set at any given time. Considering that block validation time on L1 is bigger than on L2, it becomes a viable approach since L2 can rapidly adjust the fee according to the current block and always charge an above L1 gas cost fee to attempt that the bridge is net positive. \$L2MOVE is deducted from the amount of tokens that are currently being bridged and transferred to a funds manager. This gives the protocol a very reliable way to estimate how much MOVE will be charged and feed to the user a precise amount of tokens. However, bridge transfers cannot always immediately be initiated on the L1, e.g. if there is a surge in transactions. 
+   2. Enable the Relayer to specify on the L1 `completeBridgeTransfer` transaction, the bridge fee per transaction. The amount is deducted from the total amount of tokens that were bridged and transferred to a funds manager. The dangerous situation is that we expect is this takes much more than 10 minutes before the transfer can occur, and this could lead to a big disparity between the expected amount of funds and the actual amount of tokens received.
 
 ---
 
