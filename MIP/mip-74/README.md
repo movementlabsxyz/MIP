@@ -1,7 +1,7 @@
 # MIP-74: Rate limiter for the Lock/Mint-type Native Bridge
 
 - **Description**: A rate limitation mechanism for the Lock/Mint-type Native Bridge.
-- **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
+- **Authors**: Andreas Penzkofer
 - **Desiderata**: [MD-74](../../MD/md-74/README.md)
 
 ## Abstract
@@ -10,7 +10,7 @@ We propose a rate limitation mechanism to protect the Lock/Mint-type Native Brid
 
 ## Motivation
 
-There are several components and actors in control of the behavior of the Native Bridge including contracts (we may assume they are trusted), our Relayer and of course the network. If an attacker can control one these components they can potentially mint and transfer assets thereby compromising the bridge.
+There are several components and actors in control of the behavior of the Native Bridge including contracts (we may assume they are trusted), our Relayer and of course the network. If an attacker can control one these components they can potentially mint and transfer assets thereby compromising the Native bridge.
 
 The Rate Limiter can help to protect the Native Bridge against faulty components (Relayer or network) or attacks. It can limit the volume of transferred value per time interval, the maximum value transferred with a given transfer, or the number of transactions within a time window.
 
@@ -42,8 +42,8 @@ _Figure 1: Architecture of the Rate Limitation system_
 We assume the following _trust assumptions_:
 
 1. The Governance contract is implemented correctly.
-1. The Bridge contracts (L1 and L2) are implemented correctly.
-1. The Governance Operator is trusted. For exampl, it COULD be a multisig human.
+1. The Native Bridge contracts (L1 and L2) are implemented correctly.
+1. The Governance Operator is trusted. For example, it COULD be a multisig human.
 1. The Relayer is a trusted software component.
 
 ### Risks and mitigation strategies
@@ -51,9 +51,9 @@ We assume the following _trust assumptions_:
 The following attack vectors are considered:
 
 1. The trusted Relayer is compromised or faulty. We thus want to ensure that the Relayer has not unlimited power to release or mint assets. For this we MUST implement the Rate Limiter on the target chain.
-1. In order to rate-limit the bridge (e.g. stop the bridge transfers entirely) there should be a higher instance than the Relayer in setting rate limits. Thus the rate limit on the target chain SHOULD be set by the Governance Operator.
+1. In order to rate-limit the Native Bridge (e.g. stop the Native Bridge transfers entirely) there should be a higher instance than the Relayer in setting rate limits. Thus the rate limit on the target chain SHOULD be set by the Governance Operator.
 1. If the target chain is rate limited but the source chain is not, users could request for more transfers on the source chain than the Relayer could complete on the target chain. This could lead to a situation where the Relayer is not able to process all transactions. To mitigate this the Relayer or the Governance Operator MUST rate limit the source chain as well. The rate limts on both chains SHOULD be consistent.
-1. The Relayer may go down, while the number of transactions and requested transfer value across the bridge still increases on the source chain. Due to the rate limit on the target chain the Relayer may struggle or be incapable to process all initiated transfers. Thus the Relayer or the Governance Operator MUST be able to rate limit the source chain temporarily or permanently lower than the target chain rate limit.
+1. The Relayer may go down, while the number of transactions and requested transfer value across the Native Bridge still increases on the source chain. Due to the rate limit on the target chain the Relayer may struggle or be incapable to process all initiated transfers. Thus the Relayer or the Governance Operator MUST be able to rate limit the source chain temporarily or permanently lower than the target chain rate limit.
 
 To elaborate on the last point, consider that the Native Bridge operates at the maximum rate continuously and both source and target chain have the same rate limit. Then, if the Relayer goes down for some time $\Delta$, the Relayer will start to process transactions at the maximum rate. Consequently, all transactions would be delayed by $\Delta$ time units as long as the rate limit on the target chain is entirely exhausted.
 
@@ -68,7 +68,7 @@ The objectives of the Rate Limiter are to guarantee the following properties:
 
 The guiding principles of the design of the Rate Limiter are:
 
-1. The Governance Operator monitors the Native Bridge, and in case of an attack or fault, it SHOULD take at most $\Delta$ time units to detect the issue and pause the bridge.
+1. The Governance Operator monitors the Native Bridge, and in case of an attack or fault, it SHOULD take at most $\Delta$ time units to detect the issue and pause the Native Bridge.
 2. We want to make sure that the total amount that is transferred within $\Delta$ time units (and that could potentially result from malicious behaviors) is ALWAYS covered by the insurance fund.
 
 ### Rate Limiter
