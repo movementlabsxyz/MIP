@@ -112,7 +112,7 @@ Below is the table of features for Aptos mainnet, testnet, devnet, and their com
 | 79          | COLLECTION\_OWNER                                       | True            | True            | True           | null             | False            |
 | 80          | NATIVE\_MEMORY\_OPERATIONS                              | True            | True            | True           | null             | False            |
 
-## Errata
+## Change Logs
 
 **Transparency and Clarity**: Any corrections or updates to this document will be tracked and published here to ensure accuracy.
 
