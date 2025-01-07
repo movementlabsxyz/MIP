@@ -6,11 +6,11 @@
 
 ## Abstract
 
-We propose a rate limitation mechanism to protect the Lock/Mint-type Native Bridge, hereafter called the _Native Bridge_, see [MIP-58](https://github.com/movementlabsxyz/MIP/pull/58), against faulty or compromised behavior of the bridge components. It limits the volume of assets that can be transferred within a time window. This MIP proposes a solution to mitigate attacks and limit damages, and if paired with an insurance fund it may cover the potential losses incurred by our users.
+We propose a rate limitation mechanism to protect the Lock/Mint-type Native Bridge, hereafter called the _Native Bridge_, see [MIP-58](https://github.com/movementlabsxyz/MIP/pull/58), against faulty or compromised behavior of the Native Bridge components. It limits the volume of assets that can be transferred within a time window. This MIP proposes a solution to mitigate attacks and limit damages, and if paired with an insurance fund it may cover the potential losses incurred by our users.
 
 ## Motivation
 
-There are several components and actors in control of the behavior of the Native Bridge including contracts (we may assume they are trusted), our Relayer and of course the network. If an attacker can control one these components they can potentially mint and transfer assets thereby compromising the Native bridge.
+There are several components and actors in control of the behavior of the Native Bridge including contracts (we may assume they are trusted), our Relayer and of course the network. If an attacker can control one these components they can potentially mint and transfer assets thereby compromising the Native Bridge.
 
 The Rate Limiter can help to protect the Native Bridge against faulty components (Relayer or network) or attacks. It can limit the volume of transferred value per time interval, the maximum value transferred with a given transfer, or the number of transactions within a time window.
 
@@ -117,8 +117,7 @@ where `rate_reduction_source` $\in$ `[0,1]` is a parameter that is set by the Re
 
 The rate limitation works as follows:
 
-> [!NOTE]
-> I can convert the following into pseudo code, after we have discussed the algorithm and it makes sense.
+!!! warning I can convert the following into pseudo code, after we have discussed the algorithm and it makes sense.
 
 **Algorithm for the Native Bridge contract on the source chain**
 
@@ -127,21 +126,6 @@ The rate limitation works as follows:
 1. The source chain Native Bridge contract checks if the rate limit `rate_limit_source` is exceeded if it would apply the transaction.
     1. If the rate limit is exceeded the transaction is rejected.
     1. Else the transaction is accepted.
-  
-**Algorithm for the Native Bridge contract on the target chain**
-
-1. The target chain Native Bridge contract checks if the rate limit `rate_limit_target` is exceeded if it would apply the transaction.
-    1. If the rate limit is exceeded the transaction is rejected.
-    1. If the rate limit is not exceeded the transaction is accepted.
-
-The following algorithm is a recommendation for the operation of the Relayer:
-
-**(Optional) Algorithm for the Relayer**
-
-1. The Relayer receives an event that a transaction was accepted.
-1. The Relayer checks if the rate limit `rate_limit_target` is exceeded if it would apply the transaction. (The Relayer may keep locally the budget on the target chain, or it could read the contract state).
-    1. If the rate limit is exceeded the transaction has to be put on hold.
-    1. Else the Relayer sends a transfer transaction to the target chain.
 
 ## Reference Implementation
 
@@ -154,8 +138,6 @@ We may add a formal model?
 ---
 
 ## Changelog
-
----
 
 ## Appendix
 
