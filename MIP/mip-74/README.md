@@ -90,9 +90,11 @@ The rate limit is dependent on the fund size in the Insurance Fund. In particula
 
 `max_rate_limit_target = insurance_fund_target / reaction_time`,
 
-where the `reaction_time` is the time it takes for the Governance Operator to react to a faulty or compromised component. The `reaction_time` is a parameter that is set by the Governance Operator.
+where the `reaction_time` is the time it takes for the Governance Operator to react to a faulty or compromised component. The `reaction_time` is a parameter that is set by the Governance Operator. 
 
-Implementation recommendation: The target Native Bridge contract checks at every transfer first, whether the relevant Insurance Fund size has changed before calculating the current rate limit and whether the budget is exceeded.
+_Implementation recommendation #1_: The default value is 24h. In the initial implementation this value is fixed to avoid complications in gas.
+
+_Implementation recommendation #2_: The target Native Bridge contract checks at every transfer first, whether the relevant Insurance Fund size has changed before calculating the current rate limit and whether the budget is exceeded.
 
 **(Optional) Direct adjustment of rate limit by Governance Operator**
 
@@ -106,7 +108,7 @@ where `rate_reduction_target` $\in$ `[0,1]` is a parameter that is set by the Go
 The following are possible ways to adjust the rate limit:
 
 1. The Governance Operator indirectly adjusts the rate limit by adding or removing funds from the Insurance Fund.
-1. The Governance Operator indirectly adjusts the rate limit by changing the `reaction_time`.
+1. The Governance Operator indirectly MAY adjust the rate limit by changing the `reaction_time`. 
 1. The Governance Operator MAY adjust the rate limit by changing the `rate_reduction_target`.
 
 #### Rate limit on the source chain
