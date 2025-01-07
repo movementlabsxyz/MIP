@@ -3596,7 +3596,6 @@ With Celestia this would be approximately after $36sec$. (The block time of $12s
 <ul>
 <li><strong>Description</strong>: Proposes a lock/mint-type Native Bridge that capitalizes on the trust-assumption on the Relayer.</li>
 <li><strong>Authors</strong>: <a href="mailto:primata@movementlabs.xyz">Primata</a></li>
-<li><strong>Desiderata</strong>: <a href="Review/mip-58/MIP/mip-58/../MD/md-21">MD-21</a></li>
 </ul>
 <h2 id="abstract-24"><a class="header" href="#abstract-24">Abstract</a></h2>
 <p>We propose a lock/mint-type Native Bridge. The lock/mint bridge design streamlines operations, enhances security, and improves user experience (compared to the previously employed HTLC-based Native Bridge) making it easier to bridge assets between chains.</p>
@@ -3861,7 +3860,7 @@ struct TargetBridgeDetails {
     Relayer -&gt;&gt; Target_Contract: Complete Transfer
     Target_Contract --&gt;&gt; User: Tokens Delivered
 </code></pre>
-<p><em>Interaction flow diagram.</em></p>
+<p><em>Figure: Interaction flow diagram.</em></p>
 <p><img src="Review/mip-58/MIP/mip-58/tx-history.png" alt="Transaction History" />
 <em>Figure: Users would be able to see if the bridge has been completed. It’s either pending or completed.</em></p>
 <h4 id="2-optional-batch-completion-for-multisig-relayer"><a class="header" href="#2-optional-batch-completion-for-multisig-relayer">2. <strong>(Optional) batch completion for multisig Relayer</strong></a></h4>
@@ -3874,10 +3873,22 @@ struct TargetBridgeDetails {
 <li>Consolidate Initiator and Counterparty into a single contract (this might be the most dangerous thing proposed but it has already been proposed for HTLC Native Bridge implementation).</li>
 </ul>
 <h4 id="4-rate-limiting-designs"><a class="header" href="#4-rate-limiting-designs">4. <strong>Rate limiting designs</strong></a></h4>
-<p>Here we discuss three options for rate limiting. <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a> discusses option C.</p>
+<p>In order to protect the protocol from exploits and potential losses, rate limiting is essential.</p>
+<p>For comparison the white paper <a href="https://docs.eigenlayer.xyz/assets/files/EigenLayer_WhitePaper-88c47923ca0319870c611decd6e562ad.pdf">EigenLayer: The Restaking Collective</a> proposes that AVS (Actively Validated Services) can run for a bridge and the stake of validators protects the transferred value crypto-economically through slashing conditions. More specifically section <code>3.4 Risk Management</code> mentions</p>
 <blockquote>
-<p><strong>TODO:</strong> Details such as this should be moved to the MIP of Rate Limitation, and different options should be listed as “Alternatives”.</p>
+<p>[…] to restrict the Profit from Corruption of any particular AVS […] a bridge can restrict the value flow within the period of slashing.</p>
 </blockquote>
+<p>In essence this boils down to rate limit the bridge by considering</p>
+<ul>
+<li>how long does it take to finalize transfers (ZK, optimistic)</li>
+<li>how much value can be protected economically</li>
+</ul>
+<p>In our setting we trust the bridge operator, and thus we replace</p>
+<ul>
+<li>finalization by the reaction time of the operator</li>
+<li>the staked value by the insurance fund</li>
+</ul>
+<p>Below we discuss three options for rate limiting.</p>
 <p>A. <strong>Single-sided rate limiting (on source chain)</strong></p>
 <ul>
 <li>Rate limiting should be implemented on the L1 and maps each day to a budget, for each direction. Once the budget is reached on one of the directions, no more tokens can be transferred on that direction.</li>
@@ -3897,6 +3908,7 @@ struct TargetBridgeDetails {
 <li>This approach is more susceptible to issues on the frontend because the frontend has to acknowledge rate limit budget and inflight tokens and inform users if the rate limit is about to be reached, not only if it has been reached.</li>
 </ul>
 <p>C. <strong>Two sided full rate limiting</strong></p>
+<p>This proposal is discussed in <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a>.</p>
 <ul>
 <li>The previous approaches may break the rate limit if users can directly initiate the bridge transfer via the bridge contracts. Since we MUST guarantee the completion of transfers the rate limit on the source chain could get exceeded, leading to ever increasing backlog of transfers.</li>
 <li>Therefore, rate limiting should be implemented on both L1 and L2 for inbound and outbound transactions.</li>
@@ -3906,9 +3918,7 @@ struct TargetBridgeDetails {
 <li>On the source chain the rate limit is not related to the Insurance Fund. This opens the question who sets the rate limit on the source chain. We answer this in <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a>.</li>
 </ul>
 <h4 id="5-bridge-fee"><a class="header" href="#5-bridge-fee">5. <strong>Bridge fee</strong></a></h4>
-<blockquote>
-<p><strong>TODO:</strong> Details such as this should be moved to the MIP of Bridge Fees, and different options should be listed as “Alternatives”.</p>
-</blockquote>
+<p>!!! warning <strong>TODO:</strong> Details such as this should be moved to the MIP of Bridge Fees, and different options should be listed as “Alternatives”.</p>
 <ul>
 <li>When bridging from L1 to L2, the protocol, through the Relayer, sponsors the gas cost on Movement. We do not need to make any modification on contracts or Relayer to support it.</li>
 <li>When bridging from L2 to L1, we have a few viable solutions but it’s preferable to highlight two.
