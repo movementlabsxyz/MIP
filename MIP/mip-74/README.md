@@ -126,6 +126,14 @@ The rate limitation works as follows:
 1. The source chain Native Bridge contract checks if the rate limit `rate_limit_source` is exceeded if it would apply the transaction.
     1. If the rate limit is exceeded the transaction is rejected.
     1. Else the transaction is accepted.
+  
+**Algorithm for the Native Bridge contract on the target chain**
+
+1. The target chain Native Bridge contract checks if the rate limit `rate_limit_target` is exceeded if it would apply the transaction.
+    1. If the rate limit is exceeded the transaction is rejected.
+    1. If the rate limit is not exceeded the transaction is accepted.
+
+The following algorithm is a recommendation for the operation of the Relayer:
 
 ## Reference Implementation
 
