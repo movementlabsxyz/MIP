@@ -279,6 +279,16 @@ For a transfer from L1 (L2) to L2 (L1) the <code>insurance_fund_target = insuran
 </ol>
 </li>
 </ol>
+<p><strong>Algorithm for the Native Bridge contract on the target chain</strong></p>
+<ol>
+<li>The target chain Native Bridge contract checks if the rate limit <code>rate_limit_target</code> is exceeded if it would apply the transaction.
+<ol>
+<li>If the rate limit is exceeded the transaction is rejected.</li>
+<li>If the rate limit is not exceeded the transaction is accepted.</li>
+</ol>
+</li>
+</ol>
+<p>The following algorithm is a recommendation for the operation of the Relayer:</p>
 <h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
 <h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
 <p>Needs discussion.</p>
