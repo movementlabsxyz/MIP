@@ -1,5 +1,5 @@
 # MIP-39: MOVE Token -- HTLC-based Native Bridge Design
-- **Description**: Architecture of the HTLC-based Native Bridge for $MOVE token.
+- **Description**: Architecture of the HTLC-based Native Bridge for \$MOVE token.
 - **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz)
 
 ## Abstract
@@ -95,7 +95,7 @@ Let `user1` be a user with an account on L1, and `user2` be a user with an accou
 
 A successful transfer requires the following these steps:
 
-1. _user1_ locks their L1\$L1MOVE tokens in the `AtomicBridgeInitiatorMOVE.sol` contract on L1. The contract emits an event `BridgeTransferPending` to the L1 logs. At this point in time the transfer becomes `INITIALIZED` on L1.
+1. _user1_ locks their \$L1MOVE tokens in the `AtomicBridgeInitiatorMOVE.sol` contract on L1. The contract emits an event `BridgeTransferPending` to the L1 logs. At this point in time the transfer becomes `INITIALIZED` on L1.
 2. A _relayer_ monitors the L1 logs and when they see the `BridgeTransferPending` event, they send a transaction to the `atomic_bridge_counterparty.move` module on L2 asking the module to prepare the minting of \$L2MOVE tokens. The status of the bridge transfer on L2 becomes `PENDING`. An event `BridgeTransferLocked` is emitted to the L2 logs.
 
 > [!TIP] 
