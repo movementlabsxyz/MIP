@@ -279,7 +279,7 @@ The safety and liveness properties are defined by temporal logics formulas and c
 The UPPAAL model is available in [this-file](./uppaal-models/bridge-up-v2.xml).
 To reproduce the results and check the properties on the model, you need a working version of UPPAAL.
 
-The results of the model-checking verification are as follows: let $maxRelayerDelay$ be the **maximum delay** for the relayer to relay an event, and $timeLock1$ and $timeLock2$ be the timelocks on L1 and L2 respectively.
+The results of the model-checking verification are as follows: let $ $maxRelayerDelay$ be the **maximum delay** for the relayer to relay an event, and $timeLock1$ and $timeLock2$ be the timelocks on L1 and L2 respectively.
 
 > [!IMPORTANT] 
 > **Verification results**
