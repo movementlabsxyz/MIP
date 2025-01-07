@@ -107,7 +107,8 @@ Below is the table of features for Aptos mainnet, testnet, devnet, and their com
 | 67          | CONCURRENT\_FUNGIBLE\_BALANCE                           | True            | True            | True           | True             | False            |
 | 68          | DEFAULT\_TO\_CONCURRENT\_FUNGIBLE\_BALANCE              | False           | False           | False          | False            | True             |
 | 70          | ABORT\_IF\_MULTISIG\_PAYLOAD\_MISMATCH                  | True            | True            | True           | True             | False            |
-| 71          | ?/NATIVE\_BRIDGE                                        | True            | True            | True           | False            | False            |
+| 71          | ?                                                       | True            | True            | True           | False            | False            |
+| 72          | NATIVE\_BRIDGE                                          | True            | True            | True           | False            | False            |
 | 78          | TRANSACTION\_SIMULATION\_ENHANCEMENT                    | True            | True            | True           | null             | False            |
 | 79          | COLLECTION\_OWNER                                       | True            | True            | True           | null             | False            |
 | 80          | NATIVE\_MEMORY\_OPERATIONS                              | True            | True            | True           | null             | False            |
