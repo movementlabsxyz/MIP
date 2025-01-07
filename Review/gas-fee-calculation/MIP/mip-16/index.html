@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -30,15 +30,19 @@
 
         <!-- Custom theme stylesheets -->
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../../../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="../../../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -60,19 +64,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -82,45 +83,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../../GLOSSARY.html">Glossary</a></li><li class="chapter-item expanded "><a href="../../../../index.html">Approved</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../index.html">MIPs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../Approved/main/MIP/mip-1/index.html">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li><li class="chapter-item expanded "><a href="../../../../Approved/main/MIP/mip-15/index.html">MIP-15: MG (Movement Gloss)</a></li><li class="chapter-item expanded "><a href="../../../../Approved/main/MIP/mip-39/index.html">MIP-39: MOVE Token -- HTLC-based Native Bridge Design</a></li><li class="chapter-item expanded "><a href="../../../../Approved/main/MIP/mip-53/index.html">MIP-53: Conventions for Proposing Progressive L2 Models</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../index.html">MDs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../Approved/main/MD/md-1/index.html">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li><li class="chapter-item expanded "><a href="../../../../Approved/main/MD/md-3/index.html">MD-3: MCR under Network Partitions and Asynchrony</a></li><li class="chapter-item expanded "><a href="../../../../Approved/main/MD/md-15/index.html">MD-15: Movement Glossary</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../index.html">MGs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../Approved/main/MG/mg-39/index.html">MG-39:  MOVE Token -- Bridge Design</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../../index.html">Review</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../index.html">MIPs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../Review/mikhail/suzuka-da-migrations/MIP/mip-13/index.html">MIP-13:  Suzuka DA Migrations Format</a></li><li class="chapter-item expanded "><a href="../../../../Review/l-monninger/ab-ffs-decoupled-demurrage/MIP/mip-42/index.html">MIP-15: NB-FFS Decoupled Demurrage</a></li><li class="chapter-item expanded "><a href="../../../../Review/gas-fee-calculation/MIP/mip-16/index.html" class="active">MIP-16: Calculation of gas fees </a></li><li class="chapter-item expanded "><a href="../../../../Review/primata/mip-18/MIP/mip-18/index.html">MIP-18: Stage 0 Upgradeability and Multisigs</a></li><li class="chapter-item expanded "><a href="../../../../Review/andyjsbell/unwanted-framework/MIP/mip-24/index.html">MIP-24: Removal of redundant functionality from framework</a></li><li class="chapter-item expanded "><a href="../../../../Review/andyjsbell/proxy-root/MIP/mip-25/index.html">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></li><li class="chapter-item expanded "><a href="../../../../Review/primata/mip-27/MIP/mip-27/index.html">MIP-27: Contract Pipeline</a></li><li class="chapter-item expanded "><a href="../../../../Review/l-monninger/actor-naming-conventions/MIP/mip-28/index.html">MIP-28: Naming Conventions for Movement Protocol Design</a></li><li class="chapter-item expanded "><a href="../../../../Review/mip/FFS/MIP/mip-34/index.html">MIP-34: Fast Finality Settlement</a></li><li class="chapter-item expanded "><a href="../../../../Review/l-monninger/ab-ffs-decoupled/MIP/mip-40/index.html">MIP-40: NB-FFS Decoupled</a></li><li class="chapter-item expanded "><a href="../../../../Review/l-monninger/ab-ffs-governed-gas-pool/MIP/mip-44/index.html">MIP-44: NB-FFS Governed Gas Pool</a></li><li class="chapter-item expanded "><a href="../../../../Review/mip/security_falliblity/MIP/mip-46/index.html">MIP-46: Security and Fallibility of the Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../Review/mip/gas-fees-incremental-additions/MIP/mip-47/index.html">MIP-47: Improve Gas fee collection in phases</a></li><li class="chapter-item expanded "><a href="../../../../Review/0xmovses/aptos-gov-pool/MIP/mip-48/index.html">MIP-48: aptos_governance for Goverened Gas Pool</a></li><li class="chapter-item expanded "><a href="../../../../Review/l-monninger/just-reward/MIP/mip-49/index.html">MIP-49: NB-FFS Governed Fees and Rewards</a></li><li class="chapter-item expanded "><a href="../../../../Review/l-monninger/insured-bridge/MIP/mip-50/index.html">MIP-50: Insured Bridge</a></li><li class="chapter-item expanded "><a href="../../../../Review/l-monninger/the-biarritz-model/MIP/mip-54/index.html">MIP-54: The Biarritz Model</a></li><li class="chapter-item expanded "><a href="../../../../Review/l-monninger/the-bilbao-model/MIP/mip-55/index.html">MIP-55: The Bilbao Model</a></li><li class="chapter-item expanded "><a href="../../../../Review/mip/rate-limiter/MIP/mip-56/index.html">MIP-56: Rate-Limiter for the HTLC-based Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../Review/mip/informer/MIP/mip-57/index.html">MIP-57: Informer for the Operation of the HTLC-based Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../Review/mip-58/MIP/mip-58/index.html">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li><li class="chapter-item expanded "><a href="../../../../Review/mip-crosschain-bridges-background/MIP/mip-60/index.html">MIP-60: Crosschain bridge architectures</a></li><li class="chapter-item expanded "><a href="../../../../Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/index.html">MIP-61: Relayer in the lock/mint bridge - Algorithm and Bootstrapping </a></li><li class="chapter-item expanded "><a href="../../../../Review/mip/L2confirmation/MIP/mip-65/index.html">MIP-65: FFS: Fastconfirmations</a></li><li class="chapter-item expanded "><a href="../../../../Review/issue66/MDMIP-for-bridge-fees/MIP/mip-69/index.html">MIP-69: Bridge Fees</a></li><li class="chapter-item expanded "><a href="../../../../Review/mip/informer-lockmintbridge/MIP/mip-71/index.html">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../Review/mip/sanfran-model/MIP/mip-73/index.html">MIP-73: The SanFran Model</a></li><li class="chapter-item expanded "><a href="../../../../Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/index.html">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../Review/primata/mainnet-feature-flags/MIP/mip-81/index.html">MIP-81</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../index.html">MDs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/index.html">MD-2: Enclave Crash-resistant Key Management</a></li><li class="chapter-item expanded "><a href="../../../../Review/l-monninger/long-range-attacks/MD/md-5/index.html">MD-4: Long Range Attacks</a></li><li class="chapter-item expanded "><a href="../../../../Review/l-monninger/gas-offset/MD/md-4/index.html">MD-4: MCR Offsetting Gas Costs</a></li><li class="chapter-item expanded "><a href="../../../../Review/l-monninger/block-validation/MD/md-6/index.html">MD-6: Suzuka Block Validation</a></li><li class="chapter-item expanded "><a href="../../../../Review/l-monninger/block-validation/MD/md-7/index.html">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li><li class="chapter-item expanded "><a href="../../../../Review/mikhail/suzuka-da-migrations/MD/md-13/index.html">MD-13: Suzuka DA Migrations Format</a></li><li class="chapter-item expanded "><a href="../../../../Review/primata/bridge-timelock-as-state/MD/md-14/index.html">MD-14: Bridge Should Use A More Secure Timelock</a></li><li class="chapter-item expanded "><a href="../../../../Review/andygolay/move-on-bitcoin/MD/md-16/index.html">MD-16: Create MOVE fungible asset on Bitcoin using runes</a></li><li class="chapter-item expanded "><a href="../../../../Review/primata/md-17/MD/md-17/index.html">MD-17: Bridge Fees</a></li><li class="chapter-item expanded "><a href="../../../../Review/primata/bridge-attestors/MD/md-21/index.html">MD-21: Native Bridge with Attesters</a></li><li class="chapter-item expanded "><a href="../../../../Review/andygolay/md-26/MD/md-26/index.html">MD-26: User-facing checks</a></li><li class="chapter-item expanded "><a href="../../../../Review/primata/md-30/MD/md-30/index.html">MD-30: Movement Name Service</a></li><li class="chapter-item expanded "><a href="../../../../Review/mip/FFS/MD/md-34/index.html">MD-34: Fast Finality Settlement</a></li><li class="chapter-item expanded "><a href="../../../../Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/index.html">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></li><li class="chapter-item expanded "><a href="../../../../Review/l-monninger/just-reward/MD/md-49/index.html">MD-49: Movement L2 Gas Fees</a></li><li class="chapter-item expanded "><a href="../../../../Review/mip/L2confirmation/MD/md-65/index.html">MD-65: FFS: Fastconfirmations</a></li><li class="chapter-item expanded "><a href="../../../../Review/issue66/MDMIP-for-bridge-fees/MD/md-69/index.html">MD-69: Bridge fees</a></li><li class="chapter-item expanded "><a href="../../../../Review/mip/informer-lockmintbridge/MD/md-71/index.html">MD-71: Informer service for the Lock/Mint-based Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/index.html">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../Review/primata/mainnet-feature-flags/MD/md-81/index.html">MD-81: Movement Mainnet Feature Flags</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../index.html">MGs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../Review/l-monninger/ab-ffs-decoupled-demurrage/MG/mg-42/index.html">MG-42: demurrage token</a></li></ol></li></ol></li></ol>
-            </div>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../../../toc.html"></iframe>
+            </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
             </div>
         </nav>
 
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
-
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -147,7 +128,7 @@
                         <a href="../../../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/movementlabsxyz/MIP-Testing" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/movementlabsxyz/MIP" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -176,7 +157,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="mip-16-calculation-of-gas-fees"><a class="header" href="#mip-16-calculation-of-gas-fees">MIP-16: Calculation of gas fees</a></h1>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="mip-16-calculation-of-gas-fees"><a class="header" href="#mip-16-calculation-of-gas-fees">MIP-16: Calculation of gas fees</a></h1>
 <ul>
 <li><strong>Description</strong>: How to calculate gas fees for transactions on Movement L2.</li>
 <li><strong>Authors</strong>: <a href="mailto:franck.cassez@movementlabs.xyz">Franck Cassez</a></li>
@@ -205,7 +187,7 @@ This MIP does not cover <em>staking</em> (and slashing and rewards) for validato
 <li><strong>settlement</strong> fees: the costs of <em>validating</em> a transaction (e.g. zk-proof generation and verification, validators attestations.)</li>
 </ol>
 <p>Overall the transaction fees are defined by the sum of three types of fees:</p>
-<p>$$ {ExecFees} + {DAFees} + {SetlFees}\mathpunct. $$</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord mathnormal">x</span><span class="mord mathnormal">ec</span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mord mathnormal">ees</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mord mathnormal">ees</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.13889em;">tlF</span><span class="mord mathnormal">ees</span></span><span class="mpunct"><span class="mord">.</span></span></span></span></span></span></p>
 <p>The fees should be expressed in a single (crypto)-currency, e.g. USD, or a token <code>$APT</code>, <code>$MOVE</code>, <code>$ETH</code>.</p>
 <h3 id="execution"><a class="header" href="#execution">Execution</a></h3>
 <h4 id="movevm-execution-fees"><a class="header" href="#movevm-execution-fees">MoveVM execution fees</a></h4>
@@ -216,32 +198,32 @@ The Aptos-Move fee mechanism splits the execution fees in two parts:</p>
 <li>CPU and IO operations, expressed in gas units;</li>
 <li>permanent storage, expressed in <code>$APT</code>.</li>
 </ul>
-<p>CPU and IO operations for a transaction $tx$ result in a number of gas units $CpuIoGas(tx)$, and the corresponding fees are computing using a <em>gas price</em> $GasPrice$ expressed in the gas token (<code>$APT</code> for Aptos-Move). A transaction specifies the value $GasPrice(tx)$ it is willing to pay.<br />
-The value $GasPrice(tx)$ must not be lower than a minimum $GasPrice$, which may fluctuate depending on network contention, and may be updated frequently (e.g. after each block).</p>
-<p>In contrast, the permanent storage fees are designed to be stable and are updated infrequently. The reasoning is that they depend on how much storage costs (hardware, disks) and with advancement in technology this should go down in the future. The storage fees for $tx$ are denoted $StoreFees(tx)$ and expressed in <code>$APT</code><sup class="footnote-reference"><a href="#3">1</a></sup>.</p>
-<p>The fees that correspond to the permanent storage are <strong>converted to gas units</strong> using the  $GasPrice$ and the <code>$APT</code> price.</p>
+<p>CPU and IO operations for a transaction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">x</span></span></span></span> result in a number of gas units <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">Cp</span><span class="mord mathnormal">u</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal">o</span><span class="mord mathnormal">G</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>, and the corresponding fees are computing using a <em>gas price</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ce</span></span></span></span> expressed in the gas token (<code>$APT</code> for Aptos-Move). A transaction specifies the value <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ce</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span> it is willing to pay.<br />
+The value <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ce</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span> must not be lower than a minimum <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ce</span></span></span></span>, which may fluctuate depending on network contention, and may be updated frequently (e.g. after each block).</p>
+<p>In contrast, the permanent storage fees are designed to be stable and are updated infrequently. The reasoning is that they depend on how much storage costs (hardware, disks) and with advancement in technology this should go down in the future. The storage fees for <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">x</span></span></span></span> are denoted <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">St</span><span class="mord mathnormal">ore</span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mord mathnormal">ees</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span> and expressed in <code>$APT</code><sup class="footnote-reference"><a href="#3">1</a></sup>.</p>
+<p>The fees that correspond to the permanent storage are <strong>converted to gas units</strong> using the  <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ce</span></span></span></span> and the <code>$APT</code> price.</p>
 <p>The <em>total charge in gas units</em> for a transaction is the defined by:</p>
-<p>$$ TotalGasUnits(tx) = CpuIoGas(tx) + StoreFees(tx)/GasPrice(tx)$$</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal">o</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal">lG</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="mord mathnormal">ni</span><span class="mord mathnormal">t</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">Cp</span><span class="mord mathnormal">u</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal">o</span><span class="mord mathnormal">G</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">St</span><span class="mord mathnormal">ore</span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mord mathnormal">ees</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathnormal">G</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ce</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span></span></p>
 <p>and the total transaction fees are approximately<sup class="footnote-reference"><a href="#1">2</a></sup>:</p>
-<p>$$ ExecFees(tx) = TotalGasUnits(tx) \times GasPrice(tx) \mathpunct.$$</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord mathnormal">x</span><span class="mord mathnormal">ec</span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mord mathnormal">ees</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal">o</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal">lG</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="mord mathnormal">ni</span><span class="mord mathnormal">t</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ce</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mpunct"><span class="mord">.</span></span></span></span></span></span></p>
 <blockquote>
 <p>[!WARNING]
-We may not use the <code>$APT</code> token value to compute the fees on Movement. If we do so the $ExecFees$ will be identical to processing fees on Aptos-Move, and the total fees including $DAFees$ and $SetlFees$ will be higher than the processing fees on Aptos-Move, which may not be desirable.</p>
+We may not use the <code>$APT</code> token value to compute the fees on Movement. If we do so the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord mathnormal">x</span><span class="mord mathnormal">ec</span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mord mathnormal">ees</span></span></span></span> will be identical to processing fees on Aptos-Move, and the total fees including <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mord mathnormal">ees</span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.13889em;">tlF</span><span class="mord mathnormal">ees</span></span></span></span> will be higher than the processing fees on Aptos-Move, which may not be desirable.</p>
 </blockquote>
 <blockquote>
 <p>[!TIP]
-<strong>Proposal 1</strong>: use the $TotalGasUnits(tx)$ and a $GasPrice$ in <code>$MOVE</code> to compute the execution fees on a Movement chain.
+<strong>Proposal 1</strong>: use the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal">o</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal">lG</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="mord mathnormal">ni</span><span class="mord mathnormal">t</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span> and a <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ce</span></span></span></span> in <code>$MOVE</code> to compute the execution fees on a Movement chain.
 This may require an oracle to get the exchange rate for <code>$APT</code>/<code>$MOVE</code>.</p>
 </blockquote>
 <h4 id="gas-price-adjustments"><a class="header" href="#gas-price-adjustments">Gas price adjustments</a></h4>
-<p>We may also want to adjust the $GasPrice$ (in <code>$MOVE</code>) to reflect our network load. There are many ways the $GasPrice$ can be updated. On Ethereum it is governed by rules in <a href="https://eips.ethereum.org/EIPS/eip-1559">EIP-1559</a>. zkSync, Arbitrum and OP Mainnet use different strategies [<a href="#ref-1">1</a>, <a href="#ref-4">4</a>, <a href="#ref-6">6</a>] to update the gas price.</p>
+<p>We may also want to adjust the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ce</span></span></span></span> (in <code>$MOVE</code>) to reflect our network load. There are many ways the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ce</span></span></span></span> can be updated. On Ethereum it is governed by rules in <a href="https://eips.ethereum.org/EIPS/eip-1559">EIP-1559</a>. zkSync, Arbitrum and OP Mainnet use different strategies [<a href="#ref-1">1</a>, <a href="#ref-4">4</a>, <a href="#ref-6">6</a>] to update the gas price.</p>
 <blockquote>
 <p>[!TIP]
 <strong>Proposal 2</strong>: The OP Mainet [<a href="#ref-1">1</a>] strategy seems to be the simplest one so we may implement this strategy first.</p>
 </blockquote>
 <h3 id="data-availability-fees"><a class="header" href="#data-availability-fees">Data Availability fees</a></h3>
 <p>On a rollup (L2), transactions are grouped in <em>batches</em>. Processing a batch result in a new <em>state</em>. Both the transactions data and the new state are published to the <em>data availability</em> (DA) layer. The reason is that they should be available for third-parties to retrieve and verify the correctness of the state transitions (and blocks).</p>
-<p>We assume that the agreement with the DA provider is such that we pay a <strong>fixed</strong> amount, $DAPerBytePrice$, in USD, per bytes we publish to the DA layer.
+<p>We assume that the agreement with the DA provider is such that we pay a <strong>fixed</strong> amount, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ce</span></span></span></span>, in USD, per bytes we publish to the DA layer.
 This can be updated infrequently e.g. every 6 months or year.</p>
 <blockquote>
 <p>[!NOTE]
@@ -249,7 +231,7 @@ To reduce the costs, the data published to the DA layer can be compressed. This 
 </blockquote>
 <blockquote>
 <p>[!TIP]
-<strong>Proposal 3</strong>: If the cost of publishing a batch $b$ to the DA is $DAFees(b)$, and $n$ transactions are in the batch, the DA fees for each transaction are $DAFees(b)/n$. This is simple to implement and can be refined later if needed.</p>
+<strong>Proposal 3</strong>: If the cost of publishing a batch <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span></span></span></span> to the DA is <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mord mathnormal">ees</span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mclose">)</span></span></span></span>, and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> transactions are in the batch, the DA fees for each transaction are <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mord mathnormal">ees</span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathnormal">n</span></span></span></span>. This is simple to implement and can be refined later if needed.</p>
 </blockquote>
 <h3 id="settlement-fees"><a class="header" href="#settlement-fees">Settlement Fees</a></h3>
 <p>The settlement fees depend on a number of factors, and on the settlement mechanism used by a given Move Stack chain.
@@ -281,7 +263,7 @@ Note that we first need a zkMoveVM to develop this approach.</p>
 </blockquote>
 <h4 id="fast-finality-settlement"><a class="header" href="#fast-finality-settlement">Fast-finality settlement</a></h4>
 <p>In our network, we will offer <em>fast-finality settlement</em> (FFS) where <em>validators</em> verify state transitions (and blocks) and interact with a contract, <code>StakingK</code>, that may live<sup class="footnote-reference"><a href="#2">3</a></sup> on Ethereum mainnet.</p>
-<p>The costs incurred by the validators plus the cost of posting the attestations to Ethereum mainnet have to be factored in into the ${SetlFees}$.</p>
+<p>The costs incurred by the validators plus the cost of posting the attestations to Ethereum mainnet have to be factored in into the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.13889em;">tlF</span><span class="mord mathnormal">ees</span></span></span></span></span>.</p>
 <blockquote>
 <p>[!WARNING]
 We have not finalised the FFS details yet so it may be premature to try and define fees for this mechanism. It also pertains to <em>staking</em> which is not fully fledged yet.</p>
@@ -325,13 +307,12 @@ We have not finalised the FFS details yet so it may be premature to try and defi
 </div>
 <hr />
 <h2 id="copyright"><a class="header" href="#copyright">Copyright</a></h2>
-<p>Copyright and related rights waived via <a href="../LICENSE.html">CC0</a>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../../Review/l-monninger/ab-ffs-decoupled-demurrage/MIP/mip-42/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../../Review/mikhail/suzuka-da-migrations/MIP/mip-13/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
@@ -345,7 +326,7 @@ We have not finalised the FFS details yet so it may be premature to try and defi
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../../Review/l-monninger/ab-ffs-decoupled-demurrage/MIP/mip-42/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../../Review/mikhail/suzuka-da-migrations/MIP/mip-13/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
