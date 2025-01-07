@@ -4559,9 +4559,9 @@ Instead of the finalized state we could also consider the $k$-confirmed state fo
 <li><strong>Desiderata</strong>: <a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/../../MD/md-74/README.html">MD-74</a></li>
 </ul>
 <h2 id="abstract-30"><a class="header" href="#abstract-30">Abstract</a></h2>
-<p>We propose a rate limitation mechanism to protect the Lock/Mint-type Native Bridge, hereafter called the <em>Native Bridge</em>, see <a href="https://github.com/movementlabsxyz/MIP/pull/58">MIP-58</a>, against faulty or compromised behavior of the bridge components. It limits the volume of assets that can be transferred within a time window. This MIP proposes a solution to mitigate attacks and limit damages, and if paired with an insurance fund it may cover the potential losses incurred by our users.</p>
+<p>We propose a rate limitation mechanism to protect the Lock/Mint-type Native Bridge, hereafter called the <em>Native Bridge</em>, see <a href="https://github.com/movementlabsxyz/MIP/pull/58">MIP-58</a>, against faulty or compromised behavior of the Native Bridge components. It limits the volume of assets that can be transferred within a time window. This MIP proposes a solution to mitigate attacks and limit damages, and if paired with an insurance fund it may cover the potential losses incurred by our users.</p>
 <h2 id="motivation-30"><a class="header" href="#motivation-30">Motivation</a></h2>
-<p>There are several components and actors in control of the behavior of the Native Bridge including contracts (we may assume they are trusted), our Relayer and of course the network. If an attacker can control one these components they can potentially mint and transfer assets thereby compromising the Native bridge.</p>
+<p>There are several components and actors in control of the behavior of the Native Bridge including contracts (we may assume they are trusted), our Relayer and of course the network. If an attacker can control one these components they can potentially mint and transfer assets thereby compromising the Native Bridge.</p>
 <p>The Rate Limiter can help to protect the Native Bridge against faulty components (Relayer or network) or attacks. It can limit the volume of transferred value per time interval, the maximum value transferred with a given transfer, or the number of transactions within a time window.</p>
 <h2 id="specification-29"><a class="header" href="#specification-29">Specification</a></h2>
 <blockquote>
@@ -4643,10 +4643,7 @@ For a transfer from L1 (L2) to L2 (L1) the <code>insurance_fund_target = insuran
 <p>where <code>rate_reduction_source</code> $\in$ <code>[0,1]</code> is a parameter that is set by the Relayer. <code>rate_limit_operator_source</code> is a parameter that is set by the Governance Operator. Note the <code>rate_limit_source</code> SHOULD not be larger than <code>rate_limit_operator_source</code>.</p>
 <h3 id="rate-limitation-adjustment-algorithm"><a class="header" href="#rate-limitation-adjustment-algorithm">Rate limitation adjustment algorithm</a></h3>
 <p>The rate limitation works as follows:</p>
-<blockquote>
-<p>[!NOTE]
-I can convert the following into pseudo code, after we have discussed the algorithm and it makes sense.</p>
-</blockquote>
+<p>!!! warning I can convert the following into pseudo code, after we have discussed the algorithm and it makes sense.</p>
 <p><strong>Algorithm for the Native Bridge contract on the source chain</strong></p>
 <ol>
 <li>A user wants to transfer value from source to target chain.</li>
@@ -4658,33 +4655,12 @@ I can convert the following into pseudo code, after we have discussed the algori
 </ol>
 </li>
 </ol>
-<p><strong>Algorithm for the Native Bridge contract on the target chain</strong></p>
-<ol>
-<li>The target chain Native Bridge contract checks if the rate limit <code>rate_limit_target</code> is exceeded if it would apply the transaction.
-<ol>
-<li>If the rate limit is exceeded the transaction is rejected.</li>
-<li>If the rate limit is not exceeded the transaction is accepted.</li>
-</ol>
-</li>
-</ol>
-<p>The following algorithm is a recommendation for the operation of the Relayer:</p>
-<p><strong>(Optional) Algorithm for the Relayer</strong></p>
-<ol>
-<li>The Relayer receives an event that a transaction was accepted.</li>
-<li>The Relayer checks if the rate limit <code>rate_limit_target</code> is exceeded if it would apply the transaction. (The Relayer may keep locally the budget on the target chain, or it could read the contract state).
-<ol>
-<li>If the rate limit is exceeded the transaction has to be put on hold.</li>
-<li>Else the Relayer sends a transfer transaction to the target chain.</li>
-</ol>
-</li>
-</ol>
 <h2 id="reference-implementation-24"><a class="header" href="#reference-implementation-24">Reference Implementation</a></h2>
 <h2 id="verification-29"><a class="header" href="#verification-29">Verification</a></h2>
 <p>Needs discussion.</p>
 <p>We may add a formal model?</p>
 <hr />
 <h2 id="changelog-1"><a class="header" href="#changelog-1">Changelog</a></h2>
-<hr />
 <h2 id="appendix-25"><a class="header" href="#appendix-25">Appendix</a></h2>
 <hr />
 <h2 id="copyright-14"><a class="header" href="#copyright-14">Copyright</a></h2>
