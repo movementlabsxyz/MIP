@@ -2,7 +2,6 @@
 
 - **Description**: Proposes a lock/mint-type Native Bridge that capitalizes on the trust-assumption on the Relayer.
 - **Authors**: [Primata](mailto:primata@movementlabs.xyz)
-- **Desiderata**: [MD-21](../MD/md-21)
 
 ## Abstract
 
@@ -239,7 +238,7 @@ sequenceDiagram
     Relayer ->> Target_Contract: Complete Transfer
     Target_Contract -->> User: Tokens Delivered
 ```
-*Interaction flow diagram.*
+*Figure: Interaction flow diagram.*
 
 ![Transaction History](tx-history.png)
 *Figure: Users would be able to see if the bridge has been completed. It's either pending or completed.*
@@ -257,9 +256,21 @@ Multisig Relayers could process pending transactions in batches during downtime 
 
 #### 4. **Rate limiting designs**
 
-Here we discuss three options for rate limiting. [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74) discusses option C.
+In order to protect the protocol from exploits and potential losses, rate limiting is essential.
 
-> **TODO:** Details such as this should be moved to the MIP of Rate Limitation, and different options should be listed as "Alternatives".
+For comparison the white paper [EigenLayer: The Restaking Collective](https://docs.eigenlayer.xyz/assets/files/EigenLayer_WhitePaper-88c47923ca0319870c611decd6e562ad.pdf) proposes that AVS (Actively Validated Services) can run for a bridge and the stake of validators protects the transferred value crypto-economically through slashing conditions. More specifically section `3.4 Risk Management` mentions
+
+> [...] to restrict the Profit from Corruption of any particular AVS [...] a bridge can restrict the value flow within the period of slashing.
+
+In essence this boils down to rate limit the bridge by considering
+- how long does it take to finalize transfers (ZK, optimistic)
+- how much value can be protected economically
+
+In our setting we trust the bridge operator, and thus we replace 
+- finalization by the reaction time of the operator
+- the staked value by the insurance fund
+
+Below we discuss three options for rate limiting.
 
 A. **Single-sided rate limiting (on source chain)**
 
@@ -281,6 +292,8 @@ B. **Two-sided partial rate limiting (target chain only)**
 
 C. **Two sided full rate limiting**
 
+This proposal is discussed in [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74).
+
 - The previous approaches may break the rate limit if users can directly initiate the bridge transfer via the bridge contracts. Since we MUST guarantee the completion of transfers the rate limit on the source chain could get exceeded, leading to ever increasing backlog of transfers.
 - Therefore, rate limiting should be implemented on both L1 and L2 for inbound and outbound transactions.
 - This approach extends the previous approach.
@@ -290,7 +303,7 @@ C. **Two sided full rate limiting**
 
 #### 5. **Bridge fee**
 
-> **TODO:** Details such as this should be moved to the MIP of Bridge Fees, and different options should be listed as "Alternatives".
+!!! warning **TODO:** Details such as this should be moved to the MIP of Bridge Fees, and different options should be listed as "Alternatives".
 
 - When bridging from L1 to L2, the protocol, through the Relayer, sponsors the gas cost on Movement. We do not need to make any modification on contracts or Relayer to support it.
 - When bridging from L2 to L1, we have a few viable solutions but it's preferable to highlight two.
