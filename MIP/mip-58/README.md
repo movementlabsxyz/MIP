@@ -297,16 +297,6 @@ Multisig Relayers could process pending transactions in batches during downtime 
 - [Arbitrum Bridge](https://bridge.arbitrum.io/?destinationChain=arbitrum-one&sourceChain=ethereum)
 - [Blast Bridge](https://docs.blast.io/building/bridges/mainnet)
 
-
-### A4: Bridge fee
-
-!!! warning **TODO:** Details such as this should be moved to the MIP of Bridge Fees, and different options should be listed as "Alternatives".
-
-- When bridging from L1 to L2, the protocol, through the Relayer, sponsors the gas cost on Movement. We do not need to make any modification on contracts or Relayer to support it.
-- When bridging from L2 to L1, we have a few viable solutions but it's preferable to highlight two.
-   1. Relayer sets a fee on L2, a global variable that can be set at any given time. Considering that block validation time on L1 is bigger than on L2, it becomes a viable approach since L2 can rapidly adjust the fee according to the current block and always charge an above L1 gas cost fee to attempt that the bridge is net positive. \$L2MOVE is deducted from the amount of tokens that are currently being bridged and transferred to a funds manager. This gives the protocol a very reliable way to estimate how much MOVE will be charged and feed to the user a precise amount of tokens. However, bridge transfers cannot always immediately be initiated on the L1, e.g. if there is a surge in transactions. 
-   2. Enable the Relayer to specify on the L1 `completeBridgeTransfer` transaction, the bridge fee per transaction. The amount is deducted from the total amount of tokens that were bridged and transferred to a funds manager. The dangerous situation is that we expect is this takes much more than 10 minutes before the transfer can occur, and this could lead to a big disparity between the expected amount of funds and the actual amount of tokens received.
-
 ### A5: Rate limiting
 
 !!! warning **TODO:** Details such as this should be moved to the MIP of Rate limiting designs?
