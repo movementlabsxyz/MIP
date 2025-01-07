@@ -505,51 +505,6 @@ struct TargetBridgeDetails {
 <li><a href="https://bridge.arbitrum.io/?destinationChain=arbitrum-one&amp;sourceChain=ethereum">Arbitrum Bridge</a></li>
 <li><a href="https://docs.blast.io/building/bridges/mainnet">Blast Bridge</a></li>
 </ul>
-<h3 id="a5-rate-limiting"><a class="header" href="#a5-rate-limiting">A5: Rate limiting</a></h3>
-<p>!!! warning <strong>TODO:</strong> Details such as this should be moved to the MIP of Rate limiting designs?</p>
-<p>In order to protect the protocol from exploits and potential losses, rate limiting is essential. For comparison the white paper <a href="https://docs.eigenlayer.xyz/assets/files/EigenLayer_WhitePaper-88c47923ca0319870c611decd6e562ad.pdf">EigenLayer: The Restaking Collective</a> proposes that AVS (Actively Validated Services) can run for a bridge and the stake of validators protects the transferred value crypto-economically through slashing conditions. More specifically section <code>3.4 Risk Management</code> mentions</p>
-<blockquote>
-<p>[…] to restrict the Profit from Corruption of any particular AVS […] a bridge can restrict the value flow within the period of slashing.</p>
-</blockquote>
-<p>In essence this boils down to rate limit the bridge by considering</p>
-<ul>
-<li>how long does it take to finalize transfers (ZK, optimistic)</li>
-<li>how much value can be protected economically</li>
-</ul>
-<p>In our setting we trust the bridge operator, and thus we replace</p>
-<ul>
-<li>finalization by the reaction time of the operator</li>
-<li>the staked value by the insurance fund</li>
-</ul>
-<p>Below we discuss three options for rate limiting.</p>
-<p>A. <strong>Single-sided rate limiting (on source chain)</strong></p>
-<ul>
-<li>Rate limiting should be implemented on the L1 and maps each day to a budget, for each direction. Once the budget is reached on one of the directions, no more tokens can be transferred on that direction.</li>
-<li>The bridge is financially secured by an Insurance Fund, see <a href="https://github.com/movementlabsxyz/MIP/pull/50">MIP-50</a>, which determines  the maximum amount of tokens to be transferred per day, called the budget. The insurance fund is maintained by Movement Labs.</li>
-<li>The budget is one quarter of the Insurance Fund balance. This is meant to account for the insurance fund to be able to insure all current funds already transferred and all tokens inflight, per direction.</li>
-<li>The Insurance Fund maintains the rate limit budget by adjusting its own <code>$MOVE</code> balance. It should be either the Movement Labs multisig or a new multisig 1/3 if we choose to adopt an approach that requires more direct ability by the personnel.</li>
-<li>Once the rate limit budget is reached, if no issues have been observed, operators should simply wait for the next day.</li>
-<li>If an issue has been observed, an operator should simply transfer to the bridge contract the sum of the exploit size, being the result of additional supply on L1, outside of the bridge address, and the additional supply on L2. This action covers both cases where tokens were extracted from the bridge contract on L1 or over-minted on L2. Movement Foundation should evaluate the amount of tokens that should be held by the Insurance Fund after the incident and transfer to it the amount to reach that amount.</li>
-<li>This approach is open to exploits where the Relayer key is compromised. It would enable the exploiter to freely mint on L2.</li>
-</ul>
-<p>B. <strong>Two-sided partial rate limiting (target chain only)</strong></p>
-<ul>
-<li>Rate limiting should be implemented on both L1 and L2 for inbound transactions only. It maps a daily budget of inbound transactions and once it’s reached, the Relayer cannot complete more transactions. The bridge is financially secured by two Insurance Funds, one on each side, maintained by Movement Labs, and the maximum amount of tokens to be transferred per day, per direction is half of each of its Insurance Funds balances. This is meant to account for all tokens already transferred and inflight, per direction.</li>
-<li>The Insurance Funds determine the rate limit budgets. Thus the rate limit can be adjusted by changing the <code>$MOVE</code> balance. They should be either Movement Labs multisigs or new multisigs 1/3 if we choose to adopt an approach that requires more direct ability by the personnel.</li>
-<li>Once the rate limit budget is reached, if no issues have been observed, operators should simply wait for the next day.</li>
-<li>If an issue has been observed, operators should transfer to the bridge address the exploit amount on the L1 and burn the exploit amount on the L2. Movement Foundation should evaluate the amount of tokens that should be held by the Insurance Funds and operators should receive those tokens and bridge tokens if an exploit occurred on L2.</li>
-<li>This approach is more susceptible to issues on the frontend because the frontend has to acknowledge rate limit budget and inflight tokens and inform users if the rate limit is about to be reached, not only if it has been reached.</li>
-</ul>
-<p>C. <strong>Two sided full rate limiting</strong></p>
-<p>This proposal is discussed in <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a>.</p>
-<ul>
-<li>The previous approaches may break the rate limit if users can directly initiate the bridge transfer via the bridge contracts. Since we MUST guarantee the completion of transfers the rate limit on the source chain could get exceeded, leading to ever increasing backlog of transfers.</li>
-<li>Therefore, rate limiting should be implemented on both L1 and L2 for inbound and outbound transactions.</li>
-<li>This approach extends the previous approach.</li>
-<li>It protects against exploits of the Relayer.</li>
-<li>Initiating transfers get rejected on the source chain, which improves safety and fulfills rate limit requirements on the source chain.</li>
-<li>On the source chain the rate limit is not related to the Insurance Fund. This opens the question who sets the rate limit on the source chain. We answer this in <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a>.</li>
-</ul>
 <hr />
 <h2 id="copyright"><a class="header" href="#copyright">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="../LICENSE.html">CC0</a>.</p>
