@@ -8,7 +8,6 @@
 # test first in the above repo before updating scripts in this repo.
 # --------------------------------------------------------------
 
-
 # Ensure we're running with bash 4 or higher (needed for associative arrays)
 if ((BASH_VERSINFO[0] < 4)); then
     echo "This script requires bash version 4 or higher"
