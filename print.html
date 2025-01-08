@@ -4880,7 +4880,7 @@ The following are possible ways to adjust the rate limit:</p>
 <p>The trust assumptions on the relayer component have significant implications for the security of the bridge and they can introduce the need for additional components.</p>
 <p>In a scenario based approach we clarify minimally required components and why they are needed. We distinguish between a trusted, partially trusted, and untrusted relayer (with proofs).</p>
 <h2 id="motivation-32"><a class="header" href="#motivation-32">Motivation</a></h2>
-<p>We need to clarify the trust assumptions for the Relayer and what consequences should be drawn from these.</p>
+<p>We need to clarify the trust assumptions for the Relayer and what consequences should be drawn from these. In many cases a rate limitation may be necessary, see also the Appendix <a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/index.html#a1-background-eigenlayer">A1: Eigenlayer AVS</a>.</p>
 <p>This addresses in <a href="https://github.com/movementlabsxyz/MIP/blob/mip/rate-limiter-lock-mint-bridge/MD/md-74/README.md#D1">MD-74</a> the following:</p>
 <ul>
 <li>D1 : Specify the actors and their trust assumptions</li>
@@ -4985,7 +4985,10 @@ Option 2: Each FFS validator node MUST run a service that obtains (or gets from 
 </ul>
 <p>The expected time for the completion of the transfer is the time it takes is in the range of Postconfirmations and L1 finality time.</p>
 <h2 id="reference-implementation-26"><a class="header" href="#reference-implementation-26">Reference Implementation</a></h2>
-<h3 id="background-eigenlayer"><a class="header" href="#background-eigenlayer">Background EigenLayer</a></h3>
+<h2 id="verification-31"><a class="header" href="#verification-31">Verification</a></h2>
+<h2 id="errata-27"><a class="header" href="#errata-27">Errata</a></h2>
+<h2 id="appendix-27"><a class="header" href="#appendix-27">Appendix</a></h2>
+<h3 id="a1-background-eigenlayer"><a class="header" href="#a1-background-eigenlayer">A1: Background EigenLayer</a></h3>
 <p>In order to protect the protocol from exploits and potential losses, rate limiting is essential. For comparison the white paper <a href="https://docs.eigenlayer.xyz/assets/files/EigenLayer_WhitePaper-88c47923ca0319870c611decd6e562ad.pdf">EigenLayer: The Restaking Collective</a> proposes that AVS (Actively Validated Services) can run for a bridge and the stake of validators protects the transferred value crypto-economically through slashing conditions. More specifically section 3.4 Risk Management mentions</p>
 <blockquote>
 <p>[…] to restrict the Profit from Corruption of any particular AVS […] a bridge can restrict the value flow within the period of slashing.</p>
@@ -5000,9 +5003,6 @@ Option 2: Each FFS validator node MUST run a service that obtains (or gets from 
 <li>finalization by the reaction time of the operator</li>
 <li>the staked value by the insurance fund</li>
 </ul>
-<h2 id="verification-31"><a class="header" href="#verification-31">Verification</a></h2>
-<h2 id="errata-27"><a class="header" href="#errata-27">Errata</a></h2>
-<h2 id="appendix-27"><a class="header" href="#appendix-27">Appendix</a></h2>
 <hr />
 <h2 id="copyright-16"><a class="header" href="#copyright-16">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/../LICENSE.html">CC0</a>.</p>
