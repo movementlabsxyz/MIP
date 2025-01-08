@@ -133,7 +133,7 @@ The expected time for the completion of the transfer is the time it takes is in 
 
 - L2-->L1 direction:
 
-The Relayer submits a proof on L1 that the transfer was initiated successfully and is within the commitment on L1.
+The Relayer submits a proof on L1 that the transfer was initiated successfully and is within the commitment on L1 (e.g. via Merkle).
 
 - L1 --> L2 direction:
 
