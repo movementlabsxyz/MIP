@@ -42,7 +42,7 @@ We make the following base assumption:
 
 **Assumption**: The relayer is fully trusted to submit the completion of the transfer to the bridge contracts.
 
-**Risks**: Since the component is trusted, no risks are associated with it.
+**Risks**: Since the component is trusted, in principle no risks are associated with it. The risk lies in the trust assumption. If the Relayer software component becomes malicious or faulty, the bridge is compromised, potentially leading to significant loss of funds bounds.
 
 **Consequence**:
 The relayer can submit the completion of the transfer to the bridge contracts without any restrictions. Since the relayer is trusted, no additional components are needed. Furthermore, no additional protective measures are needed.
