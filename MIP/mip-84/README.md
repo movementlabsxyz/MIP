@@ -1,22 +1,8 @@
-# MIP-\<number\>: Lock-Mint Native Bridge: Rate Limiting Basics
+# MIP-84: Lock-Mint Native Bridge: Rate Limiting Basics
 
 - **Description**: This MIP clarifies the basic assumptions for the Rate Limiter, and what consequences should be drawn from these.
 - **Authors**: Andreas Penzkofer
 - **Desiderata**: [MD-74](../MIP/mip-74)
-
-<!--
-  READ MIP-1 BEFORE USING THIS TEMPLATE!
-
-  This is the suggested template for new MIPs. After you have filled in the requisite fields, please delete these comments.
-
-  Note that an MIP number will be assigned by an editor. When opening a pull request to submit your MIP, please use an abbreviated title in the filename, `mip-draft_title_abbrev.md`.
-
-  The title should be 44 characters or less. It should not repeat the MIP number in title, irrespective of the category.
-
-  The author should add himself as a code owner in the `.github/CODEOWNERS` file for the MIP.
-
-  TODO: Remove this comment before finalizing.
--->
 
 ## Abstract
 
@@ -34,20 +20,6 @@ This addresses in [MD-74](https://github.com/movementlabsxyz/MIP/blob/mip/rate-l
 
 - D1 : Specify the actors and their trust assumptions
 - D2 : Specify the risks and threats from components
-
-
-
-D1: Specify the actors and their trust assumptions
-User Journey: The developer should understand existing trust assumptions.
-
-Description: The Native Bridge is operated via contracts, actors and components. What are the trust assumptions on these?
-
-D1: Specify the risks and threats from components
-User Journey: The developer should understand the risks from components.
-
-Description: We must ensure that risks are minimized even in the case that a component is compromised or faulty.
-
-Recommendations: Address the risks by first identifying the relevant parties and their trust assumptions. Then, specify the risks and threats from these components. How can we restrict the risks?
 
 ## Specification
 
