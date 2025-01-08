@@ -10,7 +10,7 @@ The lock/mint-type bridge has the following core actors and components: a user w
 
 The trust assumptions on the relayer component have significant implications for the security of the bridge and they can introduce the need for additional components.
 
-In a scenario based approach we clarify minimally required components and why they are needed.
+In a scenario based approach we clarify minimally required components and why they are needed. We distinguish between a trusted, partially trusted, and untrusted relayer (with proofs).
 
 ## Motivation
 
@@ -29,9 +29,7 @@ We define the following terms:
 
 - **Trusted** : A component is trusted if it is assumed to be secure and reliable. No errors in the component can occur. Nor keys can get compromised.
 - **Partially trusted** : A component is partially trusted if it is assumed that under normal operations it is secure and reliable. However, errors may occur due to bugs, misconfigurations, or other reasons. Furthermore, the question is raised if the software component is secure. Protective measures should be taken to reduce the maximally caused damage that the component can cause incase it becomes malicious or faulty.
-- **Untrusted** : A component is untrusted if it is assumed that it is not secure and reliable. Any action should be approved by a trusted party.
-
-!!! warning Question: Is a partially trusted component a fully untrusted component?
+- **Untrusted** : A component is untrusted if it is assumed that it is not secure and reliable. Any action should be approved by a trusted party and require a proof of correctness.
 
 ### Base assumptions
 
@@ -119,7 +117,7 @@ The expected time for the completion of the transfer is the time it takes is in 
 
 The relayer submits a proof on L1 that the transfer was initiated successfully on L2 and is part the commitment on L1.
 
-Since the finality is crypto-economically protected by watchtower nodes, a rate limitation may have to be applied that ensures, that the value that can be transferred is economically protected. Otherwise the watchtower nodes may be incentivized to collude and finalize invalid transfers.
+Since the finality is crypto-economically protected by watchtower nodes, a rate limitation may have to be applied that ensures, that the value that can be transferred is crypto-economically protected. Otherwise the watchtower nodes may be incentivized to collude and finalize invalid transfers.
 
 - L1 --> L2 direction:
 
@@ -144,7 +142,11 @@ Option 2: Each FFS validator node MUST run a service that obtains (or gets from 
 
 - Rate Limiting:
 
-Since the finality is crypto-economically protected by the FFS nodes, a rate limitation may have to be applied that ensures, that the value that can be transferred is economically protected. Otherwise the FFS validator nodes may be incentivized to collude and include invalid transfers. However, compared to the optimistic chains there is no watchtower service that can invalidate malicious checkpoints (i.e. checkpoint produced by collusion) and thus FFS validator nodes may have nothing at stake.
+Since the finality is crypto-economically protected by the FFS nodes, a rate limitation may have to be applied that ensures, that the value that can be transferred within a given time is crypto-economically protected by the FFS validator set. Otherwise the FFS validator nodes may be incentivized to collude and include invalid transfers that could drain the locked L1 token pool (or equivalently mint until a possible supply limit on the L2).
+
+However, compared to the optimistic chains there is no watchtower service that can invalidate malicious checkpoints (i.e. checkpoint produced by collusion) and thus FFS validator nodes may have nothing at stake, raising the question whether there needs to be some operator with reaction time `time_reaction` that can halt the bridge and possibly slash the FFS validator nodes.
+
+For a solution on a rate limitation see Section [Partial Trusted Relayer](#partially-trusted-relayer).
 
 - Timing:
 
@@ -161,7 +163,7 @@ In order to protect the protocol from exploits and potential losses, rate limiti
 In essence this boils down to rate limit the bridge by considering
 
 - how long does it take to finalize transfers (ZK, optimistic)
-- how much value can be protected economically
+- how much value can be protected crypto-economically
 
 In our setting we trust the bridge operator, and thus we replace
 
