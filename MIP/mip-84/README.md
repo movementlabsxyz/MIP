@@ -1,6 +1,6 @@
-# MIP-84: Lock-Mint Native Bridge: Rate Limiting Basics
+# MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions
 
-- **Description**: This MIP clarifies the basic assumptions for the Rate Limiter, and what consequences should be drawn from these.
+- **Description**: This MIP clarifies the trust assumptions for the Relayer, and what consequences should be drawn from these.
 - **Authors**: Andreas Penzkofer
 - **Desiderata**: [MD-74](../MIP/mip-74)
 
