@@ -14,7 +14,7 @@ The Lock/Mint-type Native Bridge (hereafter called the "Native Bridge"), see [MI
 
 **Description**: The Native Bridge is operated via contracts, actors and components. What are the trust assumptions on these?
 
-### D1: Specify the risks and threats from components
+### D2: Specify the risks and threats from components
 
 **User Journey**: The developer should understand the risks from components.
 

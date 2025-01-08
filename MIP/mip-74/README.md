@@ -35,13 +35,14 @@ _The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "
 
 ### Actors and components
 
-The Native Bridge is operated via contracts, key holders and a relayer. The following actors and components are involved:
+The Native Bridge is operated via contracts, key holders and a relayer. More precisely the following actors and components are involved:
 
 1. **User**: this is the entity that interacts with the Native Bridge. The user can be a contract or an external account.
 1. **L1 Native Bridge contract**: this is the contract that is deployed on the L1 chain. It is responsible for locking and releasing (unlocking) assets on the L1 chain.
 1. **L2 Native Bridge contract**: this is the contract that is deployed on the L2 chain. It is responsible for minting and burning assets on the L2 chain.
 1. **Governance contract**: this is an L2 contract on L2 that is used to adjust the parameters of the Native Bridge components on L2.
 1. **Governance Operator**: this is the entity that can adjust the parameters of the Native Bridge via the governance contract or directly.
+1. **Relayer**: this is the software component that is responsible for transferring assets between the L1 and L2 Native Bridge contracts by completing transfers initiated by the user.
 
 In addition to protect the Native Bridge against faulty components, the Rate Limiter and the Insurance Fund are introduced. Figure 1 shows the architecture of the Native Bridge including the following components:
 
@@ -55,10 +56,17 @@ _Figure 1: Architecture of the Rate Limitation system_
 
 We assume the following _trust assumptions_:
 
+Contracts:
+
 1. The Governance contract is implemented correctly.
 1. The Native Bridge contracts (L1 and L2) are implemented correctly.
+1. The Insurance Fund is implemented correctly.
+1. The Rate Limiter contract parts are implemented correctly.
+
+Other:
+
 1. The Governance Operator is trusted. For example, it COULD be a multisig human.
-1. The Relayer is a trusted software component.
+1. The Relayer is a partially trusted software component. We trust it to a certain extent, but we want to limit its power to mint or release assets.
 
 ### Risks and mitigation strategies
 
@@ -66,7 +74,7 @@ The following attack vectors are considered:
 
 1. The trusted Relayer is compromised or faulty. We thus want to ensure that the Relayer has not unlimited power to release or mint assets. For this we MUST implement the Rate Limiter on the target chain.
 1. In order to rate-limit the Native Bridge (e.g. stop the Native Bridge transfers entirely) there should be a higher instance than the Relayer in setting rate limits. Thus the rate limit on the target chain SHOULD be set by the Governance Operator.
-1. If the target chain is rate limited but the source chain is not, users could request for more transfers on the source chain than the Relayer could complete on the target chain. This could lead to a situation where the Relayer is not able to process all transactions. To mitigate this the Relayer or the Governance Operator MUST rate limit the source chain as well. The rate limts on both chains SHOULD be consistent.
+1. If the target chain is rate limited but the source chain is not, users could request for more transfers on the source chain than the Relayer could complete on the target chain. This could lead to a situation where the Relayer is not able to process all transactions. To mitigate this the Relayer or the Governance Operator MUST rate limit the source chain as well. The rate limits on both chains SHOULD be consistent.
 1. The Relayer may go down, while the number of transactions and requested transfer value across the Native Bridge still increases on the source chain. Due to the rate limit on the target chain the Relayer may struggle or be incapable to process all initiated transfers. Thus the Relayer or the Governance Operator MUST be able to rate limit the source chain temporarily or permanently lower than the target chain rate limit.
 
 To elaborate on the last point, consider that the Native Bridge operates at the maximum rate continuously and both source and target chain have the same rate limit. Then, if the Relayer goes down for some time $\Delta$, the Relayer will start to process transactions at the maximum rate. Consequently, all transactions would be delayed by $\Delta$ time units as long as the rate limit on the target chain is entirely exhausted.
@@ -111,7 +119,6 @@ _Implementation recommendation #1_: The default value is 24h. In the initial imp
 _Implementation recommendation #2_: The target Native Bridge contract checks at every transfer first, whether the relevant Insurance Fund size has changed before calculating the current rate limit and whether the budget is exceeded.
 
 **(Optional) Direct adjustment of rate limit by Governance Operator**
-
 The rate limit MAY also be adjusted by the Governance Operator directly by a parameter `rate_reduction_target`. However the Rate Limiter MUST NOT set the rate limit higher than the `max_rate_limit_target`. In equation
 
 `rate_limit_target = rate_reduction_target * max_rate_limit_target`,
