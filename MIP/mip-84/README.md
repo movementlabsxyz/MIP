@@ -14,7 +14,7 @@ In a scenario based approach we clarify minimally required components and why th
 
 ## Motivation
 
-We need to clarify the trust assumptions for the Relayer and what consequences should be drawn from these.
+We need to clarify the trust assumptions for the Relayer and what consequences should be drawn from these. In many cases a rate limitation may be necessary, see also the Appendix [A1: Eigenlayer AVS](#a1-background-eigenlayer).
 
 This addresses in [MD-74](https://github.com/movementlabsxyz/MIP/blob/mip/rate-limiter-lock-mint-bridge/MD/md-74/README.md#D1) the following:
 
@@ -154,7 +154,13 @@ The expected time for the completion of the transfer is the time it takes is in 
 
 ## Reference Implementation
 
-### Background EigenLayer
+## Verification
+
+## Errata
+
+## Appendix
+
+### A1: Background EigenLayer
 
 In order to protect the protocol from exploits and potential losses, rate limiting is essential. For comparison the white paper [EigenLayer: The Restaking Collective](https://docs.eigenlayer.xyz/assets/files/EigenLayer_WhitePaper-88c47923ca0319870c611decd6e562ad.pdf) proposes that AVS (Actively Validated Services) can run for a bridge and the stake of validators protects the transferred value crypto-economically through slashing conditions. More specifically section 3.4 Risk Management mentions
 
@@ -169,12 +175,6 @@ In our setting we trust the bridge operator, and thus we replace
 
 - finalization by the reaction time of the operator
 - the staked value by the insurance fund
-
-## Verification
-
-## Errata
-
-## Appendix
 
 ---
 ## Copyright
