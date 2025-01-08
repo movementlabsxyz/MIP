@@ -4902,7 +4902,7 @@ The following are possible ways to adjust the rate limit:</p>
 </ul>
 <h3 id="trusted-relayer-1"><a class="header" href="#trusted-relayer-1">Trusted Relayer</a></h3>
 <p><strong>Assumption</strong>: The relayer is fully trusted to submit the completion of the transfer to the bridge contracts.</p>
-<p><strong>Risks</strong>: Since the component is trusted, no risks are associated with it.</p>
+<p><strong>Risks</strong>: Since the component is trusted, in principle no risks are associated with it. The risk lies in the trust assumption. If the Relayer software component becomes malicious or faulty, the bridge is compromised, potentially leading to significant loss of funds bounds.</p>
 <p><strong>Consequence</strong>:
 The relayer can submit the completion of the transfer to the bridge contracts without any restrictions. Since the relayer is trusted, no additional components are needed. Furthermore, no additional protective measures are needed.</p>
 <h3 id="partially-trusted-relayer"><a class="header" href="#partially-trusted-relayer">Partially Trusted Relayer</a></h3>
