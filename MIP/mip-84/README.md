@@ -14,7 +14,7 @@ In a scenario based approach we clarify minimally required components and why th
 
 ## Motivation
 
-We need to clarify the basic assumptions for the Relayer and what consequences should be drawn from these.
+We need to clarify the trust assumptions for the Relayer and what consequences should be drawn from these.
 
 This addresses in [MD-74](https://github.com/movementlabsxyz/MIP/blob/mip/rate-limiter-lock-mint-bridge/MD/md-74/README.md#D1) the following:
 
@@ -101,7 +101,7 @@ The Rate Limiter, see [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74) a
 
 - L2-->L1 direction:
 
-The relayer submits a proof on L1 that the transfer was initiated succesfully on the L2 chain and is part of the L1 verified ZK proof of the commitment of the L2 chain.
+The relayer submits a proof on L1 that the transfer was initiated successfully on the L2 chain and is part of the L1 verified ZK proof of the commitment of the L2 chain.
 
 - L1 --> L2 direction:
 
@@ -142,11 +142,11 @@ Option 2: Each FFS validator node MUST run a service that obtains (or gets from 
 
 - Rate Limiting:
 
-Since the finality is crypto-economically protected by the FFS nodes, a rate limitation may have to be applied that ensures, that the value that can be transferred within a given time is crypto-economically protected by the FFS validator set. Otherwise the FFS validator nodes may be incentivized to collude and include invalid transfers that could drain the locked L1 token pool (or equivalently mint until a possible supply limit on the L2).
+Since the finality is crypto-economically protected by the FFS nodes with `value_FFS_stake`, a rate limitation may have to be applied that ensures, that the value that can be transferred within a given time is crypto-economically protected by the FFS validator set. Otherwise the FFS validator nodes may be incentivized to collude and include invalid transfers that could drain the locked L1 token pool (or equivalently mint until a possible supply limit on the L2).
 
-However, compared to the optimistic chains there is no watchtower service that can invalidate malicious checkpoints (i.e. checkpoint produced by collusion) and thus FFS validator nodes may have nothing at stake, raising the question whether there needs to be some operator with reaction time `time_reaction` that can halt the bridge and possibly slash the FFS validator nodes.
+However, compared to the optimistic chains there is no watchtower service that can invalidate malicious checkpoints (i.e. checkpoint produced by collusion) and thus FFS validator nodes may have nothing at stake, raising the question whether there needs to be some operator with reaction time `time_react` that can halt the bridge and possibly slash the FFS validator nodes.
 
-For a solution on a rate limitation see Section [Partial Trusted Relayer](#partially-trusted-relayer).
+For a solution on a rate limitation see Section [Partial Trusted Relayer](#partially-trusted-relayer). Replace `value_insurance` by `value_FFS_stake`.
 
 - Timing:
 
