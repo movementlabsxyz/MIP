@@ -4878,7 +4878,7 @@ The following are possible ways to adjust the rate limit:</p>
 <h2 id="abstract-32"><a class="header" href="#abstract-32">Abstract</a></h2>
 <p>The lock/mint-type bridge has the following core actors and components: a user who initiates a transfer, a bridge operator, bridge contracts that facilitate the transfer, and a relayer that submits the completion of the transfer to the bridge contracts.</p>
 <p>The trust assumptions on the relayer component have significant implications for the security of the bridge and they can introduce the need for additional components.</p>
-<p>In a scenario based approach we clarify minimally required components and why they are needed.</p>
+<p>In a scenario based approach we clarify minimally required components and why they are needed. We distinguish between a trusted, partially trusted, and untrusted relayer (with proofs).</p>
 <h2 id="motivation-32"><a class="header" href="#motivation-32">Motivation</a></h2>
 <p>We need to clarify the basic assumptions for the Relayer and what consequences should be drawn from these.</p>
 <p>This addresses in <a href="https://github.com/movementlabsxyz/MIP/blob/mip/rate-limiter-lock-mint-bridge/MD/md-74/README.md#D1">MD-74</a> the following:</p>
@@ -4892,9 +4892,8 @@ The following are possible ways to adjust the rate limit:</p>
 <ul>
 <li><strong>Trusted</strong> : A component is trusted if it is assumed to be secure and reliable. No errors in the component can occur. Nor keys can get compromised.</li>
 <li><strong>Partially trusted</strong> : A component is partially trusted if it is assumed that under normal operations it is secure and reliable. However, errors may occur due to bugs, misconfigurations, or other reasons. Furthermore, the question is raised if the software component is secure. Protective measures should be taken to reduce the maximally caused damage that the component can cause incase it becomes malicious or faulty.</li>
-<li><strong>Untrusted</strong> : A component is untrusted if it is assumed that it is not secure and reliable. Any action should be approved by a trusted party.</li>
+<li><strong>Untrusted</strong> : A component is untrusted if it is assumed that it is not secure and reliable. Any action should be approved by a trusted party and require a proof of correctness.</li>
 </ul>
-<p>!!! warning Question: Is a partially trusted component a fully untrusted component?</p>
 <h3 id="base-assumptions"><a class="header" href="#base-assumptions">Base assumptions</a></h3>
 <p>We make the following base assumption:</p>
 <ul>
@@ -4955,7 +4954,7 @@ In a system with low latency, or unbounded transfer size the Relayer may be able
 <li>L2–&gt;L1 direction:</li>
 </ul>
 <p>The relayer submits a proof on L1 that the transfer was initiated successfully on L2 and is part the commitment on L1.</p>
-<p>Since the finality is crypto-economically protected by watchtower nodes, a rate limitation may have to be applied that ensures, that the value that can be transferred is economically protected. Otherwise the watchtower nodes may be incentivized to collude and finalize invalid transfers.</p>
+<p>Since the finality is crypto-economically protected by watchtower nodes, a rate limitation may have to be applied that ensures, that the value that can be transferred is crypto-economically protected. Otherwise the watchtower nodes may be incentivized to collude and finalize invalid transfers.</p>
 <ul>
 <li>L1 –&gt; L2 direction:</li>
 </ul>
@@ -4978,7 +4977,9 @@ Option 2: Each FFS validator node MUST run a service that obtains (or gets from 
 <ul>
 <li>Rate Limiting:</li>
 </ul>
-<p>Since the finality is crypto-economically protected by the FFS nodes, a rate limitation may have to be applied that ensures, that the value that can be transferred is economically protected. Otherwise the FFS validator nodes may be incentivized to collude and include invalid transfers. However, compared to the optimistic chains there is no watchtower service that can invalidate malicious checkpoints (i.e. checkpoint produced by collusion) and thus FFS validator nodes may have nothing at stake.</p>
+<p>Since the finality is crypto-economically protected by the FFS nodes, a rate limitation may have to be applied that ensures, that the value that can be transferred within a given time is crypto-economically protected by the FFS validator set. Otherwise the FFS validator nodes may be incentivized to collude and include invalid transfers that could drain the locked L1 token pool (or equivalently mint until a possible supply limit on the L2).</p>
+<p>However, compared to the optimistic chains there is no watchtower service that can invalidate malicious checkpoints (i.e. checkpoint produced by collusion) and thus FFS validator nodes may have nothing at stake, raising the question whether there needs to be some operator with reaction time <code>time_reaction</code> that can halt the bridge and possibly slash the FFS validator nodes.</p>
+<p>For a solution on a rate limitation see Section <a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/index.html#partially-trusted-relayer">Partial Trusted Relayer</a>.</p>
 <ul>
 <li>Timing:</li>
 </ul>
@@ -4992,7 +4993,7 @@ Option 2: Each FFS validator node MUST run a service that obtains (or gets from 
 <p>In essence this boils down to rate limit the bridge by considering</p>
 <ul>
 <li>how long does it take to finalize transfers (ZK, optimistic)</li>
-<li>how much value can be protected economically</li>
+<li>how much value can be protected crypto-economically</li>
 </ul>
 <p>In our setting we trust the bridge operator, and thus we replace</p>
 <ul>
