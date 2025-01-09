@@ -73,7 +73,7 @@ PRs that don't introduce a new MIP/MD are also accepted, for example MIPs/MDs ca
 
 ## Status Terms
 
-An MIP/MD is proposed through a PR. Each MIP/MDG-introducing PR should have a status in the name in the form `[Status] ...`.
+An MIP/MD is proposed through a PR. Each MIP/MD PR should have a status in the name in the form `[status] MIP/MD-x: ...`.
 
 An MIP/MG should at all times have one of the following statuses:
 
@@ -87,7 +87,7 @@ After acceptance the MIP/MD is merged into `main` and the branch should be delet
 
 Additionally, the following statuses are used for MIPs/MDs that are not actively being worked on:
 
-- **Stagnant** - an MIP/MD that has not been updated for 6 months.
+- **Stagnant** - an MIP/MD that has not been updated for 6 months. Upon this status the PR will be closed.
 - **Withdrawn** - an MIP/MD that has not been withdrawn.
 
 Finally, an MIP/MD can also be updated:

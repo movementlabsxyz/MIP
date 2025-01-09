@@ -15,13 +15,17 @@ Movement technologies continually evolve, and there's a need to ensure that the 
 
 !!! info We treat the [root README](../../README.md) as an extension to this document.
 
-### Lifecycle
+### High-level Lifecycle
 
 The lifecycle of a proposal should be
 
 1. create a [new issue](https://github.com/movementlabsxyz/MIP/issues) to register the intent to write an MD/MIP and its scope.
 2. If 1. is approved by governance (this may require some discussions), start writing an MD and create a PR for it using [this Draft](../../md-template.md).
 3. The author MAY start an MIP using [this Draft](../../mip-template.md) in the same PR as the MD. However, doing so may slow down the governance approval of the MD. A preferred approach is to start with the MD, then await governance approval and only then start the MIP in a separate PR.
+
+#### Status terms
+
+An MIP/MD is proposed through a PR. Each MIP/MD PR should have a status. For additional specification, see the [root README](../../README.md#status-terms).
 
 ### Roles
 
