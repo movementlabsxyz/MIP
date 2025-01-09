@@ -1,4 +1,5 @@
 # MG-\<number\>: \<term-in-appropriate-case\>
+
 - **Authors**: [Author](mailto:author@email.com)
 
 <!--
