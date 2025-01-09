@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -30,15 +30,19 @@
 
         <!-- Custom theme stylesheets -->
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../../../../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="../../../../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -60,19 +64,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -82,45 +83,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../../../GLOSSARY.html">Glossary</a></li><li class="chapter-item expanded "><a href="../../../../../index.html">Approved</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../index.html">MIPs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-1/index.html">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-15/index.html">MIP-15: MG (Movement Gloss)</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-39/index.html">MIP-39: MOVE Token -- HTLC-based Native Bridge Design</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MIP/mip-53/index.html">MIP-53: Conventions for Proposing Progressive L2 Models</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MDs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-1/index.html">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-3/index.html">MD-3: MCR under Network Partitions and Asynchrony</a></li><li class="chapter-item expanded "><a href="../../../../../Approved/main/MD/md-15/index.html">MD-15: Movement Glossary</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MGs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Approved/main/MG/mg-39/index.html">MG-39:  MOVE Token -- Bridge Design</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">Review</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../index.html">MIPs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/mikhail/suzuka-da-migrations/MIP/mip-13/index.html">MIP-13:  Suzuka DA Migrations Format</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled-demurrage/MIP/mip-42/index.html">MIP-15: NB-FFS Decoupled Demurrage</a></li><li class="chapter-item expanded "><a href="../../../../../Review/gas-fee-calculation/MIP/mip-16/index.html">MIP-16: Calculation of gas fees </a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mip-18/MIP/mip-18/index.html">MIP-18: Stage 0 Upgradeability and Multisigs</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andyjsbell/unwanted-framework/MIP/mip-24/index.html">MIP-24: Removal of redundant functionality from framework</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andyjsbell/proxy-root/MIP/mip-25/index.html">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mip-27/MIP/mip-27/index.html">MIP-27: Contract Pipeline</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/actor-naming-conventions/MIP/mip-28/index.html">MIP-28: Naming Conventions for Movement Protocol Design</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/FFS/MIP/mip-34/index.html">MIP-34: Fast Finality Settlement</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled/MIP/mip-40/index.html">MIP-40: NB-FFS Decoupled</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-governed-gas-pool/MIP/mip-44/index.html">MIP-44: NB-FFS Governed Gas Pool</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/security_falliblity/MIP/mip-46/index.html">MIP-46: Security and Fallibility of the Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/gas-fees-incremental-additions/MIP/mip-47/index.html">MIP-47: Improve Gas fee collection in phases</a></li><li class="chapter-item expanded "><a href="../../../../../Review/0xmovses/aptos-gov-pool/MIP/mip-48/index.html">MIP-48: aptos_governance for Goverened Gas Pool</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/just-reward/MIP/mip-49/index.html">MIP-49: NB-FFS Governed Fees and Rewards</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/insured-bridge/MIP/mip-50/index.html">MIP-50: Insured Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/the-biarritz-model/MIP/mip-54/index.html">MIP-54: The Biarritz Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/the-bilbao-model/MIP/mip-55/index.html">MIP-55: The Bilbao Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/rate-limiter/MIP/mip-56/index.html">MIP-56: Rate-Limiter for the HTLC-based Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer/MIP/mip-57/index.html" class="active">MIP-57: Informer for the Operation of the HTLC-based Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip-58/MIP/mip-58/index.html">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip-crosschain-bridges-background/MIP/mip-60/index.html">MIP-60: Crosschain bridge architectures</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/index.html">MIP-61: Relayer in the lock/mint bridge - Algorithm and Bootstrapping </a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/L2confirmation/MIP/mip-65/index.html">MIP-65: FFS: Fastconfirmations</a></li><li class="chapter-item expanded "><a href="../../../../../Review/issue66/MDMIP-for-bridge-fees/MIP/mip-69/index.html">MIP-69: Bridge Fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer-lockmintbridge/MIP/mip-71/index.html">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/sanfran-model/MIP/mip-73/index.html">MIP-73: The SanFran Model</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/index.html">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mainnet-feature-flags/MIP/mip-81/index.html">MIP-81</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/index.html">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MDs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/index.html">MD-2: Enclave Crash-resistant Key Management</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/long-range-attacks/MD/md-5/index.html">MD-4: Long Range Attacks</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/gas-offset/MD/md-4/index.html">MD-4: MCR Offsetting Gas Costs</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/block-validation/MD/md-6/index.html">MD-6: Suzuka Block Validation</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/block-validation/MD/md-7/index.html">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mikhail/suzuka-da-migrations/MD/md-13/index.html">MD-13: Suzuka DA Migrations Format</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/bridge-timelock-as-state/MD/md-14/index.html">MD-14: Bridge Should Use A More Secure Timelock</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andygolay/move-on-bitcoin/MD/md-16/index.html">MD-16: Create MOVE fungible asset on Bitcoin using runes</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/md-17/MD/md-17/index.html">MD-17: Bridge Fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/bridge-attestors/MD/md-21/index.html">MD-21: Native Bridge with Attesters</a></li><li class="chapter-item expanded "><a href="../../../../../Review/andygolay/md-26/MD/md-26/index.html">MD-26: User-facing checks</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/md-30/MD/md-30/index.html">MD-30: Movement Name Service</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/FFS/MD/md-34/index.html">MD-34: Fast Finality Settlement</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/index.html">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></li><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/just-reward/MD/md-49/index.html">MD-49: Movement L2 Gas Fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/L2confirmation/MD/md-65/index.html">MD-65: FFS: Fastconfirmations</a></li><li class="chapter-item expanded "><a href="../../../../../Review/issue66/MDMIP-for-bridge-fees/MD/md-69/index.html">MD-69: Bridge fees</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/informer-lockmintbridge/MD/md-71/index.html">MD-71: Informer service for the Lock/Mint-based Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/index.html">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></li><li class="chapter-item expanded "><a href="../../../../../Review/primata/mainnet-feature-flags/MD/md-81/index.html">MD-81: Movement Mainnet Feature Flags</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../index.html">MGs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../Review/l-monninger/ab-ffs-decoupled-demurrage/MG/mg-42/index.html">MG-42: demurrage token</a></li></ol></li></ol></li></ol>
-            </div>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../../../../toc.html"></iframe>
+            </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
             </div>
         </nav>
 
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
-
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -147,7 +128,7 @@
                         <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/movementlabsxyz/MIP-Testing" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/movementlabsxyz/MIP" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -176,9 +157,10 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="mip-57-informer-for-the-operation-of-the-htlc-based-native-bridge"><a class="header" href="#mip-57-informer-for-the-operation-of-the-htlc-based-native-bridge">MIP-57: Informer for the Operation of the HTLC-based Native Bridge</a></h1>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="mip-57-informer-for-the-operation-of-the-htlc-based-native-bridge"><a class="header" href="#mip-57-informer-for-the-operation-of-the-htlc-based-native-bridge">MIP-57: Informer for the Operation of the HTLC-based Native Bridge</a></h1>
 <ul>
-<li><strong>Description</strong>: The Informer collects data from L1 and L2 about the circulating supply of $MOVE tokens, which is critical for the safe operation of the HTLC-based Native Bridge.</li>
+<li><strong>Description</strong>: The Informer collects data from L1 and L2 about the circulating supply of \ tokens, which is critical for the safe operation of the HTLC-based Native Bridge.</li>
 <li><strong>Authors</strong>: <a href="mailto:andreas.penzkofer@movementlabs.xyz">Andreas Penzkofer</a></li>
 </ul>
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
@@ -193,9 +175,9 @@
 <p>The informer collects information about the state of liquid $L1MOVE and $L2MOVE and provides this information to components of the Native Bridge. The Informer is a trusted component that is critical to the safe operation of the Native Bridge.</p>
 <ol>
 <li>The Informer is a component that MUST run a node or client on L1 and on L2.</li>
-<li>On L1 the Informer SHOULD read the liquid supply <code>L1MOVE_circulating</code> of $L1MOVE token at the $k$-confirmed state. The definition of $k-confirmed$ is given in <a href="https://github.com/movementlabsxyz/movement/issues/838">Issue-838</a>.</li>
-<li>On L2 the Informer SHOULD read the liquid supply <code>L2MOVE_circulating</code> of $L2MOVE token at the $m$-confirmed state.</li>
-<li>The values for $k$ and $m$ MUST be the same as the value of $k$ and $m$ in the bridge parameters.</li>
+<li>On L1 the Informer SHOULD read the liquid supply <code>L1MOVE_circulating</code> of $L1MOVE token at the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span>-confirmed state. The definition of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">co</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">m</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span></span></span></span> is given in <a href="https://github.com/movementlabsxyz/movement/issues/838">Issue-838</a>.</li>
+<li>On L2 the Informer SHOULD read the liquid supply <code>L2MOVE_circulating</code> of $L2MOVE token at the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span></span></span></span>-confirmed state.</li>
+<li>The values for <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span></span></span></span> MUST be the same as the value of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span></span></span></span> in the bridge parameters.</li>
 <li>Since L1 blocks have timestamps we say the Informer reads <code>L1MOVE_circulating(t_L1)</code>.</li>
 <li>We assume that L2 blocks acquire timestamps from the sequencing protocol, e.g. Celestia. Thus the Informer reads <code>L2MOVE_circulating(t_L2)</code>.</li>
 </ol>
@@ -203,7 +185,7 @@
 <p>The Informer SHOULD provide the information about the circulating $L1MOVE and $L2MOVE supply <code>MOVE_circulating(t)</code>, <a href="#measuring-circulating-supply">see here</a>. The circulating supply is lowered from the desired maximum circulating supply <code>MOVE_Max</code> by the inflight tokens, <a href="#inflight-tokens">see here</a>. The inflight-token can be over-approximated.</p>
 <p>The Informer SHOULD provide a warning if the circulating supply exceeds the maximum circulating supply <code>MOVE_Max</code>. However, due difference in clocks between layers, <a href="#difference-in-layer-timestamps">see here</a>, and the over-approximation of inflight-token, the measured circulating supply could be above <code>MOVE_Max</code>.</p>
 <h4 id="measuring-circulating-supply"><a class="header" href="#measuring-circulating-supply">Measuring circulating supply</a></h4>
-<p>The circulating supply of $MOVE token <code>MOVE_circulating(t) = L1MOVE_circulating(t) + L2MOVE_circulating(t)</code>.</p>
+<p>The circulating supply of \ token <code>MOVE_circulating(t) = L1MOVE_circulating(t) + L2MOVE_circulating(t)</code>.</p>
 <blockquote>
 <p>[!WARNING] If we do not want to run into the risk that measured circulating supply may become invalidated through reorgs we COULD consider finalized states only, i.e. we would require <code>t_now - t &gt; max{t_L1finality,t_L2finality}</code>.</p>
 </blockquote>
@@ -212,9 +194,9 @@
 <p>We refer to the following illustration for a bridge transfer from L1 to L2, which is taken from <a href="https://github.com/movementlabsxyz/MIP/pull/39">MIP-39</a>.</p>
 <p><img src="L1ToL2.png" alt="L1 to L2 Transfer" />
 <em>Figure 2: Illustration of L1 to L2 token transfer process. Both the good path (transfer succeeds) and the bad path (transfer fails due to timeout) is shown.</em></p>
-<p>Assume some $L1MOVE is locked (with finalization) at time $t_1$.</p>
+<p>Assume some $L1MOVE is locked (with finalization) at time <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7651em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.</p>
 <ul>
-<li>On the <strong>good path</strong> the equivalent $L2MOVE token is minted on L2 at time $t_2$, where $\Delta t = t_2 - t_1 \in$<code>[2 * t_L2finality, t_L2finality + timelock2]</code>. In other words the total circulating supply of $MOVE is decreased by the amount of locked $L1MOVE tokens for $\Delta t$.</li>
+<li>On the <strong>good path</strong> the equivalent $L2MOVE token is minted on L2 at time <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7651em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, where <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">Δ</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7651em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7651em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span></span></span></span><code>[2 * t_L2finality, t_L2finality + timelock2]</code>. In other words the total circulating supply of $MOVE is decreased by the amount of locked $L1MOVE tokens for <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">Δ</span><span class="mord mathnormal">t</span></span></span></span>.</li>
 <li>On the <strong>bad path</strong> there is no equivalent minted $L2MOVE token on L2 minted. Instead, after <code>timelock1</code> the locked $L1MOVE token is unlocked on L1. The total circulating supply of $MOVE is decreased by the amount of locked $L1MOVE tokens for <code>timelock1</code>.</li>
 </ul>
 <p>For the inverse transfer from L2 to L1 the same arguments hold.</p>
@@ -235,18 +217,18 @@ The Informer can provide an estimate on the inflight tokens. In particular it is
 <p>I.e. this measurement could overestimate the token supply.</p>
 <h4 id="difference-in-layer-timestamps"><a class="header" href="#difference-in-layer-timestamps">Difference in Layer Timestamps</a></h4>
 <p>The timestamps of the two layers are not synchronized. We assume that the difference is negligible, however, for correctness, the implications of a drift between the L1 and L2 clocks should be considered. Moreover, the clocks of the layers progress discretely. This means that the Informer has to read at slightly different times on L1 and L2.</p>
-<p>This error in the calculation of circulating token <code>error_token_circulating</code> due to difference in timestamps between L1 and L2 can be net positive. Thus the measured circulating supply of $MOVE could be above <code>MOVE_max</code>.</p>
+<p>This error in the calculation of circulating token <code>error_token_circulating</code> due to difference in timestamps between L1 and L2 can be net positive. Thus the measured circulating supply of \ could be above <code>MOVE_max</code>.</p>
 <p>Since the time difference should be small the error should be no more than the rate budget of two intervals, i.e. <code>error_token_circulating &lt;= (ratelimit_L1L2 + ratelimit_L2L1 ) * risk_period * 2</code>.</p>
 <h3 id="recommendations"><a class="header" href="#recommendations">Recommendations</a></h3>
 <ol>
-<li>It is recommended that $k&gt;=32$, i.e. at least one epoch.</li>
-<li>It is recommended that $m=3$.
-On L2 we assume a pBFT-like algorithm for the consensus on transaction-blocks, If the protocol is pipelined, this would indicate that 3 blocks are required to finalize. If all phases of the BFT consensus algorithm are handled within one block, then $m=1$ is sufficient.
-With Celestia this would be approximately after $36sec$. (The block time of $12sec$ is taken from the <a href="https://docs.celestia.org/tutorials/integrate-celestia">Celestia documentation</a> and the <a href="https://celestia.explorers.guru/">Celestia explorer</a>).</li>
+<li>It is recommended that <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7335em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">32</span></span></span></span>, i.e. at least one epoch.</li>
+<li>It is recommended that <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">3</span></span></span></span>.
+On L2 we assume a pBFT-like algorithm for the consensus on transaction-blocks, If the protocol is pipelined, this would indicate that 3 blocks are required to finalize. If all phases of the BFT consensus algorithm are handled within one block, then <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span> is sufficient.
+With Celestia this would be approximately after <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">36</span><span class="mord mathnormal">sec</span></span></span></span>. (The block time of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">12</span><span class="mord mathnormal">sec</span></span></span></span> is taken from the <a href="https://docs.celestia.org/tutorials/integrate-celestia">Celestia documentation</a> and the <a href="https://celestia.explorers.guru/">Celestia explorer</a>).</li>
 </ol>
 <h3 id="optimizations"><a class="header" href="#optimizations">Optimizations</a></h3>
 <ol>
-<li>Instead of reading the $k$-confirmed state, the Informer COULD consider the finalized state. The finalized state is achieved approximately after two epochs (one epoch holds 32 blocks if no blocks are missed), see <a href="https://x.com/LogarithmicRex/status/1578540111930699778">this tweet</a> and <a href="https://ethos.dev/beacon-chain">this article</a>.</li>
+<li>Instead of reading the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span>-confirmed state, the Informer COULD consider the finalized state. The finalized state is achieved approximately after two epochs (one epoch holds 32 blocks if no blocks are missed), see <a href="https://x.com/LogarithmicRex/status/1578540111930699778">this tweet</a> and <a href="https://ethos.dev/beacon-chain">this article</a>.</li>
 <li>For security purposes the Informer COULD consider only the state produced by L2 blocks that have been <a href="https://github.com/movementlabsxyz/MIP/pull/37">postconfirmed</a> on L1.</li>
 </ol>
 <h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
