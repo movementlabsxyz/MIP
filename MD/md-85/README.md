@@ -1,4 +1,4 @@
-# MD-\<number\>: Bridge Architecture Requirements
+# MD-85: Bridge Architecture Requirements
 - **Description**: Elicit the requirements of the native bridge.
 - **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz)
 

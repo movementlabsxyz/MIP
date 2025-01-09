@@ -23,7 +23,7 @@ This MIP provides a high-level description of the architecture of the native bri
 
 ## Motivation
 
-This MIP is associated with [MD-xx](../../MD/md-bridge-archi/README.md).
+This MIP is associated with [MD-85](../../MD/md-85/README.md).
 
 ## Specification
 
