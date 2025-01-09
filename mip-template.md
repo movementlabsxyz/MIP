@@ -89,6 +89,9 @@ Needs discussion.
 
   Each changelog should briefly describe each change made, accompanied by a reference to the date, version and PR in which the change was implemented.
 
+  The format should be as follows:
+  - **YYYY-MM-DD**: Description of change. [PR#](link-to-PR)
+
   TODO: Maintain this comment.
 
 -->

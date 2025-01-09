@@ -21,7 +21,20 @@
 2. Example 2
 3. Example 3
 
-### Errata
+## Changelog
+
 <!--
-    Document any post-publication corrections to the glossary entry.
+  The changelog should be maintained after publication.
+
+  1. **Transparency and Clarity**: The changelog acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
+
+  2. **Accountability**: By noting changes openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
+
+  Each changelog should briefly describe each change made, accompanied by a reference to the date, version and PR in which the change was implemented.
+
+  The format should be as follows:
+  - **YYYY-MM-DD**: Description of change. [PR#](link-to-PR)
+
+  TODO: Maintain this comment.
+
 -->
