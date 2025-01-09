@@ -10,20 +10,28 @@ The lock/mint-type bridge has the following core actors and components: a user w
 
 The trust assumptions on the relayer component have significant implications for the security of the bridge and they can introduce the need for additional components.
 
+---
+![alt text](image.png)
+
+**Figure 1**: The Relayer is in charge of _relaying_ bridge transactions. If a user initiates a bridge transfer request on the Move chain with a transaction $T(s,r,a)$ with a sender $s$, recipient $r$, for an amount $a$, we expect the Relayer to relay the request to Ethereum with a matching transactions $T'(s,r,a)$. However, a compromised or buggy Relayer may tamper with the bridge transfer data and relay $s', r', a'$ where #s', r', a'$ may differ from $s, r,a$.
+
+---
+
 In a scenario based approach we clarify minimally required components and why they are needed. We distinguish between a trusted, partially trusted, and untrusted relayer (with proofs).
 
 ## Motivation
 
 We need to clarify the trust assumptions for the Relayer and what consequences should be drawn from these. In many cases a rate limitation may be necessary, see also the Appendix [A1: Eigenlayer AVS](#a1-background-eigenlayer).
 
-This addresses in [MD-74](https://github.com/movementlabsxyz/MIP/blob/mip/rate-limiter-lock-mint-bridge/MD/md-74/README.md#D1) the following:
+This addresses the following desiderata in [MD-74](https://github.com/movementlabsxyz/MIP/blob/mip/rate-limiter-lock-mint-bridge/MD/md-74/README.md#D1):
 
 - D1 : Specify the actors and their trust assumptions
 - D2 : Specify the risks and threats from components
 
 ## Specification
 
-_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
+> [!NOTE]
+> _The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
 
 We define the following terms:
 
@@ -61,7 +69,7 @@ The relayer can submit the completion of the transfer to the bridge contracts wi
 
 **Consequence**:
 
-User is affected: A complaint by the user should be individually handled. A mechanism to accept complaints MAY be provide. The complaint should be handled by a trusted party.
+User is affected: A complaint by the user should be individually handled. A mechanism to accept complaints MAY be provided. The complaint should be handled by a trusted party or a governance component.
 
 Abuse / Miscalculation: The Relayer may release (mint) excessively tokens on the L1 (L2). Any token that is released (minted) on the target chain without a corresponding burn (lock) on the source chain will increase the total circulating supply across L1 and L2. However, the Bridge Operator MUST ensure that the total circulating supply of the token remains constant.
 
@@ -156,7 +164,7 @@ The expected time for the completion of the transfer is the time it takes is in 
 
 ## Verification
 
-## Errata
+## Change logs
 
 ## Appendix
 
