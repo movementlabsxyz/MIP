@@ -185,16 +185,23 @@
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
 <p>The lock/mint-type bridge has the following core actors and components: a user who initiates a transfer, a bridge operator, bridge contracts that facilitate the transfer, and a relayer that submits the completion of the transfer to the bridge contracts.</p>
 <p>The trust assumptions on the relayer component have significant implications for the security of the bridge and they can introduce the need for additional components.</p>
+<hr />
+<p><img src="image.png" alt="alt text" /></p>
+<p><strong>Figure 1</strong>: The Relayer is in charge of <em>relaying</em> bridge transactions. If a user initiates a bridge transfer request on the Move chain with a transaction $T(s,r,a)$ with a sender $s$, recipient $r$, for an amount $a$, we expect the Relayer to relay the request to Ethereum with a matching transactions $T’(s,r,a)$. However, a compromised or buggy Relayer may tamper with the bridge transfer data and relay $s’, r’, a’$ where #s’, r’, a’$ may differ from $s, r,a$.</p>
+<hr />
 <p>In a scenario based approach we clarify minimally required components and why they are needed. We distinguish between a trusted, partially trusted, and untrusted relayer (with proofs).</p>
 <h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
 <p>We need to clarify the trust assumptions for the Relayer and what consequences should be drawn from these. In many cases a rate limitation may be necessary, see also the Appendix <a href="#a1-background-eigenlayer">A1: Eigenlayer AVS</a>.</p>
-<p>This addresses in <a href="https://github.com/movementlabsxyz/MIP/blob/mip/rate-limiter-lock-mint-bridge/MD/md-74/README.md#D1">MD-74</a> the following:</p>
+<p>This addresses the following desiderata in <a href="https://github.com/movementlabsxyz/MIP/blob/mip/rate-limiter-lock-mint-bridge/MD/md-74/README.md#D1">MD-74</a>:</p>
 <ul>
 <li>D1 : Specify the actors and their trust assumptions</li>
 <li>D2 : Specify the risks and threats from components</li>
 </ul>
 <h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
-<p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
+<blockquote>
+<p>[!NOTE]
+<em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
+</blockquote>
 <p>We define the following terms:</p>
 <ul>
 <li><strong>Trusted</strong> : A component is trusted if it is assumed to be secure and reliable. No errors in the component can occur. Nor keys can get compromised.</li>
@@ -223,7 +230,7 @@ The relayer can submit the completion of the transfer to the bridge contracts wi
 <li>Error: The relayer may submit invalid transfers leading to failed transfers.</li>
 </ol>
 <p><strong>Consequence</strong>:</p>
-<p>User is affected: A complaint by the user should be individually handled. A mechanism to accept complaints MAY be provide. The complaint should be handled by a trusted party.</p>
+<p>User is affected: A complaint by the user should be individually handled. A mechanism to accept complaints MAY be provided. The complaint should be handled by a trusted party or a governance component.</p>
 <p>Abuse / Miscalculation: The Relayer may release (mint) excessively tokens on the L1 (L2). Any token that is released (minted) on the target chain without a corresponding burn (lock) on the source chain will increase the total circulating supply across L1 and L2. However, the Bridge Operator MUST ensure that the total circulating supply of the token remains constant.</p>
 <p><strong>Solution Part 1:</strong>
 The bridge operator MUST learn about the excessive minting (unlocking) through some monitoring system. The monitoring service MAY be only an initial warning system that informs the bridge operator to take action. This action could involve halting the bridge or starting an investigation.</p>
@@ -293,7 +300,7 @@ Option 2: Each FFS validator node MUST run a service that obtains (or gets from 
 <p>The expected time for the completion of the transfer is the time it takes is in the range of Postconfirmations and L1 finality time.</p>
 <h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
 <h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
-<h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
+<h2 id="change-logs"><a class="header" href="#change-logs">Change logs</a></h2>
 <h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
 <h3 id="a1-background-eigenlayer"><a class="header" href="#a1-background-eigenlayer">A1: Background EigenLayer</a></h3>
 <p>In order to protect the protocol from exploits and potential losses, rate limiting is essential. For comparison the white paper <a href="https://docs.eigenlayer.xyz/assets/files/EigenLayer_WhitePaper-88c47923ca0319870c611decd6e562ad.pdf">EigenLayer: The Restaking Collective</a> proposes that AVS (Actively Validated Services) can run for a bridge and the stake of validators protects the transferred value crypto-economically through slashing conditions. More specifically section 3.4 Risk Management mentions</p>
