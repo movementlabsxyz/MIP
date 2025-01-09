@@ -30,13 +30,13 @@ MDs serve to capture the **objectives** behind the **introduction** of a particu
 
 related to MIPs should be documented as an MD and stored in the MD directory.
 
-A template with instructions is provided at [md-template](md-template.md). See [MIP-0](./MIP/mip-0) for a definition of its functionality.
+A **template with instructions** is provided at [md-template](md-template.md). See [MIP-0](./MIP/mip-0) for a definition of its functionality.
 
 ## Movement Improvement Proposal (MIP)
 
-A template with instructions is provided at [mip-template](mip-template.md). See [MIP-0](./MIP/mip-0) for a definition of its functionality.
+A **template with instructions** is provided at [mip-template](mip-template.md). See [MIP-0](./MIP/mip-0) for a definition of its functionality.
 
-### Deciding whether to propose
+#### Deciding whether to propose
 
 You **SHOULD** draft and submit an MIP, if any of the following are true:
 
