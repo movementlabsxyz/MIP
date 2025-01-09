@@ -13,11 +13,32 @@ Movement technologies continually evolve, and there's a need to ensure that the 
 
 ## Specification
 
-To summarize, the lifecycle of a proposal should be:
+To summarize, the lifecycle of a proposal should be (see also the [root README](../../README.md)):
 
 1. create a [new issue](https://github.com/movementlabsxyz/MIP/issues) to register the intent to write an MD/MIP and its scope.
-2. If 1. is approved (this may require some discussions), start writing an MD and create a PR for it using [this Draft](../../md-template.md).
-3. if 2. is approved (this may require some discussions on the MD PR) start writing the MIP and create a PR for it using [this Draft](../../mip-template.md).
+2. If 1. is approved by governance (this may require some discussions), start writing an MD and create a PR for it using [this Draft](../../md-template.md).
+3. The author MAY start an MIP using [this Draft](../../mip-template.md) in the same PR as the MD. However, doing so may slow down the governance approval of the MD. A preferred approach is to start with the MD, then await governance approval and only then start the MIP in a separate PR.
+
+### Governance
+
+A governance body is responsible for overseeing the Movement Improvement Proposal process. This body is responsible for approving or rejecting proposals, and for ensuring that the process is followed correctly. The governance body is also responsible for maintaining the Movement Improvement Proposal repository, and for ensuring that the proposals are kept up-to-date.
+
+### Editor
+
+The motivation for the role of the editor is to ensure the readability, layout correctness, and easy access of content. The editor is responsible for the final review of the MIPs. The editor is responsible for the following:
+
+- Ensures a high quality of the MIPs/MDs, e.g. checking language while reviewing.
+- Removes content from the MIPs/MDs that is commented out. (e.g. content within <!- -> brackets)
+- Ensures the MIP/MD numbering is correct.
+- Ensures the MIP/MD is in the correct status.
+- Ensures the authors have added themselves to [CODEOWNERS](./.github/CODEOWNERS), see [Code owners](#code-owners).
+
+The editor is NOT responsible for the content.
+
+**Conflict resolution**: In the unlikely case, where an editor requests a change from an author that the author does not agree with and communication does not resolve the situation
+
+- the editor can mandate that the author implements the changes by getting 2 upvotes from reviewers on their discussion comment mentioning the changes.
+- Otherwise the author can merge without the editor requested change.
 
 ### Issue
 
@@ -29,13 +50,11 @@ Movement Desiderate (MDs) are used to request new features, highlight new requir
 
 We provide a [template](../../md-template.md) for MDs, which should be used for specifying complex changes to Movement technologies.
 
-**Lifecycle**: An MIP starts as a draft, after which it undergoes discussions and revisions. Once agreed upon, it moves to a 'published' status. An MIP can also be deprecated if it becomes obsolete. The available statuses are listed in the [root README](../../README.md).
+**Lifecycle**: An MD starts as a draft, after which it undergoes discussions and revisions. Once agreed upon, it moves to a 'published' status. An MD can also be deprecated if it becomes obsolete. The available statuses are listed in the [root README](../../README.md).
 
-**Storage**: MDs should be stored in the [MDs directory](../../MD/). For each MIP a separate directory should be created, containing the MD in markdown format, and any additional files required for the MD.
+**Storage**: MDs should be stored in the [MDs directory](../../MD/). For each MD a separate directory should be created, containing the MD in markdown format, and any additional files required for the MD.
 
 **Structure**: Each MD must adhere to [this template](../../md-template.md), which requires details like title, description, author, status, and more. An MD also includes sections like Overview, Desiderata and Changelog.
-
-**Changelog**: Post-publication changes, if any, to the MDs should be documented in this section. This ensures transparency and provides readers with accurate and up-to-date information.
 
 ### MIP
 
@@ -49,11 +68,11 @@ A Movement Improvement Proposal (MIP) is a design document that provides informa
   
 **Structure**: Each MIP must adhere to [this template](../../mip-template.md), which requires details like title, description, author, status, and more. A MIP also includes sections like Abstract, Motivation, Specification, Reference Implementation, Verification, Changelog, and Appendix, see next.
 
-**Reference Implementation**: A reference implementation or a sample MIP following the MIP template can be provided to guide potential proposers. This MIP (MIP-0) serves as a practical example, aiding in understanding the format and expectations.
+**Section Reference Implementation**: A reference implementation or a sample MIP following the MIP template can be provided to guide potential proposers. This MIP (MIP-0) serves as a practical example, aiding in understanding the format and expectations.
   
-**Definitions** : Provide definitions that you think will empower the reader to quickly dive into the topic.
+**(Optional) Section Definitions**: Provide definitions that you think will empower the reader to quickly dive into the topic.
 
-**Verification**
+**Section Verification**
 
 1. Correctness: Each MIP must convincingly demonstrate its correctness.
 
@@ -75,10 +94,11 @@ I'm using spellcheck while writing this MIP. You can verify that I am using vali
 
 The Movement Labs team is currently reviewing and assessing this process.
 
-**Appendix**: The Appendix should contain references and notes related to the MIP. Materials referenced in the MIP should be marked with specific labels (e.g., ⟨R1⟩) for easy tracking and understanding.
+**Section Appendix**: The Appendix should contain references and notes related to the MIP. Materials referenced in the MIP should be marked with specific labels (e.g., ⟨R1⟩) for easy tracking and understanding.
 
-**Changelog**: Post-publication changes, if any, to the MIPs should be documented in this section. This ensures transparency and provides readers with accurate and up-to-date information.
+**Section Changelog**: Post-publication changes, if any, to the MIP should be documented in this section. This ensures transparency and provides readers with accurate and up-to-date information.
 
 ## Changelog
 
 - 2024-12-18: Add information about the process and structure of MDs.
+- 2025-xx-xx: Incorporate updates on the process from SF.

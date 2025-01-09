@@ -9,7 +9,7 @@ The lifecycle of a proposal should be:
 
 1. create a [new issue](https://github.com/movementlabsxyz/MIP/issues) to register the intent to write an MD/MIP and its scope.
 2. If 1. is approved (this may require some discussions), start writing an MD and create a PR for it using [this Draft](../../md-template.md).
-3. if 2. is approved (this may require some discussions on the MD PR) start writing the MIP and create a PR for it using [this Draft](../../mip-template.md).
+3. The author MAY start an MIP using [this Draft](../../mip-template.md) in the same PR as the MD. However, doing so may slow down the governance approval of the MD. A preferred approach is to start with the MD, then await governance approval and only then start the MIP in a separate PR.
 
 ```mermaid
 graph LR
@@ -17,6 +17,8 @@ graph LR
 ```
 
 In addition MG serves as a glossary for terms defined in the MIPs and MDs.
+
+!!! info For more information on the process in this repository, see also[MIP-0](./MIP/mip-0/README.md).
 
 ## Movement Desiderata (MD)
 
@@ -92,26 +94,17 @@ Finally, an MIP/MD can also be updated:
 
 - **Update** - (set by author) An MIP/MD is being updated. The title should list the MIP/MD number, e.g. `[Update] MIP-0 ...`.
 
+## Governance
+
+For more information on the role of the governance, see [MIP-0: Governance](./MIP/mip-0/README.md#governance).
+
+Currently the governance consists of [@franck44](https://github.com/franck44), [@apenzk](https://github.com/apenzk).
+
 ## Editor
 
-The motivation for the role of the editor is to ensure the readability and easy access of content, until further means, such as automatic rendering becomes available.
+For more information on the role of the editor, see [MIP-0: Editor](./MIP/mip-0/README.md#editor).
 
 Currently the editors are [@apenzk](https://github.com/apenzk).
-
-The editor is responsible for the final review of the MIPs. The editor is responsible for the following:
-
-- Ensures a high quality of the MIPs/MDs, e.g. checking language while reviewing.
-- Removes content from the MIPs/MDs that is commented out. (e.g. content within <!- -> brackets)
-- Ensures the MIP/MD numbering is correct.
-- Ensures the MIP/MD is in the correct status.
-- Ensures the authors have added themselves to [CODEOWNERS](./.github/CODEOWNERS), see [Code owners](#code-owners).
-
-The editor is not responsible for the content.
-
-**Conflict resolution**: In the unlikely case, where an editor requests a change from an author that the author does not agree with and communication does not resolve the situation
-
-- the editor can mandate that the author implements the changes by getting 2 upvotes from reviewers on their discussion comment mentioning the changes.
-- Otherwise the author can merge without the editor requested change.
 
 ## Code owners
 
