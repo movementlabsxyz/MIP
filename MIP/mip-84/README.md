@@ -13,7 +13,7 @@ The trust assumptions on the relayer component have significant implications for
 ---
 ![alt text](image.png)
 
-**Figure 1**: The Relayer is in charge of _relaying_ bridge transactions. If a user initiates a bridge transfer request on the Move chain with a transaction $T(s,r,a)$ with a sender $s$, recipient $r$, for an amount $a$, we expect the Relayer to relay the request to Ethereum with a matching transactions $T'(s,r,a)$. However, a compromised or buggy Relayer may tamper with the bridge transfer data and relay $s', r', a'$ where #s', r', a'$ may differ from $s, r,a$.
+**Figure 1**: The Relayer is in charge of _relaying_ bridge transactions. If a user initiates a bridge transfer request on the L2 with a transaction $T(s,r,a)$ with a sender $s$, recipient $r$, for an amount $a$, we expect the Relayer to relay the request to the L1 with a matching transaction $T'(s,r,a)$. However, a compromised or buggy Relayer may tamper with the bridge transfer data and relay $s', r', a'$ where $s', r', a'$ may differ from $s, r,a$.
 
 ---
 
@@ -30,14 +30,13 @@ This addresses the following desiderata in [MD-74](https://github.com/movementla
 
 ## Specification
 
-> [!NOTE]
 > _The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
 
 We define the following terms:
 
 - **Trusted** : A component is trusted if it is assumed to be secure and reliable. No errors in the component can occur. Nor keys can get compromised.
-- **Partially trusted** : A component is partially trusted if it is assumed that under normal operations it is secure and reliable. However, errors may occur due to bugs, misconfigurations, or other reasons. Furthermore, the question is raised if the software component is secure. Protective measures should be taken to reduce the maximally caused damage that the component can cause incase it becomes malicious or faulty.
-- **Untrusted** : A component is untrusted if it is assumed that it is not secure and reliable. Any action should be approved by a trusted party and require a proof of correctness.
+- **Partially trusted** : A component is partially trusted if it can have unintentional bugs, or misconfigurations, or worst case gets compromised but in extremely rare occurances. Under normal operations it is secure and reliable. The rarity of these events permits that the operator takes care of resulting hardship. Protective measures should be taken to reduce the maximally caused damage that the component can cause incase it becomes faulty / Byzantine.
+- **Untrusted** : A component is untrusted if it can become malicious (Byzantine) at any time and frequently. The component can stop/crash or tamper with messages, results of computations. Any action should be approved by a trusted party and require a proof of correctness.
 
 ### Base assumptions
 
@@ -50,10 +49,10 @@ We make the following base assumption:
 
 **Assumption**: The relayer is fully trusted to submit the completion of the transfer to the bridge contracts.
 
-**Risks**: Since the component is trusted, in principle no risks are associated with it. The risk lies in the trust assumption. If the Relayer software component becomes malicious or faulty, the bridge is compromised, potentially leading to significant loss of funds bounds.
+**Risks**: Since the component is trusted, in principle no risks are associated with it.
 
 **Consequence**:
-The relayer can submit the completion of the transfer to the bridge contracts without any restrictions. Since the relayer is trusted, no additional components are needed. Furthermore, no additional protective measures are needed.
+The relayer always submits the correct completion transaction, i.e. without tampering with the sender, receiver and amount. The relayer can transfer without any restrictions. Since the relayer is trusted, no additional components are needed. Furthermore, no additional protective measures are needed.
 
 ### Partially Trusted Relayer
 
@@ -69,7 +68,7 @@ The relayer can submit the completion of the transfer to the bridge contracts wi
 
 **Consequence**:
 
-User is affected: A complaint by the user should be individually handled. A mechanism to accept complaints MAY be provided. The complaint should be handled by a trusted party or a governance component.
+User is affected: A complaint by the user should be individually handled. A mechanism to accept complaints MAY be provided. The complaint should be handled by a trusted party, such as a governance component.
 
 Abuse / Miscalculation: The Relayer may release (mint) excessively tokens on the L1 (L2). Any token that is released (minted) on the target chain without a corresponding burn (lock) on the source chain will increase the total circulating supply across L1 and L2. However, the Bridge Operator MUST ensure that the total circulating supply of the token remains constant.
 
@@ -164,7 +163,7 @@ The expected time for the completion of the transfer is the time it takes is in 
 
 ## Verification
 
-## Change logs
+## Changelog
 
 ## Appendix
 
