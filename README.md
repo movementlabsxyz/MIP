@@ -52,7 +52,7 @@ You **SHOULD NOT** draft an MIP, if any of the following are true:
 
 ## Movement Glossary (MG)
 
-See [MG-0](./MIP/mg-0) to get started. A template is provided at [mg-template](mg-template.md).
+See [MG-0](./MG/mg-0) to get started. A template is provided at [mg-template](mg-template.md).
 
 An alphabetically ordered list of terms is provided in the [glossary](GLOSSARY.md).
 
@@ -60,14 +60,11 @@ MGs serve to capture the **definitions** of terms introduced in the MIPs and MDs
 
 ## Files and numbering
 
-Each MIP, MD or MG is stored in a separate subdirectory with the a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a `README.md` that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
+Each MIP, MD or MG is stored in a separate subdirectory with a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a `README.md` that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
 
 An MIP/MD starts as **Draft**s. They DO NOT acquire a number at this point.
 
 An MIP/MD is assigned their PR number as soon as they are in the **Review** process. MDs that do not introduce a new MIP/MD are also accepted. Thus, there will be gaps in the MIP/MD number sequence. These gaps will also emerge when MIPs/MDs are deprecated or rejected.
-
-> [!NOTE]
-> Update the [OVERVIEW](https://github.com/movementlabsxyz/MIP/wiki/Overview) file with the MIP/MD number, title and other requirements.
 
 PRs that don't introduce a new MIP/MD are also accepted, for example MIPs/MDs can be updated. PRs that **Update** a MIP/MD should state so in the PR title, e.g. `[Update] MIP-....`.
 
@@ -80,15 +77,14 @@ An MIP/MG should at all times have one of the following statuses:
 - **Draft** - (set by author) An MIP/MD that is open for consideration. (It does not yet hold an MIP/MD number)
 - **Review** - (set by author) The MIP/MD is under peer review. The MIP/MD should receive an **MIP/MD number**, according to the rules described in the [Files and numbering](#files-and-numbering) section. At this point the editor should be involved to ensure the MIP/MD adheres to the guidelines.
 
->[!Note]
-> In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim.
+!!! info In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim.
 
 After acceptance the MIP/MD is merged into `main` and the branch should be deleted.
 
 Additionally, the following statuses are used for MIPs/MDs that are not actively being worked on:
 
 - **Stagnant** - an MIP/MD that has not been updated for 6 months. Upon this status the PR will be closed.
-- **Withdrawn** - an MIP/MD that has not been withdrawn.
+- **Withdrawn** - an MIP/MD that has been withdrawn.
 
 Finally, an MIP/MD can also be updated:
 
