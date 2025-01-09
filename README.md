@@ -98,7 +98,7 @@ Finally, an MIP/MD can also be updated:
 
 For more information on the role of the governance, see [MIP-0: Governance](./MIP/mip-0/README.md#governance).
 
-Currently the governance consists of [@franck44](https://github.com/franck44), [@apenzk](https://github.com/apenzk).
+Currently the governance consists of [@franck44](https://github.com/franck44), [@l-monninger](https://github.com/l-monninger), [@apenzk](https://github.com/apenzk), [@0xmovses](https://github.com/0xmovses), [@bhenhsi](https://github.com/bhenhsi).
 
 ## Editor
 
@@ -110,4 +110,4 @@ Currently the editors are [@apenzk](https://github.com/apenzk).
 
 An author commits to becoming the owner of the MIP/MD they propose. This means that for any future changes to the MIP/MD the author will be notified.
 
-This is being implemented by adding the author as a code owner in the `.github/CODEOWNERS` file for a given MIP/MD.
+The author MUST add themselves as a code owner in [CODEWONERS](.github/CODEOWNERS).

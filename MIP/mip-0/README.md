@@ -13,17 +13,23 @@ Movement technologies continually evolve, and there's a need to ensure that the 
 
 ## Specification
 
-To summarize, the lifecycle of a proposal should be (see also the [root README](../../README.md)):
+!!! info We treat the [root README](../../README.md) as an extension to this document.
+
+### Lifecycle
+
+The lifecycle of a proposal should be
 
 1. create a [new issue](https://github.com/movementlabsxyz/MIP/issues) to register the intent to write an MD/MIP and its scope.
 2. If 1. is approved by governance (this may require some discussions), start writing an MD and create a PR for it using [this Draft](../../md-template.md).
 3. The author MAY start an MIP using [this Draft](../../mip-template.md) in the same PR as the MD. However, doing so may slow down the governance approval of the MD. A preferred approach is to start with the MD, then await governance approval and only then start the MIP in a separate PR.
 
-### Governance
+### Roles
+
+#### Governance
 
 A governance body is responsible for overseeing the Movement Improvement Proposal process. This body is responsible for approving or rejecting proposals, and for ensuring that the process is followed correctly. The governance body is also responsible for maintaining the Movement Improvement Proposal repository, and for ensuring that the proposals are kept up-to-date.
 
-### Editor
+#### Editor
 
 The motivation for the role of the editor is to ensure the readability, layout correctness, and easy access of content. The editor is responsible for the final review of the MIPs. The editor is responsible for the following:
 
@@ -40,11 +46,21 @@ The editor is NOT responsible for the content.
 - the editor can mandate that the author implements the changes by getting 2 upvotes from reviewers on their discussion comment mentioning the changes.
 - Otherwise the author can merge without the editor requested change.
 
-### Issue
+#### Code owners
+
+An author commits to becoming the owner of the MIP/MD they propose. This means that for any future changes to the MIP/MD the author will be notified.
+
+The author MUST add themselves as a code owner in [CODEWONERS](.github/CODEOWNERS).
+
+### Proposal Stages
+
+The Movement Improvement Proposal process is divided into three stages: Issue, MD, and MIP.
+
+#### Stage Issue
 
 Issues are used to propose trivial changes or improvements to Movement technologies. They are used to discuss and document the rationale behind a proposed change, and to gather feedback from the community. Issues are not formalized and do not require a specific structure. They are used to gauge interest and to start discussions.
 
-### MD
+### Stage MD
 
 Movement Desiderate (MDs) are used to request new features, highlight new requirements, or propose new ideas. MDs are formalized and require a specific structure. They are used to provide a standardized means for requesting changes to Movement technologies, and to guide in written structure and by facilitating engagement.
 
@@ -56,7 +72,7 @@ We provide a [template](../../md-template.md) for MDs, which should be used for 
 
 **Structure**: Each MD must adhere to [this template](../../md-template.md), which requires details like title, description, author, status, and more. An MD also includes sections like Overview, Desiderata and Changelog.
 
-### MIP
+#### Stage MIP
 
 Movement Improvement Proposals (MIPs) serve as a mechanism to propose, discuss, and adopt changes or enhancements to Movement technologies. By providing a standardized and formalized structure for these proposals, MIPs ensure that proposed improvements are well-defined, transparent, and accessible to the wider community.
 
@@ -101,4 +117,4 @@ The Movement Labs team is currently reviewing and assessing this process.
 ## Changelog
 
 - 2024-12-18: Add information about the process and structure of MDs.
-- 2025-xx-xx: Incorporate updates on the process from SF.
+- 2025-xx-xx: Incorporate updates on the process from SF. [PR#76](https://github.com/movementlabsxyz/MIP/pull/76)
