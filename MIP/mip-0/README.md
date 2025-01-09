@@ -71,7 +71,7 @@ The Movement Improvement Proposal process is divided into three stages: Issue, M
 
 Issues are used to propose trivial changes or improvements to Movement technologies. They are used to discuss and document the rationale behind a proposed change, and to gather feedback from the community. Issues are not formalized and do not require a specific structure. They are used to gauge interest and to start discussions.
 
-### Stage MD
+#### Stage MD
 
 Movement Desiderate (MDs) are used to request new features, highlight new requirements, or propose new ideas. MDs are formalized and require a specific structure. They are used to provide a standardized means for requesting changes to Movement technologies, and to guide in written structure and by facilitating engagement.
 
