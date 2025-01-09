@@ -13,7 +13,14 @@ Movement technologies continually evolve, and there's a need to ensure that the 
 
 ## Specification
 
-!!! info We treat the [root README](../../README.md) as an extension to this document.
+### Extensions to this MIP
+
+We treat the following documents as extensions to this MIP:
+
+- [root README](../../README.md)
+- [MD template](../../md-template.md)
+- [MIP template](../../mip-template.md)
+- [MG template](../../mg-template.md)
 
 ### High-level Lifecycle
 
@@ -114,7 +121,7 @@ I'm using spellcheck while writing this MIP. You can verify that I am using vali
 
 The Movement Labs team is currently reviewing and assessing this process.
 
-**Section Appendix**: The Appendix should contain references and notes related to the MIP. Materials referenced in the MIP should be marked with specific labels (e.g., ⟨R1⟩) for easy tracking and understanding.
+**Section Appendix**: The Appendix should contain references and notes related to the MIP.
 
 **Section Changelog**: Post-publication changes, if any, to the MIP should be documented in this section. This ensures transparency and provides readers with accurate and up-to-date information.
 
