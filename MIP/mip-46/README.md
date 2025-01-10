@@ -1,20 +1,7 @@
 # MIP-46: Security and Fallibility of the Native Bridge
+
 - **Description**: Addresses the assumptions and requirements to guarantee the security of the Native Bridge.
 - **Authors**: Richard, [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
-
-<!--
-  READ MIP-1 BEFORE USING THIS TEMPLATE!
-
-  This is the suggested template for new MIPs. After you have filled in the requisite fields, please delete these comments.
-
-  Note that an MIP number will be assigned by an editor. When opening a pull request to submit your MIP, please use an abbreviated title in the filename, `mip-draft_title_abbrev.md`.
-
-  The title should be 44 characters or less. It should not repeat the MIP number in title, irrespective of the category.
-
-  The author should add himself as a code owner in the `.github/CODEOWNERS` file for the MIP.
-
-  TODO: Remove this comment before finalizing.
--->
 
 ## Abstract
 
@@ -71,12 +58,6 @@ The relayer shall maximize security measurements to protect its keys. For exampl
 
 ## Reference Implementation
 
-<!--
-  The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
-
-  TODO: Remove this comment before submitting
--->
-
 ## Verification
 
 ##### 1. Fix the Potential Supply
@@ -98,37 +79,9 @@ If [a bridge] acquires more [cryptoeconomic] security than the harm it can suffe
 
 Multisignature approaches are common praxis, for example see [MIP-21](https://github.com/movementlabsxyz/MIP/tree/primata/bridge-attestors/MIP/mip-21) or see [this article](https://medium.com/@j2abro/a-visual-guide-to-blockchain-bridge-security-e982fec671a7).
 
-
-<!--
-
-  All proposals must contain a section that discusses the various aspects of verification pertinent to the introduced changes. This section should address:
-
-  1. **Correctness**: Ensure that the proposed changes behave as expected in all scenarios. Highlight any tests, simulations, or proofs done to validate the correctness of the changes.
-
-  2. **Security Implications**: Address the potential security ramifications of the proposal. This includes discussing security-relevant design decisions, potential vulnerabilities, important discussions, implementation-specific guidance, and pitfalls. Mention any threats, risks, and mitigation strategies associated with the proposal.
-
-  3. **Performance Impacts**: Outline any performance tests conducted and the impact of the proposal on system performance. This could be in terms of speed, resource consumption, or other relevant metrics.
-
-  4. **Validation Procedures**: Describe any procedures, tools, or methodologies used to validate the proposal against its requirements or objectives. 
-
-  5. **Peer Review and Community Feedback**: Highlight any feedback from peer reviews or the community that played a crucial role in refining the verification process or the proposal itself.
-
-
-  TODO: Remove this comment before submitting
--->
-
-Needs discussion.
-
----
-
 ## Errata
 
-
 ## Appendix
-
-
-### A1
-Nothing important here.
 
 ---
 ## Copyright
