@@ -19,7 +19,8 @@ This model is the result of the co-location. The [MIP-54: Biarritz Model](https:
 
 ## Specification
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
+> [!NOTE] 
+> The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
 
 The following Diagram gives an overview of the modified or added components.
 
@@ -62,7 +63,7 @@ Needs discussion.
 
 ---
 
-## Errata
+## Change logs
 
 ---
 
