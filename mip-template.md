@@ -1,11 +1,11 @@
-# MD-\<number\>: \<Title\>
+# MIP-\<number\>: \<Title\>
 
 - **Description**: A single sentence summarizing the contents of the proposal.
 - **Authors**: [Author](mailto:author@email.com)
 - **Desiderata**: [MD-\<number\>](../MD/md-\<number\>)
 
 <!--
-  READ MIP-1 BEFORE USING THIS TEMPLATE!
+  READ MIP-0 BEFORE USING THIS TEMPLATE!
 
   This is the suggested template for new MIPs. After you have filled in the requisite fields, please delete these comments.
 

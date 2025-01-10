@@ -7,6 +7,7 @@
  -->
 
 ### Related Work
+
 <!--
     Enumerate key usages of the term or related terms in other contexts.
 -->
@@ -15,6 +16,7 @@
 3. [Reference 3](https://example.com)
 
 ### Example Usages
+
 <!--
     Provide examples of the term's usage in context.
 -->

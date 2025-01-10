@@ -4,6 +4,8 @@
 - **Authors**: [Author](mailto:author@email.com)
 
 <!--
+  READ MIP-0 BEFORE USING THIS TEMPLATE!
+
   This template is for drafting Desiderata. It ensures a structured representation of wishes, requirements, or needs related to the overarching objective mentioned in the title. After filling in the requisite fields, please delete these comments.
 
   Note that an MD number will be assigned by an editor. When opening a pull request to submit your MD, please use an abbreviated title in the filename, `README.md`.
