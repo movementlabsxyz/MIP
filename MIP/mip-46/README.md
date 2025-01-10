@@ -1,7 +1,7 @@
 # MIP-46: Security and Fallibility of the Native Bridge
 
 - **Description**: Addresses the assumptions and requirements to guarantee the security of the Native Bridge.
-- **Authors**: Richard, [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
+- **Authors**: Richard, Andreas Penzkofer
 
 ## Abstract
 
@@ -23,7 +23,6 @@ Two security assumptions underpin the secure operation of the bridge.
 2. **Secure relayer**. It is assumed that the relayer keys are operated securely. More specifically we require that the key access and the signing process of the relayer is not compromised. For example the keys could get compromised if a malicious entity could get access to the key(s). In the basic design, see [MIP-????](???), the relayer has the capability to mint `$L2MOVE` tokens, thus could increase the total supply if compromised.
 
 To increase the the reliability and security of the Native Bridge design, measures to improve the above assumptions are proposed.
-
 
 ## Specification
 
@@ -65,7 +64,6 @@ The relayer shall maximize security measurements to protect its keys. For exampl
 Since the maximal released supply of `$L1MOVE` is `MOVE_MAX` the maximum *Potential Supply* (of the sum of the supply of `$L1MOVE` and `$L2MOVE`) is 2 $\times$ `MOVE_MAX`, even in the case of a compromised relayer and a maximum exploit.
 
 ##### 2. Native Bridge rate limitation
-
 
 Eigenlayer AVS does suggest a similar model and provides the following Definition on Strong Economic Security in their [white paper (EIGEN: The Universal Intersubjective Work Token)](https://docs.eigenlayer.xyz/assets/files/EIGEN_Token_Whitepaper-0df8e17b7efa052fd2a22e1ade9c6f69.pdf):
 
