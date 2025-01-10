@@ -1,15 +1,15 @@
-# MIP-46: Security and Fallibility of the Native Bridge
+# MIP-46: Security and Fallibility of the HTLC-based Native Bridge
 
-- **Description**: Addresses the assumptions and requirements to guarantee the security of the Native Bridge.
+- **Description**: Addresses the assumptions and requirements to guarantee the security of the HTLC-based Native Bridge.
 - **Authors**: Richard, Andreas Penzkofer
 
 ## Abstract
 
-The Native Bridge design presented in [MIP-39](../mip-39/) has the following assumptions to achieve secure operation, and which we detail in [Motivation](#motivation).
+The Native Bridge design presented in [MIP-39](../mip-39/README.md) has the following assumptions to achieve secure operation, and which we detail in [Motivation](#motivation).
 
-Given that these hold, the sum of the circulating token supply of `$L1MOVE` and `$L2MOVE` is equal to `MOVE_MAX`. To improve the security of the relayer and protect the total token supply against violations of the above assumptions, we propose several safety mechanisms:
+Given that these hold, the sum of the circulating token supply of \$L1MOVE and \$L2MOVE is equal to `MOVE_MAX`. To improve the security of the relayer and protect the total token supply against violations of the above assumptions, we propose several safety mechanisms:
 
-1. The token supply of `$L1MOVE`, as well as `$L2MOVE` cannot exceed the total supply individually.
+1. The token supply of \$L1MOVE, as well as \$L2MOVE cannot exceed the total supply individually.
 1. The total amount of bridge transfers is rate limited.
 1. The relayer shall maximize security measurements to protect its keys.
 1. Transfer amount has a min and max amount.
@@ -20,17 +20,17 @@ Two security assumptions underpin the secure operation of the bridge.
 
 1. **Liveness of the relayer**. It is assumed that the relayer is active within some time Delta. For further details on this we refer to [MIP-39](../mip-39/).
 
-2. **Secure relayer**. It is assumed that the relayer keys are operated securely. More specifically we require that the key access and the signing process of the relayer is not compromised. For example the keys could get compromised if a malicious entity could get access to the key(s). In the basic design, see [MIP-????](???), the relayer has the capability to mint `$L2MOVE` tokens, thus could increase the total supply if compromised.
+2. **Secure relayer**. It is assumed that the relayer keys are operated securely. More specifically we require that the key access and the signing process of the relayer is not compromised. For example the keys could get compromised if a malicious entity could get access to the key(s). In the basic design, see [MIP-????](???), the relayer has the capability to mint \$L2MOVE tokens, thus could increase the total supply if compromised.
 
 To increase the the reliability and security of the Native Bridge design, measures to improve the above assumptions are proposed.
 
 ## Specification
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
+> _The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
 
 ##### 1. Fix the Potential Supply
 
-As described in the [Abstract](#abstract), the sum of the token supply of `$L1MOVE` and `$L2MOVE` is equal to `MOVE_MAX`. Since the bridge is the sole point of creation (or release) of `$L2MOVE` token, the L2 contract MUST monitor the `$L2MOVE` supply. The L2 bridge contract MUST not release more `$L2MOVE` than the maximum supply `MOVE_MAX`.
+As described in the [Abstract](#abstract), the sum of the token supply of \$L1MOVE and \$L2MOVE is equal to `MOVE_MAX`. Since the bridge is the sole point of creation (or release) of \$L2MOVE token, the L2 contract MUST monitor the \$L2MOVE supply. The L2 bridge contract MUST not release more \$L2MOVE than the maximum supply `MOVE_MAX`.
 
 ##### 2. Native Bridge rate limitation
 
@@ -61,7 +61,7 @@ The relayer shall maximize security measurements to protect its keys. For exampl
 
 ##### 1. Fix the Potential Supply
 
-Since the maximal released supply of `$L1MOVE` is `MOVE_MAX` the maximum *Potential Supply* (of the sum of the supply of `$L1MOVE` and `$L2MOVE`) is 2 $\times$ `MOVE_MAX`, even in the case of a compromised relayer and a maximum exploit.
+Since the maximal released supply of \$L1MOVE is `MOVE_MAX` the maximum *Potential Supply* (of the sum of the supply of \$L1MOVE and \$L2MOVE) is 2 $\times$ `MOVE_MAX`, even in the case of a compromised relayer and a maximum exploit.
 
 ##### 2. Native Bridge rate limitation
 
