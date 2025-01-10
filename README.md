@@ -3,7 +3,7 @@
 
 We differentiate between MD and MIPs.
 
-An overview of the MIPs and MDs can be found in the [OVERVIEW](https://github.com/movementlabsxyz/MIP/wiki/Overview).
+An overview of the MIPs and MDs can be found in the [OVERVIEW](https://movementlabsxyz.github.io/MIP/).
 
 In addition MG serves as a glossary for terms defined in the MIPs and MDs.
 
@@ -39,7 +39,7 @@ You **SHOULD NOT** draft an MIP, if any of the following are true:
 
 ## Movement Glossary (MG)
 
-See [MG-0](./MIP/mg-0) to get started. A template is provided at [mg-template](mg-template.md).
+See [MG-0](./MG/mg-0) to get started. A template is provided at [mg-template](mg-template.md).
 
 An alphabetically ordered list of terms is provided in the [glossary](GLOSSARY.md).
 
@@ -47,7 +47,7 @@ MGs serve to capture the **definitions** of terms introduced in the MIPs and MDs
 
 ## Files and numbering
 
-Each MIP, MD or MG is stored in a separate subdirectory with the a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a `README.md` that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
+Each MIP, MD or MG is stored in a separate subdirectory with a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a `README.md` that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
 
 An MIP/MD starts as **Draft**s. They DO NOT acquire a number at this point.
 
@@ -60,7 +60,7 @@ PRs that don't introduce a new MIP/MD are also accepted, for example MIPs/MDs ca
 
 ## Status Terms
 
-An MIP/MD is proposed through a PR. Each MIP/MDG-introducing PR should have a status in the name in the form `[Status] ...`.
+An MIP/MD is proposed through a PR. Each MIP/MD-introducing PR should have a status in the name in the form `[Status] ...`.
 
 An MIP/MG should at all times have one of the following statuses:
 
@@ -75,7 +75,7 @@ After acceptance the MIP/MD is merged into `main` and the branch should be delet
 Additionally, the following statuses are used for MIPs/MDs that are not actively being worked on:
 
 - **Stagnant** - an MIP/MD that has not been updated for 6 months.
-- **Withdrawn** - an MIP/MD that has not been withdrawn.
+- **Withdrawn** - an MIP/MD that has been withdrawn.
 
 Finally, an MIP/MD can also be updated:
 

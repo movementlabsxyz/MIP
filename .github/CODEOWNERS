@@ -1,16 +1,14 @@
 # Reviewers that should be generally notified.
 * @l-monninger
-* @andyjsbell
 * @apenzk
 
 # Authors and reviewers that should be added for specific files
 /MIP/mip-0/ @l-monninger @apenzk
 /MD/md-0/ @l-monninger @apenzk
 /MG/mg-0/ @l-monninger @apenzk
-
 /MIP/mip1/ @l-monninger
-
 /MD/md-3/ @l-monninger
-
-/MIP/mip15/ @l-monninger @apenzk
+/MIP/mip-15/ @l-monninger @apenzk
 /MD/md-15/ @l-monninger @apenzk
+/MIP/mip-39/ @franck44
+/MIP/mip-53/ @l-monninger
