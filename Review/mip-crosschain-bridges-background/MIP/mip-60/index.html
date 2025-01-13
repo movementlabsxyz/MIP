@@ -208,7 +208,10 @@ The term <strong>Native Bridge</strong> is used to refer to a bridge that transf
 <li><strong>lock/unlock</strong>: although difficult to classify in literature, this variant naturally completes the above two types. It may be classified as a subcategory of a swap, a <strong>liquidity network</strong> (see above), or it could be interpreted as a trusted <a href="https://medium.com/@0xmirai77/curve-v1-the-stableswap-invariant-f87ad7641aa0">Automated Market Maker (AMM) with a constant sum invariant</a>. The asset is locked on the source chain and unlocked on the target chain.
 <em>Supply: The bridge operator is neither in control of creating new supply on the source chain nor on the target chain. The bridge operator only holds token pools into/from which tokens get locked/unlocked.</em></li>
 </ol>
-<p>!!! warning A lock/mint that is capped may be considered effectively a lock/unlock mechanism. However, it differs in that in the lock/mint assets are burned and minted, whereas in the lock/unlock assets are locked and unlocked.</p>
+<blockquote>
+<p>[!NOTE]
+A lock/mint that is capped may be considered effectively a lock/unlock mechanism. However, it differs in that in the lock/mint assets are burned and minted, whereas in the lock/unlock assets are locked and unlocked.</p>
+</blockquote>
 <p>To complete the lingo, we also mention the definition of swaps:</p>
 <ol start="4">
 <li><strong>swap (atomic)</strong>: A swap is a generic mechanism and allows to swap any asset for any other asset. As a result it can be used to implement a bridge. Assets are swapped from the source chain against, potentially non-equivalent tokens on the target chain. A swap involves two parties, Alice on chain A and Bob on chain B. Both Alice and Bob can withdraw from the swap deals at any time and have a time window to accept the swap deal <a href="https://dl.acm.org/doi/10.1145/3212734.3212736">[1]</a>,<a href="https://dl.acm.org/doi/10.1007/s00778-021-00686-1">[2]</a>. A swap mechanism usually requires an <em>escrow</em> and a <em>time lock</em> mechanism.</li>
@@ -263,9 +266,9 @@ Even if the relayer is not compromised, it is hard to guarantee that the relayer
 <li>The relayer submits a transaction (to mint the assets on the target chain) to the mempool of the target chain. But the target chain may be down, congested or slow, or the relayer’s transaction may be low priority.</li>
 <li>The relayer must cover the cost of submitting transactions on the target chain. If the relayer’s funds are low (or gas price is high), the relayer may not be able to submit the transaction.</li>
 </ol>
-<h3 id="designs"><a class="header" href="#designs">Designs</a></h3>
-<p><strong>HTLC-based design</strong></p>
-<p>Our initial bridge design, <a href="https://github.com/movementlabsxyz/rfcs/blob/main/0040-atomic-bridge/rfc-0040-atomic-bridge.md">RFC-40</a>, is based on an <em>atomic swap</em> (4. above).  The current architecture of our bridge, <a href="https://github.com/movementlabsxyz/MIP/blob/mip-move-bridge-architecture/MIP/mip-39/README.md">MIP-39</a>, borrows ideas from <em>lock/mint</em> and <em>swap</em> (<a href="https://en.bitcoin.it/wiki/Hash_Time_Locked_Contracts">HTLC</a>):</p>
+<h3 id="considered-designs-in-our-setting"><a class="header" href="#considered-designs-in-our-setting">Considered Designs in our setting</a></h3>
+<p><strong>HTLC-based design</strong>
+Our initial bridge design, <a href="https://github.com/movementlabsxyz/rfcs/blob/main/0040-atomic-bridge/rfc-0040-atomic-bridge.md">RFC-40</a>, is based on an <em>atomic swap</em> (4. above).  The current architecture of our bridge, <a href="https://github.com/movementlabsxyz/MIP/blob/mip-move-bridge-architecture/MIP/mip-39/README.md">MIP-39</a>, borrows ideas from <em>lock/mint</em> and <em>swap</em> (<a href="https://en.bitcoin.it/wiki/Hash_Time_Locked_Contracts">HTLC</a>):</p>
 <ul>
 <li>if a user wants to bridge from Ethereum to Movement Network, they have to submit two independent transactions: one on Ethereum (lock) and one on Movement Network (mint). This is not user friendly and may be a barrier to adoption.</li>
 </ul>
@@ -273,12 +276,12 @@ Even if the relayer is not compromised, it is hard to guarantee that the relayer
 <ul>
 <li>another issue is that the first transfer of MOVE tokens requires a user to have some <em>gas tokens</em> (the token used to pay execution fees on the Movement Network). If the gas token is the <code>\</code> token, we have to implement a mechanism to sponsor the first transfer of MOVE tokens.</li>
 </ul>
-<p><strong>Lock/Mint design</strong></p>
+<p><strong>Lock/Mint design</strong>
+A simple design that is adopted by many L2 chains is the <em>lock/mint</em> design. A user initiates a transfer on the source chain and the bridge operator is responsible for completing the transfer on the target chain. In this design, the trust assumptions are that the contracts on the source chain and the target chain are <em>correct</em> and implement the lock and mint operations correctly (respectively burn and unlock for the opposite direction).</p>
 <blockquote>
 <p>[!TIP]
 A simple <em>lock/mint</em>, <em>burn/mint</em> or <em>lock/unlock</em> mechanism requires only one transaction from the user and is probably more user friendly than the HTLC-based design.</p>
 </blockquote>
-<p>A simple design that is adopted by many L2 chains is the <em>lock/mint</em> design. A user initiates a transfer on the source chain and the bridge operator is responsible for completing the transfer on the target chain. In this design, the trust assumptions are that the contracts on the source chain and the target chain are <em>correct</em> and implement the lock and mint operations correctly (respectively burn and unlock for the opposite direction).</p>
 <p><a href="https://github.com/movementlabsxyz/MIP/pull/58/files">MIP-58</a> is an instance of a <em>lock/mint</em> bridge. Once initiated on the source chain, the user does not need to interact with the target chain to complete the transfer. The bridge operator is responsible for coupling the lock/mint transactions for L1-&gt;L2 transfers. Similarly for L2-&gt;L1 transfers, the bridge operator is responsible for the coupling of the burn/unlock transactions.</p>
 <h2 id="security"><a class="header" href="#security">Security</a></h2>
 <h3 id="security---htlc-based-design"><a class="header" href="#security---htlc-based-design">Security - HTLC-based design</a></h3>
