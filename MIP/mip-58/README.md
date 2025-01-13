@@ -37,7 +37,6 @@ Requires four interactions:
      - Take over the refund keys.
      - Exploit both directions of the bridge (e.g., \$L1MOVE→\$L2MOVE and \$L2MOVE→\$L1MOVE) repeatedly, draining funds.
 5. **Maintenance burden**
-   - The current audit is outdated and does not reflect the significant changes made since.
    - The current design requires a complete UI/UX overhaul, adding complexity and delay.
 6. **Unnecessary complexity**
    - HTLC-based bridges are largely abandoned in favor of simpler, more effective designs.
@@ -86,8 +85,6 @@ A mechanism that limits the number of tokens that can be transferred. The rate l
 An off-chain partially trusted component (except for bugs or theft of keys) that can read relevant events from either chain and processes transfer requests by completing them on the target chain. It MAY operate nodes on both chains to learn about the finalization of `complete_transfer` transactions. The operation of the Relayer, including the bootstrapping process, is detailed in [MIP-61](https://github.com/movementlabsxyz/MIP/pull/61).
 
 ### Storage fields
-
-!!! warning TODO: Some of the following variables may not be required. This should be reviewed and updated.
 
 The storage fields are directional, hence we need to mirror the mapping for L1->L2, as well as L2->L1. Hence, we will talk about source and target chain.
 
