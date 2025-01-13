@@ -34,6 +34,9 @@ Moreover, if we reset the budget on a daily basis, for security reasons, we MUST
 
 ## Reference Implementation
 
+- [Solidity](https://github.com/movementlabsxyz/movement/pull/992)
+- [Move](https://github.com/movementlabsxyz/aptos-core/pull/113)
+
 ## Verification
 
 ## Appendix
