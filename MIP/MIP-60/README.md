@@ -26,7 +26,7 @@ There are several base classes of bridges to apply to our setting. We select **N
 
 - **Native Bridges** bootstrap liquidity from a base chain into a different chain, e.g. to onboard users and move value into a chain.
 - **Canonical Bridges** is a term typically used to refer to L1 to L2 bridges, and have a similar meaning to Native Bridges. They typically take a longer period of time to bridge assets than liquidity networks as they require a time period for finality to be established, such as the challenge period for optimistic
-rollups. 
+rollups.
 - **Validating Bridges** are bridges between Ethereum and another chain, where the bridge contract verifies the state updates proposed by the off-chain system.
 - **Validator or Oracle-based Bridges** rely on a set of external validators or oracles to validate cross-chain transfers.
 
@@ -37,7 +37,7 @@ rollups.
 
 The term of Liquidity Networks is associated with 
 
-- **Continuous Liquidity Pools** The majority of Liquidity Networks consist of two liquidity pools of assets - one on the source and the other on the destination chain. In this structure, an intermediary token can act as an exchange medium allowing accurate amounts of the final token to be transferred to the user and to rebalance the pools once a transaction has occurred, e.g. RUNE in Thorchain, or stablecoins such as USDC in Stargate. 
+- **Continuous Liquidity Pools** The majority of Liquidity Networks consist of two liquidity pools of assets - one on the source and the other on the destination chain. In this structure, an intermediary token can act as an exchange medium allowing accurate amounts of the final token to be transferred to the user and to rebalance the pools once a transaction has occurred, e.g. RUNE in Thorchain, or stablecoins such as USDC in Stargate.
 
 In our setting the intermediary IS the final token, and this could be interpreted as a **lock/unlock** bridge.
 
@@ -45,7 +45,7 @@ In our setting the intermediary IS the final token, and this could be interprete
 
 **Types of bridge mechanisms**
 
-There are three types of crosschain bridges. They differ in the way they handle the native assets (source chain) and the representation of the assets (wrapped asset) on the target chain.
+There are three types of cross-chain bridges. They differ in the way they handle the native assets (source chain) and the representation of the assets (wrapped asset) on the target chain.
 
 1. **burn/mint**: the asset is burned on the source chain and an asset is minted on the target chain.
 _Supply: The bridge operator is in control of creating supply on both chains._
@@ -53,6 +53,8 @@ _Supply: The bridge operator is in control of creating supply on both chains._
 _Supply: The bridge operator is only in control of minting supply on the target chain (L2). On L1 the bridge operator holds a token pool into/from which tokens get locked/unlocked._
 1. **lock/unlock**: although difficult to classify in literature, this variant naturally completes the above two types. It may be classified as a subcategory of a swap, a **liquidity network** (see above), or it could be interpreted as a trusted [Automated Market Maker (AMM) with a constant sum invariant](https://medium.com/@0xmirai77/curve-v1-the-stableswap-invariant-f87ad7641aa0). The asset is locked on the source chain and unlocked on the target chain. 
 _Supply: The bridge operator is neither in control of creating new supply on the source chain nor on the target chain. The bridge operator only holds token pools into/from which tokens get locked/unlocked._
+
+!!! warning A lock/mint that is capped may be considered effectively a lock/unlock mechanism. However, it differs in that in the lock/mint assets are burned and minted, whereas in the lock/unlock assets are locked and unlocked.
 
 To complete the lingo, we also mention the definition of swaps:
 
@@ -62,23 +64,23 @@ To complete the lingo, we also mention the definition of swaps:
 > As both parties can decide to withdraw or accept the swap, a swap requires each party to independently issue a transaction on their chain.
 
 > [!NOTE]
-> Source and target imply direction: e.g. for a swap, burn/mint and lock/unlock between a user1 on chain A and a user2 on chain B, the source chain of user1 is chain A and the target chain is chain B. For these three bridge mechanisms the transfer in opposite direction would be called the same. In contrast, **lock/mint** implies that the source chain is the chain where the native asset lives. But the bridge also operates in the opposite direction - however a more correct term for the opposite directin would be a **burn/unlock** mechanism instead.
+> Source and target imply direction: e.g. for a swap, burn/mint and lock/unlock between a user1 on chain A and a user2 on chain B, the source chain of user1 is chain A and the target chain is chain B. For these three bridge mechanisms the transfer in opposite direction would be called the same. In contrast, **lock/mint** implies that the source chain is the chain where the native asset lives. But the bridge also operates in the opposite direction - however a more correct term for the opposite direction would be a **burn/unlock** mechanism instead.
 
 ## Specification
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
 
-### Crosschain communication and the Relayer
+### Cross-chain communication and the Relayer
 
 The transfer of assets between two chains requires a mechanism to communicate between the two chains. This mechanism is necessarily off-chain: a chain can emit events/messages to a channel but cannot receive event from a channel (they need to be converted to transactions).
 
 > [!TIP]
-> Crosschain communications can be implemented using different strategies. For a bridge the most common is to use a _relayer_ or _messenger_ that listens to events on one chain and emits corresponding transactions on the other chain.
+> Cross-chain communications can be implemented using different strategies. For a bridge the most common is to use a _relayer_ or _messenger_ that listens to events on one chain and emits corresponding transactions on the other chain.
 
 The _relayer_ can be _trusted_ or _untrusted_. Trusted relayers are usually run by the bridge operator and users must trust the operator. Untrusted relayers (trustless bridges) rely on the trust assumptions on the source chain (e.g., Ethereum) and the target chain (e.g., Movement Network) and the bridge operator is not required to be trusted.
 
 > [!TIP]
-> Trusted relayers are usually faster and more cost-effective, but not decentralized so not censorship resistant. Unstrusted relayers (trustless bridges) offer greater security and decentralization but are usually slower and more expensive.
+> Trusted relayers are usually faster and more cost-effective, but not decentralized so not censorship resistant. Untrusted relayers (trustless bridges) offer greater security and decentralization but are usually slower and more expensive.
 
 There are several MIPs and MDs that discuss the relayer mechanism: [MD-21](https://github.com/movementlabsxyz/MIP/tree/primata/bridge-attestors/MD/md-21), [MIP-46](https://github.com/movementlabsxyz/MIP/pull/46), [MIP-56](https://github.com/movementlabsxyz/MIP/pull/56), [MIP-57](https://github.com/movementlabsxyz/MIP/pull/57), [MIP-58](https://github.com/movementlabsxyz/MIP/pull/58).
 
@@ -159,52 +161,15 @@ The bridging mechanisms on Arbitrum and Optimism use a [generic message passing 
 > [!TIP]
 The [crosschain risk framework](https://crosschainriskframework.github.io/framework/01intro/introduction/) provides some guidelines and criteria for evaluating crosschain protocols security. Risk mitigation strategies are also discussed in [XChainWatcher][REF3] and  this [SoK on Cross-Chain Bridging Architectural Design Flaws and Mitigations][REF4].
 
-
-
 ## Reference Implementation
 
-<!--
-  The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
-
-  TODO: Remove this comment before submitting
--->
-
 ## Verification
-
-<!--
-
-  All proposals must contain a section that discusses the various aspects of verification pertinent to the introduced changes. This section should address:
-
-  1. **Correctness**: Ensure that the proposed changes behave as expected in all scenarios. Highlight any tests, simulations, or proofs done to validate the correctness of the changes.
-
-  2. **Security Implications**: Address the potential security ramifications of the proposal. This includes discussing security-relevant design decisions, potential vulnerabilities, important discussions, implementation-specific guidance, and pitfalls. Mention any threats, risks, and mitigation strategies associated with the proposal.
-
-  3. **Performance Impacts**: Outline any performance tests conducted and the impact of the proposal on system performance. This could be in terms of speed, resource consumption, or other relevant metrics.
-
-  4. **Validation Procedures**: Describe any procedures, tools, or methodologies used to validate the proposal against its requirements or objectives. 
-
-  5. **Peer Review and Community Feedback**: Highlight any feedback from peer reviews or the community that played a crucial role in refining the verification process or the proposal itself.
-
-
-  TODO: Remove this comment before submitting
--->
 
 Needs discussion.
 
 ---
 
 ## Errata
-<!--
-  Errata should be maintained after publication.
-
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the proposal in which the error was identified.
-
-  TODO: Maintain this comment.
--->
 
 ## References
 
@@ -223,12 +188,10 @@ Needs discussion.
 [REF3]: https://arxiv.org/abs/2410.02029
 [REF4]: https://doi.org/10.48550/arXiv.2403.00405
 
-
 [REF5]: https://ieeexplore.ieee.org/document/10634379
 
 ## Appendix
 
----
 ## Copyright
 
 Copyright and related rights waived via [CC0](../LICENSE.md).
