@@ -1,4 +1,4 @@
-# MIP-\<number\>: Simplified Rate Limiter for the Lock/Mint Bridge
+# MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge
 
 - **Description**: A simplified design for the rate limiter of the Lock/Mint bridge.
 - **Authors**: Andreas Penzkofer, Primata
