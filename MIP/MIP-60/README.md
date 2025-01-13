@@ -1,10 +1,11 @@
-# MIP-60: Crosschain bridge architectures
-- **Description**: This MIP provides some background on crosschain bridges designs and trade-offs related to security, decentralization, and performance.
-- **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz), [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
+# MIP-60: Cross-chain bridge architectures
+
+- **Description**: This MIP provides some background on cross-chain bridges designs and trade-offs related to security, decentralization, and performance.
+- **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz), Andreas Penzkofer
 
 ## Abstract
 
-Crosschain bridges allow assets to be transferred between different blockchains. This MIP provides some background on crosschain bridge designs and the trade-offs related to security, decentralization, and performance.
+Cross-chain bridges allow assets to be transferred between different blockchains. This MIP provides some background on cross-chain bridge designs and the trade-offs related to security, decentralization, and performance.
 
 ## Motivation
 
@@ -159,7 +160,7 @@ Assuming we have a _correct_ implementation of the lock/mint contracts on the so
 The bridging mechanisms on Arbitrum and Optimism use a [generic message passing framework](https://docs.arbitrum.io/build-decentralized-apps/cross-chain-messaging) to communicate between chains. This relies on _retryable transactions_ up to a certain number of retries or deadline.
 
 > [!TIP]
-The [crosschain risk framework](https://crosschainriskframework.github.io/framework/01intro/introduction/) provides some guidelines and criteria for evaluating crosschain protocols security. Risk mitigation strategies are also discussed in [XChainWatcher][REF3] and  this [SoK on Cross-Chain Bridging Architectural Design Flaws and Mitigations][REF4].
+The [cross-chain risk framework](https://cross-chainriskframework.github.io/framework/01intro/introduction/) provides some guidelines and criteria for evaluating cross-chain protocols security. Risk mitigation strategies are also discussed in [XChainWatcher][REF3] and  this [SoK on Cross-Chain Bridging Architectural Design Flaws and Mitigations][REF4].
 
 ## Reference Implementation
 
@@ -181,7 +182,7 @@ Needs discussion.
 
 [4] Jakob Svennevik Notland, Jinguye Li, Mariusz Nowostawski, Peter Halland Haro: "SoK: Cross-Chain Bridging Architectural Design Flaws and Mitigations". (2024) [CoRR abs/2403.00405][REF4]
 
-[5] "SoK: Crosschain Token Bridges and Risk", 2024 IEEE International Conference on Blockchain and Cryptocurrency (ICBC), Dublin, Ireland, 2024, pp. 696-711. [IEEE Xplore][REF5]
+[5] "SoK: Cross-chain Token Bridges and Risk", 2024 IEEE International Conference on Blockchain and Cryptocurrency (ICBC), Dublin, Ireland, 2024, pp. 696-711. [IEEE Xplore][REF5]
 
 [REF1]: https://dl.acm.org/doi/10.1145/3212734.3212736
 [REF2]: https://dl.acm.org/doi/10.1007/s00778-021-00686-1
