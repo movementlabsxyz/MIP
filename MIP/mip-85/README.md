@@ -1,7 +1,8 @@
-# MIP-\<number\>: Lock/Mint bridge high-level description.
+# MIP-85: Lock/Mint bridge high-level description
+
 - **Description**: Provides a high-level description of the native lock/mint bridge.
 - **Authors**: [Frabck Cassez](mailto:franck.cassez@movementlabs.xyzm)
-- **Desiderata**: [MIP-\<number\>](../MIP/mip-\<number\>)
+- **Desiderata**: [MD-85](../../MD/md-85)
 
 <!--
   READ MIP-1 BEFORE USING THIS TEMPLATE!
@@ -35,7 +36,7 @@ This MIP is associated with [MD-85](../../MD/md-85/README.md).
   TODO: Remove this comment before finalizing
 -->
 
-> [!NOTE] 
+> [!NOTE]
 > The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
 
 
