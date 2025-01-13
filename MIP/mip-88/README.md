@@ -20,6 +20,9 @@ _The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "
 
 The Insurance Fund MUST hold the same balance on L1 and L2. If so the rate limit on the source chain can be determined by the same method as on the target chain. This has the advantage, that the Governance Operator does not have to set the rate limint on the source chain, as requested in [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74).
 
+![alt text](overview.png)
+_Figure 1: Architecture of the Rate Limitation system_
+
 We define
 
 - **incoming** as the direction for which funds are released / minted. I.e., the considered chain is a target chain for the given direction.
