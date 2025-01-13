@@ -173,6 +173,14 @@ In order to protect the protocol from exploits and potential losses, rate limiti
 
 > [...] to restrict the Profit from Corruption of any particular AVS [...] a bridge can restrict the value flow within the period of slashing.
 
+Eigenlayer provides the following definition on strong economic security in their [white paper (EIGEN: The Universal Intersubjective Work Token)](https://docs.eigenlayer.xyz/assets/files/EIGEN_Token_Whitepaper-0df8e17b7efa052fd2a22e1ade9c6f69.pdf):
+
+> *Formal Definition of Strong crypto-economic Security*
+If [a bridge] acquires more [crypto-economic] security than the harm it can suffer from an attack within the interval $T_{redeem}$ slots, then it achieves strong crypto-economic security, i.e.<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*[Economic]-security ≥ Harm-from-corruption [..] in $T_{redeem}$ slots*
+
+> [..] consider a [..] bridge [..] for a rollup, which has a $(X, T)$-rate-limit [..]. Now if [$T<T_{redeem}$,] the total value transacted by the bridge is less than $X$ during any attack period, and therefore the harm from corruption for the $T$ period is less than or equal to $X$. If the [crypto-economic] security is greater than X then this [bridge] works correctly.
+
 In essence this boils down to rate limit the bridge by considering
 
 - how long does it take to finalize transfers (ZK, optimistic)
