@@ -36,7 +36,7 @@ We define the following terms:
 
 - **Trusted** : A component is trusted if it is assumed to be secure and reliable. No errors in the component can occur. Nor keys can get compromised.
 - **Partially trusted** : A component is partially trusted if it can have unintentional bugs, or misconfigurations, or worst case gets compromised but in extremely rare occurances. Under normal operations it is secure and reliable. The rarity of these events permits that the operator takes care of resulting hardship. Protective measures should be taken to reduce the maximally caused damage that the component can cause incase it becomes faulty / Byzantine.
-- **Untrusted** : A component is untrusted if it can become malicious (Byzantine) at any time and frequently. The component can stop/crash or tamper with messages, results of computations. Any action should be approved by a trusted party and require a proof of correctness.
+- **Untrusted** : A component is untrusted if it can become faulty or malicious (Byzantine) at any time and frequently. The component can stop/crash or tamper with messages, results of computations. Any action should be approved by a trusted party and require a proof of correctness.
 
 ### Base assumptions
 
