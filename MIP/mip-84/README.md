@@ -2,7 +2,7 @@
 
 - **Description**: This MIP clarifies the trust assumptions for the Relayer, and what consequences should be drawn from these.
 - **Authors**: Andreas Penzkofer
-- **Desiderata**: [MD-74](../MIP/mip-74)
+- **Desiderata**: [MD-74](https://github.com/movementlabsxyz/MIP/blob/mip/rate-limiter-lock-mint-bridge/MD/md-74/README.md)
 
 ## Abstract
 
