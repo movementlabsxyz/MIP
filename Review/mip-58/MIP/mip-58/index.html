@@ -207,7 +207,6 @@ Requires four interactions:
 </li>
 <li><strong>Maintenance burden</strong>
 <ul>
-<li>The current audit is outdated and does not reflect the significant changes made since.</li>
 <li>The current design requires a complete UI/UX overhaul, adding complexity and delay.</li>
 </ul>
 </li>
@@ -252,7 +251,6 @@ A mechanism that limits the number of tokens that can be transferred. The rate l
 <p><strong>(Partially Trusted) Relayer</strong>
 An off-chain partially trusted component (except for bugs or theft of keys) that can read relevant events from either chain and processes transfer requests by completing them on the target chain. It MAY operate nodes on both chains to learn about the finalization of <code>complete_transfer</code> transactions. The operation of the Relayer, including the bootstrapping process, is detailed in <a href="https://github.com/movementlabsxyz/MIP/pull/61">MIP-61</a>.</p>
 <h3 id="storage-fields"><a class="header" href="#storage-fields">Storage fields</a></h3>
-<p>!!! warning TODO: Some of the following variables may not be required. This should be reviewed and updated.</p>
 <p>The storage fields are directional, hence we need to mirror the mapping for L1-&gt;L2, as well as L2-&gt;L1. Hence, we will talk about source and target chain.</p>
 <h4 id="source-bridge-contract"><a class="header" href="#source-bridge-contract">Source bridge contract</a></h4>
 <pre><code class="language-rust">struct SourceBridgeTransfers {
