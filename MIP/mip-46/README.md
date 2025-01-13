@@ -46,7 +46,7 @@ The relayer shall maximize security measurements to protect its keys. For exampl
 
 [This article](https://medium.com/@j2abro/a-visual-guide-to-blockchain-bridge-security-e982fec671a7) describes some of the considerations that have to be taken into account:
 
- **Multisigs**: 
+ **Multisigs**:
  > It’s likely that the bridge is controlled by one or more multisigs —wallets that require multiple individuals to sign before a transaction is executed. Multisigs add an element of security by ensuring that a single signer can’t control the bridge. Multisigs might be used to enable the bridge contracts to be upgraded or paused. While multisigs are an essential security control for bridges, they are not foolproof and require proper management. In fact multisigs have been targeted in some major bridge exploits.
 
 **Contract Exploits**: 
@@ -67,11 +67,11 @@ Since the maximal released supply of \$L1MOVE is `MOVE_MAX` the maximum *Potenti
 
 Eigenlayer AVS does suggest a similar model and provides the following Definition on Strong Economic Security in their [white paper (EIGEN: The Universal Intersubjective Work Token)](https://docs.eigenlayer.xyz/assets/files/EIGEN_Token_Whitepaper-0df8e17b7efa052fd2a22e1ade9c6f69.pdf):
 
-> *Formal Definition of Strong Cryptoeconomic Security*
-If [a bridge] acquires more [cryptoeconomic] security than the harm it can suffer from an attack within the interval $T_{redeem}$ slots, then it achieves strong cryptoeconomic security, i.e.<br>
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*[Economic]-security ≥ Harm-from-corruption [..] in $T_{redeem}$ slots* 
+> *Formal Definition of Strong crypto-economic Security*
+If [a bridge] acquires more [crypto-economic] security than the harm it can suffer from an attack within the interval $T_{redeem}$ slots, then it achieves strong crypto-economic security, i.e.<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*[Economic]-security ≥ Harm-from-corruption [..] in $T_{redeem}$ slots*
 
-> [..] consider a [..] bridge [..] for a rollup, which has a $(X, T)$-rate-limit [..]. Now if [$T<T_{redeem}$,] the total value transacted by the bridge is less than $X$ during any attack period, and therefore the harm from corruption for the $T$ period is less than or equal to $X$. If the [cryptoeconomic] security is greater than X then this [bridge] works correctly. [..] we have the following conditions for strong cryptoeconomic safety.
+> [..] consider a [..] bridge [..] for a rollup, which has a $(X, T)$-rate-limit [..]. Now if [$T<T_{redeem}$,] the total value transacted by the bridge is less than $X$ during any attack period, and therefore the harm from corruption for the $T$ period is less than or equal to $X$. If the [crypto-economic] security is greater than X then this [bridge] works correctly. [..] we have the following conditions for strong crypto-economic safety.
 
 ##### 3. Relayer key protection
 
@@ -81,7 +81,6 @@ Multisignature approaches are common praxis, for example see [MIP-21](https://gi
 
 ## Appendix
 
----
 ## Copyright
 
 Copyright and related rights waived via [CC0](../LICENSE.md).
