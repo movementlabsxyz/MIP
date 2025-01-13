@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MIP-60: Crosschain bridge architectures - MIP</title>
+        <title>MIP-60: Cross-chain bridge architectures - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -158,13 +158,13 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="mip-60-crosschain-bridge-architectures"><a class="header" href="#mip-60-crosschain-bridge-architectures">MIP-60: Crosschain bridge architectures</a></h1>
+<h1 id="mip-60-cross-chain-bridge-architectures"><a class="header" href="#mip-60-cross-chain-bridge-architectures">MIP-60: Cross-chain bridge architectures</a></h1>
 <ul>
-<li><strong>Description</strong>: This MIP provides some background on crosschain bridges designs and trade-offs related to security, decentralization, and performance.</li>
-<li><strong>Authors</strong>: <a href="mailto:franck.cassez@movementlabs.xyz">Franck Cassez</a>, <a href="mailto:andreas.penzkofer@movementlabs.xyz">Andreas Penzkofer</a></li>
+<li><strong>Description</strong>: This MIP provides some background on cross-chain bridges designs and trade-offs related to security, decentralization, and performance.</li>
+<li><strong>Authors</strong>: <a href="mailto:franck.cassez@movementlabs.xyz">Franck Cassez</a>, Andreas Penzkofer</li>
 </ul>
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
-<p>Crosschain bridges allow assets to be transferred between different blockchains. This MIP provides some background on crosschain bridge designs and the trade-offs related to security, decentralization, and performance.</p>
+<p>Cross-chain bridges allow assets to be transferred between different blockchains. This MIP provides some background on cross-chain bridge designs and the trade-offs related to security, decentralization, and performance.</p>
 <h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
 <p>To transfer assets from Ethereum to the chain (and back), we have to employ a <em>bridge</em>. Ideally we would re-use an existing bridge, but there is no available bridge template from Ethereum to Move-based chains, so we have to design one.
 Designing a bridge between two blockchains is a complex task. As pointed out in <a href="https://ethereum.org/en/developers/docs/bridges/#integrating-bridges">Bridges – Ethereum Foundation</a>:</p>
@@ -199,7 +199,7 @@ The term <strong>Native Bridge</strong> is used to refer to a bridge that transf
 <li><strong>Continuous Liquidity Pools (CLP) with AMMs</strong> are a subset of Continuous Liquidity Pools that use Automated Market Makers (AMMs) in series. <a href="https://github.com/movementlabsxyz/MIP/pull/40">MIP-40</a> has proposed such a design.</li>
 </ul>
 <p><strong>Types of bridge mechanisms</strong></p>
-<p>There are three types of crosschain bridges. They differ in the way they handle the native assets (source chain) and the representation of the assets (wrapped asset) on the target chain.</p>
+<p>There are three types of cross-chain bridges. They differ in the way they handle the native assets (source chain) and the representation of the assets (wrapped asset) on the target chain.</p>
 <ol>
 <li><strong>burn/mint</strong>: the asset is burned on the source chain and an asset is minted on the target chain.
 <em>Supply: The bridge operator is in control of creating supply on both chains.</em></li>
@@ -208,6 +208,7 @@ The term <strong>Native Bridge</strong> is used to refer to a bridge that transf
 <li><strong>lock/unlock</strong>: although difficult to classify in literature, this variant naturally completes the above two types. It may be classified as a subcategory of a swap, a <strong>liquidity network</strong> (see above), or it could be interpreted as a trusted <a href="https://medium.com/@0xmirai77/curve-v1-the-stableswap-invariant-f87ad7641aa0">Automated Market Maker (AMM) with a constant sum invariant</a>. The asset is locked on the source chain and unlocked on the target chain.
 <em>Supply: The bridge operator is neither in control of creating new supply on the source chain nor on the target chain. The bridge operator only holds token pools into/from which tokens get locked/unlocked.</em></li>
 </ol>
+<p>!!! warning A lock/mint that is capped may be considered effectively a lock/unlock mechanism. However, it differs in that in the lock/mint assets are burned and minted, whereas in the lock/unlock assets are locked and unlocked.</p>
 <p>To complete the lingo, we also mention the definition of swaps:</p>
 <ol start="4">
 <li><strong>swap (atomic)</strong>: A swap is a generic mechanism and allows to swap any asset for any other asset. As a result it can be used to implement a bridge. Assets are swapped from the source chain against, potentially non-equivalent tokens on the target chain. A swap involves two parties, Alice on chain A and Bob on chain B. Both Alice and Bob can withdraw from the swap deals at any time and have a time window to accept the swap deal <a href="https://dl.acm.org/doi/10.1145/3212734.3212736">[1]</a>,<a href="https://dl.acm.org/doi/10.1007/s00778-021-00686-1">[2]</a>. A swap mechanism usually requires an <em>escrow</em> and a <em>time lock</em> mechanism.</li>
@@ -218,20 +219,20 @@ As both parties can decide to withdraw or accept the swap, a swap requires each 
 </blockquote>
 <blockquote>
 <p>[!NOTE]
-Source and target imply direction: e.g. for a swap, burn/mint and lock/unlock between a user1 on chain A and a user2 on chain B, the source chain of user1 is chain A and the target chain is chain B. For these three bridge mechanisms the transfer in opposite direction would be called the same. In contrast, <strong>lock/mint</strong> implies that the source chain is the chain where the native asset lives. But the bridge also operates in the opposite direction - however a more correct term for the opposite directin would be a <strong>burn/unlock</strong> mechanism instead.</p>
+Source and target imply direction: e.g. for a swap, burn/mint and lock/unlock between a user1 on chain A and a user2 on chain B, the source chain of user1 is chain A and the target chain is chain B. For these three bridge mechanisms the transfer in opposite direction would be called the same. In contrast, <strong>lock/mint</strong> implies that the source chain is the chain where the native asset lives. But the bridge also operates in the opposite direction - however a more correct term for the opposite direction would be a <strong>burn/unlock</strong> mechanism instead.</p>
 </blockquote>
 <h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
 <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
-<h3 id="crosschain-communication-and-the-relayer"><a class="header" href="#crosschain-communication-and-the-relayer">Crosschain communication and the Relayer</a></h3>
+<h3 id="cross-chain-communication-and-the-relayer"><a class="header" href="#cross-chain-communication-and-the-relayer">Cross-chain communication and the Relayer</a></h3>
 <p>The transfer of assets between two chains requires a mechanism to communicate between the two chains. This mechanism is necessarily off-chain: a chain can emit events/messages to a channel but cannot receive event from a channel (they need to be converted to transactions).</p>
 <blockquote>
 <p>[!TIP]
-Crosschain communications can be implemented using different strategies. For a bridge the most common is to use a <em>relayer</em> or <em>messenger</em> that listens to events on one chain and emits corresponding transactions on the other chain.</p>
+Cross-chain communications can be implemented using different strategies. For a bridge the most common is to use a <em>relayer</em> or <em>messenger</em> that listens to events on one chain and emits corresponding transactions on the other chain.</p>
 </blockquote>
 <p>The <em>relayer</em> can be <em>trusted</em> or <em>untrusted</em>. Trusted relayers are usually run by the bridge operator and users must trust the operator. Untrusted relayers (trustless bridges) rely on the trust assumptions on the source chain (e.g., Ethereum) and the target chain (e.g., Movement Network) and the bridge operator is not required to be trusted.</p>
 <blockquote>
 <p>[!TIP]
-Trusted relayers are usually faster and more cost-effective, but not decentralized so not censorship resistant. Unstrusted relayers (trustless bridges) offer greater security and decentralization but are usually slower and more expensive.</p>
+Trusted relayers are usually faster and more cost-effective, but not decentralized so not censorship resistant. Untrusted relayers (trustless bridges) offer greater security and decentralization but are usually slower and more expensive.</p>
 </blockquote>
 <p>There are several MIPs and MDs that discuss the relayer mechanism: <a href="https://github.com/movementlabsxyz/MIP/tree/primata/bridge-attestors/MD/md-21">MD-21</a>, <a href="https://github.com/movementlabsxyz/MIP/pull/46">MIP-46</a>, <a href="https://github.com/movementlabsxyz/MIP/pull/56">MIP-56</a>, <a href="https://github.com/movementlabsxyz/MIP/pull/57">MIP-57</a>, <a href="https://github.com/movementlabsxyz/MIP/pull/58">MIP-58</a>.</p>
 <h3 id="what-is-communicated"><a class="header" href="#what-is-communicated">What is communicated?</a></h3>
@@ -296,55 +297,22 @@ A simple <em>lock/mint</em>, <em>burn/mint</em> or <em>lock/unlock</em> mechanis
 <p>The bridging mechanisms on Arbitrum and Optimism use a <a href="https://docs.arbitrum.io/build-decentralized-apps/cross-chain-messaging">generic message passing framework</a> to communicate between chains. This relies on <em>retryable transactions</em> up to a certain number of retries or deadline.</p>
 <blockquote>
 <p>[!TIP]
-The <a href="https://crosschainriskframework.github.io/framework/01intro/introduction/">crosschain risk framework</a> provides some guidelines and criteria for evaluating crosschain protocols security. Risk mitigation strategies are also discussed in <a href="https://arxiv.org/abs/2410.02029">XChainWatcher</a> and  this <a href="https://doi.org/10.48550/arXiv.2403.00405">SoK on Cross-Chain Bridging Architectural Design Flaws and Mitigations</a>.</p>
+The <a href="https://cross-chainriskframework.github.io/framework/01intro/introduction/">cross-chain risk framework</a> provides some guidelines and criteria for evaluating cross-chain protocols security. Risk mitigation strategies are also discussed in <a href="https://arxiv.org/abs/2410.02029">XChainWatcher</a> and  this <a href="https://doi.org/10.48550/arXiv.2403.00405">SoK on Cross-Chain Bridging Architectural Design Flaws and Mitigations</a>.</p>
 </blockquote>
 <h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
-<!--
-  The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
-
-  TODO: Remove this comment before submitting
--->
 <h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
-<!--
-
-  All proposals must contain a section that discusses the various aspects of verification pertinent to the introduced changes. This section should address:
-
-  1. **Correctness**: Ensure that the proposed changes behave as expected in all scenarios. Highlight any tests, simulations, or proofs done to validate the correctness of the changes.
-
-  2. **Security Implications**: Address the potential security ramifications of the proposal. This includes discussing security-relevant design decisions, potential vulnerabilities, important discussions, implementation-specific guidance, and pitfalls. Mention any threats, risks, and mitigation strategies associated with the proposal.
-
-  3. **Performance Impacts**: Outline any performance tests conducted and the impact of the proposal on system performance. This could be in terms of speed, resource consumption, or other relevant metrics.
-
-  4. **Validation Procedures**: Describe any procedures, tools, or methodologies used to validate the proposal against its requirements or objectives. 
-
-  5. **Peer Review and Community Feedback**: Highlight any feedback from peer reviews or the community that played a crucial role in refining the verification process or the proposal itself.
-
-
-  TODO: Remove this comment before submitting
--->
 <p>Needs discussion.</p>
 <hr />
 <h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
-<!--
-  Errata should be maintained after publication.
-
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the proposal in which the error was identified.
-
-  TODO: Maintain this comment.
--->
 <h2 id="references"><a class="header" href="#references">References</a></h2>
 <p>[1] Maurice Herlihy: “Atomic Cross-Chain Swaps”. PODC 2018: 245-254 <a href="https://dl.acm.org/doi/10.1145/3212734.3212736">DOI</a></p>
 <p>[2] Maurice Herlihy, Barbara Liskov, Liuba Shrira: “Cross-chain deals and adversarial commerce”. VLDB J. 31(6): 1291-1309 (2022) <a href="https://dl.acm.org/doi/10.1007/s00778-021-00686-1">DOI</a></p>
 <p>[3] André Augusto, Rafael Belchior, Jonas Pfannschmidt, André Vasconcelos, Miguel Correia: “XChainWatcher: Monitoring and Identifying Attacks in Cross-Chain Bridges”. (2024) <a href="https://arxiv.org/abs/2410.02029">CoRR abs/2410.02029</a></p>
 <p>[4] Jakob Svennevik Notland, Jinguye Li, Mariusz Nowostawski, Peter Halland Haro: “SoK: Cross-Chain Bridging Architectural Design Flaws and Mitigations”. (2024) <a href="https://doi.org/10.48550/arXiv.2403.00405">CoRR abs/2403.00405</a></p>
-<p>[5] “SoK: Crosschain Token Bridges and Risk”, 2024 IEEE International Conference on Blockchain and Cryptocurrency (ICBC), Dublin, Ireland, 2024, pp. 696-711. <a href="https://ieeexplore.ieee.org/document/10634379">IEEE Xplore</a></p>
+<p>[5] “SoK: Cross-chain Token Bridges and Risk”, 2024 IEEE International Conference on Blockchain and Cryptocurrency (ICBC), Dublin, Ireland, 2024, pp. 696-711. <a href="https://ieeexplore.ieee.org/document/10634379">IEEE Xplore</a></p>
 <h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
-<hr />
 <h2 id="copyright"><a class="header" href="#copyright">Copyright</a></h2>
+<p>Copyright and related rights waived via <a href="../LICENSE.html">CC0</a>.</p>
 
                     </main>
 
