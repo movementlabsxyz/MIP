@@ -14,7 +14,7 @@ Token that is not locked and in circulation on L1 or L2.
 **FFS - Fast Finality Settlement**  
 The objective of the Fast-Finality-Settlement (FFS) protocol is to confirm that transactions are processed correctly and back this confirmation through crypto-economic security. It does not relate to the ordering of transactions.
 
-**`$GasToken`**
+**\$GasToken**
 Token used to pay for fees on L2. Could be \$L2MOVE.
 
 **Governed Gas Pool**
@@ -42,7 +42,7 @@ Native bridge that permits to exchange of \$L1MOVE into \$L2MOVE, and vice versa
 The process of confirming a (sequence of) blocks after it has been processed by the FFS protocol on L1.
 
 **Potential token**
-Token that could potentially be converted to circulating \$L1MOVEor \$L2MOVE token. A bridge transfer releases the potential token on the target change, while it locks source chain tokens into the potential token.
+Token that could potentially be converted to circulating \$L1MOVE or \$L2MOVE token. A bridge transfer releases the potential token on the target change, while it locks source chain tokens into the potential token.
 
 **Potential total supply**
 Total supply plus potential token supply.
@@ -50,7 +50,7 @@ Total supply plus potential token supply.
 **ProtoBlock**
 A block of ordered transaction provided by sequencer or DA on L2. No execution applied at this point.
 
-**`$StakingToken`**
+**\$StakingToken**
 Token used for staking on L1. Could be \$L1MOVE.
 
 **SuperBlock**
