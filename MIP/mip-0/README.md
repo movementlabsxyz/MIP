@@ -1,7 +1,8 @@
 # MIP-0: Formalize Movement Proposals
-- **Description**: A process through with Movement Improvement Proposals standardize and formalize specifications for Movement technologies.
-- **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz), [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
-- **Desiderata**: [MD-0](../MD/md-0)
+
+- **Description**: A process through which Movement Improvement Proposals standardize and formalize specifications for Movement technologies.
+- **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz), Andreas Penzkofer
+- **Desiderata**: [MD-0](../../MD/md-0)
 
 ## Abstract
 
