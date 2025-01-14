@@ -1,6 +1,7 @@
-# MIP-61: Relayer in the lock/mint bridge - Algorithm and Bootstrapping 
-- **Description**: This MIP describes the process for continuous operation as well as the bootstrapping of the relayer in the lock/mint bridge. 
-- **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz), [Phillipe]()
+# MIP-61: Relayer for the lock/mint Native Bridge - Algorithm and Bootstrapping
+
+- **Description**: This MIP describes the process for continuous operation as well as the bootstrapping of the relayer in the lock/mint bridge.
+- **Authors**: Andreas Penzkofer, Philippe
 
 ## Abstract
 
@@ -84,9 +85,6 @@ On the target chain the following structure is used:
 
 Locally the relayer stores the following structure:
 
-
-!!! . TODO should be replaced by ordered list of transferIDs and a nonce list (ordered) and a block height
-
 ```javascript
 // Relayer Local Structure
 {
@@ -141,6 +139,7 @@ IF `nonce` is found THEN:
 
     IF `nonce` transfer is final THEN:
         SET `nonce.status_transfer` to `transfer_completed`
+        CLEAR cached data for `nonce` to free up memory
     ELSE:
         // the status should be `transfer_pending`
         IF `nonce.status_transfer` is NOT `transfer_pending` THEN:
@@ -175,14 +174,14 @@ SET `block.status` as `block_processed`
 
 !!! . Setting the source_block.status as processed and storing that information in a file, or similar, could help with bootstrapping the relayer in the future.
 
-#### Optimizations to consider errors in the above procedure
-This step is optional but should be considered.
+#### Consider errors in the above procedure
 
-Introduce a status `transfer_init` to differentiate a state between nonce creation locally and sending successfully a `complete_transfer` transaction to the target chain.
+We MUST introduce a status `transfer_init` to differentiate a state between nonce creation locally and sending successfully a `complete_transfer` transaction to the target chain.
 
 ![init_optimization](init_optimization.png)
 
 #### Calculation of Completed Source Block Height
+
 In this section the process is defined to calculate the completed part of the source chain `completed_block_height` and `completed_nonce_height`.
 
 ![complete_block_height](complete_block_height.png)
@@ -232,18 +231,18 @@ ON timeoutTriggered(`timeoutTriggeredEvent`) DO:
         LOG "Timeout triggered for a non-pending transfer.";
 ```
 
-
 ![alt text](timeout.png)
 
 ### BOOTSTRAPPING
 
 Next we describe how the bootstrap algorithm works and differs from the above.
 
-!!! . A node that is bootstrapping SHOULD start the [CONTINUOUS_BLOCK_PROCESSING](#continuous-block-processing) algorithm in parallel. This allows to immediately assume normal operation while attempting to catch up with what has been missed.
+> [!NOTE]
+> A node that is bootstrapping SHOULD start the CONTINUOUS_BLOCK_PROCESSING algorithm in parallel. This allows to immediately assume normal operation while attempting to catch up with what has been missed.
 
 ![alt text](bootstrap.png)
 
-The Algorithm differs from the CONTINUOUS_BLOCK_PROCESSING in that it runs in parallel and will catch up with missing transfers eventually. While not hindering the continuous operation of the Relayer. It implements a delay to start at the beginning, which conveniently prevents that `complete_transfer` transactions would be sent accidentally twice to the target chain (and which if it would happen frequent could turn out to be expensive).
+The Algorithm differs from the CONTINUOUS_BLOCK_PROCESSING in that it runs in parallel and will catch up with missing transfers eventually. While not hindering the continuous operation of the Relayer.
 
 ```javascript
 BOOTSTRAPPING
@@ -254,10 +253,6 @@ SET `first_CP_block` = first processed block by CONTINUOUS_BLOCK_PROCESSING
 // Set initial processed block parameters
 SET `end_source_block` = `first_CP_block` - 1
 SET `start_source_block` = some INPUT value
-
-// Wait for a predefined time (e.g. 10 minutes) 
-// to ensure all relevant blocks have arrived
-WAIT for `wait_time` 
 
 // Process source blocks in the specified range
 FOR `current_block` = `start_source_block` TO `end_source_block` DO:
@@ -283,23 +278,12 @@ This creates a dependency to another component. For example, if the postgres db 
 
 ## Reference Implementation
 
-<!--
-  The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
-
-  TODO: Remove this comment before submitting
--->
-
 ## Verification
-
-Needs discussion.
-
----
 
 ## Errata
 
 ## Appendix
 
----
 ## Copyright
 
 Copyright and related rights waived via [CC0](../LICENSE.md).
