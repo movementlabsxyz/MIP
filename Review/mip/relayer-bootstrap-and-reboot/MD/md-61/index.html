@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MDs - MIP</title>
+        <title>MD-61: Relayer for the Lock/Mint Native Bridge - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -12,21 +12,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="../../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -35,11 +35,11 @@
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "";
+            var path_to_root = "../../../../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
+        <script src="../../../../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../../../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -125,7 +125,7 @@
                     <h1 class="menu-title">MIP</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/movementlabsxyz/MIP" title="Git repository" aria-label="Git repository">
@@ -158,80 +158,41 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="welcome-to-the-movement-network-mip-book"><a class="header" href="#welcome-to-the-movement-network-mip-book">Welcome to the Movement Network MIP Book</a></h1>
-<h2 id="approved"><a class="header" href="#approved">Approved</a></h2>
-<h3 id="mips"><a class="header" href="#mips">MIPs</a></h3>
+<h1 id="md-61-relayer-for-the-lockmint-native-bridge"><a class="header" href="#md-61-relayer-for-the-lockmint-native-bridge">MD-61: Relayer for the Lock/Mint Native Bridge</a></h1>
 <ul>
-<li><a href="Approved/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
-<li><a href="Approved/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
-<li><a href="Approved/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge Design</a></li>
-<li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
+<li><strong>Description</strong>: A desiderata for the relayer in the lock/mint bridge, focusing on event processing, transfer completion, and robust recovery mechanisms.</li>
+<li><strong>Authors</strong>: Andreas Penzkofer, Philippe</li>
 </ul>
-<h3 id="mds"><a class="header" href="#mds">MDs</a></h3>
-<ul>
-<li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
-<li><a href="Approved/main/MD/md-3/">MD-3: MCR under Network Partitions and Asynchrony</a></li>
-<li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
-</ul>
-<h3 id="mgs"><a class="header" href="#mgs">MGs</a></h3>
-<ul>
-<li><a href="Approved/main/MG/mg-39/">MG-39:  MOVE Token – Bridge Design</a></li>
-</ul>
-<h2 id="review"><a class="header" href="#review">Review</a></h2>
-<h3 id="mips-1"><a class="header" href="#mips-1">MIPs</a></h3>
-<ul>
-<li><a href="Review/mikhail/suzuka-da-migrations/MIP/mip-13/">MIP-13:  Suzuka DA Migrations Format</a></li>
-<li><a href="Review/primata/mip-18/MIP/mip-18/">MIP-18: Stage 0 Upgradeability and Multisigs</a></li>
-<li><a href="Review/gas-fee-calculation/MIP/mip-19/">MIP-19: Calculation of gas fees</a></li>
-<li><a href="Review/andyjsbell/unwanted-framework/MIP/mip-24/">MIP-24: Removal of redundant functionality from framework</a></li>
-<li><a href="Review/andyjsbell/proxy-root/MIP/mip-25/">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></li>
-<li><a href="Review/primata/mip-27/MIP/mip-27/">MIP-27: Contract Pipeline</a></li>
-<li><a href="Review/l-monninger/actor-naming-conventions/MIP/mip-28/">MIP-28: Naming Conventions for Movement Protocol Design</a></li>
-<li><a href="Review/mip/FFS/MIP/mip-34/">MIP-34: Fast Finality Settlement</a></li>
-<li><a href="Review/mip/gas-fees-incremental-additions/MIP/mip-47/">MIP-47: Improve Gas fee collection in phases</a></li>
-<li><a href="Review/0xmovses/aptos-gov-pool/MIP/mip-48/">MIP-48: <code>aptos_governance</code> for Goverened Gas Pool</a></li>
-<li><a href="Review/l-monninger/just-reward/MIP/mip-49/">MIP-49: NB-FFS Governed Fees and Rewards</a></li>
-<li><a href="Review/l-monninger/insured-bridge/MIP/mip-50/">MIP-50: Insured Bridge</a></li>
-<li><a href="Review/l-monninger/the-biarritz-model/MIP/mip-54/">MIP-54: The Biarritz Model</a></li>
-<li><a href="Review/l-monninger/the-bilbao-model/MIP/mip-55/">MIP-55: The Bilbao Model</a></li>
-<li><a href="Review/mip/informer/MIP/mip-57/">MIP-57: Informer for the Operation of the HTLC-based Native Bridge</a></li>
-<li><a href="Review/mip-58/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
-<li><a href="Review/mip-crosschain-bridges-background/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
-<li><a href="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/">MIP-61: Relayer for the lock/mint Native Bridge - Algorithm and Bootstrapping</a></li>
-<li><a href="Review/issue66/MDMIP-for-bridge-fees/MIP/mip-69/">MIP-69: Bridge Fees</a></li>
-<li><a href="Review/mip/informer-lockmintbridge/MIP/mip-71/">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li>
-<li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
-</ul>
-<h3 id="mds-1"><a class="header" href="#mds-1">MDs</a></h3>
-<ul>
-<li><a href="Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/">MD-2: Enclave Crash-resistant Key Management</a></li>
-<li><a href="Review/l-monninger/long-range-attacks/MD/md-5/">MD-4: Long Range Attacks</a></li>
-<li><a href="Review/l-monninger/gas-offset/MD/md-4/">MD-4: MCR Offsetting Gas Costs</a></li>
-<li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
-<li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
-<li><a href="Review/mikhail/suzuka-da-migrations/MD/md-13/">MD-13: Suzuka DA Migrations Format</a></li>
-<li><a href="Review/primata/md-17/MD/md-17/">MD-17: Bridge Fees</a></li>
-<li><a href="Review/primata/bridge-attestors/MD/md-21/">MD-21: Native Bridge with Attesters</a></li>
-<li><a href="Review/andygolay/md-26/MD/md-26/">MD-26: User-facing checks</a></li>
-<li><a href="Review/primata/md-30/MD/md-30/">MD-30: Movement Name Service</a></li>
-<li><a href="Review/mip/FFS/MD/md-34/">MD-34: Fast Finality Settlement</a></li>
-<li><a href="Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></li>
-<li><a href="Review/l-monninger/just-reward/MD/md-49/">MD-49: Movement L2 Gas Fees</a></li>
-<li><a href="Review/mip/relayer-bootstrap-and-reboot/MD/md-61/">MD-61: Relayer for the Lock/Mint Native Bridge</a></li>
-<li><a href="Review/issue66/MDMIP-for-bridge-fees/MD/md-69/">MD-69: Bridge fees</a></li>
-<li><a href="Review/mip/informer-lockmintbridge/MD/md-71/">MD-71: Informer service for the Lock/Mint-based Native Bridge</a></li>
-<li><a href="Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></li>
-</ul>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>This desiderata outlines the desired functionalities and recovery mechanisms for a Relayer handling the completion of transfers in the lock/mint Native Bridge protocol. It emphasizes uninterrupted operation, recovery from failure, and minimal dependencies.</p>
+<h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
+<h3 id="d1-continuous-event-processing"><a class="header" href="#d1-continuous-event-processing">D1: Continuous Event Processing</a></h3>
+<p><strong>User Journey</strong>: The relayer continuously processes events from the source chain, created from user transfer requests, and ensures their completion on the target chain.</p>
+<p><strong>Justification</strong>: Guarantees the seamless execution of cross-chain transfers and minimizes delays or interruptions.</p>
+<h3 id="d2-robust-bootstrapping-mechanism"><a class="header" href="#d2-robust-bootstrapping-mechanism">D2: Robust Bootstrapping Mechanism</a></h3>
+<p><strong>User Journey</strong>: Upon restart, the relayer automatically determines the state of pending transfers and resumes processing without requiring manual intervention.</p>
+<p><strong>Justification</strong>: Ensures resilience and reliability even after unexpected failures or downtime.</p>
+<h3 id="d3-finality-aware-processing"><a class="header" href="#d3-finality-aware-processing">D3: Finality-aware Processing</a></h3>
+<p><strong>User Journey</strong>: The relayer respects the finality rules of both source and target chains. It ensures transfers are only processed once finalized on the source chain. It considers the finality of the target chain for completing transactions.</p>
+<p><strong>Justification</strong>: Prevents inconsistencies and sending duplicate transfer-completing transactions.</p>
+<h3 id="d4-minimal-trusted-components"><a class="header" href="#d4-minimal-trusted-components">D4: Minimal Trusted Components</a></h3>
+<p><strong>User Journey</strong>: The relayer operates independently without reliance on external indexers or databases.</p>
+<p><strong>Justification</strong>: Reduces operational complexity and points of failure, enhancing system robustness.</p>
+<h3 id="d5-timeout-and-retry-mechanism"><a class="header" href="#d5-timeout-and-retry-mechanism">D5: Timeout and Retry Mechanism</a></h3>
+<p><strong>User Journey</strong>: Pending transfers are retried automatically after a timeout, ensuring eventual completion without manual oversight.</p>
+<p><strong>Justification</strong>: Improves the reliability of the relayer by handling transient errors and network issues gracefully.</p>
+<p><strong>Recommendations</strong>: Implement a configurable timeout period for retries.</p>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="GLOSSARY.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../../../Review/l-monninger/just-reward/MD/md-49/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../../../Review/issue66/MDMIP-for-bridge-fees/MD/md-69/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -241,11 +202,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="GLOSSARY.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../../../Review/l-monninger/just-reward/MD/md-49/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../../../Review/issue66/MDMIP-for-bridge-fees/MD/md-69/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -260,13 +221,13 @@
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="../../../../../elasticlunr.min.js"></script>
+        <script src="../../../../../mark.min.js"></script>
+        <script src="../../../../../searcher.js"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="../../../../../clipboard.min.js"></script>
+        <script src="../../../../../highlight.js"></script>
+        <script src="../../../../../book.js"></script>
 
         <!-- Custom JS scripts -->
 
