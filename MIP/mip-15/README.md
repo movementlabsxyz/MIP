@@ -37,12 +37,8 @@ For example, herein, we justify the introduction of [MG-0](../../MG/mg-0/README.
 ## Reference Implementation
 See the MG document type template at [mg-template](../../md-template.md) and the example MG at [mg-0](../../MG/mg-0/README.md).
 
-
 ## Verification
 
-
-
-## Errata
-
+## Changelog
 
 ## Appendix

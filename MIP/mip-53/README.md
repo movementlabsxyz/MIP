@@ -58,9 +58,6 @@ All proposed progressive L2 models MUST include a list of pros and cons. This li
 
 ## Verification
 
-
-
-## Errata
-
+## Changelog
 
 ## Appendix
