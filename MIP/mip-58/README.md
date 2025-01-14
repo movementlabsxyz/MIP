@@ -136,7 +136,6 @@ struct TargetBridgeDetails {
 
 ### Transaction flow
 
-
 This bridge design is a simpler version compared to the previous HTLC-based implementation, thus less steps are required to complete a bridge transfer. The bridge is initiated by the user and completed by the Relayer. The Relayer is a trusted party that finalizes the bridge transfer on the target chain. The user is not required to have funds on the target chain to complete the transfer. The Relayer is responsible for completing the transfer on the target chain.
 
 - There are two possible states, `transfer_initiated` or `transfer_completed`.

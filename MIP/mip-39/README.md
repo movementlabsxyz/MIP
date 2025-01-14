@@ -17,7 +17,7 @@ This MIP describes the high-level architecture of the [HTLC-based](https://bitco
 
 The Movement chain (L2) uses the \$L2MOVE token to pay for gas fees. As a result users need to hold \$L2MOVE tokens to pay for their transactions.
 
-> [!IMPORTANT] 
+> [!IMPORTANT]
 > The _native_ \$L1MOVE token is an ERC-20 contract on Ethereum (L1).  By native, we mean that this is the location where the token is minted and burned and where the total supply is set and possibly modified (inflation/deflation). The **\$L1MOVE token reserve**  is in the L1 contract.
 
 To use the Movement chain and pay for gas fees, a user will acquire \$L1MOVE (native) tokens on L1, and _bridge_ them to L2. On the L2 they can use the token to pay for gas fees or with any other dApps that transact the \$L2MOVE token.
@@ -282,7 +282,7 @@ To reproduce the results and check the properties on the model, you need a worki
 
 The results of the model-checking verification are as follows: let $maxRelayerDelay $ be the **maximum delay** for the relayer to relay an event, and $timeLock1$ and $timeLock2$ be the timelocks on L1 and L2 respectively.
 
-> [!IMPORTANT] 
+> [!IMPORTANT]
 > **Verification results**
 > We have **proved** (model-checked with UPPAAL) the following properties (valid using the versions of the contracts below):
 >
