@@ -5,7 +5,7 @@ We differentiate between MD and MIP.
 
 An overview of the MIPs and MDs can be found in the [OVERVIEW](https://movementlabsxyz.github.io/MIP/).
 
-The [Glossary](GLOSSARY.md) contains an alphabetically ordered list of terms used in this repository. In addition MG serves as a platform to define glossary terms, which are used in the MIPs and MDs.
+The [Glossary](https://github.com/movementlabsxyz/MIP/wiki/glossary) contains an alphabetically ordered list of terms used in this repository. In addition MG serves as a platform to define glossary terms, which are used in the MIPs and MDs.
 
 ## Movement Desiderata (MD)
 
@@ -39,7 +39,7 @@ You **SHOULD NOT** draft an MIP, if any of the following are true:
 
 ## Glossary and Movement Gloss (MG)
 
-An alphabetically ordered list of terms is provided in the [glossary](GLOSSARY.md).
+An alphabetically ordered list of terms is provided in the [glossary](https://github.com/movementlabsxyz/MIP/wiki/glossary).
 
 MGs serve to capture the **definitions** of terms introduced in the MIPs and MDs. The creation of a new MG requires an MIP or MG (since new terms are introduced through the MIP or MG).
 

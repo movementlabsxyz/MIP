@@ -1,6 +1,6 @@
 # MIP-15: MG (Movement Gloss)
 
-- **Description**: Terms should be well defined. This is achieved through the [Glossary](../GLOSSARY.md) and the Movement Gloss (MG) process.
+- **Description**: Terms should be well defined. This is achieved through the [Glossary](https://github.com/movementlabsxyz/MIP/wiki/glossary) and the Movement Gloss (MG) process.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
 - **Desiderata**: [MD-15](../MD/md-15/README.md)
@@ -23,7 +23,7 @@ Furthermore, terms may be underspecified in literature, are used in a unique way
 
 ### Glossary
 
-The [Glossary](../../GLOSSARY.md) is an alphabetically ordered list of terms that should be defined and may be frequently referenced. The glossary should be a living document that is updated as new terms are introduced or as terms are redefined.
+The [Glossary](https://github.com/movementlabsxyz/MIP/wiki/glossary) is an alphabetically ordered list of terms that should be defined and may be frequently referenced. The glossary should be a living document that is updated as new terms are introduced or as terms are redefined.
 
 The Glossary file contains:
 
