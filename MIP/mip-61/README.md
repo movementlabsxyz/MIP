@@ -119,7 +119,7 @@ For each `initiate_transfer` event do the following:
 EVENT_PROCESSING:
 // Input: initiate_transfer_event from source chain
 // Input: target_chain_state - current state of the target chain
-SET `nonce` = `initiate_transfer_event.nonce`
+SET `nonce` = `initiate_transfer_event.nonce` with nonce.status_transfer = `transfer_init`
 SET `transfer_uid` = `initiate_transfer_event.transfer_uid`
 
 // Check if the `nonce` is already recorded
