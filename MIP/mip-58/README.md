@@ -199,7 +199,7 @@ We discuss the key features also in relation to the HTLC-based bridge to provide
    - **No funds requirement**: User is not required to have funds on target chain and we do not have to build sponsored transactions.
    - **Delivery by Relayer**: Because the Relayer delivers the funds, there is no requirement for the user to complete the transaction on target chain, therefore simplifying the user experience and allowing a smooth onboarding on the network for transfers from L1 to L2. User only has to await for the finalization on the source chain and for the Relayer to perform the completion on target chain. This is standard practice for every major bridge in the ecosystem.
    - **Less parameters**: Because there is no exchange of secrets between the user and Relayer, we have a substantial reduction of logic.
-   - **Only completable**: Previously we reserve a refunder role to revert transactions. In this approach this is different as we guarantee delivery of funds through the same party that would guarantee funds being refunded, because bridges can ONLY be completed.
+   - **Must complete transfers**: Previously we reserve a refunder role to revert transactions. In this approach this is different as we guarantee delivery of funds through the same party that would guarantee funds being refunded, because transfers MUST be completed.
 
 2. **Consolidation of logic**
    - Merge lock and completion functionality on the counterparty contract. Once lock is called, funds are already in the control of the user. In the HTLC implementation, once the timelock is over and complete on initiator has not been called, both the initiator and counterparty funds are available to the user, opening up for an exploit.
