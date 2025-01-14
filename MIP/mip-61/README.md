@@ -285,7 +285,7 @@ This creates a dependency to another component. For example, if the postgres db 
 
 ## Verification
 
-## Errata
+## Changelog
 
 ## Appendix
 
