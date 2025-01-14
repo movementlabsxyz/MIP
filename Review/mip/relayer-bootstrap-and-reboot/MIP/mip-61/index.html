@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MIP-61: Relayer in the lock/mint bridge - Algorithm and Bootstrapping  - MIP</title>
+        <title>MIP-61: Relayer for the lock/mint Native Bridge - Algorithm and Bootstrapping - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -158,10 +158,10 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="mip-61-relayer-in-the-lockmint-bridge---algorithm-and-bootstrapping"><a class="header" href="#mip-61-relayer-in-the-lockmint-bridge---algorithm-and-bootstrapping">MIP-61: Relayer in the lock/mint bridge - Algorithm and Bootstrapping</a></h1>
+<h1 id="mip-61-relayer-for-the-lockmint-native-bridge---algorithm-and-bootstrapping"><a class="header" href="#mip-61-relayer-for-the-lockmint-native-bridge---algorithm-and-bootstrapping">MIP-61: Relayer for the lock/mint Native Bridge - Algorithm and Bootstrapping</a></h1>
 <ul>
 <li><strong>Description</strong>: This MIP describes the process for continuous operation as well as the bootstrapping of the relayer in the lock/mint bridge.</li>
-<li><strong>Authors</strong>: <a href="mailto:andreas.penzkofer@movementlabs.xyz">Andreas Penzkofer</a>, <a href="">Phillipe</a></li>
+<li><strong>Authors</strong>: Andreas Penzkofer, Philippe</li>
 </ul>
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
 <p>We describe an algorithm that</p>
@@ -222,7 +222,6 @@ Currently, when the relayer starts, it doesn’t reload the state that it has wh
 }
 </code></pre>
 <p>Locally the relayer stores the following structure:</p>
-<p>!!! . TODO should be replaced by ordered list of transferIDs and a nonce list (ordered) and a block height</p>
 <pre><code class="language-javascript">// Relayer Local Structure
 {
     blocks: [                          // Array of blocks being tracked
@@ -268,6 +267,7 @@ IF `nonce` is found THEN:
 
     IF `nonce` transfer is final THEN:
         SET `nonce.status_transfer` to `transfer_completed`
+        CLEAR cached data for `nonce` to free up memory
     ELSE:
         // the status should be `transfer_pending`
         IF `nonce.status_transfer` is NOT `transfer_pending` THEN:
@@ -295,9 +295,8 @@ FOR EACH `event` IN `source_block.initiate_transfer_events` DO:
 SET `block.status` as `block_processed`
 </code></pre>
 <p>!!! . Setting the source_block.status as processed and storing that information in a file, or similar, could help with bootstrapping the relayer in the future.</p>
-<h4 id="optimizations-to-consider-errors-in-the-above-procedure"><a class="header" href="#optimizations-to-consider-errors-in-the-above-procedure">Optimizations to consider errors in the above procedure</a></h4>
-<p>This step is optional but should be considered.</p>
-<p>Introduce a status <code>transfer_init</code> to differentiate a state between nonce creation locally and sending successfully a <code>complete_transfer</code> transaction to the target chain.</p>
+<h4 id="consider-errors-in-the-above-procedure"><a class="header" href="#consider-errors-in-the-above-procedure">Consider errors in the above procedure</a></h4>
+<p>We MUST introduce a status <code>transfer_init</code> to differentiate a state between nonce creation locally and sending successfully a <code>complete_transfer</code> transaction to the target chain.</p>
 <p><img src="init_optimization.png" alt="init_optimization" /></p>
 <h4 id="calculation-of-completed-source-block-height"><a class="header" href="#calculation-of-completed-source-block-height">Calculation of Completed Source Block Height</a></h4>
 <p>In this section the process is defined to calculate the completed part of the source chain <code>completed_block_height</code> and <code>completed_nonce_height</code>.</p>
@@ -341,9 +340,12 @@ ON timeoutTriggered(`timeoutTriggeredEvent`) DO:
 <p><img src="timeout.png" alt="alt text" /></p>
 <h3 id="bootstrapping"><a class="header" href="#bootstrapping">BOOTSTRAPPING</a></h3>
 <p>Next we describe how the bootstrap algorithm works and differs from the above.</p>
-<p>!!! . A node that is bootstrapping SHOULD start the <a href="#continuous-block-processing">CONTINUOUS_BLOCK_PROCESSING</a> algorithm in parallel. This allows to immediately assume normal operation while attempting to catch up with what has been missed.</p>
+<blockquote>
+<p>[!NOTE]
+A node that is bootstrapping SHOULD start the CONTINUOUS_BLOCK_PROCESSING algorithm in parallel. This allows to immediately assume normal operation while attempting to catch up with what has been missed.</p>
+</blockquote>
 <p><img src="bootstrap.png" alt="alt text" /></p>
-<p>The Algorithm differs from the CONTINUOUS_BLOCK_PROCESSING in that it runs in parallel and will catch up with missing transfers eventually. While not hindering the continuous operation of the Relayer. It implements a delay to start at the beginning, which conveniently prevents that <code>complete_transfer</code> transactions would be sent accidentally twice to the target chain (and which if it would happen frequent could turn out to be expensive).</p>
+<p>The Algorithm differs from the CONTINUOUS_BLOCK_PROCESSING in that it runs in parallel and will catch up with missing transfers eventually. While not hindering the continuous operation of the Relayer.</p>
 <pre><code class="language-javascript">BOOTSTRAPPING
 // Start the continuous block pocessing protocol in parrallel to this algorithm
 START CONTINUOUS_BLOCK_PROCESSING protocol 
@@ -352,10 +354,6 @@ SET `first_CP_block` = first processed block by CONTINUOUS_BLOCK_PROCESSING
 // Set initial processed block parameters
 SET `end_source_block` = `first_CP_block` - 1
 SET `start_source_block` = some INPUT value
-
-// Wait for a predefined time (e.g. 10 minutes) 
-// to ensure all relevant blocks have arrived
-WAIT for `wait_time` 
 
 // Process source blocks in the specified range
 FOR `current_block` = `start_source_block` TO `end_source_block` DO:
@@ -374,17 +372,9 @@ The relayer records on the source or target chain (whichever is cheaper) the <co
 </ol>
 <p>This creates a dependency to another component. For example, if the postgres db has an issue, the relayer has an issue. Even thought the relayer doesn’t need the db to process.</p>
 <h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
-<!--
-  The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
-
-  TODO: Remove this comment before submitting
--->
 <h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
-<p>Needs discussion.</p>
-<hr />
 <h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
 <h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
-<hr />
 <h2 id="copyright"><a class="header" href="#copyright">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="../LICENSE.html">CC0</a>.</p>
 
