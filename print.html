@@ -3214,7 +3214,7 @@ Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides add
 <li><strong>No funds requirement</strong>: User is not required to have funds on target chain and we do not have to build sponsored transactions.</li>
 <li><strong>Delivery by Relayer</strong>: Because the Relayer delivers the funds, there is no requirement for the user to complete the transaction on target chain, therefore simplifying the user experience and allowing a smooth onboarding on the network for transfers from L1 to L2. User only has to await for the finalization on the source chain and for the Relayer to perform the completion on target chain. This is standard practice for every major bridge in the ecosystem.</li>
 <li><strong>Less parameters</strong>: Because there is no exchange of secrets between the user and Relayer, we have a substantial reduction of logic.</li>
-<li><strong>Only completable</strong>: Previously we reserve a refunder role to revert transactions. In this approach this is different as we guarantee delivery of funds through the same party that would guarantee funds being refunded, because bridges can ONLY be completed.</li>
+<li><strong>Must complete transfers</strong>: Previously we reserve a refunder role to revert transactions. In this approach this is different as we guarantee delivery of funds through the same party that would guarantee funds being refunded, because transfers MUST be completed.</li>
 </ul>
 </li>
 <li>
