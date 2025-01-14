@@ -21,7 +21,7 @@ We would like to minimize the number of trusted components. In a minimal solutio
 
 Several complications:
 
-- The `complete_transfer` message to the target chain for bridge transfers may fail, get lost, or other. Hence we cannot rely on delivery.
+- The `complete_transfer` transaction to the target chain for bridge transfers may fail, get lost, or other. Hence we cannot rely on delivery.
 - The relayer may loose local memory.
 - The relayer may have to be replaced.
 - The relayer (or its replacement) MUST not ignore a single transfer.
@@ -31,7 +31,7 @@ Several complications:
 **Bootstrapping**
 Currently, when the relayer starts, it doesn't reload the state that it has when it shuts down. If transfers are processed when the relayer stops, the transfers are lost and the relayer is not able to continue the transfer.
 
-Moreover, even if the data would be stored on where to continue, the relayer may crash for a variety of reasons. The relayer can go offline or crash. It needs to automatically understand which `complete_transfer` messages it still needs to send to the target chain.
+Moreover, even if the data would be stored on where to continue, the relayer may crash for a variety of reasons. The relayer can go offline or crash. It needs to automatically understand which `complete_transfer` transactions it still needs to send to the target chain.
 
 ## Context
 
@@ -46,7 +46,7 @@ In this MIP we consider the lock/mint Native Bridge, see [MIP-60](https://github
 
 ## Specification
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
+> _The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
 
 !!! . The algorithm is the same in both directions. Hence each algorithm has to be implemented twice. Once for the transfer direction L1 --> L2, and once for the L2 --> L1 direction.
 
@@ -56,12 +56,15 @@ The relayer can get its state from the source chain and target chain. The relaye
 
 **2. BOOTSTRAPPING:** The relayer initiate the event polling at some point in the past. This point is either the genesis, some configurable source block height, or some checkpoint (possibly set on-chain)
 
-### Structures
+### Assumptions on the Bridge Protocol
 
-On the source chain the following structure is used:
+**Nonce**:
+We assume the Native Bridge protocol MUST implement the assignment of an incrementing `nonce` on the source chain. Since there are two directions there MUST be two types of counters (`nonces`) - one for each transfer direction. The `nonce` is used to order the transfers.
+
+**Initiate Transfer**:
+The `initiate_transfer` function on the source chain is called by the user. It emits an event `initiate_transfer` with the following properties:
 
 ```javascript
-// Source Chain Structure
 {
     nonce: Number,          // Unique incrementing value for ordering transfers
     recipient: String,  // Address of the recipient on the target chain
@@ -70,10 +73,12 @@ On the source chain the following structure is used:
 }
 ```
 
-On the target chain the following structure is used:
+This structure is used to record the transfer on the source chain.
+
+**Complete Transfer**:
+The `complete_transfer` function on the target chain is called by the relayer. It emits an event `complete_transfer` with the following properties:
 
 ```javascript
-// Target Chain Structure
 {
     nonce: Number,         // Matching nonce from the source chain
     transferUID: String,   // Unique identifier for the transfer
@@ -83,43 +88,49 @@ On the target chain the following structure is used:
 }
 ```
 
+This structure is used to record the transfer on the target chain.
+
+### Relayer Structures
+
+
 Locally the relayer stores the following structure:
 
 ```javascript
 // Relayer Local Structure
 {
-    blocks: [                          // Array of blocks being tracked
-        {
-            blockHeight: Number,       // Height of the block
-            status: String,            // Status of the block (e.g., "processed", "completed")
-            events: [                  // Array of events in the block
-                {
-                    eventUID: String,  // Unique identifier for the event
-                    nonce: Number,     // Matching nonce from the source chain
-                    status: String     // Status of the event (e.g., "pending", "completed")
-                }
-            ]
+    nonces: {                          // Object keyed by nonce (integer)
+        [nonce: Number]: {             // Nonce as the integer key
+            blockHeight: Number,       // Height of the block containing the nonce
+            status: String,            // Status of the event
+            eventUID: String           // Unique identifier for the event
         }
-    ]
+    }
 }
 ```
 
+The relayer differentiates three status types:
 
-### EVENT_PROCESSING
+- `transfer_initiated`: the event has been received but not processed and the `complete_transfer` transaction has not been sent to the target chain.
+- `transfer_pending`: the `complete_transfer` transaction has been sent to the target chain but is not yet finalized.
+- `transfer_completed`: we received the (finalized) complete event.
 
-The relayer may send a message `complete_transfer` to the target chain for an event that has the status `transfer_pending`. This status exists during the time between the reception of the `initiate_transfer` event from the source chain and the success of the `complete_transfer` transaction on the target chain. (However, it is possible that a `complete_transfer` messages is not yet finalized on the target chain, in which case the relayer DOES NOT send a new `complete_transfer` message, but waits instead.)
+**Optimization**: There's another substate for pending when the `complete_transfer` transaction failed. In this case we should retry earlier than if the `complete_transfer` transaction was successful. We MAY differentiate the state `transfer_pending_executed` and `transfer_pending_failed`.
 
-The Native Bridge protocol MUST implement the assignment of an incrementing `nonce` on the source chain. Since there are two directions there MUST be two types of counters (`nonces`) - one for each transfer direction. The `nonce` is used to order the transfers.
+### EVENT_PROCESSING algorithm
 
 For each `initiate_transfer` event do the following:
 
 ![event_processing](event_processing.png)
 
+> [!NOTE]
+> The relayer may send a transaction `complete_transfer` to the target chain for an entry that has the status `transfer_pending`. This status exists during the time between the sending and the finalized success of the `complete_transfer` transaction on the target chain.
+
 ```javascript
 EVENT_PROCESSING:
-// Input: initiate_transfer_event from source chain
+// Input: initiate_transfer event from source chain
 // Input: target_chain_state - current state of the target chain
-SET `nonce` = `initiate_transfer_event.nonce` with nonce.status_transfer = `transfer_init`
+SET `nonce` = `initiate_transfer_event.nonce` 
+    with nonce.status_transfer = `transfer_initiated`
 SET `transfer_uid` = `initiate_transfer_event.transfer_uid`
 
 // Check if the `nonce` is already recorded
@@ -129,11 +140,11 @@ IF `nonce` is recorded THEN:
 ELSE: 
     CREATE new `nonce` entry locally and save it in ORDERED_SET.
 
-// note this is note the final state as is the case for most other state reads in this algorithm
-QUERY target chain contract for `nonce` in non-final state 
+// note this is not the final state as is the case for most other state reads in this algorithm
+QUERY target chain contract for `nonce` in non-final and final state
         
 // If `complete_transfer` transaction was sent previously to target chain
-IF `nonce` is found THEN:
+IF `nonce` is found on target chain THEN:
     IF `transfer_uid` does not match THEN:
         REPORT error and EXIT
 
@@ -153,7 +164,7 @@ ELSE:
     SET timeout for relayer to re-check later
 ```
 
-### CONTINUOUS_BLOCK_PROCESSING
+### CONTINUOUS_BLOCK_PROCESSING algorithm
 
 Next we describe the processing of source blocks and the completion of a transfer on the target chain, assuming the relayer is always online. Since this is a strong assumption, we reduce this requirement in the next section.
 
@@ -172,13 +183,8 @@ FOR EACH `event` IN `source_block.initiate_transfer_events` DO:
 SET `block.status` as `block_processed`
 ```
 
-!!! . Setting the source_block.status as processed and storing that information in a file, or similar, could help with bootstrapping the relayer in the future.
-
-#### Consider errors in the above procedure
-
-We MUST introduce a status `transfer_init` to differentiate a state between nonce creation locally and sending successfully a `complete_transfer` transaction to the target chain.
-
-![init_optimization](init_optimization.png)
+> [!NOTE]
+> Setting the source_block.status as processed and storing that information in a file, or similar, could help with bootstrapping the relayer in the future.
 
 #### Calculation of Completed Source Block Height
 
@@ -194,7 +200,6 @@ IF `nonce.status_transfer` is `transfer_completed` THEN:
 ```
 
 with
-
 
 ```javascript
 PROCESS_COMPLETED_NONCE_HEIGHT:
@@ -215,7 +220,7 @@ IF `nonce.status_transfer` is `transfer_completed` THEN:
 
 ### TIMEOUT algorithm
 
-1. Whenever the timeout of a transfer (which has `transfer_pending` status) is triggered. Start the event processing.
+Whenever the timeout of a transfer (which has `transfer_pending` status) is triggered. Start the event processing.
 
 ```javascript
 TIMEOUT:
@@ -233,7 +238,7 @@ ON timeoutTriggered(`timeoutTriggeredEvent`) DO:
 
 ![alt text](timeout.png)
 
-### BOOTSTRAPPING
+### BOOTSTRAP algorithm
 
 Next we describe how the bootstrap algorithm works and differs from the above.
 
