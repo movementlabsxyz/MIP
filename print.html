@@ -3193,7 +3193,7 @@ With Celestia this would be approximately after <span class="katex"><span class=
 <h2 id="abstract-21"><a class="header" href="#abstract-21">Abstract</a></h2>
 <p>We propose a lock/mint-type Native Bridge. The lock/mint bridge design streamlines operations, enhances security, and improves user experience (compared to the previously employed HTLC-based Native Bridge) making it easier to bridge assets between chains.</p>
 <h2 id="motivation-21"><a class="header" href="#motivation-21">Motivation</a></h2>
-<p>Different types of bridges have been considered for the Native Bridge, see <a href="https://github.com/movementlabsxyz/MIP/pull/60">MIP-60</a>. The initial design employed a HTLC-based bridge, which has been found to lead to bad UX requires four transactions and a complex design.</p>
+<p>Different types of bridges have been considered for the Native Bridge, see <a href="https://github.com/movementlabsxyz/MIP/pull/60">MIP-60</a>. The initial design employed a HTLC-based bridge, which has been found to lead to bad UX, requires four transactions, and a complex design.</p>
 <p>This proposal advocates for replacing the current HTLC-based bridge design, with a lock/mint-type bridge with a simpler and more efficient two-transaction mechanism. The proposed design reduces costs, enhances security, minimizes user friction, and avoids potential exploits caused by refund logic. It addresses long-standing issues such as reliance on sponsored transactions, outdated audits, and unimplemented fee mechanisms speeding the process to achieve a fully functional bridge that movement yet has been unable to complete, and lots of under issues raised and still pending.</p>
 <p><strong>Reminder: HTLC-based bridge</strong></p>
 <p>The HTLC-type Native Bridge design poses numerous challenges, including inefficiency, cost, and user frustration:</p>
@@ -3278,7 +3278,7 @@ A mechanism that limits the number of tokens that can be transferred. The rate l
 <p><strong>(Partially Trusted) Relayer</strong>
 An off-chain partially trusted component (except for bugs or theft of keys) that can read relevant events from either chain and processes transfer requests by completing them on the target chain. It MAY operate nodes on both chains to learn about the finalization of <code>complete_transfer</code> transactions. The operation of the Relayer, including the bootstrapping process, is detailed in <a href="https://github.com/movementlabsxyz/MIP/pull/61">MIP-61</a>.</p>
 <h3 id="storage-fields"><a class="header" href="#storage-fields">Storage fields</a></h3>
-<p>The storage fields are directional, hence we need to mirror the mapping for L1-&gt;L2, as well as L2-&gt;L1. Hence, we will talk about source and target chain.</p>
+<p>The storage fields are directional, hence we need to mirror the mapping for L1→L2, as well as L2→L1. Hence, we will talk about source and target chain.</p>
 <h4 id="source-bridge-contract"><a class="header" href="#source-bridge-contract">Source bridge contract</a></h4>
 <pre><code class="language-rust">struct SourceBridgeTransfers {
     /// A list of unique bridge transfer IDs.
@@ -3318,7 +3318,11 @@ struct TargetBridgeDetails {
     nonce: u64,
 }</code></pre>
 <h3 id="transaction-flow"><a class="header" href="#transaction-flow">Transaction flow</a></h3>
-<p>This bridge design is a simpler version compared to the previous HTLC-based implementation, thus less steps are required to complete a bridge transfer. The bridge is initiated by the user and completed by the Relayer. The Relayer is a trusted party that finalizes the bridge transfer on the target chain. The user is not required to have funds on the target chain to complete the transfer. The Relayer is responsible for completing the transfer on the target chain.</p>
+<blockquote>
+<p>[!NOTE]
+This bridge design is a simpler version compared to the previous HTLC-based implementation, thus less steps are required to complete a bridge transfer.</p>
+</blockquote>
+<p>The bridge is initiated by the user and completed by the Relayer. The Relayer is a trusted party that finalizes the bridge transfer on the target chain. The user is not required to have funds on the target chain to complete the transfer. The Relayer is responsible for completing the transfer on the target chain.</p>
 <ul>
 <li>There are two possible states, <code>transfer_initiated</code> or <code>transfer_completed</code>.</li>
 <li>User initiates the transfer.</li>
@@ -3350,7 +3354,8 @@ struct TargetBridgeDetails {
 <li>The time to finality for the complete transaction on the L2 should be considered after the postconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>, to provide strong finality guarantees.</li>
 </ol>
 <blockquote>
-<p><strong>Note:</strong>  Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides additional reorg protection. We MAY consider Fastconfirmation instead of Postconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-65</a>. This assumes the L2 is extremely unlikely to reorg AND the committee is considered to be safe.</p>
+<p>[!NOTE]
+Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides additional reorg protection. We MAY consider Fastconfirmation instead of Postconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-65</a>. This assumes the L2 is extremely unlikely to reorg AND the committee is considered to be safe.</p>
 </blockquote>
 <p><img src="Review/mip-58/MIP/mip-58/L1ToL2.png" alt="L1-L2" /></p>
 <h4 id="l2--l1"><a class="header" href="#l2--l1">L2 → L1</a></h4>
