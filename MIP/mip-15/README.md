@@ -31,11 +31,11 @@ The Glossary file contains:
 - A short definition
 - (Optional) The number of the MG/MIP/MD that introduces the term.
 
-The format is as follows (example):
+The format is as follows:
 
 ```markdown
-**Term**
-<Definition> → [MD-x](MG/md-x/README.md)
+**<Term>**
+<Definition> → [MD-x](MD/md-x/README.md), [MG-y](MG/mg-y/README.md)
 ```
 
 ### MG (Movement Gloss)
@@ -49,6 +49,9 @@ An example MG is provided at [mg-0](../../MG/mg-0/README.md).
 An MG document MUST not be accepted unless it is required by an MIP or MD. For example, herein, we justify the introduction of [MG-0](../../MG/mg-0/README.md). MG-0 defines the term "gloss" which is used in the context of Movement Labs to denote the definition of a term as would feature as an entry in a glossary. For the MGs, it is important to include in the glossary both clarify as the acronym "MG" and to provide an example gloss.
 
 #### MG Structure
+
+**Term**
+Definition of the term.
 
 **Related Work**
 Enumerate key usages of the term or related terms in other contexts.
