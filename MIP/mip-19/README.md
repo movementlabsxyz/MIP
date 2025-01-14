@@ -1,13 +1,12 @@
 
-# MIP-16: Calculation of gas fees 
+# MIP-19: Calculation of gas fees
 
 - **Description**: How to calculate gas fees for transactions on Movement L2.
 - **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz)
 
-
 ## Abstract
-This MIP describes the structure of the gas fees and overall resource consumption needed to execute, and post a transaction to the DA/L1.
 
+This MIP describes the structure of the gas fees and overall resource consumption needed to execute, and post a transaction to the DA/L1.
 
 ## Motivation
 
@@ -15,12 +14,13 @@ The transaction fees on L2s are multi-dimensional [[9](#ref-9), [10](#ref-10)]. 
 This MIP describes what the different types of fees are, and how the transaction fees can be computed.
 
 ## Scope of this MIP
-This MIP applies to costs/fees **related to executing Move bytecode**. 
+
+This MIP applies to costs/fees **related to executing Move bytecode**.
 
 > [!WARNING] 
 > It does not cover the extended future framework where EVM bytecode can be executed on a Movement chain. 
 
-Althought the costs (in terms of resources consumption) are expressed in gas units when executing Move and EVM bytecode, the gas units are **not comparable**, e.g. the minimum gas for an EVM transaction is 21000 gas units, whereas for Move-Aptos it is 700 gas units. As a result designing a fee mechanism for Movement chains that support Move and EVM bytecodes will require some careful adjustments and analysis of the different fee structures (Move and EVM). 
+Although the costs (in terms of resources consumption) are expressed in gas units when executing Move and EVM bytecode, the gas units are **not comparable**, e.g. the minimum gas for an EVM transaction is 21000 gas units, whereas for Move-Aptos it is 700 gas units. As a result designing a fee mechanism for Movement chains that support Move and EVM bytecodes will require some careful adjustments and analysis of the different fee structures (Move and EVM). 
 
 > [!WARNING] 
 > This MIP does not cover _staking_ (and slashing and rewards) for validators.
