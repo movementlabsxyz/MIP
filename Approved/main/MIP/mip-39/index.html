@@ -249,7 +249,7 @@ Check point: This is the end of the first phase. Next phase must be triggered by
 At that point the bridge transfers details are known by the L1 and the L2.</p>
 </blockquote>
 <ol start="3">
-<li><em>user2</em> (or anybody with the secret) sends a transaction to the <code>atomic_bridge_counterparty.move</code> module on L2 asking to <em>complete the bridge transfer</em>. If the transfer has been properly initialised (step 2 above), this results in minting tokens and transfers the minted tokens to the <code>user2</code> account. If successful, an event <code>BridgeTransferComplete</code> is emitted to the L2 logs. The status of the transfer on L2 becomes <code>COMPLETED</code>.</li>
+<li><em>user2</em> (or anybody with the secret) sends a transaction to the <code>atomic_bridge_counterparty.move</code> module on L2 asking to <em>complete the bridge transfer</em>. If the transfer has been properly initialized (step 2 above), this results in minting tokens and transfers the minted tokens to the <code>user2</code> account. If successful, an event <code>BridgeTransferComplete</code> is emitted to the L2 logs. The status of the transfer on L2 becomes <code>COMPLETED</code>.</li>
 </ol>
 <blockquote>
 <p>[!TIP]
@@ -314,7 +314,7 @@ The desired properties of the bridge protocol (L1 to L2) are  <strong>atomicity<
 </tbody></table>
 </div>
 <p>The permissions are set to ensure that only the user who initiated the transfer can request a refund, and only the relayer can complete the transfer on L2.</p>
-<p>Other safety considerations include the use of <a href="https://eips.ethereum.org/EIPS/eip-55">EIP-55</a> (L1 side) checksums for addresses. There is some code immplemented in the L2 Move contract [ethereum_module](<a href="https://github.com/movementlabsxyz/aptos-core/blob/061155119258caab512aec6aa860b086e5f312e0/aptos-move/framework/aptos-framework/sources/atomic_bridge.move#L1">https://github.com/movementlabsxyz/aptos-core/blob/061155119258caab512aec6aa860b086e5f312e0/aptos-move/framework/aptos-framework/sources/atomic_bridge.move#L1</a> to check EIP-55 compliance so we may enforce EIP-55 compliance at some stage.</p>
+<p>Other safety considerations include the use of <a href="https://eips.ethereum.org/EIPS/eip-55">EIP-55</a> (L1 side) checksums for addresses. There is some code implemented in the L2 Move contract [ethereum_module](<a href="https://github.com/movementlabsxyz/aptos-core/blob/061155119258caab512aec6aa860b086e5f312e0/aptos-move/framework/aptos-framework/sources/atomic_bridge.move#L1">https://github.com/movementlabsxyz/aptos-core/blob/061155119258caab512aec6aa860b086e5f312e0/aptos-move/framework/aptos-framework/sources/atomic_bridge.move#L1</a> to check EIP-55 compliance so we may enforce EIP-55 compliance at some stage.</p>
 <h3 id="bridging-from-l2-to-l1"><a class="header" href="#bridging-from-l2-to-l1">Bridging from L2 to L1</a></h3>
 <h4 id="transfer-steps-1"><a class="header" href="#transfer-steps-1">Transfer steps</a></h4>
 <p>A successful transfer from L2 to L1 requires the following these steps:</p>
@@ -426,9 +426,10 @@ We have <strong>proved</strong> (model-checked with UPPAAL) the following proper
 <p>Note that [safety-2] does hold if the relayer is down for more than $maxRelayerDelay$, or the timelocks are not set correctly.</p>
 <h3 id="bridge-l2-to-l1"><a class="header" href="#bridge-l2-to-l1">Bridge L2 to L1</a></h3>
 <p>The only difference between L1 to L2 is the way assets are created/destroyed. However, the formal model abstracts away this difference and the same properties hold for the L2 to L1 bridge.</p>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 <hr />
 <h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
-<p>The UPPAAL models of the L1 to L2 tranfers are available in the <a href="./uppaal-models">uppaal-models</a> directory.
+<p>The UPPAAL models of the L1 to L2 transfers are available in the <a href="./uppaal-models">uppaal-models</a> directory.
 The simplest model is <a href="./uppaal-models/bridge-up-v2.xml">bridge-up-v2.xml</a> and the more complex model is <a href="./uppaal-models/bridge-up-v3.xml">bridge-up-v3.xml</a> with probabilities.</p>
 <p>You can request a license to use UPPAAL at <a href="http://www.uppaal.org/">UPPAAL</a>.</p>
 <hr />

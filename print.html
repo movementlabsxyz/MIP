@@ -219,7 +219,6 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
 <li><a href="Review/mikhail/suzuka-da-migrations/MD/md-13/">MD-13: Suzuka DA Migrations Format</a></li>
-<li><a href="Review/primata/bridge-timelock-as-state/MD/md-14/">MD-14: Bridge Should Use A More Secure Timelock</a></li>
 <li><a href="Review/primata/md-17/MD/md-17/">MD-17: Bridge Fees</a></li>
 <li><a href="Review/primata/bridge-attestors/MD/md-21/">MD-21: Native Bridge with Attesters</a></li>
 <li><a href="Review/andygolay/md-26/MD/md-26/">MD-26: User-facing checks</a></li>
@@ -284,7 +283,6 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
 <li><a href="Review/mikhail/suzuka-da-migrations/MD/md-13/">MD-13: Suzuka DA Migrations Format</a></li>
-<li><a href="Review/primata/bridge-timelock-as-state/MD/md-14/">MD-14: Bridge Should Use A More Secure Timelock</a></li>
 <li><a href="Review/primata/md-17/MD/md-17/">MD-17: Bridge Fees</a></li>
 <li><a href="Review/primata/bridge-attestors/MD/md-21/">MD-21: Native Bridge with Attesters</a></li>
 <li><a href="Review/andygolay/md-26/MD/md-26/">MD-26: User-facing checks</a></li>
@@ -301,10 +299,10 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <ul>
 <li><strong>Description</strong>: ENTL proposes a simple challenge-reponse protocol to link Enclave usage to a given program. It additionally proposes a means of time-locking to allow the replacement of said program while maintaining security.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
-<li><strong>Desiderata</strong>: <a href="Approved/main/MIP/mip-1/../MD/md-1">MD-1</a></li>
+<li><strong>Desiderata</strong>: <a href="Approved/main/MIP/mip-1/../../MD/md-1">MD-1</a></li>
 </ul>
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
-<p>ENTL proposes a simple challenge-reponse protocol to link Enclave usage to a given program. It additionally proposes a means of time-locking to allow the replacement of said program while maintaining security. This approach is demonstrated to be both generalizable and cryptographically sound.</p>
+<p>ENTL proposes a simple challenge-response protocol to link Enclave usage to a given program. It additionally proposes a means of time-locking to allow the replacement of said program while maintaining security. This approach is demonstrated to be both generalizable and cryptographically sound.</p>
 <h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
 <p>This protocol was originally suggested as a solution to minimizing trust assumptions in the Atomic Bridge under <a href="Approved/main/MIP/mip-1/../MD/md-1">MD-1</a>. However, similar problems were encountered under Movement Labs Governance Stage 0 concerning general key usage.</p>
 <h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
@@ -391,8 +389,7 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
 <h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
 <p>ENTL assumes a valid Client program is one that (1) can provide the correct nonce and (2)</p>
-<h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
-<p>Post-publication corrections, if any, to the MIPs should be documented in this section. This ensures transparency and provides readers with accurate and up-to-date information.</p>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 <h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-15-mg-movement-gloss"><a class="header" href="#mip-15-mg-movement-gloss">MIP-15: MG (Movement Gloss)</a></h1>
@@ -427,7 +424,7 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <h2 id="reference-implementation-1"><a class="header" href="#reference-implementation-1">Reference Implementation</a></h2>
 <p>See the MG document type template at <a href="Approved/main/MIP/mip-15/../../md-template.html">mg-template</a> and the example MG at <a href="Approved/main/MIP/mip-15/../../MG/mg-0/README.html">mg-0</a>.</p>
 <h2 id="verification-1"><a class="header" href="#verification-1">Verification</a></h2>
-<h2 id="errata-1"><a class="header" href="#errata-1">Errata</a></h2>
+<h2 id="changelog-1"><a class="header" href="#changelog-1">Changelog</a></h2>
 <h2 id="appendix-1"><a class="header" href="#appendix-1">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-39-move-token--htlc-based-native-bridge-design"><a class="header" href="#mip-39-move-token--htlc-based-native-bridge-design">MIP-39: MOVE Token – HTLC-based Native Bridge Design</a></h1>
@@ -521,7 +518,7 @@ Check point: This is the end of the first phase. Next phase must be triggered by
 At that point the bridge transfers details are known by the L1 and the L2.</p>
 </blockquote>
 <ol start="3">
-<li><em>user2</em> (or anybody with the secret) sends a transaction to the <code>atomic_bridge_counterparty.move</code> module on L2 asking to <em>complete the bridge transfer</em>. If the transfer has been properly initialised (step 2 above), this results in minting tokens and transfers the minted tokens to the <code>user2</code> account. If successful, an event <code>BridgeTransferComplete</code> is emitted to the L2 logs. The status of the transfer on L2 becomes <code>COMPLETED</code>.</li>
+<li><em>user2</em> (or anybody with the secret) sends a transaction to the <code>atomic_bridge_counterparty.move</code> module on L2 asking to <em>complete the bridge transfer</em>. If the transfer has been properly initialized (step 2 above), this results in minting tokens and transfers the minted tokens to the <code>user2</code> account. If successful, an event <code>BridgeTransferComplete</code> is emitted to the L2 logs. The status of the transfer on L2 becomes <code>COMPLETED</code>.</li>
 </ol>
 <blockquote>
 <p>[!TIP]
@@ -586,7 +583,7 @@ The desired properties of the bridge protocol (L1 to L2) are  <strong>atomicity<
 </tbody></table>
 </div>
 <p>The permissions are set to ensure that only the user who initiated the transfer can request a refund, and only the relayer can complete the transfer on L2.</p>
-<p>Other safety considerations include the use of <a href="https://eips.ethereum.org/EIPS/eip-55">EIP-55</a> (L1 side) checksums for addresses. There is some code immplemented in the L2 Move contract [ethereum_module](<a href="https://github.com/movementlabsxyz/aptos-core/blob/061155119258caab512aec6aa860b086e5f312e0/aptos-move/framework/aptos-framework/sources/atomic_bridge.move#L1">https://github.com/movementlabsxyz/aptos-core/blob/061155119258caab512aec6aa860b086e5f312e0/aptos-move/framework/aptos-framework/sources/atomic_bridge.move#L1</a> to check EIP-55 compliance so we may enforce EIP-55 compliance at some stage.</p>
+<p>Other safety considerations include the use of <a href="https://eips.ethereum.org/EIPS/eip-55">EIP-55</a> (L1 side) checksums for addresses. There is some code implemented in the L2 Move contract [ethereum_module](<a href="https://github.com/movementlabsxyz/aptos-core/blob/061155119258caab512aec6aa860b086e5f312e0/aptos-move/framework/aptos-framework/sources/atomic_bridge.move#L1">https://github.com/movementlabsxyz/aptos-core/blob/061155119258caab512aec6aa860b086e5f312e0/aptos-move/framework/aptos-framework/sources/atomic_bridge.move#L1</a> to check EIP-55 compliance so we may enforce EIP-55 compliance at some stage.</p>
 <h3 id="bridging-from-l2-to-l1"><a class="header" href="#bridging-from-l2-to-l1">Bridging from L2 to L1</a></h3>
 <h4 id="transfer-steps-1"><a class="header" href="#transfer-steps-1">Transfer steps</a></h4>
 <p>A successful transfer from L2 to L1 requires the following these steps:</p>
@@ -698,9 +695,10 @@ We have <strong>proved</strong> (model-checked with UPPAAL) the following proper
 <p>Note that [safety-2] does hold if the relayer is down for more than $maxRelayerDelay$, or the timelocks are not set correctly.</p>
 <h3 id="bridge-l2-to-l1"><a class="header" href="#bridge-l2-to-l1">Bridge L2 to L1</a></h3>
 <p>The only difference between L1 to L2 is the way assets are created/destroyed. However, the formal model abstracts away this difference and the same properties hold for the L2 to L1 bridge.</p>
+<h2 id="changelog-2"><a class="header" href="#changelog-2">Changelog</a></h2>
 <hr />
 <h2 id="appendix-2"><a class="header" href="#appendix-2">Appendix</a></h2>
-<p>The UPPAAL models of the L1 to L2 tranfers are available in the <a href="Approved/main/MIP/mip-39/./uppaal-models">uppaal-models</a> directory.
+<p>The UPPAAL models of the L1 to L2 transfers are available in the <a href="Approved/main/MIP/mip-39/./uppaal-models">uppaal-models</a> directory.
 The simplest model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-up-v2.xml">bridge-up-v2.xml</a> and the more complex model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-up-v3.xml">bridge-up-v3.xml</a> with probabilities.</p>
 <p>You can request a license to use UPPAAL at <a href="http://www.uppaal.org/">UPPAAL</a>.</p>
 <hr />
@@ -754,7 +752,7 @@ The simplest model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-u
 <h3 id="pros-and-cons"><a class="header" href="#pros-and-cons">Pros and Cons</a></h3>
 <p>All proposed progressive L2 models MUST include a list of pros and cons. This list SHOULD be formatted as two separate bulleted lists in subsections titled “Pros” and “Cons.”</p>
 <h2 id="verification-3"><a class="header" href="#verification-3">Verification</a></h2>
-<h2 id="errata-2"><a class="header" href="#errata-2">Errata</a></h2>
+<h2 id="changelog-3"><a class="header" href="#changelog-3">Changelog</a></h2>
 <h2 id="appendix-3"><a class="header" href="#appendix-3">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-2"><a class="header" href="#welcome-to-the-movement-network-mip-book-2">Welcome to the Movement Network MIP Book</a></h1>
@@ -809,7 +807,6 @@ The simplest model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-u
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
 <li><a href="Review/mikhail/suzuka-da-migrations/MD/md-13/">MD-13: Suzuka DA Migrations Format</a></li>
-<li><a href="Review/primata/bridge-timelock-as-state/MD/md-14/">MD-14: Bridge Should Use A More Secure Timelock</a></li>
 <li><a href="Review/primata/md-17/MD/md-17/">MD-17: Bridge Fees</a></li>
 <li><a href="Review/primata/bridge-attestors/MD/md-21/">MD-21: Native Bridge with Attesters</a></li>
 <li><a href="Review/andygolay/md-26/MD/md-26/">MD-26: User-facing checks</a></li>
@@ -866,7 +863,7 @@ The simplest model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-u
 <h3 id="d3-time-lock-key-usage"><a class="header" href="#d3-time-lock-key-usage">D3: Time-Lock Key Usage</a></h3>
 <p><strong>User Journey</strong>: MLABSO can only reliably replace software using a key in a time-locked manner.</p>
 <p><strong>Justification</strong>: The software using a given key may require updates or replacement. Time-locking can allow this to occur without diminishing the benefits of attestations.</p>
-<h2 id="errata-3"><a class="header" href="#errata-3">Errata</a></h2>
+<h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -942,18 +939,6 @@ The simplest model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-u
 <ul>
 <li>Start by reviewing the <a href="Approved/main/MD/md-3/./asychronous-upgrades-problem.html">Asynchronous Upgrades, Fork Creation, and Fork Stake Problems</a>.</li>
 </ul>
-<h2 id="errata-4"><a class="header" href="#errata-4">Errata</a></h2>
-<!--
-  Errata should be maintained after publication.
-
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the desiderata in which the error was identified.
-
-  TODO: Maintain this comment.
--->
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-15-movement-glossary"><a class="header" href="#md-15-movement-glossary">MD-15: Movement Glossary</a></h1>
 <ul>
@@ -1001,18 +986,7 @@ The simplest model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-u
 <ul>
 <li>MD can also introduce MG to further aid in clarity, but they will not be ratified until they have been supported in an MIP.</li>
 </ul>
-<h2 id="errata-5"><a class="header" href="#errata-5">Errata</a></h2>
-<!--
-  Errata should be maintained after publication.
-
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the desiderata in which the error was identified.
-
-  TODO: Maintain this comment.
--->
+<h2 id="changelog-4"><a class="header" href="#changelog-4">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-3"><a class="header" href="#welcome-to-the-movement-network-mip-book-3">Welcome to the Movement Network MIP Book</a></h1>
 <h2 id="approved-3"><a class="header" href="#approved-3">Approved</a></h2>
@@ -1066,7 +1040,6 @@ The simplest model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-u
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
 <li><a href="Review/mikhail/suzuka-da-migrations/MD/md-13/">MD-13: Suzuka DA Migrations Format</a></li>
-<li><a href="Review/primata/bridge-timelock-as-state/MD/md-14/">MD-14: Bridge Should Use A More Secure Timelock</a></li>
 <li><a href="Review/primata/md-17/MD/md-17/">MD-17: Bridge Fees</a></li>
 <li><a href="Review/primata/bridge-attestors/MD/md-21/">MD-21: Native Bridge with Attesters</a></li>
 <li><a href="Review/andygolay/md-26/MD/md-26/">MD-26: User-facing checks</a></li>
@@ -1144,7 +1117,6 @@ The simplest model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-u
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
 <li><a href="Review/mikhail/suzuka-da-migrations/MD/md-13/">MD-13: Suzuka DA Migrations Format</a></li>
-<li><a href="Review/primata/bridge-timelock-as-state/MD/md-14/">MD-14: Bridge Should Use A More Secure Timelock</a></li>
 <li><a href="Review/primata/md-17/MD/md-17/">MD-17: Bridge Fees</a></li>
 <li><a href="Review/primata/bridge-attestors/MD/md-21/">MD-21: Native Bridge with Attesters</a></li>
 <li><a href="Review/andygolay/md-26/MD/md-26/">MD-26: User-facing checks</a></li>
@@ -1209,7 +1181,6 @@ The simplest model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-u
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
 <li><a href="Review/mikhail/suzuka-da-migrations/MD/md-13/">MD-13: Suzuka DA Migrations Format</a></li>
-<li><a href="Review/primata/bridge-timelock-as-state/MD/md-14/">MD-14: Bridge Should Use A More Secure Timelock</a></li>
 <li><a href="Review/primata/md-17/MD/md-17/">MD-17: Bridge Fees</a></li>
 <li><a href="Review/primata/bridge-attestors/MD/md-21/">MD-21: Native Bridge with Attesters</a></li>
 <li><a href="Review/andygolay/md-26/MD/md-26/">MD-26: User-facing checks</a></li>
@@ -1322,7 +1293,7 @@ before reporting errors on unsupported values.</p>
 -->
 <p>Needs discussion.</p>
 <hr />
-<h2 id="errata-6"><a class="header" href="#errata-6">Errata</a></h2>
+<h2 id="errata-1"><a class="header" href="#errata-1">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -1612,7 +1583,7 @@ This MIP follows the Safe multisig architecture, which has been extensively vett
 Current Governance proposals have indicated that we should have full automation and no access to signing keys. Currently we are a bit far from achieving full automation.</p>
 </li>
 </ol>
-<h2 id="errata-7"><a class="header" href="#errata-7">Errata</a></h2>
+<h2 id="errata-2"><a class="header" href="#errata-2">Errata</a></h2>
 <p>Any post-publication corrections or updates to this MIP will be documented here to maintain transparency and accuracy.</p>
 <h2 id="appendix-5"><a class="header" href="#appendix-5">Appendix</a></h2>
 <ul>
@@ -1692,7 +1663,7 @@ Current Governance proposals have indicated that we should have full automation 
 <h2 id="reference-implementation-5"><a class="header" href="#reference-implementation-5">Reference Implementation</a></h2>
 <h2 id="verification-6"><a class="header" href="#verification-6">Verification</a></h2>
 <p>With the removal of these modules we would expect the tests for Node, VM and framework would pass</p>
-<h2 id="errata-8"><a class="header" href="#errata-8">Errata</a></h2>
+<h2 id="errata-3"><a class="header" href="#errata-3">Errata</a></h2>
 <h2 id="appendix-6"><a class="header" href="#appendix-6">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-25-proxy-aptos-framework-for-stage-0-governance"><a class="header" href="#mip-25-proxy-aptos-framework-for-stage-0-governance">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></h1>
@@ -2132,7 +2103,7 @@ Changes will be required at Genesis to initialize the module, which will involve
 <p>Tests were conducted using Move scripts to confirm that they can successfully acquire the <code>SignerCapability</code> for the Aptos Framework. These tests were aligned with the existing capabilities provided by the Aptos Governance system.</p>
 <h3 id="5-peer-review-and-community-feedback"><a class="header" href="#5-peer-review-and-community-feedback">5. Peer Review and Community Feedback:</a></h3>
 <p>The proposal is subject to review and feedback from the Movement Labs team and the wider community to ensure that it meets the needs of the ecosystem.</p>
-<h2 id="errata-9"><a class="header" href="#errata-9">Errata</a></h2>
+<h2 id="errata-4"><a class="header" href="#errata-4">Errata</a></h2>
 <h2 id="appendix-7"><a class="header" href="#appendix-7">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-27-contract-pipeline"><a class="header" href="#mip-27-contract-pipeline">MIP-27: Contract Pipeline</a></h1>
@@ -2280,7 +2251,7 @@ Changes will be required at Genesis to initialize the module, which will involve
 </ul>
 <h3 id="5-peer-review-and-community-feedback-1"><a class="header" href="#5-peer-review-and-community-feedback-1">5. <strong>Peer Review and Community Feedback</strong></a></h3>
 <p>The proposal will be reviewed by Movement Labs engineers and the broader community for feedback before final implementation.</p>
-<h2 id="errata-10"><a class="header" href="#errata-10">Errata</a></h2>
+<h2 id="errata-5"><a class="header" href="#errata-5">Errata</a></h2>
 <p>Any post-publication corrections or updates will be documented here to ensure transparency and accuracy.</p>
 <h2 id="appendix-8"><a class="header" href="#appendix-8">Appendix</a></h2>
 <ul>
@@ -2322,7 +2293,7 @@ Changes will be required at Genesis to initialize the module, which will involve
 </ul>
 <h2 id="reference-implementation-8"><a class="header" href="#reference-implementation-8">Reference Implementation</a></h2>
 <h2 id="verification-9"><a class="header" href="#verification-9">Verification</a></h2>
-<h2 id="errata-11"><a class="header" href="#errata-11">Errata</a></h2>
+<h2 id="errata-6"><a class="header" href="#errata-6">Errata</a></h2>
 <h2 id="appendix-9"><a class="header" href="#appendix-9">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-34-fast-finality-settlement"><a class="header" href="#mip-34-fast-finality-settlement">MIP-34: Fast Finality Settlement</a></h1>
@@ -2483,7 +2454,7 @@ This implies that if more than <span class="katex"><span class="katex-html" aria
 <li><strong>commit to a sequence of L2Blocks</strong>. The fastconfirmation certificate could be per block. However, on L1 we want to commit to a sequence of blocks (a superBlock). This can be done by committing to the state root of the last block in the sequence or more complicated approaches using Merkle roots.</li>
 <li><strong>involvement of DA layer</strong>. Validators sent their votes or commitments to a DA layer off-L1. This ensures that votes remain available and can be used for potential slashing. This step should take O(1) second if we use a fast reliable mempool.</li>
 </ul>
-<h2 id="errata-12"><a class="header" href="#errata-12">Errata</a></h2>
+<h2 id="errata-7"><a class="header" href="#errata-7">Errata</a></h2>
 <h2 id="appendix-10"><a class="header" href="#appendix-10">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-47-improve-gas-fee-collection-in-phases"><a class="header" href="#mip-47-improve-gas-fee-collection-in-phases">MIP-47: Improve Gas fee collection in phases</a></h1>
@@ -2575,7 +2546,7 @@ This implies that if more than <span class="katex"><span class="katex-html" aria
 -->
 <p>Needs discussion.</p>
 <hr />
-<h2 id="errata-13"><a class="header" href="#errata-13">Errata</a></h2>
+<h2 id="errata-8"><a class="header" href="#errata-8">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -2718,7 +2689,7 @@ module GovernedGasPool::goverened_gas_pool {
 <p>Notice the call :
 <code>assert!(aptos_governance::is_proposal_approved&lt;GovernanceProposal&gt;(id), 2);</code></p>
 <h2 id="verification-12"><a class="header" href="#verification-12">Verification</a></h2>
-<h2 id="errata-14"><a class="header" href="#errata-14">Errata</a></h2>
+<h2 id="errata-9"><a class="header" href="#errata-9">Errata</a></h2>
 <h2 id="appendix-12"><a class="header" href="#appendix-12">Appendix</a></h2>
 <hr />
 <h2 id="copyright-4"><a class="header" href="#copyright-4">Copyright</a></h2>
@@ -2806,7 +2777,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <p>However, while DA fees can be known at execution, Settlement fees cannot. Thus, the wrapped token model would only account for tight bound on DA costs and would need to adopt a pessimistic model for Settlement costs. This would result in overcharging for Settlement costs.</p>
 <h2 id="reference-implementation-11"><a class="header" href="#reference-implementation-11">Reference Implementation</a></h2>
 <h2 id="verification-13"><a class="header" href="#verification-13">Verification</a></h2>
-<h2 id="errata-15"><a class="header" href="#errata-15">Errata</a></h2>
+<h2 id="errata-10"><a class="header" href="#errata-10">Errata</a></h2>
 <h2 id="appendix-13"><a class="header" href="#appendix-13">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-50-insured-bridge"><a class="header" href="#mip-50-insured-bridge">MIP-50: Insured Bridge</a></h1>
@@ -2831,7 +2802,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li>The Bridge Pool Governor SHALL be expected to purchase token from the market to recover the loss and replenish the Insurance Fund.</li>
 </ol>
 <h2 id="verification-14"><a class="header" href="#verification-14">Verification</a></h2>
-<h2 id="errata-16"><a class="header" href="#errata-16">Errata</a></h2>
+<h2 id="errata-11"><a class="header" href="#errata-11">Errata</a></h2>
 <h2 id="appendix-14"><a class="header" href="#appendix-14">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-54-the-biarritz-model"><a class="header" href="#mip-54-the-biarritz-model">MIP-54: The Biarritz Model</a></h1>
@@ -3029,7 +3000,7 @@ With Celestia this would be approximately after <span class="katex"><span class=
 -->
 <p>Needs discussion.</p>
 <hr />
-<h2 id="errata-17"><a class="header" href="#errata-17">Errata</a></h2>
+<h2 id="errata-12"><a class="header" href="#errata-12">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -3528,7 +3499,7 @@ The <a href="https://cross-chainriskframework.github.io/framework/01intro/introd
 <h2 id="verification-19"><a class="header" href="#verification-19">Verification</a></h2>
 <p>Needs discussion.</p>
 <hr />
-<h2 id="errata-18"><a class="header" href="#errata-18">Errata</a></h2>
+<h2 id="errata-13"><a class="header" href="#errata-13">Errata</a></h2>
 <h2 id="references-1"><a class="header" href="#references-1">References</a></h2>
 <p>[1] Maurice Herlihy: “Atomic Cross-Chain Swaps”. PODC 2018: 245-254 <a href="https://dl.acm.org/doi/10.1145/3212734.3212736">DOI</a></p>
 <p>[2] Maurice Herlihy, Barbara Liskov, Liuba Shrira: “Cross-chain deals and adversarial commerce”. VLDB J. 31(6): 1291-1309 (2022) <a href="https://dl.acm.org/doi/10.1007/s00778-021-00686-1">DOI</a></p>
@@ -3754,7 +3725,7 @@ The relayer records on the source or target chain (whichever is cheaper) the <co
 <p>This creates a dependency to another component. For example, if the postgres db has an issue, the relayer has an issue. Even thought the relayer doesn’t need the db to process.</p>
 <h2 id="reference-implementation-15"><a class="header" href="#reference-implementation-15">Reference Implementation</a></h2>
 <h2 id="verification-20"><a class="header" href="#verification-20">Verification</a></h2>
-<h2 id="errata-19"><a class="header" href="#errata-19">Errata</a></h2>
+<h2 id="errata-14"><a class="header" href="#errata-14">Errata</a></h2>
 <h2 id="appendix-17"><a class="header" href="#appendix-17">Appendix</a></h2>
 <h2 id="copyright-8"><a class="header" href="#copyright-8">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/../LICENSE.html">CC0</a>.</p>
@@ -4029,7 +4000,7 @@ Instead of the finalized state we could also consider the <span class="katex"><s
 <h2 id="verification-22"><a class="header" href="#verification-22">Verification</a></h2>
 <p>Needs discussion.</p>
 <hr />
-<h2 id="errata-20"><a class="header" href="#errata-20">Errata</a></h2>
+<h2 id="errata-15"><a class="header" href="#errata-15">Errata</a></h2>
 <h2 id="copyright-10"><a class="header" href="#copyright-10">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Review/mip/informer-lockmintbridge/MIP/mip-71/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
@@ -4172,7 +4143,7 @@ The following are possible ways to adjust the rate limit:</p>
 <p>Needs discussion.</p>
 <p>We may add a formal model?</p>
 <hr />
-<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
+<h2 id="changelog-5"><a class="header" href="#changelog-5">Changelog</a></h2>
 <h2 id="appendix-19"><a class="header" href="#appendix-19">Appendix</a></h2>
 <h3 id="a1-alternative-designs"><a class="header" href="#a1-alternative-designs">A1: Alternative designs</a></h3>
 <p>This MIP proposes a rate limiting mechanism for the Lock/Mint-type Native Bridge with symmetrical design. Below we discuss how we got here and which alternatives exist. The version discussed in this MIP is option C.</p>
@@ -4260,7 +4231,6 @@ The following are possible ways to adjust the rate limit:</p>
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
 <li><a href="Review/mikhail/suzuka-da-migrations/MD/md-13/">MD-13: Suzuka DA Migrations Format</a></li>
-<li><a href="Review/primata/bridge-timelock-as-state/MD/md-14/">MD-14: Bridge Should Use A More Secure Timelock</a></li>
 <li><a href="Review/primata/md-17/MD/md-17/">MD-17: Bridge Fees</a></li>
 <li><a href="Review/primata/bridge-attestors/MD/md-21/">MD-21: Native Bridge with Attesters</a></li>
 <li><a href="Review/andygolay/md-26/MD/md-26/">MD-26: User-facing checks</a></li>
@@ -4312,7 +4282,7 @@ The following are possible ways to adjust the rate limit:</p>
 <h3 id="d3-time-lock-key-usage-1"><a class="header" href="#d3-time-lock-key-usage-1">D3: Time-Lock Key Usage</a></h3>
 <p><strong>User Journey</strong>: MLABSO can only reliably replace software using a key in a time-locked manner.</p>
 <p><strong>Justification</strong>: The software using a given key may require updates or replacement. Time-locking can allow this to occur without diminishing the benefits of attestations.</p>
-<h2 id="errata-21"><a class="header" href="#errata-21">Errata</a></h2>
+<h2 id="errata-16"><a class="header" href="#errata-16">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -4352,7 +4322,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <h3 id="d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof"><a class="header" href="#d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof">D3: Evaluate the Opportunity for Stake-bleeding Long-range Attacks and Detection Thereof</a></h3>
 <p><strong>User Journey</strong>: A researcher or protocol implementer can understand how a stake-bleeding long-range attack could be executed and detected in MCR.</p>
 <p><strong>Justification</strong>: Stake-bleeding long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a stake-bleeding long-range attack could be executed and detected in MCR could enable us to derive preventative measures.</p>
-<h2 id="errata-22"><a class="header" href="#errata-22">Errata</a></h2>
+<h2 id="errata-17"><a class="header" href="#errata-17">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-4-mcr-offsetting-gas-costs"><a class="header" href="#md-4-mcr-offsetting-gas-costs">MD-4: MCR Offsetting Gas Costs</a></h1>
 <ul>
@@ -4399,7 +4369,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <h3 id="d3-models-for-information-incomplete-gas-cost-offset"><a class="header" href="#d3-models-for-information-incomplete-gas-cost-offset">D3: Models for Information Incomplete Gas Cost Offset</a></h3>
 <p><strong>User Journey</strong>: A researcher or protocol implementer can understand the game theory of gas costs in MCR with incomplete information.</p>
 <p><strong>Justification</strong>: Information incompleteness may improve the game theory of offsetting gas costs. Provide models which demonstrate this for incompleteness derived from (1) general network latency, (2) a round-robin rewarding scheme, and (3) a Pedersen Commitment scheme.</p>
-<h2 id="errata-23"><a class="header" href="#errata-23">Errata</a></h2>
+<h2 id="errata-18"><a class="header" href="#errata-18">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -4476,7 +4446,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <li>This would be a highly experimental feature and should be researched and implemented with caution.</li>
 <li>Deterministic transaction and block ordering should cover most of the cases of unfairness. These are discussed in <a href="Review/l-monninger/block-validation/MD/md-6/../md-7/README.html">MD-7</a>. However, in theory you could also slash on conditions like including too many transactions from one user, sending too many blocks at a given time, sending too few blocks at a given time, sending blocks of unequal size when transactions are available, etc.</li>
 </ul>
-<h2 id="errata-24"><a class="header" href="#errata-24">Errata</a></h2>
+<h2 id="errata-19"><a class="header" href="#errata-19">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -4551,7 +4521,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 </ol>
 </li>
 </ul>
-<h2 id="errata-25"><a class="header" href="#errata-25">Errata</a></h2>
+<h2 id="errata-20"><a class="header" href="#errata-20">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -4594,7 +4564,7 @@ that is deployed on the node by the operator in a timely fashion, to read blobs 
 in the future. Migrations should be performed on the live chain so that
 by the designated height, all sequenced transaction data that has been submitted by compliant
 nodes is available on the DA in uniform format.</p>
-<h2 id="errata-26"><a class="header" href="#errata-26">Errata</a></h2>
+<h2 id="errata-21"><a class="header" href="#errata-21">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -4606,71 +4576,11 @@ nodes is available on the DA in uniform format.</p>
 
   TODO: Maintain this comment.
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-14-bridge-should-use-a-more-secure-timelock"><a class="header" href="#md-14-bridge-should-use-a-more-secure-timelock">MD-14: Bridge Should Use A More Secure Timelock</a></h1>
-<ul>
-<li><strong>Description</strong>: Provide formal structure for proposing non-trivial improvements to Movement.</li>
-<li><strong>Authors</strong>: <a href="mailto:primata@movementlabs.xyz">Primata</a></li>
-</ul>
-<h2 id="overview-10"><a class="header" href="#overview-10">Overview</a></h2>
-<p>The Bridge is arguably the most important feature of an L2 and lately we have had a confusing approach to it. We might want to solidify our understanding of how it is to be used and the assumptions we rely on. Off-loading the Bridge Relayer from securing timestamps might be important here in terms of security and preventing it from being an attack vector.</p>
-<h2 id="definitions-3"><a class="header" href="#definitions-3">Definitions</a></h2>
-<ul>
-<li>Timelock - Time delta between the current block time and the end-of-lock time.</li>
-<li>Bridge Relayer - formerly referred as the bridge service, it’s the infrastructure utilized to have some form of synchronicity of the bridge request state. Single point of failure.</li>
-<li>Initiator Contract - Contract the user utilizes to initialze the bridge and the bridge relayer completes or refunds the user. Exists both on Ethereum and Movement.</li>
-<li>Counterparty Contract - Contract the user completes the bridge and the bridge relayer locks or cancels the bridge. Exists both on Ethereum and Movement.</li>
-</ul>
-<h2 id="desiderata-9"><a class="header" href="#desiderata-9">Desiderata</a></h2>
-<ol>
-<li></li>
-<li>Because it has to be lower than the Initiator Contract Timelock, whenever Timelock is consumed, it is consumed as <code>timelock</code>.</li>
-<li>Definitely use timestamps for the sake of synchronicity between Ethereum and Movement.</li>
-<li>Remove dependency of the Bridge Relayer on processing the desired timelock.</li>
-</ol>
-<h3 id="d1-initiator-contract-timelock-is-a-constant-or-a-modifiable-state-with-a-minimum-time"><a class="header" href="#d1-initiator-contract-timelock-is-a-constant-or-a-modifiable-state-with-a-minimum-time">D1: Initiator Contract Timelock is a constant or a modifiable state with a minimum time</a></h3>
-<p><strong>User Journey</strong>: Whenever Timelock is consumed, it is consumed as <code>timelock * 2</code>. If a modifiable state, it should be at least 12 hours.</p>
-<p><strong>Justification</strong>: Because it has to be higher than the Counterparty Contract Timelock, <code>timelock * 2</code> is reasonable. A modifiable state should have some form to prevent malicious attacks. If lowering becomes a necessity, an upgrade to the contract will solve the issue. <code>timelock * 2</code> consumption also introduces a requirement from the design which stipulates that the initiator timelock has to be significantly higher than the counterparty to assure that a bridge transfer cannot be completed on the target chain and cancelled on the origin chain.</p>
-<h3 id="d2-counterparty-contract-timelock-is-a-constant-or-a-modifiable-variable-with-a-minimum-time"><a class="header" href="#d2-counterparty-contract-timelock-is-a-constant-or-a-modifiable-variable-with-a-minimum-time">D2: Counterparty Contract Timelock is a constant or a modifiable variable with a minimum time</a></h3>
-<p><strong>User Journey</strong>: Bridge Relayer locks the bridge transfer on the Counterparty side. It does not specify the timelock. The timelock is specified by the timelock state or constant in the Ethereum Initiator Contract or Movement Initiator Contract.</p>
-<p><strong>Justification</strong>: Because it has to be higher than the Counterparty Contract Timelock, <code>timelock</code> is reasonable. A modifiable state should have some form to prevent malicious attacks. If lowering becomes a necessity, an upgrade to the contract will solve the issue.</p>
-<h3 id="d3-use-timestamps-instead-of-block-number"><a class="header" href="#d3-use-timestamps-instead-of-block-number">D3: Use timestamps instead of block number</a></h3>
-<p><strong>User Journey</strong>: This has already been agreed, but by using timestamp, there is no necessity to handle block.number parity between chains.</p>
-<p><strong>Justification</strong>: For cross bridge synchronocity between Ethereum and Movement which have very distinct block numbers and block settlement speed.</p>
-<h3 id="d4-remove-dependency-of-the-bridge-relayer-on-processing-the-desired-timelock"><a class="header" href="#d4-remove-dependency-of-the-bridge-relayer-on-processing-the-desired-timelock">D4: Remove dependency of the Bridge Relayer on processing the desired timelock.</a></h3>
-<p><strong>User Journey</strong>: Bridge Relayer stops having any decision how the timelock timestamp. It is fully provided by the contracts and modules variables.</p>
-<p><strong>Justification</strong>: We are heavily relying on the Bridge Relayer’s capabilities to not fail and this should make the Bridge Relayer less error prone.</p>
-<p><strong>Guidance and suggestions</strong>:</p>
-<p>Ethereum contracts:</p>
-<pre><code>uint256 public timelock = 1 days;
-...
-function setTimelock (uint256 newTimelock) external onlyOwner {
-  if (newTimelock &lt; 12 hours) revert MinimumTimelockError();
-  timelock = newTimelock;
-}
-</code></pre>
-<p>Movement Modules:</p>
-<pre><code>struct BridgeConfig has key {
-        moveth_minter: address,
-        bridge_module_deployer: address,
-        signer_cap: account::SignerCapability,
-        timelock: u64
-    }
-...
-move_to(resource,BridgeConfig {
-            moveth_minter: signer::address_of(resource),
-            bridge_module_deployer: signer::address_of(resource),
-            signer_cap: resource_signer_cap,
-            timelock: 12 hours
-        });
-</code></pre>
-<p>handle consumption depending on the condition on if it’s an initiator or a counterparty</p>
-<h2 id="errata-27"><a class="header" href="#errata-27">Errata</a></h2>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-17-bridge-fees"><a class="header" href="#md-17-bridge-fees">MD-17: Bridge Fees</a></h1>
 <p>Description: Bridges requires fees to assure it’s not drained and can self-sustain its operations.</p>
-<h2 id="overview-11"><a class="header" href="#overview-11">Overview</a></h2>
+<h2 id="overview-10"><a class="header" href="#overview-10">Overview</a></h2>
 <p>Bridges require a sustainable fee mechanism to prevent abuse and ensure they can self-sustain operations. This proposal outlines a dynamic fee structure for both the Ethereum and Movement chains. On the Ethereum side, fees will adjust according to gas price volatility, while on the Movement side, an oracle service will monitor and update gas prices in real time. The only external component that we are reliant on are RPC nodes.</p>
-<h2 id="definitions-4"><a class="header" href="#definitions-4">Definitions</a></h2>
+<h2 id="definitions-3"><a class="header" href="#definitions-3">Definitions</a></h2>
 <ul>
 <li><strong>Bridge Relayer</strong>: Infrastructure used to maintain the synchronicity of bridge request states. A single point of failure.</li>
 <li><strong>Initiator Contract</strong>: Contract that a user uses to initiate a bridge transfer, with the Bridge Relayer either completing or refunding the transfer.</li>
@@ -4678,7 +4588,7 @@ move_to(resource,BridgeConfig {
 <li><strong>Gas</strong>: The fee required to execute a transaction on the Ethereum or Movement network.</li>
 <li><strong>Priority Gas</strong>: Additional gas fee paid to prioritize a transaction for faster processing on the Ethereum or Movement network.</li>
 </ul>
-<h2 id="desiderata-10"><a class="header" href="#desiderata-10">Desiderata</a></h2>
+<h2 id="desiderata-9"><a class="header" href="#desiderata-9">Desiderata</a></h2>
 <h3 id="1-dynamic-fee-adjustment-on-ethereum"><a class="header" href="#1-dynamic-fee-adjustment-on-ethereum">1. Dynamic Fee Adjustment on Ethereum</a></h3>
 <ul>
 <li><strong>User Journey</strong>: The Bridge Relayer checks the base gas cost on Movement every 30 seconds. If the cost increases by 20%, the fee will increase by an additional 20% of the current price. If the cost decreases, it either decreases to the current price by an additional 20% of current price or reverts to the base cost.</li>
@@ -4735,14 +4645,14 @@ move_to(resource, BridgeConfig {
 block.eth_gas
 block.eth_priority_gas
 </code></pre>
-<h2 id="errata-28"><a class="header" href="#errata-28">Errata</a></h2>
+<h2 id="errata-22"><a class="header" href="#errata-22">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-21-native-bridge-with-attesters"><a class="header" href="#md-21-native-bridge-with-attesters">MD-21: Native Bridge with Attesters</a></h1>
 <ul>
 <li><strong>Description</strong>: Proposal for simplifying the native bridge mechanism using an attester-based approach and drawing inspiration from USDC’s CCTP. The goal is to reducing friction, cost, and complexity for Layer 2 onboarding.</li>
 <li><strong>Authors</strong>: <a href="mailto:primata@movementlabs.xyz">Primata</a></li>
 </ul>
-<h2 id="overview-12"><a class="header" href="#overview-12">Overview</a></h2>
+<h2 id="overview-11"><a class="header" href="#overview-11">Overview</a></h2>
 <p>This MD lays out steps to introduce and leverage an <strong>attester-based bridge model</strong> to create a frictionless, efficient, and secure cross-chain experience for Movement technologies.</p>
 <p>A bridge mechanism is essential for any Layer 2 solution, serving as the user’s first interaction with the network. This process must be smooth and frictionless, ensuring that dealing with tokens on L1 and bridging to native gas tokens on L2 does not overcomplicate the user experience. The bridge must balance user onboarding, cost-efficiency, and simplicity, while minimizing transaction complexity.</p>
 <p>We request to</p>
@@ -4754,7 +4664,7 @@ block.eth_priority_gas
 <h3 id="motivation-25"><a class="header" href="#motivation-25">Motivation</a></h3>
 <p>Our current bridge solution has been increasing in complexity with each iteration. Originally requiring three on-chain transactions, it now requires four, initiate bridge, lock, complete source chain, complete target chain. Additionally, the bridge does not currently support gas charging mechanisms to prevent exploits, and ongoing discussions are leaning toward adding further components, making it even more complex and computationally expensive.</p>
 <p>We believe the best approach is to draw from live implementations that have achieved a streamlined user experience with minimal cost to the user. One such example is USDC’s <a href="https://www.circle.com/en/cross-chain-transfer-protocol">CCTP</a>, which offers simplicity, security, and efficiency in cross-chain bridging. Instead of increasing the complexity of our current bridge design, we should aim to adopt more proven mechanisms.</p>
-<h2 id="desiderata-11"><a class="header" href="#desiderata-11">Desiderata</a></h2>
+<h2 id="desiderata-10"><a class="header" href="#desiderata-10">Desiderata</a></h2>
 <h3 id="d1-take-inspiration-from-cctp"><a class="header" href="#d1-take-inspiration-from-cctp">D1: Take inspiration from CCTP</a></h3>
 <h4 id="user-journey"><a class="header" href="#user-journey">User Journey</a></h4>
 <p>The developer can understand the <a href="https://developers.circle.com/stablecoins/docs/generic-message-passing">Cross-Chain Transfer Protocol (CCTP)</a> model and draw from it to design a bridge mechanism that is simple, secure, and efficient.</p>
@@ -4841,7 +4751,7 @@ The challenge is to make sure that the signature is only used once so no transac
 </li>
 </ol>
 <p>This process is bi-directional, allowing funds to be bridged between Layer 1 and Layer 2, and vice versa, with minimal complexity and friction.</p>
-<h2 id="errata-29"><a class="header" href="#errata-29">Errata</a></h2>
+<h2 id="errata-23"><a class="header" href="#errata-23">Errata</a></h2>
 <h2 id="appendix-20"><a class="header" href="#appendix-20">Appendix</a></h2>
 <ul>
 <li>[R1] USDC Cross-Chain Transfer Protocol: https://www.circle.com/en/cross-chain-transfer-protocol</li>
@@ -4860,9 +4770,9 @@ The challenge is to make sure that the signature is only used once so no transac
 
   TODO: Remove this comment before finalizing.
 -->
-<h2 id="overview-13"><a class="header" href="#overview-13">Overview</a></h2>
+<h2 id="overview-12"><a class="header" href="#overview-12">Overview</a></h2>
 <p>We need to check that users can submit transactions. This MD outlines a simple automated solution.</p>
-<h2 id="definitions-5"><a class="header" href="#definitions-5">Definitions</a></h2>
+<h2 id="definitions-4"><a class="header" href="#definitions-4">Definitions</a></h2>
 <p>Provide definitions that you think will empower the reader to quickly dive into the topic.</p>
 <h2 id="desiderata-26"><a class="header" href="#desiderata-26">Desiderata 26</a></h2>
 <h3 id="user-facing-suzuka-checks"><a class="header" href="#user-facing-suzuka-checks">User-facing Suzuka Checks</a></h3>
@@ -4883,7 +4793,7 @@ The challenge is to make sure that the signature is only used once so no transac
 <p>We will need the address for this job allowlisted to use the Suzuka testnet faucet.</p>
 <p><strong>Reference Implementation</strong>:</p>
 <p><a href="https://github.com/movementlabsxyz/movement/pull/726/"><code>movement</code> PR 726</a></p>
-<h2 id="errata-30"><a class="header" href="#errata-30">Errata</a></h2>
+<h2 id="errata-24"><a class="header" href="#errata-24">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -4902,17 +4812,17 @@ The challenge is to make sure that the signature is only used once so no transac
 <li><strong>Authors</strong>: <a href="mailto:primata@movementlabs.xyz">Primata</a></li>
 <li><strong>Collaborators</strong>: Community contributions welcome</li>
 </ul>
-<h2 id="overview-14"><a class="header" href="#overview-14">Overview</a></h2>
+<h2 id="overview-13"><a class="header" href="#overview-13">Overview</a></h2>
 <p>The Move Name Service (MNS) is a system that allows users to register human-readable names on the Movement blockchain. It is designed to facilitate user-friendly interactions, registrations, and transactions on-chain. Expanding beyond traditional name services, MNS introduces the concept of access keys tied to a bonding curve, which determines the minting and burning prices of these keys. The MNS also provides revenue generation mechanisms for both the protocol and name owners.</p>
 <p>MNS falls under the SoFi category, offering a decentralized, permissionless framework that encourages community participation to build and iterate on infrastructure and services centered on Names and Rooms.</p>
-<h2 id="definitions-6"><a class="header" href="#definitions-6">Definitions</a></h2>
+<h2 id="definitions-5"><a class="header" href="#definitions-5">Definitions</a></h2>
 <ul>
 <li><strong>Names</strong>: Human-readable identifiers registered on-chain. Should be freely tradeable. Room ownership is tied to Name. Names domain is <code>.move</code>. E.g. <code>[owned_name].move</code>.</li>
 <li><strong>Rooms</strong>: Digital spaces associated with a registered Name, accessible by the Name’s owner or key holders.</li>
 <li><strong>Keys</strong>: Access key to Name’s rooms. Mintable and burnable according to a bonding curve.</li>
 <li><strong>Bonding Curve</strong>: A mathematical model used to determine minting and burning prices for access keys.</li>
 </ul>
-<h2 id="desiderata-12"><a class="header" href="#desiderata-12">Desiderata</a></h2>
+<h2 id="desiderata-11"><a class="header" href="#desiderata-11">Desiderata</a></h2>
 <h3 id="d1-decentralized-and-permissionless-name-system"><a class="header" href="#d1-decentralized-and-permissionless-name-system">D1: Decentralized and Permissionless Name System</a></h3>
 <p><strong>User Journey</strong>: Users can register human-readable names on the blockchain and access related services.</p>
 <p><strong>Justification</strong>: A decentralized name system is essential for empowering users with on-chain identities and ensuring they can interact with the blockchain without technical friction.</p>
@@ -5042,7 +4952,7 @@ struct Trade {
 <li><strong>Description</strong>: Fast Finality Settlement mechanism requirements.</li>
 <li><strong>Authors</strong>: <a href="Review/mip/FFS/MD/md-34/">Andreas Penzkofer</a></li>
 </ul>
-<h2 id="overview-15"><a class="header" href="#overview-15">Overview</a></h2>
+<h2 id="overview-14"><a class="header" href="#overview-14">Overview</a></h2>
 <h2 id="abstract-25"><a class="header" href="#abstract-25">Abstract</a></h2>
 <p>We require a mechanism to confirm the validity of transactions on L2. This mechanism should provide fast confirmations with crypto-economic security on L2. Moreover, it should also provide confirmations that leverage the economic security from L1 (this may be slower).</p>
 <!--
@@ -5050,7 +4960,7 @@ struct Trade {
 
   TODO: Remove this comment before finalizing.
 -->
-<h2 id="desiderata-13"><a class="header" href="#desiderata-13">Desiderata</a></h2>
+<h2 id="desiderata-12"><a class="header" href="#desiderata-12">Desiderata</a></h2>
 <h3 id="d1-postconfirmation"><a class="header" href="#d1-postconfirmation">D1: Postconfirmation</a></h3>
 <p><strong>User Journey</strong>: Validators can attest to the correctness of a sequence of L2Blocks (superBlocks) on L1.</p>
 <p><strong>Description</strong>: Postconfirmation is the process of confirming a sequence of L2Blocks on L1. Validators attest to the correctness of the L2Blocks. The postconfirmation process leverages the economic security of L1.</p>
@@ -5074,7 +4984,7 @@ struct Trade {
 <h3 id="d6-compare-fastconfirmations-with-postconfirmation"><a class="header" href="#d6-compare-fastconfirmations-with-postconfirmation">D6: Compare Fastconfirmations with Postconfirmation</a></h3>
 <p><strong>User Journey</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks.</p>
 <p><strong>Description</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks. The superBlock confirmed by postconfirmation must contain the L2Blocks that are confirmed by fastconfirmations.</p>
-<h2 id="errata-31"><a class="header" href="#errata-31">Errata</a></h2>
+<h2 id="errata-25"><a class="header" href="#errata-25">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs"><a class="header" href="#md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></h1>
 <ul>
@@ -5082,7 +4992,7 @@ struct Trade {
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 <li><strong>Reviewer</strong>: <a href="mailto:andreas.penzkofer@movementlabs.xyz">Andreas Penzkofer</a></li>
 </ul>
-<h2 id="overview-16"><a class="header" href="#overview-16">Overview</a></h2>
+<h2 id="overview-15"><a class="header" href="#overview-15">Overview</a></h2>
 <p><img src="Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/./fixed-supply-rewarding-problem.png" alt="Fixed Supply Rewarding Problem" /></p>
 <p>Using Fast Finality Settlement with the Native Bridge presents a challenge when the token supply is fixed.</p>
 <p>Burning token on the L2 without a way to return it to pools on the L2 or the L1 will result in a <strong>deflationary token</strong>, i.e., the supply decreases over time and eventually reaches 0 rendering any operations relying on gas impossible.</p>
@@ -5090,7 +5000,7 @@ struct Trade {
 <p>Using FFS-Postconfirmation requires a reward scheme on L1. On the other hand, users pay fees on L2 into an L2 pool. Namely, in this context, trying to use the same token for both L2 gas and L1 rewards requires that the token be bridged back over from L2 to L1, or else rely on a trusted signer to relay the gas. This document outlines the challenges and potential solutions for this problem.</p>
 <p>Users of the Movement SDK should be <strong>informed of different approaches and trade-offs when using the Native Bridge and Fast Finality Settlement with a fixed token supply.</strong> This document provides an initial conceptual framing towards that end.</p>
 <p>This document also seeks a response to the concerns raised in <a href="https://github.com/movementlabsxyz/MIP/pull/20">MD-20</a>.</p>
-<h2 id="desiderata-14"><a class="header" href="#desiderata-14">Desiderata</a></h2>
+<h2 id="desiderata-13"><a class="header" href="#desiderata-13">Desiderata</a></h2>
 <h3 id="d1-provide-mips-for-approaches-presented-in-appendix-a1-and-similar"><a class="header" href="#d1-provide-mips-for-approaches-presented-in-appendix-a1-and-similar">D1: Provide MIPs for Approaches Presented in Appendix A1 and Similar</a></h3>
 <p><strong>User Journey</strong>: Developers can reference MIPs for <strong>different approaches to using the Native Bridge and Fast Finality Settlement with a fixed token supply.</strong> Developers can also <strong>reference rejected MIPs</strong> to understand why certain approaches are not recommended.</p>
 <p><strong>Justification</strong>: Developers need a clear understanding of the different approaches to using the Native Bridge and Fast Finality Settlement with a fixed token supply. MIPs provide a clear and standardized way to document these approaches.</p>
@@ -5110,7 +5020,7 @@ struct Trade {
 <h3 id="d5-provide-and-argument-agains-the-need-to-resolve-ab-ffs-fixed-supply-concerns"><a class="header" href="#d5-provide-and-argument-agains-the-need-to-resolve-ab-ffs-fixed-supply-concerns">D5: Provide and Argument Agains the Need to Resolve AB-FFS Fixed Supply Concerns</a></h3>
 <p><strong>User Journey</strong>: Developers, exchanges, and users can understand why the bridge can be assumed reasonably secure and inherent fallibility is within network security contraints given a set of assumptions.</p>
 <p><strong>Justification</strong>: We can argue, for example, that many other bridge services use a trusted signer and that said trusted signer is uncomprimised is a fundamental and acceptable assumption.</p>
-<h2 id="errata-32"><a class="header" href="#errata-32">Errata</a></h2>
+<h2 id="errata-26"><a class="header" href="#errata-26">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5139,10 +5049,10 @@ struct Trade {
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 <li><strong>Reviewer</strong>: Andreas Penzkofer</li>
 </ul>
-<h2 id="overview-17"><a class="header" href="#overview-17">Overview</a></h2>
+<h2 id="overview-16"><a class="header" href="#overview-16">Overview</a></h2>
 <p>In order to understand how to fairly and effectively incentivize participation in the Movement Network, we need to establish a means of computing, charging, and distributing gas fees for the Movement L2s which rely on a separate DA and Settlement Layer. This will allow us to ensure that the Movement Network is able to operate efficiently and that the incentives for participation are aligned with the goals of the Movement Network.</p>
 <p>The work done in a Movement Network L2 is mostly outlined in <a href="https://github.com/movementlabsxyz/MIP/pull/19">MIP-19</a>. These desiderata request means to actually compute said work, charge proportional gas fees, and distribute these fees to the appropriate parties.</p>
-<h2 id="desiderata-15"><a class="header" href="#desiderata-15">Desiderata</a></h2>
+<h2 id="desiderata-14"><a class="header" href="#desiderata-14">Desiderata</a></h2>
 <!--
   List out the specific desiderata. Each entry should consist of:
 
@@ -5181,7 +5091,7 @@ struct Trade {
 <h3 id="d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties"><a class="header" href="#d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties">D5: Specify How to Distribute Gas Fees to the Appropriate Parties</a></h3>
 <p><strong>User Journey</strong>: A network participant can understand how gas fees are distributed.</p>
 <p><strong>Justification</strong>: Gas fees must ultimately be used to pay extrinsic costs or else be considered as rewards. It is important to specify how gas fees are distributed to ensure that the system is fair and that the incentives for participation are aligned with the goals of the Movement Network.</p>
-<h2 id="errata-33"><a class="header" href="#errata-33">Errata</a></h2>
+<h2 id="errata-27"><a class="header" href="#errata-27">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5199,7 +5109,7 @@ struct Trade {
 <li><strong>Description</strong>: This MD provides some background on the bridge fees mechanism requirements.</li>
 <li><strong>Authors</strong>: <a href="Review/issue66/MDMIP-for-bridge-fees/MD/md-69/franck.cassez@movementlabs.xyz">Franck Cassez</a></li>
 </ul>
-<h2 id="overview-18"><a class="header" href="#overview-18">Overview</a></h2>
+<h2 id="overview-17"><a class="header" href="#overview-17">Overview</a></h2>
 <p>To use the Movement Mainnet, users need to pay for <em>transaction fees</em> in $L2MOVE tokens. As the $MOVE token is minted on Ethereum ($L1MOVE), users need to transfer some $L1MOVE tokens from the Ethereum network to the Movement Mainnet (to get $L2MOVE), and back.
 This asset transfer capability is provided by the Movement Mainnet <strong>native bridge</strong>, which is a <a href="https://chain.link/education-hub/cross-chain-bridge#types-of-cross-chain-bridges">lock/mint bridge</a> described in <a href="Review/issue66/MDMIP-for-bridge-fees/MD/md-69/tdc">MIP-58</a>.</p>
 <p>This bridge (transfer) operation requires several steps, two of which are transactions:</p>
@@ -5219,7 +5129,7 @@ We need to define a mechanism to collect the Ethereum fees from the users.</p>
 <p>[!TIP]
 This MD describes the requirements for this fee collection mechanism when bridging from Movement Mainnet to Ethereum.</p>
 </blockquote>
-<h2 id="desiderata-16"><a class="header" href="#desiderata-16">Desiderata</a></h2>
+<h2 id="desiderata-15"><a class="header" href="#desiderata-15">Desiderata</a></h2>
 <h3 id="d1-user-bridges-from-movement-mainnet-to-ethereum"><a class="header" href="#d1-user-bridges-from-movement-mainnet-to-ethereum">D1: User bridges from Movement Mainnet to Ethereum</a></h3>
 <p><strong>User Journey</strong>: A user can initiate a <em>bridge</em> transaction on the Movement Mainnet.</p>
 <p><strong>Description</strong>: When a user initiates a bridge transaction from the Movement Mainnet to Ethereum, the user pays the Movement Mainnet transaction fees in $L2MOVE tokens. They request a transfer of $L2MOVE to $L1MOVE.</p>
@@ -5255,11 +5165,11 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 <li><strong>Description</strong>: Provide a component that informs about the total circulating supply of \ across L1 and L2.</li>
 <li><strong>Authors</strong>: <a href="mailto:andreas.penzkofer@movementlabs.xyz">Author</a></li>
 </ul>
-<h2 id="overview-19"><a class="header" href="#overview-19">Overview</a></h2>
+<h2 id="overview-18"><a class="header" href="#overview-18">Overview</a></h2>
 <p>Several components should react if the bridge is under attack or faulty. In particular, the considered components are the Insurance Fund, see <a href="https://github.com/movementlabsxyz/MIP/pull/50">MIP-50</a> and the Rate Limiter, see <a href="https://github.com/movementlabsxyz/MIP/pull/56">MIP-56</a>, and more generally the governance operator.</p>
 <p>The Operator that controls these components requires knowledge about the states of minted or locked tokens on L1 and L2. The Operator is an entity (e.g. multisig human) that has the ability to sign transactions and send funds from the Security Fund. Moreover, the operation of these components may also be handled via a governance, which could also rely on state information.</p>
 <p>This MD requests to provide an informing service that satisfies the above.</p>
-<h2 id="desiderata-17"><a class="header" href="#desiderata-17">Desiderata</a></h2>
+<h2 id="desiderata-16"><a class="header" href="#desiderata-16">Desiderata</a></h2>
 <h3 id="d1-provide-information-about-the-circulating-supply-on-l2"><a class="header" href="#d1-provide-information-about-the-circulating-supply-on-l2">D1: Provide information about the circulating supply on L2</a></h3>
 <p>On the L2 the bridge contract mints $MOVE token when token should be transferred to L2. When tokens are transferred to L1, the user burns provably some tokens on L2. The Informer should learn about those two supplies and provide information about the current circulating $MOVE supply on L2.</p>
 <h3 id="d2-provide-information-about-the-locked-supply-on-l1"><a class="header" href="#d2-provide-information-about-the-locked-supply-on-l1">D2: Provide information about the locked supply on L1</a></h3>
@@ -5272,16 +5182,16 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 <p>The postconfirmation process is a synchronization mechanism for L2 to L1, see <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>.</p>
 <p>If the Relayer completes transfers from L2 to L1 without awaiting postconfirmation of the L2 <code>initiate</code> transaction, synchronization guarantees are reduced. The postconfirmation is an anchoring mechanism that binds the L2 to a certain L2 block height and hash, and hinders reorgs beyond a certain depth on L2.</p>
 <p>We need to check the implications for the Informer if the Relayer ignores postconfirmations.</p>
-<h2 id="errata-34"><a class="header" href="#errata-34">Errata</a></h2>
+<h2 id="errata-28"><a class="header" href="#errata-28">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-74-rate-limiter-for-the-lockmint-type-native-bridge"><a class="header" href="#md-74-rate-limiter-for-the-lockmint-type-native-bridge">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></h1>
 <ul>
 <li><strong>Description</strong>: A rate limitation mechanism for the Lock/Mint-type Native Bridge.</li>
 <li><strong>Authors</strong>: <a href="mailto:andreas.penzkofer@movementlabs.xyz">Andreas Penzkofer</a></li>
 </ul>
-<h2 id="overview-20"><a class="header" href="#overview-20">Overview</a></h2>
+<h2 id="overview-19"><a class="header" href="#overview-19">Overview</a></h2>
 <p>The Lock/Mint-type Native Bridge (hereafter called the “Native Bridge”), see <a href="https://github.com/movementlabsxyz/MIP/pull/58">MIP-58</a>, must be protected against faulty components and attacks. A Rate-Limiter is a mechanism that can help to protect the Native Bridge. It limits the volume of transferred value, the maximum value transferred with a given transfer, or the number of transactions.</p>
-<h2 id="desiderata-18"><a class="header" href="#desiderata-18">Desiderata</a></h2>
+<h2 id="desiderata-17"><a class="header" href="#desiderata-17">Desiderata</a></h2>
 <h3 id="d1-specify-the-actors-and-their-trust-assumptions"><a class="header" href="#d1-specify-the-actors-and-their-trust-assumptions">D1: Specify the actors and their trust assumptions</a></h3>
 <p><strong>User Journey</strong>: The developer should understand existing trust assumptions.</p>
 <p><strong>Description</strong>: The Native Bridge is operated via contracts, actors and components. What are the trust assumptions on these?</p>
@@ -5292,7 +5202,7 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 <h3 id="d3-define-the-rate-limiting-mechanism"><a class="header" href="#d3-define-the-rate-limiting-mechanism">D3: Define the rate-limiting mechanism</a></h3>
 <p><strong>User Journey</strong>: The developer should understand the rate-limiting mechanism.</p>
 <p><strong>Description</strong>: The rate-limiting mechanism should be defined in a way that it is clear how it works and how it can be adjusted. Moreover all components and their parameters should be defined. It should also be defined what is being rate-limited.</p>
-<h2 id="errata-35"><a class="header" href="#errata-35">Errata</a></h2>
+<h2 id="errata-29"><a class="header" href="#errata-29">Errata</a></h2>
 
                     </main>
 
