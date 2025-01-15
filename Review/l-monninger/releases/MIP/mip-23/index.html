@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MIP-24: Removal of redundant functionality from framework - MIP</title>
+        <title>MIP-23: Release Conventions for Movement Technologies - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -158,90 +158,161 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="mip-24-removal-of-redundant-functionality-from-framework"><a class="header" href="#mip-24-removal-of-redundant-functionality-from-framework">MIP-24: Removal of redundant functionality from framework</a></h1>
+<h1 id="mip-23-release-conventions-for-movement-technologies"><a class="header" href="#mip-23-release-conventions-for-movement-technologies">MIP-23: Release Conventions for Movement Technologies</a></h1>
 <ul>
-<li><strong>Description</strong>: The removal of redundant modules from the movement branch of the aptos-core fork</li>
-<li><strong>Authors</strong>: <a href="mailto:andy.bell@movementlabs.xyz">Andy Bell</a></li>
-<li><strong>Desiderata</strong>: <a href="../MD/md-0">MD-0</a></li>
+<li><strong>Description</strong>: Release Conventions for Movement Technologies address the delivery of canonical artifacts to the Movement community.</li>
+<li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
+<li><strong>Desiderata</strong>: <a href="../../MD/md-23">MD-23</a></li>
 </ul>
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
-<p>The use of Movement’s fork of aptos core for the Movement Network is a subset of its total.  There are significant areas in this repository which are not used from a node, tooling and framework perspective.  Due to the size of the repository this MIP will only consider the redundancy inherited from the aptos framework.</p>
+<p>Release Conventions for Movement Technologies standardize the process of delivering artifacts to the Movement community. By providing a coherent and repeatable process for releasing artifacts, these conventions ensure that Movement technologies are accessible and easy to use.</p>
+<p>The release conventions proposed herein are based on the usage of GitHub for source control and the tagging of GitHub releases. Guidelines for implementing programmatic access to release artifacts are also described. Finally, the intended relationship between releases and governance is outlined.</p>
 <h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
-<p>With the Movement network only using a subset Movement’s fork of aptos core we are introducing technical debt and opening the framework to attack vectors for functionality not used in the context of Movement’s network fork.  Large areas of code can be removed to alleviate this issue and provide more security assurances</p>
+<p>Movement technologies are continually evolving, and there’s a need to ensure that the process of releasing artifacts is both organized and standardized. By establishing Release Conventions for Movement Technologies, we aim to facilitate the delivery of canonical artifacts to the Movement community. This will ensure that Movement technologies are accessible, easy to use, and well-vetted.</p>
 <h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
-<p>With closer inspection of the Movement fork of aptos core we are able to quickly identify areas of functionality that are not required in the context of the Movement network.  The following would be modules which would be strong candidates to be removed.</p>
+<p>The definitions of “artifact” and “release” are accepted from <a href="../MD/md-n">MD-n</a> and submitted for formal adoption in <a href="../MG/mg-n">MG-n</a> and <a href="../MG/mg-k">MG-k</a>.</p>
+<p>We break the specification into four sections:</p>
+<ol>
+<li><strong>Standardized Release Naming Convention</strong>: the section specifying the naming convention to be used for releases.</li>
+<li><strong>Standardized Source Control</strong>: the section specifying the process for initiating releases from source control.</li>
+<li><strong>Programmatic Access to Release Artifacts</strong>: the section specifying how release artifacts can be fetched programmatically and how software should be designed to this end.</li>
+<li><strong>Standard Relationship between Releases and Governance</strong>: the section specifying the relationship between releases and governance as should be assumed the default.</li>
+</ol>
+<h3 id="standardized-release-naming-convention"><a class="header" href="#standardized-release-naming-convention">Standardized Release Naming Convention</a></h3>
+<p>We propose the following naming convention for releases, inspired by the <a href="https://github.com/aptos-labs/aptos-core/blob/main/RELEASE.md">Aptos release standard</a>:</p>
+<pre><code>&lt;software-unit&gt;-v&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;-&lt;release-type&gt;
+</code></pre>
+<p>Where:</p>
 <ul>
-<li>
-<p><code>aptos_governance.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/aptos_governance.move</p>
-</li>
-<li>
-<p><code>aptos_governance.spec.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/aptos_governance.spec.move</p>
-</li>
-<li>
-<p><code>governance_proposal.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/governance_proposal.move</p>
-</li>
-<li>
-<p><code>governance_proposal.spec.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/governance_proposal.spec.move</p>
-</li>
-<li>
-<p><code>delegation_pool.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/delegation_pool.move</p>
-</li>
-<li>
-<p><code>delegation_pool.spec.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/delegation_pool.spec.move</p>
-</li>
-<li>
-<p><code>stake.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/stake.move</p>
-</li>
-<li>
-<p><code>stake.spec.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/stake.spec.move</p>
-</li>
-<li>
-<p><code>staking_contract.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/staking_contract.move</p>
-</li>
-<li>
-<p><code>staking_contract.spec.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/staking_contract.spec.move</p>
-</li>
-<li>
-<p><code>staking_proxy.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/staking_proxy.move</p>
-</li>
-<li>
-<p><code>staking_proxy.spec.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/staking_proxy.spec.move</p>
-</li>
-<li>
-<p><code>validator_consensus_info.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/validator_consensus_info.move</p>
-</li>
-<li>
-<p><code>validator_consensus_info.spec.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/validator_consensus_info.spec.move</p>
-</li>
-<li>
-<p><code>vesting.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/vesting.move</p>
-</li>
-<li>
-<p><code>vesting.spec.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/vesting.spec.move</p>
-</li>
-<li>
-<p><code>sources/voting.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/voting.move</p>
-</li>
-<li>
-<p><code>voting.spec.move</code> https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/voting.spec.move</p>
-</li>
+<li><code>&lt;software-unit&gt;</code>: the name of the software unit being released, e.g., the Suzuka Full Node.</li>
+<li><code>&lt;major&gt;</code>, <code>&lt;minor&gt;</code>, <code>&lt;patch&gt;</code>: the version numbers of the release conforming to <a href="https://semver.org/">Semantic Versioning</a>.</li>
+<li><code>&lt;release-type&gt;</code>: the type of release, e.g., <code>stable</code>, <code>beta</code>, or <code>rc</code>.</li>
 </ul>
-<p>The initialisation and functioning of these modules are coupled with the VM directly and hence would require decoupling of this functionality at the VM level.</p>
+<p>Note that <code>&lt;release-type&gt;</code> is ill-defined. Individual software units may define their own release types.</p>
+<p>Note further that we do not specify environments such as <code>devnet</code>, <code>testnet</code>, or <code>mainnet</code> in the release name. Though these may be specified in the <code>&lt;release-type&gt;</code> field, we recommend that the governance for each software provide indirection from the environment to a given release.</p>
+<p>We thus propose the following standard for releases marking the canonical release which should be used in a given environment:</p>
+<pre><code>&lt;software-unit&gt;-&lt;environment&gt;
+</code></pre>
+<p>An example of how this can be released in Git and GitHub is provided in the following section.</p>
+<h3 id="standardized-source-control"><a class="header" href="#standardized-source-control">Standardized Source Control</a></h3>
+<ol>
+<li>
+<p>Source control MUST be responsible for initiating all releases with the following tags:</p>
+<ol>
+<li>A tag corresponding to the Standardized Release Naming Convention above.</li>
+<li>A tag corresponding to the commit hash of the release.</li>
+<li>A tag corresponding to the environment indirection for the release should it be valid.</li>
+</ol>
+</li>
+<li>
+<p>Releases corresponding to environment indirection MUST only be tagged by making a release from the default branch of the repository.</p>
+</li>
+<li>
+<p>By default, the <code>&lt;release-type&gt;</code> SHOULD correspond to the branch from which the release is made.</p>
+</li>
+<li>
+<p>Tag indirection CAN be performed as follows:</p>
+</li>
+</ol>
+<pre><code class="language-bash">git tag v1.0.0
+git push origin v1.0.0
+git tag -f latest v1.0.0 
+git push origin -f latest 
+</code></pre>
+<ol start="5">
+<li>
+<p>GitHub SHOULD be the default source control platform. Within the platform each release should contain at least the archive of the source code which would produce the release artifact.</p>
+</li>
+<li>
+<p>Well-known configuration files MUST also be included in the release archive where they apply.</p>
+</li>
+<li>
+<p>Releases outside of GitHub, e.g., DockerHub, MUST be tagged with the same tags as the GitHub release and linked in the release notes on the GitHub release.</p>
+</li>
+<li>
+<p>Releases to established environments MUST follow governance guidelines for the software unit in question.</p>
+</li>
+<li>
+<p>Releases to established environments MUST trigger an update of all usage of that software unit to the appropriate tag by Movement Labs. This SHOULD be automated to the extent possible to ensure that the source control reflects the canonical release.</p>
+</li>
+</ol>
+<h3 id="programmatic-access-to-release-artifacts"><a class="header" href="#programmatic-access-to-release-artifacts">Programmatic Access to Release Artifacts</a></h3>
+<ol>
+<li>
+<p>Source control SHOULD be the primary source of release artifacts.</p>
+</li>
+<li>
+<p>Artifacts which are in consumable forms such as container images, binaries, or libraries can be consumed as the developer sees fit.</p>
+</li>
+<li>
+<p>We recommend the following Rust pseudocode API for fetching artifacts such as well-known configuration files, contract addresses, or other artifacts which may need an application context to be properly consumed:</p>
+</li>
+</ol>
+<pre><code class="language-rust">trait Release&lt;T&gt; {
+    fn fetch_artifact(&amp;self) -&gt; Result&lt;T, Error&gt;;
+}
+
+/// Downloads a well-known file from the release in the source control platform.
+struct WellKnownFileRelease {
+    source: String,
+    destination: String
+}
+
+/// The downloaded well-known file.
+struct WellKnownFileArtifact {
+    path: String,
+}
+
+impl Release&lt;WellKnownFileArtifact&gt; for WellKnownFileRelease {
+    fn fetch_artifact(&amp;self) -&gt; Result&lt;WellKnownFileArtifact, Error&gt; {
+       /// ...
+    }
+}
+
+/// Gets the value of a JSON field from a release file.
+struct JSONFieldRelease {
+    source: String,
+    field: String
+}
+
+/// The value of the JSON field.
+struct JSONFieldArtifact {
+    value: Value
+}
+
+/// The JSON field artifact.
+impl Release&lt;JSONFieldArtifact&gt; for JSONFieldRelease {
+    fn fetch_artifact(&amp;self) -&gt; Result&lt;JSONFieldArtifact, Error&gt; {
+       /// ...
+    }
+}</code></pre>
+<ol start="4">
+<li>Via the API above, particularly when implemented in Rust, the Developer CAN integrate version fetching into their application, e.g., during setup.</li>
+</ol>
+<h3 id="standard-relationship-between-releases-and-governance"><a class="header" href="#standard-relationship-between-releases-and-governance">Standard Relationship between Releases and Governance</a></h3>
+<p>Releases establish the canonical version of a software unit for a given environment. The governance of the software unit in question is responsible for approving releases to established environments.</p>
+<ol>
+<li>
+<p>Releases to established environments MUST be approved by the governance of the software unit in question.</p>
+</li>
+<li>
+<p>Releases MUST trigger the update of all usage of that software unit to the appropriate tag by Movement Labs. This SHOULD be automated to the extent possible to ensure that the source control reflects the canonical release.</p>
+</li>
+</ol>
 <h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
 <h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
-<p>With the removal of these modules we would expect the tests for Node, VM and framework would pass</p>
-<h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 <h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../../../Review/l-monninger/releases/MIP/mip-23/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../../../Review/gas-fee-calculation/MIP/mip-19/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../../../Review/andyjsbell/proxy-root/MIP/mip-25/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../../../Review/andyjsbell/unwanted-framework/MIP/mip-24/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -251,11 +322,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../../../Review/l-monninger/releases/MIP/mip-23/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../../../Review/gas-fee-calculation/MIP/mip-19/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../../../Review/andyjsbell/proxy-root/MIP/mip-25/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../../../Review/andyjsbell/unwanted-framework/MIP/mip-24/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
