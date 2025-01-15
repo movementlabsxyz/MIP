@@ -25,15 +25,15 @@ _Figure 1: Architecture of the Rate Limitation system_
 
 We define
 
-- **incoming** as the direction for which funds are released / minted. I.e., the considered chain is a target chain for the given direction.
-- **outgoing** as the direction for which funds are locked / burned. I.e., the considered chain is a source chain for the given direction.
+- **inbound** as the direction for which funds are released / minted. I.e., the considered chain is a target chain for the given direction.
+- **outbound** as the direction for which funds are locked / burned. I.e., the considered chain is a source chain for the given direction.
 
 The Insurance Fund on a given chain thus MUST be used to
 
 - one half for the rate limit for incoming direction
 - one half for the rate limit for outgoing direction
 
-Moreover, if we reset the budget on a daily basis, for security reasons, we MUST only utilize one half of each direction's Insurance fund budget per day.
+Moreover, if we register the budget on a daily basis, for security reasons, we MUST only utilize one half of each direction's Insurance fund budget per day. This leads (for a given direction) to a budget of 1/4 of the Insurance Fund per day.
 
 ## Reference Implementation
 
