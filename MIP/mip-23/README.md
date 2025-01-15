@@ -1,7 +1,8 @@
-# MIP-0: Release Conventions for Movement Technologies
+# MIP-23: Release Conventions for Movement Technologies
+
 - **Description**: Release Conventions for Movement Technologies address the delivery of canonical artifacts to the Movement community.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Desiderata**: [MD-n](../MD/md-n)
+- **Desiderata**: [MD-23](../../MD/md-23)
 
 ## Abstract
 
@@ -15,16 +16,17 @@ Movement technologies are continually evolving, and there's a need to ensure tha
 
 ## Specification
 
-The definitions of "artifact" and "release" are accepted from [MD-n](../MD/md-n) and submitted for formal adoption in [MG-n](../MG/mg-n) and [MG-k](../MG/mg-k). 
+The definitions of "artifact" and "release" are accepted from [MD-n](../MD/md-n) and submitted for formal adoption in [MG-n](../MG/mg-n) and [MG-k](../MG/mg-k).
 
 We break the specification into four sections:
 
 1. **Standardized Release Naming Convention**: the section specifying the naming convention to be used for releases.
 2. **Standardized Source Control**: the section specifying the process for initiating releases from source control.
 3. **Programmatic Access to Release Artifacts**: the section specifying how release artifacts can be fetched programmatically and how software should be designed to this end.
-4. **Standard Relationship between Releases and Governance**: the section specifying the relationship between releases and governance as should be assumed the default. 
+4. **Standard Relationship between Releases and Governance**: the section specifying the relationship between releases and governance as should be assumed the default.
 
 ### Standardized Release Naming Convention
+
 We propose the following naming convention for releases, inspired by the [Aptos release standard](https://github.com/aptos-labs/aptos-core/blob/main/RELEASE.md):
 
 ```
@@ -32,13 +34,14 @@ We propose the following naming convention for releases, inspired by the [Aptos 
 ```
 
 Where:
+
 - `<software-unit>`: the name of the software unit being released, e.g., the Suzuka Full Node. 
 - `<major>`, `<minor>`, `<patch>`: the version numbers of the release conforming to [Semantic Versioning](https://semver.org/).
 - `<release-type>`: the type of release, e.g., `stable`, `beta`, or `rc`.
 
 Note that `<release-type>` is ill-defined. Individual software units may define their own release types.
 
-Note further that we do not specify environments such as `devnet`, `testnet`, or `mainnet` in the release name. Though these may be specified in the `<release-type>` field, we recommend that the governance for each software provide indirection from the environment to a given release. 
+Note further that we do not specify environments such as `devnet`, `testnet`, or `mainnet` in the release name. Though these may be specified in the `<release-type>` field, we recommend that the governance for each software provide indirection from the environment to a given release.
 
 We thus propose the following standard for releases marking the canonical release which should be used in a given environment:
 
@@ -49,6 +52,7 @@ We thus propose the following standard for releases marking the canonical releas
 An example of how this can be released in Git and GitHub is provided in the following section.
 
 ### Standardized Source Control
+
 1. Source control MUST be responsible for initiating all releases with the following tags:
     1. A tag corresponding to the Standardized Release Naming Convention above.
     2. A tag corresponding to the commit hash of the release.
@@ -78,6 +82,7 @@ git push origin -f latest
 9. Releases to established environments MUST trigger an update of all usage of that software unit to the appropriate tag by Movement Labs. This SHOULD be automated to the extent possible to ensure that the source control reflects the canonical release.
 
 ### Programmatic Access to Release Artifacts
+
 1. Source control SHOULD be the primary source of release artifacts. 
 
 2. Artifacts which are in consumable forms such as container images, binaries, or libraries can be consumed as the developer sees fit.
@@ -128,6 +133,7 @@ impl Release<JSONFieldArtifact> for JSONFieldRelease {
 4. Via the API above, particularly when implemented in Rust, the Developer CAN integrate version fetching into their application, e.g., during setup.
 
 ### Standard Relationship between Releases and Governance
+
 Releases establish the canonical version of a software unit for a given environment. The governance of the software unit in question is responsible for approving releases to established environments.
 
 1. Releases to established environments MUST be approved by the governance of the software unit in question.
@@ -135,14 +141,9 @@ Releases establish the canonical version of a software unit for a given environm
 2. Releases MUST trigger the update of all usage of that software unit to the appropriate tag by Movement Labs. This SHOULD be automated to the extent possible to ensure that the source control reflects the canonical release.
 
 ## Reference Implementation
- 
 
 ## Verification
 
-
-## Errata
-
+## Changelog
 
 ## Appendix
-
-
