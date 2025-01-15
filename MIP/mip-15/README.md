@@ -42,7 +42,7 @@ The format is as follows:
 
 An MG is a definition of a term that requires detailed explanation. Any term introduced through an MG MUST be declared in the Glossary.
 
-A template for the MG is provided at [mg-template](../../md-template.md). The template covers the requested elements listed in [MD-15.D1](../MD/md-15/README.md).
+A template for the MG is provided at [mg-template](../../md-template.md). The template covers the requested elements listed in [MD-15.D1](../../MD/md-15/README.md).
 
 An example MG is provided at [mg-0](../../MG/mg-0/README.md).
 
@@ -70,6 +70,6 @@ See the MG document type template at [mg-template](../../md-template.md) and the
 
 ## Verification
 
-## Errata
+## Changelog
 
 ## Appendix

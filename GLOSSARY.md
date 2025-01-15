@@ -27,7 +27,7 @@ An entity that monitors L1 **and** L2 to understand token supply.
 ERC-20 type token for the Movement Network with the source contract on L1. See also \$MOVE. > [MG-39](./MG/mg-39/README.md)
 
 **\$L2MOVE**
-Native token on L2. Used to pay for L2 gas. > [MG-39](./MG/mg-39/README.md)
+Native token on L2. Used to pay for L2 gas. Wrapped version of the \$L1MOVE token. > [MG-39](./MG/mg-39/README.md)
 
 **L2Block**  
 A block of transactions that is processed by the FFS protocol. It contains information about the state root produced by the transactions in the block.
@@ -36,7 +36,7 @@ A block of transactions that is processed by the FFS protocol. It contains infor
 ERC-20 type token for the Movement Network with the source contract on L1. See also \$L1MOVE. > [MG-39](./MG/mg-39/README.md)
 
 **Native Bridge**
-Native bridge that permits to exchange of \$L1MOVE into \$L2MOVE, and vice versa. This bridge mints \$L2MOVE.
+The bridge that allows the transfer of tokens between L1 and L2, which hold \$L1MOVE and \$L2MOVE token, respectively. The native bridge has the capability to mint \$L2MOVE tokens. > [MG-39](./MG/mg-39/README.md)
 
 **Postconfirmation**  
 The process of confirming a (sequence of) blocks after it has been processed by the FFS protocol on L1.
