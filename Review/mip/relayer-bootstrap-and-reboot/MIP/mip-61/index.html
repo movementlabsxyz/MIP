@@ -247,14 +247,11 @@ The <code>complete_transfer</code> function on the target chain is called by the
 <li><code>transfer_completed</code>: we received the (finalized) complete event.</li>
 </ul>
 <p><strong>Optimization</strong>: There’s another substate for pending when the <code>complete_transfer</code> transaction failed. In this case we should retry earlier than if the <code>complete_transfer</code> transaction was successful. We MAY differentiate the state <code>transfer_pending_executed</code> and <code>transfer_pending_failed</code>.</p>
-<h3 id="event_processing-algorithm"><a class="header" href="#event_processing-algorithm">EVENT_PROCESSING algorithm</a></h3>
+<h3 id="initiate_transfer-events"><a class="header" href="#initiate_transfer-events">initiate_transfer events</a></h3>
+<h4 id="1-init_event_processing-algorithm"><a class="header" href="#1-init_event_processing-algorithm">1. INIT_EVENT_PROCESSING algorithm</a></h4>
 <p>For each <code>initiate_transfer</code> event do the following:</p>
-<p><img src="event_processing.png" alt="event_processing" /></p>
-<blockquote>
-<p>[!NOTE]
-The relayer may send a transaction <code>complete_transfer</code> to the target chain for an entry that has the status <code>transfer_pending</code>. This status exists during the time between the sending and the finalized success of the <code>complete_transfer</code> transaction on the target chain.</p>
-</blockquote>
-<pre><code class="language-javascript">EVENT_PROCESSING:
+<p><img src="init_event_processing.png" alt="event_processing" /></p>
+<pre><code class="language-javascript">INIT_EVENT_PROCESSING:
 // Input: initiate_transfer event from source chain
 // Input: target_chain_state - current state of the target chain
 SET `nonce` = `initiate_transfer_event.nonce` 
@@ -291,7 +288,11 @@ ELSE:
     SET `nonce.status_transfer` to `transfer_pending`
     SET timeout for relayer to re-check later
 </code></pre>
-<h3 id="continuous_block_processing-algorithm"><a class="header" href="#continuous_block_processing-algorithm">CONTINUOUS_BLOCK_PROCESSING algorithm</a></h3>
+<blockquote>
+<p>[!NOTE]
+The relayer may send a transaction <code>complete_transfer</code> to the target chain for an entry that has the status <code>transfer_pending</code>. This status exists during the time between the sending and the finalized success of the <code>complete_transfer</code> transaction on the target chain.</p>
+</blockquote>
+<h4 id="2-continuous_block_processing-algorithm"><a class="header" href="#2-continuous_block_processing-algorithm">2. CONTINUOUS_BLOCK_PROCESSING algorithm</a></h4>
 <p>Next we describe the processing of source blocks and the completion of a transfer on the target chain, assuming the relayer is always online. Since this is a strong assumption, we reduce this requirement in the next section.</p>
 <p><img src="continuous_processing.png" alt="continuous_processing" /></p>
 <pre><code class="language-javascript">CONTINUOUS_BLOCK_PROCESSING: 
@@ -300,7 +301,7 @@ NEW `block` with blockHeight `source_block.height` in `blocks`
 
 // Process each initiate_transfer event
 FOR EACH `event` IN `source_block.initiate_transfer_events` DO:
-    RUN EVENT_PROCESSING(`event`)
+    RUN INIT_EVENT_PROCESSING(`event`)
 
 // Mark the block as processed, this 
 SET `block.status` as `block_processed`
@@ -309,7 +310,7 @@ SET `block.status` as `block_processed`
 <p>[!NOTE]
 Setting the source_block.status as processed and storing that information in a file, or similar, could help with bootstrapping the relayer in the future.</p>
 </blockquote>
-<h4 id="calculation-of-completed-source-block-height"><a class="header" href="#calculation-of-completed-source-block-height">Calculation of Completed Source Block Height</a></h4>
+<h4 id="3-process_finished_nonce_height-algorithm"><a class="header" href="#3-process_finished_nonce_height-algorithm">3. PROCESS_FINISHED_NONCE_HEIGHT algorithm</a></h4>
 <p>In this section the process is defined to calculate the completed part of the source chain <code>completed_block_height</code> and <code>completed_nonce_height</code>.</p>
 <p><img src="complete_block_height.png" alt="complete_block_height" /></p>
 <p>Replace</p>
@@ -317,7 +318,7 @@ Setting the source_block.status as processed and storing that information in a f
     RETURN
 </code></pre>
 <p>with</p>
-<pre><code class="language-javascript">PROCESS_COMPLETED_NONCE_HEIGHT:
+<pre><code class="language-javascript">PROCESS_FINISHED_NONCE_HEIGHT:
 IF `nonce.status_transfer` is `transfer_completed` THEN:
     IF `nonce` is not `completed_nonce_height + 1` THEN: 
         RETURN
@@ -328,11 +329,11 @@ IF `nonce.status_transfer` is `transfer_completed` THEN:
         IF this `nonce` is the last nonce in the source block THEN:
             SET `completed_block_height += 1`
         IF the next `nonce.status_transfer` is `transfer_completed` THEN:
-            GOTO PROCESS_COMPLETED_NONCE_HEIGHT
+            GOTO PROCESS_FINISHED_NONCE_HEIGHT
         ELSE:
             RETURN
 </code></pre>
-<h3 id="timeout-algorithm"><a class="header" href="#timeout-algorithm">TIMEOUT algorithm</a></h3>
+<h4 id="4-timeout-algorithm"><a class="header" href="#4-timeout-algorithm">4. TIMEOUT algorithm</a></h4>
 <p>Whenever the timeout of a transfer (which has <code>transfer_pending</code> status) is triggered. Start the event processing.</p>
 <pre><code class="language-javascript">TIMEOUT:
 // Input: timeoutTriggeredEvent - Event whose timeout has been triggered
@@ -347,6 +348,29 @@ ON timeoutTriggered(`timeoutTriggeredEvent`) DO:
         LOG "Timeout triggered for a non-pending transfer.";
 </code></pre>
 <p><img src="timeout.png" alt="alt text" /></p>
+<h3 id="complete_transfer-events"><a class="header" href="#complete_transfer-events">complete_transfer events</a></h3>
+<h4 id="1-complete_event_processing-algorithm"><a class="header" href="#1-complete_event_processing-algorithm">1. COMPLETE_EVENT_PROCESSING algorithm</a></h4>
+<p>Similar to the INIT_EVENT_PROCESSING algorithm, the COMPLETE_EVENT_PROCESSING algorithm processes the finalized <code>complete_transfer</code> events on the target chain.</p>
+<p>We can apply a similar algorithm as for the INIT_EVENT_PROCESSING algorithm.</p>
+<pre><code class="language-javascript">COMPLETE_EVENT_PROCESSING:
+// Input: complete_transfer event from target chain
+SET `nonce` = `complete_transfer_event.nonce` 
+    with nonce.status_transfer = `transfer_completed`
+SET `transfer_uid` = `complete_transfer_event.transfer_uid`
+
+// Check if the `nonce` is already recorded
+IF `nonce` is recorded THEN:
+    SET `nonce.status_transfer = transfer_completed` 
+ELSE: 
+    CREATE new `nonce` entry locally and save it in ORDERED_SET.
+
+RETURN.
+</code></pre>
+<p>As can be seen, the algorithm is simpler than the INIT_EVENT_PROCESSING algorithm.</p>
+<h4 id="2-process_finished_nonce_height-algorithm"><a class="header" href="#2-process_finished_nonce_height-algorithm">2. PROCESS_FINISHED_NONCE_HEIGHT algorithm</a></h4>
+<p>Similar to Section <a href="#PROCESS_FINISHED_NONCE_HEIGHT_algorithm">PROCESS_FINISHED_NONCE_HEIGHT</a>, we also utilize the <code>complete_transfer</code> events to calculate the <code>completed_block_height</code> and <code>completed_nonce_height</code> for the target chain.</p>
+<p>For this we replace the <code>RETURN</code> above with <code>PROCESS_FINISHED_NONCE_HEIGHT</code>.</p>
+<p><img src="complete_event_processing.png" alt="alt text" /></p>
 <h3 id="bootstrap-algorithm"><a class="header" href="#bootstrap-algorithm">BOOTSTRAP algorithm</a></h3>
 <p>Next we describe how the bootstrap algorithm works and differs from the above.</p>
 <blockquote>
@@ -374,7 +398,7 @@ Based on knowledge of when the relayer stopped, we can inject a parameter about 
 <p><strong>Reading from local memory</strong>
 In the CONTINUOUS_BLOCK_PROCESSING Algorithm the Relayer can record the height of the source block <code>completed_block_height</code> as described in the Calculation-Completed-Block-Height algorithm. When rebooting or bootstrapping the node, the relayer can start from the last point it left.</p>
 <p><strong>Reading from chain</strong>
-The relayer records on the source or target chain (whichever is cheaper) the <code>completed_block_height</code> (see <a href="#calculation-of-completed-source-block-height">PROCESS_COMPLETED_NONCE_HEIGHT</a>. This can happen infrequent. A separate algorithm needs to be spelled out which records the highest source block, below which all source blocks with transfers are completed.</p>
+The relayer records on the source or target chain (whichever is cheaper) the <code>completed_block_height</code> (see <a href="#calculation-of-completed-source-block-height">PROCESS_FINISHED_NONCE_HEIGHT</a>. This can happen infrequent. A separate algorithm needs to be spelled out which records the highest source block, below which all source blocks with transfers are completed.</p>
 <h2 id="considered-alternatives"><a class="header" href="#considered-alternatives">Considered Alternatives</a></h2>
 <ol>
 <li>Use of indexer DB.</li>
