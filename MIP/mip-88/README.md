@@ -16,12 +16,18 @@ Moreover, we may assume that the inflow to and outflow from \$MOVE tokens is the
 
 ## Specification
 
-_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
+> _The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
 
-The Insurance Fund MUST hold the same balance on L1 and L2. If so the rate limit on the source chain can be determined by the same method as on the target chain. This has the advantage, that the Governance Operator does not have to set the rate limint on the source chain, as requested in [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74).
+### Symmetric Insurance Fund
+
+There are two Insurance Funds, one on the L1 (`L1InsuranceFund`) and one on the L2 (`L2InsuranceFund`). In this simplified design `L1InsuranceFund` MUST hold the same balance as `L2InsuranceFund`, i.e. 
+
+Value (`L1InsuranceFund`) = Value (`L2InsuranceFund`) = `InsuranceFundValueOnChain`
+
+Due to the symmetry the rate limit on the source chain can be determined by the same equation as on the target chain. This has the advantage, that the Governance Operator does not have to set the rate limit on the source chain, as requested in [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74).
 
 ![alt text](overview.png)
-_Figure 1: Architecture of the Rate Limitation system_
+_Figure 1: Architecture of the Rate Limitation system with symmetric Insurance Fund_
 
 We define
 
@@ -33,7 +39,32 @@ The Insurance Fund on a given chain thus MUST be used to
 - one half for the rate limit for incoming direction
 - one half for the rate limit for outgoing direction
 
-Moreover, if we register the budget on a daily basis, for security reasons, we MUST only utilize one half of each direction's Insurance fund budget per day. This leads (for a given direction) to a budget of 1/4 of the Insurance Fund per day.
+Moreover, if we register the budget on a daily basis, for security reasons, we MUST only utilize one half of each direction's Insurance fund budget per day. However, since the same Insurance Fund value exists on either side, we add up the allocated values from `L1InsuranceFund` and `L2InsuranceFund` for a given direction. Concretely this leads to the rate limits being
+
+$$
+rateLimit (L1→L2, \text{on source}) = rateLimit (L1→L2, \text{on target}) \\
+= rateLimit (L2→L1, \text{on source}) = rateLimit (L2→L1, on target) \\
+= \texttt{InsuranceFundValueOnChain} / 2
+$$
+
+### Trusted Governance Operator informs about Insurance Fund Value
+
+This section extends the ideas of the previous section.
+
+We can simplify our approach even further based on the trust assumptions on the Governance Operator. Since we trust the Governance Operator to allocate symmetrically funds to the insurance fund `L1InsuranceFund` and `L2InsuranceFund`, we MAY **go a step further** and also trust the Governance Operator to **report honestly and timely** about the balance on the Insurance Fund.
+
+![alt text](overview.png)
+_Figure 2: Architecture of the Rate Limitation system with Insurance Fund only on one Layer_
+
+Let there be an Insurance Fund on the L2 (`L2InsuranceFund`) with token amount of value `InsuranceFundValueOnChain`. The Governance Operator MUST provide the value `InsuranceFundValueOnChain` to the Rate Limitation contract on L1 in a timely manner and reliably. Similar to the previous section, if we register the budget on a daily basis, for security reasons, we MUST only utilize one half of each direction's Insurance fund budget per day.
+
+Since compared to the previous solution the funds are only held on one chain the rate limitation is now calculated as follows:
+
+$$
+rateLimit (L1→L2, \text{on source}) = rateLimit (L1→L2, \text{on target}) \\
+= rateLimit (L2→L1, \text{on source}) = rateLimit (L2→L1, on target) \\
+= \texttt{InsuranceFundValueOnChain} / 4
+$$
 
 ## Reference Implementation
 
