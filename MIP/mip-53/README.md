@@ -1,8 +1,8 @@
 # MIP-53: Conventions for Proposing Progressive L2 Models
+
 - **Description**: Introduces conventions for proposing progressive L2 models.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Reviewer**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
-- **Desiderata**: $\emptyset$
+- **Reviewer**: Andreas Penzkofer
 
 ## Abstract
 
@@ -15,6 +15,7 @@ We propose a set of conventions including naming, formatting, and related standa
 In order to facilitate the development of L2 systems, it is important to have a clear and consistent way to propose and review models for these systems. This MIP aims to provide a set of conventions for proposing progressive L2 models that will help to ensure that proposals are clear, consistent, and easy to review.
 
 ## Specification
+
 Progressive L2 models should adhere to conventions of the following forms:
 
 - **naming**: apply a standard naming format.
@@ -24,11 +25,13 @@ Progressive L2 models should adhere to conventions of the following forms:
 - **pros and cons**: a list of pros and cons.
 
 ### Naming
-All proposed progressive L2 models MUST adopt a name of the form "The [Location] Model" where [Location] is a location where the proposal was drafted or a similarly symbolic location. This name should be the title of the associated MIP. 
 
-In text, the model SHOULD be referred to as "[Location] Model," that is, the name of the model in title case. 
+All proposed progressive L2 models MUST adopt a name of the form "The [Location] Model" where [Location] is a location where the proposal was drafted or a similarly symbolic location. This name should be the title of the associated MIP.
+
+In text, the model SHOULD be referred to as "[Location] Model," that is, the name of the model in title case.
 
 ### Acknowledgement of Standards
+
 At the start of the "Specification" section of the MIP, the author MUST include the following markdown snippet:
 
 ```
@@ -36,6 +39,7 @@ We acknowledge and apply the conventions of [MIP-53: Conventions for Proposing P
 ```
 
 ### Summary Table
+
 All proposed progressive L2 models MUST complete the following table:
 
 | Category | Criterion | Evaluation |
@@ -51,9 +55,11 @@ All proposed progressive L2 models MUST complete the following table:
 |X| [Component Name 2](link/to/component/design) | A description of usage of said component.  |
 
 ### Statement Towards Progression
+
 All proposed progressive L2 models MUST include a statement of how the model suits a progressive approach to L2 design and release. This statement SHOULD be a paragraph in length and immediately follow the summary table--as if it were a caption for the table.
 
 ### Pros and Cons
+
 All proposed progressive L2 models MUST include a list of pros and cons. This list SHOULD be formatted as two separate bulleted lists in subsections titled "Pros" and "Cons."
 
 ## Verification

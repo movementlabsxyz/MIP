@@ -3,7 +3,7 @@
 - **Description**: Terms should be well defined. This is achieved through the [Glossary](https://github.com/movementlabsxyz/MIP/wiki/glossary) and the Movement Gloss (MG) process.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
-- **Desiderata**: [MD-15](../MD/md-15/README.md)
+- **Desiderata**: [MD-15](../../MD/md-15/README.md)
 
 ## Abstract
 

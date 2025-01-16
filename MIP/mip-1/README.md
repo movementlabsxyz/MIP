@@ -14,7 +14,7 @@ This protocol was originally suggested as a solution to minimizing trust assumpt
 
 ## Specification
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
+_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
 
 ### Protocol Description
 
@@ -33,6 +33,7 @@ The following messages types are exchanged between the Enclave and the Client:
 These messages are exchanged as follows:
 
 **Synchronization Phase**
+
 1. Prior to sending its first application message, the Client generates and safely stores CSPRNG nonce and sends it to the Enclave in a SYN message.
 2. The Enclave processes the SYN message:
     - If enclave does not have a stored nonce, this indicates that no other client has attempted to synchronize with the Enclave. The Enclave MUST accept the nonce, store the nonce, and respond with a SYN-OK message.
@@ -41,6 +42,7 @@ These messages are exchanged as follows:
         - If the nonce is not at the top of the queue or has not passed its time-lock, the Enclave MUST respond with a SYN-TL message.
 
 **Application Phase**
+
 1. The Client sends an APP message to the Enclave with the application message and the nonce for the current message and the nonce for the next message.
 2. The Enclave processes the APP message:
     - If the nonce for the current message is the expected nonce, the Enclave MUST process the application message and update the nonce for the next message. It MUST responds with an APP-OK message.
@@ -66,9 +68,11 @@ A MLABSO is informed that the bridge service needs to be upgraded. Because the p
 Now, a malicious MLABSO decides to attempt to abuse the key. She knows she cannot directly access the key. She also knows that she will not be able to use the key until the program has synchronized to a nonce she controls. She deems discovering or replacing the nonce used in the existing program intractable. So, she must stop the service and start a new synchronization phase. This will time-lock the service for 20 minutes. However, in the end, she will have the ability to sign with the key. The MLABSO begins the synchronization phase. However, during this time, a legitimate MLABSO notices that the bridge service is being upgraded (perhaps even that it is down). The legitimate MLABSO then reviews access logs to discover the malicious MLABSO's actions. The malicious MLABSO and her program are then removed from the system before the new bridge service can be synchronized.
 
 ### Practical Considerations
-In practice, there are several phenomena regarded as external to the ENTL protocol which need to be considered in order to make it safely usable. 
+
+In practice, there are several phenomena regarded as external to the ENTL protocol which need to be considered in order to make it safely usable.
 
 #### Securing the Nonce
+
 In order to avoid the possibility of malicious usage, both the current nonce and the next nonce need to be stored in a manner that is difficult to access except by the current program. We do not intend to impose cryptographically secure requirements on this storage, as that begins to invoke concepts related to the literature on succinct arguments for programs. However, there are several simpler ways that can make accessing the and using the outside  nonce difficult.
 
 To describe these, it first helps to consider what enables a nonce attack and to consider the time these operations take.
