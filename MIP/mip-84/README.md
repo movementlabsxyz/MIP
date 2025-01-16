@@ -35,8 +35,9 @@ This addresses the following desiderata in [MD-74](https://github.com/movementla
 We define the following terms:
 
 - **Trusted** : A component is trusted if it is assumed to be secure and reliable. No errors in the component can occur. Nor keys can get compromised.
-- **Partially trusted** : A component is partially trusted if it can have unintentional bugs, or misconfigurations, or worst case gets compromised but in extremely rare occurances. Under normal operations it is secure and reliable. The rarity of these events permits that the operator takes care of resulting hardship. Protective measures should be taken to reduce the maximally caused damage that the component can cause incase it becomes faulty / Byzantine.
-- **Untrusted** : A component is untrusted if it can become faulty or malicious (Byzantine) at any time and frequently. The component can stop/crash or tamper with messages, results of computations. Any action should be approved by a trusted party and require a proof of correctness.
+- **Untrusted** : A component is untrusted if it can have bugs, or misconfigurations, or worst case gets compromised (i.e., become byzantine). The component can stop/crash or tamper with messages, results of computations. 
+- **Insurance-based Untrusted** : We assume that faults or compromise is extremely unlikely. Under normal operations the component is secure and reliable. The rarity of these events permits that the operator takes care of resulting hardship. Protective measures are taken to reduce the maximally caused damage that the component can cause incase it becomes faulty / Byzantine by providing an insurance fund.
+- **Approval/proof-based Untrusted** : Faults or compromise could happen frequently and at any point in time. Any action should be approved by a trusted party or require a proof of correctness.
 
 ### Base assumptions
 
@@ -54,9 +55,9 @@ We make the following base assumption:
 **Consequence**:
 The relayer always submits the correct completion transaction, i.e. without tampering with the sender, receiver and amount. The relayer can transfer without any restrictions. Since the relayer is trusted, no additional components are needed. Furthermore, no additional protective measures are needed.
 
-### Partially Trusted Relayer
+### Insurance-based untrusted Relayer
 
-**Assumption**: The relayer is partially trusted to submit the completion of the transfer to the bridge contracts.
+**Assumption**: The relayer is insurance-based untrusted. The completion of the transfer to the bridge contracts is expected to operate correctly. However, in case of an error, the bridge operator can compensate for the error.
 
 **Risk**: The relayer may be erroneous, misconfigured, or compromised. The relayer may submit the completion of the transfer to the bridge contracts with errors.
 
@@ -96,11 +97,11 @@ Since this is a symmetrical problem, this rate limitation MUST be implemented in
 
 The Rate Limiter, see [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74) addresses this part.
 
-### Untrusted Relayer with Proofs
+### Approval/proof-based untrusted Relayer
 
-**Assumption**: The relayer is untrusted to submit the completion of the transfer to the bridge contracts. A proof is required on the target chain that the transfer was initiated on the source chain.
+**Assumption**: The relayer is untrusted to submit the completion of the transfer to the bridge contracts. A proof or approval is required.
 
-**Risk**: The source chain may be faulty or reorg. Hence only finalized proofs should be accepted (finalized with respect to the source chain).
+**Risk**: The source chain may be faulty or reorg. Hence only finalized proofs or approvals should be accepted (finalized with respect to the source chain).
 
 **Consequence**: The transfer has to consider the finality on the source chain. The transfer may also take a long time to complete. For example in optimistic rollups the finality is reached after 1 week.
 
@@ -136,7 +137,7 @@ The expected time for the completion of the transfer is the time it takes is in 
 
 **Solution with FFS Chains**:
 
-!!! warning The following is only a first sketch.
+!!! warning The following is only a first sketch and should be updated once an MIP specifically for this solution exists.
 
 - L2-->L1 direction:
 
@@ -153,7 +154,7 @@ Since the finality is crypto-economically protected by the FFS nodes with `value
 
 However, compared to the optimistic chains there is no watchtower service that can invalidate malicious checkpoints (i.e. checkpoint produced by collusion) and thus FFS validator nodes may have nothing at stake, raising the question whether there needs to be some operator with reaction time `time_react` that can halt the bridge and possibly slash the FFS validator nodes.
 
-For a solution on a rate limitation see Section [Partial Trusted Relayer](#partially-trusted-relayer). Replace `value_insurance` by `value_FFS_stake`.
+For a solution on a rate limitation see Section [Insurance-based untrusted Relayer](#insurance-based-untrusted-relayer). Replace `value_insurance` by `value_FFS_stake`.
 
 - Timing:
 
