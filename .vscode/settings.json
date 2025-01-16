@@ -1,4 +1,5 @@
 {
     "stm32-for-vscode.openOCDPath": false,
-    "stm32-for-vscode.armToolchainPath": false
+    "stm32-for-vscode.armToolchainPath": false,
+    "spellright.userDictionary": "${workspaceFolder}/.vscode/spellright.dict"
 }
