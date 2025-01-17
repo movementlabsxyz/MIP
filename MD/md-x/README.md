@@ -1,70 +1,36 @@
-# MD-\<number\>: \<Title\>
+# MD-89: Define Move Stack and Movement SDK
 
-- **Description**: A single sentence description summarizing the items in the desiderata.
-- **Authors**: [Author](mailto:author@email.com)
-
-<!--
-  READ MIP-0 BEFORE USING THIS TEMPLATE!
-
-  This template is for drafting Desiderata. It ensures a structured representation of wishes, requirements, or needs related to the overarching objective mentioned in the title. After filling in the requisite fields, please delete these comments.
-
-  Note that an MD number will be assigned by an editor. When opening a pull request to submit your MD, please use an abbreviated title in the filename, `README.md`.
-
-  The title should be 44 characters or less. It should not repeat the MD number in title.
-
-  The author should add himself as a code owner in the `.github/CODEOWNERS` file for the MD.
-
-  TODO: Remove this comment before finalizing.
--->
+- **Description**: Define the Move Stack and the Movement SDK to provide clear categorization of our software components and standardize language around the Movement technologies.
+- **Authors**: Andreas Penzkofer
 
 ## Overview
 
-<!--
-  Provide a brief, high-level overview of the desiderata. This section should illuminate the unified objective of the desired elements, functionalities, or features. More granular specifications should be provided below.
-
-  TODO: Remove this comment before finalizing.
--->
+The Move Stack and Movement SDK are foundational components for Movement technologies, aimed at empowering developers with standardized tools, interfaces, and services for building, interacting with, and maintaining Movement Labs' networks and dApps.
 
 ## Desiderata
 
-<!--
-  List out the specific desiderata. Each entry should consist of:
+### D1: Standardization of Development Stack
 
-  1. Title: A concise name for the desideratum.
-  2. User Journey: A one or two-sentence statement focusing on the "user" (could be a human, machine, software, etc.) and their interaction or experience.
-  3. Description (optional): A more detailed explanation if needed.
-  4. Justification: The reasoning behind the desideratum. Why is it necessary or desired?
-  5. Recommendations (optional): Suggestions or guidance related to the desideratum.
+**User Journey**: Developers can utilize a well-documented stack to build and maintain Movement Labs' networks and dApps.
 
-  Format as:
+**Justification**: Ensures high quality of documentation.
 
-  ### D<number>: Desideratum Title
+### D2: Create Categories for Move Stack components
 
-  **User Journey**: [user] can [action].
+**User Journey**: Developers are able to have an easy access to which category is relevant to them.
 
-  **Description**: <More detailed explanation if needed (optional)>
+**Justification**: The Move Stack may be extensive and complex, so categorization is necessary. It will accelerate for developers to find their way within the stack.
 
-  **Justification**: <Why this is a significant or required desideratum>
+### D2: Categorization of Software Components
 
-  **Recommendations**: <Any specific guidance or suggestions (optional)>
+**User Journey**: Software components are clearly categorized and associated with categories within the Move Stack.
 
-  TODO: Remove this comment before finalizing.
--->
+**Justification**: Categorization of Software components helps to provide consistent documentation and may aid in framing the documentation. It also provides a clear and consistent language for discussing Movement technologies.
 
-# Changelog
+### D3: Remove confusion between SDK and Stack
 
-<!--
-  The changelog should be maintained after publication.
+**User Journey**: Developers are able to understand what the SDK implies.
 
-  1. **Transparency and Clarity**: The changelog acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
+**Justification**: There has been much confusion about what the SDK constitutes. There is great need for clarification to align language in the ecosystem.
 
-  2. **Accountability**: By noting changes openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each changelog should briefly describe each change made, accompanied by a reference to the date, version and PR in which the change was implemented.
-
-  The format should be as follows:
-  - **YYYY-MM-DD**: Description of change. [PR#](link-to-PR)
-
-  TODO: Maintain this comment.
-
--->
+## Changelog
