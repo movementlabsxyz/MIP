@@ -48,15 +48,4 @@ In order to communicate with more specificity in all contexts, Movement Labs sho
 **Recommendations**:
 - MD can also introduce MG to further aid in clarity, but they will not be ratified until they have been supported in an MIP.
 
-## Errata
-<!--
-  Errata should be maintained after publication.
-
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the desiderata in which the error was identified.
-
-  TODO: Maintain this comment.
--->
+## Changelog
