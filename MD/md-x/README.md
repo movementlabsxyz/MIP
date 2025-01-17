@@ -27,7 +27,13 @@ The Move Stack and Movement SDK are foundational components for Movement technol
 
 **Justification**: Categorization of Software components helps to provide consistent documentation and may aid in framing the documentation. It also provides a clear and consistent language for discussing Movement technologies.
 
-### D3: Remove confusion between SDK and Stack
+### D3: Vizualization of the Move Stack
+
+**User Journey**: Developers can easily understand the Move Stack and its components.
+
+**Justification**: Visualization of the Move Stack will help developers to understand the components and their relationships.
+
+### D4: Reduce confusion between SDK and Stack
 
 **User Journey**: Developers are able to understand what the SDK implies.
 
