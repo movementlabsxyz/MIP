@@ -1,7 +1,7 @@
 
 # MIP, MD and MG
 
-We differentiate between issues, MD and MIPs.
+We differentiate between **issue**, **MD** and **MIP**.
 
 An overview of the MIPs and MDs can be found in the [OVERVIEW](https://movementlabsxyz.github.io/MIP/).
 
@@ -16,7 +16,8 @@ graph LR
     A[Idea: issue] --> B[Request: MD] --> C[Solution: MIP]
 ```
 
-In addition MG serves as a glossary for terms defined in the MIPs and MDs.
+The [Glossary](https://github.com/movementlabsxyz/MIP/wiki/glossary) contains an alphabetically ordered list of terms used in this repository. 
+In addition MG serves as a platform to define glossary terms, which are used in the MIPs and MDs.
 
 !!! info For more information on the process in this repository, see also[MIP-0](./MIP/mip-0/README.md).
 
@@ -50,13 +51,15 @@ You **SHOULD NOT** draft an MIP, if any of the following are true:
 - You only intend to request a change to software units or processes without overseeing specification and review.
 - The change is trivial. In the event that an MIP is required by governance, such trivial changes usually be handled as either errata or appendices of an existing MIP.
 
-## Movement Glossary (MG)
+## Glossary and Movement Gloss (MG)
 
 A template with instructions is provided at [mg-template](mg-template.md). See [MIP-15](./MIP/mip-15) for a definition of its functionality. See [MG-0](./MG/mg-0) for an example.
 
-An alphabetically ordered list of terms is provided in the [glossary](GLOSSARY.md).
+An alphabetically ordered list of terms is provided in the [glossary](https://github.com/movementlabsxyz/MIP/wiki/glossary).
 
 MGs serve to capture the **definitions** of terms introduced in the MIPs and MDs. The creation of a new MG requires an MIP or MG (since new terms are introduced through the MIP or MG).
+
+See [MG-0](./MG/mg-0) for an example to get started. A template is provided at [mg-template](mg-template.md).
 
 ## Files and numbering
 
