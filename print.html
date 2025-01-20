@@ -212,6 +212,7 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <li><a href="Review/mip/informer-lockmintbridge/MIP/mip-71/">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
 <li><a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
+<li><a href="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
 </ul>
 <h3 id="mds-1"><a class="header" href="#mds-1">MDs</a></h3>
 <ul>
@@ -281,6 +282,7 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <li><a href="Review/mip/informer-lockmintbridge/MIP/mip-71/">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
 <li><a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
+<li><a href="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
 </ul>
 <h3 id="mds-3"><a class="header" href="#mds-3">MDs</a></h3>
 <ul>
@@ -1145,6 +1147,7 @@ Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides add
 <li><a href="Review/mip/informer-lockmintbridge/MIP/mip-71/">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
 <li><a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
+<li><a href="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
 </ul>
 <h3 id="mds-5"><a class="header" href="#mds-5">MDs</a></h3>
 <ul>
@@ -1383,6 +1386,7 @@ Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides add
 <li><a href="Review/mip/informer-lockmintbridge/MIP/mip-71/">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
 <li><a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
+<li><a href="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
 </ul>
 <h3 id="mds-7"><a class="header" href="#mds-7">MDs</a></h3>
 <ul>
@@ -1465,6 +1469,7 @@ Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides add
 <li><a href="Review/mip/informer-lockmintbridge/MIP/mip-71/">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
 <li><a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
+<li><a href="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
 </ul>
 <h3 id="mds-9"><a class="header" href="#mds-9">MDs</a></h3>
 <ul>
@@ -1534,6 +1539,7 @@ Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides add
 <li><a href="Review/mip/informer-lockmintbridge/MIP/mip-71/">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
 <li><a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
+<li><a href="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
 </ul>
 <h3 id="mds-11"><a class="header" href="#mds-11">MDs</a></h3>
 <ul>
@@ -4541,6 +4547,57 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <h2 id="copyright-12"><a class="header" href="#copyright-12">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="mip-88-simplified-rate-limiter-for-the-lockmint-bridge"><a class="header" href="#mip-88-simplified-rate-limiter-for-the-lockmint-bridge">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></h1>
+<ul>
+<li><strong>Description</strong>: A simplified design for the rate limiter of the Lock/Mint bridge.</li>
+<li><strong>Authors</strong>: Andreas Penzkofer, Primata</li>
+<li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/pull/74/files/MD/md-74/README.md">MD-74</a></li>
+</ul>
+<h2 id="abstract-27"><a class="header" href="#abstract-27">Abstract</a></h2>
+<p>The design in <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a> considers that the insurance fund differs between the L1 and the L2. This MIP proposes a simplified design where the Insurance Fund is guaranteed to be the same on both sides.</p>
+<h2 id="motivation-27"><a class="header" href="#motivation-27">Motivation</a></h2>
+<p>In the design in <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a> the rate limit is determined by the Insurance Fund on the target chain. The Governance Operator must ensure that the rate limit on the source chains is also set correctly. This means the Governance Operator is already active on both chain.</p>
+<p>Moreover, we may assume that the inflow to and outflow from \ tokens is the same on average.</p>
+<h2 id="specification-26"><a class="header" href="#specification-26">Specification</a></h2>
+<blockquote>
+<p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
+</blockquote>
+<h3 id="symmetric-insurance-fund"><a class="header" href="#symmetric-insurance-fund">Symmetric Insurance Fund</a></h3>
+<p>There are two Insurance Funds, one on the L1 (<code>L1InsuranceFund</code>) and one on the L2 (<code>L2InsuranceFund</code>). In this simplified design <code>L1InsuranceFund</code> MUST hold the same balance as <code>L2InsuranceFund</code>, i.e.</p>
+<p>Value (<code>L1InsuranceFund</code>) = Value (<code>L2InsuranceFund</code>) = <code>InsuranceFundValueOnChain</code></p>
+<p>Due to the symmetry the rate limit on the source chain can be determined by the same equation as on the target chain. This has the advantage, that the Governance Operator does not have to set the rate limit on the source chain, as requested in <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a>.</p>
+<p><img src="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/overview.png" alt="alt text" />
+<em>Figure 1: Architecture of the Rate Limitation system with symmetric Insurance Fund</em></p>
+<p>We define</p>
+<ul>
+<li><strong>inbound</strong> as the direction for which funds are released / minted. I.e., the considered chain is a target chain for the given direction.</li>
+<li><strong>outbound</strong> as the direction for which funds are locked / burned. I.e., the considered chain is a source chain for the given direction.</li>
+</ul>
+<p>The Insurance Fund on a given chain thus MUST be used to</p>
+<ul>
+<li>one half for the rate limit for incoming direction</li>
+<li>one half for the rate limit for outgoing direction</li>
+</ul>
+<p>Moreover, if we register the budget on a daily basis, for security reasons, we MUST only utilize one half of each direction’s Insurance fund budget per day. However, since the same Insurance Fund value exists on either side, we add up the allocated values from <code>L1InsuranceFund</code> and <code>L2InsuranceFund</code> for a given direction. Concretely this leads to the rate limits being</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">L</span><span class="mord mathnormal">imi</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">on source</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">L</span><span class="mord mathnormal">imi</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">on target</span></span><span class="mclose">)</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.3669em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">L</span><span class="mord mathnormal">imi</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">on source</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">L</span><span class="mord mathnormal">imi</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.3669em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord texttt">InsuranceFundValueOnChain</span></span><span class="mord">/2</span></span></span></span></span></p>
+<h3 id="trusted-governance-operator-informs-about-insurance-fund-value"><a class="header" href="#trusted-governance-operator-informs-about-insurance-fund-value">Trusted Governance Operator informs about Insurance Fund Value</a></h3>
+<p>This section extends the ideas of the previous section.</p>
+<p>We can simplify our approach even further based on the trust assumptions on the Governance Operator. Since we trust the Governance Operator to allocate symmetrically funds to the insurance fund <code>L1InsuranceFund</code> and <code>L2InsuranceFund</code>, we MAY <strong>go a step further</strong> and also trust the Governance Operator to <strong>report honestly and timely</strong> about the balance on the Insurance Fund.</p>
+<p><img src="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/overview.png" alt="alt text" />
+<em>Figure 2: Architecture of the Rate Limitation system with Insurance Fund only on one Layer</em></p>
+<p>Let there be an Insurance Fund on the L2 (<code>L2InsuranceFund</code>) with token amount of value <code>InsuranceFundValueOnChain</code>. The Governance Operator MUST provide the value <code>InsuranceFundValueOnChain</code> to the Rate Limitation contract on L1 in a timely manner and reliably. Similar to the previous section, if we register the budget on a daily basis, for security reasons, we MUST only utilize one half of each direction’s Insurance fund budget per day.</p>
+<p>Since compared to the previous solution the funds are only held on one chain the rate limitation is now calculated as follows:</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">L</span><span class="mord mathnormal">imi</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">on source</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">L</span><span class="mord mathnormal">imi</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">on target</span></span><span class="mclose">)</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.3669em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">L</span><span class="mord mathnormal">imi</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">on source</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">L</span><span class="mord mathnormal">imi</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.3669em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord texttt">InsuranceFundValueOnChain</span></span><span class="mord">/4</span></span></span></span></span></p>
+<h2 id="reference-implementation-21"><a class="header" href="#reference-implementation-21">Reference Implementation</a></h2>
+<ul>
+<li><a href="https://github.com/movementlabsxyz/movement/pull/992">Solidity</a></li>
+<li><a href="https://github.com/movementlabsxyz/aptos-core/pull/113">Move</a></li>
+</ul>
+<h2 id="verification-26"><a class="header" href="#verification-26">Verification</a></h2>
+<h2 id="appendix-22"><a class="header" href="#appendix-22">Appendix</a></h2>
+<h2 id="copyright-13"><a class="header" href="#copyright-13">Copyright</a></h2>
+<p>Copyright and related rights waived via <a href="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/../LICENSE.html">CC0</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-6"><a class="header" href="#welcome-to-the-movement-network-mip-book-6">Welcome to the Movement Network MIP Book</a></h1>
 <h2 id="approved-6"><a class="header" href="#approved-6">Approved</a></h2>
 <h3 id="mips-12"><a class="header" href="#mips-12">MIPs</a></h3>
@@ -4586,6 +4643,7 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <li><a href="Review/mip/informer-lockmintbridge/MIP/mip-71/">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
 <li><a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
+<li><a href="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
 </ul>
 <h3 id="mds-13"><a class="header" href="#mds-13">MDs</a></h3>
 <ul>
@@ -5028,7 +5086,7 @@ block.eth_priority_gas
 <li>Apply an attester based model to the native bridge.</li>
 <li>Supply a clear flow for the bridge mechanism.</li>
 </ol>
-<h3 id="motivation-27"><a class="header" href="#motivation-27">Motivation</a></h3>
+<h3 id="motivation-28"><a class="header" href="#motivation-28">Motivation</a></h3>
 <p>Our current bridge solution has been increasing in complexity with each iteration. Originally requiring three on-chain transactions, it now requires four, initiate bridge, lock, complete source chain, complete target chain. Additionally, the bridge does not currently support gas charging mechanisms to prevent exploits, and ongoing discussions are leaning toward adding further components, making it even more complex and computationally expensive.</p>
 <p>We believe the best approach is to draw from live implementations that have achieved a streamlined user experience with minimal cost to the user. One such example is USDC’s <a href="https://www.circle.com/en/cross-chain-transfer-protocol">CCTP</a>, which offers simplicity, security, and efficiency in cross-chain bridging. Instead of increasing the complexity of our current bridge design, we should aim to adopt more proven mechanisms.</p>
 <h2 id="desiderata-10"><a class="header" href="#desiderata-10">Desiderata</a></h2>
@@ -5119,7 +5177,7 @@ The challenge is to make sure that the signature is only used once so no transac
 </ol>
 <p>This process is bi-directional, allowing funds to be bridged between Layer 1 and Layer 2, and vice versa, with minimal complexity and friction.</p>
 <h2 id="errata-22"><a class="header" href="#errata-22">Errata</a></h2>
-<h2 id="appendix-22"><a class="header" href="#appendix-22">Appendix</a></h2>
+<h2 id="appendix-23"><a class="header" href="#appendix-23">Appendix</a></h2>
 <ul>
 <li>[R1] USDC Cross-Chain Transfer Protocol: https://www.circle.com/en/cross-chain-transfer-protocol</li>
 <li>[R2] USDC CCTP Overview: https://developers.circle.com/stablecoins/docs/generic-message-passing</li>
@@ -5329,7 +5387,7 @@ struct Trade {
 <li>This initiative is a potential continuation of the “Building the Parthenon” project.</li>
 <li>The MNS system is open and permissionless, meaning Movement Labs is not responsible for content or services built by the Community Movement.</li>
 </ul>
-<h2 id="appendix-23"><a class="header" href="#appendix-23">Appendix</a></h2>
+<h2 id="appendix-24"><a class="header" href="#appendix-24">Appendix</a></h2>
 <ul>
 <li>Revisions:
 <ul>
@@ -5347,7 +5405,7 @@ struct Trade {
 <li><strong>Authors</strong>: <a href="Review/mip/FFS/MD/md-34/">Andreas Penzkofer</a></li>
 </ul>
 <h2 id="overview-15"><a class="header" href="#overview-15">Overview</a></h2>
-<h2 id="abstract-27"><a class="header" href="#abstract-27">Abstract</a></h2>
+<h2 id="abstract-28"><a class="header" href="#abstract-28">Abstract</a></h2>
 <p>We require a mechanism to confirm the validity of transactions on L2. This mechanism should provide fast confirmations with crypto-economic security on L2. Moreover, it should also provide confirmations that leverage the economic security from L1 (this may be slower).</p>
 <!--
   Provide a brief, high-level overview of the desiderata. This section should illuminate the unified objective of the desired elements, functionalities, or features. More granular specifications should be provided below.
@@ -5426,7 +5484,7 @@ struct Trade {
 
   TODO: Maintain this comment.
 -->
-<h2 id="appendix-24"><a class="header" href="#appendix-24">Appendix</a></h2>
+<h2 id="appendix-25"><a class="header" href="#appendix-25">Appendix</a></h2>
 <h3 id="a1-suggested-solutions-for-fixed-token-supply"><a class="header" href="#a1-suggested-solutions-for-fixed-token-supply">A1: Suggested Solutions for Fixed Token Supply</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>Name</th><th>Description</th><th>Gas Destination</th><th>Reward Form</th><th>Challenges</th></tr></thead><tbody>
 <tr><td><strong>Decoupled</strong></td><td>• Gas spent on the L2 deposited to pools on the L2. <br> • Rewards on the L1 are issued in a LP token which is demurrage. <br> • Ideally, intermediary tokens are used in the bridge to shield gas and staking token from bridge fallibility.</td><td>Pool on the L2</td><td>FFS LP Token; voucher periods can be assigned.</td><td>• LP Token’s demurrage assigns a lifetime to the viability of the settlement protocol which will require a new or asymptotic token voucher or token generation event at some point.</td></tr>
