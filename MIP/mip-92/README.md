@@ -28,9 +28,6 @@ The Move Stack is the set of all software components and tools. It is, in effect
 
 The Move Stack is organized into first-order and second-order categories:
 
-
-
-
 ```mermaid
 flowchart TD
   direction TB
@@ -139,6 +136,8 @@ flowchart TD
 
 ### Second-Order Categories
 
+!!! warning The following categories are not exhaustive and are subject to change.
+
 Each first-order category is further categorized into second-order categories:
 
 **Movement SDK**
@@ -151,6 +150,7 @@ Each first-order category is further categorized into second-order categories:
 1. **Software Analysis**: Tools for formal verification and analysis (e.g., Move Prover).
 
 **Move Stack Core (protocol units)**
+For a code example, see [movementlabsxyz/movement/protocol-units](https://github.com/movementlabsxyz/movement/tree/main/protocol-units).
 
 1. **Cryptography**: Cryptographic functions (e.g., hash functions, encryption).
 1. **Proving**: Proving systems (e.g., ZK-SNARKs).
@@ -162,6 +162,7 @@ Each first-order category is further categorized into second-order categories:
 1. **Execution**: Virtual machines and block executors (e.g., Aptos Block Executor).
 
 **Move Stack Binder (protocol units)**
+For a code example, see [movementlabsxyz/movement/protocol-units](https://github.com/movementlabsxyz/movement/tree/main/protocol-units).
 
 1. **Consensus**: Components for consensus mechanisms (e.g., HotStuff).
 1. **Mempool**: Transaction memory pools (e.g., JellyRoll).
@@ -182,18 +183,18 @@ Each first-order category is further categorized into second-order categories:
 **Clients**
 
 1. **L1**: Core network clients.
-2. **L2**: Layer 2 clients.
-3. **Provers**: Clients for proving systems.
-4. **Messaging**: Messaging clients.
-5. **Data and Analytics**: Indexer clients.
-6. **Third-Party**: Bespoke clients for external integrations.
+1. **L2**: Layer 2 clients.
+1. **Provers**: Clients for proving systems.
+1. **Messaging**: Messaging clients.
+1. **Data and Analytics**: Indexer clients.
+1. **Third-Party**: Bespoke clients for external integrations.
 
 ### Movement SDK
 
 The Movement SDK provides:
 
 1. A unified interface for interacting with Movement technologies.
-2. A curated toolkit for developers to deploy networks and dApps.
+1. A curated toolkit for developers to deploy networks and dApps.
 
 The SDK includes smaller, specialized SDKs that offer ergonomic tools for:
 
@@ -204,6 +205,8 @@ The SDK includes smaller, specialized SDKs that offer ergonomic tools for:
 
 
 ## Reference Implementation
+
+For the reference implementation of the Move Stack refer to the [Movement GitHub repository](https://github.com/movementlabsxyz).
 
 ## Verification
 
