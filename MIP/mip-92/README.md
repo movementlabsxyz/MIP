@@ -10,11 +10,17 @@ The Move Stack and its components, such as Movement SDK, are core foundational c
 
 ## Motivation
 
-The standardization of the Move Stack addresses key challenges in organizing, accessing, and understanding Movement Labs' technologies:
+The Move Stack's definition and its components, such as the Movement SDK, address key challenges outlined in [MD-91](../../MD/md-91/README.md) to improve the developer experience and standardize Movement technologies. By aligning with these goals, this MIP aims to:
 
-1. **Developer Experience**: Clear categorization of components accelerates development and improves accessibility.
-2. **Clarity**: Defining the Stack and its components, such as the SDK, reduces confusion regarding its scope and purpose.
-3. **Visualization**: Providing a structured representation helps developers understand the relationships between components.
+[D1](../../MD/md-91/README.md#d1-standardization-of-development-stack): **Standardization**: Provide a well-documented stack with clear categorization of components to standardize the language and interfaces for Movement technologies.
+
+[D2.1](../../MD/md-91/README.md#d2-create-categories-for-move-stack-components): **Accessibility**: Enable developers to easily locate and understand relevant components through structured categorization and intuitive organization.
+
+[D2.2](../../MD/md-91/README.md#d2-categorization-of-software-components): **Alignment**: Establish consistent terminology and documentation to create a unified understanding across the ecosystem.
+
+[D3](../../MD/md-91/README.md#d3-vizualization-of-the-move-stack): **Visualization**: Offer visual representations to help developers quickly grasp the structure and relationships within the Move Stack.
+
+[D4](../../MD/md-91/README.md#d4-reduce-confusion-between-sdk-and-stack): **Clarity**: Clearly define the scope and relationships between the Move Stack and the Movement SDK, reducing ambiguity and confusion about their roles.
 
 ## Specification
 
@@ -22,7 +28,7 @@ The Move Stack is organized into first-order and second-order categories:
 
 ### First-Order Categories
 
-1. **Movement SDK**: Tools for interacting with Movement technologies and its deployment. For more see [Movement SDK](#movement-sdk).
+1. **Movement SDK**: Tools for interacting with Movement technologies and its deployment. For more, see Section [Movement SDK](#movement-sdk).
 1. **Move Stack Core (protocol units)**: Core components required for the operation of a Move-based Chain, as well as principal components.
 1. **Move Stack Binder (protocol units)**: Components to which the Move-based chains can connect and that provide a greater environment for the chains to operate in. Such as cross-chain communication, FFS Validators, and decentralized shared sequencing:
 1. **Services**: Modular components providing network or dApp remote APIs.
