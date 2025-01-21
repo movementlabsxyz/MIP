@@ -1,4 +1,4 @@
-# MIP-XX: Move Stack
+# MIP-92: Move Stack
 
 - **Description**: This document defines the Move Stack and its components such as the Movement SDK.
 - **Authors**: Andreas Penzkofer
