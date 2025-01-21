@@ -24,6 +24,8 @@ The Move Stack's definition and its components, such as the Movement SDK, addres
 
 ## Specification
 
+The Move Stack is the set of all software components and tools. It is, in effect, a dependency for all Movement Labs' networks and dApps.
+
 The Move Stack is organized into first-order and second-order categories:
 
 ### First-Order Categories
