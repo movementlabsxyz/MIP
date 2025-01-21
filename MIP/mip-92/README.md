@@ -102,76 +102,131 @@ The SDK includes smaller, specialized SDKs that offer ergonomic tools for:
 
 ### Visualization
 
-More compact view of the specification in this document.
+Categories in this document:
+```dot
+digraph MoveStack {
+  rankdir=TB; // Top-to-bottom layout
+  node [shape=box]; // Use boxes for all nodes
+  graph [dpi=60]; // Reduce the DPI for smaller size
 
-```mermaid
-flowchart TD
-  direction TB
+  subgraph cluster_movestack {
+    label = "Move Stack";
+    style = filled;
+    color = lightyellow;
 
-  linkStyle default stroke:white,stroke-width:0;
+    "Clients" [style=filled, color=lightpink];
+    "Services" [style=filled, color=lightcoral]; // Changed color
+    "Move Stack Binder (protocol units)" [style=filled, color=lightgreen];
+    "Move Stack Core (protocol units)" [style=filled, color=lightblue];
+    "Movement SDK" [style=filled, color=lightgrey];
+  }
+}
+```
 
-  Movement_SDK["Movement SDK"]
-  Move_Stack_Core["Move Stack Core (protocol units)"]
-  Move_Stack_Binder["Move Stack Binder (protocol units)"]
-  Services["Services"]
-  Clients["Clients"]
+```dot
+digraph MovementSDK {
+  rankdir=TB; // Top-to-bottom layout
+  node [shape=box]; // Use boxes for all nodes
+  graph [dpi=60]; // Reduce the DPI for smaller size
 
-  Movement_SDK --> Move_Stack_Core
-  Move_Stack_Core --> Move_Stack_Binder
-  Move_Stack_Binder --> Services
-  Services --> Clients
+  subgraph cluster_sdk {
+    label = "Movement SDK";
+    style = filled;
+    color = lightgrey;
 
-  subgraph Movement_SDK["Movement SDK"]
-    direction TB
-    CLI["CLI"]
-    Network_Builder_SDK["Network Builder SDK"]
-    dApp_Builder_SDK["dApp Builder SDK"]
-    Infrastructure_Tooling["Infrastructure Tooling"]
-    Smart_Contract_Frameworks["Smart Contract Frameworks"]
-    Software_Analysis["Software Analysis"]
-  end
+    "Software Analysis";
+    "Smart Contract Frameworks";
+    "Infrastructure Tooling";
+    "dApp Builder SDK";
+    "Network Builder SDK";
+    CLI;
+  }
+}
+```
+```dot
+digraph MoveStackCore {
+  rankdir=TB; // Top-to-bottom layout
+  node [shape=box]; // Use boxes for all nodes
+  graph [dpi=60]; // Reduce the DPI for smaller size
 
-  subgraph Move_Stack_Core["Move Stack Core (protocol units)"]
-    direction TB
-    Cryptography["Cryptography"]
-    Proving["Proving"]
-    Governance["Governance"]
-    Ledger["Ledger"]
-    Storage["Storage"]
-    Settlement["Settlement"]
-    Compiler["Compiler"]
-    Execution["Execution"]
-  end
+  subgraph cluster_core {
+    label = "Move Stack Core (protocol units)";
+    style = filled;
+    color = lightblue;
 
-  subgraph Move_Stack_Binder["Move Stack Binder (protocol units)"]
-    direction TB
-    Consensus["Consensus"]
-    Mempool["Mempool"]
-    Data_Availability["Data Availability (DA)"]
-    Networking["Networking"]
-    Shared_Sequencers["Shared Sequencers"]
-    Censorship["Censorship"]
-  end
+    Execution;
+    Compiler;
+    Settlement;
+    Storage;
+    Ledger;
+    Governance;
+    Proving;
+    Cryptography;
+  }
+}
+```
 
-  subgraph Services["Services"]
-    direction TB
-    L1["L1"]
-    L2["L2"]
-    Provers["Provers"]
-    Messaging["Messaging"]
-    Data_Analytics_Services["Data and Analytics"]
-    Modality["Modality"]
-  end
+```dot
+digraph MoveStackBinder {
+  rankdir=TB; // Top-to-bottom layout
+  node [shape=box]; // Use boxes for all nodes
+  graph [dpi=60]; // Reduce the DPI for smaller size
 
-  subgraph Clients["Clients"]
-    direction TB
-    L1_Clients["L1"]
-    L2_Clients["L2"]
-    Provers_Clients["Provers"]
-    Messaging_Clients["Messaging"]
-    Data_Analytics_Clients["Data and Analytics"]
-    Third_Party["Third-Party"]
-  end
+  subgraph cluster_binder {
+    label = "Move Stack Binder (protocol units)";
+    style = filled;
+    color = lightgreen;
+
+    Censorship;
+    "Shared Sequencers";
+    Networking;
+    "Data Availability (DA)";
+    Mempool;
+    Consensus;
+  }
+}
+```
+
+```dot
+digraph Services {
+  rankdir=TB; // Top-to-bottom layout
+  node [shape=box]; // Use boxes for all nodes
+  graph [dpi=60]; // Reduce the DPI for smaller size
+
+  subgraph cluster_services {
+    label = "Services";
+    style = filled;
+    color = lightcoral; // New color
+
+    Modality;
+    "Data and Analytics";
+    Messaging;
+    Provers;
+    L2;
+    L1;
+  }
+}
+```
+
+```dot
+digraph Clients {
+  rankdir=TB; // Top-to-bottom layout
+  node [shape=box]; // Use boxes for all nodes
+  graph [dpi=60]; // Reduce the DPI for smaller size
+
+  subgraph cluster_clients {
+    label = "Clients";
+    style = filled;
+    color = lightpink;
+
+    "Third-Party";
+    "Data and Analytics Clients";
+    "Messaging Clients";
+    "Provers Clients";
+    "L2 Clients";
+    "L1 Clients";
+  }
+}
 ```
 
 
@@ -190,3 +245,5 @@ RFC-1 in [RFCs](https://github.com/movementlabsxyz/rfcs) is an initial document 
 ## Copyright
 
 Copyright and related rights waived via [CC0](../LICENSE.md).
+
+
