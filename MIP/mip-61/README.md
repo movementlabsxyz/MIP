@@ -1,4 +1,4 @@
-# MIP-61: Relayer for the lock/mint Native Bridge - Algorithm and Bootstrapping
+# MIP-61: Relayer algorithm for the lock/mint Native Bridge
 
 - **Description**: This MIP describes the process for continuous operation as well as the bootstrapping of the relayer in the lock/mint bridge.
 - **Authors**: Andreas Penzkofer, Philippe

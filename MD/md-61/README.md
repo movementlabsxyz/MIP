@@ -1,4 +1,4 @@
-# MD-61: Relayer for the Lock/Mint Native Bridge
+# MD-61: Relayer algorithm for the Lock/Mint Native Bridge
 
 - **Description**: A desiderata for the relayer in the lock/mint bridge, focusing on event processing, transfer completion, and robust recovery mechanisms.
 - **Authors**: Andreas Penzkofer, Philippe
