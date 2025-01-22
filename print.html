@@ -214,6 +214,7 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
 <li><a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
 <li><a href="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
+<li><a href="Review/mip/move-stack/MIP/mip-92/">MIP-92: Move Stack</a></li>
 </ul>
 <h3 id="mds-1"><a class="header" href="#mds-1">MDs</a></h3>
 <ul>
@@ -284,6 +285,7 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
 <li><a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
 <li><a href="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
+<li><a href="Review/mip/move-stack/MIP/mip-92/">MIP-92: Move Stack</a></li>
 </ul>
 <h3 id="mds-3"><a class="header" href="#mds-3">MDs</a></h3>
 <ul>
@@ -1164,6 +1166,7 @@ Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides add
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
 <li><a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
 <li><a href="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
+<li><a href="Review/mip/move-stack/MIP/mip-92/">MIP-92: Move Stack</a></li>
 </ul>
 <h3 id="mds-5"><a class="header" href="#mds-5">MDs</a></h3>
 <ul>
@@ -1428,6 +1431,7 @@ Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides add
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
 <li><a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
 <li><a href="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
+<li><a href="Review/mip/move-stack/MIP/mip-92/">MIP-92: Move Stack</a></li>
 </ul>
 <h3 id="mds-7"><a class="header" href="#mds-7">MDs</a></h3>
 <ul>
@@ -1511,6 +1515,7 @@ Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides add
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
 <li><a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
 <li><a href="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
+<li><a href="Review/mip/move-stack/MIP/mip-92/">MIP-92: Move Stack</a></li>
 </ul>
 <h3 id="mds-9"><a class="header" href="#mds-9">MDs</a></h3>
 <ul>
@@ -1581,6 +1586,7 @@ Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides add
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
 <li><a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
 <li><a href="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
+<li><a href="Review/mip/move-stack/MIP/mip-92/">MIP-92: Move Stack</a></li>
 </ul>
 <h3 id="mds-11"><a class="header" href="#mds-11">MDs</a></h3>
 <ul>
@@ -4638,6 +4644,202 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <h2 id="copyright-13"><a class="header" href="#copyright-13">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="mip-92-move-stack"><a class="header" href="#mip-92-move-stack">MIP-92: Move Stack</a></h1>
+<ul>
+<li><strong>Description</strong>: This document defines the Move Stack and its components such as the Movement SDK.</li>
+<li><strong>Authors</strong>: Andreas Penzkofer</li>
+<li><strong>Desiderata</strong>: <a href="Review/mip/move-stack/MIP/mip-92/../../MD/md-91/README.html">MD-91</a></li>
+</ul>
+<h2 id="abstract-28"><a class="header" href="#abstract-28">Abstract</a></h2>
+<p>The Move Stack and its components, such as Movement SDK, are core foundational components for Movement technologies. The Move Stack provides a structured categorization of software components, one example of which is the Movement SDK.</p>
+<h2 id="motivation-28"><a class="header" href="#motivation-28">Motivation</a></h2>
+<p>The Move Stack’s definition and its components, such as the Movement SDK, address key challenges outlined in <a href="Review/mip/move-stack/MIP/mip-92/../../MD/md-91/README.html">MD-91</a> to improve the developer experience and standardize Movement technologies. By aligning with these goals, this MIP aims to:</p>
+<p><a href="Review/mip/move-stack/MIP/mip-92/../../MD/md-91/README.html#d1-standardization-of-development-stack">D1</a>: <strong>Standardization</strong>: Provide a well-documented stack with clear categorization of components to standardize the language and interfaces for Movement technologies.</p>
+<p><a href="Review/mip/move-stack/MIP/mip-92/../../MD/md-91/README.html#d2-create-categories-for-move-stack-components">D2.1</a>: <strong>Accessibility</strong>: Enable developers to easily locate and understand relevant components through structured categorization and intuitive organization.</p>
+<p><a href="Review/mip/move-stack/MIP/mip-92/../../MD/md-91/README.html#d2-categorization-of-software-components">D2.2</a>: <strong>Alignment</strong>: Establish consistent terminology and documentation to create a unified understanding across the ecosystem.</p>
+<p><a href="Review/mip/move-stack/MIP/mip-92/../../MD/md-91/README.html#d3-vizualization-of-the-move-stack">D3</a>: <strong>Visualization</strong>: Offer visual representations to help developers quickly grasp the structure and relationships within the Move Stack.</p>
+<p><a href="Review/mip/move-stack/MIP/mip-92/../../MD/md-91/README.html#d4-reduce-confusion-between-sdk-and-stack">D4</a>: <strong>Clarity</strong>: Clearly define the scope and relationships between the Move Stack and the Movement SDK, reducing ambiguity and confusion about their roles.</p>
+<h2 id="specification-27"><a class="header" href="#specification-27">Specification</a></h2>
+<p>The Move Stack is the set of all software components and tools. It is, in effect, a dependency for all Movement Labs’ networks and dApps.</p>
+<p>The Move Stack is organized into first-order and second-order categories:</p>
+<pre><code class="language-mermaid">flowchart TD
+  direction TB
+
+  linkStyle default stroke:white,stroke-width:0;
+
+  classDef titleStyle font-size:18px,font-weight:bold;
+
+  subgraph Move_Stack["Move Stack"]
+    direction TB
+    style Move_Stack fill:#f0f8ff,stroke:#000,stroke-width:2;
+
+    Movement_SDK["Movement SDK"]:::titleStyle
+    style Movement_SDK fill:#d1e7dd,stroke:#000;
+
+    Move_Stack_Core["Move Stack Core (protocol units)"]:::titleStyle
+    style Move_Stack_Core fill:#cff4fc,stroke:#000;
+
+    Move_Stack_Binder["Move Stack Binder (protocol units)"]:::titleStyle
+    style Move_Stack_Binder fill:#ffe5d9,stroke:#000;
+
+    Services["Services"]:::titleStyle
+    style Services fill:#fff3cd,stroke:#000;
+
+    Clients["Clients"]:::titleStyle
+    style Clients fill:#f8d7da,stroke:#000;
+
+    Movement_SDK --&gt; Move_Stack_Core
+    Move_Stack_Core --&gt; Move_Stack_Binder
+    Move_Stack_Binder --&gt; Services
+    Services --&gt; Clients
+
+    subgraph Movement_SDK["Movement SDK"]
+      direction TB
+      style Movement_SDK fill:#d1e7dd,stroke:#000;
+
+      CLI["CLI"]
+      Network_Builder_SDK["Network Builder SDK"]
+      dApp_Builder_SDK["dApp Builder SDK"]
+      Infrastructure_Tooling["Infrastructure Tooling"]
+      Smart_Contract_Frameworks["Smart Contract Frameworks"]
+      Software_Analysis["Software Analysis"]
+    end
+
+    subgraph Move_Stack_Core["Move Stack Core (protocol units)"]
+      direction TB
+      style Move_Stack_Core fill:#cff4fc,stroke:#000;
+
+      Cryptography["Cryptography"]
+      Proving["Proving"]
+      Governance["Governance"]
+      Ledger["Ledger"]
+      Storage["Storage"]
+      Settlement["Settlement"]
+      Compiler["Compiler"]
+      Execution["Execution"]
+    end
+
+    subgraph Move_Stack_Binder["Move Stack Binder (protocol units)"]
+      direction TB
+      style Move_Stack_Binder fill:#ffe5d9,stroke:#000;
+
+      Consensus["Consensus"]
+      Mempool["Mempool"]
+      Data_Availability["Data Availability (DA)"]
+      Networking["Networking"]
+      Shared_Sequencers["Shared Sequencers"]
+      Censorship["Censorship"]
+    end
+
+    subgraph Services["Services"]
+      direction TB
+      style Services fill:#fff3cd,stroke:#000;
+
+      L1["L1"]
+      L2["L2"]
+      Provers["Provers"]
+      Messaging["Messaging"]
+      Data_Analytics_Services["Data and Analytics"]
+      Modality["Modality"]
+    end
+
+    subgraph Clients["Clients"]
+      direction TB
+      style Clients fill:#f8d7da,stroke:#000;
+
+      L1_Clients["L1"]
+      L2_Clients["L2"]
+      Provers_Clients["Provers"]
+      Messaging_Clients["Messaging"]
+      Data_Analytics_Clients["Data and Analytics"]
+      Third_Party["Third-Party"]
+    end
+  end
+
+
+</code></pre>
+<h3 id="first-order-categories"><a class="header" href="#first-order-categories">First-Order Categories</a></h3>
+<ol>
+<li><strong>Movement SDK</strong>: Tools for interacting with Movement technologies and its deployment. For more, see Section <a href="Review/mip/move-stack/MIP/mip-92/index.html#movement-sdk">Movement SDK</a>.</li>
+<li><strong>Move Stack Core (protocol units)</strong>: Core components required for the operation of a Move-based Chain, as well as principal components.</li>
+<li><strong>Move Stack Binder (protocol units)</strong>: Components to which the Move-based chains can connect and that provide a greater environment for the chains to operate in. Such as cross-chain communication, FFS Validators, and decentralized shared sequencing:</li>
+<li><strong>Services</strong>: Modular components providing network or dApp remote APIs.</li>
+<li><strong>Clients</strong>: Interfaces for low-level interaction and components providing network or dApp remote APIs.</li>
+</ol>
+<h3 id="second-order-categories"><a class="header" href="#second-order-categories">Second-Order Categories</a></h3>
+<p>!!! warning The following categories are not exhaustive and are subject to change.</p>
+<p>Each first-order category is further categorized into second-order categories:</p>
+<p><strong>Movement SDK</strong></p>
+<ol>
+<li><strong>CLI</strong>: Command-line interfaces.</li>
+<li><strong>Network Builder SDK</strong>: Tools for network development.</li>
+<li><strong>dApp Builder SDK</strong>: Tools for building dApps.</li>
+<li><strong>Infrastructure Tooling</strong>: Deployment and monitoring tools.</li>
+<li><strong>Smart Contract Frameworks</strong>: Frameworks for staking and governance.</li>
+<li><strong>Software Analysis</strong>: Tools for formal verification and analysis (e.g., Move Prover).</li>
+</ol>
+<p><strong>Move Stack Core (protocol units)</strong>
+For a code example, see <a href="https://github.com/movementlabsxyz/movement/tree/main/protocol-units">movementlabsxyz/movement/protocol-units</a>.</p>
+<ol>
+<li><strong>Cryptography</strong>: Cryptographic functions (e.g., hash functions, encryption).</li>
+<li><strong>Proving</strong>: Proving systems (e.g., ZK-SNARKs).</li>
+<li><strong>Governance</strong>: Mechanisms for network governance (e.g., RunningVote).</li>
+<li><strong>Ledger</strong>: Tools for ledger operations, state transitions, and state management.</li>
+<li><strong>Storage</strong>: State storage solutions (e.g., TrailerPark).</li>
+<li><strong>Settlement</strong>: Settlement mechanisms (e.g., R0M ETH Settlement).</li>
+<li><strong>Compiler</strong>: Smart contract compilers for the Move language (e.g., Move LLVM).</li>
+<li><strong>Execution</strong>: Virtual machines and block executors (e.g., Aptos Block Executor).</li>
+</ol>
+<p><strong>Move Stack Binder (protocol units)</strong>
+For a code example, see <a href="https://github.com/movementlabsxyz/movement/tree/main/protocol-units">movementlabsxyz/movement/protocol-units</a>.</p>
+<ol>
+<li><strong>Consensus</strong>: Components for consensus mechanisms (e.g., HotStuff).</li>
+<li><strong>Mempool</strong>: Transaction memory pools (e.g., JellyRoll).</li>
+<li><strong>Data Availability (DA)</strong>: Proofs and layers for data availability (e.g., SOV Labs DA).</li>
+<li><strong>Networking</strong>: Networking utilities (e.g., MovePackets).</li>
+<li><strong>Shared Sequencers</strong>: Components enabling decentralized sequencing of transactions.</li>
+<li><strong>Censorship</strong>: Components addressing transaction censorship.</li>
+</ol>
+<p><strong>Services</strong></p>
+<ol>
+<li><strong>L1</strong>: Core network services (e.g., block producers).</li>
+<li><strong>L2</strong>: Layer 2 services (e.g., rollup validators).</li>
+<li><strong>Provers</strong>: Proving system services.</li>
+<li><strong>Messaging</strong>: Cross-ledger messaging services (e.g., Hyperlane Aptos).</li>
+<li><strong>Data and Analytics</strong>: Indexing services (e.g., M1 Indexer Service).</li>
+<li><strong>Modality</strong>: Services enabling different modes (e.g., light clients).</li>
+</ol>
+<p><strong>Clients</strong></p>
+<ol>
+<li><strong>L1</strong>: Core network clients.</li>
+<li><strong>L2</strong>: Layer 2 clients.</li>
+<li><strong>Provers</strong>: Clients for proving systems.</li>
+<li><strong>Messaging</strong>: Messaging clients.</li>
+<li><strong>Data and Analytics</strong>: Indexer clients.</li>
+<li><strong>Third-Party</strong>: Bespoke clients for external integrations.</li>
+</ol>
+<h3 id="movement-sdk"><a class="header" href="#movement-sdk">Movement SDK</a></h3>
+<p>The Movement SDK provides:</p>
+<ol>
+<li>A unified interface for interacting with Movement technologies.</li>
+<li>A curated toolkit for developers to deploy networks and dApps.</li>
+</ol>
+<p>The SDK includes smaller, specialized SDKs that offer ergonomic tools for:</p>
+<ul>
+<li>Command-line operations.</li>
+<li>Network and dApp development.</li>
+<li>Infrastructure deployment and observability.</li>
+</ul>
+<h2 id="reference-implementation-22"><a class="header" href="#reference-implementation-22">Reference Implementation</a></h2>
+<p>For the reference implementation of the Move Stack refer to the <a href="https://github.com/movementlabsxyz">Movement GitHub repository</a>.</p>
+<h2 id="verification-27"><a class="header" href="#verification-27">Verification</a></h2>
+<h2 id="changelog-10"><a class="header" href="#changelog-10">Changelog</a></h2>
+<h2 id="appendix-23"><a class="header" href="#appendix-23">Appendix</a></h2>
+<h3 id="a1-rfc-1"><a class="header" href="#a1-rfc-1">A1 RFC-1</a></h3>
+<p>RFC-1 in <a href="https://github.com/movementlabsxyz/rfcs">RFCs</a> is an initial document that outlines the components of the Move Stack and Movement SDK. It provides a detailed enumeration of components, their aliases, and purposes.</p>
+<h2 id="copyright-14"><a class="header" href="#copyright-14">Copyright</a></h2>
+<p>Copyright and related rights waived via <a href="Review/mip/move-stack/MIP/mip-92/../LICENSE.html">CC0</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-6"><a class="header" href="#welcome-to-the-movement-network-mip-book-6">Welcome to the Movement Network MIP Book</a></h1>
 <h2 id="approved-6"><a class="header" href="#approved-6">Approved</a></h2>
 <h3 id="mips-12"><a class="header" href="#mips-12">MIPs</a></h3>
@@ -4685,6 +4887,7 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
 <li><a href="Review/mip/lock-mint-bridge-rate-limit-basics/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
 <li><a href="Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
+<li><a href="Review/mip/move-stack/MIP/mip-92/">MIP-92: Move Stack</a></li>
 </ul>
 <h3 id="mds-13"><a class="header" href="#mds-13">MDs</a></h3>
 <ul>
@@ -5126,7 +5329,7 @@ block.eth_priority_gas
 <li>Apply an attester based model to the native bridge.</li>
 <li>Supply a clear flow for the bridge mechanism.</li>
 </ol>
-<h3 id="motivation-28"><a class="header" href="#motivation-28">Motivation</a></h3>
+<h3 id="motivation-29"><a class="header" href="#motivation-29">Motivation</a></h3>
 <p>Our current bridge solution has been increasing in complexity with each iteration. Originally requiring three on-chain transactions, it now requires four, initiate bridge, lock, complete source chain, complete target chain. Additionally, the bridge does not currently support gas charging mechanisms to prevent exploits, and ongoing discussions are leaning toward adding further components, making it even more complex and computationally expensive.</p>
 <p>We believe the best approach is to draw from live implementations that have achieved a streamlined user experience with minimal cost to the user. One such example is USDC’s <a href="https://www.circle.com/en/cross-chain-transfer-protocol">CCTP</a>, which offers simplicity, security, and efficiency in cross-chain bridging. Instead of increasing the complexity of our current bridge design, we should aim to adopt more proven mechanisms.</p>
 <h2 id="desiderata-11"><a class="header" href="#desiderata-11">Desiderata</a></h2>
@@ -5217,7 +5420,7 @@ The challenge is to make sure that the signature is only used once so no transac
 </ol>
 <p>This process is bi-directional, allowing funds to be bridged between Layer 1 and Layer 2, and vice versa, with minimal complexity and friction.</p>
 <h2 id="errata-22"><a class="header" href="#errata-22">Errata</a></h2>
-<h2 id="appendix-23"><a class="header" href="#appendix-23">Appendix</a></h2>
+<h2 id="appendix-24"><a class="header" href="#appendix-24">Appendix</a></h2>
 <ul>
 <li>[R1] USDC Cross-Chain Transfer Protocol: https://www.circle.com/en/cross-chain-transfer-protocol</li>
 <li>[R2] USDC CCTP Overview: https://developers.circle.com/stablecoins/docs/generic-message-passing</li>
@@ -5248,7 +5451,7 @@ The challenge is to make sure that the signature is only used once so no transac
 <h3 id="d4-define-standard-relationship-between-releases-and-governance"><a class="header" href="#d4-define-standard-relationship-between-releases-and-governance">D4: Define standard relationship between releases and governance</a></h3>
 <p><strong>User Journey</strong>: All users can understand the relationship between releases and governance, i.e., how a particular release gets voted in as canonical for a given set of Movement technologies.</p>
 <p><strong>Justification</strong>: A clear relationship between releases and governance will help users understand how releases are approved and what criteria they must meet. This will help users trust that releases are of high quality and meet the needs of the community.</p>
-<h2 id="changelog-10"><a class="header" href="#changelog-10">Changelog</a></h2>
+<h2 id="changelog-11"><a class="header" href="#changelog-11">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-26-user-facing-checks"><a class="header" href="#md-26-user-facing-checks">MD-26: User-facing checks</a></h1>
 <ul>
@@ -5427,7 +5630,7 @@ struct Trade {
 <li>This initiative is a potential continuation of the “Building the Parthenon” project.</li>
 <li>The MNS system is open and permissionless, meaning Movement Labs is not responsible for content or services built by the Community Movement.</li>
 </ul>
-<h2 id="appendix-24"><a class="header" href="#appendix-24">Appendix</a></h2>
+<h2 id="appendix-25"><a class="header" href="#appendix-25">Appendix</a></h2>
 <ul>
 <li>Revisions:
 <ul>
@@ -5445,7 +5648,7 @@ struct Trade {
 <li><strong>Authors</strong>: <a href="Review/mip/FFS/MD/md-34/">Andreas Penzkofer</a></li>
 </ul>
 <h2 id="overview-16"><a class="header" href="#overview-16">Overview</a></h2>
-<h2 id="abstract-28"><a class="header" href="#abstract-28">Abstract</a></h2>
+<h2 id="abstract-29"><a class="header" href="#abstract-29">Abstract</a></h2>
 <p>We require a mechanism to confirm the validity of transactions on L2. This mechanism should provide fast confirmations with crypto-economic security on L2. Moreover, it should also provide confirmations that leverage the economic security from L1 (this may be slower).</p>
 <!--
   Provide a brief, high-level overview of the desiderata. This section should illuminate the unified objective of the desired elements, functionalities, or features. More granular specifications should be provided below.
@@ -5524,7 +5727,7 @@ struct Trade {
 
   TODO: Maintain this comment.
 -->
-<h2 id="appendix-25"><a class="header" href="#appendix-25">Appendix</a></h2>
+<h2 id="appendix-26"><a class="header" href="#appendix-26">Appendix</a></h2>
 <h3 id="a1-suggested-solutions-for-fixed-token-supply"><a class="header" href="#a1-suggested-solutions-for-fixed-token-supply">A1: Suggested Solutions for Fixed Token Supply</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>Name</th><th>Description</th><th>Gas Destination</th><th>Reward Form</th><th>Challenges</th></tr></thead><tbody>
 <tr><td><strong>Decoupled</strong></td><td>• Gas spent on the L2 deposited to pools on the L2. <br> • Rewards on the L1 are issued in a LP token which is demurrage. <br> • Ideally, intermediary tokens are used in the bridge to shield gas and staking token from bridge fallibility.</td><td>Pool on the L2</td><td>FFS LP Token; voucher periods can be assigned.</td><td>• LP Token’s demurrage assigns a lifetime to the viability of the settlement protocol which will require a new or asymptotic token voucher or token generation event at some point.</td></tr>
@@ -5620,7 +5823,7 @@ struct Trade {
 <p><strong>User Journey</strong>: Pending transfers are retried automatically after a timeout, ensuring eventual completion without manual oversight.</p>
 <p><strong>Justification</strong>: Improves the reliability of the relayer by handling transient errors and network issues gracefully.</p>
 <p><strong>Recommendations</strong>: Implement a configurable timeout period for retries.</p>
-<h2 id="changelog-11"><a class="header" href="#changelog-11">Changelog</a></h2>
+<h2 id="changelog-12"><a class="header" href="#changelog-12">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-69-bridge-fees"><a class="header" href="#md-69-bridge-fees">MD-69: Bridge fees</a></h1>
 <ul>

@@ -1,0 +1,407 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>MIP-92: Move Stack - MIP</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../../../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../../../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">MIP</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/movementlabsxyz/MIP" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="mip-92-move-stack"><a class="header" href="#mip-92-move-stack">MIP-92: Move Stack</a></h1>
+<ul>
+<li><strong>Description</strong>: This document defines the Move Stack and its components such as the Movement SDK.</li>
+<li><strong>Authors</strong>: Andreas Penzkofer</li>
+<li><strong>Desiderata</strong>: <a href="../../MD/md-91/README.html">MD-91</a></li>
+</ul>
+<h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
+<p>The Move Stack and its components, such as Movement SDK, are core foundational components for Movement technologies. The Move Stack provides a structured categorization of software components, one example of which is the Movement SDK.</p>
+<h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
+<p>The Move Stack’s definition and its components, such as the Movement SDK, address key challenges outlined in <a href="../../MD/md-91/README.html">MD-91</a> to improve the developer experience and standardize Movement technologies. By aligning with these goals, this MIP aims to:</p>
+<p><a href="../../MD/md-91/README.html#d1-standardization-of-development-stack">D1</a>: <strong>Standardization</strong>: Provide a well-documented stack with clear categorization of components to standardize the language and interfaces for Movement technologies.</p>
+<p><a href="../../MD/md-91/README.html#d2-create-categories-for-move-stack-components">D2.1</a>: <strong>Accessibility</strong>: Enable developers to easily locate and understand relevant components through structured categorization and intuitive organization.</p>
+<p><a href="../../MD/md-91/README.html#d2-categorization-of-software-components">D2.2</a>: <strong>Alignment</strong>: Establish consistent terminology and documentation to create a unified understanding across the ecosystem.</p>
+<p><a href="../../MD/md-91/README.html#d3-vizualization-of-the-move-stack">D3</a>: <strong>Visualization</strong>: Offer visual representations to help developers quickly grasp the structure and relationships within the Move Stack.</p>
+<p><a href="../../MD/md-91/README.html#d4-reduce-confusion-between-sdk-and-stack">D4</a>: <strong>Clarity</strong>: Clearly define the scope and relationships between the Move Stack and the Movement SDK, reducing ambiguity and confusion about their roles.</p>
+<h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
+<p>The Move Stack is the set of all software components and tools. It is, in effect, a dependency for all Movement Labs’ networks and dApps.</p>
+<p>The Move Stack is organized into first-order and second-order categories:</p>
+<pre><code class="language-mermaid">flowchart TD
+  direction TB
+
+  linkStyle default stroke:white,stroke-width:0;
+
+  classDef titleStyle font-size:18px,font-weight:bold;
+
+  subgraph Move_Stack["Move Stack"]
+    direction TB
+    style Move_Stack fill:#f0f8ff,stroke:#000,stroke-width:2;
+
+    Movement_SDK["Movement SDK"]:::titleStyle
+    style Movement_SDK fill:#d1e7dd,stroke:#000;
+
+    Move_Stack_Core["Move Stack Core (protocol units)"]:::titleStyle
+    style Move_Stack_Core fill:#cff4fc,stroke:#000;
+
+    Move_Stack_Binder["Move Stack Binder (protocol units)"]:::titleStyle
+    style Move_Stack_Binder fill:#ffe5d9,stroke:#000;
+
+    Services["Services"]:::titleStyle
+    style Services fill:#fff3cd,stroke:#000;
+
+    Clients["Clients"]:::titleStyle
+    style Clients fill:#f8d7da,stroke:#000;
+
+    Movement_SDK --&gt; Move_Stack_Core
+    Move_Stack_Core --&gt; Move_Stack_Binder
+    Move_Stack_Binder --&gt; Services
+    Services --&gt; Clients
+
+    subgraph Movement_SDK["Movement SDK"]
+      direction TB
+      style Movement_SDK fill:#d1e7dd,stroke:#000;
+
+      CLI["CLI"]
+      Network_Builder_SDK["Network Builder SDK"]
+      dApp_Builder_SDK["dApp Builder SDK"]
+      Infrastructure_Tooling["Infrastructure Tooling"]
+      Smart_Contract_Frameworks["Smart Contract Frameworks"]
+      Software_Analysis["Software Analysis"]
+    end
+
+    subgraph Move_Stack_Core["Move Stack Core (protocol units)"]
+      direction TB
+      style Move_Stack_Core fill:#cff4fc,stroke:#000;
+
+      Cryptography["Cryptography"]
+      Proving["Proving"]
+      Governance["Governance"]
+      Ledger["Ledger"]
+      Storage["Storage"]
+      Settlement["Settlement"]
+      Compiler["Compiler"]
+      Execution["Execution"]
+    end
+
+    subgraph Move_Stack_Binder["Move Stack Binder (protocol units)"]
+      direction TB
+      style Move_Stack_Binder fill:#ffe5d9,stroke:#000;
+
+      Consensus["Consensus"]
+      Mempool["Mempool"]
+      Data_Availability["Data Availability (DA)"]
+      Networking["Networking"]
+      Shared_Sequencers["Shared Sequencers"]
+      Censorship["Censorship"]
+    end
+
+    subgraph Services["Services"]
+      direction TB
+      style Services fill:#fff3cd,stroke:#000;
+
+      L1["L1"]
+      L2["L2"]
+      Provers["Provers"]
+      Messaging["Messaging"]
+      Data_Analytics_Services["Data and Analytics"]
+      Modality["Modality"]
+    end
+
+    subgraph Clients["Clients"]
+      direction TB
+      style Clients fill:#f8d7da,stroke:#000;
+
+      L1_Clients["L1"]
+      L2_Clients["L2"]
+      Provers_Clients["Provers"]
+      Messaging_Clients["Messaging"]
+      Data_Analytics_Clients["Data and Analytics"]
+      Third_Party["Third-Party"]
+    end
+  end
+
+
+</code></pre>
+<h3 id="first-order-categories"><a class="header" href="#first-order-categories">First-Order Categories</a></h3>
+<ol>
+<li><strong>Movement SDK</strong>: Tools for interacting with Movement technologies and its deployment. For more, see Section <a href="#movement-sdk">Movement SDK</a>.</li>
+<li><strong>Move Stack Core (protocol units)</strong>: Core components required for the operation of a Move-based Chain, as well as principal components.</li>
+<li><strong>Move Stack Binder (protocol units)</strong>: Components to which the Move-based chains can connect and that provide a greater environment for the chains to operate in. Such as cross-chain communication, FFS Validators, and decentralized shared sequencing:</li>
+<li><strong>Services</strong>: Modular components providing network or dApp remote APIs.</li>
+<li><strong>Clients</strong>: Interfaces for low-level interaction and components providing network or dApp remote APIs.</li>
+</ol>
+<h3 id="second-order-categories"><a class="header" href="#second-order-categories">Second-Order Categories</a></h3>
+<p>!!! warning The following categories are not exhaustive and are subject to change.</p>
+<p>Each first-order category is further categorized into second-order categories:</p>
+<p><strong>Movement SDK</strong></p>
+<ol>
+<li><strong>CLI</strong>: Command-line interfaces.</li>
+<li><strong>Network Builder SDK</strong>: Tools for network development.</li>
+<li><strong>dApp Builder SDK</strong>: Tools for building dApps.</li>
+<li><strong>Infrastructure Tooling</strong>: Deployment and monitoring tools.</li>
+<li><strong>Smart Contract Frameworks</strong>: Frameworks for staking and governance.</li>
+<li><strong>Software Analysis</strong>: Tools for formal verification and analysis (e.g., Move Prover).</li>
+</ol>
+<p><strong>Move Stack Core (protocol units)</strong>
+For a code example, see <a href="https://github.com/movementlabsxyz/movement/tree/main/protocol-units">movementlabsxyz/movement/protocol-units</a>.</p>
+<ol>
+<li><strong>Cryptography</strong>: Cryptographic functions (e.g., hash functions, encryption).</li>
+<li><strong>Proving</strong>: Proving systems (e.g., ZK-SNARKs).</li>
+<li><strong>Governance</strong>: Mechanisms for network governance (e.g., RunningVote).</li>
+<li><strong>Ledger</strong>: Tools for ledger operations, state transitions, and state management.</li>
+<li><strong>Storage</strong>: State storage solutions (e.g., TrailerPark).</li>
+<li><strong>Settlement</strong>: Settlement mechanisms (e.g., R0M ETH Settlement).</li>
+<li><strong>Compiler</strong>: Smart contract compilers for the Move language (e.g., Move LLVM).</li>
+<li><strong>Execution</strong>: Virtual machines and block executors (e.g., Aptos Block Executor).</li>
+</ol>
+<p><strong>Move Stack Binder (protocol units)</strong>
+For a code example, see <a href="https://github.com/movementlabsxyz/movement/tree/main/protocol-units">movementlabsxyz/movement/protocol-units</a>.</p>
+<ol>
+<li><strong>Consensus</strong>: Components for consensus mechanisms (e.g., HotStuff).</li>
+<li><strong>Mempool</strong>: Transaction memory pools (e.g., JellyRoll).</li>
+<li><strong>Data Availability (DA)</strong>: Proofs and layers for data availability (e.g., SOV Labs DA).</li>
+<li><strong>Networking</strong>: Networking utilities (e.g., MovePackets).</li>
+<li><strong>Shared Sequencers</strong>: Components enabling decentralized sequencing of transactions.</li>
+<li><strong>Censorship</strong>: Components addressing transaction censorship.</li>
+</ol>
+<p><strong>Services</strong></p>
+<ol>
+<li><strong>L1</strong>: Core network services (e.g., block producers).</li>
+<li><strong>L2</strong>: Layer 2 services (e.g., rollup validators).</li>
+<li><strong>Provers</strong>: Proving system services.</li>
+<li><strong>Messaging</strong>: Cross-ledger messaging services (e.g., Hyperlane Aptos).</li>
+<li><strong>Data and Analytics</strong>: Indexing services (e.g., M1 Indexer Service).</li>
+<li><strong>Modality</strong>: Services enabling different modes (e.g., light clients).</li>
+</ol>
+<p><strong>Clients</strong></p>
+<ol>
+<li><strong>L1</strong>: Core network clients.</li>
+<li><strong>L2</strong>: Layer 2 clients.</li>
+<li><strong>Provers</strong>: Clients for proving systems.</li>
+<li><strong>Messaging</strong>: Messaging clients.</li>
+<li><strong>Data and Analytics</strong>: Indexer clients.</li>
+<li><strong>Third-Party</strong>: Bespoke clients for external integrations.</li>
+</ol>
+<h3 id="movement-sdk"><a class="header" href="#movement-sdk">Movement SDK</a></h3>
+<p>The Movement SDK provides:</p>
+<ol>
+<li>A unified interface for interacting with Movement technologies.</li>
+<li>A curated toolkit for developers to deploy networks and dApps.</li>
+</ol>
+<p>The SDK includes smaller, specialized SDKs that offer ergonomic tools for:</p>
+<ul>
+<li>Command-line operations.</li>
+<li>Network and dApp development.</li>
+<li>Infrastructure deployment and observability.</li>
+</ul>
+<h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
+<p>For the reference implementation of the Move Stack refer to the <a href="https://github.com/movementlabsxyz">Movement GitHub repository</a>.</p>
+<h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
+<h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
+<h3 id="a1-rfc-1"><a class="header" href="#a1-rfc-1">A1 RFC-1</a></h3>
+<p>RFC-1 in <a href="https://github.com/movementlabsxyz/rfcs">RFCs</a> is an initial document that outlines the components of the Move Stack and Movement SDK. It provides a detailed enumeration of components, their aliases, and purposes.</p>
+<h2 id="copyright"><a class="header" href="#copyright">Copyright</a></h2>
+<p>Copyright and related rights waived via <a href="../LICENSE.html">CC0</a>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../../Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../../../index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../../Review/mip/simplified-lock-mint-bridge-relayer/MIP/mip-88/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../../../index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../../../elasticlunr.min.js"></script>
+        <script src="../../../../../mark.min.js"></script>
+        <script src="../../../../../searcher.js"></script>
+
+        <script src="../../../../../clipboard.min.js"></script>
+        <script src="../../../../../highlight.js"></script>
+        <script src="../../../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
