@@ -164,19 +164,19 @@
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 </ul>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<p>In the current MCR implementation, the last attester which trips the <code>rollOverEpoch</code> function may pay large gas fees, as they perform roll-over work for previous participants. This would create a disincentive for the last attester to participate in the game, potentially not doing so at all. It has been presumed that the implementation would be updated s.t. the last attester would be specially rewarded for their work. This also creates a game-theoretic problem, as the last attester could be incentivized to wait until the last moment to participate.</p>
+<p>In the current MCR implementation, the last attester which trips the <code>rollOverEpoch</code> function may pay large gas fees, as they perform roll-over work for previous participants, see also <a href="./rollover-gas.html">this document</a>. This would create a disincentive for the last attester to participate in the game, potentially not doing so at all. It has been presumed that the implementation would be updated s.t. the last attester would be specially rewarded for their work. This also creates a game-theoretic problem, as the last attester could be incentivized to wait until the last moment to participate.</p>
 <p>To combat this, round-robin rewarding and commitment schemes such as Pedersen Commitments have been suggested. However, these have not been formalized.</p>
 <h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
 <h3 id="d1-model-for-gas-costs-in-mcr-without-offset"><a class="header" href="#d1-model-for-gas-costs-in-mcr-without-offset">D1: Model for Gas Costs in MCR without Offset</a></h3>
-<p><strong>User Journey</strong>: A researcher or protocol implementer can understand the game theory of gas costs in MCR without offsetting.</p>
-<p><strong>Justification</strong>: The current implementation of MCR does not offset gas costs for the last attester. This could lead to a disincentive to participate in the game, provide a model which clearly shows this.</p>
+<p><strong>User Journey</strong>: A researcher or protocol implementer can understand the game theory of gas costs in MCR <strong>without</strong> cost offsetting.</p>
+<p><strong>Justification</strong>: The current implementation of MCR does not offset gas costs for the last attester. This could lead to a disincentive to participate in the game. We require a model which allows to study this.</p>
 <p><strong>Recommendations</strong>:</p>
 <ul>
 <li>Start with <a href="./rollover-gas.html">Rollover Gas</a> to understand the current state of the problem.</li>
 </ul>
 <h3 id="d2-model-for-gas-costs-in-mcr-with-offset"><a class="header" href="#d2-model-for-gas-costs-in-mcr-with-offset">D2: Model for Gas Costs in MCR with Offset</a></h3>
-<p><strong>User Journey</strong>: A researcher or protocol implementer can understand the game theory of gas costs in MCR with offsetting.</p>
-<p><strong>Justification</strong>: Naive proposals suggest simply offsetting the gas cost by rewarding the last attester transparently. Provide a model which demonstrates the game theory of this.</p>
+<p><strong>User Journey</strong>: A researcher or protocol implementer can understand the game theory of gas costs in MCR <strong>with</strong> cost offsetting.</p>
+<p><strong>Justification</strong>: Naive proposals suggest offsetting the gas cost by rewarding the last attester transparently can alleviate some of the issue. Provide a model which demonstrates the game theory of this.</p>
 <h3 id="d3-models-for-information-incomplete-gas-cost-offset"><a class="header" href="#d3-models-for-information-incomplete-gas-cost-offset">D3: Models for Information Incomplete Gas Cost Offset</a></h3>
 <p><strong>User Journey</strong>: A researcher or protocol implementer can understand the game theory of gas costs in MCR with incomplete information.</p>
 <p><strong>Justification</strong>: Information incompleteness may improve the game theory of offsetting gas costs. Provide models which demonstrate this for incompleteness derived from (1) general network latency, (2) a round-robin rewarding scheme, and (3) a Pedersen Commitment scheme.</p>
