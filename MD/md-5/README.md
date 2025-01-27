@@ -1,10 +1,10 @@
-# MD-4: Long Range Attacks
+# MD-5: MCR - Long Range Attacks
 - **Description**: Provide models for the game theory of long-range attacks in MCR.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 
 
 ## Overview
-Long-range attacks are an inherent vulnerability to PoS networks and a subject of prescient research. We request that the relevance of these attacks to MCR be formally modeled and considered. 
+Long-range attacks are an inherent vulnerability to PoS networks. We request that the relevance of these attacks to MCR be formally modeled and considered. 
 
 ### Introduction
 
