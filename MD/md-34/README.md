@@ -1,18 +1,13 @@
 # MD-34: Fast Finality Settlement
+
 - **Description**: Fast Finality Settlement mechanism requirements.
-- **Authors**: [Andreas Penzkofer]()
+- **Authors**: Andreas Penzkofer
 
 ## Overview
 
 ## Abstract
 
 We require a mechanism to confirm the validity of transactions on L2. This mechanism should provide fast confirmations with crypto-economic security on L2. Moreover, it should also provide confirmations that leverage the economic security from L1 (this may be slower).
-
-<!--
-  Provide a brief, high-level overview of the desiderata. This section should illuminate the unified objective of the desired elements, functionalities, or features. More granular specifications should be provided below.
-
-  TODO: Remove this comment before finalizing.
--->
 
 ## Desiderata
 
@@ -50,7 +45,7 @@ We require a mechanism to confirm the validity of transactions on L2. This mecha
 
 ### D5: Communication of Fastconfirmation Certificates
 
-**User Journey**: Validators can communicate fascconfirmation certificates to users.
+**User Journey**: Validators can communicate Fastconfirmation certificates to users.
 
 **Description**: Validators communicate fastconfirmation certificates to users. The fastconfirmation certificates provide proof of the correctness of the L2Blocks.
 
@@ -62,4 +57,4 @@ We require a mechanism to confirm the validity of transactions on L2. This mecha
 
 **Description**: Postconfirmation and fastconfirmation must confirm the same L2Blocks. The superBlock confirmed by postconfirmation must contain the L2Blocks that are confirmed by fastconfirmations.
 
-## Errata
+## Changelog
