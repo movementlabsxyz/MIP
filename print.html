@@ -4918,29 +4918,6 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 </ul>
 <h2 id="overview-5"><a class="header" href="#overview-5">Overview</a></h2>
 <h2 id="desiderata-4"><a class="header" href="#desiderata-4">Desiderata</a></h2>
-<!--
-  List out the specific desiderata. Each entry should consist of:
-
-  1. Title: A concise name for the desideratum.
-  2. User Journey: A one or two-sentence statement focusing on the "user" (could be a human, machine, software, etc.) and their interaction or experience.
-  3. Description (optional): A more detailed explanation if needed.
-  4. Justification: The reasoning behind the desideratum. Why is it necessary or desired?
-  5. Recommendations (optional): Suggestions or guidance related to the desideratum.
-
-  Format as:
-
-  ### Desideratum Title
-
-  **User Journey**: [user] can [action].
-
-  **Description**: <More detailed explanation if needed (optional)>
-
-  **Justification**: <Why this is a significant or required desideratum>
-
-  **Recommendations**: <Any specific guidance or suggestions (optional)>
-
-  TODO: Remove this comment before finalizing.
--->
 <h3 id="d1-minimize-direct-access-to-bridge-keys-while-maintaining-use-1"><a class="header" href="#d1-minimize-direct-access-to-bridge-keys-while-maintaining-use-1">D1: Minimize Direct Access to Bridge Keys while Maintaining Use</a></h3>
 <p><strong>User Journey</strong>: Movement Labs Atomic Bridge Service Operators (MLABSO) can run the service with appropriate signing keys without direct access to said keys.</p>
 <p><strong>Justification</strong>: Without direct access to the keys, MLABSO are forced to use a more secure mechanism for signing messages which can be more easily secured audited such as an HSM or enclave.</p>
@@ -4950,18 +4927,6 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h3 id="d3-time-lock-key-usage-1"><a class="header" href="#d3-time-lock-key-usage-1">D3: Time-Lock Key Usage</a></h3>
 <p><strong>User Journey</strong>: MLABSO can only reliably replace software using a key in a time-locked manner.</p>
 <p><strong>Justification</strong>: The software using a given key may require updates or replacement. Time-locking can allow this to occur without diminishing the benefits of attestations.</p>
-<h2 id="errata-15"><a class="header" href="#errata-15">Errata</a></h2>
-<!--
-  Errata should be maintained after publication.
-
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the desiderata in which the error was identified.
-
-  TODO: Maintain this comment.
--->
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-4-long-range-attacks"><a class="header" href="#md-4-long-range-attacks">MD-4: Long Range Attacks</a></h1>
 <ul>
@@ -4990,7 +4955,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <h3 id="d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof"><a class="header" href="#d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof">D3: Evaluate the Opportunity for Stake-bleeding Long-range Attacks and Detection Thereof</a></h3>
 <p><strong>User Journey</strong>: A researcher or protocol implementer can understand how a stake-bleeding long-range attack could be executed and detected in MCR.</p>
 <p><strong>Justification</strong>: Stake-bleeding long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a stake-bleeding long-range attack could be executed and detected in MCR could enable us to derive preventative measures.</p>
-<h2 id="errata-16"><a class="header" href="#errata-16">Errata</a></h2>
+<h2 id="errata-15"><a class="header" href="#errata-15">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-4-mcr-offsetting-gas-costs"><a class="header" href="#md-4-mcr-offsetting-gas-costs">MD-4: MCR Offsetting Gas Costs</a></h1>
 <ul>
@@ -5037,7 +5002,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <h3 id="d3-models-for-information-incomplete-gas-cost-offset"><a class="header" href="#d3-models-for-information-incomplete-gas-cost-offset">D3: Models for Information Incomplete Gas Cost Offset</a></h3>
 <p><strong>User Journey</strong>: A researcher or protocol implementer can understand the game theory of gas costs in MCR with incomplete information.</p>
 <p><strong>Justification</strong>: Information incompleteness may improve the game theory of offsetting gas costs. Provide models which demonstrate this for incompleteness derived from (1) general network latency, (2) a round-robin rewarding scheme, and (3) a Pedersen Commitment scheme.</p>
-<h2 id="errata-17"><a class="header" href="#errata-17">Errata</a></h2>
+<h2 id="errata-16"><a class="header" href="#errata-16">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5114,7 +5079,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <li>This would be a highly experimental feature and should be researched and implemented with caution.</li>
 <li>Deterministic transaction and block ordering should cover most of the cases of unfairness. These are discussed in <a href="Review/l-monninger/block-validation/MD/md-6/../md-7/README.html">MD-7</a>. However, in theory you could also slash on conditions like including too many transactions from one user, sending too many blocks at a given time, sending too few blocks at a given time, sending blocks of unequal size when transactions are available, etc.</li>
 </ul>
-<h2 id="errata-18"><a class="header" href="#errata-18">Errata</a></h2>
+<h2 id="errata-17"><a class="header" href="#errata-17">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5189,7 +5154,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 </ol>
 </li>
 </ul>
-<h2 id="errata-19"><a class="header" href="#errata-19">Errata</a></h2>
+<h2 id="errata-18"><a class="header" href="#errata-18">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5232,7 +5197,7 @@ that is deployed on the node by the operator in a timely fashion, to read blobs 
 in the future. Migrations should be performed on the live chain so that
 by the designated height, all sequenced transaction data that has been submitted by compliant
 nodes is available on the DA in uniform format.</p>
-<h2 id="errata-20"><a class="header" href="#errata-20">Errata</a></h2>
+<h2 id="errata-19"><a class="header" href="#errata-19">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5313,7 +5278,7 @@ move_to(resource, BridgeConfig {
 block.eth_gas
 block.eth_priority_gas
 </code></pre>
-<h2 id="errata-21"><a class="header" href="#errata-21">Errata</a></h2>
+<h2 id="errata-20"><a class="header" href="#errata-20">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-21-native-bridge-with-attesters"><a class="header" href="#md-21-native-bridge-with-attesters">MD-21: Native Bridge with Attesters</a></h1>
 <ul>
@@ -5419,7 +5384,7 @@ The challenge is to make sure that the signature is only used once so no transac
 </li>
 </ol>
 <p>This process is bi-directional, allowing funds to be bridged between Layer 1 and Layer 2, and vice versa, with minimal complexity and friction.</p>
-<h2 id="errata-22"><a class="header" href="#errata-22">Errata</a></h2>
+<h2 id="errata-21"><a class="header" href="#errata-21">Errata</a></h2>
 <h2 id="appendix-24"><a class="header" href="#appendix-24">Appendix</a></h2>
 <ul>
 <li>[R1] USDC Cross-Chain Transfer Protocol: https://www.circle.com/en/cross-chain-transfer-protocol</li>
@@ -5488,7 +5453,7 @@ The challenge is to make sure that the signature is only used once so no transac
 <p>We will need the address for this job allowlisted to use the Suzuka testnet faucet.</p>
 <p><strong>Reference Implementation</strong>:</p>
 <p><a href="https://github.com/movementlabsxyz/movement/pull/726/"><code>movement</code> PR 726</a></p>
-<h2 id="errata-23"><a class="header" href="#errata-23">Errata</a></h2>
+<h2 id="errata-22"><a class="header" href="#errata-22">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5679,7 +5644,7 @@ struct Trade {
 <h3 id="d6-compare-fastconfirmations-with-postconfirmation"><a class="header" href="#d6-compare-fastconfirmations-with-postconfirmation">D6: Compare Fastconfirmations with Postconfirmation</a></h3>
 <p><strong>User Journey</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks.</p>
 <p><strong>Description</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks. The superBlock confirmed by postconfirmation must contain the L2Blocks that are confirmed by fastconfirmations.</p>
-<h2 id="errata-24"><a class="header" href="#errata-24">Errata</a></h2>
+<h2 id="errata-23"><a class="header" href="#errata-23">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs"><a class="header" href="#md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></h1>
 <ul>
@@ -5715,7 +5680,7 @@ struct Trade {
 <h3 id="d5-provide-and-argument-agains-the-need-to-resolve-ab-ffs-fixed-supply-concerns"><a class="header" href="#d5-provide-and-argument-agains-the-need-to-resolve-ab-ffs-fixed-supply-concerns">D5: Provide and Argument Agains the Need to Resolve AB-FFS Fixed Supply Concerns</a></h3>
 <p><strong>User Journey</strong>: Developers, exchanges, and users can understand why the bridge can be assumed reasonably secure and inherent fallibility is within network security contraints given a set of assumptions.</p>
 <p><strong>Justification</strong>: We can argue, for example, that many other bridge services use a trusted signer and that said trusted signer is uncomprimised is a fundamental and acceptable assumption.</p>
-<h2 id="errata-25"><a class="header" href="#errata-25">Errata</a></h2>
+<h2 id="errata-24"><a class="header" href="#errata-24">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5786,7 +5751,7 @@ struct Trade {
 <h3 id="d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties"><a class="header" href="#d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties">D5: Specify How to Distribute Gas Fees to the Appropriate Parties</a></h3>
 <p><strong>User Journey</strong>: A network participant can understand how gas fees are distributed.</p>
 <p><strong>Justification</strong>: Gas fees must ultimately be used to pay extrinsic costs or else be considered as rewards. It is important to specify how gas fees are distributed to ensure that the system is fair and that the incentives for participation are aligned with the goals of the Movement Network.</p>
-<h2 id="errata-26"><a class="header" href="#errata-26">Errata</a></h2>
+<h2 id="errata-25"><a class="header" href="#errata-25">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5903,7 +5868,7 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 <p>The postconfirmation process is a synchronization mechanism for L2 to L1, see <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>.</p>
 <p>If the Relayer completes transfers from L2 to L1 without awaiting postconfirmation of the L2 <code>initiate</code> transaction, synchronization guarantees are reduced. The postconfirmation is an anchoring mechanism that binds the L2 to a certain L2 block height and hash, and hinders reorgs beyond a certain depth on L2.</p>
 <p>We need to check the implications for the Informer if the Relayer ignores postconfirmations.</p>
-<h2 id="errata-27"><a class="header" href="#errata-27">Errata</a></h2>
+<h2 id="errata-26"><a class="header" href="#errata-26">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-74-rate-limiter-for-the-lockmint-type-native-bridge"><a class="header" href="#md-74-rate-limiter-for-the-lockmint-type-native-bridge">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></h1>
 <ul>
@@ -5923,7 +5888,7 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 <h3 id="d3-define-the-rate-limiting-mechanism"><a class="header" href="#d3-define-the-rate-limiting-mechanism">D3: Define the rate-limiting mechanism</a></h3>
 <p><strong>User Journey</strong>: The developer should understand the rate-limiting mechanism.</p>
 <p><strong>Description</strong>: The rate-limiting mechanism should be defined in a way that it is clear how it works and how it can be adjusted. Moreover all components and their parameters should be defined. It should also be defined what is being rate-limited.</p>
-<h2 id="errata-28"><a class="header" href="#errata-28">Errata</a></h2>
+<h2 id="errata-27"><a class="header" href="#errata-27">Errata</a></h2>
 
                     </main>
 
