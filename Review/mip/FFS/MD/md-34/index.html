@@ -161,16 +161,11 @@
 <h1 id="md-34-fast-finality-settlement"><a class="header" href="#md-34-fast-finality-settlement">MD-34: Fast Finality Settlement</a></h1>
 <ul>
 <li><strong>Description</strong>: Fast Finality Settlement mechanism requirements.</li>
-<li><strong>Authors</strong>: <a href="">Andreas Penzkofer</a></li>
+<li><strong>Authors</strong>: Andreas Penzkofer</li>
 </ul>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
 <p>We require a mechanism to confirm the validity of transactions on L2. This mechanism should provide fast confirmations with crypto-economic security on L2. Moreover, it should also provide confirmations that leverage the economic security from L1 (this may be slower).</p>
-<!--
-  Provide a brief, high-level overview of the desiderata. This section should illuminate the unified objective of the desired elements, functionalities, or features. More granular specifications should be provided below.
-
-  TODO: Remove this comment before finalizing.
--->
 <h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
 <h3 id="d1-postconfirmation"><a class="header" href="#d1-postconfirmation">D1: Postconfirmation</a></h3>
 <p><strong>User Journey</strong>: Validators can attest to the correctness of a sequence of L2Blocks (superBlocks) on L1.</p>
@@ -189,13 +184,13 @@
 <p><strong>Description</strong>: A staking mechanism is required on L2 for validators to stake assets, distribute rewards, and manage slashing for misbehavior.</p>
 <p><strong>Justification</strong>: A staking mechanism is necessary to incentivize validators to act honestly.</p>
 <h3 id="d5-communication-of-fastconfirmation-certificates"><a class="header" href="#d5-communication-of-fastconfirmation-certificates">D5: Communication of Fastconfirmation Certificates</a></h3>
-<p><strong>User Journey</strong>: Validators can communicate fascconfirmation certificates to users.</p>
+<p><strong>User Journey</strong>: Validators can communicate Fastconfirmation certificates to users.</p>
 <p><strong>Description</strong>: Validators communicate fastconfirmation certificates to users. The fastconfirmation certificates provide proof of the correctness of the L2Blocks.</p>
 <p><strong>Justification</strong>: The users need to know that the L2Blocks are correct.</p>
 <h3 id="d6-compare-fastconfirmations-with-postconfirmation"><a class="header" href="#d6-compare-fastconfirmations-with-postconfirmation">D6: Compare Fastconfirmations with Postconfirmation</a></h3>
 <p><strong>User Journey</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks.</p>
 <p><strong>Description</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks. The superBlock confirmed by postconfirmation must contain the L2Blocks that are confirmed by fastconfirmations.</p>
-<h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 
                     </main>
 
