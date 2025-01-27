@@ -14,18 +14,20 @@ $U_{n}$ is the utility of any attester that is not last.
 
 $U_{l}$ is the utility of the last attester.
 
+$E [.] is the expectation value of a variable.$
+
 $E[G]$ is the expected gas cost modeled as a random variable $G$.
 
 $\delta(|\mathcal{V}|)$ is reward rate determined by the number of validators in the set $\mathcal{V}$.
 
-Note that $G \not\!\perp\!\!\!\perp \delta(|\mathcal{V}|)$, as the gas cost is a function of the number of validators in the set. This will be addressed in later sections.
+Note that $G \not\!\perp\!\!\!\perp \delta(|\mathcal{V}|)$, i.e. $G$ is not independent on \delta(|\mathcal{V}|)$, as the gas cost is a function of the number of validators in the set. This will be addressed in later sections.
 
 For an attester with complete information not to attempt to be last, $E[U_{n}] > E[U_{l}]$ which would imply that the $\delta(|\mathcal{V}|) < g(|\mathcal{V}|)$ where $g$ the gas algebra applied be Ethereum. 
 
 ## Incomplete Information
-However, an attester would not have complete information about whether the would be last. In general, this is unknowable because of FLP impossibility.
+More realistically, an attester is unlikely to obtain complete information about whether she would be last. 
 
-To model this, we will say an attester can play two strategies $L$ and $N$ where $L$ is the strategy to be last and $N$ is the strategy to not be last. The utility of these strategies is given by...
+To model this, we will say an attester can play two strategies $L$ and $N$ where $L$ is the strategy to attempt to be last and $N$ is the strategy to avoid being last. The utility of these strategies is given by...
 
 ```math
 \begin{align}
@@ -33,11 +35,11 @@ To model this, we will say an attester can play two strategies $L$ and $N$ where
 & U_{L} = P[W = 0] U_{n} + P[W = 1] U_{l} + E[P_{L}] \\
 \end{align}
 ```
-$W$ is a random variable indicating whether the attester is last.
+$W$ is a binary random variable, with realization values 1 for the attester being last and 0 for not being last.
 
-$P_{N}$ is a random variable representing the price of attempting to commit as soon as possible. It can be implemented by the smart contract by giving greater rewards to those who commit earlier.
+$P_{N}$ is a random variable representing the price of attempting to commit as soon as possible. It can be implemented by considering that the commitment time is somewhat random under strategy $N$ (considering there are several actors utilizing strategy $N$), and by giving greater rewards to those who commit earlier. 
 
-$P_{L}$ is the price of the strategy $L$ which is the price of attempting to be last. It can fall under the same mechanism as the above, in which case its expectation can be computed over a narrower range of the same distribution as $P_{N}$.
+$P_{L}$ is a random variable, representing the price of the strategy $L$ which is the price of attempting to be last. It can fall under the same mechanism as the above, in which case its expectation can be computed over a narrower range of the same distribution as $P_{N}$.
 
 Under this model as long as $E[P_{N}] > E[P_{L}]$ the attester will choose the strategy $N$. Introspectively, this would be satisfied if $E[P_{N}] > \delta(|\mathcal{V}|)U_{o}$. 
 
