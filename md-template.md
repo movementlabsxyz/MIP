@@ -1,13 +1,18 @@
 # MD-\<number\>: \<Title\>
+
 - **Description**: A single sentence description summarizing the items in the desiderata.
 - **Authors**: [Author](mailto:author@email.com)
 
 <!--
+  READ MIP-0 BEFORE USING THIS TEMPLATE!
+
   This template is for drafting Desiderata. It ensures a structured representation of wishes, requirements, or needs related to the overarching objective mentioned in the title. After filling in the requisite fields, please delete these comments.
 
-  Note that an MD number will be assigned by an editor. When opening a pull request to submit your MD, please use an abbreviated title in the filename, `md-draft_title_abbrev.md`.
+  Note that an MD number will be assigned by an editor. When opening a pull request to submit your MD, please use an abbreviated title in the filename, `README.md`.
 
   The title should be 44 characters or less. It should not repeat the MD number in title.
+
+  The author should add himself as a code owner in the `.github/CODEOWNERS` file for the MD.
 
   TODO: Remove this comment before finalizing.
 -->
@@ -46,15 +51,20 @@
   TODO: Remove this comment before finalizing.
 -->
 
-## Errata
+# Changelog
+
 <!--
-  Errata should be maintained after publication.
+  The changelog should be maintained after publication.
 
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
+  1. **Transparency and Clarity**: The changelog acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
 
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
+  2. **Accountability**: By noting changes openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
 
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the desiderata in which the error was identified.
+  Each changelog should briefly describe each change made, accompanied by a reference to the date, version and PR in which the change was implemented.
+
+  The format should be as follows:
+  - **YYYY-MM-DD**: Description of change. [PR#](link-to-PR)
 
   TODO: Maintain this comment.
+
 -->
