@@ -17,7 +17,7 @@ FFS is divided into
 We make a note for the following terms:
 
 **Batch** (not recommended)
-Less clean, but more common term for sequencer batch. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of L2Blocks (superBlocks) that should be processed for postconfirmations. Use with care.
+Less clean, but more common term for sequencer batch. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of L2Blocks (superBlocks) that should be processed for Postconfirmations. Use with care.
 
 **Attester** (not recommended)
 The term attester has been deprecated in favor of validator.
@@ -33,9 +33,9 @@ Validity and optimistic rollups can finalize transactions within approximately 3
 
 Our objective is to enable transaction issuers to quickly get some guarantees that their transactions are correctly and successfully included in a block. The crypto-economic security is provided by a Proof-of-Stake (PoS) protocol. This mechanism can be deployed independently for a chain, or used in combination with existing settlement mechanisms, such as ZK and optimistic settlements.
 
-As a result, users can rely and trust the **Fastconfirmation** (sometimes also described as L2-finality) to use as confirmation, or if the chain is configured to do so, wait for L1-finality, such as through **postconfirmation**, end of challenge window for fraud proofs (optimistic rollup), or verification of a ZK-proof (validity rollup).
+As a result, users can rely and trust the **Fastconfirmation** (sometimes also described as L2-finality) to use as confirmation, or if the chain is configured to do so, wait for L1-finality, such as through **Postconfirmation**, end of challenge window for fraud proofs (optimistic rollup), or verification of a ZK-proof (validity rollup).
 
-A introduction to FFS can be found in [this blog post on Fast Finality Settlement](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement). A more detailed description of a (partial) implementation of the mechanism is available at [this blog post on postconfirmations](https://blog.movementlabs.xyz/article/postconfirmations-L2s-rollups-blockchain-movement).
+A introduction to FFS can be found in [this blog post on Fast Finality Settlement](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement). A more detailed description of a (partial) implementation of the mechanism is available at [this blog post on Postconfirmations](https://blog.movementlabs.xyz/article/Postconfirmations-L2s-rollups-blockchain-movement).
 
 This MIP provides an overview of an architecture of FFS, and its main components.
 
@@ -76,7 +76,7 @@ The term _correct_ means that the successor block $B'$ (and the state it represe
 
 If the validators can attest blocks quickly and make their attestations available to third-parties, we have a fast confirmation mechanism supported by crypto-economic security, the  level of which depends on what is at stake for the confirmation of a block.
 
-**Postconfirmation**. At certain intervals confirmation will also be achieved on L1. The L1 contract will verify the satisfaction of the super-majority criteria. This provides an L1-protected _postconfirmation_ that the block (or a batch of blocks, which we call _block range_) is confirmed. This additional anchoring mechanism increases the security of the Fastconfirmation as it locks in the Fastconfirmation, reduces the risk of long range attacks and provides a way to slash validators that have attested for invalid blocks.
+**Postconfirmation**. At certain intervals confirmation will also be achieved on L1. The L1 contract will verify the satisfaction of the super-majority criteria. This provides an L1-protected _Postconfirmation_ that the block (or a batch of blocks, which we call _block range_) is confirmed. This additional anchoring mechanism increases the security of the Fastconfirmation as it locks in the Fastconfirmation, reduces the risk of long range attacks and provides a way to slash validators that have attested for invalid blocks.
 
 **Slashing**. The security of the mechanism relies on a PoS protocol. Each validator has to stake some assets, and if they are malicious they _should_ be slashed.
 The condition for slashing may be met by several criteria, and not all slashing conditions may be used:
@@ -94,27 +94,27 @@ To achieve crypto-economically secured fast finality, we need to solve the follo
 **Postconfirmation**
 
 1. design a _staking_ mechanism for the validators to stake assets, distribute rewards and manage slashing
-1. _define and verify_ the threshold (e.g. 2/3 of validators attest)  for postconfirmation.
+1. _define and verify_ the threshold (e.g. 2/3 of validators attest)  for Postconfirmation.
 
 **Fastconfirmation**
 
 3. design a _staking_ mechanism for the validators to stake assets, distribute rewards and manage slashing
 1. _define and verify_ the threshold (e.g. 2/3 of validators attest) for Fastconfirmation.
-1. _communicate_ the Fastconfirmation status and compare to the postconfirmation status.
+1. _communicate_ the Fastconfirmation status and compare to the Postconfirmation status.
 
 ### Components
 
-#### Staking for postconfirmations (addresses 1.)
+#### Staking for Postconfirmations (addresses 1.)
 
-For postconfirmation a staking mechanism is implemented in a contract on L1.
+For Postconfirmation a staking mechanism is implemented in a contract on L1.
 This contract provides the following functionalities:
 
 - join: a new validator can join the set of validators by staking some assets
 - exit: a validator exits and  get their stakes back
 
-#### Handle postconfirmations (addresses 2.)
+#### Handle Postconfirmations (addresses 2.)
 
-For postconfirmation, the following steps are implemented in a contract on L1:
+For Postconfirmation, the following steps are implemented in a contract on L1:
 
 - vote: receive a vote or a set of votes, verify the integrity of the votes (signatures) and the minimum threshold (e.g. 2/3)
 - confirm: once the threshold is reached, confirm the block (or sequence of blocks) on L1
@@ -137,7 +137,7 @@ For Fastconfirmation, the following steps are implemented in a contract on L2:
 
 #### Communication of Fastconfirmation status (addresses 5.)
 
-This step synchronizes the Fastconfirmation with the postconfirmation. The postconfirmation is the final confirmation of the block on L1, and the Fastconfirmation is the fast confirmation of the block on L2.
+This step synchronizes the Fastconfirmation with the Postconfirmation. The Postconfirmation is the final confirmation of the block on L1, and the Fastconfirmation is the fast confirmation of the block on L2.
 
 To ensure that the Fastconfirmation status is made available to third-parties, we may publish our _proof_  (2/3 of attestations) to a data availability layer and get a _certificate_ that the proof is available.  
 This DA layer should offer a reliable _mempool_ for example as described [in this paper](https://arxiv.org/pdf/2105.11827).
@@ -146,13 +146,13 @@ This DA layer should offer a reliable _mempool_ for example as described [in thi
 
 To simplify we assume that each validator stakes the same amount. The set of validators is in charge of validating sequenced batches and producing blocks that also commit to the state root of the sequenced batch.
 
-There may be different protocols for the postconfirmation and the Fastconfirmation.
+There may be different protocols for the Postconfirmation and the Fastconfirmation.
 
 #### Postconfirmation with deterministic blocks
 
 L2Blocks are deterministically derived from the protoBlock, and consequently the superBlock $B_r'$ is deterministic. Validators then attest for the next transition directly:  $B_r \xrightarrow{\ txs \ } B_r'$. E.g. by committing to the the hash of $B_r'$.
 
-An additional actor - the `acceptor` - is introduced that initiates the postconfirmation process. This is necessary, as this step requires additional gas costs on L1 and thus this role requires additional rewards. We also don't want to burden regular validators with additional gas costs, as we would like the gas costs for validators to be predictable. The `acceptor` serves for a specified period and is then replaced by another validator.
+An additional actor - the `acceptor` - is introduced that initiates the Postconfirmation process. This is necessary, as this step requires additional gas costs on L1 and thus this role requires additional rewards. We also don't want to burden regular validators with additional gas costs, as we would like the gas costs for validators to be predictable. The `acceptor` serves for a specified period and is then replaced by another validator.
 
 > [!NOTE]
 > Since the block derivation is deterministic, $f+1$ may be sufficient to confirm the block. (However, we require $2f+1$ to cover potential edge cases, such as that the sequencer cannot be trusted.)
@@ -161,14 +161,14 @@ An additional actor - the `acceptor` - is introduced that initiates the postconf
 
 **Acceptor collects commitments**. In a more optimized scenario, the acceptor could also send the super-majority proof to the L1 contract.
 
-![Diagram 2](postconfirmationV2.png)
+![Diagram 2](PostconfirmationV2.png)
 *Figure 2: **Postconfirmation**: Leader-independent (deterministic) L2Block generation process.*
 
 #### Fastconfirmation with deterministic blocks
 
 A p2p layer is established between validators. Validators communicate to aggregate a threshold of votes on each deterministically determined L2Block. This provides Fastconfirmations in the order of seconds.
 
-Since this approach already collects commitments off-L1, an acceptor could collect commitments and send the super-majority proof to the L1 contract. This would provide postconfirmations in the order of minutes.
+Since this approach already collects commitments off-L1, an acceptor could collect commitments and send the super-majority proof to the L1 contract. This would provide Postconfirmations in the order of minutes.
 
 ![Diagram 3](fullDesign.png)
 *Figure 3: **Postconfirmation + Fastconfirmation**: Leader-independent (deterministic) L2Block generation process. Validators co-operate to create a Fastconfirmation certificate before L1 is involved.*
@@ -177,11 +177,11 @@ Since this approach already collects commitments off-L1, an acceptor could colle
 
 A leader validator is elected for a certain interval. The leader proposes the next transition (superBlock $B_r'$):  $B_r \xrightarrow{\ txs \ } B_r'$. The leader can do so by sending a digest of $txs$ (Merkle root) and a digest of $B_r'$ (Merkle root hash of $B_r'$), or a _change set_. The leader commits on L1 to $B_r'$. Every validator checks the validity of $B_r'$ and prepares a vote message.
 
-**Direct L1 commitments**. The vote messages of each validator are directly sent to the L1 contract. Once enough votes are available on L1, the leader initiates the postconfirmation process.
+**Direct L1 commitments**. The vote messages of each validator are directly sent to the L1 contract. Once enough votes are available on L1, the leader initiates the Postconfirmation process.
 
-**Leader collects votes**. The vote messages of each validator are directly sent to the L1 contract. Once the votes reach the required threshold for $B_r'$, the leader initiates the postconfirmation process with the proof of the votes.
+**Leader collects votes**. The vote messages of each validator are directly sent to the L1 contract. Once the votes reach the required threshold for $B_r'$, the leader initiates the Postconfirmation process with the proof of the votes.
 
-![Version A Diagram](postconfirmationV1.png)
+![Version A Diagram](PostconfirmationV1.png)
 _Figure 1: **Postconfirmation**: Leader-dependent L2Block generation process._
 
 ## Verification
