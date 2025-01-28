@@ -1,4 +1,5 @@
 # MIP-52: Aptos Gas Pool
+
 - **Description**: Introduces implementation specification for the Gas Pool in Aptos. 
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
@@ -30,14 +31,15 @@ The custom rewards collection approach replaces Aptos' experimental `transaction
 Coin burning logic can be kept in place and a similar features-based approach can be used to determine ensure the `transaction_fee::collect_fee` approach is used.
 
 ### Burn Replacement
+
 The burn replacement approach replaces the `coin::burn_from` call in `transaction_fee::burn_fee` with a `coin::transfer_from` call to the Gas Pool.
 
 ## Verification
+
 **Outstanding**:
 - Verify that the AptosVM does not validate burns. Otherwise, there may be logic outside of the framework `epilogue_gas_payer` path which needs to be updated. 
 - Identify any sponsorship or other gas payment mechanisms which may need to be updated to use the Gas Pool.
 
-## Errata
-
+## Changelog
 
 ## Appendix
