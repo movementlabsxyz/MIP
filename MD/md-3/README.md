@@ -1,4 +1,4 @@
-# MD-3: MCR under Network Partitions and Asynchrony
+# MD-3: MCR : Network Partitions and Asynchrony
 
 - **Description**: Provide a model for MCR and suggest a mechanism for handling network partitions and asynchrony.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
