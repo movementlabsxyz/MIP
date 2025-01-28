@@ -14,26 +14,6 @@ For more complex MIPs, or MIPs which have implementations specific to various so
 
 ## Specification
 
-
-
-## Abstract
-
-<!--
-  The Abstract is a multi-sentence (short paragraph) technical summary. This should be a very terse and human-readable version of the specification section. Someone should be able to read only the abstract to get the gist of what this specification does.
-
-  TODO: Remove this comment before finalizing.
--->
-
-## Motivation
-
-<!--
-  The motivation section should include a description of any nontrivial problems the MIP solves. It should not describe how the MIP solves those problems.
-
-  TODO: Remove this comment before finalizing.
--->
-
-## Specification
-
 To create a child MIP:
 
 1. Create a folder within the directory of an MIP. That MIP will be the "parent MIP" for the child MIP.
@@ -68,6 +48,3 @@ The verification of this MIP depends on the opinions of the MIP committee to eva
 ## Copyright
 
 Copyright and related rights waived via [CC0](../LICENSE.md).
-
-
-
