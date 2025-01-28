@@ -18,4 +18,4 @@ Provide formal structure for parent-child MIPs. For more complicated MIPs, or MI
 
 **User Journey**: Proposer/Researcher can adhere to a standardized template for substantial, detailed subsections of MIPs which warrant being categorized as their own related child MIP.
 
-**Justification**: The file organization must be consistent. 
+**Justification**: The file organization and naming must be consistent, so there should be a formal convention. 
