@@ -1,9 +1,9 @@
 # Asynchronous Upgrades, Fork Creation, and Fork Stake Problems
 The _Asynchronous Upgrades Problem_ is an issue with the current implementation of MCR that arises when a partition of the network upgrades to a new version of the protocol while another partition remains on the old version. This can lead to failure to agree upon the current block height and currently would require the deployment of a new settlement contract to resolve. 
 
-This state of MCR can arise in other contexts than upgrades. The use of the upgrade scenario is merely illustrative and used for naming. 
+This state of MCR can arise in other contexts than upgrades. The use of the upgrade scenario is merely illustrative. 
 
-It is resolvable by allowing network forks in a partial synchronous manner. However, this leads to a series of questions of when rewards and penalties should be applied to commitments on these forks. These questions are the crux of the Fork Creation and Fork Stake Problem.
+It is resolvable by allowing network forks in a partial synchronous manner. However, this leads to a series of questions of when rewards and penalties should be applied to commitments on these forks. These questions are the crux of the [Fork Creation Problem](#fork-creation-problem) and [Fork Stake Problem](#fork-stake-problem).
 
 The conclusion drawn from the Fork Creation Problem is that penalties for creating a new fork cannot be implemented synchronously with the block commitments constituting that fork as well. 
 
@@ -17,16 +17,16 @@ Because a fixed proportion of the stake is needed to agree on the current block 
 The network may be able to provisionally agree on $h\' > h$ within the block tolerance $\tau$ of the network. However, these agreements are never realized because $h$ remains undecided. 
 
 ## Solving the Problem with Partially Synchronous Forks
-The Asynchronous Upgrades Problem can be resolved by allowing the network to fork in a partially synchronous manner. That is, the network can agree at a defined point in time $t_{h - 1} + \epsilon$ to fork into two chains w.l.o.g., one with state derivation $S_A(h)$ and the other with state derivation $S_B(h)$.
+The Asynchronous Upgrades Problem can be resolved by allowing the network to fork in a partially synchronous manner. That is, the network can agree at a defined point in time $t_{h - 1} + \epsilon$ to fork into two chains w/o loss of generality, one with state derivation $S_A(h)$ and the other with state derivation $S_B(h)$.
 
-Within the current epoch, stake weights would then be split between the two chains, Fork A and Fork B, w.l.o.g. based on the votes represented at the fork point at the time of splitting. In other words, the votes are deemed unanimous at the fork point.
+Within the current epoch, stake weights would then be split between the two chains, Fork A and Fork B, w/o loss of generality based on the votes represented at the fork point at the time of splitting. In other words, the votes are deemed unanimous at the fork point.
 
 In the literal case of an upgrade, the Partition B may then rejoin its stake in Partition A in the next epoch. This effectively means, however, that Partition B would not have any stake-based incentive to complete its upgrade, instead preferring to continue to commit to the fork it created until the next epoch.
 
 In the event a long-lived fork is intended by Partition B, MCR will have provided a usable means to facilitate this fork. 
 
 ## Fork Creation Problem
-Assume towards definition of the problem that rewards issued on Fork B are non-zero in perpetuity and that slashing only occurs at the fork point owing to the initial disagreement. 
+Assume rewards issued on Fork B are non-zero and continue to be meaningful and that slashing only occurs at the fork point owing to the initial disagreement. 
 
 **Rationale**: for a continued Fork B to be rational for Partition B, we state that 
 
@@ -38,7 +38,7 @@ That is, the utility of the state represented by Fork B $U_{B, s}$ plus the disc
 
 **Positive Rewards for Fork B**: since rewards on Fork B are non-zero and Partition B is in agreement with Fork B, it follows that $\frac{U_{B, r}}{1 - \gamma} > 0$
 
-**Initial Penalty for Fork B**: because there was an initial disagreement at the fork point leading to a slash of Partition B's stake, it follows that $U_{B, p} < 0$
+**Initial Penalty for Fork B**: because there was an initial disagreement at the fork point leading to a slashing of Partition B's stake, it follows that $U_{B, p} < 0$
 
 **Should Partition B Recover**: we assume Partition B disagrees with Fork A and should not recover, it follows tautologically that $\frac{U_{A, r}}{1 - \gamma} < 0$. 
 
