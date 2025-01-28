@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MIP-50: Insured Bridge - MIP</title>
+        <title>MIP-52: Aptos Gas Pool - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -158,40 +158,49 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="mip-50-insured-bridge"><a class="header" href="#mip-50-insured-bridge">MIP-50: Insured Bridge</a></h1>
+<h1 id="mip-52-aptos-gas-pool"><a class="header" href="#mip-52-aptos-gas-pool">MIP-52: Aptos Gas Pool</a></h1>
 <ul>
-<li><strong>Description</strong>: Introduces an Insurance Fund for the bridge which can be used to cover losses.</li>
+<li><strong>Description</strong>: Introduces implementation specification for the Gas Pool in Aptos.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
-<li><strong>Reviewer</strong>: <a href="mailto:andreas.penzkofer@movementlabs.xyz">Andreas Penzkofer</a></li>
-<li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/pull/38">MD-38</a></li>
+<li><strong>Reviewer</strong>: Andreas Penzkofer</li>
+<li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/pulls">MD-38</a></li>
 </ul>
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
-<p>This MIP introduces an Insurance Fund for the bridge which can be used to cover losses. The Insurance Fund will be used to cover losses in the event of a hack or other catastrophic event and can insure a fixed supply of token is maintained.</p>
+<p>We propose a means of implementing a Gas Pool in Aptos to satisfy the token recirculation requirements indicated in <a href="https://github.com/movementlabsxyz/MIP/pulls">MD-38</a>. This solution will allow for gas used to be stored in the pool. The re-use of said gas is not a subject of this MIP. However, <a href="https://github.com/movementlabsxyz/MIP/pull/44">MIP-44</a>, <a href="https://github.com/movementlabsxyz/MIP/pull/41">MIP-41</a>, et al.  provide suggestions to this end.</p>
 <h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
-<p><a href="https://github.com/movementlabsxyz/MIP/pull/38">MD-38</a> requests provisions for use of AB-FFS that enable a fixed supply of token. This MIP introduces an Insurance Fund for the bridge which can be used to cover losses. The Insurance Fund will be used to cover losses in the event of a hack or other catastrophic event and can insure a fixed supply of token is maintained.</p>
+<p>The introduction of a Gas Pool in Aptos will allow for the recirculation of gas used in the Aptos ecosystem. This ensures the supply can remain fixed and the gas can be re-used for purposes such as rewarding.</p>
 <h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
-<p><img src="./insured-bridge.png" alt="Insured Bridge" /></p>
-<ol>
-<li>The Insurance Fund MUST store a supply of token greater than the sum of all transfer value which can flow over the bridge between during the Risk Period.</li>
-<li>The Risk Period MUST reflect the time it takes for an informer to recognize the loss between the two chains and the time it takes for the Insurance Fund Governor to trigger the Insurance Fund to burn token.</li>
-<li>The Insurance Fund Governor MUST trigger the Insurance Fund to burn token in proportion to the surplus of value recorded between the two chains.</li>
-<li>An Informer SHALL be expected to report to the Insurance Fund Governor that the circulation exceeds the supply of token.</li>
-<li>The Insurance Fund Governor MUST account for some error on the value that is recorded on L1 and L2 by the informer. More specifically, due to the asynchrony of the bridge transfer steps as well the asynchrony in finality between L1 and L2, total circulating supply could and will vary at times, within some bounds.</li>
-<li>The Bridge Pool Governor SHALL be expected to purchase token from the market to recover the loss and replenish the Insurance Fund.</li>
-</ol>
+<p>Aptos pays gas in the <a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/aptos-vm/src/transaction_validation.rs#L194">epilogue</a> of a transaction <a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/aptos-vm/src/transaction_validation.rs#L34">dispatching</a> to <a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/transaction_validation.move#L274"><code>epilogue_gas_payer</code></a>. Depending on the <a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/transaction_validation.move#L305">validator reward setting</a>, <a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/transaction_validation.move#L274"><code>epilogue_gas_payer</code></a> will either call <code>transaction_fee::collect_fee</code> or <code>transaction_fee::burn_fee</code>.</p>
+<p>At the time of writing the <code>transaction_fee::collect_fee</code> path is still experimental.</p>
+<p><a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/transaction_fee.move#L218"><code>transaction_fee::burn_fee</code></a> internally calls <a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/transaction_fee.move#L229C17-L233C19"><code>coin::burn_from</code></a> which can be replaced with a transfer.</p>
+<p>We thus suggest two paths to implement the Gas Pool in Aptos:</p>
+<ul>
+<li><strong>Custom Rewards Collection</strong></li>
+<li><strong>Burn Replacement</strong></li>
+</ul>
+<h3 id="custom-rewards-collection"><a class="header" href="#custom-rewards-collection">Custom Rewards Collection</a></h3>
+<p>The custom rewards collection approach replaces Aptos’ experimental <code>transaction_fee::collect_fee</code> with a custom rewards collection mechanism. This mechanism calls <code>coin::transfer_from</code> to move the gas to the Gas Pool at a known address.</p>
+<p>Coin burning logic can be kept in place and a similar features-based approach can be used to determine ensure the <code>transaction_fee::collect_fee</code> approach is used.</p>
+<h3 id="burn-replacement"><a class="header" href="#burn-replacement">Burn Replacement</a></h3>
+<p>The burn replacement approach replaces the <code>coin::burn_from</code> call in <code>transaction_fee::burn_fee</code> with a <code>coin::transfer_from</code> call to the Gas Pool.</p>
 <h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
-<h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
+<p><strong>Outstanding</strong>:</p>
+<ul>
+<li>Verify that the AptosVM does not validate burns. Otherwise, there may be logic outside of the framework <code>epilogue_gas_payer</code> path which needs to be updated.</li>
+<li>Identify any sponsorship or other gas payment mechanisms which may need to be updated to use the Gas Pool.</li>
+</ul>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 <h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../../../Review/l-monninger/just-reward/MIP/mip-49/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../../../Review/l-monninger/insured-bridge/MIP/mip-50/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../../../Review/l-monninger/aptos-gas-pool/MIP/mip-52/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../../../Review/l-monninger/the-biarritz-model/MIP/mip-54/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -201,11 +210,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../../../Review/l-monninger/just-reward/MIP/mip-49/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../../../Review/l-monninger/insured-bridge/MIP/mip-50/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../../../Review/l-monninger/aptos-gas-pool/MIP/mip-52/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../../../Review/l-monninger/the-biarritz-model/MIP/mip-54/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
