@@ -6,7 +6,7 @@
 ## Overview
 MCR provides a stake-based settlement mechanism used in Movement Lab's Suzuka Network. In it's current form, it does not take any steps to account for network partitions or, more generally, asynchrony.
 
-Henceforth, we will simply refer to network partitions, as all forms of asynchrony with which we are concerned can be modeled as such. Even if a node is not technically offline, the remainder of this disiderata will be concerned with the case in which it is not able to commit meaningfully to the current block height.
+In this document, we will only consider network partitions, as all forms of asynchrony with which we are concerned can be modeled as such. For example, a node that is not technically offline but that cannot commit to the current block height, could just be exposed to asynchronous delays. However we can model this by assuming a partition.
 
 ### Example
 
