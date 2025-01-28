@@ -9,7 +9,7 @@ on:
       - '*'
 
 env:
-  MIPBOOK_VERSION: 0.4.40
+  MIPBOOK_VERSION: 0.4.43
 
 jobs:
   build:
