@@ -4,6 +4,7 @@
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 
 ## Overview
+
 MCR is an implementation of the Postconfirmation protocol [MIP-37](https://github.com/movementlabsxyz/MIP/blob/mip/MCR/MIP/mip-37/README.md), which is a stake-based settlement protocol on L1.
 
 In it's current form, it does not take any steps to account for network partitions or, more generally, asynchrony.
@@ -23,8 +24,13 @@ These and other phenomena are listed in the desiderata below.
 
 ## Desiderata
 
+### D0: Assess usefulness of network partitions for delays
 
-### D1: Model Absent Commitments
+**User Journey**: A researcher or protocol implementer can understand the usefulness of modeling delays through network partitions.
+
+**Justification**: Network partitions are a useful model for delays in the network. This is because they can be used to model a variety of asynchrony problems, such as DOS-attacks, network upgrades, and other forms of asynchrony.
+
+### D2: Model Absent Commitments
 
 **User Journey**: A researcher or protocol implementer can refer to a formal model for network partitions in MCR, ultimately deriving from it the logic necessary to implement slashing and rewarding.
 
@@ -35,7 +41,7 @@ These and other phenomena are listed in the desiderata below.
 - Model the value of a node's commitment or absenteeism to the available voting options. This could then be adapted into a more complex model with shifting preferences.
 - Model byzantine attack vectors such as DOS-attacks on honest participants.
 
-### D2: Research and Design for Commitment Tolerance Window
+### D3: Research and Design for Commitment Tolerance Window
 
 It has been proposed that a tolerance window to commitment arrivals would soften the impact of delays.
 
@@ -50,7 +56,7 @@ Consider the following parameters for the commitment tolerance window:
 - Reward decay: a function describing the diminishing returns of rewards later in the window.
 - Penalty decay: a function describing the increasing returns of penalties later in the window.
 
-### D3: Address Asynchronous Upgrades, Fork Creation, and Fork Stake Problems
+### D4: Address Asynchronous Upgrades, Fork Creation, and Fork Stake Problems
 
 **User Journey**: A researcher or protocol implementer can understand the [Asynchronous Upgrades, Fork Creation, and Fork Stake Problems](./asychronous-upgrades-problem.md) and how they are addressed in MCR.
 
