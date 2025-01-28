@@ -30,4 +30,7 @@ In this example, the parent MIP is `pmip-8`.
 
 The two child MIPs are `pmip-8.1` and `pmip-8.2`, with their `README`s located in child directories named after their respecxtive MIP names.
 
+In above example, the parent and child MIPs are all be submitted as part of the same PR (PR #8 for the PMIP repository). Future child PMIPs COULD use that same number regardless of their PR number.
+
 Other structures MAY also be suitable. Regardless of the specific structure, a universal standard SHOULD be adopted for greater standardization of MIPs.
+
