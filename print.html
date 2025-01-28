@@ -4784,19 +4784,6 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h2 id="motivation-29"><a class="header" href="#motivation-29">Motivation</a></h2>
 <p>For more complex MIPs, or MIPs which have implementations specific to various software stacks, infrastructure providers, etc., it can makes sense for the sake of organization to have child MIPs to add specific details, rather than making the parent MIP too verbose or cluttered.</p>
 <h2 id="specification-28"><a class="header" href="#specification-28">Specification</a></h2>
-<h2 id="abstract-30"><a class="header" href="#abstract-30">Abstract</a></h2>
-<!--
-  The Abstract is a multi-sentence (short paragraph) technical summary. This should be a very terse and human-readable version of the specification section. Someone should be able to read only the abstract to get the gist of what this specification does.
-
-  TODO: Remove this comment before finalizing.
--->
-<h2 id="motivation-30"><a class="header" href="#motivation-30">Motivation</a></h2>
-<!--
-  The motivation section should include a description of any nontrivial problems the MIP solves. It should not describe how the MIP solves those problems.
-
-  TODO: Remove this comment before finalizing.
--->
-<h2 id="specification-29"><a class="header" href="#specification-29">Specification</a></h2>
 <p>To create a child MIP:</p>
 <ol>
 <li>Create a folder within the directory of an MIP. That MIP will be the “parent MIP” for the child MIP.</li>
@@ -4821,7 +4808,6 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h2 id="appendix-25"><a class="header" href="#appendix-25">Appendix</a></h2>
 <hr />
 <h2 id="copyright-14"><a class="header" href="#copyright-14">Copyright</a></h2>
-<p>Copyright and related rights waived via <a href="Review/andygolay/parent-child-mips-mip/MIP/mip-94/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-6"><a class="header" href="#welcome-to-the-movement-network-mip-book-6">Welcome to the Movement Network MIP Book</a></h1>
 <h2 id="approved-6"><a class="header" href="#approved-6">Approved</a></h2>
@@ -5245,7 +5231,7 @@ block.eth_priority_gas
 <li>Apply an attester based model to the native bridge.</li>
 <li>Supply a clear flow for the bridge mechanism.</li>
 </ol>
-<h3 id="motivation-31"><a class="header" href="#motivation-31">Motivation</a></h3>
+<h3 id="motivation-30"><a class="header" href="#motivation-30">Motivation</a></h3>
 <p>Our current bridge solution has been increasing in complexity with each iteration. Originally requiring three on-chain transactions, it now requires four, initiate bridge, lock, complete source chain, complete target chain. Additionally, the bridge does not currently support gas charging mechanisms to prevent exploits, and ongoing discussions are leaning toward adding further components, making it even more complex and computationally expensive.</p>
 <p>We believe the best approach is to draw from live implementations that have achieved a streamlined user experience with minimal cost to the user. One such example is USDC’s <a href="https://www.circle.com/en/cross-chain-transfer-protocol">CCTP</a>, which offers simplicity, security, and efficiency in cross-chain bridging. Instead of increasing the complexity of our current bridge design, we should aim to adopt more proven mechanisms.</p>
 <h2 id="desiderata-11"><a class="header" href="#desiderata-11">Desiderata</a></h2>
@@ -5564,7 +5550,7 @@ struct Trade {
 <li><strong>Authors</strong>: Andreas Penzkofer</li>
 </ul>
 <h2 id="overview-16"><a class="header" href="#overview-16">Overview</a></h2>
-<h2 id="abstract-31"><a class="header" href="#abstract-31">Abstract</a></h2>
+<h2 id="abstract-30"><a class="header" href="#abstract-30">Abstract</a></h2>
 <p>We require a mechanism to confirm the validity of transactions on L2. This mechanism should provide fast confirmations with crypto-economic security on L2. Moreover, it should also provide confirmations that leverage the economic security from L1 (this may be slower).</p>
 <h2 id="desiderata-14"><a class="header" href="#desiderata-14">Desiderata</a></h2>
 <h3 id="d1-postconfirmation"><a class="header" href="#d1-postconfirmation">D1: Postconfirmation</a></h3>
