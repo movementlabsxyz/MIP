@@ -4,7 +4,7 @@
 
 
 ## Overview
-MCR provides a stake-based settlement mechanism used in Movement Lab's Suzuka Network. In it's current form, it does not take any steps to account for network partitions or, more generally, asynchrony.
+MCR provides a Fast-Finality Settlement mechanism used in Movement Lab's Suzuka Network. In it's current form, it does not take any steps to account for network partitions or, more generally, asynchrony.
 
 In this document, we will only consider network partitions, as all forms of asynchrony with which we are concerned can be modeled as such. For example, a node that is not technically offline but that cannot commit to the current block height, could just be exposed to asynchronous delays. However we can model this by assuming a partition.
 
