@@ -1,109 +1,118 @@
+# MIP-\<number\>: use `aptos_governance` for Goverened Gas Pool
+- **Description**: ????
+- **Authors**: [Richard Melkonian](mailto:richard@movementlabs.xyz)
 
-# MIP, MD and MG
+## Abstract
 
-We differentiate between MD and MIPs.
+The Goverened Gas Pool design presented in [MIP-44](../mip-44/) is required to be subject to onchain governance by a governing body that holds the
+`$L2-MOVE` token. In [MIP-44] governance mechanisms and roles are proposed, such as `Proposers` and `Executors` so that the collected gas can be used 
+for the good of the network.
 
-An overview of the MIPs and MDs can be found in the [OVERVIEW](https://github.com/movementlabsxyz/MIP/wiki/Overview).
+The Governed Gas Pool may be used to provide liquidity for different network needs, such as L1 Reward Tokens, or to enable the "Trickle-back", where the `$L2-MOVE` would be paid 
+directly to attestors as `$L1-MOVE` for rewards. For all these activities a dispersal of funds is required, this MIP proposes concrete ways to manage dispersal events 
+in a safe immutable and secure manner. 
 
-In addition MG serves as a glossary for terms defined in the MIPs and MDs.
+To decide on how acrued `$L2-MOVE` in the Governed Gas Pool should be used, a robust and thorough implementation of governance should be proposed. 
 
-## Movement Desiderata (MD)
+## Motivation
 
-See [MD-0](./MD/md-0) to get started. A template is provided at [md-template](md-template.md).
+This MIP proposes an implementation of the governance mechanism proposed in [MIP-44] by using the `aptos_governance.move` module. We think this has several benefits. 
+1. `aptos_governance.move` is fully audited and battle tested.
+2. `aptos_governance.move` is currently in use on the Aptos Blockchain. 
+3. Using aptos governance prepares us for extendeding it and using it for future proposals to upgrade or migrate the network, this will be a fairly common necessity post-mainnet.
+4. It strenghtens the utility of `$L2-MOVE` as this becomes the governance token. 
 
-MDs serve to capture the **objectives** behind the **introduction** of a particular MIP. Any  
+## Specification
 
-- _wish_,
-- _requirement_, or
-- _need_
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
 
-related to MIPs should be documented as an MD and stored in the MD directory.
+##### 1. Fix the Potential Supply
 
-## Movement Improvement Proposal (MIP)
+As described in the [Abstract](#abstract), the sum of the token supply of `$L1MOVE` and `$L2MOVE` is equal to `MOVE_MAX`. Since the bridge is the sole point of creation (or release) of `$L2MOVE` token, the L2 contract MUST monitor the `$L2MOVE` supply. The L2 bridge contract MUST not release more `$L2MOVE` than the maximum supply `MOVE_MAX`.
 
-See [MIP-0](./MIP/mip-0) to get started. A template is provided at [mip-template](mip-template.md).
+##### 2. Native Bridge rate limitation
 
-### Deciding whether to propose
+The total amount of bridge transfers should be rate limited to $(X, T)$ where $X$ is the maximum transferable amount per time period $T$. I.e. the bridge should not allow more than $X$ total transaction value in any $T$ period.
 
-You **SHOULD** draft and submit an MIP, if any of the following are true:
+To not impact honest traffic heavily, a governance body MAY be overseeing, whether the `bridge_rate` SHOULD be increased temporarily and for what interval. However, such a mechanism impacts the security assumptions as this governance body also would have to adhere to stringent security requirements and a compromise of the governance body could effectively disable the rate limitation. Also the above mentioned Crypto-economic security guarantees do not hold any longer.
 
-- Governance for the relevant software unit or process requires an MIP.
-- The proposal is complex or fundamentally alters existing software units or processes.
 
-AND, you plan to do the work of fully specifying the proposal and shepherding it through the MIP review process.
+##### 3. Relayer key protection
 
-You **SHOULD NOT** draft an MIP, if any of the following are true:
+The relayer shall maximize security measurements to protect its keys. For example, it SHOULD implement a multi-signature scheme to sign its messages, as is proposed in [MIP-21](https://github.com/movementlabsxyz/MIP/pull/21). The owners of the constituent keys should be distinct entities with distinct access to their keys.
 
-- You only intend to request a change to software units or processes without overseeing specification and review.
-- The change is trivial. In the event that an MIP is required by governance, such trivial changes usually be handled as either errata or appendices of an existing MIP.
+[This article](https://medium.com/@j2abro/a-visual-guide-to-blockchain-bridge-security-e982fec671a7) describes some of the considerations that have to be taken into account:
 
-## Movement Glossary (MG)
+ **Multisigs**: 
+ > It’s likely that the bridge is controlled by one or more multisigs —wallets that require multiple individuals to sign before a transaction is executed. Multisigs add an element of security by ensuring that a single signer can’t control the bridge. Multisigs might be used to enable the bridge contracts to be upgraded or paused. While multisigs are an essential security control for bridges, they are not foolproof and require proper management. In fact multisigs have been targeted in some major bridge exploits.
 
-See [MG-0](./MIP/mg-0) to get started. A template is provided at [mg-template](mg-template.md).
+**Contract Exploits**: 
+> Multisigs are implemented as smart contracts and are thus potentially vulnerable to exploits. Many of the popular multisig contracts have been used to store billions in assets over time and are somewhat battle tested. Nonetheless, these contracts do represent additional attack surface.
 
-An alphabetically ordered list of terms is provided in the [glossary](GLOSSARY.md).
+**Signers are People**: 
+> Multisigs are controlled by a group of signers; you must trust that the private keys of those signers are kept secure. Any individual that is a singer on a multisig must be trusted to not be an adversary of course, but also must be trusted to adhere to basic security practices. Multisig signers are ripe targets for phishing and malware attacks.
 
-MGs serve to capture the **definitions** of terms introduced in the MIPs and MDs. The creation of a new MG requires an MIP or MG (since new terms are introduced through the MIP or MG).
+## Reference Implementation
 
-## Files and numbering
+<!--
+  The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
 
-Each MIP, MD or MG is stored in a separate subdirectory with the a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a `README.md` that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
+  TODO: Remove this comment before submitting
+-->
 
-An MIP/MD starts as **Draft**s. They DO NOT acquire a number at this point.
+## Verification
 
-An MIP/MD is assigned their PR number as soon as they are in the **Review** process. MDs that do not introduce a new MIP/MD are also accepted. Thus, there will be gaps in the MIP/MD number sequence. These gaps will also emerge when MIPs/MDs are deprecated or rejected.
+##### 1. Fix the Potential Supply
 
-> [!NOTE]
-> Update the [OVERVIEW](https://github.com/movementlabsxyz/MIP/wiki/Overview) file with the MIP/MD number, title and other requirements.
+Since the maximal released supply of `$L1MOVE` is `MOVE_MAX` the maximum *Potential Supply* (of the sum of the supply of `$L1MOVE` and `$L2MOVE`) is 2 $\times$ `MOVE_MAX`, even in the case of a compromised relayer and a maximum exploit.
 
-PRs that don't introduce a new MIP/MD are also accepted, for example MIPs/MDs can be updated. PRs that **Update** a MIP/MD should state so in the PR title, e.g. `[Update] MIP-....`.
+##### 2. Native Bridge rate limitation
 
-## Status Terms
 
-An MIP/MD is proposed through a PR. Each MIP/MDG-introducing PR should have a status in the name in the form `[Status] ...`.
+Eigenlayer AVS does suggest a similar model and provides the following Definition on Strong Economic Security in their [white paper (EIGEN: The Universal Intersubjective Work Token)](https://docs.eigenlayer.xyz/assets/files/EIGEN_Token_Whitepaper-0df8e17b7efa052fd2a22e1ade9c6f69.pdf):
 
-An MIP/MG should at all times have one of the following statuses:
+> *Formal Definition of Strong Cryptoeconomic Security*
+If [a bridge] acquires more [cryptoeconomic] security than the harm it can suffer from an attack within the interval $T_{redeem}$ slots, then it achieves strong cryptoeconomic security, i.e.<br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*[Economic]-security ≥ Harm-from-corruption [..] in $T_{redeem}$ slots* 
 
-- **Draft** - (set by author) An MIP/MD that is open for consideration. (It does not yet hold an MIP/MD number)
-- **Review** - (set by author) The MIP/MD is under peer review. The MIP/MD should receive an **MIP/MD number**, according to the rules described in the [Files and numbering](#files-and-numbering) section. At this point the editor should be involved to ensure the MIP/MD adheres to the guidelines.
+> [..] consider a [..] bridge [..] for a rollup, which has a $(X, T)$-rate-limit [..]. Now if [$T<T_{redeem}$,] the total value transacted by the bridge is less than $X$ during any attack period, and therefore the harm from corruption for the $T$ period is less than or equal to $X$. If the [cryptoeconomic] security is greater than X then this [bridge] works correctly. [..] we have the following conditions for strong cryptoeconomic safety.
 
->[!Note]
-> In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim.
+##### 3. Relayer key protection
 
-After acceptance the MIP/MD is merged into `main` and the branch should be deleted.
+Multisignature approaches are common praxis, for example see [MIP-21](https://github.com/movementlabsxyz/MIP/tree/primata/bridge-attestors/MIP/mip-21) or see [this article](https://medium.com/@j2abro/a-visual-guide-to-blockchain-bridge-security-e982fec671a7).
 
-Additionally, the following statuses are used for MIPs/MDs that are not actively being worked on:
 
-- **Stagnant** - an MIP/MD that has not been updated for 6 months.
-- **Withdrawn** - an MIP/MD that has not been withdrawn.
+<!--
 
-Finally, an MIP/MD can also be updated:
+  All proposals must contain a section that discusses the various aspects of verification pertinent to the introduced changes. This section should address:
 
-- **Update** - (set by author) An MIP/MD is being updated. The title should list the MIP/MD number, e.g. `[Update] MIP-0 ...`.
+  1. **Correctness**: Ensure that the proposed changes behave as expected in all scenarios. Highlight any tests, simulations, or proofs done to validate the correctness of the changes.
 
-## Editor
+  2. **Security Implications**: Address the potential security ramifications of the proposal. This includes discussing security-relevant design decisions, potential vulnerabilities, important discussions, implementation-specific guidance, and pitfalls. Mention any threats, risks, and mitigation strategies associated with the proposal.
 
-The motivation for the role of the editor is to ensure the readability and easy access of content, until further means, such as automatic rendering becomes available.
+  3. **Performance Impacts**: Outline any performance tests conducted and the impact of the proposal on system performance. This could be in terms of speed, resource consumption, or other relevant metrics.
 
-Currently the editors are [@apenzk](https://github.com/apenzk).
+  4. **Validation Procedures**: Describe any procedures, tools, or methodologies used to validate the proposal against its requirements or objectives. 
 
-The editor is responsible for the final review of the MIPs. The editor is responsible for the following:
+  5. **Peer Review and Community Feedback**: Highlight any feedback from peer reviews or the community that played a crucial role in refining the verification process or the proposal itself.
 
-- Ensures a high quality of the MIPs/MDs, e.g. checking language while reviewing.
-- Removes content from the MIPs/MDs that is commented out. (e.g. content within <!- -> brackets)
-- Ensures the MIP/MD numbering is correct.
-- Ensures the MIP/MD is in the correct status.
-- Ensures the authors have added themselves to [CODEOWNERS](./.github/CODEOWNERS), see [Code owners](#code-owners).
 
-The editor is not responsible for the content.
+  TODO: Remove this comment before submitting
+-->
 
-**Conflict resolution**: In the unlikely case, where an editor requests a change from an author that the author does not agree with and communication does not resolve the situation
+Needs discussion.
 
-- the editor can mandate that the author implements the changes by getting 2 upvotes from reviewers on their discussion comment mentioning the changes.
-- Otherwise the author can merge without the editor requested change.
+---
+## Reference Implementation 
 
-## Code owners
+The `governed_gas_pool.move` would interact with `aptos_framework.move`, seperating the roles of actual governance, voting and storing of gas and dispersing those funds.
 
-An author commits to becoming the owner of the MIP/MD they propose. This means that for any future changes to the MIP/MD the author will be notified.
+## Errata
 
-This is being implemented by adding the author as a code owner in the `.github/CODEOWNERS` file for a given MIP/MD.
+
+## Appendix
+
+---
+## Copyright
+
+Copyright and related rights waived via [CC0](../LICENSE.md).
