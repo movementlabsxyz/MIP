@@ -1,7 +1,8 @@
-# MIP-50: Insured Bridge
+# MIP-50: Insured Native Bridge
+
 - **Description**: Introduces an Insurance Fund for the bridge which can be used to cover losses.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Reviewer**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
+- **Reviewer**: Andreas Penzkofer
 - **Desiderata**: [MD-38](https://github.com/movementlabsxyz/MIP/pull/38)
 
 ## Abstract
@@ -24,6 +25,6 @@ This MIP introduces an Insurance Fund for the bridge which can be used to cover 
 
 ## Verification
 
-## Errata
+## Changelog
 
 ## Appendix
