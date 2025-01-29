@@ -7,7 +7,7 @@
 
 The Postconfirmation protocol [MIP-37](https://github.com/movementlabsxyz/MIP/blob/mip/MCR/MIP/mip-37/README.md) is a stake-based settlement protocol on L1.
 
-Since it is a decentralized protocol we have to account for
+Since it is a distributed protocol we have to account for
 
 - commitment delays
 - network partitions
