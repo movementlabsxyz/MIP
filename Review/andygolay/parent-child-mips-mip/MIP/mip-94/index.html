@@ -160,9 +160,9 @@
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-94-parent-child-mips"><a class="header" href="#mip-94-parent-child-mips">MIP-94: Parent-Child MIPs</a></h1>
 <ul>
-<li><strong>Description</strong>: A process through which Movement Improvement Proposals standardize and formalize specifications for Movement technologies.</li>
+<li><strong>Description</strong>: Add concept of child MIPs to extend MIPs that contain substantial amount of content.</li>
 <li><strong>Authors</strong>: <a href="mailto:andy.golay@movementlabs.xyz">Andy Golay</a></li>
-<li><strong>Desiderata</strong>: <a href="../../MD/md-93">MD-93</a></li>
+<li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/pull/93">MD-93</a></li>
 </ul>
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
 <p>This document formalizes parent-child MIPs.</p>
@@ -171,12 +171,16 @@
 <h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
 <p>To create a child MIP:</p>
 <ol>
-<li>Create a folder within the directory of an MIP. That MIP will be the “parent MIP” for the child MIP.</li>
-<li>Name the folder <code>mip-n.k</code> where <code>n</code> is the MIP’s number. An editor will assign the numuber, so it’s fine for authors to leave it as <code>n</code> on the first draft of an MIP. <code>k</code> represents the index of the child MIP.</li>
-</ol>
-<p><strong>Example:</strong> If the child MIP is the 1st child MIP of MIP 5, the child MIP will will be <code>mip-5.1</code></p>
-<ol start="3">
-<li>Add a <code>README.md</code> fill containing the child MIP contents. Follow the <a href="../../mip-template.html">MIP template</a> but don’t repeat redundant information from the parent MIP.</li>
+<li>
+<p>Create a folder within the directory of an MIP. That MIP will be the “parent MIP” for the child MIP.</p>
+</li>
+<li>
+<p>Name the folder <code>mip-n.k</code> where <code>n</code> is the MIP’s number as defined in . <code>k</code> represents the index of the child MIP.
+<strong>Example:</strong> If the child MIP is the 1st child MIP of MIP 5, the child MIP will be <code>mip-5.1</code></p>
+</li>
+<li>
+<p>Add a <code>README.md</code> fill containing the child MIP contents. Follow the <a href="../../mip-template.html">MIP template</a> but don’t repeat redundant information from the parent MIP.</p>
+</li>
 </ol>
 <h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
 <p>This MIP contains a reference implementation of parent-child MIPs:</p>
@@ -186,13 +190,10 @@
 <li>Within the <code>mip-94</code> directory are two folders: <code>mip-94.1</code> and <code>mip-94.2</code>, each with their own <code>README.md</code> file.</li>
 </ul>
 <h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
-<p>The verification of this MIP depends on the opinions of the MIP committee to evaulate whether the convention is satisfactory, because it is more of a simple consideration of how parent-child MIPs are structured, rather than a complicated technical proposal.</p>
-<hr />
 <h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
-<hr />
 <h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
-<hr />
 <h2 id="copyright"><a class="header" href="#copyright">Copyright</a></h2>
+<p>Copyright and related rights waived via <a href="../LICENSE.html">CC0</a>.</p>
 
                     </main>
 
