@@ -74,3 +74,5 @@ Consider the following parameters for the commitment tolerance window:
 - Reward decay: a function describing the diminishing returns of rewards later in the window.
 
 ## Changelog
+
+2025-01-28: consider and rewrite towards the Postconfirmation protocol. Remove the additional asynchronous-upgrades-problem as it requires review.
