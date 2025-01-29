@@ -9,7 +9,7 @@
 
 In it's [current form](https://github.com/movementlabsxyz/movement/tree/baa83356a14d44fd4e8346e1eddfc184cebc17d3/protocol-units/settlement/mcr), it does not account for commitment delays, network partitions, or asynchrony.
 
-Here we will consider commitment delays and network partitions, as all forms of asynchrony with which we are concerned can be modeled as such. For example, a node that is not technically offline but that cannot commit to the current block height, could just be exposed to asynchronous delays. However we can model this by assuming a partition.
+Here we will consider commitment delays and network partitions. Furthermore, we assume all forms of asynchrony with which we are concerned can be modeled as such. For example, a node that is not technically offline but that cannot commit to the current block height, could just be exposed to asynchronous delays. However we can model this by assuming a partition.
 
 ### Challenges with the current model
 
