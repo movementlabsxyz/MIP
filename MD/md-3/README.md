@@ -1,7 +1,7 @@
 # MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony
 
-- **Description**: Provide a model for MCR and suggest a mechanism for handling delayed commitments, network partitions and asynchrony.
-- **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
+- **Description**: Consider delays, network partitions and asynchrony. And address how rewards and slashing conditions impact these.
+- **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz), Andreas Penzkofer
 
 ## Overview
 
@@ -72,14 +72,5 @@ Consider the following parameters for the commitment tolerance window:
 
 - Commitment happens only after some time has passed, forcing some degree of synchronization.
 - Reward decay: a function describing the diminishing returns of rewards later in the window.
-
-### D5: Address Asynchronous Upgrades, Fork Creation, and Fork Stake Problems
-
-**User Journey**: A researcher or protocol implementer can understand the [Asynchronous Upgrades, Fork Creation, and Fork Stake Problems](./asychronous-upgrades-problem.md) and how they are addressed in MCR.
-
-**Justification**: These are problems encountered under asynchrony and systems addressing asynchrony which if not addressed could bring down the network.
-
-**Recommendations**:
-Start by reviewing the [Asynchronous Upgrades, Fork Creation, and Fork Stake Problems](./asychronous-upgrades-problem.md).
 
 ## Changelog
