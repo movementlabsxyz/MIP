@@ -30,7 +30,7 @@ These and other phenomena are listed in the desiderata below.
 
 ### D2: Slashing conditions for lack of participation
 
-**User Journey**: A researcher or protocol implementer can understand the impact of slashing conditions for lack of participation.
+**User Journey**: A researcher or protocol implementer can understand the impact of slashing conditions for lack of participation. And whether it is necessary to introduce such conditions.
 
 **Justification**: It has been proposed to slash participants for lack of participation. This could be a way to prevent inactivity, however such extreme slashing conditions come with their own risks.
 
