@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge - MIP</title>
+        <title>MD-93: Parent-Child MIPs - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -158,37 +158,36 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-74-rate-limiter-for-the-lockmint-type-native-bridge"><a class="header" href="#md-74-rate-limiter-for-the-lockmint-type-native-bridge">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></h1>
+<h1 id="md-93-parent-child-mips"><a class="header" href="#md-93-parent-child-mips">MD-93: Parent-Child MIPs</a></h1>
 <ul>
-<li><strong>Description</strong>: A rate limitation mechanism for the Lock/Mint-type Native Bridge.</li>
-<li><strong>Authors</strong>: <a href="mailto:andreas.penzkofer@movementlabs.xyz">Andreas Penzkofer</a></li>
+<li><strong>Description</strong>: Provide formal structure for parent and child MIPs.</li>
+<li><strong>Authors</strong>: <a href="mailto:andy.golay@movementlabs.xyz">Andy Golay</a></li>
 </ul>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<p>The Lock/Mint-type Native Bridge (hereafter called the “Native Bridge”), see <a href="https://github.com/movementlabsxyz/MIP/pull/58">MIP-58</a>, must be protected against faulty components and attacks. A Rate-Limiter is a mechanism that can help to protect the Native Bridge. It limits the volume of transferred value, the maximum value transferred with a given transfer, or the number of transactions.</p>
+<p>Provide formal structure for parent-child MIPs. For more complicated MIPs, or MIPs which have implementations specific to various software stacks, infrastructure providers, etc., it can makes sense for the sake of organization to have child MIPs to add specific details, rather than making the parent MIP too verbose or cluttered.</p>
+<h2 id="definitions"><a class="header" href="#definitions">Definitions</a></h2>
+<ul>
+<li>
+<p><strong>Parent MIP</strong>: The main MIP for to a specific improvement proposal.</p>
+</li>
+<li>
+<p><strong>Child MIP</strong>: Also MAY be referred to as a sub-MIP. Child MIPs give detail on specific domains referenced within a parent MIP. They are substantial enough that they make sense to refactor into MIPs associated with the parent MIP.</p>
+</li>
+</ul>
 <h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
-<h3 id="d1-specify-the-actors-and-their-trust-assumptions"><a class="header" href="#d1-specify-the-actors-and-their-trust-assumptions">D1: Specify the actors and their trust assumptions</a></h3>
-<p><strong>User Journey</strong>: The developer should understand existing trust assumptions.</p>
-<p><strong>Description</strong>: The Native Bridge is operated via contracts, actors and components. What are the trust assumptions on these?</p>
-<h3 id="d2-specify-the-risks-and-threats-from-components"><a class="header" href="#d2-specify-the-risks-and-threats-from-components">D2: Specify the risks and threats from components</a></h3>
-<p><strong>User Journey</strong>: The developer should understand the risks from components.</p>
-<p><strong>Description</strong>: We must ensure that risks are minimized even in the case that a component is compromised or faulty.</p>
-<p><strong>Recommendations</strong>: Address the risks by first identifying the relevant parties and their trust assumptions. Then, specify the risks and threats from these components. How can we restrict the risks?</p>
-<h3 id="d3-define-the-rate-limiting-mechanism"><a class="header" href="#d3-define-the-rate-limiting-mechanism">D3: Define the rate-limiting mechanism</a></h3>
-<p><strong>User Journey</strong>: The developer should understand the rate-limiting mechanism.</p>
-<p><strong>Description</strong>: The rate-limiting mechanism should be defined in a way that it is clear how it works and how it can be adjusted. Moreover all components and their parameters should be defined. It should also be defined what is being rate-limited.</p>
-<h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
+<h3 id="d1-convention-for-parent-and-child-mip-file-organization-and-naming"><a class="header" href="#d1-convention-for-parent-and-child-mip-file-organization-and-naming">D1: Convention for parent and child MIP file organization and naming</a></h3>
+<p><strong>User Journey</strong>: Proposer can adhere to a standardized template for substantial, detailed subsections of MIPs which warrant being categorized as their own related child MIP.</p>
+<p><strong>Justification</strong>: The file organization and naming must be consistent, so there should be a formal convention.</p>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../../../Review/mip/informer-lockmintbridge/MD/md-71/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../../../Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../../../Review/andygolay/parent-child-mips/MD/md-93/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -196,13 +195,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../../../Review/mip/informer-lockmintbridge/MD/md-71/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../../../Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../../../Review/andygolay/parent-child-mips/MD/md-93/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>
