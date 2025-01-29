@@ -73,4 +73,15 @@ Consider the following parameters for the commitment tolerance window:
 - Commitment happens only after some time has passed, forcing some degree of synchronization.
 - Reward decay: a function describing the diminishing returns of rewards later in the window.
 
+### D5: Address Asynchronous Upgrades, Fork Creation, and Fork Stake Problems
+
+**User Journey**: A researcher or protocol implementer can understand the [Asynchronous Upgrades, Fork Creation, and Fork Stake Problems](./asychronous-upgrades-problem.md) and how they are addressed in MCR.
+
+**Justification**: These are problems encountered under asynchrony and systems addressing asynchrony which if not addressed could bring down the network.
+
+**Recommendations**:
+Start by reviewing the [Asynchronous Upgrades, Fork Creation, and Fork Stake Problems](./asychronous-upgrades-problem.md).
+
 ## Changelog
+
+2025-01-29: Add desiderata D5 to address Asynchronous Upgrades, Fork Creation, and Fork Stake Problems in MCR
