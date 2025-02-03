@@ -5,7 +5,7 @@
 
 ## Overview
 
-Provide formal structure for parent-child MIPs. For more complicated MIPs, or MIPs which have implementations specific to various software stacks, infrastructure providers, etc., it can makes sense for the sake of organization to have child MIPs to add specific details, rather than making the parent MIP too verbose or cluttered.
+Provide formal structure for parent-child MIPs. For more complicated MIPs, or MIPs which have implementations specific to various software stacks, infrastructure providers, etc., it can make sense for the sake of organization to have child MIPs to add specific details, rather than making the parent MIP too verbose or cluttered.
 
 ## Definitions
 
