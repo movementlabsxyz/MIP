@@ -14,6 +14,8 @@ Movement technologies continually evolve, and there's a need to ensure that the 
 
 ## Specification
 
+_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
+
 ### Extensions to this MIP
 
 We treat the following documents as extensions to this MIP:

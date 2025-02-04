@@ -16,6 +16,8 @@ In order to facilitate the development of L2 systems, it is important to have a 
 
 ## Specification
 
+_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
+
 Progressive L2 models should adhere to conventions of the following forms:
 
 - **naming**: apply a standard naming format.
