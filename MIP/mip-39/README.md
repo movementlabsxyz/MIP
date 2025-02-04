@@ -84,6 +84,8 @@ Designing a safe bridge is a hard problem.
 
 ## Specification
 
+_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
+
 ### Bridging from L1 to L2
 
 Let `user1` be a user with an account on L1, and `user2` be a user with an account on L2.
