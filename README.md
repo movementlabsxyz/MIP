@@ -93,6 +93,38 @@ Finally, an MIP/MD can also be updated:
 
 - **Update** - (set by author) An MIP/MD is being updated. The title should list the MIP/MD number, e.g. `[Update] MIP-0 ...`.
 
+## Style guide
+
+### Headers
+
+For headers it is recommended to use standard sentence structure, i.e. do not capitalize letters apart from the first word, or acronyms.
+
+### Note boxes
+
+Avoid using
+
+```markdown
+> [!NOTE]
+> ...
+```
+or
+
+```markdown
+!!! note ...
+```
+or 
+```markdown
+::: note ... :::
+```
+
+These do not render correctly either in the GitHub preview or in the rendered markdown. Instead use emojis to indicate the type of note, e.g.
+
+```markdown
+> **👀** Note, that ...
+> **⚠️** This is a warning ..
+> **💡** Here is something to learn ..
+```
+
 ## Governance
 
 For more information on the role of the governance, see [MIP-0: Governance](./MIP/mip-0/README.md#governance).
