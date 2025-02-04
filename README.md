@@ -97,7 +97,17 @@ Finally, an MIP/MD can also be updated:
 
 ### Headers
 
-For headers it is recommended to use standard sentence structure, i.e. do not capitalize letters apart from the first word, or acronyms.
+For headers it is recommended to use standard sentence structure, i.e. do not capitalize letters apart from the first word, specific terms or acronyms.
+
+For example, use
+
+```markdown
+## This header is correct for Movement Labs' MIPs
+```
+Do not use
+```markdown
+## This Header is Incorrect for Movement Labs' MIPs
+````
 
 ### Note boxes
 
