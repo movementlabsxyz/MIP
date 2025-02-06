@@ -6,9 +6,9 @@
 
 ## Abstract
 
-Fast-Finality-Settlement (FFS) is proposed in [MIP-34](https://github.com/movementlabsxyz/MIP/pull/34), with two confirmation mechanisms, one the base level (L1) and one the chain level (L2). This MIP details the mechanism on Level 1 (L1), which is called ***postconfirmation***.
+Fast-Finality-Settlement (FFS) is proposed in [MIP-34](https://github.com/movementlabsxyz/MIP/pull/34), with two confirmation mechanisms, one the base level (L1) and one the chain level (L2). This MIP details the mechanism on Level 1 (L1), which is called ***Postconfirmation***.
 
-L2 produces **L2Blocks**. At certain intervals validators commit a sequence of L2Blocks in a ***superBlock***, to L1. The L1 contract will verify if >2/3 of the validators have attested to a given superBlock height. The action for this validation is called postconfirmation and it is initiated by the ***acceptor***. The acceptor is a specific validator selected for some interval.
+L2 produces **L2Blocks**. At certain intervals validators commit a sequence of L2Blocks in a ***superBlock***, to L1. The L1 contract will verify if >2/3 of the validators have attested to a given superBlock height. The action for this validation is called Postconfirmation and it is initiated by the ***acceptor***. The acceptor is a specific validator selected for some interval.
 
 This provides an L1-protected guarantee that a superBlock (i.e. a sequence of L2Blocks) is accepted and correctly executed. This anchoring mechanism increases the security of the L2 as it protects the L2-state against long range attacks and can provide a way to slash validators that have attested against the majority.
 
@@ -16,15 +16,15 @@ This provides an L1-protected guarantee that a superBlock (i.e. a sequence of L2
 
 We require from the FFS protocol that it is secure and efficient, yet simple in its _initial_ design. In order for the protocol to fulfill the requirement for simplicity, validators only communicate to the L1-contract and not with each other. This is a key design decision to reduce the complexity of the protocol, but can be improved in the future.
 
-We also request that rewards and costs are made more predictable for validators. For this, we propose a special role -- the acceptor -- to perform the postconfirmation process.
+We also request that rewards and costs are made more predictable for validators. For this, we propose a special role -- the acceptor -- to perform the Postconfirmation process.
 
 ## Specification
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
+_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
 
 Figure 1 shows the leader-independent (deterministic) block generation process, which is also discussed in [MIP-34: Fast Finality Settlement](https://github.com/movementlabsxyz/MIP/pull/34).
 
-![Version A Diagram](postconfirmation.png)
+![Version A Diagram](Postconfirmation.png)
 *Figure 1: Leader-independent (deterministic) block generation process.*
 
 Since this document introduces a large number of new terms, we provide a specification by defining the terms and their interactions.
@@ -39,7 +39,7 @@ L2Blocks are deterministically derived from the sequencer-batches, which are cal
 
 #### SuperBlock
 
-The postconfirmation protocol cannot attest to each individual L2Block. This restriction derives from the high frequency at which protoBlocks can be created, the low frequency of L1Blocks and the cost of L1 transactions. Therefore, after a certain number of L2blocks, validators calculate the next (deterministic) superBlock and commit to it in the L1 contract. The L1 contract will verify if >2/3 of the validators have attested to a given superBlock height to a superBlock
+The Postconfirmation protocol cannot attest to each individual L2Block. This restriction derives from the high frequency at which protoBlocks can be created, the low frequency of L1Blocks and the cost of L1 transactions. Therefore, after a certain number of L2blocks, validators calculate the next (deterministic) superBlock and commit to it in the L1 contract. The L1 contract will verify if >2/3 of the validators have attested to a given superBlock height to a superBlock
 
 #### Commitment
 
@@ -103,7 +103,7 @@ The validator has to check if the current superBlock height (off-L1) is within t
 
 3. **`acceptingEpoch`**
 
-Votes are counted in the current `acceptingEpoch`. If there are enough commitments for a `superBlockId` the superBlock height receives a postconfirmation status.
+Votes are counted in the current `acceptingEpoch`. If there are enough commitments for a `superBlockId` the superBlock height receives a Postconfirmation status.
 
 ```solidity
 ??? relevant code
@@ -182,7 +182,7 @@ function _addUnstake(
 
 > :bulb: Slashing may only be required if we implement Fastconfirmations, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65).
 
-With postconfirmations alone nodes do not need to get slashed if they voted for an invalid commitment. Since only their first vote for a given height gets accepted by the contract, they cannot equivocate. More abstractly the L1 provides consensus on the votes.
+With Postconfirmations alone nodes do not need to get slashed if they voted for an invalid commitment. Since only their first vote for a given height gets accepted by the contract, they cannot equivocate. More abstractly the L1 provides consensus on the votes.
 
 Nodes SHOULD get slashed if it has been proven that the validator voted more than once for a given block height on L2. This is a security measure to protect against long-range attacks. However, this is part of the scope of [MIP-65: Fastconfirmations.](https://github.com/movementlabsxyz/MIP/pull/65)
 
@@ -223,11 +223,11 @@ while (getAcceptingEpoch() < NextBlockEpoch) {
 2. If the votes in the current `acceptingEpoch` are not sufficient but there are votes in the subsequent epochs and they are sufficient, the rollover function should be initiated.
 
 > [!NOTE]
-> this is a requirement to protect against liveness issues. Either the acceptor (or the volunteer-acceptor) has not been active for a liveness affecting amount of time to initiate postconfirmations, or over 1/3 of the validators have not been active in the `acceptingEpoch`. Either way, the current acceptingEpoch has not been live and should be skipped.
+> this is a requirement to protect against liveness issues. Either the acceptor (or the volunteer-acceptor) has not been active for a liveness affecting amount of time to initiate Postconfirmations, or over 1/3 of the validators have not been active in the `acceptingEpoch`. Either way, the current acceptingEpoch has not been live and should be skipped.
 
 #### Acceptor
 
-Every interval `acceptorTerm` one of the validators takes on the role to perform the postconfirmation checks. This acceptor is selected via L1-randomness provided through L1Block hashes. This acceptor is responsible for updating the contract state once a super-majority is reached for a superBlock. The acceptor is rewarded for this service, see the [Rewards section](#rewards). We note that this does not equate to a leader in a traditional consensus protocol, as the acceptor does not propose new states. Its role can also be taken over by a [volunteer-acceptor](#volunteer-acceptor).
+Every interval `acceptorTerm` one of the validators takes on the role to perform the Postconfirmation checks. This acceptor is selected via L1-randomness provided through L1Block hashes. This acceptor is responsible for updating the contract state once a super-majority is reached for a superBlock. The acceptor is rewarded for this service, see the [Rewards section](#rewards). We note that this does not equate to a leader in a traditional consensus protocol, as the acceptor does not propose new states. Its role can also be taken over by a [volunteer-acceptor](#volunteer-acceptor).
 
 > :bulb: We separate the acceptor from the validators to achieve separation of concerns and in particular simplify the reward mechanism.
 
@@ -264,6 +264,6 @@ A reference implementation for Postconfirmation is provided by MCR, see [here](h
 
 ## Verification
 
-## Changelog
-
 ## Appendix
+
+## Changelog
