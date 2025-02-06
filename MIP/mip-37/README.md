@@ -8,7 +8,7 @@
 
 Fast-Finality-Settlement (FFS) is proposed in [MIP-34](https://github.com/movementlabsxyz/MIP/pull/34), with two confirmation mechanisms: one on the base chain level (L1) and one on the rollup/sidechain level (L2). This MIP details the mechanism on Level 1 (L1), which is called ***Postconfirmation***.
 
-The L2 produces **L2Blocks**. At certain intervals validators commit a sequence of L2Blocks in a ***superBlock***, to L1. The L1 contract will verify if >2/3 of the validators have attested to a given superBlock height. The action for this validation is called Postconfirmation and it is initiated by the ***Acceptor***. The Acceptor is a specific validator selected for some interval.
+The L2 produces **L2Blocks**. At certain intervals validators commit a sequence of L2Blocks in a ***superBlock***, to L1. The L1 contract will verify if >2/3 of the validators have attested to a given superBlock height. The action for this validation is called Postconfirmation and it is initiated by the ***acceptor***. The acceptor is a specific validator selected for some interval.
 
 This provides an L1-protected guarantee that a superBlock (i.e. a sequence of L2Blocks) is accepted and correctly executed. This anchoring mechanism increases the security of the L2 as it protects the L2-state against long range attacks, see [MD-5](https://github.com/movementlabsxyz/MIP/tree/l-monninger/long-range-attacks/MD/md-5).
 
@@ -16,7 +16,7 @@ This provides an L1-protected guarantee that a superBlock (i.e. a sequence of L2
 
 We require from the FFS protocol that it is secure and efficient, yet simple in its *initial* design. In order for the protocol to fulfill the requirement for simplicity, validators only communicate to the L1-contract and not with each other. This is a key design decision to reduce the complexity of the protocol, but can be improved in the future.
 
-We also request that rewards and costs are made more predictable for validators. For this, we propose a special role -- the Acceptor -- to perform the action of updating the L1 contract to accept a given state by super majority. This action is called Postconfirmation.
+We also request that rewards and costs are made more predictable for validators. For this, we propose a special role -- the acceptor -- to perform the action of updating the L1 contract to accept a given state by super majority. This action is called Postconfirmation.
 
 ## Specification
 
@@ -35,7 +35,7 @@ The L1 contract is intended to handle multiple chains. We differentiate between 
 
 #### L2Blocks
 
-L2Blocks are deterministically derived from the sequencer-batches, which are called protoBlocks, see the [glossary](../../GLOSSARY.md). Validators calculate the next deterministic transition (imposed through the sequence of transactions $txs$) $B \xrightarrow{\ txs \ } B'$, where $B$ and $B'$ are L2Blocks.
+L2Blocks are deterministically derived from the sequencer-batches, which are called protoBlocks. Validators calculate the next deterministic transition (imposed through the sequence of transactions $txs$) $B \xrightarrow{\ txs \ } B'$, where $B$ and $B'$ are L2Blocks.
 
 #### SuperBlock
 
@@ -65,7 +65,7 @@ There are three relevant epoch types
 
 1. **`presentEpoch`** is the epoch that is currently active on L1. Acceptors exist in the `presentEpoch`.
 
-> :warning: the selection of the Acceptor must depend on the stake. but this may conflict with the rollover function which handles epochs that may be far in the past. thus we need to check if this concept conflicts with the rollover function
+> :warning: the selection of the acceptor must depend on the stake. but this may conflict with the rollover function which handles epochs that may be far in the past. thus we need to check if this concept conflicts with the rollover function
 
 ```solidity
 uint256 presentEpoch = getEpochByL1BlockTime();
@@ -93,7 +93,7 @@ if (superBlockHeightToAssignedEpoch[blockCommitment.height] == 0) {
 
 Any validator can commit the hash of a superBlock, the height of the superBlock should not be able to be set too far into the future. Note that an adversary could commit to far in the future superBlocks. However, since no honest validator would attest to it, the rollover function should update to the correct epoch for a given superBlock height.
 
-> :warning: TODO leading Block Tolerance. why do we need it? I assume it was meant as a protection against posting too far into the future block-heights but is this really necessary? What in particular does this protect against? Could setting far in the future impose a cost on the honest validators or Acceptor in any way?
+> :warning: TODO leading Block Tolerance. why do we need it? I assume it was meant as a protection against posting too far into the future block-heights but is this really necessary? What in particular does this protect against? Could setting far in the future impose a cost on the honest validators or acceptor in any way?
 
 ```solidity
 if (lastAcceptedBlockHeight + leadingBlockTolerance < blockCommitment.height) revert ValidatorAlreadyCommitted();
@@ -206,7 +206,7 @@ function slash(
 
 #### Rollover
 
-The protocol increases the `acceptingEpoch` incrementally by one, i.e. the protocol progresses from one accepting epoch to the next. Whenever, such an incrementation happens, the stakes of the validators get adjusted to account for `staking` and `unstaking` events. This transition is called _Rollover_. On the default path the `rolloverEpoch` function is called by the Acceptor. 
+The protocol increases the `acceptingEpoch` incrementally by one, i.e. the protocol progresses from one accepting epoch to the next. Whenever, such an incrementation happens, the stakes of the validators get adjusted to account for `staking` and `unstaking` events. This transition is called _Rollover_. On the default path the `rolloverEpoch` function is called by the acceptor.
 
 A rollover can occur in two types of paths:
 
@@ -223,34 +223,34 @@ while (getAcceptingEpoch() < NextBlockEpoch) {
 2. If the votes in the current `acceptingEpoch` are not sufficient but there are votes in the subsequent epochs and they are sufficient, the rollover function should be initiated.
 
 > [!NOTE]
-> this is a requirement to protect against liveness issues. Either the Acceptor (or the volunteer-Acceptor) has not been active for a liveness affecting amount of time to initiate Postconfirmations, or over 1/3 of the validators have not been active in the `acceptingEpoch`. Either way, the current acceptingEpoch has not been live and should be skipped.
+> this is a requirement to protect against liveness issues. Either the acceptor (or the volunteer-acceptor) has not been active for a liveness affecting amount of time to initiate Postconfirmations, or over 1/3 of the validators have not been active in the `acceptingEpoch`. Either way, the current acceptingEpoch has not been live and should be skipped.
 
 #### Acceptor
 
-Every interval `AcceptorTerm` one of the validators takes on the role to perform the Postconfirmation checks. This Acceptor is selected via L1-randomness provided through L1Block hashes. This Acceptor is responsible for updating the contract state once a super-majority is reached for a superBlock. The Acceptor is rewarded for this service, see the [Rewards section](#rewards). We note that this does not equate to a leader in a traditional consensus protocol, as the Acceptor does not propose new states. Its role can also be taken over by a [volunteer-Acceptor](#volunteer-Acceptor).
+Every interval `acceptorTerm` one of the validators takes on the role to perform the Postconfirmation checks. This acceptor is selected via L1-randomness provided through L1Block hashes. This acceptor is responsible for updating the contract state once a super-majority is reached for a superBlock. The acceptor is rewarded for this service, see the [Rewards section](#rewards). We note that this does not equate to a leader in a traditional consensus protocol, as the acceptor does not propose new states. Its role can also be taken over by a [volunteer-acceptor](#volunteer-acceptor).
 
-> :bulb: We separate the Acceptor from the validators to achieve separation of concerns and in particular simplify the reward mechanism.
+> :bulb: We separate the acceptor from the validators to achieve separation of concerns and in particular simplify the reward mechanism.
 
-The L1-contract determines the current valid `Acceptor` by considering the current L1Block time (`block.timestamp`) and randomness provided through L1Block hashes. For example,
+The L1-contract determines the current valid acceptor by considering the current L1Block time (`block.timestamp`) and randomness provided through L1Block hashes. For example,
 
 ```solidity
 function getCurrentAcceptor() public view returns (address) {
   uint256 currentL1BlockHeight = block.number;
   // -1 because we do not want to consider the current block.
-  uint256 relevantL1BlockHeight = currentL1BlockHeight - currentL1BlockHeight % AcceptorTerm - 1 ; 
+  uint256 relevantL1BlockHeight = currentL1BlockHeight - currentL1BlockHeight % acceptorTerm - 1 ; 
   bytes32 blockHash = blockhash(relevantL1BlockHeight);
   address[] memory validators = getValidators();
   // map the blockhash to the validators
-  uint256 AcceptorIndex = uint256(blockHash) % validators.length;
-  return validators[AcceptorIndex];        
+  uint256 acceptorIndex = uint256(blockHash) % validators.length;
+  return validators[acceptorIndex];        
 }
 ```
 
-##### Volunteer-Acceptor
+##### Volunteer-acceptor
 
-If the Acceptor does not update the contract state for some time, this is negative for the liveness of the protocol. In particular if the `AcceptorTerm` is in the range for the time that is required for the `leadingBlockTolerance`. Thus it is recommended that `AcceptorTerm` << time(`leadingBlockTolerance`), however such a requirement may not be trivial to solve.
+If the acceptor does not update the contract state for some time, this is negative for the liveness of the protocol. In particular if the `acceptorTerm` is in the range for the time that is required for the `leadingBlockTolerance`. Thus it is recommended that `acceptorTerm` << time(`leadingBlockTolerance`), however such a requirement may not be trivial to solve.
 
-In order to guarantee liveness the protocol ensures that anyone can voluntarily provide the service of the Acceptor. However, no reward is being issued for this service.
+In order to guarantee liveness the protocol ensures that anyone can voluntarily provide the service of the acceptor. However, no reward is being issued for this service.
 
 #### Rewards
 
