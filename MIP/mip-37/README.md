@@ -14,13 +14,13 @@ This provides an L1-protected guarantee that a superBlock (i.e. a sequence of L2
 
 ## Motivation
 
-We require from the FFS protocol that it is secure and efficient, yet simple in its _initial_ design. In order for the protocol to fulfill the requirement for simplicity, validators only communicate to the L1-contract and not with each other. This is a key design decision to reduce the complexity of the protocol, but can be improved in the future.
+We require from the FFS protocol that it is secure and efficient, yet simple in its *initial* design. In order for the protocol to fulfill the requirement for simplicity, validators only communicate to the L1-contract and not with each other. This is a key design decision to reduce the complexity of the protocol, but can be improved in the future.
 
 We also request that rewards and costs are made more predictable for validators. For this, we propose a special role -- the acceptor -- to perform the Postconfirmation process.
 
 ## Specification
 
-_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
+*The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.*
 
 Figure 1 shows the leader-independent (deterministic) block generation process, which is also discussed in [MIP-34: Fast Finality Settlement](https://github.com/movementlabsxyz/MIP/pull/34).
 
@@ -29,7 +29,7 @@ Figure 1 shows the leader-independent (deterministic) block generation process, 
 
 Since this document introduces a large number of new terms, we provide a specification by defining the terms and their interactions.
 
-#### Domains - One contract to rule them all
+#### Domains - one contract to rule them all
 
 The L1 contract is intended to handle multiple chains. We differentiate between the chains by their unique identifier `domain` (of type `address`).
 
@@ -111,7 +111,7 @@ Votes are counted in the current `acceptingEpoch`. If there are enough commitmen
 
 #### Staking and Unstaking
 
-Validators can stake and unstake their tokens. The staking and unstaking process is managed by the L1-contract. Validators can stake their tokens for a certain epoch. The staking process is initiated by the validator. The validator can also unstake their tokens to the end of the next epoch. 
+Validators can stake and unstake their tokens. The staking and unstaking process is managed by the L1-contract. Validators can stake their tokens for a certain epoch. The staking process is initiated by the validator. The validator can also unstake their tokens to the end of the next epoch.
 
 The reason for the delay in the unstaking process is to prevent validators from harming the protocol towards the end of an epoch without implications, and to remain accountable for at least one epoch.
 
