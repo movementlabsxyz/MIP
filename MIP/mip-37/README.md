@@ -1,7 +1,7 @@
 # MIP-37: FFS: Postconfirmation
 
 - **Description**: Confirmations of superBlocks on L1. A sub-protocol of Fast Finality Settlement.
-- **Authors**: [Andreas Penzkofer]()
+- **Authors**: Andreas Penzkofer
 - **Desiderata**: [MD-37](../../MD/md-37)
 
 ## Abstract
@@ -59,13 +59,13 @@ We require epochs in order to facilitate `staking` and `unstaking` of # validato
 
 The `epochDuration` should be set to a value that is large enough to allow for the `staking` and `unstaking` process to be completed. Moreover, it should be long enough for human operators to react.
 
-!!! tip :bulb: The initial recommendation for `epochDuration` is 1 day.
+> :bulb: The initial recommendation for `epochDuration` is 1 day.
 
 There are three relevant epoch types
 
 1. **`presentEpoch`** is the epoch that is currently active on L1. Acceptors exist in the `presentEpoch`.
 
-!!! warning the selection of the acceptor must depend on the stake. but this may conflict with the rollover function which handles epochs that may be far in the past. thus we need to check if this concept conflicts with the rollover function
+> :warning: the selection of the acceptor must depend on the stake. but this may conflict with the rollover function which handles epochs that may be far in the past. thus we need to check if this concept conflicts with the rollover function
 
 ```solidity
 uint256 presentEpoch = getEpochByL1BlockTime();
@@ -93,7 +93,7 @@ if (superBlockHeightToAssignedEpoch[blockCommitment.height] == 0) {
 
 Any validator can commit the hash of a superBlock, the height of the superBlock should not be able to be set too far into the future. Note that an adversary could commit to far in the future superBlocks. However, since no honest validator would attest to it, the rollover function should update to the correct epoch for a given superBlock height.
 
-!!! warning TODO leading Block Tolerance. why do we need it? I assume it was meant as a protection against posting too far into the future block-heights but is this really necessary? What in particular does this protect against? Could setting far in the future impose a cost on the honest validators or acceptor in any way?
+> :warning: TODO leading Block Tolerance. why do we need it? I assume it was meant as a protection against posting too far into the future block-heights but is this really necessary? What in particular does this protect against? Could setting far in the future impose a cost on the honest validators or acceptor in any way?
 
 ```solidity
 if (lastAcceptedBlockHeight + leadingBlockTolerance < blockCommitment.height) revert ValidatorAlreadyCommitted();
@@ -180,13 +180,13 @@ function _addUnstake(
 
 #### (Optional) Slashing
 
-!!! tip :bulb: Slashing may only be required if we implement Fastconfirmations, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65).
+> :bulb: Slashing may only be required if we implement Fastconfirmations, see [MIP-65](https://github.com/movementlabsxyz/MIP/pull/65).
 
 With postconfirmations alone nodes do not need to get slashed if they voted for an invalid commitment. Since only their first vote for a given height gets accepted by the contract, they cannot equivocate. More abstractly the L1 provides consensus on the votes.
 
 Nodes SHOULD get slashed if it has been proven that the validator voted more than once for a given block height on L2. This is a security measure to protect against long-range attacks. However, this is part of the scope of [MIP-65: Fastconfirmations.](https://github.com/movementlabsxyz/MIP/pull/65)
 
-!!! warning :warning: How do we prove that a validator has voted twice for a given block height? Does it involve Merkle proofs?
+> :warning: :warning: How do we prove that a validator has voted twice for a given block height? Does it involve Merkle proofs?
 
 ```solidity
 function slash(
@@ -229,7 +229,7 @@ while (getAcceptingEpoch() < NextBlockEpoch) {
 
 Every interval `acceptorTerm` one of the validators takes on the role to perform the postconfirmation checks. This acceptor is selected via L1-randomness provided through L1Block hashes. This acceptor is responsible for updating the contract state once a super-majority is reached for a superBlock. The acceptor is rewarded for this service, see the [Rewards section](#rewards). We note that this does not equate to a leader in a traditional consensus protocol, as the acceptor does not propose new states. Its role can also be taken over by a [volunteer-acceptor](#volunteer-acceptor).
 
-!!! tip :bulb: We separate the acceptor from the validators to achieve separation of concerns and in particular simplify the reward mechanism.
+> :bulb: We separate the acceptor from the validators to achieve separation of concerns and in particular simplify the reward mechanism.
 
 The L1-contract determines the current valid `acceptor` by considering the current L1Block time (`block.timestamp`) and randomness provided through L1Block hashes. For example,
 
@@ -264,10 +264,6 @@ A reference implementation for Postconfirmation is provided by MCR, see [here](h
 
 ## Verification
 
-## Errata
+## Changelog
 
 ## Appendix
-
-## Copyright
-
-Copyright and related rights waived via [CC0](../LICENSE.md).
