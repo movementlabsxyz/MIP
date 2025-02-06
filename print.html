@@ -3347,51 +3347,55 @@ This implies that if more than <span class="katex"><span class="katex-html" aria
 }
 </code></pre>
 <h4 id="epochs"><a class="header" href="#epochs">Epochs</a></h4>
-<p>We require epochs in order to facilitate <code>staking</code> and <code>unstaking</code> of # validators, as well as manage rewards and penalties. The <code>epochDuration</code> MUST be set when initializing a chain. It MAY be changeable later on through a governance mechanism.</p>
+<p>We require epochs in order to facilitate a clear separation of <code>staking</code> and <code>unstaking</code> periods for validators, as well as manage rewards and penalties. The <code>epochDuration</code> MUST be set when initializing a chain. It MAY be changeable later on through a governance mechanism.</p>
 <p>The <code>epochDuration</code> should be set to a value that is large enough to allow for the <code>staking</code> and <code>unstaking</code> process to be completed. Moreover, it should be long enough for human operators to react.</p>
 <blockquote>
 <p>:bulb: The initial recommendation for <code>epochDuration</code> is 1 day.</p>
 </blockquote>
 <p>There are three relevant epoch types</p>
 <ol>
-<li><strong><code>presentEpoch</code></strong> is the epoch that is currently active on L1. Acceptors exist in the <code>presentEpoch</code>.</li>
+<li><strong><code>presentEpoch</code></strong> is the epoch that is currently active on L1.</li>
 </ol>
-<blockquote>
-<p>:warning: the selection of the acceptor must depend on the stake. but this may conflict with the rollover function which handles epochs that may be far in the past. thus we need to check if this concept conflicts with the rollover function</p>
-</blockquote>
-<pre><code class="language-solidity">uint256 presentEpoch = getEpochByL1BlockTime();
+<pre><code class="language-solidity">uint256 presentEpoch = getEpochFromL1BlockTime();
 </code></pre>
 <p>where</p>
-<pre><code class="language-solidity">function getEpochByL1BlockTime(address domain) public view returns (uint256) {
-    return block.timestamp / epochDuration;
+<pre><code class="language-solidity">function getEpochFromL1BlockTime(address domain) public view returns (uint256) {
+    return (block.timestamp - L1GenesisTime ) / epochDuration;
 }
 </code></pre>
+<p>and <code>L1GenesisTime</code> is the time when the L1 contract was deployed.</p>
 <ol start="2">
-<li><strong><code>assignedEpoch</code></strong>. If a superBlock height is new, the L1-contract will assign the current <code>presentEpoch</code> value to the superBlock height.</li>
+<li><strong><code>assignedEpoch</code></strong>. If a superBlock height is new, the current <code>presentEpoch</code> value is assigned to the superBlock height.</li>
 </ol>
 <pre><code class="language-solidity">/// map each block height to an epoch
-mapping(uint256 blockHeight =&gt; uint256 epoch) public superBlockHeightToAssignedEpoch;
+mapping(uint256 blockHeight =&gt; uint256 epoch) public superBlockHeightAssignedEpoch;
 superBlockCommitment memory superBlockCommitment
 
-if (superBlockHeightToAssignedEpoch[blockCommitment.height] == 0) {
-  superBlockHeightToAssignedEpoch[blockCommitment.height] = getEpochByL1BlockTime();
+if (superBlockHeightAssignedEpoch[blockCommitment.height] == 0) {
+  superBlockHeightAssignedEpoch[blockCommitment.height] = getEpochFromL1BlockTime();
 }
 </code></pre>
-<p>Any validator can commit the hash of a superBlock, the height of the superBlock should not be able to be set too far into the future. Note that an adversary could commit to far in the future superBlocks. However, since no honest validator would attest to it, the rollover function should update to the correct epoch for a given superBlock height.</p>
+<p>Any validator can commit the hash of a superBlock. The rollover function should update to the correct epoch for a given superBlock height (and the heights above).</p>
 <blockquote>
-<p>:warning: TODO leading Block Tolerance. why do we need it? I assume it was meant as a protection against posting too far into the future block-heights but is this really necessary? What in particular does this protect against? Could setting far in the future impose a cost on the honest validators or acceptor in any way?</p>
+<p>:warning: This may result in an attack vector. An adversary could commit to far in the future superBlock heights. While this has no implications on the security, it may increase costs within the contract operation for the acceptor.</p>
 </blockquote>
-<pre><code class="language-solidity">if (lastAcceptedBlockHeight + leadingBlockTolerance &lt; blockCommitment.height) revert ValidatorAlreadyCommitted();
+<p>As an initial measure, the height of the superBlock should not be able to be set too far into the future. Hence there SHOULD be a <code>leadingBlockTolerance</code>, that limits how far into the future a block can be added.</p>
+<pre><code class="language-solidity">if (lastPostconfirmedBlockHeight + leadingBlockTolerance &lt; blockCommitment.height) {
+    revert ValidatorAlreadyCommitted();
+    }
 </code></pre>
-<p>The validator has to check if the current superBlock height (off-L1) is within the above window. Otherwise the commitment of the (honest) validator will not be added to the L1 contract.</p>
+<p>The validators have to check if the current superBlock height (off-L1) is within the above window. Otherwise the commitment of the (honest) validator will not be added to the L1 contract.</p>
 <ol start="3">
 <li><strong><code>acceptingEpoch</code></strong></li>
 </ol>
 <p>Votes are counted in the current <code>acceptingEpoch</code>. If there are enough commitments for a <code>superBlockId</code> the superBlock height receives a Postconfirmation status.</p>
-<pre><code class="language-solidity">??? relevant code
+<p>The current <code>acceptingEpoch</code> can be queried by</p>
+<pre><code class="language-solidity">function getAcceptingEpoch() public view returns (uint256) {
+    return acceptingEpoch;
+}
 </code></pre>
 <h4 id="staking-and-unstaking"><a class="header" href="#staking-and-unstaking">Staking and Unstaking</a></h4>
-<p>Validators can stake and unstake their tokens. The staking and unstaking process is managed by the L1-contract. Validators can stake their tokens for a certain epoch. The staking process is initiated by the validator. The validator can also unstake their tokens to the end of the next epoch.</p>
+<p>Validators can stake and unstake their tokens. The staking and unstaking process is managed by the L1-contract. Validators can stake their tokens for a certain epoch. The staking process is initiated by the validator. The validator can also unstake their tokens, such that the stake is released at the end of the next epoch.</p>
 <p>The reason for the delay in the unstaking process is to prevent validators from harming the protocol towards the end of an epoch without implications, and to remain accountable for at least one epoch.</p>
 <pre><code class="language-mermaid">gantt
     title Unstaking Timeline
@@ -3444,71 +3448,73 @@ mapping(Domain =&gt; mapping(Epoch =&gt; mapping(Custodian =&gt; mapping(Atteste
     epochUnstakesByDomain[domain][epoch][custodian][attester] += amount;
 }
 </code></pre>
-<h4 id="optional-slashing"><a class="header" href="#optional-slashing">(Optional) Slashing</a></h4>
-<blockquote>
-<p>:bulb: Slashing may only be required if we implement Fastconfirmations, see <a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-65</a>.</p>
-</blockquote>
-<p>With Postconfirmations alone nodes do not need to get slashed if they voted for an invalid commitment. Since only their first vote for a given height gets accepted by the contract, they cannot equivocate. More abstractly the L1 provides consensus on the votes.</p>
-<p>Nodes SHOULD get slashed if it has been proven that the validator voted more than once for a given block height on L2. This is a security measure to protect against long-range attacks. However, this is part of the scope of <a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-65: Fastconfirmations.</a></p>
-<blockquote>
-<p>:warning: :warning: How do we prove that a validator has voted twice for a given block height? Does it involve Merkle proofs?</p>
-</blockquote>
-<pre><code class="language-solidity">function slash(
-    address[] calldata custodians,
-    address[] calldata attesters,
-    uint256[] calldata amounts,
-    uint256[] calldata refundAmounts
-) external override {
-    for (some sort of loop over the arrays) {
-        // Call _slashStake with the specific custodian, attester, and amount
-        // ??? how do we get the domain and epoch?
-        _slashStake(domain, epoch, custodian, attester, amount);
-        // Optionally handle refunds here using `refundAmounts[i]` if applicable
-    }
-}
-</code></pre>
 <h4 id="rollover"><a class="header" href="#rollover">Rollover</a></h4>
-<p>The protocol increases the <code>acceptingEpoch</code> incrementally by one, i.e. the protocol progresses from one accepting epoch to the next. Whenever, such an incrementation happens, the stakes of the validators get adjusted to account for <code>staking</code> and <code>unstaking</code> events. This transition is called <em>Rollover</em>. On the default path the <code>rolloverEpoch</code> function is called by the acceptor.</p>
+<p>The protocol increases the <code>acceptingEpoch</code> incrementally by one, i.e. the protocol progresses from one accepting epoch to the next. Whenever, such an incrementation happens, the stakes of the validators get adjusted to account for <code>staking</code> and <code>unstaking</code> events. This transition is called <em>Rollover</em>. On the default path the <code>rolloverEpoch</code> function is called by the <a href="Review/mip/postconfirmation/MIP/mip-37/index.html#acceptor">acceptor</a>.</p>
 <p>A rollover can occur in two types of paths:</p>
 <ol>
 <li>If the <code>assignedEpoch</code> of the next superBlock height falls into the next epoch, the protocol progresses to the next epoch.</li>
 </ol>
-<pre><code class="language-solidity">uint256 NextBlockHeight
-uint256 NextBlockEpoch = superBlockHeightToAssignedEpoch[NextBlockHeight];
-while (getAcceptingEpoch() &lt; NextBlockEpoch) {
+<pre><code class="language-solidity">uint256 nextSuperBlockHeight = thisPostconfirmationBlockHeight + 1;
+uint256 nextSuperBlockEpoch = superBlockHeightAssignedEpoch[nextSuperBlockHeight];
+while (getAcceptingEpoch() &lt; NextSuperBlockEpoch) {
   rollOverEpoch();  // this also increments the acceptingEpoch
 }
 </code></pre>
 <ol start="2">
-<li>If the votes in the current <code>acceptingEpoch</code> are not sufficient but there are votes in the subsequent epochs and they are sufficient, the rollover function should be initiated.</li>
+<li>If the votes in the current <code>acceptingEpoch</code> are not sufficient to postconfirm a superBlock, and the <code>acceptingEpoch</code> is less than the <code>currentEpoch</code>, the protocol progresses to the next epoch.</li>
 </ol>
-<blockquote>
-<p>[!NOTE]
-this is a requirement to protect against liveness issues. Either the acceptor (or the volunteer-acceptor) has not been active for a liveness affecting amount of time to initiate Postconfirmations, or over 1/3 of the validators have not been active in the <code>acceptingEpoch</code>. Either way, the current acceptingEpoch has not been live and should be skipped.</p>
-</blockquote>
-<h4 id="acceptor"><a class="header" href="#acceptor">Acceptor</a></h4>
-<p>Every interval <code>acceptorTerm</code> one of the validators takes on the role to perform the Postconfirmation checks. This acceptor is selected via L1-randomness provided through L1Block hashes. This acceptor is responsible for updating the contract state once a super-majority is reached for a superBlock. The acceptor is rewarded for this service, see the <a href="Review/mip/postconfirmation/MIP/mip-37/index.html#rewards">Rewards section</a>. We note that this does not equate to a leader in a traditional consensus protocol, as the acceptor does not propose new states. Its role can also be taken over by a <a href="Review/mip/postconfirmation/MIP/mip-37/index.html#volunteer-acceptor">volunteer-acceptor</a>.</p>
-<blockquote>
-<p>:bulb: We separate the acceptor from the validators to achieve separation of concerns and in particular simplify the reward mechanism.</p>
-</blockquote>
-<p>The L1-contract determines the current valid acceptor by considering the current L1Block time (<code>block.timestamp</code>) and randomness provided through L1Block hashes. For example,</p>
-<pre><code class="language-solidity">function getCurrentAcceptor() public view returns (address) {
-  uint256 currentL1BlockHeight = block.number;
-  // -1 because we do not want to consider the current block.
-  uint256 relevantL1BlockHeight = currentL1BlockHeight - currentL1BlockHeight % acceptorTerm - 1 ; 
-  bytes32 blockHash = blockhash(relevantL1BlockHeight);
-  address[] memory validators = getValidators();
-  // map the blockhash to the validators
-  uint256 acceptorIndex = uint256(blockHash) % validators.length;
-  return validators[acceptorIndex];        
+<pre><code class="language-solidity">if (!superMajorityReached(thisSuperBlockHeight) &amp;&amp; getAcceptingEpoch() &lt; presentEpoch) {
+    rollOverEpoch();  // this also increments the acceptingEpoch
 }
 </code></pre>
-<h5 id="volunteer-acceptor"><a class="header" href="#volunteer-acceptor">Volunteer-acceptor</a></h5>
-<p>If the acceptor does not update the contract state for some time, this is negative for the liveness of the protocol. In particular if the <code>acceptorTerm</code> is in the range for the time that is required for the <code>leadingBlockTolerance</code>. Thus it is recommended that <code>acceptorTerm</code> &lt;&lt; time(<code>leadingBlockTolerance</code>), however such a requirement may not be trivial to solve.</p>
-<p>In order to guarantee liveness the protocol ensures that anyone can voluntarily provide the service of the acceptor. However, no reward is being issued for this service.</p>
+<blockquote>
+<p>:warning: Close to the epoch border there should be some buffer. Otherwise the protocol rolls over too early.</p>
+</blockquote>
+<p>This step protects against liveness issues through inactive validators by taking advantage the L1 clock. Either the acceptor (or the volunteer-acceptor) has not been active for some time that is considered problematic for liveness, or over 1/3 of the validators have not been active in the <code>acceptingEpoch</code>. Either way, the current <code>acceptingEpoch</code> has not been live and should be skipped.</p>
+<h4 id="acceptor"><a class="header" href="#acceptor">Acceptor</a></h4>
+<p>Every interval <code>acceptorTerm</code> one of the validators takes on the role to perform the Postconfirmation functionality. This acceptor is responsible for updating the contract state once a super-majority is reached for a superBlock height. The acceptor is rewarded for this service, see the <a href="Review/mip/postconfirmation/MIP/mip-37/index.html#rewards">Rewards section</a>. We note that this does not equate to a leader in a traditional consensus protocol, as the acceptor does not propose new states. Its role can also be taken over by a <a href="Review/mip/postconfirmation/MIP/mip-37/index.html#volunteer-acceptor">volunteer-acceptor</a>.</p>
+<blockquote>
+<p>:bulb: We separate the acceptor from the validators to achieve separation of concerns and simplify the reward mechanism for the validators.</p>
+</blockquote>
+<p>The acceptor MUST be selected via L1-randomness and weighted by the stake. The randomness MAY be provided through L1Block hashes, which can be considered sufficiently random, initially. Alternative higher-quality randomness from L1 SHOULD be considered.</p>
+<pre><code class="language-solidity">function getCurrentAcceptor() public view returns (address) {
+  uint256 currentL1BlockHeight = block.number;
+  // deduct finalizationBlockDepth because we should only consider finalized L1 blocks
+  uint256 relevantL1BlockHeight = currentL1BlockHeight - (currentL1BlockHeight / acceptorTerm ) -  finalizationBlockDepth; 
+  bytes32 blockHash = blockhash(relevantL1BlockHeight);
+  return = getAcceptorFromL1Randomness(blockHash);
+
+function getAcceptorFromL1Randomness(bytes32 blockHash) internal view returns (address) {
+  // Implement logic to get the acceptor from the L1 randomness
+  // and that considers the stake.
+}
+
+</code></pre>
+<h4 id="volunteer-acceptor"><a class="header" href="#volunteer-acceptor">Volunteer-acceptor</a></h4>
+<p>If the acceptor does not update the contract state for some time, this is negative for the liveness of the protocol. In particular if the <code>acceptorTerm</code> is in the range for the time that is required for the <code>leadingBlockTolerance</code>. Thus it is recommended that <code>acceptorTerm</code> &lt;&lt; time(<code>leadingBlockTolerance</code>). However, such a requirement may not be trivial to solve.</p>
+<p>In order to guarantee liveness the protocol ensures that anyone can voluntarily provide the service of the acceptor. However, no reward is being issued for this service (unless the acceptor has missed the liveness window). The first volunteer-acceptor to provide the service after elapse of the liveness window will be accepted and receives the reward for the service. This is a liveness measure.</p>
 <h4 id="rewards"><a class="header" href="#rewards">Rewards</a></h4>
 <p>Validators are rewarded for their service. The reward is calculated proportional to the validator stake and activity. The reward is issued in the next epoch.</p>
-<p>Acceptors are rewarded for their service. The reward is calculated proportional to the activity. The reward is issued in the next epoch.</p>
+<p>The acceptor is rewarded for the service. The reward is calculated proportional to the activity. The reward is issued in the next epoch. The volunteer-acceptor is not rewarded unless the acceptor has missed the liveness window.</p>
+<pre><code class="language-solidity">function rewardAcceptor(address acceptor) internal {
+    uint256 reward = calculateAcceptorReward(acceptor);
+    // Check if the acceptor has missed the liveness window
+    if (!getCurrentAcceptor() == acceptor) {
+        require(hasAcceptorMissedLivenessWindow(), "Volunteer-acceptor can only be rewarded if the acceptor missed the liveness window");
+    }
+    // add the reward to the reward queue, which gets processed at the end of the next epoch
+    addReward(acceptor, reward);
+}
+
+function hasAcceptorMissedLivenessWindow() internal view returns (bool) {
+    // Implement logic to check if the acceptor has missed the liveness window, i.e. has not been active for a certain amount of time.
+}
+</code></pre>
+<h4 id="optional-slashing"><a class="header" href="#optional-slashing">(Optional) Slashing</a></h4>
+<p>With Postconfirmations alone nodes do not need to get slashed if they voted for an invalid commitment. Since only their first vote for a given height gets accepted by the contract, they cannot equivocate. More abstractly the L1 provides consensus on the votes. Slashing MAY be considered to prevent flooding the L1 contract with invalid commitments, however, this is also expensive for the adversary and at most causes additional cost to the acceptor.</p>
+<blockquote>
+<p>:bulb: Nodes MAY get slashed if it has been proven that the validator voted more than once for a given block height on L2. This is a security measure to protect against long-range attacks. However, this is part of the scope of <a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-65: Fastconfirmations</a> and not Postconfirmations.</p>
+</blockquote>
 <h2 id="reference-implementation-14"><a class="header" href="#reference-implementation-14">Reference Implementation</a></h2>
 <p>A reference implementation for Postconfirmation is provided by MCR, see <a href="https://github.com/movementlabsxyz/movement/tree/714831820d78b3910729a194cd0508fa1efd9aa9/protocol-units/settlement/mcr">here</a>.</p>
 <h2 id="verification-16"><a class="header" href="#verification-16">Verification</a></h2>
