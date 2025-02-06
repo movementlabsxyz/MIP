@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MD-34: Fast Finality Settlement - MIP</title>
+        <title>MD-37: FFS: Postconfirmation - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -158,49 +158,39 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-34-fast-finality-settlement"><a class="header" href="#md-34-fast-finality-settlement">MD-34: Fast Finality Settlement</a></h1>
+<h1 id="md-37-ffs-postconfirmation"><a class="header" href="#md-37-ffs-postconfirmation">MD-37: FFS: Postconfirmation</a></h1>
 <ul>
-<li><strong>Description</strong>: Fast Finality Settlement mechanism requirements.</li>
-<li><strong>Authors</strong>: Andreas Penzkofer</li>
+<li><strong>Description</strong>: Confirmations of superBlocks on L1. A sub-protocol of Fast Finality Settlement.</li>
+<li><strong>Authors</strong>: <a href="mailto:author@email.com">Author</a></li>
 </ul>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
-<p>We require a mechanism to confirm the validity of transactions on L2. This mechanism should provide fast confirmations with crypto-economic security on L2. Moreover, it should also provide confirmations that leverage the economic security from L1 (this may be slower).</p>
+<p>This document describes the requirements for the Postconfirmation protocol, a sub-protocol of the Fast Finality Settlement (FFS) protocol. Postconfirmation is responsible for confirming superBlocks on L1.</p>
+<p>See also the <a href="../mip-34/README.html">FFS protocol</a>.</p>
 <h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
-<h3 id="d1-postconfirmation"><a class="header" href="#d1-postconfirmation">D1: Postconfirmation</a></h3>
-<p><strong>User Journey</strong>: Validators can attest to the correctness of a sequence of L2Blocks (superBlocks) on L1.</p>
-<p><strong>Description</strong>: Postconfirmation is the process of confirming a sequence of L2Blocks on L1. Validators attest to the correctness of the L2Blocks. The postconfirmation process leverages the economic security of L1.</p>
-<p><strong>Justification</strong>: Postconfirmation is necessary to provide finality to the L2 transactions. It leverages the economic security of L1 to provide finality to the L2 transactions.</p>
-<h3 id="d2-staking-mechanism-for-postconfirmation"><a class="header" href="#d2-staking-mechanism-for-postconfirmation">D2: Staking Mechanism for Postconfirmation</a></h3>
-<p><strong>User Journey</strong>: Validators can stake assets, distribute rewards, and manage slashing for misbehavior.</p>
-<p><strong>Description</strong>: A staking mechanism is required on L1 for validators to stake assets, distribute rewards, and manage slashing for misbehavior.</p>
-<p><strong>Justification</strong>: A staking mechanism is necessary to incentivize validators to act honestly.</p>
-<h3 id="d3-fastconfirmation"><a class="header" href="#d3-fastconfirmation">D3: Fastconfirmation</a></h3>
-<p><strong>User Journey</strong>: Validators can attest to the correctness of L2Blocks on L2.</p>
-<p><strong>Description</strong>: Fastconfirmation is the process of confirming L2Blocks on L2. Validators attest to the correctness of the L2Blocks. The fastconfirmation process provides fast confirmations for the L2 transactions.</p>
-<p><strong>Justification</strong>: Fastconfirmation is necessary to provide fast confirmations for the L2 transactions. It provides fast confirmation to the L2 transactions.</p>
-<h3 id="d4-staking-mechanism-for-fastconfirmation"><a class="header" href="#d4-staking-mechanism-for-fastconfirmation">D4: Staking Mechanism for Fastconfirmation</a></h3>
-<p><strong>User Journey</strong>: Validators can stake assets, distribute rewards, and manage slashing for misbehavior.</p>
-<p><strong>Description</strong>: A staking mechanism is required on L2 for validators to stake assets, distribute rewards, and manage slashing for misbehavior.</p>
-<p><strong>Justification</strong>: A staking mechanism is necessary to incentivize validators to act honestly.</p>
-<h3 id="d5-communication-of-fastconfirmation-certificates"><a class="header" href="#d5-communication-of-fastconfirmation-certificates">D5: Communication of Fastconfirmation Certificates</a></h3>
-<p><strong>User Journey</strong>: Validators can communicate Fastconfirmation certificates to users.</p>
-<p><strong>Description</strong>: Validators communicate fastconfirmation certificates to users. The fastconfirmation certificates provide proof of the correctness of the L2Blocks.</p>
-<p><strong>Justification</strong>: The users need to know that the L2Blocks are correct.</p>
-<h3 id="d6-compare-fastconfirmations-with-postconfirmation"><a class="header" href="#d6-compare-fastconfirmations-with-postconfirmation">D6: Compare Fastconfirmations with Postconfirmation</a></h3>
-<p><strong>User Journey</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks.</p>
-<p><strong>Description</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks. The superBlock confirmed by postconfirmation must contain the L2Blocks that are confirmed by fastconfirmations.</p>
-<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
+<h3 id="d1-robust-post-confirmation-verification"><a class="header" href="#d1-robust-post-confirmation-verification">D1: Robust Post-Confirmation Verification</a></h3>
+<p><strong>User Journey</strong>: The L1 validation contract accurately verifies the super-majority proof for superBlocks and interacts effectively with the DA layer when necessary.</p>
+<p><strong>Justification</strong>: Ensuring the correctness of proofs at the L1 level prevents invalid states and secures the system’s integrity.</p>
+<h3 id="d2-decentralized-post-confirmation"><a class="header" href="#d2-decentralized-post-confirmation">D2: Decentralized Post-Confirmation</a></h3>
+<p><strong>User Journey</strong>: The Postconfirmation protocol is decentralized, with multiple validators confirming superBlocks on L1.</p>
+<p><strong>Justification</strong>: Decentralization enhances network security and prevents single points of failure.</p>
+<h3 id="d3-secure-and-transparent-staking-mechanism"><a class="header" href="#d3-secure-and-transparent-staking-mechanism">D3: Secure and Transparent Staking Mechanism</a></h3>
+<p><strong>User Journey</strong>: Validators stake a specified cryptocurrency, with safeguards preventing early exits and ensuring long-term participation.</p>
+<p><strong>Justification</strong>: A robust staking mechanism incentivizes validator honesty and stability, enhancing network trust and security.</p>
+<p><strong>Recommendations</strong>: Clearly define staking requirements, lock-in periods, and penalties for early exit to maintain validator accountability.</p>
+<h3 id="d4-identify-slashing-conditions"><a class="header" href="#d4-identify-slashing-conditions">D4: Identify Slashing Conditions</a></h3>
+<p><strong>User Journey</strong>: Slashing conditions are clearly defined and enforced, with penalties for malicious behavior.</p>
+<p><strong>Justification</strong>: Clearly defined slashing conditions deter malicious actors and protect the network from potential attacks.</p>
+<h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../../../Review/primata/md-30/MD/md-30/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../../../Review/mip/FFS/MD/md-34/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../../../Review/mip/postconfirmation/MD/md-37/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../../../Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -210,11 +200,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../../../Review/primata/md-30/MD/md-30/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../../../Review/mip/FFS/MD/md-34/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../../../Review/mip/postconfirmation/MD/md-37/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../../../Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
