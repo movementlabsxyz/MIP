@@ -3320,24 +3320,24 @@ This implies that if more than <span class="katex"><span class="katex-html" aria
 <li><strong>Desiderata</strong>: <a href="Review/mip/postconfirmation/MIP/mip-37/../../MD/md-37">MD-37</a></li>
 </ul>
 <h2 id="abstract-17"><a class="header" href="#abstract-17">Abstract</a></h2>
-<p>Fast-Finality-Settlement (FFS) is proposed in <a href="https://github.com/movementlabsxyz/MIP/pull/34">MIP-34</a>, with two confirmation mechanisms, one the base level (L1) and one the chain level (L2). This MIP details the mechanism on Level 1 (L1), which is called <em><strong>postconfirmation</strong></em>.</p>
-<p>L2 produces <strong>L2Blocks</strong>. At certain intervals validators commit a sequence of L2Blocks in a <em><strong>superBlock</strong></em>, to L1. The L1 contract will verify if &gt;2/3 of the validators have attested to a given superBlock height. The action for this validation is called postconfirmation and it is initiated by the <em><strong>acceptor</strong></em>. The acceptor is a specific validator selected for some interval.</p>
+<p>Fast-Finality-Settlement (FFS) is proposed in <a href="https://github.com/movementlabsxyz/MIP/pull/34">MIP-34</a>, with two confirmation mechanisms, one the base level (L1) and one the chain level (L2). This MIP details the mechanism on Level 1 (L1), which is called <em><strong>Postconfirmation</strong></em>.</p>
+<p>L2 produces <strong>L2Blocks</strong>. At certain intervals validators commit a sequence of L2Blocks in a <em><strong>superBlock</strong></em>, to L1. The L1 contract will verify if &gt;2/3 of the validators have attested to a given superBlock height. The action for this validation is called Postconfirmation and it is initiated by the <em><strong>acceptor</strong></em>. The acceptor is a specific validator selected for some interval.</p>
 <p>This provides an L1-protected guarantee that a superBlock (i.e. a sequence of L2Blocks) is accepted and correctly executed. This anchoring mechanism increases the security of the L2 as it protects the L2-state against long range attacks and can provide a way to slash validators that have attested against the majority.</p>
 <h2 id="motivation-17"><a class="header" href="#motivation-17">Motivation</a></h2>
 <p>We require from the FFS protocol that it is secure and efficient, yet simple in its <em>initial</em> design. In order for the protocol to fulfill the requirement for simplicity, validators only communicate to the L1-contract and not with each other. This is a key design decision to reduce the complexity of the protocol, but can be improved in the future.</p>
-<p>We also request that rewards and costs are made more predictable for validators. For this, we propose a special role – the acceptor – to perform the postconfirmation process.</p>
+<p>We also request that rewards and costs are made more predictable for validators. For this, we propose a special role – the acceptor – to perform the Postconfirmation process.</p>
 <h2 id="specification-16"><a class="header" href="#specification-16">Specification</a></h2>
-<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
+<p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
 <p>Figure 1 shows the leader-independent (deterministic) block generation process, which is also discussed in <a href="https://github.com/movementlabsxyz/MIP/pull/34">MIP-34: Fast Finality Settlement</a>.</p>
-<p><img src="Review/mip/postconfirmation/MIP/mip-37/postconfirmation.png" alt="Version A Diagram" />
+<p><img src="Review/mip/postconfirmation/MIP/mip-37/Postconfirmation.png" alt="Version A Diagram" />
 <em>Figure 1: Leader-independent (deterministic) block generation process.</em></p>
 <p>Since this document introduces a large number of new terms, we provide a specification by defining the terms and their interactions.</p>
-<h4 id="domains---one-contract-to-rule-them-all"><a class="header" href="#domains---one-contract-to-rule-them-all">Domains - One contract to rule them all</a></h4>
+<h4 id="domains---one-contract-to-rule-them-all"><a class="header" href="#domains---one-contract-to-rule-them-all">Domains - one contract to rule them all</a></h4>
 <p>The L1 contract is intended to handle multiple chains. We differentiate between the chains by their unique identifier <code>domain</code> (of type <code>address</code>).</p>
 <h4 id="l2blocks"><a class="header" href="#l2blocks">L2Blocks</a></h4>
 <p>L2Blocks are deterministically derived from the sequencer-batches, which are called protoBlocks, see the <a href="Review/mip/postconfirmation/MIP/mip-37/../../GLOSSARY.html">glossary</a>. Validators calculate the next deterministic transition (imposed through the sequence of transactions <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">x</span><span class="mord mathnormal">s</span></span></span></span>) <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0636em;vertical-align:-0.011em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel x-arrow"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0526em;"><span style="top:-3.322em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight x-arrow-pad"><span class="mord mtight"><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">x</span><span class="mord mathnormal mtight">s</span><span class="mspace mtight"><span class="mtight"> </span></span></span></span></span><span class="svg-align" style="top:-2.689em;"><span class="pstrut" style="height:2.7em;"></span><span class="hide-tail" style="height:0.522em;min-width:1.469em;"><svg xmlns="http://www.w3.org/2000/svg" width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128 -16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20  11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7  39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85 -40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5 -12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67  151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.011em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7519em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span>, where <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7519em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span> are L2Blocks.</p>
 <h4 id="superblock"><a class="header" href="#superblock">SuperBlock</a></h4>
-<p>The postconfirmation protocol cannot attest to each individual L2Block. This restriction derives from the high frequency at which protoBlocks can be created, the low frequency of L1Blocks and the cost of L1 transactions. Therefore, after a certain number of L2blocks, validators calculate the next (deterministic) superBlock and commit to it in the L1 contract. The L1 contract will verify if &gt;2/3 of the validators have attested to a given superBlock height to a superBlock</p>
+<p>The Postconfirmation protocol cannot attest to each individual L2Block. This restriction derives from the high frequency at which protoBlocks can be created, the low frequency of L1Blocks and the cost of L1 transactions. Therefore, after a certain number of L2blocks, validators calculate the next (deterministic) superBlock and commit to it in the L1 contract. The L1 contract will verify if &gt;2/3 of the validators have attested to a given superBlock height to a superBlock</p>
 <h4 id="commitment"><a class="header" href="#commitment">Commitment</a></h4>
 <p>Validators commit the hash of the superBlock on the L1-contract. It commits the validator to a certain superBlock at a given height, with no option for changing their opinion. (This is intentional - validators should not be able to revert).</p>
 <pre><code class="language-solidity">struct superBlockCommitment {
@@ -3387,7 +3387,7 @@ if (superBlockHeightToAssignedEpoch[blockCommitment.height] == 0) {
 <ol start="3">
 <li><strong><code>acceptingEpoch</code></strong></li>
 </ol>
-<p>Votes are counted in the current <code>acceptingEpoch</code>. If there are enough commitments for a <code>superBlockId</code> the superBlock height receives a postconfirmation status.</p>
+<p>Votes are counted in the current <code>acceptingEpoch</code>. If there are enough commitments for a <code>superBlockId</code> the superBlock height receives a Postconfirmation status.</p>
 <pre><code class="language-solidity">??? relevant code
 </code></pre>
 <h4 id="staking-and-unstaking"><a class="header" href="#staking-and-unstaking">Staking and Unstaking</a></h4>
@@ -3448,7 +3448,7 @@ mapping(Domain =&gt; mapping(Epoch =&gt; mapping(Custodian =&gt; mapping(Atteste
 <blockquote>
 <p>:bulb: Slashing may only be required if we implement Fastconfirmations, see <a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-65</a>.</p>
 </blockquote>
-<p>With postconfirmations alone nodes do not need to get slashed if they voted for an invalid commitment. Since only their first vote for a given height gets accepted by the contract, they cannot equivocate. More abstractly the L1 provides consensus on the votes.</p>
+<p>With Postconfirmations alone nodes do not need to get slashed if they voted for an invalid commitment. Since only their first vote for a given height gets accepted by the contract, they cannot equivocate. More abstractly the L1 provides consensus on the votes.</p>
 <p>Nodes SHOULD get slashed if it has been proven that the validator voted more than once for a given block height on L2. This is a security measure to protect against long-range attacks. However, this is part of the scope of <a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-65: Fastconfirmations.</a></p>
 <blockquote>
 <p>:warning: :warning: How do we prove that a validator has voted twice for a given block height? Does it involve Merkle proofs?</p>
@@ -3484,10 +3484,10 @@ while (getAcceptingEpoch() &lt; NextBlockEpoch) {
 </ol>
 <blockquote>
 <p>[!NOTE]
-this is a requirement to protect against liveness issues. Either the acceptor (or the volunteer-acceptor) has not been active for a liveness affecting amount of time to initiate postconfirmations, or over 1/3 of the validators have not been active in the <code>acceptingEpoch</code>. Either way, the current acceptingEpoch has not been live and should be skipped.</p>
+this is a requirement to protect against liveness issues. Either the acceptor (or the volunteer-acceptor) has not been active for a liveness affecting amount of time to initiate Postconfirmations, or over 1/3 of the validators have not been active in the <code>acceptingEpoch</code>. Either way, the current acceptingEpoch has not been live and should be skipped.</p>
 </blockquote>
 <h4 id="acceptor"><a class="header" href="#acceptor">Acceptor</a></h4>
-<p>Every interval <code>acceptorTerm</code> one of the validators takes on the role to perform the postconfirmation checks. This acceptor is selected via L1-randomness provided through L1Block hashes. This acceptor is responsible for updating the contract state once a super-majority is reached for a superBlock. The acceptor is rewarded for this service, see the <a href="Review/mip/postconfirmation/MIP/mip-37/index.html#rewards">Rewards section</a>. We note that this does not equate to a leader in a traditional consensus protocol, as the acceptor does not propose new states. Its role can also be taken over by a <a href="Review/mip/postconfirmation/MIP/mip-37/index.html#volunteer-acceptor">volunteer-acceptor</a>.</p>
+<p>Every interval <code>acceptorTerm</code> one of the validators takes on the role to perform the Postconfirmation checks. This acceptor is selected via L1-randomness provided through L1Block hashes. This acceptor is responsible for updating the contract state once a super-majority is reached for a superBlock. The acceptor is rewarded for this service, see the <a href="Review/mip/postconfirmation/MIP/mip-37/index.html#rewards">Rewards section</a>. We note that this does not equate to a leader in a traditional consensus protocol, as the acceptor does not propose new states. Its role can also be taken over by a <a href="Review/mip/postconfirmation/MIP/mip-37/index.html#volunteer-acceptor">volunteer-acceptor</a>.</p>
 <blockquote>
 <p>:bulb: We separate the acceptor from the validators to achieve separation of concerns and in particular simplify the reward mechanism.</p>
 </blockquote>
@@ -3512,8 +3512,8 @@ this is a requirement to protect against liveness issues. Either the acceptor (o
 <h2 id="reference-implementation-14"><a class="header" href="#reference-implementation-14">Reference Implementation</a></h2>
 <p>A reference implementation for Postconfirmation is provided by MCR, see <a href="https://github.com/movementlabsxyz/movement/tree/714831820d78b3910729a194cd0508fa1efd9aa9/protocol-units/settlement/mcr">here</a>.</p>
 <h2 id="verification-16"><a class="header" href="#verification-16">Verification</a></h2>
-<h2 id="changelog-10"><a class="header" href="#changelog-10">Changelog</a></h2>
 <h2 id="appendix-16"><a class="header" href="#appendix-16">Appendix</a></h2>
+<h2 id="changelog-10"><a class="header" href="#changelog-10">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-47-improve-gas-fee-collection-in-phases"><a class="header" href="#mip-47-improve-gas-fee-collection-in-phases">MIP-47: Improve Gas fee collection in phases</a></h1>
 <ul>
@@ -5843,20 +5843,20 @@ struct Trade {
 <p>This document describes the requirements for the Postconfirmation protocol, a sub-protocol of the Fast Finality Settlement (FFS) protocol. Postconfirmation is responsible for confirming superBlocks on L1.</p>
 <p>See also the <a href="Review/mip/postconfirmation/MD/md-37/../mip-34/README.html">FFS protocol</a>.</p>
 <h2 id="desiderata-16"><a class="header" href="#desiderata-16">Desiderata</a></h2>
-<h3 id="d1-robust-post-confirmation-verification"><a class="header" href="#d1-robust-post-confirmation-verification">D1: Robust Post-Confirmation Verification</a></h3>
+<h3 id="d1-robust-postconfirmation-verification"><a class="header" href="#d1-robust-postconfirmation-verification">D1: Robust Postconfirmation verification</a></h3>
 <p><strong>User Journey</strong>: The L1 validation contract accurately verifies the super-majority proof for superBlocks and interacts effectively with the DA layer when necessary.</p>
 <p><strong>Justification</strong>: Ensuring the correctness of proofs at the L1 level prevents invalid states and secures the system’s integrity.</p>
-<h3 id="d2-decentralized-post-confirmation"><a class="header" href="#d2-decentralized-post-confirmation">D2: Decentralized Post-Confirmation</a></h3>
+<h3 id="d2-decentralized-postconfirmation"><a class="header" href="#d2-decentralized-postconfirmation">D2: Decentralized Postconfirmation</a></h3>
 <p><strong>User Journey</strong>: The Postconfirmation protocol is decentralized, with multiple validators confirming superBlocks on L1.</p>
 <p><strong>Justification</strong>: Decentralization enhances network security and prevents single points of failure.</p>
-<h3 id="d3-secure-and-transparent-staking-mechanism"><a class="header" href="#d3-secure-and-transparent-staking-mechanism">D3: Secure and Transparent Staking Mechanism</a></h3>
+<h3 id="d3-secure-and-transparent-staking-mechanism"><a class="header" href="#d3-secure-and-transparent-staking-mechanism">D3: Secure and transparent staking mechanism</a></h3>
 <p><strong>User Journey</strong>: Validators stake a specified cryptocurrency, with safeguards preventing early exits and ensuring long-term participation.</p>
 <p><strong>Justification</strong>: A robust staking mechanism incentivizes validator honesty and stability, enhancing network trust and security.</p>
 <p><strong>Recommendations</strong>: Clearly define staking requirements, lock-in periods, and penalties for early exit to maintain validator accountability.</p>
-<h3 id="d4-identify-slashing-conditions"><a class="header" href="#d4-identify-slashing-conditions">D4: Identify Slashing Conditions</a></h3>
+<h3 id="d4-identify-slashing-conditions"><a class="header" href="#d4-identify-slashing-conditions">D4: Identify slashing conditions</a></h3>
 <p><strong>User Journey</strong>: Slashing conditions are clearly defined and enforced, with penalties for malicious behavior.</p>
 <p><strong>Justification</strong>: Clearly defined slashing conditions deter malicious actors and protect the network from potential attacks.</p>
-<h2 id="errata-18"><a class="header" href="#errata-18">Errata</a></h2>
+<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs"><a class="header" href="#md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></h1>
 <ul>
@@ -5892,7 +5892,7 @@ struct Trade {
 <h3 id="d5-provide-and-argument-agains-the-need-to-resolve-ab-ffs-fixed-supply-concerns"><a class="header" href="#d5-provide-and-argument-agains-the-need-to-resolve-ab-ffs-fixed-supply-concerns">D5: Provide and Argument Agains the Need to Resolve AB-FFS Fixed Supply Concerns</a></h3>
 <p><strong>User Journey</strong>: Developers, exchanges, and users can understand why the bridge can be assumed reasonably secure and inherent fallibility is within network security contraints given a set of assumptions.</p>
 <p><strong>Justification</strong>: We can argue, for example, that many other bridge services use a trusted signer and that said trusted signer is uncomprimised is a fundamental and acceptable assumption.</p>
-<h2 id="errata-19"><a class="header" href="#errata-19">Errata</a></h2>
+<h2 id="errata-18"><a class="header" href="#errata-18">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5963,7 +5963,7 @@ struct Trade {
 <h3 id="d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties"><a class="header" href="#d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties">D5: Specify How to Distribute Gas Fees to the Appropriate Parties</a></h3>
 <p><strong>User Journey</strong>: A network participant can understand how gas fees are distributed.</p>
 <p><strong>Justification</strong>: Gas fees must ultimately be used to pay extrinsic costs or else be considered as rewards. It is important to specify how gas fees are distributed to ensure that the system is fair and that the incentives for participation are aligned with the goals of the Movement Network.</p>
-<h2 id="errata-20"><a class="header" href="#errata-20">Errata</a></h2>
+<h2 id="errata-19"><a class="header" href="#errata-19">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -6000,7 +6000,7 @@ struct Trade {
 <p><strong>User Journey</strong>: Pending transfers are retried automatically after a timeout, ensuring eventual completion without manual oversight.</p>
 <p><strong>Justification</strong>: Improves the reliability of the relayer by handling transient errors and network issues gracefully.</p>
 <p><strong>Recommendations</strong>: Implement a configurable timeout period for retries.</p>
-<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
+<h2 id="changelog-22"><a class="header" href="#changelog-22">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-69-bridge-fees"><a class="header" href="#md-69-bridge-fees">MD-69: Bridge fees</a></h1>
 <ul>
@@ -6080,7 +6080,7 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 <p>The postconfirmation process is a synchronization mechanism for L2 to L1, see <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>.</p>
 <p>If the Relayer completes transfers from L2 to L1 without awaiting postconfirmation of the L2 <code>initiate</code> transaction, synchronization guarantees are reduced. The postconfirmation is an anchoring mechanism that binds the L2 to a certain L2 block height and hash, and hinders reorgs beyond a certain depth on L2.</p>
 <p>We need to check the implications for the Informer if the Relayer ignores postconfirmations.</p>
-<h2 id="errata-21"><a class="header" href="#errata-21">Errata</a></h2>
+<h2 id="errata-20"><a class="header" href="#errata-20">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-74-rate-limiter-for-the-lockmint-type-native-bridge"><a class="header" href="#md-74-rate-limiter-for-the-lockmint-type-native-bridge">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></h1>
 <ul>
@@ -6100,7 +6100,7 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 <h3 id="d3-define-the-rate-limiting-mechanism"><a class="header" href="#d3-define-the-rate-limiting-mechanism">D3: Define the rate-limiting mechanism</a></h3>
 <p><strong>User Journey</strong>: The developer should understand the rate-limiting mechanism.</p>
 <p><strong>Description</strong>: The rate-limiting mechanism should be defined in a way that it is clear how it works and how it can be adjusted. Moreover all components and their parameters should be defined. It should also be defined what is being rate-limited.</p>
-<h2 id="errata-22"><a class="header" href="#errata-22">Errata</a></h2>
+<h2 id="errata-21"><a class="header" href="#errata-21">Errata</a></h2>
 
                     </main>
 
