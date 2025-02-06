@@ -3512,8 +3512,8 @@ this is a requirement to protect against liveness issues. Either the acceptor (o
 <h2 id="reference-implementation-14"><a class="header" href="#reference-implementation-14">Reference Implementation</a></h2>
 <p>A reference implementation for Postconfirmation is provided by MCR, see <a href="https://github.com/movementlabsxyz/movement/tree/714831820d78b3910729a194cd0508fa1efd9aa9/protocol-units/settlement/mcr">here</a>.</p>
 <h2 id="verification-16"><a class="header" href="#verification-16">Verification</a></h2>
-<h2 id="changelog-10"><a class="header" href="#changelog-10">Changelog</a></h2>
 <h2 id="appendix-16"><a class="header" href="#appendix-16">Appendix</a></h2>
+<h2 id="changelog-10"><a class="header" href="#changelog-10">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-47-improve-gas-fee-collection-in-phases"><a class="header" href="#mip-47-improve-gas-fee-collection-in-phases">MIP-47: Improve Gas fee collection in phases</a></h1>
 <ul>
@@ -5843,20 +5843,20 @@ struct Trade {
 <p>This document describes the requirements for the Postconfirmation protocol, a sub-protocol of the Fast Finality Settlement (FFS) protocol. Postconfirmation is responsible for confirming superBlocks on L1.</p>
 <p>See also the <a href="Review/mip/postconfirmation/MD/md-37/../mip-34/README.html">FFS protocol</a>.</p>
 <h2 id="desiderata-16"><a class="header" href="#desiderata-16">Desiderata</a></h2>
-<h3 id="d1-robust-post-confirmation-verification"><a class="header" href="#d1-robust-post-confirmation-verification">D1: Robust Post-Confirmation Verification</a></h3>
+<h3 id="d1-robust-postconfirmation-verification"><a class="header" href="#d1-robust-postconfirmation-verification">D1: Robust Postconfirmation verification</a></h3>
 <p><strong>User Journey</strong>: The L1 validation contract accurately verifies the super-majority proof for superBlocks and interacts effectively with the DA layer when necessary.</p>
 <p><strong>Justification</strong>: Ensuring the correctness of proofs at the L1 level prevents invalid states and secures the system’s integrity.</p>
-<h3 id="d2-decentralized-post-confirmation"><a class="header" href="#d2-decentralized-post-confirmation">D2: Decentralized Post-Confirmation</a></h3>
+<h3 id="d2-decentralized-postconfirmation"><a class="header" href="#d2-decentralized-postconfirmation">D2: Decentralized Postconfirmation</a></h3>
 <p><strong>User Journey</strong>: The Postconfirmation protocol is decentralized, with multiple validators confirming superBlocks on L1.</p>
 <p><strong>Justification</strong>: Decentralization enhances network security and prevents single points of failure.</p>
-<h3 id="d3-secure-and-transparent-staking-mechanism"><a class="header" href="#d3-secure-and-transparent-staking-mechanism">D3: Secure and Transparent Staking Mechanism</a></h3>
+<h3 id="d3-secure-and-transparent-staking-mechanism"><a class="header" href="#d3-secure-and-transparent-staking-mechanism">D3: Secure and transparent staking mechanism</a></h3>
 <p><strong>User Journey</strong>: Validators stake a specified cryptocurrency, with safeguards preventing early exits and ensuring long-term participation.</p>
 <p><strong>Justification</strong>: A robust staking mechanism incentivizes validator honesty and stability, enhancing network trust and security.</p>
 <p><strong>Recommendations</strong>: Clearly define staking requirements, lock-in periods, and penalties for early exit to maintain validator accountability.</p>
-<h3 id="d4-identify-slashing-conditions"><a class="header" href="#d4-identify-slashing-conditions">D4: Identify Slashing Conditions</a></h3>
+<h3 id="d4-identify-slashing-conditions"><a class="header" href="#d4-identify-slashing-conditions">D4: Identify slashing conditions</a></h3>
 <p><strong>User Journey</strong>: Slashing conditions are clearly defined and enforced, with penalties for malicious behavior.</p>
 <p><strong>Justification</strong>: Clearly defined slashing conditions deter malicious actors and protect the network from potential attacks.</p>
-<h2 id="errata-18"><a class="header" href="#errata-18">Errata</a></h2>
+<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs"><a class="header" href="#md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></h1>
 <ul>
@@ -5892,7 +5892,7 @@ struct Trade {
 <h3 id="d5-provide-and-argument-agains-the-need-to-resolve-ab-ffs-fixed-supply-concerns"><a class="header" href="#d5-provide-and-argument-agains-the-need-to-resolve-ab-ffs-fixed-supply-concerns">D5: Provide and Argument Agains the Need to Resolve AB-FFS Fixed Supply Concerns</a></h3>
 <p><strong>User Journey</strong>: Developers, exchanges, and users can understand why the bridge can be assumed reasonably secure and inherent fallibility is within network security contraints given a set of assumptions.</p>
 <p><strong>Justification</strong>: We can argue, for example, that many other bridge services use a trusted signer and that said trusted signer is uncomprimised is a fundamental and acceptable assumption.</p>
-<h2 id="errata-19"><a class="header" href="#errata-19">Errata</a></h2>
+<h2 id="errata-18"><a class="header" href="#errata-18">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5963,7 +5963,7 @@ struct Trade {
 <h3 id="d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties"><a class="header" href="#d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties">D5: Specify How to Distribute Gas Fees to the Appropriate Parties</a></h3>
 <p><strong>User Journey</strong>: A network participant can understand how gas fees are distributed.</p>
 <p><strong>Justification</strong>: Gas fees must ultimately be used to pay extrinsic costs or else be considered as rewards. It is important to specify how gas fees are distributed to ensure that the system is fair and that the incentives for participation are aligned with the goals of the Movement Network.</p>
-<h2 id="errata-20"><a class="header" href="#errata-20">Errata</a></h2>
+<h2 id="errata-19"><a class="header" href="#errata-19">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -6000,7 +6000,7 @@ struct Trade {
 <p><strong>User Journey</strong>: Pending transfers are retried automatically after a timeout, ensuring eventual completion without manual oversight.</p>
 <p><strong>Justification</strong>: Improves the reliability of the relayer by handling transient errors and network issues gracefully.</p>
 <p><strong>Recommendations</strong>: Implement a configurable timeout period for retries.</p>
-<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
+<h2 id="changelog-22"><a class="header" href="#changelog-22">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-69-bridge-fees"><a class="header" href="#md-69-bridge-fees">MD-69: Bridge fees</a></h1>
 <ul>
@@ -6080,7 +6080,7 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 <p>The postconfirmation process is a synchronization mechanism for L2 to L1, see <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>.</p>
 <p>If the Relayer completes transfers from L2 to L1 without awaiting postconfirmation of the L2 <code>initiate</code> transaction, synchronization guarantees are reduced. The postconfirmation is an anchoring mechanism that binds the L2 to a certain L2 block height and hash, and hinders reorgs beyond a certain depth on L2.</p>
 <p>We need to check the implications for the Informer if the Relayer ignores postconfirmations.</p>
-<h2 id="errata-21"><a class="header" href="#errata-21">Errata</a></h2>
+<h2 id="errata-20"><a class="header" href="#errata-20">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-74-rate-limiter-for-the-lockmint-type-native-bridge"><a class="header" href="#md-74-rate-limiter-for-the-lockmint-type-native-bridge">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></h1>
 <ul>
@@ -6100,7 +6100,7 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 <h3 id="d3-define-the-rate-limiting-mechanism"><a class="header" href="#d3-define-the-rate-limiting-mechanism">D3: Define the rate-limiting mechanism</a></h3>
 <p><strong>User Journey</strong>: The developer should understand the rate-limiting mechanism.</p>
 <p><strong>Description</strong>: The rate-limiting mechanism should be defined in a way that it is clear how it works and how it can be adjusted. Moreover all components and their parameters should be defined. It should also be defined what is being rate-limited.</p>
-<h2 id="errata-22"><a class="header" href="#errata-22">Errata</a></h2>
+<h2 id="errata-21"><a class="header" href="#errata-21">Errata</a></h2>
 
                     </main>
 
