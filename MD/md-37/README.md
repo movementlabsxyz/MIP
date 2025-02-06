@@ -1,7 +1,7 @@
 # MD-37: FFS: Postconfirmation
 
 - **Description**: Confirmations of superBlocks on L1. A sub-protocol of Fast Finality Settlement.
-- **Authors**: [Author](mailto:author@email.com)
+- **Authors**: Andreas Penzkofer
 
 ## Overview
 
@@ -31,10 +31,10 @@ See also the [FFS protocol](../mip-34/README.md).
 
 **Recommendations**: Clearly define staking requirements, lock-in periods, and penalties for early exit to maintain validator accountability.
 
-### D4: Identify slashing conditions
+### D4: Identify slashing conditions where necessary
 
-**User Journey**: Slashing conditions are clearly defined and enforced, with penalties for malicious behavior.
+**User Journey**: Slashing conditions are clearly defined and enforced, with penalties for malicious behavior. Only utilize slashing if it is necessary.
 
-**Justification**: Clearly defined slashing conditions deter malicious actors and protect the network from potential attacks.
+**Justification**: Clearly defined slashing conditions deter malicious actors and protect the network from potential attacks. Overuse of slashing can discourage participation.
 
 ## Changelog
