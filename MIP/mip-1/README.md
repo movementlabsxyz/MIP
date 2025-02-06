@@ -102,6 +102,6 @@ Several suggestions are made to resolve this problem in [MD-2](../MD/md-2).
 
 ENTL assumes a valid Client program is one that (1) can provide the correct nonce and (2)
 
-## Changelog
-
 ## Appendix
+
+## Changelog

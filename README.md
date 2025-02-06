@@ -152,3 +152,7 @@ Currently the editors are [@apenzk](https://github.com/apenzk).
 An author commits to becoming the owner of the MIP/MD they propose. This means that for any future changes to the MIP/MD the author will be notified.
 
 The author MUST add themselves as a code owner in [CODEWONERS](.github/CODEOWNERS).
+
+## Copyright
+
+Copyright and related rights waived via [CC0](LICENSE.md).

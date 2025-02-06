@@ -70,6 +70,6 @@ See the MG document type template at [mg-template](../../md-template.md) and the
 
 ## Verification
 
-## Changelog
-
 ## Appendix
+
+## Changelog

@@ -301,10 +301,6 @@ Note that [safety-2] does hold if the relayer is down for more than $maxRelayerD
 
 The only difference between L1 to L2 is the way assets are created/destroyed. However, the formal model abstracts away this difference and the same properties hold for the L2 to L1 bridge.
 
-## Changelog
-
----
-
 ## Appendix
 
 The UPPAAL models of the L1 to L2 transfers are available in the [uppaal-models](./uppaal-models) directory.
@@ -312,8 +308,4 @@ The simplest model is [bridge-up-v2.xml](./uppaal-models/bridge-up-v2.xml) and t
 
 You can request a license to use UPPAAL at [UPPAAL](http://www.uppaal.org/).
 
----
-
-## Copyright
-
-Copyright and related rights waived via [CC0](../LICENSE.md).
+## Changelog

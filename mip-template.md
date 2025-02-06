@@ -76,28 +76,6 @@ _The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "
 
 Needs discussion.
 
----
-
-## Changelog
-
-<!--
-  The changelog should be maintained after publication.
-
-  1. **Transparency and Clarity**: The changelog acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting changes openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each changelog should briefly describe each change made, accompanied by a reference to the date, version and PR in which the change was implemented.
-
-  The format should be as follows:
-  - **YYYY-MM-DD**: Description of change. [PR#](link-to-PR)
-
-  TODO: Maintain this comment.
-
--->
-
----
-
 ## Appendix
 <!--
   The Appendix should contain an enumerated list of reference materials and notes.
@@ -109,9 +87,23 @@ Needs discussion.
 -->
 
 ### A1
+
 Nothing important here.
 
----
-## Copyright
+## Changelog
 
-Copyright and related rights waived via [CC0](../LICENSE.md).
+<!--
+  The Changelog should be maintained after publication.
+
+  1. **Transparency and Clarity**: The Changelog acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
+
+  2. **Accountability**: By noting changes openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
+
+  Each Changelog should briefly describe each change made, accompanied by a reference to the date, version and PR in which the change was implemented.
+
+  The format should be as follows:
+  - **YYYY-MM-DD**: Description of change. [PR#](link-to-PR)
+
+  TODO: Maintain this comment.
+
+-->

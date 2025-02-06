@@ -297,8 +297,4 @@ Multisig Relayers could process pending transactions in batches during downtime 
 - [Arbitrum Bridge](https://bridge.arbitrum.io/?destinationChain=arbitrum-one&sourceChain=ethereum)
 - [Blast Bridge](https://docs.blast.io/building/bridges/mainnet)
 
----
-
-## Copyright
-
-Copyright and related rights waived via [CC0](../LICENSE.md).
+## Changelog
