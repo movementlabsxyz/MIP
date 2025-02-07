@@ -9,8 +9,9 @@ Provide a coherent and repeatable process for releasing artifacts for Movement t
 
 ## Definitions
 
-- **artifact**: a deployable unit of software that is the result of a build process. This could be a library, a binary, a container image, or a well-known configuration file.
-- **release**: a versioned artifact that is made available to the public. This could be a stable release, a beta release, or a release candidate.
+**artifact**: a deployable unit of software that is the result of a build process. This could be a library, a binary, a container image, or a well-known configuration file.
+
+**release**: a versioned artifact that is made available to the public. This could be a stable release, a beta release, or a release candidate.
 
 ## Desiderata
 
