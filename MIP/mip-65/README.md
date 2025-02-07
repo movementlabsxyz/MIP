@@ -1,7 +1,7 @@
 # MIP-65: FFS: Fastconfirmations
 
 - **Description**: Fast-Finality Settlement : Fastconfirmations as confirmations on the L2.
-- **Authors**: [Andreas Penzkofer]()
+- **Authors**: Andreas Penzkofer
 - **Desiderata**: [MD-65](../../MD/md-65/README.md)
 
 ## Abstract
