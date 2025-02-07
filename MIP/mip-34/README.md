@@ -9,8 +9,8 @@ Fast Finality Settlement (FFS) is a mechanism that allows for fast _confirmation
 
 FFS is divided into
 
-- **Postconfirmation**: a mechanism to confirm the validity of a block on L1
-- **Fastconfirmation**: a mechanism to confirm the validity of a block on L2
+- **Postconfirmation**: a mechanism to confirm the validity of a block on L1, see [MIP-37](https://github.com/movementlabsxyz/MIP/blob/mip/postconfirmation/MIP/mip-37/README.md).
+- **Fastconfirmation**: a mechanism to confirm the validity of a block on L2, see [MIP-65](https://github.com/movementlabsxyz/MIP/blob/mip/L2confirmation/MIP/mip-65/README.md).
 
 ## Definitions
 
@@ -27,15 +27,15 @@ The term quorum certificate has been deprecated in favor of Fastconfirmation cer
 
 ## Motivation
 
-Two chains are present in our architecture: a base chain (or L1) and a second chain (or L2). We refer to L2 as a chain that is not the base chain.Rollups and other types of chains may publish or secure transaction data in a data availability (DA) layer or at Ethereum mainnet (L1).
+Two chains are present in our architecture: a base chain (or L1) and a second chain (or L2). Rollups and other types of chains may publish or secure transaction data in a data availability (DA) layer or at Ethereum mainnet (L1).
 
 Validity and optimistic rollups can finalize transactions within approximately 30 minutes and ~1 week, respectively. Until a transaction is finalized, there is no assurance about its validity and result (success or failure). This can be a limiting factor for certain types of DeFi applications.
 
 Our objective is to enable transaction issuers to quickly get some guarantees that their transactions are correctly and successfully included in a block. The crypto-economic security is provided by a Proof-of-Stake (PoS) protocol. This mechanism can be deployed independently for a chain, or used in combination with existing settlement mechanisms, such as ZK and optimistic settlements.
 
-As a result, users can rely and trust the **Fastconfirmation** (sometimes also described as L2-finality) to use as confirmation, or if the chain is configured to do so, wait for L1-finality, such as through **Postconfirmation**, end of challenge window for fraud proofs (optimistic rollup), or verification of a ZK-proof (validity rollup).
+As a result, users can rely and trust the **Fastconfirmation** (sometimes also described as L2-finality) to use as confirmation. If the chain is configured to do so, wait for L1-finality, such as through **Postconfirmation**, end of challenge window for fraud proofs (optimistic rollup), or verification of a ZK-proof (validity rollup).
 
-A introduction to FFS can be found in [this blog post on Fast Finality Settlement](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement). A more detailed description of a (partial) implementation of the mechanism is available at [this blog post on Postconfirmations](https://blog.movementlabs.xyz/article/Postconfirmations-L2s-rollups-blockchain-movement).
+A introduction to Postconfirmation can be found in [this blog post](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement) and a more detailed description of a (partial) implementation of the mechanism is available at [this blog post](https://blog.movementlabs.xyz/article/Postconfirmations-L2s-rollups-blockchain-movement).
 
 This MIP provides an overview of an architecture of FFS, and its main components.
 
@@ -56,7 +56,6 @@ At an abstract level, the L2 chain increases by a new block in each (L2) round, 
 **Local validation**. Since a block is deterministically calculated we say that a block (and the associated new state) is _validated locally_ once the execution engine calculates it from the protoBlock.
 
 The validity judgement to be made is:
-> [!NOTE]
 > Given a block $B$ (predecessor), a protoBlock of transactions $txs$ and a successor block $B'$, is $B'$ the^[the MoveVM is deterministic and there can be only valid successor.] _correct_ successor of $B$ after executing the sequence of transactions $txs$?
 
 The term _correct_ means that the successor block $B'$ (and the state it represents) has been computed in accordance with the semantics of the MoveVM, which we denote  $B \xrightarrow{\ txs \ } B'$.
@@ -67,12 +66,11 @@ The term _correct_ means that the successor block $B'$ (and the state it represe
 
 **Fastconfirmation certificate**. When enough validators have attested for a new block $B'$, the block is _L2-confirmed_ (sometimes referred to as _L2-final_). The accumulation of enough votes is aggregated in a Fastconfirmation certificate. A naive implementation of the Fastconfirmation certificate is a list of votes.
 
-> [!NOTE]
-> Until a better definition arises we consider _**confirmation**_ to be defined as _L2-finality_ (i.e. _Fastconfirmation_).
+> :warning: Until a better definition arises we consider _**confirmation**_ to be defined as _L2-finality_ (i.e. _Fastconfirmation_).
 
 **Fastconfirmation**. FFS aims to _confirm_ the validity of each produced L2Block, at every L2Block height.
-> [!IMPORTANT]
-> If we confirm each successor block before adding it to the (confirmed) part of the ledger, there cannot be any fork, except if the sequencer would provide equivocating protoBlocks for a given height AND there is a sufficiently strong Byzantine attack on the confirmation process.
+
+> :warning: If we confirm each successor block before adding it to the (confirmed) part of the ledger, there cannot be any fork, except if the sequencer would provide equivocating protoBlocks for a given height AND there is a sufficiently strong Byzantine attack on the confirmation process.
 
 If the validators can attest blocks quickly and make their attestations available to third-parties, we have a fast confirmation mechanism supported by crypto-economic security, the  level of which depends on what is at stake for the confirmation of a block.
 
@@ -154,8 +152,7 @@ L2Blocks are deterministically derived from the protoBlock, and consequently the
 
 An additional actor - the `acceptor` - is introduced that initiates the Postconfirmation process. This is necessary, as this step requires additional gas costs on L1 and thus this role requires additional rewards. We also don't want to burden regular validators with additional gas costs, as we would like the gas costs for validators to be predictable. The `acceptor` serves for a specified period and is then replaced by another validator.
 
-> [!NOTE]
-> Since the block derivation is deterministic, $f+1$ may be sufficient to confirm the block. (However, we require $2f+1$ to cover potential edge cases, such as that the sequencer cannot be trusted.)
+> :bulb: Since the block derivation is deterministic, $f+1$ may be sufficient to confirm the block. (However, we require $2f+1$ to cover potential edge cases, such as that the sequencer cannot be trusted.)
 
 **Direct L1 commitments**. In the scenario where validators commit individually they send the block hashes of the calculated blocks directly to the L1 contract.
 
@@ -221,6 +218,6 @@ There are several aspects that could be optimized and refined:
 - **commit to a sequence of L2Blocks**. The Fastconfirmation certificate could be per block. However, on L1 we want to commit to a sequence of blocks (a superBlock). This can be done by committing to the state root of the last block in the sequence or more complicated approaches using Merkle roots.
 - **involvement of DA layer**. Validators sent their votes or commitments to a DA layer off-L1. This ensures that votes remain available and can be used for potential slashing. This step should take O(1) second if we use a fast reliable mempool.
 
-## Changelog
-
 ## Appendix
+
+## Changelog
