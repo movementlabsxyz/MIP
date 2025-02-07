@@ -2313,7 +2313,8 @@ We have not finalised the FFS details yet so it may be premature to try and defi
 <h2 id="motivation-11"><a class="header" href="#motivation-11">Motivation</a></h2>
 <p>Movement technologies are continually evolving, and there’s a need to ensure that the process of releasing artifacts is both organized and standardized. By establishing Release Conventions for Movement Technologies, we aim to facilitate the delivery of canonical artifacts to the Movement community. This will ensure that Movement technologies are accessible, easy to use, and well-vetted.</p>
 <h2 id="specification-10"><a class="header" href="#specification-10">Specification</a></h2>
-<p>The definitions of “artifact” and “release” are accepted from <a href="Review/l-monninger/releases/MIP/mip-23/../MD/md-n">MD-n</a> and submitted for formal adoption in <a href="Review/l-monninger/releases/MIP/mip-23/../MG/mg-n">MG-n</a> and <a href="Review/l-monninger/releases/MIP/mip-23/../MG/mg-k">MG-k</a>.</p>
+<p>The definitions of “artifact” and “release” are accepted from <a href="Review/l-monninger/releases/MIP/mip-23/../../MD/md-23">MD-n</a>.
+They are submitted for formal adoption in <a href="Review/l-monninger/releases/MIP/mip-23/../MG/mg-n">MG-n</a> and <a href="Review/l-monninger/releases/MIP/mip-23/../MG/mg-k">MG-k</a>.</p>
 <p>We break the specification into four sections:</p>
 <ol>
 <li><strong>Standardized Release Naming Convention</strong>: the section specifying the naming convention to be used for releases.</li>
@@ -2321,7 +2322,7 @@ We have not finalised the FFS details yet so it may be premature to try and defi
 <li><strong>Programmatic Access to Release Artifacts</strong>: the section specifying how release artifacts can be fetched programmatically and how software should be designed to this end.</li>
 <li><strong>Standard Relationship between Releases and Governance</strong>: the section specifying the relationship between releases and governance as should be assumed the default.</li>
 </ol>
-<h3 id="standardized-release-naming-convention"><a class="header" href="#standardized-release-naming-convention">Standardized Release Naming Convention</a></h3>
+<h3 id="1-standardized-release-naming-convention"><a class="header" href="#1-standardized-release-naming-convention">1. Standardized Release Naming Convention</a></h3>
 <p>We propose the following naming convention for releases, inspired by the <a href="https://github.com/aptos-labs/aptos-core/blob/main/RELEASE.md">Aptos release standard</a>:</p>
 <pre><code>&lt;software-unit&gt;-v&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;-&lt;release-type&gt;
 </code></pre>
@@ -2337,7 +2338,7 @@ We have not finalised the FFS details yet so it may be premature to try and defi
 <pre><code>&lt;software-unit&gt;-&lt;environment&gt;
 </code></pre>
 <p>An example of how this can be released in Git and GitHub is provided in the following section.</p>
-<h3 id="standardized-source-control"><a class="header" href="#standardized-source-control">Standardized Source Control</a></h3>
+<h3 id="2-standardized-source-control"><a class="header" href="#2-standardized-source-control">2. Standardized Source Control</a></h3>
 <ol>
 <li>
 <p>Source control MUST be responsible for initiating all releases with the following tags:</p>
@@ -2379,7 +2380,7 @@ git push origin -f latest
 <p>Releases to established environments MUST trigger an update of all usage of that software unit to the appropriate tag by Movement Labs. This SHOULD be automated to the extent possible to ensure that the source control reflects the canonical release.</p>
 </li>
 </ol>
-<h3 id="programmatic-access-to-release-artifacts"><a class="header" href="#programmatic-access-to-release-artifacts">Programmatic Access to Release Artifacts</a></h3>
+<h3 id="3-programmatic-access-to-release-artifacts"><a class="header" href="#3-programmatic-access-to-release-artifacts">3. Programmatic Access to Release Artifacts</a></h3>
 <ol>
 <li>
 <p>Source control SHOULD be the primary source of release artifacts.</p>
@@ -2432,7 +2433,7 @@ impl Release&lt;JSONFieldArtifact&gt; for JSONFieldRelease {
 <ol start="4">
 <li>Via the API above, particularly when implemented in Rust, the Developer CAN integrate version fetching into their application, e.g., during setup.</li>
 </ol>
-<h3 id="standard-relationship-between-releases-and-governance"><a class="header" href="#standard-relationship-between-releases-and-governance">Standard Relationship between Releases and Governance</a></h3>
+<h3 id="4-standard-relationship-between-releases-and-governance"><a class="header" href="#4-standard-relationship-between-releases-and-governance">4. Standard Relationship between Releases and Governance</a></h3>
 <p>Releases establish the canonical version of a software unit for a given environment. The governance of the software unit in question is responsible for approving releases to established environments.</p>
 <ol>
 <li>
