@@ -16,17 +16,17 @@ Movement technologies are continually evolving, and there's a need to ensure tha
 
 ## Specification
 
-The definitions of "artifact" and "release" are accepted from [MD-n](../../MD/md-23).
+The definitions of "artifact" and "release" are accepted from [MD-23](../../MD/md-23).
 They are submitted for formal adoption in [MG-n](../MG/mg-n) and [MG-k](../MG/mg-k).
 
 We break the specification into four sections:
 
-1. **Standardized Release Naming Convention**: the section specifying the naming convention to be used for releases.
-2. **Standardized Source Control**: the section specifying the process for initiating releases from source control.
-3. **Programmatic Access to Release Artifacts**: the section specifying how release artifacts can be fetched programmatically and how software should be designed to this end.
-4. **Standard Relationship between Releases and Governance**: the section specifying the relationship between releases and governance as should be assumed the default.
+1. Standardized release naming convention
+2. Standardized release process from source control
+3. Programmatic access to release artifacts
+4. Default relationship between releases and governance
 
-### 1. Standardized Release Naming Convention
+### 1. Standardized release naming convention
 
 We propose the following naming convention for releases, inspired by the [Aptos release standard](https://github.com/aptos-labs/aptos-core/blob/main/RELEASE.md):
 
@@ -52,7 +52,7 @@ We thus propose the following standard for releases marking the canonical releas
 
 An example of how this can be released in Git and GitHub is provided in the following section.
 
-### 2. Standardized Source Control
+### 2. Standardized release process from source control
 
 1. Source control MUST be responsible for initiating all releases with the following tags:
     1. A tag corresponding to the Standardized Release Naming Convention above.
@@ -82,7 +82,7 @@ git push origin -f latest
 
 9. Releases to established environments MUST trigger an update of all usage of that software unit to the appropriate tag by Movement Labs. This SHOULD be automated to the extent possible to ensure that the source control reflects the canonical release.
 
-### 3. Programmatic Access to Release Artifacts
+### 3. Programmatic access to release artifacts
 
 1. Source control SHOULD be the primary source of release artifacts. 
 
@@ -133,7 +133,7 @@ impl Release<JSONFieldArtifact> for JSONFieldRelease {
 
 4. Via the API above, particularly when implemented in Rust, the Developer CAN integrate version fetching into their application, e.g., during setup.
 
-### 4. Standard Relationship between Releases and Governance
+### 4. Default relationship between releases and governance
 
 Releases establish the canonical version of a software unit for a given environment. The governance of the software unit in question is responsible for approving releases to established environments.
 
