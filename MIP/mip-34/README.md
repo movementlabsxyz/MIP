@@ -134,17 +134,15 @@ To ensure that the Fastconfirmation status is made available to third-parties, w
 
 Alternatively we can store the Fastconfirmation on an L2 chain (which also takes use of a DA layer).
 
-## Implementation Details
+## Initial Implementation Proposals
 
-To simplify we assume that each validator stakes the same amount. The set of validators is in charge of validating sequenced batches and producing blocks that also commit to the state root of the sequenced batch.
-
-There may be different protocols for the Postconfirmation and the Fastconfirmation.
+> :warning: :warning: The following proposals are based on initial assumptions and SHOULD be revised upon readiness of [MIP-37](https://github.com/movementlabsxyz/MIP/blob/mip/postconfirmation/MIP/mip-37/README.md) and [MIP-65](https://github.com/movementlabsxyz/MIP/blob/mip/L2confirmation/MIP/mip-65/README.md). Indeed, redundant information should be removed, once later MIPs are available.
 
 #### Postconfirmation with deterministic blocks
 
 L2Blocks are deterministically derived from the protoBlock, and consequently the superBlock $B_r'$ is deterministic. Validators then attest for the next transition directly:  $B_r \xrightarrow{\ txs \ } B_r'$. E.g. by committing to the the hash of $B_r'$.
 
-An additional actor - the `acceptor` - is introduced that initiates the Postconfirmation process. This is necessary, as this step requires additional gas costs on L1 and thus this role requires additional rewards. We also don't want to burden regular validators with additional gas costs, as we would like the gas costs for validators to be predictable. The `acceptor` serves for a specified period and is then replaced by another validator.
+An additional actor - the `acceptor` - is introduced that initiates the Postconfirmation process. This is necessary, as the Postconfirmation step requires additional gas on L1 and thus this role requires additional rewards. We also don't want to burden regular validators with additional gas costs, as we would like the gas costs for validators to be predictable. The `acceptor` serves for a specified period and is then replaced by another validator.
 
 > :bulb: Since the block derivation is deterministic, $f+1$ may be sufficient to confirm the block. (However, we require $2f+1$ to cover potential edge cases, such as that the sequencer cannot be trusted.)
 
@@ -157,9 +155,9 @@ An additional actor - the `acceptor` - is introduced that initiates the Postconf
 
 #### Fastconfirmation with deterministic blocks
 
-A p2p layer is established between validators. Validators communicate to aggregate a threshold of votes on each deterministically determined L2Block. This provides Fastconfirmations in the order of seconds.
+Validators attest for the next transition directly in a contract on L2:  $B_r \xrightarrow{\ txs \ } B_r'$. E.g. by committing to the the hash of $B_r'$. This provides Fastconfirmations in the order of seconds.
 
-Since this approach already collects commitments off-L1, an acceptor could collect commitments and send the super-majority proof to the L1 contract. This would provide Postconfirmations in the order of minutes.
+Alternatively, a p2p layer could be established between validators. Validators communicate to aggregate a threshold of votes.
 
 ![Diagram 3](fullDesign.png)
 *Figure 3: **Postconfirmation + Fastconfirmation**: Leader-independent (deterministic) L2Block generation process. Validators co-operate to create a Fastconfirmation certificate before L1 is involved.*
@@ -177,9 +175,11 @@ _Figure 1: **Postconfirmation**: Leader-dependent L2Block generation process._
 
 ## Verification
 
+> :warning: :warning: The following may be better placed in the specific MIP of Postconfirmation. This SHOULD be revised upon readiness of [MIP-37](https://github.com/movementlabsxyz/MIP/blob/mip/postconfirmation/MIP/mip-37/README.md) and [MIP-65](https://github.com/movementlabsxyz/MIP/blob/mip/L2confirmation/MIP/mip-65/README.md). Indeed, redundant information should be removed, once later MIPs are available.
+
 ### Correctness and Security
 
-A more detailed discussion on the correctness and security is discussed in [this blog post on FFS](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement).
+A more detailed discussion on the correctness and security is discussed in [this blog post on Postconfirmations](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement).
 
 The level of security depends on the total stake of the L2 validators. The higher the more secure.
 
@@ -209,8 +209,7 @@ There are several aspects that could be optimized and refined:
 - **super-majority proof**: it can be a list of votes, but could also be a ZK-proof (more compact). The super-majority proof is not a proof of correct execution (as in zkVM) but simply of super-majority and this is cheaper to compute.
 - **signatures aggregation**: we want to avoid sending large transactions to the L1 as it increases operational costs. How to aggregate signatures to send more compact messages/transactions?
 - **delegation/weighted stakes**: a mechanism for validators to delegate their voting power to other validators. Ability for validators to stake different amounts (and use weighted stakes super-majority).
-- **commit to a sequence of L2Blocks**. The Fastconfirmation certificate could be per block. However, on L1 we want to commit to a sequence of blocks (a superBlock). This can be done by committing to the state root of the last block in the sequence or more complicated approaches using Merkle roots.
-- **involvement of DA layer**. Validators sent their votes or commitments to a DA layer off-L1. This ensures that votes remain available and can be used for potential slashing. This step should take O(1) second if we use a fast reliable mempool.
+- **commit to a sequence of L2Blocks**. The Fastconfirmation certificate could be per L2block. However, on L1 we want to commit to a sequence of blocks (a superBlock). This can be done by committing to the state root of the last block in the sequence or more complicated approaches using Merkle roots.
 
 ## Appendix
 
