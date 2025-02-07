@@ -16,6 +16,8 @@ Movement technologies are continually evolving, and there's a need to ensure tha
 
 ## Specification
 
+*The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.*
+
 The definitions of "artifact" and "release" are accepted from [MD-23](../../MD/md-23).
 They are submitted for formal adoption in [MG-n](../MG/mg-n) and [MG-k](../MG/mg-k).
 
