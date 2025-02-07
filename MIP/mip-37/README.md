@@ -12,6 +12,8 @@ The L2 produces **L2Blocks**. At certain intervals validators commit a sequence 
 
 This provides an L1-protected guarantee that a superBlock (i.e. a sequence of L2Blocks) is accepted and correctly executed. This anchoring mechanism increases the security of the L2 as it protects the L2-state against long range attacks, see [MD-5](https://github.com/movementlabsxyz/MIP/tree/l-monninger/long-range-attacks/MD/md-5).
 
+A introduction to Postconfirmation can also be found in [this blog post](https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement) and a more detailed description of a (partial) implementation of the mechanism is available at [this blog post](https://blog.movementlabs.xyz/article/Postconfirmations-L2s-rollups-blockchain-movement).
+
 ## Motivation
 
 We require from the FFS protocol that it is secure and efficient, yet simple in its *initial* design. In order for the protocol to fulfill the requirement for simplicity, validators only communicate to the L1-contract and not with each other. This is a key design decision to reduce the complexity of the protocol, but can be improved in the future.
