@@ -2,7 +2,7 @@
 
 - **Description**: Confirmations of superBlocks on L1. A sub-protocol of Fast Finality Settlement.
 - **Authors**: Andreas Penzkofer
-- **Desiderata**: [MD-37](https://github.com/movementlabsxyz/MIP/tree/mip/postconfirmation/MD/md-37)
+- **Desiderata**: [MD-37](https://github.com/movementlabsxyz/MIP/tree/mip/postconfirmation/MD/md-37), [MD-4](https://github.com/movementlabsxyz/MIP/pull/4), [MD-5](https://github.com/movementlabsxyz/MIP/pull/5)
 
 ## Abstract
 
@@ -217,7 +217,7 @@ This step protects against liveness issues through inactive validators by taking
 
 Every interval `acceptorTerm` one of the validators takes on the role to perform the Postconfirmation functionality. This acceptor is responsible for updating the contract state once a super-majority is reached for a superBlock height. The acceptor is rewarded for this service, see the [Rewards section](#rewards). We note that this does not equate to a leader in a traditional consensus protocol, as the acceptor does not propose new states. Its role can also be taken over by a [volunteer-acceptor](#volunteer-acceptor).
 
-> :bulb: We separate the acceptor from the validators to achieve separation of concerns and simplify the reward mechanism for the validators.
+> :bulb: We separate the acceptor from the validators to achieve separation of concerns and simplify the reward mechanism for the validators. This addresses [MD-4:D1](https://github.com/movementlabsxyz/MIP/tree/l-monninger/gas-offset/MD/md-4).
 
 The acceptor MUST be selected via L1-randomness and weighted by the stake. The randomness MAY be provided through L1Block hashes, which can be considered sufficiently random, initially. Alternative higher-quality randomness from L1 SHOULD be considered.
 
