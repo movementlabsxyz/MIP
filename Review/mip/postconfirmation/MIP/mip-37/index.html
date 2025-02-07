@@ -162,7 +162,7 @@
 <ul>
 <li><strong>Description</strong>: Confirmations of superBlocks on L1. A sub-protocol of Fast Finality Settlement.</li>
 <li><strong>Authors</strong>: Andreas Penzkofer</li>
-<li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/tree/mip/postconfirmation/MD/md-37">MD-37</a></li>
+<li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/tree/mip/postconfirmation/MD/md-37">MD-37</a>, <a href="https://github.com/movementlabsxyz/MIP/pull/4">MD-4</a>, <a href="https://github.com/movementlabsxyz/MIP/pull/5">MD-5</a></li>
 </ul>
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
 <p>Fast-Finality-Settlement (FFS) is proposed in <a href="https://github.com/movementlabsxyz/MIP/pull/34">MIP-34</a>, with two confirmation mechanisms: one on the base chain level (L1) and one on the rollup/sidechain level (L2). This MIP details the mechanism on Level 1 (L1), which is called <em><strong>Postconfirmation</strong></em>.</p>
@@ -319,7 +319,7 @@ while (getAcceptingEpoch() &lt; NextSuperBlockEpoch) {
 <h4 id="acceptor"><a class="header" href="#acceptor">Acceptor</a></h4>
 <p>Every interval <code>acceptorTerm</code> one of the validators takes on the role to perform the Postconfirmation functionality. This acceptor is responsible for updating the contract state once a super-majority is reached for a superBlock height. The acceptor is rewarded for this service, see the <a href="#rewards">Rewards section</a>. We note that this does not equate to a leader in a traditional consensus protocol, as the acceptor does not propose new states. Its role can also be taken over by a <a href="#volunteer-acceptor">volunteer-acceptor</a>.</p>
 <blockquote>
-<p>:bulb: We separate the acceptor from the validators to achieve separation of concerns and simplify the reward mechanism for the validators.</p>
+<p>:bulb: We separate the acceptor from the validators to achieve separation of concerns and simplify the reward mechanism for the validators. This addresses <a href="https://github.com/movementlabsxyz/MIP/tree/l-monninger/gas-offset/MD/md-4">MD-4:D1</a>.</p>
 </blockquote>
 <p>The acceptor MUST be selected via L1-randomness and weighted by the stake. The randomness MAY be provided through L1Block hashes, which can be considered sufficiently random, initially. Alternative higher-quality randomness from L1 SHOULD be considered.</p>
 <pre><code class="language-solidity">function getCurrentAcceptor() public view returns (address) {
