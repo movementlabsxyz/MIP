@@ -73,7 +73,7 @@ git push origin -f latest
 
 5. GitHub SHOULD be the default source control platform. Within the platform each release should contain at least the archive of the source code which would produce the release artifact.
 
-6. Well-known configuration files MUST also be included in the release archive where they apply. 
+6. Well-known configuration files MUST also be included in the release archive where they apply.
 
 7. Releases outside of GitHub, e.g., DockerHub, MUST be tagged with the same tags as the GitHub release and linked in the release notes on the GitHub release.
 
@@ -144,6 +144,6 @@ Releases establish the canonical version of a software unit for a given environm
 
 ## Verification
 
-## Changelog
-
 ## Appendix
+
+## Changelog
