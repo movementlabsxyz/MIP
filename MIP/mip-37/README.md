@@ -8,7 +8,7 @@
 
 Fast-Finality-Settlement (FFS) is proposed in [MIP-34](https://github.com/movementlabsxyz/MIP/pull/34), with two confirmation mechanisms: one on the base chain level (L1) and one on the rollup/sidechain level (L2). This MIP details the mechanism on Level 1 (L1), which is called ***Postconfirmation***.
 
-The L2 produces **L2Blocks**. At certain intervals validators commit a sequence of L2Blocks in a ***superBlock***, to L1. The L1 contract will verify if >2/3 of the validators have attested to a given superBlock height. The action for this validation is called Postconfirmation and it is initiated by the ***acceptor***. The acceptor is a specific validator selected for some interval.
+The L2 produces **L2Blocks**. At certain intervals validators commit a sequence of L2Blocks in a ***superBlock***, to L1. The L1 contract will verify if >2/3 of the validators have attested to a given superBlock height. The action for this validation is called Postconfirmation and it is initiated by the ***acceptor***. The acceptor is a specific validator selected for some interval and it is added to the protocol to provide separation of concerns (attestations vs. Postconfirmation) and provide more predictable costs and rewards.
 
 This provides an L1-protected guarantee that a superBlock (i.e. a sequence of L2Blocks) is accepted and correctly executed. This anchoring mechanism increases the security of the L2 as it protects the L2-state against long range attacks, see [MD-5](https://github.com/movementlabsxyz/MIP/tree/l-monninger/long-range-attacks/MD/md-5).
 
@@ -31,9 +31,9 @@ Figure 1 shows the leader-independent (deterministic) block generation process, 
 
 Since this document introduces a large number of new terms, we provide a specification by defining the terms and their interactions.
 
-#### Domains - one contract to rule them all
+#### Domains - one staking contract to rule them all
 
-The L1 contract is intended to handle multiple chains. We differentiate between the chains by their unique identifier `domain` (of type `address`).
+The L1 staking contract is intended to handle multiple chains. We differentiate between the chains by their unique identifier `domain` (of type `address`).
 
 #### L2Blocks
 
@@ -41,7 +41,8 @@ L2Blocks are deterministically derived from the sequencer-batches, which are cal
 
 #### SuperBlock
 
-The Postconfirmation protocol cannot attest to each individual L2Block. This restriction derives from the high frequency at which protoBlocks can be created, the low frequency of L1Blocks and the cost of L1 transactions. Therefore, after a certain number of L2blocks, validators calculate the next (deterministic) superBlock and commit to it in the L1 contract. The L1 contract will verify if >2/3 of the validators have attested to a given superBlock height to a superBlock
+The Postconfirmation protocol is unlikely to attest to each individual L2Block. L2Blocks may be produced at higher frequency than L1Blocks or the cost of Postconfirmation is high leading to low frequency commitment. Therefore, after a defined number of L2blocks (or L1Blocks, if this is preferred), validators calculate the next (deterministic) superBlock and commit to it in the L1 contract. The L1 contract will verify if >2/3 of the validators have attested at a given superBlock height to a superBlock. Each incremental hight increase may be considered a round.
+
 
 #### Commitment
 
@@ -57,15 +58,20 @@ struct superBlockCommitment {
 
 #### Epochs
 
-We require epochs in order to facilitate a clear separation of `staking` and `unstaking` periods for validators, as well as manage rewards and penalties. The `epochDuration` MUST be set when initializing a chain. It MAY be changeable later on through a governance mechanism.
+We require epochs in order to provide
 
-The `epochDuration` should be set to a value that is large enough to allow for the `staking` and `unstaking` process to be completed. Moreover, it should be long enough for human operators to react.
+- **secure on- and off-boarding process** of validators. A validator MUST live in a well-defined state for a sufficient amount of time. The available states are `stake`, `unstake`, and `not-staking` (in code only the former two may be required). This longevity of a given state both provides stability to the protocol, as well as is a security measure to prevent validators from harming the protocol towards the end of an epoch without implications, as they remain accountable for at least one epoch.
+- **reward and penalty application**. The borders between periods are also used to manage rewards and penalties. This also renders inefficiencies as calculation of voting weights could be expensive or attackable and thus it should be performed infrequent.
+
+The `epochDuration` MUST be set when initializing a chain. It MAY be changeable later on through a governance mechanism. The `epochDuration` should be set to a value that is large enough to allow for the `staking` and `unstaking` process to be completed. Moreover, it should be long enough for human operators to react.
 
 > :bulb: The initial recommendation for `epochDuration` is 1 day.
 
 There are three relevant epoch types
 
-1. **`presentEpoch`** is the epoch that is currently active on L1.
+##### 1. `presentEpoch`
+
+`presentEpoch` is the epoch that is currently active on L1.
 
 ```solidity
 uint256 presentEpoch = getEpochFromL1BlockTime();
@@ -80,7 +86,9 @@ function getEpochFromL1BlockTime(address domain) public view returns (uint256) {
 ```
 and `L1GenesisTime` is the time when the L1 contract was deployed.
 
-2. **`assignedEpoch`**. If a superBlock height is new, the current `presentEpoch` value is assigned to the superBlock height.
+##### 2. `assignedEpoch`
+
+If a superBlock height is new, the current `presentEpoch` value is assigned to the superBlock height.
 
 ```solidity
 /// map each block height to an epoch
@@ -106,7 +114,7 @@ if (lastPostconfirmedBlockHeight + leadingBlockTolerance < blockCommitment.heigh
 
 The validators have to check if the current superBlock height (off-L1) is within the above window. Otherwise the commitment of the (honest) validator will not be added to the L1 contract.
 
-3. **`acceptingEpoch`**
+##### 3. `acceptingEpoch`
 
 Votes are counted in the current `acceptingEpoch`. If there are enough commitments for a `superBlockId` the superBlock height receives a Postconfirmation status.
 
@@ -120,9 +128,9 @@ function getAcceptingEpoch() public view returns (uint256) {
 
 #### Staking and Unstaking
 
-Validators can stake and unstake their tokens. The staking and unstaking process is managed by the L1-contract. Validators can stake their tokens for a certain epoch. The staking process is initiated by the validator. The validator can also unstake their tokens, such that the stake is released at the end of the next epoch.
+Validators can stake and unstake their tokens. The staking and unstaking process is managed by the staking contract. Validators can stake their tokens for a certain epoch. The staking process is initiated by the validator. The validator can also unstake their tokens, such that the stake is released at the end of the next epoch.
 
-The reason for the delay in the unstaking process is to prevent validators from harming the protocol towards the end of an epoch without implications, and to remain accountable for at least one epoch.
+The reason for the delay in the unstaking process is to prevent validators from harming the protocol towards the end of an epoch without implications, and to remain accountable for at least one epoch. See also Section [Epochs](#epochs).
 
 ```mermaid
 gantt
@@ -235,20 +243,19 @@ function getAcceptorFromL1Randomness(bytes32 blockHash) internal view returns (a
   // Implement logic to get the acceptor from the L1 randomness
   // and that considers the stake.
 }
-
 ```
 
 #### Volunteer-acceptor
 
 If the acceptor does not update the contract state for some time, this is negative for the liveness of the protocol. In particular if the `acceptorTerm` is in the range for the time that is required for the `leadingBlockTolerance`. Thus it is recommended that `acceptorTerm` << time(`leadingBlockTolerance`). However, such a requirement may not be trivial to solve.
 
-In order to guarantee liveness the protocol ensures that anyone can voluntarily provide the service of the acceptor. However, no reward is being issued for this service (unless the acceptor has missed the liveness window). The first volunteer-acceptor to provide the service after elapse of the liveness window will be accepted and receives the reward for the service. This is a liveness measure.
+In order to guarantee liveness the protocol ensures that anyone can voluntarily provide the service of the acceptor. However, no reward is being issued for this service (unless the acceptor has missed the liveness window, see [Rewards](#rewards)). The first volunteer-acceptor to provide the service after elapse of the liveness window will be accepted and receives the reward for the service. This is a liveness measure.
 
 #### Rewards
 
 Validators are rewarded for their service. The reward is calculated proportional to the validator stake and activity. The reward is issued in the next epoch.
 
-The acceptor is rewarded for the service. The reward is calculated proportional to the activity. The reward is issued in the next epoch. The volunteer-acceptor is not rewarded unless the acceptor has missed the liveness window.
+The acceptor is rewarded for the service. The reward is calculated proportional to the activity. The reward is issued in the next epoch. The volunteer-acceptor is not rewarded unless the acceptor has missed the liveness window `acceptorLivenessWindow`.
 
 ```solidity
 function rewardAcceptor(address acceptor) internal {
@@ -262,7 +269,15 @@ function rewardAcceptor(address acceptor) internal {
 }
 
 function hasAcceptorMissedLivenessWindow() internal view returns (bool) {
-    // Implement logic to check if the acceptor has missed the liveness window, i.e. has not been active for a certain amount of time.
+    uint256 lastActivity = getAcceptorLastActivity();
+    uint256 currentTime = block.timestamp;
+    return currentTime > lastActivity + acceptorLivenessWindow;
+}
+
+function getAcceptorLastActivity() internal view returns (uint256) {
+    // This function should return the last recorded activity timestamp of the acceptor
+    // Placeholder implementation, replace with actual storage retrieval
+    return acceptorLastActivity;
 }
 ```
 
