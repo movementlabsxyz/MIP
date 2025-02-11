@@ -168,7 +168,7 @@ For a code example, see [movementlabsxyz/movement/protocol-units](https://github
 1. **Mempool**: Transaction memory pools (e.g., JellyRoll).
 1. **Data Availability (DA)**: Proofs and layers for data availability (e.g., SOV Labs DA).
 1. **Networking**: Networking utilities (e.g., MovePackets).
-1. **Shared Sequencers**: Components enabling decentralized sequencing of transactions.
+1. **Shared Sequencers**: Components enabling shared sequencing of transactions.
 1. **Censorship**: Components addressing transaction censorship.
 
 **Services**
