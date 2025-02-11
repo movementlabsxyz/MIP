@@ -1,6 +1,9 @@
 # MG-\<number\>: \<term-in-appropriate-case\>
 
 - **Authors**: [Author](mailto:author@email.com)
+- **Introducing Document: [MIP/MD-\<number\>](../MIP/mip-\<number\>/README.md)**
+
+## \<Term\>
 
 <!--
     Write a concise gloss for the term.
@@ -27,6 +30,7 @@
 ## Changelog
 
 <!--
+  Document any post-publication changes to the gloss entry.
   The changelog should be maintained after publication.
 
   1. **Transparency and Clarity**: The changelog acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
@@ -39,5 +43,4 @@
   - **YYYY-MM-DD**: Description of change. [PR#](link-to-PR)
 
   TODO: Maintain this comment.
-
 -->
