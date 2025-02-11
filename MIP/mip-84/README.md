@@ -6,18 +6,18 @@
 
 ## Abstract
 
-The lock/mint-type bridge has the following core actors and components: a user who initiates a transfer, a bridge operator, bridge contracts that facilitate the transfer, and a relayer that submits the completion of the transfer to the bridge contracts.
+The lock/mint-type bridge has the following core actors and components: a user who initiates a transfer, a bridge operator, bridge contracts that facilitate the transfer, and a Relayer that submits the completion of the transfer to the bridge contracts.
 
-The trust assumptions on the relayer component have significant implications for the security of the bridge and they can introduce the need for additional components.
+The trust assumptions on the Relayer component have significant implications for the security of the bridge and they can introduce the need for additional components.
 
 ---
 ![alt text](image.png)
 
-**Figure 1**: The Relayer is in charge of _relaying_ bridge transactions. If a user initiates a bridge transfer request on the L2 with a transaction $T(s,r,a)$ with a sender $s$, recipient $r$, for an amount $a$, we expect the Relayer to relay the request to the L1 with a matching transaction $T'(s,r,a)$. However, a compromised or buggy Relayer may tamper with the bridge transfer data and relay $s', r', a'$ where $s', r', a'$ may differ from $s, r,a$.
+**Figure 1**: _The Relayer is in charge of _relaying_ bridge transactions. If a user initiates a bridge transfer request on the L2 with a transaction $T(s,r,a)$ with a sender $s$, recipient $r$, for an amount $a$, we expect the Relayer to relay the request to the L1 with a matching transaction $T'(s,r,a)$. However, a compromised or buggy Relayer may tamper with the bridge transfer data and relay $s', r', a'$ where $s', r', a'$ may differ from $s, r,a$. A fraudulent or buggy Relayer may also create a transaction $T'(s'',r'',a'')$, without a corresponding transaction $T(s'',r'',a'')$._
 
 ---
 
-In a scenario based approach we clarify minimally required components and why they are needed. We distinguish between a trusted, partially trusted, and untrusted relayer (with proofs).
+In a scenario based approach we clarify minimally required components and why they are needed. We distinguish between a trusted, partially trusted, and untrusted Relayer (with proofs).
 
 ## Motivation
 
@@ -28,47 +28,55 @@ This addresses the following desiderata in [MD-74](https://github.com/movementla
 - D1 : Specify the actors and their trust assumptions
 - D2 : Specify the risks and threats from components
 
+#### Base assumptions
+
+We make the following base assumption:
+
+1. All contracts are secure and reliable.
+1. The bridge operator is trusted.
+
 ## Specification
 
-> _The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
+_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
 
 We define the following terms:
 
 - **Trusted** : A component is trusted if it is assumed to be secure and reliable. No errors in the component can occur. Nor keys can get compromised.
-- **Untrusted** : A component is untrusted if it can have bugs, or misconfigurations, or worst case gets compromised (i.e., become byzantine). The component can stop/crash or tamper with messages, results of computations. 
+- **Untrusted** : A component is untrusted if it can have bugs, or misconfigurations, or worst case gets compromised (i.e., become byzantine). The component can stop/crash or tamper with messages, results of computations. It means an entity is not assumed to be reliable, necessitating verification or safeguards.
 - **Insurance-based Untrusted** : We assume that faults or compromise is extremely unlikely. Under normal operations the component is secure and reliable. The rarity of these events permits that the operator takes care of resulting hardship. Protective measures are taken to reduce the maximally caused damage that the component can cause incase it becomes faulty / Byzantine by providing an insurance fund.
 - **Approval/proof-based Untrusted** : Faults or compromise could happen frequently and at any point in time. Any action should be approved by a trusted party or require a proof of correctness.
 
-### Base assumptions
+#### Soundness and Completeness
 
-We make the following base assumption:
-
-- All contracts are secure and reliable.
-- The bridge operator is trusted.
+1. **Sound Relayer** : the Relayer generates an appropriate event $(s,r,a)$ on the destination chain, only when the corresponding event $(s,r,a)$ on the source chain occurred.
+1. **Complete Relayer** : the Relayer does not fail to produce the event $(s,r,a)$ on the destination chain when the corresponding event $(s,r,a)$ on the source chain occurs.
 
 ### Trusted Relayer
 
-**Assumption**: The relayer is fully trusted to submit the completion of the transfer to the bridge contracts.
+**Assumption**: The Relayer is fully trusted to submit the completion of the transfer to the bridge contracts.
 
-**Risks**: Since the component is trusted, in principle no risks are associated with it.
+**Soundness / Completeness**: There is no formal argument as to why the Relayer would be complete or sound, other than it being capable of performing the actions of listening for and generating $(s,r,a)$ events.
+
+**Risks**: We assume the Relayer is safe.
 
 **Consequence**:
-The relayer always submits the correct completion transaction, i.e. without tampering with the sender, receiver and amount. The relayer can transfer without any restrictions. Since the relayer is trusted, no additional components are needed. Furthermore, no additional protective measures are needed.
+The Relayer always submits the correct completion transaction, i.e. without tampering with the sender, receiver and amount. The Relayer can transfer without any restrictions. Since the Relayer is trusted, no additional components are needed. Furthermore, no additional protective measures are needed.
 
 ### Insurance-based untrusted Relayer
 
-**Assumption**: The relayer is insurance-based untrusted. The completion of the transfer to the bridge contracts is expected to operate correctly. However, in case of an error, the bridge operator can compensate for the error.
+**Assumption**: The Relayer is insurance-based untrusted. The completion of the transfer to the bridge contracts is expected to operate correctly. However, in case of an error, the bridge operator can compensate for the error.
 
-**Risk**: The relayer may be erroneous, misconfigured, or compromised. The relayer may submit the completion of the transfer to the bridge contracts with errors.
+**Soundness / Completeness**: We don't entirely trust the relaying mechanism, but we provide insured bounds. The value of the insurance fund is greater than the value that can be transferred within a certain time frame. The latter requires a rate limitation. This mechanism permits eventual soundness and completeness. See below the solution parts.
 
-1. Abuse of Mint/Release: The relayer may transfer tokens without a respective initiation on the source chain.
-2. Miscalculation: The relayer may transfer the wrong amount of tokens.
-3. Misallocation: The relayer may transfer tokens to the wrong address.
-4. Censorship: The relayer may never transfer certain tokens.
-5. Error: The relayer may submit invalid transfers leading to failed transfers.
+**Risk**: The Relayer may be erroneous, misconfigured, or compromised. The Relayer may submit the completion of the transfer to the bridge contracts with errors.
+
+1. Abuse of Mint/Release: The Relayer may transfer tokens without a respective initiation on the source chain.
+2. Miscalculation: The Relayer may transfer the wrong amount of tokens.
+3. Misallocation: The Relayer may transfer tokens to the wrong address.
+4. Censorship: The Relayer may never transfer certain tokens.
+5. Error: The Relayer may submit invalid transfers leading to failed transfers.
 
 **Consequence**:
-
 User is affected: A complaint by the user should be individually handled. A mechanism to accept complaints MAY be provided. The complaint should be handled by a trusted party, such as a governance component.
 
 Abuse / Miscalculation: The Relayer may release (mint) excessively tokens on the L1 (L2). Any token that is released (minted) on the target chain without a corresponding burn (lock) on the source chain will increase the total circulating supply across L1 and L2. However, the Bridge Operator MUST ensure that the total circulating supply of the token remains constant.
@@ -99,7 +107,7 @@ The Rate Limiter, see [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74) a
 
 ### Approval/proof-based untrusted Relayer
 
-**Assumption**: The relayer is untrusted to submit the completion of the transfer to the bridge contracts. A proof or approval is required.
+**Assumption**: The Relayer is untrusted to submit the completion of the transfer to the bridge contracts. A proof or approval is required.
 
 **Risk**: The source chain may be faulty or reorg. Hence only finalized proofs or approvals should be accepted (finalized with respect to the source chain).
 
@@ -109,7 +117,7 @@ The Rate Limiter, see [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74) a
 
 - L2-->L1 direction:
 
-The relayer submits a proof on L1 that the transfer was initiated successfully on the L2 chain and is part of the L1 verified ZK proof of the commitment of the L2 chain.
+The Relayer submits a proof on L1 that the transfer was initiated successfully on the L2 chain and is part of the L1 verified ZK proof of the commitment of the L2 chain.
 
 - L1 --> L2 direction:
 
@@ -123,7 +131,7 @@ The expected time for the completion of the transfer is the time it takes is in 
 
 - L2-->L1 direction:
 
-The relayer submits a proof on L1 that the transfer was initiated successfully on L2 and is part the commitment on L1.
+The Relayer submits a proof on L1 that the transfer was initiated successfully on L2 and is part the commitment on L1.
 
 Since the finality is crypto-economically protected by watchtower nodes, a rate limitation may have to be applied that ensures, that the value that can be transferred is crypto-economically protected. Otherwise the watchtower nodes may be incentivized to collude and finalize invalid transfers.
 
