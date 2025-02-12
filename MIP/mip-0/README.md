@@ -23,23 +23,47 @@ We treat the following documents as extensions to this MIP:
 - [MIP template](../../mip-template.md)
 - [MG template](../../mg-template.md)
 
-### High-level Lifecycle
+### Process
 
-The lifecycle of a proposal should be
+There are two lifecycle streams: the **github lifecycle** and the **approval lifecycle**. The approval lifecycle is reflective of which MIPs have been approved for implementation. The github lifecycle is reflective of the progress of the MIP in terms of its readiness and review.
+
+#### Github lifecycle
+
+The github lifecycle of a proposal is
 
 1. create a [new issue](https://github.com/movementlabsxyz/MIP/issues) to register the intent to write an MD/MIP and its scope.
-2. If 1. is approved by governance (this may require some discussions), start writing an MD and create a PR for it using [this Draft](../../md-template.md).
-3. The author MAY start an MIP using [this Draft](../../mip-template.md) in the same PR as the MD. However, doing so may slow down the governance approval of the MD. A preferred approach is to start with the MD, then await governance approval and only then start the MIP in a separate PR.
+2. If 1. achieves enough traction start writing an MD. Create a PR by using [this Draft](../../md-template.md).
+3. Ideally the author starts an MIP that addresses an MD, after the MD is approved by governance (see Section [Approval lifecycle](#approval-lifecycle)). However, and in fact in most cases, this restriction will not be implementable and authors MAY start with the MIP in parallel. The author MUST start an MIP using [this Draft](../../mip-template.md). But SHOULD do so in a separate PR to the MD.
 
-#### Status terms
+```mermaid
+graph LR
+    A[1: Idea: issue] --> B[2: Request: MD] --> C[3: Solution: MIP]
+```
 
-An MIP/MD is proposed through a PR. Each MIP/MD PR should have a status. For additional specification, see the [root README](../../README.md#status-terms).
+**Status terms**
+An MIP/MD is proposed through a PR. Each MIP/MD PR should have a status. For additional specification, see the [root README Section "Status terms"](../../README.md#status-terms).
+
+#### Approval lifecycle
+
+An MIP and MD is **approved** or **rejected** by the governance.
+
+The approval lifecycle of a proposal is
+
+1. The author flags their MD to be reviewed by the governance.
+1. The governance reviews the MD and approves or rejects it.
+1. If approved, the author flags their MIP to be reviewed by the governance.
+1. The governance reviews the MIP and approves or rejects it.
+
+```mermaid
+graph LR
+    A[1: Proposal of MD] -- 2: Review / Reject --> B[3: Proposal of MIP] -- 4: Review / Reject --> C[Implementation]
+```
 
 ### Roles
 
 #### Governance
 
-A governance body is responsible for overseeing the Movement Improvement Proposal process. This body is responsible for approving or rejecting proposals, and for ensuring that the process is followed correctly. The governance body is also responsible for maintaining the Movement Improvement Proposal repository, and for ensuring that the proposals are kept up-to-date.
+A governance is responsible for overseeing the Movement Improvement Proposal process. The governance is responsible for approving or rejecting proposals, and for ensuring that the process is followed correctly. The governance is also responsible for maintaining the Movement Improvement Proposal repository, and for ensuring that the proposals are kept up-to-date.
 
 #### Editor
 
@@ -114,7 +138,7 @@ The primary security concern associated with this MIP is the exposure of proprie
 
 The primary performance concern associated with this MIP is its potential for overuse. Only specifications that are non-trivial and very high-quality should be composed as MIPs.
 
-4. Procedures: To the extent possible, formal, analytical, or machined-aided validation of the above should be pursued. 
+4. Procedures: To the extent possible, formal, analytical, or machined-aided validation of the above should be pursued.
 
 I'm using spellcheck while writing this MIP. You can verify that I am using valid grammar by pasting this sentence into Google Docs.
 
