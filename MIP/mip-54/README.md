@@ -33,7 +33,7 @@ We acknowledge and apply the conventions of [MIP-53: Conventions for Proposing P
 || [MIP-44: AB-FFS Governed Gas Pool](https://github.com/movementlabsxyz/MIP/pulls) | The Governed Gas Pool into which gas fees are deposited and from which the governing body disperses funds.  |
 || [MIP-49: AB-FFS Governed Rewards and Fees](https://github.com/movementlabsxyz/MIP/pull/49) | The means by which gas fees and rewards are adjusted by the governing body. Rewards are migrated manually from the L2 to the L1 by the governing body. |
 || [MIP-50: Insured Bridge](https://github.com/movementlabsxyz/MIP/pull/50) | The Bridge Insurance Fund which is used to cover the cost of failed bridge operations. Insures atomically and synchronously that all losses from bridge failures can be covered. |
-|| L1-L2 Token Correlation | The L1 staking and L2 gas token are bridge 1:1. |
+|| L1-L2 Token Correlation | The L1 token and the L2 token are bridged 1:1. Moreover the L2 token is the gas token and the L1 token is the staking token. |
 | **Operational Assumptions** | | |
 || **Bridge Liveness** | Operators can be relied upon to meet bridge liveness requirements.  |
 || **Security of Governance** | Governing body's powers cannot be exploited.  |
