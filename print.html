@@ -3769,7 +3769,7 @@ module GovernedGasPool::goverened_gas_pool {
 <li><strong>Desiderata</strong>: <a href="Review/l-monninger/just-reward/MIP/mip-49/../MD/md-49/README.html">MD-49</a></li>
 </ul>
 <h2 id="abstract-20"><a class="header" href="#abstract-20">Abstract</a></h2>
-<p>In response to <a href="Review/l-monninger/just-reward/MIP/mip-49/../MD/md-n/README.html">MD-49</a>, we propose a fee model for an NB-FFS L2 system which interprets all fees as compensated for in gas fees, bridge fees, or FFS rewards which are adjusted by a governing body. We argue that this approach avoids many of the security and fairness issues that arise in more complex fee models, and is analogous to fee models used in traditional L1 systems. We provide an account of the complexity of other fee models and the limitations from which even theses models suffer. We exemplify these limitations by describing an NB-FFS system which uses Celestia as DA and Ethereum as the Settlement Layer.</p>
+<p>In response to <a href="Review/l-monninger/just-reward/MIP/mip-49/../MD/md-n/README.html">MD-49</a>, we propose a fee model for an Native Bridge - Fast Finality Settlement (NB-FFS) L2 system which interprets all fees as compensated for in gas fees, bridge fees, or FFS rewards which are adjusted by a governing body. We argue that this approach avoids many of the security and fairness issues that arise in more complex fee models, and is analogous to fee models used in traditional L1 systems. We provide an account of the complexity of other fee models and the limitations from which even theses models suffer. We exemplify these limitations by describing an NB-FFS system which uses Celestia as DA and Ethereum as the Settlement Layer.</p>
 <h2 id="motivation-20"><a class="header" href="#motivation-20">Motivation</a></h2>
 <p><a href="Review/l-monninger/just-reward/MIP/mip-49/../MD/md-n/README.html">MD-49</a> requests a means of computing, charging, and distributing gas fees for the Movement L2s which rely on a separate DA and Settlement Layer. We provide such means for an NB-FFS system.</p>
 <h2 id="specification-19"><a class="header" href="#specification-19">Specification</a></h2>
@@ -3786,14 +3786,14 @@ module GovernedGasPool::goverened_gas_pool {
 <h3 id="requirements"><a class="header" href="#requirements">Requirements</a></h3>
 <p>An NB-FFS <strong>Governed Reward system</strong> will meet the following requirements for fees:</p>
 <ol>
-<li>An NB-FFS Governed Reward system SHALL idenitfy to whom fees may be charged: L2 clients, Operator</li>
+<li>An NB-FFS Governed Reward system SHALL identify to whom fees may be charged: L2 clients, Operator</li>
 <li>An NB-FFS Governed Reward system MUST provide a means for the governing body to adjust the gas fees charged to L2 clients according to a vote. This is intended to ensure that the cost of using the L2 system is competitive with other systems.</li>
 <li>An NB-FFS Governed Reward system MUST provide a means for the governing body to adjust the fees charged to bridge clients according to a vote. This is intended to ensure that the cost of using the bridge service is competitive with other systems.</li>
 <li>An NB-FFS Governed Reward system MUST transfer gas fees into a <a href="https://github.com/movementlabsxyz/MIP/pulls">Governed Gas Pool</a> which SHALL be used to add additional rewards to the FFS rewards pool when needed.</li>
 </ol>
 <p>An NB-FFS <strong>Governed Reward system</strong> will meet the following requirements for rewards</p>
 <ol>
-<li>An NB-FFS Governed Rewards system SHALL idenitfy 3 operators to whom fees rewards may be paid: validators, delegators, and bridge operators.</li>
+<li>An NB-FFS Governed Rewards system SHALL identify 3 operators to whom fees rewards may be paid: validators, delegators, and bridge operators.</li>
 <li>An NB-FFS Governed Rewards system MUST provide a means for the governing body, e.g., Movement Labs to adjust FFS reward parameters according to a vote. This is intended to ensure the value of the FFS rewards exceeds difficult to compute costs of operating as a participant in the L2 system.</li>
 <li>An NB-FFS Governed Rewards system SHALL compensate validators as a function of expected settlement and DA costs with FFS rewards, but does not need to recompute this expectations.</li>
 <li>An NB-FFS Governed Rewards system SHALL compensate bridge operators with collected gas fees, but does not need to recompute these fees.</li>
@@ -3809,7 +3809,7 @@ In the event that the gas algebra renders a cost proportional to the byte size o
 We do not expect the gas algebra to account for settlement costs. Under FFS, settlement costs proportional to the number of validators. The size of an individual attestation is fixed and rendered for a <strong>block range</strong>. Thus, larger transactions will not incur larger settlement costs than smaller transactions.</p>
 <h4 id="da-costs"><a class="header" href="#da-costs">DA Costs</a></h4>
 <p>Under NB-FFS Governed Fees and Rewards, DA fee computation MUST not actively use an oracle or other live pricing model to introduce DA fees directly as <strong>L2 client</strong> gas fees. The security concerns of using an oracle to compute DA are commented on below. Instead, NB-FFS Governed Fees and Rewards recommends regarding the DA fee passed to <strong>L2 clients</strong> as 0, and the DA fee passed to <strong>validators</strong> as whatever the extrinsic system charges.</p>
-<p>As idenitfied in <a href="https://github.com/movementlabsxyz/MIP/pulls">MIP-19</a>, in general, DA costs will be proportional to the byte size of a transaction. However, many DAs implement a gas priority system that effectively introduces additional fees for network congestion. These fees are difficutl to anticiptate and are often unbounded.</p>
+<p>As identified in <a href="https://github.com/movementlabsxyz/MIP/pulls">MIP-19</a>, in general, DA costs will be proportional to the byte size of a transaction. However, many DAs implement a gas priority system that effectively introduces additional fees for network congestion. These fees are difficult to anticipate and are often unbounded.</p>
 <p>For example, in Celestia, fees take the following <a href="https://docs.celestia.org/how-to-guides/submit-data">form</a>:</p>
 <pre><code class="language-math">\text{Total Fee} = \text{Gas Limit} * \text{Gas Price}
 </code></pre>
@@ -3831,7 +3831,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li><code>L1 Gas Fee</code> is the gas fee charged by the Settlement Layer for commitments of validators.</li>
 <li><code>Postconfirmation L1 Gas fee</code> is the gas fee charged by the Settlement Layer for the Postconfirmation process and other functionality like rollover of epochs.</li>
 </ul>
-<p>While the size of an FFS attestion is constant for any transaction. <code>L1 Gas Fee</code> and <code>Postconfirmation L1 Gas fee</code> is not. Most L1s including, ETH, have implemented either gas priority systems or dynamic gas fees.</p>
+<p>While the size of an FFS attestation is constant for any transaction. <code>L1 Gas Fee</code> and <code>Postconfirmation L1 Gas fee</code> is not. Most L1s including, ETH, have implemented either gas priority systems or dynamic gas fees.</p>
 <h3 id="comparisons-to-other-fee-models"><a class="header" href="#comparisons-to-other-fee-models">Comparisons to Other Fee Models</a></h3>
 <h4 id="oracle-based-fee-models"><a class="header" href="#oracle-based-fee-models">Oracle-Based Fee Models</a></h4>
 <p>In contrast to NB-FFS Governed Fees and Rewards, oracle-based fee models attempt to actively price <strong>L2 client</strong> gas fees according to the costs of operating the L2 system via both (1) the estimation or computation of DA and Settlement costs and (2) the computation of the value of the L2 gas token in terms of the DA and Settlement Layer gas tokens.</p>
@@ -3843,8 +3843,8 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <p>However, while DA fees can be known at execution, Settlement fees cannot. Thus, the wrapped token model would only account for tight bound on DA costs and would need to adopt a pessimistic model for Settlement costs. This would result in overcharging for Settlement costs.</p>
 <h2 id="reference-implementation-17"><a class="header" href="#reference-implementation-17">Reference Implementation</a></h2>
 <h2 id="verification-19"><a class="header" href="#verification-19">Verification</a></h2>
-<h2 id="errata-10"><a class="header" href="#errata-10">Errata</a></h2>
 <h2 id="appendix-19"><a class="header" href="#appendix-19">Appendix</a></h2>
+<h2 id="changelog-11"><a class="header" href="#changelog-11">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-50-insured-native-bridge"><a class="header" href="#mip-50-insured-native-bridge">MIP-50: Insured Native Bridge</a></h1>
 <ul>
@@ -3868,7 +3868,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li>The Bridge Pool Governor SHALL be expected to purchase token from the market to recover the loss and replenish the Insurance Fund.</li>
 </ol>
 <h2 id="verification-20"><a class="header" href="#verification-20">Verification</a></h2>
-<h2 id="changelog-11"><a class="header" href="#changelog-11">Changelog</a></h2>
+<h2 id="changelog-12"><a class="header" href="#changelog-12">Changelog</a></h2>
 <h2 id="appendix-20"><a class="header" href="#appendix-20">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-52-aptos-gas-pool"><a class="header" href="#mip-52-aptos-gas-pool">MIP-52: Aptos Gas Pool</a></h1>
@@ -3902,7 +3902,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li>Verify that the AptosVM does not validate burns. Otherwise, there may be logic outside of the framework <code>epilogue_gas_payer</code> path which needs to be updated.</li>
 <li>Identify any sponsorship or other gas payment mechanisms which may need to be updated to use the Gas Pool.</li>
 </ul>
-<h2 id="changelog-12"><a class="header" href="#changelog-12">Changelog</a></h2>
+<h2 id="changelog-13"><a class="header" href="#changelog-13">Changelog</a></h2>
 <h2 id="appendix-21"><a class="header" href="#appendix-21">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-54-the-biarritz-model"><a class="header" href="#mip-54-the-biarritz-model">MIP-54: The Biarritz Model</a></h1>
@@ -3953,7 +3953,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li><strong>1:1 token correlation</strong>: the model asserts a 1:1 token correlation between the L1 staking and L2 gas tokens. This may not be desirable in all cases as exploits on the bridge may compromise the security of staking on the L1 or sybil resistance on the L2.</li>
 </ol>
 <h2 id="verification-22"><a class="header" href="#verification-22">Verification</a></h2>
-<h2 id="changelog-13"><a class="header" href="#changelog-13">Changelog</a></h2>
+<h2 id="changelog-14"><a class="header" href="#changelog-14">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-55-the-bilbao-model"><a class="header" href="#mip-55-the-bilbao-model">MIP-55: The Bilbao Model</a></h1>
 <ul>
@@ -4250,7 +4250,7 @@ The relayer records on the source or target chain (whichever is cheaper) the <co
 <p>This creates a dependency to another component. For example, if the postgres db has an issue, the relayer has an issue. Even thought the relayer doesn’t need the db to process.</p>
 <h2 id="reference-implementation-18"><a class="header" href="#reference-implementation-18">Reference Implementation</a></h2>
 <h2 id="verification-24"><a class="header" href="#verification-24">Verification</a></h2>
-<h2 id="changelog-14"><a class="header" href="#changelog-14">Changelog</a></h2>
+<h2 id="changelog-15"><a class="header" href="#changelog-15">Changelog</a></h2>
 <h2 id="appendix-22"><a class="header" href="#appendix-22">Appendix</a></h2>
 <h2 id="copyright-9"><a class="header" href="#copyright-9">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/../LICENSE.html">CC0</a>.</p>
@@ -4525,7 +4525,7 @@ Instead of the finalized state we could also consider the <span class="katex"><s
 <h2 id="verification-26"><a class="header" href="#verification-26">Verification</a></h2>
 <p>Needs discussion.</p>
 <hr />
-<h2 id="errata-11"><a class="header" href="#errata-11">Errata</a></h2>
+<h2 id="errata-10"><a class="header" href="#errata-10">Errata</a></h2>
 <h2 id="copyright-11"><a class="header" href="#copyright-11">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Review/mip/informer-lockmintbridge/MIP/mip-71/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
@@ -4668,7 +4668,7 @@ The following are possible ways to adjust the rate limit:</p>
 <p>Needs discussion.</p>
 <p>We may add a formal model?</p>
 <hr />
-<h2 id="changelog-15"><a class="header" href="#changelog-15">Changelog</a></h2>
+<h2 id="changelog-16"><a class="header" href="#changelog-16">Changelog</a></h2>
 <h2 id="appendix-24"><a class="header" href="#appendix-24">Appendix</a></h2>
 <h3 id="a1-alternative-designs"><a class="header" href="#a1-alternative-designs">A1: Alternative designs</a></h3>
 <p>This MIP proposes a rate limiting mechanism for the Lock/Mint-type Native Bridge with symmetrical design. Below we discuss how we got here and which alternatives exist. The version discussed in this MIP is option C.</p>
@@ -4834,7 +4834,7 @@ Option 2: Each FFS validator node MUST run a service that obtains (or gets from 
 <p>The expected time for the completion of the transfer is the time it takes is in the range of Postconfirmations and L1 finality time.</p>
 <h2 id="reference-implementation-22"><a class="header" href="#reference-implementation-22">Reference Implementation</a></h2>
 <h2 id="verification-28"><a class="header" href="#verification-28">Verification</a></h2>
-<h2 id="changelog-16"><a class="header" href="#changelog-16">Changelog</a></h2>
+<h2 id="changelog-17"><a class="header" href="#changelog-17">Changelog</a></h2>
 <h2 id="appendix-25"><a class="header" href="#appendix-25">Appendix</a></h2>
 <h3 id="a1-background-eigenlayer"><a class="header" href="#a1-background-eigenlayer">A1: Background EigenLayer</a></h3>
 <p>In order to protect the protocol from exploits and potential losses, rate limiting is essential. For comparison the white paper <a href="https://docs.eigenlayer.xyz/assets/files/EigenLayer_WhitePaper-88c47923ca0319870c611decd6e562ad.pdf">EigenLayer: The Restaking Collective</a> proposes that AVS (Actively Validated Services) can run for a bridge and the stake of validators protects the transferred value crypto-economically through slashing conditions. More specifically section 3.4 Risk Management mentions</p>
@@ -5053,7 +5053,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h2 id="reference-implementation-23"><a class="header" href="#reference-implementation-23">Reference Implementation</a></h2>
 <p>For the reference implementation of the Move Stack refer to the <a href="https://github.com/movementlabsxyz">Movement GitHub repository</a>.</p>
 <h2 id="verification-29"><a class="header" href="#verification-29">Verification</a></h2>
-<h2 id="changelog-17"><a class="header" href="#changelog-17">Changelog</a></h2>
+<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
 <h2 id="appendix-26"><a class="header" href="#appendix-26">Appendix</a></h2>
 <h3 id="a1-rfc-1"><a class="header" href="#a1-rfc-1">A1 RFC-1</a></h3>
 <p>RFC-1 in <a href="https://github.com/movementlabsxyz/rfcs">RFCs</a> is an initial document that outlines the components of the Move Stack and Movement SDK. It provides a detailed enumeration of components, their aliases, and purposes.</p>
@@ -5180,7 +5180,7 @@ The current implementation of MCR does not reward the last validator. This could
 A researcher or protocol implementer can understand the game theory of gas costs when  incomplete information.</p>
 <p><strong>Justification</strong>:
 Information incompleteness may improve the game theory of costs and rewards. Provide models which demonstrate this for incompleteness derived from network latency, randomness in the rewards, and more.</p>
-<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
+<h2 id="changelog-19"><a class="header" href="#changelog-19">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-5-fast-finality-settlement---long-range-attacks"><a class="header" href="#md-5-fast-finality-settlement---long-range-attacks">MD-5: Fast Finality Settlement - Long Range Attacks</a></h1>
 <ul>
@@ -5220,7 +5220,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <h3 id="d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof"><a class="header" href="#d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof">D3: Evaluate the opportunity for “stake-bleeding” long-range attacks and detection thereof</a></h3>
 <p><strong>User Journey</strong>: A researcher or protocol implementer can understand how a stake-bleeding long-range attack could be executed and detected.</p>
 <p><strong>Justification</strong>: Stake-bleeding long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a stake-bleeding long-range attack could be executed and detected could enable us to derive preventative measures.</p>
-<h2 id="changelog-19"><a class="header" href="#changelog-19">Changelog</a></h2>
+<h2 id="changelog-20"><a class="header" href="#changelog-20">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-6-suzuka-block-validation"><a class="header" href="#md-6-suzuka-block-validation">MD-6: Suzuka Block Validation</a></h1>
 <ul>
@@ -5286,7 +5286,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <li>This would be a highly experimental feature and should be researched and implemented with caution.</li>
 <li>Deterministic transaction and block ordering should cover most of the cases of unfairness. These are discussed in <a href="Review/l-monninger/block-validation/MD/md-6/../md-7/README.html">MD-7</a>. However, in theory you could also slash on conditions like including too many transactions from one user, sending too many blocks at a given time, sending too few blocks at a given time, sending blocks of unequal size when transactions are available, etc.</li>
 </ul>
-<h2 id="errata-12"><a class="header" href="#errata-12">Errata</a></h2>
+<h2 id="errata-11"><a class="header" href="#errata-11">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5361,7 +5361,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 </ol>
 </li>
 </ul>
-<h2 id="errata-13"><a class="header" href="#errata-13">Errata</a></h2>
+<h2 id="errata-12"><a class="header" href="#errata-12">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5404,7 +5404,7 @@ that is deployed on the node by the operator in a timely fashion, to read blobs 
 in the future. Migrations should be performed on the live chain so that
 by the designated height, all sequenced transaction data that has been submitted by compliant
 nodes is available on the DA in uniform format.</p>
-<h2 id="errata-14"><a class="header" href="#errata-14">Errata</a></h2>
+<h2 id="errata-13"><a class="header" href="#errata-13">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5485,7 +5485,7 @@ move_to(resource, BridgeConfig {
 block.eth_gas
 block.eth_priority_gas
 </code></pre>
-<h2 id="errata-15"><a class="header" href="#errata-15">Errata</a></h2>
+<h2 id="errata-14"><a class="header" href="#errata-14">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-21-native-bridge-with-attesters"><a class="header" href="#md-21-native-bridge-with-attesters">MD-21: Native Bridge with Attesters</a></h1>
 <ul>
@@ -5591,7 +5591,7 @@ The challenge is to make sure that the signature is only used once so no transac
 </li>
 </ol>
 <p>This process is bi-directional, allowing funds to be bridged between Layer 1 and Layer 2, and vice versa, with minimal complexity and friction.</p>
-<h2 id="errata-16"><a class="header" href="#errata-16">Errata</a></h2>
+<h2 id="errata-15"><a class="header" href="#errata-15">Errata</a></h2>
 <h2 id="appendix-27"><a class="header" href="#appendix-27">Appendix</a></h2>
 <ul>
 <li>[R1] USDC Cross-Chain Transfer Protocol: https://www.circle.com/en/cross-chain-transfer-protocol</li>
@@ -5621,7 +5621,7 @@ The challenge is to make sure that the signature is only used once so no transac
 <h3 id="d4-define-standard-relationship-between-releases-and-governance"><a class="header" href="#d4-define-standard-relationship-between-releases-and-governance">D4: Define standard relationship between releases and governance</a></h3>
 <p><strong>User Journey</strong>: All users can understand the relationship between releases and governance, i.e., how a particular release gets voted in as canonical for a given set of Movement technologies.</p>
 <p><strong>Justification</strong>: A clear relationship between releases and governance will help users understand how releases are approved and what criteria they must meet. This will help users trust that releases are of high quality and meet the needs of the community.</p>
-<h2 id="changelog-20"><a class="header" href="#changelog-20">Changelog</a></h2>
+<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-26-user-facing-checks"><a class="header" href="#md-26-user-facing-checks">MD-26: User-facing checks</a></h1>
 <ul>
@@ -5658,7 +5658,7 @@ The challenge is to make sure that the signature is only used once so no transac
 <p>We will need the address for this job allowlisted to use the Suzuka testnet faucet.</p>
 <p><strong>Reference Implementation</strong>:</p>
 <p><a href="https://github.com/movementlabsxyz/movement/pull/726/"><code>movement</code> PR 726</a></p>
-<h2 id="errata-17"><a class="header" href="#errata-17">Errata</a></h2>
+<h2 id="errata-16"><a class="header" href="#errata-16">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5844,7 +5844,7 @@ struct Trade {
 <h3 id="d6-compare-fastconfirmations-with-postconfirmation"><a class="header" href="#d6-compare-fastconfirmations-with-postconfirmation">D6: Compare Fastconfirmations with Postconfirmation</a></h3>
 <p><strong>User Journey</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks.</p>
 <p><strong>Description</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks. The superBlock confirmed by postconfirmation must contain the L2Blocks that are confirmed by fastconfirmations.</p>
-<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
+<h2 id="changelog-22"><a class="header" href="#changelog-22">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-37-ffs-postconfirmation"><a class="header" href="#md-37-ffs-postconfirmation">MD-37: FFS: Postconfirmation</a></h1>
 <ul>
@@ -5868,7 +5868,7 @@ struct Trade {
 <h3 id="d4-identify-slashing-conditions-where-necessary"><a class="header" href="#d4-identify-slashing-conditions-where-necessary">D4: Identify slashing conditions where necessary</a></h3>
 <p><strong>User Journey</strong>: Slashing conditions are clearly defined and enforced, with penalties for malicious behavior. Only utilize slashing if it is necessary.</p>
 <p><strong>Justification</strong>: Clearly defined slashing conditions deter malicious actors and protect the network from potential attacks. Overuse of slashing can discourage participation.</p>
-<h2 id="changelog-22"><a class="header" href="#changelog-22">Changelog</a></h2>
+<h2 id="changelog-23"><a class="header" href="#changelog-23">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs"><a class="header" href="#md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></h1>
 <ul>
@@ -5904,7 +5904,7 @@ struct Trade {
 <h3 id="d5-provide-and-argument-agains-the-need-to-resolve-ab-ffs-fixed-supply-concerns"><a class="header" href="#d5-provide-and-argument-agains-the-need-to-resolve-ab-ffs-fixed-supply-concerns">D5: Provide and Argument Agains the Need to Resolve AB-FFS Fixed Supply Concerns</a></h3>
 <p><strong>User Journey</strong>: Developers, exchanges, and users can understand why the bridge can be assumed reasonably secure and inherent fallibility is within network security contraints given a set of assumptions.</p>
 <p><strong>Justification</strong>: We can argue, for example, that many other bridge services use a trusted signer and that said trusted signer is uncomprimised is a fundamental and acceptable assumption.</p>
-<h2 id="errata-18"><a class="header" href="#errata-18">Errata</a></h2>
+<h2 id="errata-17"><a class="header" href="#errata-17">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5931,35 +5931,11 @@ struct Trade {
 <ul>
 <li><strong>Description</strong>: Provide a means of computing, charging, and distributing gas fees for the Movement L2s which rely on a separate DA and Settlement Layer, e.g., the Movement Network.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
-<li><strong>Reviewer</strong>: Andreas Penzkofer</li>
 </ul>
 <h2 id="overview-20"><a class="header" href="#overview-20">Overview</a></h2>
 <p>In order to understand how to fairly and effectively incentivize participation in the Movement Network, we need to establish a means of computing, charging, and distributing gas fees for the Movement L2s which rely on a separate DA and Settlement Layer. This will allow us to ensure that the Movement Network is able to operate efficiently and that the incentives for participation are aligned with the goals of the Movement Network.</p>
 <p>The work done in a Movement Network L2 is mostly outlined in <a href="https://github.com/movementlabsxyz/MIP/pull/19">MIP-19</a>. These desiderata request means to actually compute said work, charge proportional gas fees, and distribute these fees to the appropriate parties.</p>
 <h2 id="desiderata-18"><a class="header" href="#desiderata-18">Desiderata</a></h2>
-<!--
-  List out the specific desiderata. Each entry should consist of:
-
-  1. Title: A concise name for the desideratum.
-  2. User Journey: A one or two-sentence statement focusing on the "user" (could be a human, machine, software, etc.) and their interaction or experience.
-  3. Description (optional): A more detailed explanation if needed.
-  4. Justification: The reasoning behind the desideratum. Why is it necessary or desired?
-  5. Recommendations (optional): Suggestions or guidance related to the desideratum.
-
-  Format as:
-
-  ### Desideratum Title
-
-  **User Journey**: [user] can [action].
-
-  **Description**: <More detailed explanation if needed (optional)>
-
-  **Justification**: <Why this is a significant or required desideratum>
-
-  **Recommendations**: <Any specific guidance or suggestions (optional)>
-
-  TODO: Remove this comment before finalizing.
--->
 <h3 id="d1-specify-how-to-compute-execution-fees-for-a-movement-l2"><a class="header" href="#d1-specify-how-to-compute-execution-fees-for-a-movement-l2">D1: Specify How to Compute Execution Fees for a Movement L2</a></h3>
 <p><strong>User Journey</strong>: A developer can implement execution fee computation for a Movement L2 from a specification thereof.</p>
 <p><strong>Justification</strong>:  <a href="https://github.com/movementlabsxyz/MIP/pull/19">MIP-19</a> categorizes execution fees as “the costs that correspond to resources usage, CPU and permanent storage.” These need to be accounted for in any system to ensure the operators of nodes are appropriately incentivized for their participation and the fairness of resource usage is maintained.</p>
@@ -5975,18 +5951,7 @@ struct Trade {
 <h3 id="d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties"><a class="header" href="#d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties">D5: Specify How to Distribute Gas Fees to the Appropriate Parties</a></h3>
 <p><strong>User Journey</strong>: A network participant can understand how gas fees are distributed.</p>
 <p><strong>Justification</strong>: Gas fees must ultimately be used to pay extrinsic costs or else be considered as rewards. It is important to specify how gas fees are distributed to ensure that the system is fair and that the incentives for participation are aligned with the goals of the Movement Network.</p>
-<h2 id="errata-19"><a class="header" href="#errata-19">Errata</a></h2>
-<!--
-  Errata should be maintained after publication.
-
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the desiderata in which the error was identified.
-
-  TODO: Maintain this comment.
--->
+<h2 id="changelog-24"><a class="header" href="#changelog-24">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-61-relayer-algorithm-for-the-lockmint-native-bridge"><a class="header" href="#md-61-relayer-algorithm-for-the-lockmint-native-bridge">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></h1>
 <ul>
@@ -6013,7 +5978,7 @@ struct Trade {
 <p><strong>User Journey</strong>: Pending transfers are retried automatically after a timeout, ensuring eventual completion without manual oversight.</p>
 <p><strong>Justification</strong>: Improves the reliability of the relayer by handling transient errors and network issues gracefully.</p>
 <p><strong>Recommendations</strong>: Implement a configurable timeout period for retries.</p>
-<h2 id="changelog-23"><a class="header" href="#changelog-23">Changelog</a></h2>
+<h2 id="changelog-25"><a class="header" href="#changelog-25">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-69-bridge-fees"><a class="header" href="#md-69-bridge-fees">MD-69: Bridge fees</a></h1>
 <ul>
@@ -6093,7 +6058,7 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 <p>The postconfirmation process is a synchronization mechanism for L2 to L1, see <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>.</p>
 <p>If the Relayer completes transfers from L2 to L1 without awaiting postconfirmation of the L2 <code>initiate</code> transaction, synchronization guarantees are reduced. The postconfirmation is an anchoring mechanism that binds the L2 to a certain L2 block height and hash, and hinders reorgs beyond a certain depth on L2.</p>
 <p>We need to check the implications for the Informer if the Relayer ignores postconfirmations.</p>
-<h2 id="errata-20"><a class="header" href="#errata-20">Errata</a></h2>
+<h2 id="errata-18"><a class="header" href="#errata-18">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-74-rate-limiter-for-the-lockmint-type-native-bridge"><a class="header" href="#md-74-rate-limiter-for-the-lockmint-type-native-bridge">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></h1>
 <ul>
@@ -6113,7 +6078,7 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 <h3 id="d3-define-the-rate-limiting-mechanism"><a class="header" href="#d3-define-the-rate-limiting-mechanism">D3: Define the rate-limiting mechanism</a></h3>
 <p><strong>User Journey</strong>: The developer should understand the rate-limiting mechanism.</p>
 <p><strong>Description</strong>: The rate-limiting mechanism should be defined in a way that it is clear how it works and how it can be adjusted. Moreover all components and their parameters should be defined. It should also be defined what is being rate-limited.</p>
-<h2 id="errata-21"><a class="header" href="#errata-21">Errata</a></h2>
+<h2 id="errata-19"><a class="header" href="#errata-19">Errata</a></h2>
 
                     </main>
 

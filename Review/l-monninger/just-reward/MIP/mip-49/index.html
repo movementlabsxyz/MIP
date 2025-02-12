@@ -166,7 +166,7 @@
 <li><strong>Desiderata</strong>: <a href="../MD/md-49/README.html">MD-49</a></li>
 </ul>
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
-<p>In response to <a href="../MD/md-n/README.html">MD-49</a>, we propose a fee model for an NB-FFS L2 system which interprets all fees as compensated for in gas fees, bridge fees, or FFS rewards which are adjusted by a governing body. We argue that this approach avoids many of the security and fairness issues that arise in more complex fee models, and is analogous to fee models used in traditional L1 systems. We provide an account of the complexity of other fee models and the limitations from which even theses models suffer. We exemplify these limitations by describing an NB-FFS system which uses Celestia as DA and Ethereum as the Settlement Layer.</p>
+<p>In response to <a href="../MD/md-n/README.html">MD-49</a>, we propose a fee model for an Native Bridge - Fast Finality Settlement (NB-FFS) L2 system which interprets all fees as compensated for in gas fees, bridge fees, or FFS rewards which are adjusted by a governing body. We argue that this approach avoids many of the security and fairness issues that arise in more complex fee models, and is analogous to fee models used in traditional L1 systems. We provide an account of the complexity of other fee models and the limitations from which even theses models suffer. We exemplify these limitations by describing an NB-FFS system which uses Celestia as DA and Ethereum as the Settlement Layer.</p>
 <h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
 <p><a href="../MD/md-n/README.html">MD-49</a> requests a means of computing, charging, and distributing gas fees for the Movement L2s which rely on a separate DA and Settlement Layer. We provide such means for an NB-FFS system.</p>
 <h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
@@ -183,14 +183,14 @@
 <h3 id="requirements"><a class="header" href="#requirements">Requirements</a></h3>
 <p>An NB-FFS <strong>Governed Reward system</strong> will meet the following requirements for fees:</p>
 <ol>
-<li>An NB-FFS Governed Reward system SHALL idenitfy to whom fees may be charged: L2 clients, Operator</li>
+<li>An NB-FFS Governed Reward system SHALL identify to whom fees may be charged: L2 clients, Operator</li>
 <li>An NB-FFS Governed Reward system MUST provide a means for the governing body to adjust the gas fees charged to L2 clients according to a vote. This is intended to ensure that the cost of using the L2 system is competitive with other systems.</li>
 <li>An NB-FFS Governed Reward system MUST provide a means for the governing body to adjust the fees charged to bridge clients according to a vote. This is intended to ensure that the cost of using the bridge service is competitive with other systems.</li>
 <li>An NB-FFS Governed Reward system MUST transfer gas fees into a <a href="https://github.com/movementlabsxyz/MIP/pulls">Governed Gas Pool</a> which SHALL be used to add additional rewards to the FFS rewards pool when needed.</li>
 </ol>
 <p>An NB-FFS <strong>Governed Reward system</strong> will meet the following requirements for rewards</p>
 <ol>
-<li>An NB-FFS Governed Rewards system SHALL idenitfy 3 operators to whom fees rewards may be paid: validators, delegators, and bridge operators.</li>
+<li>An NB-FFS Governed Rewards system SHALL identify 3 operators to whom fees rewards may be paid: validators, delegators, and bridge operators.</li>
 <li>An NB-FFS Governed Rewards system MUST provide a means for the governing body, e.g., Movement Labs to adjust FFS reward parameters according to a vote. This is intended to ensure the value of the FFS rewards exceeds difficult to compute costs of operating as a participant in the L2 system.</li>
 <li>An NB-FFS Governed Rewards system SHALL compensate validators as a function of expected settlement and DA costs with FFS rewards, but does not need to recompute this expectations.</li>
 <li>An NB-FFS Governed Rewards system SHALL compensate bridge operators with collected gas fees, but does not need to recompute these fees.</li>
@@ -206,7 +206,7 @@ In the event that the gas algebra renders a cost proportional to the byte size o
 We do not expect the gas algebra to account for settlement costs. Under FFS, settlement costs proportional to the number of validators. The size of an individual attestation is fixed and rendered for a <strong>block range</strong>. Thus, larger transactions will not incur larger settlement costs than smaller transactions.</p>
 <h4 id="da-costs"><a class="header" href="#da-costs">DA Costs</a></h4>
 <p>Under NB-FFS Governed Fees and Rewards, DA fee computation MUST not actively use an oracle or other live pricing model to introduce DA fees directly as <strong>L2 client</strong> gas fees. The security concerns of using an oracle to compute DA are commented on below. Instead, NB-FFS Governed Fees and Rewards recommends regarding the DA fee passed to <strong>L2 clients</strong> as 0, and the DA fee passed to <strong>validators</strong> as whatever the extrinsic system charges.</p>
-<p>As idenitfied in <a href="https://github.com/movementlabsxyz/MIP/pulls">MIP-19</a>, in general, DA costs will be proportional to the byte size of a transaction. However, many DAs implement a gas priority system that effectively introduces additional fees for network congestion. These fees are difficutl to anticiptate and are often unbounded.</p>
+<p>As identified in <a href="https://github.com/movementlabsxyz/MIP/pulls">MIP-19</a>, in general, DA costs will be proportional to the byte size of a transaction. However, many DAs implement a gas priority system that effectively introduces additional fees for network congestion. These fees are difficult to anticipate and are often unbounded.</p>
 <p>For example, in Celestia, fees take the following <a href="https://docs.celestia.org/how-to-guides/submit-data">form</a>:</p>
 <pre><code class="language-math">\text{Total Fee} = \text{Gas Limit} * \text{Gas Price}
 </code></pre>
@@ -228,7 +228,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li><code>L1 Gas Fee</code> is the gas fee charged by the Settlement Layer for commitments of validators.</li>
 <li><code>Postconfirmation L1 Gas fee</code> is the gas fee charged by the Settlement Layer for the Postconfirmation process and other functionality like rollover of epochs.</li>
 </ul>
-<p>While the size of an FFS attestion is constant for any transaction. <code>L1 Gas Fee</code> and <code>Postconfirmation L1 Gas fee</code> is not. Most L1s including, ETH, have implemented either gas priority systems or dynamic gas fees.</p>
+<p>While the size of an FFS attestation is constant for any transaction. <code>L1 Gas Fee</code> and <code>Postconfirmation L1 Gas fee</code> is not. Most L1s including, ETH, have implemented either gas priority systems or dynamic gas fees.</p>
 <h3 id="comparisons-to-other-fee-models"><a class="header" href="#comparisons-to-other-fee-models">Comparisons to Other Fee Models</a></h3>
 <h4 id="oracle-based-fee-models"><a class="header" href="#oracle-based-fee-models">Oracle-Based Fee Models</a></h4>
 <p>In contrast to NB-FFS Governed Fees and Rewards, oracle-based fee models attempt to actively price <strong>L2 client</strong> gas fees according to the costs of operating the L2 system via both (1) the estimation or computation of DA and Settlement costs and (2) the computation of the value of the L2 gas token in terms of the DA and Settlement Layer gas tokens.</p>
@@ -240,8 +240,8 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <p>However, while DA fees can be known at execution, Settlement fees cannot. Thus, the wrapped token model would only account for tight bound on DA costs and would need to adopt a pessimistic model for Settlement costs. This would result in overcharging for Settlement costs.</p>
 <h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
 <h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
-<h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
 <h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 
                     </main>
 
