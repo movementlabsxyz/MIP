@@ -3,6 +3,7 @@
 - **Description**: A single sentence summarizing the contents of the proposal.
 - **Authors**: [Author](mailto:author@email.com)
 - **Desiderata**: [MD-\<number\>](../MD/md-\<number\>)
+- **Approval**: <!--Either approved (:white_check_mark:) or not approved (:x:) by the governance body. To be inserted by governance. -->
 
 <!--
   READ MIP-0 BEFORE USING THIS TEMPLATE!

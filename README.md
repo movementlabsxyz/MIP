@@ -20,15 +20,17 @@ The lifecycle of a proposal should be:
 > :bulb: For more information on the process, see [MIP-0](./MIP/mip-0/README.md#process).
 
 **Github lifecycle**
+
 ```mermaid
 graph LR
     A[1: Idea: issue] --> B[2: Define the Request: MD] --> C[3: Solution proposal: MIP]
 ```
 
 **Governance lifecycle**
+
 ```mermaid
 graph LR
-    A[2.1: Proposal of MD] -- Review / Reject --> B[3.1: Proposal of MIP] -- Review / Reject --> C[Implementation]
+    A[2.1:  MD] -- Review / Reject --> B[3.1: MIP] -- Review / Reject --> C[Implementation]
 ```
 
 ## Movement Desiderata (MD)
@@ -92,7 +94,7 @@ An MIP/MG should at all times have one of the following statuses:
 - **Draft** - (set by author) An MIP/MD that is open for consideration. (It does not yet hold an MIP/MD number)
 - **Review** - (set by author) The MIP/MD is under peer review. The MIP/MD should receive an **MIP/MD number**, according to the rules described in the [Files and numbering](#files-and-numbering) section. At this point the editor should be involved to ensure the MIP/MD adheres to the guidelines.
 
-!!! info In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim.
+> :bulb: In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim.
 
 After acceptance the MIP/MD is merged into `main` and the branch should be deleted.
 

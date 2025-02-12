@@ -1,7 +1,8 @@
 # MD-1: Minimize Risk of Compromised Bridge Key without Governance
+
 - **Description**: Provide a mechanism to minimize the risk of a compromised bridge key without relying on governance.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-
+- **Approval**: :white_check_mark:
 
 ## Overview
 The Atomic Bridge service relies on trusted keys for relaying events between chains. Without governance or multisig contracts, the risk entailed by a compromised bridge key is significant. Even with logic safeguarding against direct mint operations, fraudulent events on either chain can still be synthesized. 

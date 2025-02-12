@@ -3,6 +3,7 @@
 - **Description**: A process through which Movement Improvement Proposals standardize and formalize specifications for Movement technologies.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz), Andreas Penzkofer
 - **Desiderata**: [MD-0](../../MD/md-0)
+- **Approval**: :white_check_mark:
 
 ## Abstract
 
@@ -45,7 +46,7 @@ An MIP/MD is proposed through a PR. Each MIP/MD PR should have a status. For add
 
 #### Approval lifecycle
 
-An MIP and MD is **approved** or **rejected** by the governance.
+An MIP and MD is **approved** (:white_check_mark:) or **rejected** (:x:) by the governance.
 
 The approval lifecycle of a proposal is
 
@@ -153,4 +154,5 @@ The Movement Labs team is currently reviewing and assessing this process.
 ## Changelog
 
 - 2024-12-18: Add information about the process and structure of MDs.
-- 2025-xx-xx: Incorporate updates on the process from SF. [PR#76](https://github.com/movementlabsxyz/MIP/pull/76)
+- 2024-01-10: Incorporate updates on the process from SF. [PR#76](https://github.com/movementlabsxyz/MIP/pull/76)
+- 2024-02-12: Add information about the governance process and approval status.

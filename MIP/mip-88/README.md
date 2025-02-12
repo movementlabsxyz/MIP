@@ -3,6 +3,7 @@
 - **Description**: A simplified design for the rate limiter of the Lock/Mint bridge.
 - **Authors**: Andreas Penzkofer, Primata
 - **Desiderata**: [MD-74](https://github.com/movementlabsxyz/MIP/pull/74/files/MD/md-74/README.md)
+- **Approval**:
 
 ## Abstract
 

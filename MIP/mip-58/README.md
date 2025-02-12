@@ -2,6 +2,7 @@
 
 - **Description**: Proposes a lock/mint-type Native Bridge that capitalizes on the trust-assumption on the Relayer.
 - **Authors**: [Primata](mailto:primata@movementlabs.xyz), Andreas Penzkofer
+- **Approval**:
 
 ## Abstract
 

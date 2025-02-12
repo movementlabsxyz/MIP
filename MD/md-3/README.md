@@ -1,12 +1,13 @@
 # MD-3: MCR under Network Partitions and Asynchrony
+
 - **Description**: Provide a model for MCR and suggest a mechanism for handling network partitions and asynchrony.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-
+- **Approval**: :white_check_mark:
 
 ## Overview
 MCR provides a stake-based settlement mechanism used in Movement Lab's Suzuka Network. In it's current form, it does not take any steps to account for network partitions or, more generally, asynchrony.
 
-Henceforth, we will simply refer to network partitions, as all forms of asynchrony with which we are concerned can be modeled as such. Even if a node is not technically offline, the remainder of this disiderata will be concerned with the case in which it is not able to commit meaningfully to the current block height.
+Henceforth, we will simply refer to network partitions, as all forms of asynchrony with which we are concerned can be modeled as such. Even if a node is not technically offline, the remainder of this desiderata will be concerned with the case in which it is not able to commit meaningfully to the current block height.
 
 It is important to account for network partitions in a manner consistent with the game theory of MCR. In the current implementation, a simple race is run to $\frac{2}{3}$ of the network's stake. Currently, there is no model for slashing or rewarding. So, not participating in that race to $\frac{2}{3}$ of the network's stake is not a meaningfully punished. Presuming there would be a reward for participating, this may create an incentive to run an unreliable node which may often fail to commit to the current block height.
 
