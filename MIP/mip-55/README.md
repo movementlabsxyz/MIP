@@ -1,7 +1,7 @@
 # MIP-55: The Bilbao Model
+
 - **Description**: Proposes an AB-FFS L2 model that features a Gas Deficit Minter, Bridge Insurance Account, low-cost DA and settlement, high centralized control, and ultimately high operational assumptions.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Reviewer**: Andreas Penzkofer
 - **Desiderata**: $\emptyset$
 
 ## Abstract
@@ -40,11 +40,13 @@ We acknowledge and apply the conventions of [MIP-53: Conventions for Proposing P
 || **Trust of Governance** | Users are willing to trust governing body with the operations described.  |
 
 ### Pros
+
 1. **Delayed calculation of rewards to cover centralized expenses**: because fees are held in the gas pool, the governing body need not calculate rewards which would be used to cover their own operating expenses until control of the governance is transferred to the community. The governing body can, for example, decide to use a percentage of captured gas to pay the centralized operators when a more stable token price is known some time after the L2 has been operational.
 2. **Usable but recoverable period of network liveness**: the model allows for an early-stage network to be introduced with a high level of control over the network's state. This allows for the network to be introduced with the potential for long-term implications which is critical to network utility, while at the same time minimizing the implication of early misuse.
 
 ### Cons
-1. **Highest trust in governance**: the model requires complete trust in the governing body. 
+
+1. **Highest trust in governance**: the model requires complete trust in the governing body.
 2. **1:1 token correlation**: the model asserts a 1:1 token correlation between the L1 staking and L2 gas tokens. This may not be desirable in all cases as exploits on the bridge may compromise the security of staking on the L1 or sybil resistance on the L2.
 
 ## Verification
