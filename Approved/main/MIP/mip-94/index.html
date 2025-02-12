@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MD-15: Movement Glossary - MIP</title>
+        <title>MIP-94: Parent-Child MIPs - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -158,63 +158,52 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-15-movement-glossary"><a class="header" href="#md-15-movement-glossary">MD-15: Movement Glossary</a></h1>
+<h1 id="mip-94-parent-child-mips"><a class="header" href="#mip-94-parent-child-mips">MIP-94: Parent-Child MIPs</a></h1>
 <ul>
-<li><strong>Description</strong>: Provide a glossary for Movement Vocabulary.</li>
-<li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
-<li><strong>Reviewer</strong>: Andreas Penzkofer</li>
+<li><strong>Description</strong>: Add concept of child MIPs to extend MIPs that contain substantial amount of content.</li>
+<li><strong>Authors</strong>: <a href="mailto:andy.golay@movementlabs.xyz">Andy Golay</a></li>
+<li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/pull/93">MD-93</a></li>
 </ul>
-<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<p>In order to communicate with more specificity in all contexts, Movement Labs should introduce a glossary. This glossary should define terms both unique to Movement Labs and general terms that are used in a unique way, underspecified in the literature, or have a specific meaning in the context of Movement Labs.</p>
-<h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
-<!--
-  List out the specific desiderata. Each entry should consist of:
-
-  1. Title: A concise name for the desideratum.
-  2. User Journey: A one or two-sentence statement focusing on the "user" (could be a human, machine, software, etc.) and their interaction or experience.
-  3. Description (optional): A more detailed explanation if needed.
-  4. Justification: The reasoning behind the desideratum. Why is it necessary or desired?
-  5. Recommendations (optional): Suggestions or guidance related to the desideratum.
-
-  Format as:
-
-  ### Desideratum Title
-
-  **User Journey**: [user] can [action].
-
-  **Description**: <More detailed explanation if needed (optional)>
-
-  **Justification**: <Why this is a significant or required desideratum>
-
-  **Recommendations**: <Any specific guidance or suggestions (optional)>
-
-  TODO: Remove this comment before finalizing.
--->
-<h3 id="d1-have-a-common-format-for-a-glossary-entry-gloss"><a class="header" href="#d1-have-a-common-format-for-a-glossary-entry-gloss">D1: Have a Common Format for a Glossary Entry (Gloss)</a></h3>
-<p><strong>Justification</strong>: A common format for glossary entries will make it easier to maintain and update the glossary.</p>
-<p><strong>Recommendations</strong>:</p>
+<h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
+<p>This document formalizes parent-child MIPs.</p>
+<h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
+<p>For more complex MIPs, or MIPs which have implementations specific to various software stacks, infrastructure providers, etc., it can makes sense for the sake of organization to have child MIPs to add specific details, rather than making the parent MIP too verbose or cluttered.</p>
+<h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
+<p>To create a child MIP:</p>
+<ol>
+<li>
+<p>Create a folder within the directory of an MIP. That MIP will be the “parent MIP” for the child MIP.</p>
+</li>
+<li>
+<p>Name the folder <code>mip-n.k</code> where <code>n</code> is the MIP’s number as defined in . <code>k</code> represents the index of the child MIP.
+<strong>Example:</strong> If the child MIP is the 1st child MIP of MIP 5, the child MIP will be <code>mip-5.1</code></p>
+</li>
+<li>
+<p>Add a <code>README.md</code> fill containing the child MIP contents. Follow the <a href="../../mip-template.html">MIP template</a> but don’t repeat redundant information from the parent MIP.</p>
+</li>
+</ol>
+<h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
+<p>This MIP contains a reference implementation of parent-child MIPs:</p>
+<p><img src="image.png" alt="parent-child MIP reference" /></p>
 <ul>
-<li>Create a new formatted document for glossary entries in the MIP repository. Call this document an MG, short for Movement Gloss.</li>
-<li>Include sections for (1) term, (2) authorship, (3) concise definition, (4) catalog of references to definitions or usages of the term in other contexts, (5) example usages, and (6) errata.</li>
-<li>Encourage formalism where applicable.</li>
+<li>The parent MIP is MIP 94.</li>
+<li>Within the <code>mip-94</code> directory are two folders: <code>mip-94.1</code> and <code>mip-94.2</code>, each with their own <code>README.md</code> file.</li>
 </ul>
-<h3 id="d2-introduce-glossary-terms-via-an-mip"><a class="header" href="#d2-introduce-glossary-terms-via-an-mip">D2: Introduce Glossary Terms via an MIP</a></h3>
-<p><strong>Justification</strong>: Introducing glossary terms via an MIP will allow for a more formal process for introducing new terms.</p>
-<p><strong>Recommendations</strong>:</p>
-<ul>
-<li>MD can also introduce MG to further aid in clarity, but they will not be ratified until they have been supported in an MIP.</li>
-</ul>
+<h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
 <h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
+<h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
+<h2 id="copyright"><a class="header" href="#copyright">Copyright</a></h2>
+<p>Copyright and related rights waived via <a href="../LICENSE.html">CC0</a>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../../Merged/main/MD/md-3/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../../Approved/main/MIP/mip-88/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../../Merged/main/MD/md-91/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../../index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -224,11 +213,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../../Merged/main/MD/md-3/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../../Approved/main/MIP/mip-88/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../../Merged/main/MD/md-91/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../../index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

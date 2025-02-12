@@ -168,14 +168,14 @@
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
 <p>We defined the Biarritz Model as an AB-FFS L2 model that features on a Governed Gas Pool, Bridge Insurance Fund, and moderate operational assumptions. At the core of this model is the progressive use of governance to safely perform liquidity operations which are difficult to synchronize in an early AB-FFS L2.</p>
 <h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
-<p>The Biarritz Model is motivated by the need for a progressive L2 model that can safely perform liquidity operations which are difficult to synchronize in an early AB-FFS L2. This model is intended to be a stepping stone towards more complex L2 models that require more sophisticated governance and operational assumptions.</p>
+<p>The Biarritz Model is motivated by the need for a <a href="../mip-53/">progressive L2 model</a> that can safely perform liquidity and more generally fund-moving operations which are difficult to operate in an early AB-FFS L2. This model is intended to be a stepping stone towards more complex L2 models that require more sophisticated governance and operational assumptions.</p>
 <p>The Biarritz Model is a intended as a complete response to <a href="https://github.com/movementlabsxyz/MIP/pulls">MD-38</a>.</p>
 <h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
 <p><img src="the-biarritz-model.png" alt="The Biarritz Model" /></p>
 <p>We acknowledge and apply the conventions of <a href="https://github.com/movementlabsxyz/MIP/pull/53">MIP-53: Conventions for Proposing Progressive L2 Models</a>.</p>
 <div class="table-wrapper"><table><thead><tr><th>Category</th><th>Criterion</th><th>Evaluation</th></tr></thead><tbody>
 <tr><td><strong>General</strong></td><td></td><td></td></tr>
-<tr><td></td><td>When to use</td><td>When a transition between a genesis or centralized phase form of the L2 system is apt but when security and safeness of design and implementation are still contested.</td></tr>
+<tr><td></td><td>When to use</td><td>When a transition from a genesis or centralized phase form of the L2 system towards a more decentralized setting is appropriate, but the security and safeness of design and implementation are still contested.</td></tr>
 <tr><td></td><td></td><td>When a secondary centralized phase of the L2 system is desired alongside increasing transparency of centralized operations.</td></tr>
 <tr><td></td><td>Suitable preceding models</td><td><a href="https://github.com/movementlabsxyz/MIP/pull/53">MIP-55: The Bilbao Model</a></td></tr>
 <tr><td></td><td>Suitable succeeding models</td><td><a href="https://github.com/movementlabsxyz/MIP/pull/40">MIP-40: AB-FFS Decoupled</a> INCOMPLETE</td></tr>
@@ -183,10 +183,10 @@
 <tr><td></td><td></td><td>Begins formal governance, but continues to allow for manual flexibility and recovery.</td></tr>
 <tr><td></td><td>Usership motivations</td><td>Provides network which is more open than <a href="https://github.com/movementlabsxyz/MIP/pull/53">MIP-55: The Bilbao Model</a>, potentially encouraging adoption.</td></tr>
 <tr><td><strong>Components</strong></td><td></td><td></td></tr>
-<tr><td></td><td><a href="https://github.com/movementlabsxyz/MIP/pulls">MIP-44: AB-FFS Governed Gas Pool</a></td><td>The Governed Gas Pool into which gas fees are deposited and from which the governing body disperses.</td></tr>
+<tr><td></td><td><a href="https://github.com/movementlabsxyz/MIP/pulls">MIP-44: AB-FFS Governed Gas Pool</a></td><td>The Governed Gas Pool into which gas fees are deposited and from which the governing body disperses funds.</td></tr>
 <tr><td></td><td><a href="https://github.com/movementlabsxyz/MIP/pull/49">MIP-49: AB-FFS Governed Rewards and Fees</a></td><td>The means by which gas fees and rewards are adjusted by the governing body. Rewards are migrated manually from the L2 to the L1 by the governing body.</td></tr>
 <tr><td></td><td><a href="https://github.com/movementlabsxyz/MIP/pull/50">MIP-50: Insured Bridge</a></td><td>The Bridge Insurance Fund which is used to cover the cost of failed bridge operations. Insures atomically and synchronously that all losses from bridge failures can be covered.</td></tr>
-<tr><td></td><td>L1-L2 Token Correlation</td><td>The L1 staking and L2 gas token are bridge 1:1.</td></tr>
+<tr><td></td><td>L1-L2 Token Correlation</td><td>The L1 token and the L2 token are bridged 1:1. Moreover the L2 token is the gas token and the L1 token is the staking token.</td></tr>
 <tr><td><strong>Operational Assumptions</strong></td><td></td><td></td></tr>
 <tr><td></td><td><strong>Bridge Liveness</strong></td><td>Operators can be relied upon to meet bridge liveness requirements.</td></tr>
 <tr><td></td><td><strong>Security of Governance</strong></td><td>Governing body’s powers cannot be exploited.</td></tr>

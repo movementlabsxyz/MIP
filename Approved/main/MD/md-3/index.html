@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MD-1: Minimize Risk of Compromised Bridge Key without Governance - MIP</title>
+        <title>MD-3: MCR under Network Partitions and Asynchrony - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -158,17 +158,17 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-1-minimize-risk-of-compromised-bridge-key-without-governance"><a class="header" href="#md-1-minimize-risk-of-compromised-bridge-key-without-governance">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></h1>
+<h1 id="md-3-mcr-under-network-partitions-and-asynchrony"><a class="header" href="#md-3-mcr-under-network-partitions-and-asynchrony">MD-3: MCR under Network Partitions and Asynchrony</a></h1>
 <ul>
-<li><strong>Description</strong>: Provide a mechanism to minimize the risk of a compromised bridge key without relying on governance.</li>
+<li><strong>Description</strong>: Provide a model for MCR and suggest a mechanism for handling network partitions and asynchrony.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 </ul>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<p>The Atomic Bridge service relies on trusted keys for relaying events between chains. Without governance or multisig contracts, the risk entailed by a compromised bridge key is significant. Even with logic safeguarding against direct mint operations, fraudulent events on either chain can still be synthesized.</p>
-<p>The desiderata herein recognize standard governance as generally the best means of managing these kinds of risks in general. Specialized contracts can be used to accumulate votes and make it difficult for a single actor to compromise bridge security.</p>
-<p>However, in the case of bridging, inactive or unreliable governance can be a significant risk as well. In effect, the changes represented by the in-flight message represent those already agreed upon by the destination chain’s governance. These are then subject to a smaller, potentially less-secure governance process before being relayed to the destination chain. The risk of DOS attacks on this governance process is thus high.</p>
-<p>Until a robust design for relaying bridge messages based on votes is attained, bridge trust assumptions are offset by a presumed trustworthy bridge signing service which uses known keys that would be controlled by Movement Labs.</p>
-<p>This desiderata requests a means to minimize the risk of a compromised bridge key without relying on on-chain governance.</p>
+<p>MCR provides a stake-based settlement mechanism used in Movement Lab’s Suzuka Network. In it’s current form, it does not take any steps to account for network partitions or, more generally, asynchrony.</p>
+<p>Henceforth, we will simply refer to network partitions, as all forms of asynchrony with which we are concerned can be modeled as such. Even if a node is not technically offline, the remainder of this disiderata will be concerned with the case in which it is not able to commit meaningfully to the current block height.</p>
+<p>It is important to account for network partitions in a manner consistent with the game theory of MCR. In the current implementation, a simple race is run to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> of the network’s stake. Currently, there is no model for slashing or rewarding. So, not participating in that race to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> of the network’s stake is not a meaningfully punished. Presuming there would be a reward for participating, this may create an incentive to run an unreliable node which may often fail to commit to the current block height.</p>
+<p>The same condition could also be seen as an attack vector if rewards and punishments were in place. A malicious actor could aim to partition the network via generating conditions for fast commitment amongst certain nodes–perhaps via something similar to the <a href="https://github.com/movementlabsxyz/rfcs/pull/29">Peer Attack described in RFC-29</a>. This would allow their stake to increase via rewards while the targeted minority stake would be slashed. The attacker may be able to keep apply this attack until they have a majority of stake.</p>
+<p>These and other phenomena are listed in the desiderata below.</p>
 <h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
 <!--
   List out the specific desiderata. Each entry should consist of:
@@ -193,37 +193,44 @@
 
   TODO: Remove this comment before finalizing.
 -->
-<h3 id="d1-minimize-direct-access-to-bridge-keys-while-maintaining-use"><a class="header" href="#d1-minimize-direct-access-to-bridge-keys-while-maintaining-use">D1: Minimize Direct Access to Bridge Keys while Maintaining Use</a></h3>
-<p><strong>User Journey</strong>: Movement Labs Atomic Bridge Service Operators (MLABSO) can run the service with appropriate signing keys without direct access to said keys.</p>
-<p><strong>Justification</strong>: Without direct access to the keys, MLABSO are forced to use a more secure mechanism for signing messages which can be more easily secured audited such as an HSM or enclave.</p>
-<h3 id="d2-only-allow-attested-usage-of-bridge-keys"><a class="header" href="#d2-only-allow-attested-usage-of-bridge-keys">D2: Only Allow Attested Usage of Bridge Keys</a></h3>
-<p><strong>User Journey</strong>: Only attested software can use bridge keys.</p>
-<p><strong>Justification</strong>: Even without direct access to the keys, MLABSO could still abuse bridge keys by abusing their access to the secure signing mechanism. Enforcing attestation of software using the keys can help mitigate this risk.</p>
-<h3 id="d3-time-lock-key-usage"><a class="header" href="#d3-time-lock-key-usage">D3: Time-Lock Key Usage</a></h3>
-<p><strong>User Journey</strong>: MLABSO can only reliably replace software using a key in a time-locked manner.</p>
-<p><strong>Justification</strong>: The software using a given key may require updates or replacement. Time-locking can allow this to occur without diminishing the benefits of attestations.</p>
-<h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
-<!--
-  Errata should be maintained after publication.
-
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the desiderata in which the error was identified.
-
-  TODO: Maintain this comment.
--->
+<h3 id="d1-model-for-network-partitions-as-absent-commitments-to-mcr"><a class="header" href="#d1-model-for-network-partitions-as-absent-commitments-to-mcr">D1: Model for Network Partitions as Absent Commitments to MCR</a></h3>
+<p><strong>User Journey</strong>: A researcher or protocol implementer can refer to a formal model for network partitions in MCR, ultimately deriving from it the logic necessary to implement slashing and rewarding.</p>
+<p><strong>Justification</strong>: Network partitions effectively result in absent commitments to the current block height. While not changing the stake needing to agree on the current height, the slashing or rewarding based on this absent commitment should be expected to impact behavior in the repeated game of MCR.</p>
+<p><strong>Recommendations</strong>:</p>
+<ul>
+<li>A simple way to approach would be to model the value of a node’s commitment or absenteeism to honest-agreeing, honest-disagreeing, dishonest-agreeing, and dishonest-disagreeing participants. This could then be adapted into a more complex model with shifting preferences.</li>
+<li>The literature on absenteeism in repeated games is generally a bit sparse and particularly so–on first review–for topics in computer science.</li>
+</ul>
+<h3 id="d2-research-and-design-for-commitment-tolerance-window"><a class="header" href="#d2-research-and-design-for-commitment-tolerance-window">D2: Research and Design for Commitment Tolerance Window</a></h3>
+<p><strong>User Journey</strong>: A researcher or protocol implementer can understand why or why not a commitment tolerance window is necessary for MCR and why a particular design for this window was chosen.</p>
+<p><strong>Justification</strong>: It has been proposed that a commitment tolerance window would soften network partitions. That is, allowing participants to receive a reward or penalty after the needed stake has committed to the current block height could prevent the kind kind of stake drift and attacks described above.</p>
+<p><strong>Recommendations</strong>:</p>
+<ul>
+<li>Consider the following parameters for the commitment tolerance window:
+<ul>
+<li>Reward decay: the function describing the diminishing returns of rewards later in the window.</li>
+<li>Penalty decay: the function describing the increasing returns of penalties later in the window.</li>
+<li>Vote decay: the function describing the diminishing returns of votes later in the window. This would only be useful if previous rounds of voting are considered in the current round.</li>
+</ul>
+</li>
+</ul>
+<h3 id="d3-address-asynchronous-upgrades-fork-creation-and-fork-stake-problems"><a class="header" href="#d3-address-asynchronous-upgrades-fork-creation-and-fork-stake-problems">D3: Address Asynchronous Upgrades, Fork Creation, and Fork Stake Problems</a></h3>
+<p><strong>User Journey</strong>: A researcher or protocol implementer can understand the <a href="./asychronous-upgrades-problem.html">Asynchronous Upgrades, Fork Creation, and Fork Stake Problems</a> and how they are addressed in MCR.</p>
+<p><strong>Justification</strong>: These are problems encountered under asynchrony and systems addressing asynchrony which if not addressed would bring down the network.</p>
+<p><strong>Recommendations</strong>:</p>
+<ul>
+<li>Start by reviewing the <a href="./asychronous-upgrades-problem.html">Asynchronous Upgrades, Fork Creation, and Fork Stake Problems</a>.</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../../index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../../Approved/main/MD/md-1/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../../Merged/main/MD/md-3/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../../Approved/main/MD/md-15/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -233,11 +240,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../../index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../../Approved/main/MD/md-1/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../../Merged/main/MD/md-3/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../../Approved/main/MD/md-15/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
