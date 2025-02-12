@@ -2,7 +2,7 @@
 
 - **Description**: Proposes a variant of [NB-FFS Decoupled](https://github.com/movementlabsxyz/MIP/pull/40) which issues a demurrage token as an LP Token reward.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Desiderata**: [MD-15](../MD/md-15/README.md)
+- **Desiderata**: [MD-15](../../MD/md-15/README.md)
 
 ## Abstract
 
