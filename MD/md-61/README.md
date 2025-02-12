@@ -2,6 +2,7 @@
 
 - **Description**: A desiderata for the relayer in the lock/mint bridge, focusing on event processing, transfer completion, and robust recovery mechanisms.
 - **Authors**: Andreas Penzkofer, Philippe
+- **Approval**: :white_check_mark:
 
 ## Overview
 
