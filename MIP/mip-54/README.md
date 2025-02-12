@@ -10,7 +10,7 @@ We defined the Biarritz Model as an AB-FFS L2 model that features on a Governed 
 
 ## Motivation
 
-The Biarritz Model is motivated by the need for a progressive L2 model that can safely perform liquidity operations which are difficult to synchronize in an early AB-FFS L2. This model is intended to be a stepping stone towards more complex L2 models that require more sophisticated governance and operational assumptions.
+The Biarritz Model is motivated by the need for a [progressive L2 model](../mip-53/) that can safely perform liquidity and more generally fund-moving operations which are difficult to operate in an early AB-FFS L2. This model is intended to be a stepping stone towards more complex L2 models that require more sophisticated governance and operational assumptions.
 
 The Biarritz Model is a intended as a complete response to [MD-38](https://github.com/movementlabsxyz/MIP/pulls).
 
