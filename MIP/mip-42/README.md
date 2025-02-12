@@ -1,11 +1,12 @@
 # MIP-15: NB-FFS Decoupled Demurrage
-- **Description**: 
+
+- **Description**: Proposes a variant of [NB-FFS Decoupled](https://github.com/movementlabsxyz/MIP/pull/40) which issues a demurrage token as an LP Token reward.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Reviewer**: Andreas Penzkofer
 - **Desiderata**: [MD-15](../MD/md-15/README.md)
 
 ## Abstract
-We propose NB-FFS Decoupled Demurrage as a variant of [NB-FFS Decoupled](https://github.com/movementlabsxyz/MIP/pull/40) which issues a demurrage token as an LP Token reward. This approach allows the FFS reward mechanism to manipulate the supply of its rewards s.t. a new token generation event is not strictly required. We review demurrage strategies in general, highlighting several approaches which are particularly applicable in the NB-FFS context. 
+
+We propose Native Bridge - Fast Finality Settlement (NB-FFS) Decoupled Demurrage as a variant of [NB-FFS Decoupled](https://github.com/movementlabsxyz/MIP/pull/40) which issues a demurrage token as an LP Token reward. This approach allows the FFS reward mechanism to manipulate the supply of its rewards s.t. a new token generation event is not strictly required. We review demurrage strategies in general, highlighting several approaches which are particularly applicable in the NB-FFS context.
 
 We also introduce [MG-n](../../MG/mg-n/README.md) which defines the term "demurrage token."
 
@@ -13,10 +14,9 @@ We also introduce [MG-n](../../MG/mg-n/README.md) which defines the term "demurr
 
 NB-FFS Decoupled Demurrage is an extension to the response to [MD-38](https://github.com/movementlabsxyz/MIP/pull/38). It provides usage of the Native Bridge and Fast Finality Settlement with a fixed token supply. This extension allows for greater flexibility in the reward mechanism.
 
-
 ## Specification
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
+*The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.*
 
 NB-FFS Decoupled Demurrage identifies two primary controls over the LP token with respect to the L1 staking token:
 
@@ -26,11 +26,13 @@ NB-FFS Decoupled Demurrage identifies two primary controls over the LP token wit
 Other controls are considered market mechanisms and are not considered in this MIP.
 
 ### Supply of the LP Token
+
 Simply put, FFS may be increase the supply of the LP token by minting for the purpose of rewarding LPs. This approach allows flexibility in the reward mechanism. But, assuming other market conditions hold, this means LP tokens holders are subject to dilution and the value of the LP token is subject to inflation. This ultimately assigns a negative interest rate to the LP token w.r.t. to the L1 staking token which has a fixed supply.
 
 To formalize this relationship, consider the following.
 
 Let:
+
 - $S_{LP}(t)$ denote the total supply of LP tokens at time $ t $,
 - $R_{LP}(t)$ denote the reward rate in LP tokens,
 - $P_{L1}$ denote the price or value of the L1 staking token (fixed) in terms of the LP token, and
@@ -51,11 +53,13 @@ Let:
    where the LP token depreciates due to the supply increase.
 
 ### Vouchers
+
 The governing body can issue vouchers to purchase the L1 staking token with the LP token. Voucher MUST contain a known value of the L1 staking token which can be purchased with the LP token.
 
 This is a form of demurrage, as the LP token is subject to a negative interest rate w.r.t. the L1 staking token. The voucher system, however, allows the governing body to influence the rate at which the LP token depreciates. This is critical to the success of the demurrage token as a reward which appropriately incentivizes FFS staking.
 
 ### Demurrage Strategies
+
 There are several categories of general demurrage strategies which may be applied to the LP token. These include:
 
 1. **Supply Only**:
@@ -78,18 +82,18 @@ There are several categories of general demurrage strategies which may be applie
     - The voucher defines its curve in terms of some inverse of the participation rate of FFS. 
     - Participation can be measured in terms of variables such as stake and throughput.
     - Generally, tying voucher curves to participation results in conditions which may incentivize inducing unfavorable participation rates to reap greater benefits of the voucher.
-    - If rewards are freely tradeable and not marked with an epoch, LP token holders may wait to redeem their rewards until participation is low, preventing actual low-participation committee members from benefitting from this incentive. For this reason, in most cases, FFS itself should handle low-participation incentives rather than the LP token, i.e., by issuing greater rewards during periods of low participation.
+    - If rewards are freely tradable and not marked with an epoch, LP token holders may wait to redeem their rewards until participation is low, preventing actual low-participation committee members from benefitting from this incentive. For this reason, in most cases, FFS itself should handle low-participation incentives rather than the LP token, i.e., by issuing greater rewards during periods of low participation.
 5. **LP Token Futures Voucher**:
    - Let $\alpha$ represent the future multiplier for the LP token in the voucher. The governing token issues vouchers redeemable for $\alpha \cdot \text{LP}$ at a future time $t_f$.
    - Users can either claim the L1 staking token immediately or wait to claim the LP token later, with the future multiplier.
    - When L1 price appreciation outpaces $\alpha$, it incentivizes LP token holding, as users anticipate a higher future payoff. Because LP token then has a greater market value, FFS can reward LP token holders with a smaller number of LP tokens. FFS need only look-up the volume of futures held to determine the appropriate reward rate.
    - This dynamic strengthens the correlation between LP and L1 values, stabilizing LP token depreciation and aligning incentives around L1’s future value. Importantly, it also allows the reward rate to capture market effects that counteract the negative interest rate on LP holdings.
 
-
 ### Standard Demurrage Strategy
+
 We propose a standard demurrage strategy for NB-FFS Decoupled Demurrage consisting of three key components:
 
-1. **Step-down to Asymptotic (SDA) Voucher Curve**: 
+1. **Step-down to Asymptotic (SDA) Voucher Curve**:
     - The governing body issues vouchers with a step-down curve. This curve is defined by a series of steps, each with a fixed value of the L1 staking token that can be purchased with the LP token.
     - After a fixed number of steps, the voucher curve becomes asymptotic. This ensures that the LP token retains some value even as the supply increases indefinitely.
     - This removes complexities associated with governance and participation-based vouchers, as the voucher curve is fixed and transparent.
@@ -149,12 +153,8 @@ We propose a standard demurrage strategy for NB-FFS Decoupled Demurrage consisti
 
 ## Reference Implementation
 
-
 ## Verification
 
-
-
-## Errata
-
-
 ## Appendix
+
+## Changelog
