@@ -873,7 +873,7 @@ format_approval_status() {
     # Initialize sections with explanatory text
     echo "# Approval Status" > "$temp_file"
     echo "" >> "$temp_file"
-    echo "An MIP and MD is approved (:white_check_mark:) or rejected (:x:) by the governance. For more details see [this document](https://github.com/movementlabsxyz/MIP/blob/main/README.md#governance)." >> "$temp_file"
+    echo "An MIP or MD is approved (✅) or rejected (❌) by the governance. For more details see [this document](https://github.com/movementlabsxyz/MIP/blob/main/README.md)." >> "$temp_file"
     echo "" >> "$temp_file"
     
     echo "## MD" >> "$temp_file"
