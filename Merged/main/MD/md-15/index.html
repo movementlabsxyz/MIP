@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MIP-15: MG (Movement Gloss) - MIP</title>
+        <title>MD-15: Movement Glossary - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -158,65 +158,63 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="mip-15-mg-movement-gloss"><a class="header" href="#mip-15-mg-movement-gloss">MIP-15: MG (Movement Gloss)</a></h1>
+<h1 id="md-15-movement-glossary"><a class="header" href="#md-15-movement-glossary">MD-15: Movement Glossary</a></h1>
 <ul>
-<li><strong>Description</strong>: Terms should be well defined. This is achieved through the <a href="https://github.com/movementlabsxyz/MIP/wiki/glossary">Glossary</a> and the Movement Gloss (MG) process.</li>
+<li><strong>Description</strong>: Provide a glossary for Movement Vocabulary.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 <li><strong>Reviewer</strong>: Andreas Penzkofer</li>
-<li><strong>Desiderata</strong>: <a href="../../MD/md-15/README.html">MD-15</a></li>
 </ul>
-<h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
-<p>This MIP defines the <a href="../GLOSSARY.html">Glossary</a>, which contains an overview of relevant terms used in this repo. This glossary defines terms that are frequently used.</p>
-<p>Furthermore, this MIP introduces the Movement Gloss (MG) document type and establishes a process for introducing new glossary terms. The MG document type will be used to define terms unique to Movement Labs and to provide specific definitions for terms that are used in a unique way, underspecified in the literature, or have a specific meaning in the context of Movement Labs.</p>
-<h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
-<p>In order to communicate with more specificity in all contexts, Movement Labs should introduce a glossary. We require alignment of terms across this repository and beyond.</p>
-<p>Furthermore, terms may be underspecified in literature, are used in a unique way, or have a specific meaning in the context of Movement Labs. These terms may require additional extensive definition. This necessitates the introduction of the Movement Gloss (MG) document type.</p>
-<h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
-<blockquote>
-<p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
-</blockquote>
-<h3 id="glossary"><a class="header" href="#glossary">Glossary</a></h3>
-<p>The <a href="https://github.com/movementlabsxyz/MIP/wiki/glossary">Glossary</a> is an alphabetically ordered list of terms that should be defined and may be frequently referenced. The glossary should be a living document that is updated as new terms are introduced or as terms are redefined.</p>
-<p>The Glossary file contains:</p>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>In order to communicate with more specificity in all contexts, Movement Labs should introduce a glossary. This glossary should define terms both unique to Movement Labs and general terms that are used in a unique way, underspecified in the literature, or have a specific meaning in the context of Movement Labs.</p>
+<h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
+<!--
+  List out the specific desiderata. Each entry should consist of:
+
+  1. Title: A concise name for the desideratum.
+  2. User Journey: A one or two-sentence statement focusing on the "user" (could be a human, machine, software, etc.) and their interaction or experience.
+  3. Description (optional): A more detailed explanation if needed.
+  4. Justification: The reasoning behind the desideratum. Why is it necessary or desired?
+  5. Recommendations (optional): Suggestions or guidance related to the desideratum.
+
+  Format as:
+
+  ### Desideratum Title
+
+  **User Journey**: [user] can [action].
+
+  **Description**: <More detailed explanation if needed (optional)>
+
+  **Justification**: <Why this is a significant or required desideratum>
+
+  **Recommendations**: <Any specific guidance or suggestions (optional)>
+
+  TODO: Remove this comment before finalizing.
+-->
+<h3 id="d1-have-a-common-format-for-a-glossary-entry-gloss"><a class="header" href="#d1-have-a-common-format-for-a-glossary-entry-gloss">D1: Have a Common Format for a Glossary Entry (Gloss)</a></h3>
+<p><strong>Justification</strong>: A common format for glossary entries will make it easier to maintain and update the glossary.</p>
+<p><strong>Recommendations</strong>:</p>
 <ul>
-<li>The Term</li>
-<li>A short definition</li>
-<li>(Optional) The number of the MG/MIP/MD that introduces the term.</li>
+<li>Create a new formatted document for glossary entries in the MIP repository. Call this document an MG, short for Movement Gloss.</li>
+<li>Include sections for (1) term, (2) authorship, (3) concise definition, (4) catalog of references to definitions or usages of the term in other contexts, (5) example usages, and (6) errata.</li>
+<li>Encourage formalism where applicable.</li>
 </ul>
-<p>The format is as follows:</p>
-<pre><code class="language-markdown">**&lt;Term&gt;**
-&lt;Definition&gt; → [MD-x](MD/md-x/README.md), [MG-y](MG/mg-y/README.md)
-</code></pre>
-<h3 id="mg-movement-gloss"><a class="header" href="#mg-movement-gloss">MG (Movement Gloss)</a></h3>
-<p>An MG is a definition of a term that requires detailed explanation. Any term introduced through an MG MUST be declared in the Glossary.</p>
-<p>A template for the MG is provided at <a href="../../md-template.html">mg-template</a>. The template covers the requested elements listed in <a href="../../MD/md-15/README.html">MD-15.D1</a>.</p>
-<p>An example MG is provided at <a href="../../MG/mg-0/README.html">mg-0</a>.</p>
-<p>An MG document MUST not be accepted unless it is required by an MIP or MD. For example, herein, we justify the introduction of <a href="../../MG/mg-0/README.html">MG-0</a>. MG-0 defines the term “gloss” which is used in the context of Movement Labs to denote the definition of a term as would feature as an entry in a glossary. For the MGs, it is important to include in the glossary both clarify as the acronym “MG” and to provide an example gloss.</p>
-<h4 id="mg-structure"><a class="header" href="#mg-structure">MG Structure</a></h4>
-<p><strong>Term</strong>
-Definition of the term.</p>
-<p><strong>Related Work</strong>
-Enumerate key usages of the term or related terms in other contexts.</p>
-<p><strong>Example Usages</strong>
-Provide examples of the term’s usage in context.</p>
-<p><strong>Changelog</strong>
-Document any post-publication changes to the glossary entry.</p>
-<h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
-<p>See the <a href="../../GLOSSARY.html">Glossary</a>.</p>
-<p>See the MG document type template at <a href="../../md-template.html">mg-template</a> and the example MG at <a href="../../MG/mg-0/README.html">mg-0</a>.</p>
-<h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
+<h3 id="d2-introduce-glossary-terms-via-an-mip"><a class="header" href="#d2-introduce-glossary-terms-via-an-mip">D2: Introduce Glossary Terms via an MIP</a></h3>
+<p><strong>Justification</strong>: Introducing glossary terms via an MIP will allow for a more formal process for introducing new terms.</p>
+<p><strong>Recommendations</strong>:</p>
+<ul>
+<li>MD can also introduce MG to further aid in clarity, but they will not be ratified until they have been supported in an MIP.</li>
+</ul>
 <h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
-<h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../../Approved/main/MIP/mip-1/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../../Merged/main/MD/md-3/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../../Approved/main/MIP/mip-39/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../../Merged/main/MD/md-91/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -226,11 +224,11 @@ Document any post-publication changes to the glossary entry.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../../Approved/main/MIP/mip-1/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../../Merged/main/MD/md-3/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../../Approved/main/MIP/mip-39/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../../Merged/main/MD/md-91/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
