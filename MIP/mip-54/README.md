@@ -22,7 +22,7 @@ We acknowledge and apply the conventions of [MIP-53: Conventions for Proposing P
 | Category | Criterion | Evaluation |
 |-----------|-----------|------------|
 | **General** | | |
-|| When to use | When a transition between a genesis or centralized phase form of the L2 system is apt but when security and safeness of design and implementation are still contested.|
+|| When to use | When a transition from a genesis or centralized phase form of the L2 system towards a more decentralized setting is appropriate, but the security and safeness of design and implementation are still contested.|
 |||When a secondary centralized phase of the L2 system is desired alongside increasing transparency of centralized operations.|
 || Suitable preceding models | [MIP-55: The Bilbao Model](https://github.com/movementlabsxyz/MIP/pull/53) |
 || Suitable succeeding models | [MIP-40: AB-FFS Decoupled](https://github.com/movementlabsxyz/MIP/pull/40) INCOMPLETE |
