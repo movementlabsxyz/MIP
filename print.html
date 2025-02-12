@@ -3907,15 +3907,14 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-54-the-biarritz-model"><a class="header" href="#mip-54-the-biarritz-model">MIP-54: The Biarritz Model</a></h1>
 <ul>
-<li><strong>Description</strong>: Proposes an AB-FFS L2 model that features on a Governed Gas Pool, Bridge Insurance Fund, and moderate operational assumptions.</li>
+<li><strong>Description</strong>: Proposes an NB-FFS L2 model that features on a Governed Gas Pool, Bridge Insurance Fund, and moderate operational assumptions.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
-<li><strong>Reviewer</strong>: Andreas Penzkofer</li>
 <li><strong>Desiderata</strong>: <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">∅</span></span></span></span></li>
 </ul>
 <h2 id="abstract-23"><a class="header" href="#abstract-23">Abstract</a></h2>
-<p>We defined the Biarritz Model as an AB-FFS L2 model that features on a Governed Gas Pool, Bridge Insurance Fund, and moderate operational assumptions. At the core of this model is the progressive use of governance to safely perform liquidity operations which are difficult to synchronize in an early AB-FFS L2.</p>
+<p>We defined the Biarritz Model as a Native Bridge - Fast Finality Settlement (NB-FFS) model that features a Governed Gas Pool, Bridge Insurance Fund, and moderate operational assumptions. At the core of this model is the progressive use of governance to safely perform liquidity operations which are difficult to synchronize in an early NB-FFS L2.</p>
 <h2 id="motivation-23"><a class="header" href="#motivation-23">Motivation</a></h2>
-<p>The Biarritz Model is motivated by the need for a <a href="Review/l-monninger/the-biarritz-model/MIP/mip-54/../mip-53/">progressive L2 model</a> that can safely perform liquidity and more generally fund-moving operations which are difficult to operate in an early AB-FFS L2. This model is intended to be a stepping stone towards more complex L2 models that require more sophisticated governance and operational assumptions.</p>
+<p>The Biarritz Model is motivated by the need for a <a href="Review/l-monninger/the-biarritz-model/MIP/mip-54/../mip-53/">progressive L2 model</a> that can safely perform liquidity and more generally fund-moving operations which are difficult to operate in an early NB-FFS L2. This model is intended to be a stepping stone towards more complex L2 models that require more sophisticated governance and operational assumptions.</p>
 <p>The Biarritz Model is a intended as a complete response to <a href="https://github.com/movementlabsxyz/MIP/pulls">MD-38</a>.</p>
 <h2 id="specification-22"><a class="header" href="#specification-22">Specification</a></h2>
 <p><img src="Review/l-monninger/the-biarritz-model/MIP/mip-54/the-biarritz-model.png" alt="The Biarritz Model" /></p>
@@ -3925,14 +3924,15 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <tr><td></td><td>When to use</td><td>When a transition from a genesis or centralized phase form of the L2 system towards a more decentralized setting is appropriate, but the security and safeness of design and implementation are still contested.</td></tr>
 <tr><td></td><td></td><td>When a secondary centralized phase of the L2 system is desired alongside increasing transparency of centralized operations.</td></tr>
 <tr><td></td><td>Suitable preceding models</td><td><a href="https://github.com/movementlabsxyz/MIP/pull/53">MIP-55: The Bilbao Model</a></td></tr>
-<tr><td></td><td>Suitable succeeding models</td><td><a href="https://github.com/movementlabsxyz/MIP/pull/40">MIP-40: AB-FFS Decoupled</a> INCOMPLETE</td></tr>
+<tr><td></td><td>Suitable succeeding models</td><td><a href="https://github.com/movementlabsxyz/MIP/pull/40">MIP-40: NB-FFS Decoupled</a> INCOMPLETE</td></tr>
 <tr><td></td><td>Technological motivations</td><td>Contends with bridge fallibility under operational assumptions.</td></tr>
 <tr><td></td><td></td><td>Begins formal governance, but continues to allow for manual flexibility and recovery.</td></tr>
 <tr><td></td><td>Usership motivations</td><td>Provides network which is more open than <a href="https://github.com/movementlabsxyz/MIP/pull/53">MIP-55: The Bilbao Model</a>, potentially encouraging adoption.</td></tr>
 <tr><td><strong>Components</strong></td><td></td><td></td></tr>
-<tr><td></td><td><a href="https://github.com/movementlabsxyz/MIP/pulls">MIP-44: AB-FFS Governed Gas Pool</a></td><td>The Governed Gas Pool into which gas fees are deposited and from which the governing body disperses funds.</td></tr>
-<tr><td></td><td><a href="https://github.com/movementlabsxyz/MIP/pull/49">MIP-49: AB-FFS Governed Rewards and Fees</a></td><td>The means by which gas fees and rewards are adjusted by the governing body. Rewards are migrated manually from the L2 to the L1 by the governing body.</td></tr>
+<tr><td></td><td><a href="https://github.com/movementlabsxyz/MIP/pulls">MIP-44: NB-FFS Governed Gas Pool</a></td><td>The Governed Gas Pool into which gas fees are deposited and from which the governing body disperses funds.</td></tr>
+<tr><td></td><td><a href="https://github.com/movementlabsxyz/MIP/pull/49">MIP-49: NB-FFS Governed Rewards and Fees</a></td><td>The means by which gas fees and rewards are adjusted by the governing body. Rewards are migrated manually from the L2 to the L1 by the governing body.</td></tr>
 <tr><td></td><td><a href="https://github.com/movementlabsxyz/MIP/pull/50">MIP-50: Insured Bridge</a></td><td>The Bridge Insurance Fund which is used to cover the cost of failed bridge operations. Insures atomically and synchronously that all losses from bridge failures can be covered.</td></tr>
+<tr><td></td><td>Relayer</td><td>A relayer operated by the governing body that facilitates message passing between L1 and L2.</td></tr>
 <tr><td></td><td>L1-L2 Token Correlation</td><td>The L1 token and the L2 token are bridged 1:1. Moreover the L2 token is the gas token and the L1 token is the staking token.</td></tr>
 <tr><td><strong>Operational Assumptions</strong></td><td></td><td></td></tr>
 <tr><td></td><td><strong>Bridge Liveness</strong></td><td>Operators can be relied upon to meet bridge liveness requirements.</td></tr>
@@ -3953,6 +3953,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li><strong>1:1 token correlation</strong>: the model asserts a 1:1 token correlation between the L1 staking and L2 gas tokens. This may not be desirable in all cases as exploits on the bridge may compromise the security of staking on the L1 or sybil resistance on the L2.</li>
 </ol>
 <h2 id="verification-22"><a class="header" href="#verification-22">Verification</a></h2>
+<h2 id="changelog-13"><a class="header" href="#changelog-13">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-55-the-bilbao-model"><a class="header" href="#mip-55-the-bilbao-model">MIP-55: The Bilbao Model</a></h1>
 <ul>
@@ -4250,7 +4251,7 @@ The relayer records on the source or target chain (whichever is cheaper) the <co
 <p>This creates a dependency to another component. For example, if the postgres db has an issue, the relayer has an issue. Even thought the relayer doesn’t need the db to process.</p>
 <h2 id="reference-implementation-18"><a class="header" href="#reference-implementation-18">Reference Implementation</a></h2>
 <h2 id="verification-24"><a class="header" href="#verification-24">Verification</a></h2>
-<h2 id="changelog-13"><a class="header" href="#changelog-13">Changelog</a></h2>
+<h2 id="changelog-14"><a class="header" href="#changelog-14">Changelog</a></h2>
 <h2 id="appendix-22"><a class="header" href="#appendix-22">Appendix</a></h2>
 <h2 id="copyright-9"><a class="header" href="#copyright-9">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/../LICENSE.html">CC0</a>.</p>
@@ -4668,7 +4669,7 @@ The following are possible ways to adjust the rate limit:</p>
 <p>Needs discussion.</p>
 <p>We may add a formal model?</p>
 <hr />
-<h2 id="changelog-14"><a class="header" href="#changelog-14">Changelog</a></h2>
+<h2 id="changelog-15"><a class="header" href="#changelog-15">Changelog</a></h2>
 <h2 id="appendix-24"><a class="header" href="#appendix-24">Appendix</a></h2>
 <h3 id="a1-alternative-designs"><a class="header" href="#a1-alternative-designs">A1: Alternative designs</a></h3>
 <p>This MIP proposes a rate limiting mechanism for the Lock/Mint-type Native Bridge with symmetrical design. Below we discuss how we got here and which alternatives exist. The version discussed in this MIP is option C.</p>
@@ -4834,7 +4835,7 @@ Option 2: Each FFS validator node MUST run a service that obtains (or gets from 
 <p>The expected time for the completion of the transfer is the time it takes is in the range of Postconfirmations and L1 finality time.</p>
 <h2 id="reference-implementation-22"><a class="header" href="#reference-implementation-22">Reference Implementation</a></h2>
 <h2 id="verification-28"><a class="header" href="#verification-28">Verification</a></h2>
-<h2 id="changelog-15"><a class="header" href="#changelog-15">Changelog</a></h2>
+<h2 id="changelog-16"><a class="header" href="#changelog-16">Changelog</a></h2>
 <h2 id="appendix-25"><a class="header" href="#appendix-25">Appendix</a></h2>
 <h3 id="a1-background-eigenlayer"><a class="header" href="#a1-background-eigenlayer">A1: Background EigenLayer</a></h3>
 <p>In order to protect the protocol from exploits and potential losses, rate limiting is essential. For comparison the white paper <a href="https://docs.eigenlayer.xyz/assets/files/EigenLayer_WhitePaper-88c47923ca0319870c611decd6e562ad.pdf">EigenLayer: The Restaking Collective</a> proposes that AVS (Actively Validated Services) can run for a bridge and the stake of validators protects the transferred value crypto-economically through slashing conditions. More specifically section 3.4 Risk Management mentions</p>
@@ -5053,7 +5054,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h2 id="reference-implementation-23"><a class="header" href="#reference-implementation-23">Reference Implementation</a></h2>
 <p>For the reference implementation of the Move Stack refer to the <a href="https://github.com/movementlabsxyz">Movement GitHub repository</a>.</p>
 <h2 id="verification-29"><a class="header" href="#verification-29">Verification</a></h2>
-<h2 id="changelog-16"><a class="header" href="#changelog-16">Changelog</a></h2>
+<h2 id="changelog-17"><a class="header" href="#changelog-17">Changelog</a></h2>
 <h2 id="appendix-26"><a class="header" href="#appendix-26">Appendix</a></h2>
 <h3 id="a1-rfc-1"><a class="header" href="#a1-rfc-1">A1 RFC-1</a></h3>
 <p>RFC-1 in <a href="https://github.com/movementlabsxyz/rfcs">RFCs</a> is an initial document that outlines the components of the Move Stack and Movement SDK. It provides a detailed enumeration of components, their aliases, and purposes.</p>
@@ -5180,7 +5181,7 @@ The current implementation of MCR does not reward the last validator. This could
 A researcher or protocol implementer can understand the game theory of gas costs when  incomplete information.</p>
 <p><strong>Justification</strong>:
 Information incompleteness may improve the game theory of costs and rewards. Provide models which demonstrate this for incompleteness derived from network latency, randomness in the rewards, and more.</p>
-<h2 id="changelog-17"><a class="header" href="#changelog-17">Changelog</a></h2>
+<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-5-fast-finality-settlement---long-range-attacks"><a class="header" href="#md-5-fast-finality-settlement---long-range-attacks">MD-5: Fast Finality Settlement - Long Range Attacks</a></h1>
 <ul>
@@ -5220,7 +5221,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <h3 id="d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof"><a class="header" href="#d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof">D3: Evaluate the opportunity for “stake-bleeding” long-range attacks and detection thereof</a></h3>
 <p><strong>User Journey</strong>: A researcher or protocol implementer can understand how a stake-bleeding long-range attack could be executed and detected.</p>
 <p><strong>Justification</strong>: Stake-bleeding long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a stake-bleeding long-range attack could be executed and detected could enable us to derive preventative measures.</p>
-<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
+<h2 id="changelog-19"><a class="header" href="#changelog-19">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-6-suzuka-block-validation"><a class="header" href="#md-6-suzuka-block-validation">MD-6: Suzuka Block Validation</a></h1>
 <ul>
@@ -5621,7 +5622,7 @@ The challenge is to make sure that the signature is only used once so no transac
 <h3 id="d4-define-standard-relationship-between-releases-and-governance"><a class="header" href="#d4-define-standard-relationship-between-releases-and-governance">D4: Define standard relationship between releases and governance</a></h3>
 <p><strong>User Journey</strong>: All users can understand the relationship between releases and governance, i.e., how a particular release gets voted in as canonical for a given set of Movement technologies.</p>
 <p><strong>Justification</strong>: A clear relationship between releases and governance will help users understand how releases are approved and what criteria they must meet. This will help users trust that releases are of high quality and meet the needs of the community.</p>
-<h2 id="changelog-19"><a class="header" href="#changelog-19">Changelog</a></h2>
+<h2 id="changelog-20"><a class="header" href="#changelog-20">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-26-user-facing-checks"><a class="header" href="#md-26-user-facing-checks">MD-26: User-facing checks</a></h1>
 <ul>
@@ -5844,7 +5845,7 @@ struct Trade {
 <h3 id="d6-compare-fastconfirmations-with-postconfirmation"><a class="header" href="#d6-compare-fastconfirmations-with-postconfirmation">D6: Compare Fastconfirmations with Postconfirmation</a></h3>
 <p><strong>User Journey</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks.</p>
 <p><strong>Description</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks. The superBlock confirmed by postconfirmation must contain the L2Blocks that are confirmed by fastconfirmations.</p>
-<h2 id="changelog-20"><a class="header" href="#changelog-20">Changelog</a></h2>
+<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-37-ffs-postconfirmation"><a class="header" href="#md-37-ffs-postconfirmation">MD-37: FFS: Postconfirmation</a></h1>
 <ul>
@@ -5868,7 +5869,7 @@ struct Trade {
 <h3 id="d4-identify-slashing-conditions-where-necessary"><a class="header" href="#d4-identify-slashing-conditions-where-necessary">D4: Identify slashing conditions where necessary</a></h3>
 <p><strong>User Journey</strong>: Slashing conditions are clearly defined and enforced, with penalties for malicious behavior. Only utilize slashing if it is necessary.</p>
 <p><strong>Justification</strong>: Clearly defined slashing conditions deter malicious actors and protect the network from potential attacks. Overuse of slashing can discourage participation.</p>
-<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
+<h2 id="changelog-22"><a class="header" href="#changelog-22">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs"><a class="header" href="#md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></h1>
 <ul>
@@ -6013,7 +6014,7 @@ struct Trade {
 <p><strong>User Journey</strong>: Pending transfers are retried automatically after a timeout, ensuring eventual completion without manual oversight.</p>
 <p><strong>Justification</strong>: Improves the reliability of the relayer by handling transient errors and network issues gracefully.</p>
 <p><strong>Recommendations</strong>: Implement a configurable timeout period for retries.</p>
-<h2 id="changelog-22"><a class="header" href="#changelog-22">Changelog</a></h2>
+<h2 id="changelog-23"><a class="header" href="#changelog-23">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-69-bridge-fees"><a class="header" href="#md-69-bridge-fees">MD-69: Bridge fees</a></h1>
 <ul>
