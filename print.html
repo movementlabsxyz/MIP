@@ -183,7 +183,7 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <h3 id="mds"><a class="header" href="#mds">MDs</a></h3>
 <ul>
 <li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
-<li><a href="Approved/main/MD/md-3/">MD-3: MCR under Network Partitions and Asynchrony</a></li>
+<li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
 <li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
@@ -258,7 +258,7 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <h3 id="mds-2"><a class="header" href="#mds-2">MDs</a></h3>
 <ul>
 <li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
-<li><a href="Approved/main/MD/md-3/">MD-3: MCR under Network Partitions and Asynchrony</a></li>
+<li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
 <li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
@@ -1390,7 +1390,7 @@ The <a href="https://cross-chainriskframework.github.io/framework/01intro/introd
 <h3 id="mds-4"><a class="header" href="#mds-4">MDs</a></h3>
 <ul>
 <li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
-<li><a href="Approved/main/MD/md-3/">MD-3: MCR under Network Partitions and Asynchrony</a></li>
+<li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
 <li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
@@ -1506,69 +1506,60 @@ The <a href="https://cross-chainriskframework.github.io/framework/01intro/introd
   TODO: Maintain this comment.
 -->
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-3-mcr-under-network-partitions-and-asynchrony"><a class="header" href="#md-3-mcr-under-network-partitions-and-asynchrony">MD-3: MCR under Network Partitions and Asynchrony</a></h1>
+<h1 id="md-3-postconfirmation--commitment-delay-network-partitions-and-asynchrony"><a class="header" href="#md-3-postconfirmation--commitment-delay-network-partitions-and-asynchrony">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></h1>
 <ul>
-<li><strong>Description</strong>: Provide a model for MCR and suggest a mechanism for handling network partitions and asynchrony.</li>
-<li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
+<li><strong>Description</strong>: Consider delays, network partitions and asynchrony. And address how rewards and slashing conditions impact these.</li>
+<li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a>, Andreas Penzkofer</li>
 </ul>
 <h2 id="overview-1"><a class="header" href="#overview-1">Overview</a></h2>
-<p>MCR provides a stake-based settlement mechanism used in Movement Lab’s Suzuka Network. In it’s current form, it does not take any steps to account for network partitions or, more generally, asynchrony.</p>
-<p>Henceforth, we will simply refer to network partitions, as all forms of asynchrony with which we are concerned can be modeled as such. Even if a node is not technically offline, the remainder of this disiderata will be concerned with the case in which it is not able to commit meaningfully to the current block height.</p>
-<p>It is important to account for network partitions in a manner consistent with the game theory of MCR. In the current implementation, a simple race is run to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> of the network’s stake. Currently, there is no model for slashing or rewarding. So, not participating in that race to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> of the network’s stake is not a meaningfully punished. Presuming there would be a reward for participating, this may create an incentive to run an unreliable node which may often fail to commit to the current block height.</p>
-<p>The same condition could also be seen as an attack vector if rewards and punishments were in place. A malicious actor could aim to partition the network via generating conditions for fast commitment amongst certain nodes–perhaps via something similar to the <a href="https://github.com/movementlabsxyz/rfcs/pull/29">Peer Attack described in RFC-29</a>. This would allow their stake to increase via rewards while the targeted minority stake would be slashed. The attacker may be able to keep apply this attack until they have a majority of stake.</p>
-<p>These and other phenomena are listed in the desiderata below.</p>
+<p>The Postconfirmation protocol <a href="https://github.com/movementlabsxyz/MIP/blob/mip/MCR/MIP/mip-37/README.md">MIP-37</a> is a stake-based settlement protocol on L1.</p>
+<p>Since it is a distributed protocol we have to account for</p>
+<ul>
+<li>commitment delays</li>
+<li>network partitions</li>
+<li>asynchrony</li>
+</ul>
+<h4 id="challenges-with-the-current-approach"><a class="header" href="#challenges-with-the-current-approach">Challenges with the current approach</a></h4>
+<p><a href="https://github.com/movementlabsxyz/movement/tree/main/protocol-units/settlement/mcr">MCR</a> is an implementation of Postconfirmation.</p>
+<p>In it’s <a href="https://github.com/movementlabsxyz/movement/tree/baa83356a14d44fd4e8346e1eddfc184cebc17d3/protocol-units/settlement/mcr">current form</a>, it does not account for effects on validators through commitment delays, network partitions, or asynchrony:</p>
+<ul>
+<li>once <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> of the active stake is reached the state gets committed.</li>
+<li>rewards and slashing is not implemented. Thus, not being successful in this type of race is not disadvantageous. However, rewards (and potentially slashing) are necessary to incentivize participation.</li>
+</ul>
+<h4 id="challenges-with-future-approaches"><a class="header" href="#challenges-with-future-approaches">Challenges with future approaches</a></h4>
+<p><strong>Introduction of rewards</strong>. With the introduction of rewards well connected nodes may have a higher rate of rewarded commitments, which could lead to a rapid centralization of the network. Moreover, network partitions forced by an adversary could lead to further centralization.</p>
+<p><strong>Introduction of slashing conditions</strong>. Slashing conditions, similar to rewards, have significant impact on the protocol, which should be well understood before implementation.</p>
 <h2 id="desiderata-1"><a class="header" href="#desiderata-1">Desiderata</a></h2>
-<!--
-  List out the specific desiderata. Each entry should consist of:
-
-  1. Title: A concise name for the desideratum.
-  2. User Journey: A one or two-sentence statement focusing on the "user" (could be a human, machine, software, etc.) and their interaction or experience.
-  3. Description (optional): A more detailed explanation if needed.
-  4. Justification: The reasoning behind the desideratum. Why is it necessary or desired?
-  5. Recommendations (optional): Suggestions or guidance related to the desideratum.
-
-  Format as:
-
-  ### Desideratum Title
-
-  **User Journey**: [user] can [action].
-
-  **Description**: <More detailed explanation if needed (optional)>
-
-  **Justification**: <Why this is a significant or required desideratum>
-
-  **Recommendations**: <Any specific guidance or suggestions (optional)>
-
-  TODO: Remove this comment before finalizing.
--->
-<h3 id="d1-model-for-network-partitions-as-absent-commitments-to-mcr"><a class="header" href="#d1-model-for-network-partitions-as-absent-commitments-to-mcr">D1: Model for Network Partitions as Absent Commitments to MCR</a></h3>
-<p><strong>User Journey</strong>: A researcher or protocol implementer can refer to a formal model for network partitions in MCR, ultimately deriving from it the logic necessary to implement slashing and rewarding.</p>
-<p><strong>Justification</strong>: Network partitions effectively result in absent commitments to the current block height. While not changing the stake needing to agree on the current height, the slashing or rewarding based on this absent commitment should be expected to impact behavior in the repeated game of MCR.</p>
+<h3 id="d1-assess-impact-of-delays-and-network-partitions"><a class="header" href="#d1-assess-impact-of-delays-and-network-partitions">D1: Assess impact of delays and network partitions</a></h3>
+<p><strong>User Journey</strong>: A researcher or protocol implementer can understand the impact of delays and network partitions.</p>
+<p><strong>Justification</strong>: It is important to understand the impact on the protocol from delays in commitments and network partitions. Network partitions can also describe a variety of asynchrony problems, such as DOS-attacks, network upgrades, and other forms of asynchrony.</p>
+<p><strong>Recommendations</strong>:
+We assume all forms of asynchrony with which we are concerned can be modeled through network partitions. For example, a node that is not technically offline but that cannot commit to the current block height, could just be exposed to asynchronous delays. However we can model this by assuming a partition.</p>
+<h3 id="d2-provide-a-model-that-considers-absent-commitments"><a class="header" href="#d2-provide-a-model-that-considers-absent-commitments">D2: Provide a model that considers absent commitments</a></h3>
+<p><strong>User Journey</strong>: A researcher or protocol implementer can refer to a formal model that describes the impact of absent commitments. Furthermore, rewards and slashing conditions should be considered.</p>
+<p><strong>Justification</strong>: Network partitions effectively result in absent commitments to a given block height. While not changing the stake needed to agree on the height, it may impact liveness or hinder certain validators to commit. Rewards (and slashing) based on this absent commitment should be expected to impact behavior in the protocol. The model would support the derivation of the logic necessary to implement rewarding (and potentially slashing).</p>
 <p><strong>Recommendations</strong>:</p>
 <ul>
-<li>A simple way to approach would be to model the value of a node’s commitment or absenteeism to honest-agreeing, honest-disagreeing, dishonest-agreeing, and dishonest-disagreeing participants. This could then be adapted into a more complex model with shifting preferences.</li>
-<li>The literature on absenteeism in repeated games is generally a bit sparse and particularly so–on first review–for topics in computer science.</li>
+<li>Model the value of a node’s commitment or absenteeism to the available voting options.</li>
+<li>Model byzantine attack vectors such as DOS-attacks on honest participants.</li>
 </ul>
-<h3 id="d2-research-and-design-for-commitment-tolerance-window"><a class="header" href="#d2-research-and-design-for-commitment-tolerance-window">D2: Research and Design for Commitment Tolerance Window</a></h3>
-<p><strong>User Journey</strong>: A researcher or protocol implementer can understand why or why not a commitment tolerance window is necessary for MCR and why a particular design for this window was chosen.</p>
-<p><strong>Justification</strong>: It has been proposed that a commitment tolerance window would soften network partitions. That is, allowing participants to receive a reward or penalty after the needed stake has committed to the current block height could prevent the kind kind of stake drift and attacks described above.</p>
-<p><strong>Recommendations</strong>:</p>
+<h3 id="d3-consider-slashing-conditions-for-lack-of-participation"><a class="header" href="#d3-consider-slashing-conditions-for-lack-of-participation">D3: Consider slashing conditions for lack of participation</a></h3>
+<p><strong>User Journey</strong>: A researcher or protocol implementer can understand the impact of slashing conditions for lack of participation. And whether it is necessary to introduce such conditions.</p>
+<p><strong>Justification</strong>: It has been proposed to slash participants for lack of participation. This could be a way to prevent inactivity, however such extreme slashing conditions come with their own risks.</p>
+<p><strong>Recommendations</strong>:
+With the introduction of slashing conditions for lack of participation, a malicious actor could aim to partition the network, such that a subset of nodes struggle to provide their commitments (DOS-attack). See, for example, <a href="https://github.com/movementlabsxyz/rfcs/pull/29">Peer Attack in RFC-29</a>. Excessive penalization could lead to slashing of honest actors. It also could lead to an increase of the attackers proportion of total stake, further reducing the security. Introduction of such slashing conditions should be considered with caution.</p>
+<h3 id="d4-research-commitment-tolerance-window"><a class="header" href="#d4-research-commitment-tolerance-window">D4: Research Commitment Tolerance Window</a></h3>
+<p>It has been proposed that a tolerance window to commitment arrivals would soften the impact on validators for delays they experience.</p>
+<p><strong>User Journey</strong>: A researcher or protocol implementer can understand why a commitment tolerance window is necessary and why a particular design for this window was chosen.</p>
+<p><strong>Justification</strong>: Allowing participants to receive a reward after the required stake has already committed to a given block height could prevent centralization and DOS-attacks.</p>
+<p><strong>Recommendations</strong>:
+Consider the following parameters for the commitment tolerance window:</p>
 <ul>
-<li>Consider the following parameters for the commitment tolerance window:
-<ul>
-<li>Reward decay: the function describing the diminishing returns of rewards later in the window.</li>
-<li>Penalty decay: the function describing the increasing returns of penalties later in the window.</li>
-<li>Vote decay: the function describing the diminishing returns of votes later in the window. This would only be useful if previous rounds of voting are considered in the current round.</li>
+<li>Commitment happens only after some time has passed, forcing some degree of synchronization.</li>
+<li>Reward decay: a function describing the diminishing returns of rewards later in the window.</li>
 </ul>
-</li>
-</ul>
-<h3 id="d3-address-asynchronous-upgrades-fork-creation-and-fork-stake-problems"><a class="header" href="#d3-address-asynchronous-upgrades-fork-creation-and-fork-stake-problems">D3: Address Asynchronous Upgrades, Fork Creation, and Fork Stake Problems</a></h3>
-<p><strong>User Journey</strong>: A researcher or protocol implementer can understand the <a href="Approved/main/MD/md-3/./asychronous-upgrades-problem.html">Asynchronous Upgrades, Fork Creation, and Fork Stake Problems</a> and how they are addressed in MCR.</p>
-<p><strong>Justification</strong>: These are problems encountered under asynchrony and systems addressing asynchrony which if not addressed would bring down the network.</p>
-<p><strong>Recommendations</strong>:</p>
-<ul>
-<li>Start by reviewing the <a href="Approved/main/MD/md-3/./asychronous-upgrades-problem.html">Asynchronous Upgrades, Fork Creation, and Fork Stake Problems</a>.</li>
-</ul>
+<h2 id="changelog-5"><a class="header" href="#changelog-5">Changelog</a></h2>
+<p>2025-01-28: consider and rewrite towards the Postconfirmation protocol. Remove the additional asynchronous-upgrades-problem as it requires review.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-15-movement-glossary"><a class="header" href="#md-15-movement-glossary">MD-15: Movement Glossary</a></h1>
 <ul>
@@ -1616,7 +1607,7 @@ The <a href="https://cross-chainriskframework.github.io/framework/01intro/introd
 <ul>
 <li>MD can also introduce MG to further aid in clarity, but they will not be ratified until they have been supported in an MIP.</li>
 </ul>
-<h2 id="changelog-5"><a class="header" href="#changelog-5">Changelog</a></h2>
+<h2 id="changelog-6"><a class="header" href="#changelog-6">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-91-define-move-stack-and-movement-sdk"><a class="header" href="#md-91-define-move-stack-and-movement-sdk">MD-91: Define Move Stack and Movement SDK</a></h1>
 <ul>
@@ -1641,7 +1632,7 @@ The <a href="https://cross-chainriskframework.github.io/framework/01intro/introd
 <h3 id="d4-reduce-confusion-between-sdk-and-stack"><a class="header" href="#d4-reduce-confusion-between-sdk-and-stack">D4: Reduce confusion between SDK and Stack</a></h3>
 <p><strong>User Journey</strong>: Developers are able to understand what the SDK implies.</p>
 <p><strong>Justification</strong>: There has been much confusion about what the SDK constitutes. There is great need for clarification to align language in the ecosystem.</p>
-<h2 id="changelog-6"><a class="header" href="#changelog-6">Changelog</a></h2>
+<h2 id="changelog-7"><a class="header" href="#changelog-7">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-93-parent-child-mips"><a class="header" href="#md-93-parent-child-mips">MD-93: Parent-Child MIPs</a></h1>
 <ul>
@@ -1663,7 +1654,7 @@ The <a href="https://cross-chainriskframework.github.io/framework/01intro/introd
 <h3 id="d1-convention-for-parent-and-child-mip-file-organization-and-naming"><a class="header" href="#d1-convention-for-parent-and-child-mip-file-organization-and-naming">D1: Convention for parent and child MIP file organization and naming</a></h3>
 <p><strong>User Journey</strong>: Proposer can adhere to a standardized template for substantial, detailed subsections of MIPs which warrant being categorized as their own related child MIP.</p>
 <p><strong>Justification</strong>: The file organization and naming must be consistent, so there should be a formal convention.</p>
-<h2 id="changelog-7"><a class="header" href="#changelog-7">Changelog</a></h2>
+<h2 id="changelog-8"><a class="header" href="#changelog-8">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-3"><a class="header" href="#welcome-to-the-movement-network-mip-book-3">Welcome to the Movement Network MIP Book</a></h1>
 <h2 id="approved-3"><a class="header" href="#approved-3">Approved</a></h2>
@@ -1681,7 +1672,7 @@ The <a href="https://cross-chainriskframework.github.io/framework/01intro/introd
 <h3 id="mds-6"><a class="header" href="#mds-6">MDs</a></h3>
 <ul>
 <li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
-<li><a href="Approved/main/MD/md-3/">MD-3: MCR under Network Partitions and Asynchrony</a></li>
+<li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
 <li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
@@ -1769,7 +1760,7 @@ The <a href="https://cross-chainriskframework.github.io/framework/01intro/introd
 <h3 id="mds-8"><a class="header" href="#mds-8">MDs</a></h3>
 <ul>
 <li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
-<li><a href="Approved/main/MD/md-3/">MD-3: MCR under Network Partitions and Asynchrony</a></li>
+<li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
 <li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
@@ -1844,7 +1835,7 @@ The <a href="https://cross-chainriskframework.github.io/framework/01intro/introd
 <h3 id="mds-10"><a class="header" href="#mds-10">MDs</a></h3>
 <ul>
 <li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
-<li><a href="Approved/main/MD/md-3/">MD-3: MCR under Network Partitions and Asynchrony</a></li>
+<li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
 <li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
@@ -2446,7 +2437,7 @@ impl Release&lt;JSONFieldArtifact&gt; for JSONFieldRelease {
 <h2 id="reference-implementation-9"><a class="header" href="#reference-implementation-9">Reference Implementation</a></h2>
 <h2 id="verification-10"><a class="header" href="#verification-10">Verification</a></h2>
 <h2 id="appendix-10"><a class="header" href="#appendix-10">Appendix</a></h2>
-<h2 id="changelog-8"><a class="header" href="#changelog-8">Changelog</a></h2>
+<h2 id="changelog-9"><a class="header" href="#changelog-9">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-24-removal-of-redundant-functionality-from-framework"><a class="header" href="#mip-24-removal-of-redundant-functionality-from-framework">MIP-24: Removal of redundant functionality from framework</a></h1>
 <ul>
@@ -3304,7 +3295,7 @@ This implies that if more than <span class="katex"><span class="katex-html" aria
 <li><strong>commit to a sequence of L2Blocks</strong>. The Fastconfirmation certificate could be per L2block. However, on L1 we want to commit to a sequence of blocks (a superBlock). This can be done by committing to the state root of the last block in the sequence or more complicated approaches using Merkle roots.</li>
 </ul>
 <h2 id="appendix-15"><a class="header" href="#appendix-15">Appendix</a></h2>
-<h2 id="changelog-9"><a class="header" href="#changelog-9">Changelog</a></h2>
+<h2 id="changelog-10"><a class="header" href="#changelog-10">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-37-ffs-postconfirmation"><a class="header" href="#mip-37-ffs-postconfirmation">MIP-37: FFS: Postconfirmation</a></h1>
 <ul>
@@ -3520,7 +3511,7 @@ function getAcceptorLastActivity() internal view returns (uint256) {
 <p>A reference implementation for Postconfirmation is provided by MCR, see <a href="https://github.com/movementlabsxyz/movement/tree/714831820d78b3910729a194cd0508fa1efd9aa9/protocol-units/settlement/mcr">here</a>.</p>
 <h2 id="verification-16"><a class="header" href="#verification-16">Verification</a></h2>
 <h2 id="appendix-16"><a class="header" href="#appendix-16">Appendix</a></h2>
-<h2 id="changelog-10"><a class="header" href="#changelog-10">Changelog</a></h2>
+<h2 id="changelog-11"><a class="header" href="#changelog-11">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-47-improve-gas-fee-collection-in-phases"><a class="header" href="#mip-47-improve-gas-fee-collection-in-phases">MIP-47: Improve Gas fee collection in phases</a></h1>
 <ul>
@@ -3843,7 +3834,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <h2 id="reference-implementation-17"><a class="header" href="#reference-implementation-17">Reference Implementation</a></h2>
 <h2 id="verification-19"><a class="header" href="#verification-19">Verification</a></h2>
 <h2 id="appendix-19"><a class="header" href="#appendix-19">Appendix</a></h2>
-<h2 id="changelog-11"><a class="header" href="#changelog-11">Changelog</a></h2>
+<h2 id="changelog-12"><a class="header" href="#changelog-12">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-50-insured-native-bridge"><a class="header" href="#mip-50-insured-native-bridge">MIP-50: Insured Native Bridge</a></h1>
 <ul>
@@ -3867,7 +3858,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li>The Bridge Pool Governor SHALL be expected to purchase token from the market to recover the loss and replenish the Insurance Fund.</li>
 </ol>
 <h2 id="verification-20"><a class="header" href="#verification-20">Verification</a></h2>
-<h2 id="changelog-12"><a class="header" href="#changelog-12">Changelog</a></h2>
+<h2 id="changelog-13"><a class="header" href="#changelog-13">Changelog</a></h2>
 <h2 id="appendix-20"><a class="header" href="#appendix-20">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-52-aptos-gas-pool"><a class="header" href="#mip-52-aptos-gas-pool">MIP-52: Aptos Gas Pool</a></h1>
@@ -3901,7 +3892,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li>Verify that the AptosVM does not validate burns. Otherwise, there may be logic outside of the framework <code>epilogue_gas_payer</code> path which needs to be updated.</li>
 <li>Identify any sponsorship or other gas payment mechanisms which may need to be updated to use the Gas Pool.</li>
 </ul>
-<h2 id="changelog-13"><a class="header" href="#changelog-13">Changelog</a></h2>
+<h2 id="changelog-14"><a class="header" href="#changelog-14">Changelog</a></h2>
 <h2 id="appendix-21"><a class="header" href="#appendix-21">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-54-the-biarritz-model"><a class="header" href="#mip-54-the-biarritz-model">MIP-54: The Biarritz Model</a></h1>
@@ -3952,7 +3943,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li><strong>1:1 token correlation</strong>: the model asserts a 1:1 token correlation between the L1 staking and L2 gas tokens. This may not be desirable in all cases as exploits on the bridge may compromise the security of staking on the L1 or sybil resistance on the L2.</li>
 </ol>
 <h2 id="verification-22"><a class="header" href="#verification-22">Verification</a></h2>
-<h2 id="changelog-14"><a class="header" href="#changelog-14">Changelog</a></h2>
+<h2 id="changelog-15"><a class="header" href="#changelog-15">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-55-the-bilbao-model"><a class="header" href="#mip-55-the-bilbao-model">MIP-55: The Bilbao Model</a></h1>
 <ul>
@@ -4249,7 +4240,7 @@ The relayer records on the source or target chain (whichever is cheaper) the <co
 <p>This creates a dependency to another component. For example, if the postgres db has an issue, the relayer has an issue. Even thought the relayer doesn’t need the db to process.</p>
 <h2 id="reference-implementation-18"><a class="header" href="#reference-implementation-18">Reference Implementation</a></h2>
 <h2 id="verification-24"><a class="header" href="#verification-24">Verification</a></h2>
-<h2 id="changelog-15"><a class="header" href="#changelog-15">Changelog</a></h2>
+<h2 id="changelog-16"><a class="header" href="#changelog-16">Changelog</a></h2>
 <h2 id="appendix-22"><a class="header" href="#appendix-22">Appendix</a></h2>
 <h2 id="copyright-9"><a class="header" href="#copyright-9">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/../LICENSE.html">CC0</a>.</p>
@@ -4667,7 +4658,7 @@ The following are possible ways to adjust the rate limit:</p>
 <p>Needs discussion.</p>
 <p>We may add a formal model?</p>
 <hr />
-<h2 id="changelog-16"><a class="header" href="#changelog-16">Changelog</a></h2>
+<h2 id="changelog-17"><a class="header" href="#changelog-17">Changelog</a></h2>
 <h2 id="appendix-24"><a class="header" href="#appendix-24">Appendix</a></h2>
 <h3 id="a1-alternative-designs"><a class="header" href="#a1-alternative-designs">A1: Alternative designs</a></h3>
 <p>This MIP proposes a rate limiting mechanism for the Lock/Mint-type Native Bridge with symmetrical design. Below we discuss how we got here and which alternatives exist. The version discussed in this MIP is option C.</p>
@@ -4833,7 +4824,7 @@ Option 2: Each FFS validator node MUST run a service that obtains (or gets from 
 <p>The expected time for the completion of the transfer is the time it takes is in the range of Postconfirmations and L1 finality time.</p>
 <h2 id="reference-implementation-22"><a class="header" href="#reference-implementation-22">Reference Implementation</a></h2>
 <h2 id="verification-28"><a class="header" href="#verification-28">Verification</a></h2>
-<h2 id="changelog-17"><a class="header" href="#changelog-17">Changelog</a></h2>
+<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
 <h2 id="appendix-25"><a class="header" href="#appendix-25">Appendix</a></h2>
 <h3 id="a1-background-eigenlayer"><a class="header" href="#a1-background-eigenlayer">A1: Background EigenLayer</a></h3>
 <p>In order to protect the protocol from exploits and potential losses, rate limiting is essential. For comparison the white paper <a href="https://docs.eigenlayer.xyz/assets/files/EigenLayer_WhitePaper-88c47923ca0319870c611decd6e562ad.pdf">EigenLayer: The Restaking Collective</a> proposes that AVS (Actively Validated Services) can run for a bridge and the stake of validators protects the transferred value crypto-economically through slashing conditions. More specifically section 3.4 Risk Management mentions</p>
@@ -5052,7 +5043,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h2 id="reference-implementation-23"><a class="header" href="#reference-implementation-23">Reference Implementation</a></h2>
 <p>For the reference implementation of the Move Stack refer to the <a href="https://github.com/movementlabsxyz">Movement GitHub repository</a>.</p>
 <h2 id="verification-29"><a class="header" href="#verification-29">Verification</a></h2>
-<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
+<h2 id="changelog-19"><a class="header" href="#changelog-19">Changelog</a></h2>
 <h2 id="appendix-26"><a class="header" href="#appendix-26">Appendix</a></h2>
 <h3 id="a1-rfc-1"><a class="header" href="#a1-rfc-1">A1 RFC-1</a></h3>
 <p>RFC-1 in <a href="https://github.com/movementlabsxyz/rfcs">RFCs</a> is an initial document that outlines the components of the Move Stack and Movement SDK. It provides a detailed enumeration of components, their aliases, and purposes.</p>
@@ -5075,7 +5066,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h3 id="mds-12"><a class="header" href="#mds-12">MDs</a></h3>
 <ul>
 <li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
-<li><a href="Approved/main/MD/md-3/">MD-3: MCR under Network Partitions and Asynchrony</a></li>
+<li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
 <li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
@@ -5159,7 +5150,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h2 id="overview-7"><a class="header" href="#overview-7">Overview</a></h2>
 <p>The Postconfirmation protocol <a href="https://github.com/movementlabsxyz/MIP/blob/mip/MCR/MIP/mip-37/README.md">MIP-37</a> is a stake-based settlement protocol on L1. Postconfirmations confirm superBlocks, which are a sequence of L2Blocks.</p>
 <p><strong>Postconfirmer</strong>. Once 2/3 of the total stake has been accumulated, a special actor must trigger the Postconfirmation. This action consumes additional gas compared to the basic validator confirmations. Moreover, a special actor has to update the contract to a new epoch to update the stake of validators, which also consumes gas. We call this actor the Postconfirmer.</p>
-<h4 id="challenges-with-the-current-approach"><a class="header" href="#challenges-with-the-current-approach">Challenges with the current approach</a></h4>
+<h4 id="challenges-with-the-current-approach-1"><a class="header" href="#challenges-with-the-current-approach-1">Challenges with the current approach</a></h4>
 <p><a href="https://github.com/movementlabsxyz/movement/tree/main/protocol-units/settlement/mcr">MCR</a> is an implementation of Postconfirmation. In it’s <a href="https://github.com/movementlabsxyz/movement/tree/baa83356a14d44fd4e8346e1eddfc184cebc17d3/protocol-units/settlement/mcr">current form</a>, the last validator that is required to reach 2/3 of the total stake becomes the Postconfirmer.</p>
 <p>The current implementation of MCR does not offset gas costs for this validator. This could lead to a disincentive to participate in the game, as the accumulated stake approaches 2/3 of the total stake.</p>
 <h4 id="challenges-with-the-proposed-solution"><a class="header" href="#challenges-with-the-proposed-solution">Challenges with the proposed solution</a></h4>
@@ -5179,7 +5170,7 @@ The current implementation of MCR does not reward the last validator. This could
 A researcher or protocol implementer can understand the game theory of gas costs when  incomplete information.</p>
 <p><strong>Justification</strong>:
 Information incompleteness may improve the game theory of costs and rewards. Provide models which demonstrate this for incompleteness derived from network latency, randomness in the rewards, and more.</p>
-<h2 id="changelog-19"><a class="header" href="#changelog-19">Changelog</a></h2>
+<h2 id="changelog-20"><a class="header" href="#changelog-20">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-5-fast-finality-settlement---long-range-attacks"><a class="header" href="#md-5-fast-finality-settlement---long-range-attacks">MD-5: Fast Finality Settlement - Long Range Attacks</a></h1>
 <ul>
@@ -5219,7 +5210,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <h3 id="d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof"><a class="header" href="#d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof">D3: Evaluate the opportunity for “stake-bleeding” long-range attacks and detection thereof</a></h3>
 <p><strong>User Journey</strong>: A researcher or protocol implementer can understand how a stake-bleeding long-range attack could be executed and detected.</p>
 <p><strong>Justification</strong>: Stake-bleeding long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a stake-bleeding long-range attack could be executed and detected could enable us to derive preventative measures.</p>
-<h2 id="changelog-20"><a class="header" href="#changelog-20">Changelog</a></h2>
+<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-6-suzuka-block-validation"><a class="header" href="#md-6-suzuka-block-validation">MD-6: Suzuka Block Validation</a></h1>
 <ul>
@@ -5620,7 +5611,7 @@ The challenge is to make sure that the signature is only used once so no transac
 <h3 id="d4-define-standard-relationship-between-releases-and-governance"><a class="header" href="#d4-define-standard-relationship-between-releases-and-governance">D4: Define standard relationship between releases and governance</a></h3>
 <p><strong>User Journey</strong>: All users can understand the relationship between releases and governance, i.e., how a particular release gets voted in as canonical for a given set of Movement technologies.</p>
 <p><strong>Justification</strong>: A clear relationship between releases and governance will help users understand how releases are approved and what criteria they must meet. This will help users trust that releases are of high quality and meet the needs of the community.</p>
-<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
+<h2 id="changelog-22"><a class="header" href="#changelog-22">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-26-user-facing-checks"><a class="header" href="#md-26-user-facing-checks">MD-26: User-facing checks</a></h1>
 <ul>
@@ -5843,7 +5834,7 @@ struct Trade {
 <h3 id="d6-compare-fastconfirmations-with-postconfirmation"><a class="header" href="#d6-compare-fastconfirmations-with-postconfirmation">D6: Compare Fastconfirmations with Postconfirmation</a></h3>
 <p><strong>User Journey</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks.</p>
 <p><strong>Description</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks. The superBlock confirmed by postconfirmation must contain the L2Blocks that are confirmed by fastconfirmations.</p>
-<h2 id="changelog-22"><a class="header" href="#changelog-22">Changelog</a></h2>
+<h2 id="changelog-23"><a class="header" href="#changelog-23">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-37-ffs-postconfirmation"><a class="header" href="#md-37-ffs-postconfirmation">MD-37: FFS: Postconfirmation</a></h1>
 <ul>
@@ -5867,7 +5858,7 @@ struct Trade {
 <h3 id="d4-identify-slashing-conditions-where-necessary"><a class="header" href="#d4-identify-slashing-conditions-where-necessary">D4: Identify slashing conditions where necessary</a></h3>
 <p><strong>User Journey</strong>: Slashing conditions are clearly defined and enforced, with penalties for malicious behavior. Only utilize slashing if it is necessary.</p>
 <p><strong>Justification</strong>: Clearly defined slashing conditions deter malicious actors and protect the network from potential attacks. Overuse of slashing can discourage participation.</p>
-<h2 id="changelog-23"><a class="header" href="#changelog-23">Changelog</a></h2>
+<h2 id="changelog-24"><a class="header" href="#changelog-24">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs"><a class="header" href="#md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></h1>
 <ul>
@@ -5950,7 +5941,7 @@ struct Trade {
 <h3 id="d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties"><a class="header" href="#d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties">D5: Specify How to Distribute Gas Fees to the Appropriate Parties</a></h3>
 <p><strong>User Journey</strong>: A network participant can understand how gas fees are distributed.</p>
 <p><strong>Justification</strong>: Gas fees must ultimately be used to pay extrinsic costs or else be considered as rewards. It is important to specify how gas fees are distributed to ensure that the system is fair and that the incentives for participation are aligned with the goals of the Movement Network.</p>
-<h2 id="changelog-24"><a class="header" href="#changelog-24">Changelog</a></h2>
+<h2 id="changelog-25"><a class="header" href="#changelog-25">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-61-relayer-algorithm-for-the-lockmint-native-bridge"><a class="header" href="#md-61-relayer-algorithm-for-the-lockmint-native-bridge">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></h1>
 <ul>
@@ -5977,7 +5968,7 @@ struct Trade {
 <p><strong>User Journey</strong>: Pending transfers are retried automatically after a timeout, ensuring eventual completion without manual oversight.</p>
 <p><strong>Justification</strong>: Improves the reliability of the relayer by handling transient errors and network issues gracefully.</p>
 <p><strong>Recommendations</strong>: Implement a configurable timeout period for retries.</p>
-<h2 id="changelog-25"><a class="header" href="#changelog-25">Changelog</a></h2>
+<h2 id="changelog-26"><a class="header" href="#changelog-26">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-69-bridge-fees"><a class="header" href="#md-69-bridge-fees">MD-69: Bridge fees</a></h1>
 <ul>

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MD-3: MCR under Network Partitions and Asynchrony - MIP</title>
+        <title>MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -158,69 +158,60 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-3-mcr-under-network-partitions-and-asynchrony"><a class="header" href="#md-3-mcr-under-network-partitions-and-asynchrony">MD-3: MCR under Network Partitions and Asynchrony</a></h1>
+<h1 id="md-3-postconfirmation--commitment-delay-network-partitions-and-asynchrony"><a class="header" href="#md-3-postconfirmation--commitment-delay-network-partitions-and-asynchrony">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></h1>
 <ul>
-<li><strong>Description</strong>: Provide a model for MCR and suggest a mechanism for handling network partitions and asynchrony.</li>
-<li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
+<li><strong>Description</strong>: Consider delays, network partitions and asynchrony. And address how rewards and slashing conditions impact these.</li>
+<li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a>, Andreas Penzkofer</li>
 </ul>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<p>MCR provides a stake-based settlement mechanism used in Movement Lab’s Suzuka Network. In it’s current form, it does not take any steps to account for network partitions or, more generally, asynchrony.</p>
-<p>Henceforth, we will simply refer to network partitions, as all forms of asynchrony with which we are concerned can be modeled as such. Even if a node is not technically offline, the remainder of this disiderata will be concerned with the case in which it is not able to commit meaningfully to the current block height.</p>
-<p>It is important to account for network partitions in a manner consistent with the game theory of MCR. In the current implementation, a simple race is run to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> of the network’s stake. Currently, there is no model for slashing or rewarding. So, not participating in that race to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> of the network’s stake is not a meaningfully punished. Presuming there would be a reward for participating, this may create an incentive to run an unreliable node which may often fail to commit to the current block height.</p>
-<p>The same condition could also be seen as an attack vector if rewards and punishments were in place. A malicious actor could aim to partition the network via generating conditions for fast commitment amongst certain nodes–perhaps via something similar to the <a href="https://github.com/movementlabsxyz/rfcs/pull/29">Peer Attack described in RFC-29</a>. This would allow their stake to increase via rewards while the targeted minority stake would be slashed. The attacker may be able to keep apply this attack until they have a majority of stake.</p>
-<p>These and other phenomena are listed in the desiderata below.</p>
+<p>The Postconfirmation protocol <a href="https://github.com/movementlabsxyz/MIP/blob/mip/MCR/MIP/mip-37/README.md">MIP-37</a> is a stake-based settlement protocol on L1.</p>
+<p>Since it is a distributed protocol we have to account for</p>
+<ul>
+<li>commitment delays</li>
+<li>network partitions</li>
+<li>asynchrony</li>
+</ul>
+<h4 id="challenges-with-the-current-approach"><a class="header" href="#challenges-with-the-current-approach">Challenges with the current approach</a></h4>
+<p><a href="https://github.com/movementlabsxyz/movement/tree/main/protocol-units/settlement/mcr">MCR</a> is an implementation of Postconfirmation.</p>
+<p>In it’s <a href="https://github.com/movementlabsxyz/movement/tree/baa83356a14d44fd4e8346e1eddfc184cebc17d3/protocol-units/settlement/mcr">current form</a>, it does not account for effects on validators through commitment delays, network partitions, or asynchrony:</p>
+<ul>
+<li>once <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> of the active stake is reached the state gets committed.</li>
+<li>rewards and slashing is not implemented. Thus, not being successful in this type of race is not disadvantageous. However, rewards (and potentially slashing) are necessary to incentivize participation.</li>
+</ul>
+<h4 id="challenges-with-future-approaches"><a class="header" href="#challenges-with-future-approaches">Challenges with future approaches</a></h4>
+<p><strong>Introduction of rewards</strong>. With the introduction of rewards well connected nodes may have a higher rate of rewarded commitments, which could lead to a rapid centralization of the network. Moreover, network partitions forced by an adversary could lead to further centralization.</p>
+<p><strong>Introduction of slashing conditions</strong>. Slashing conditions, similar to rewards, have significant impact on the protocol, which should be well understood before implementation.</p>
 <h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
-<!--
-  List out the specific desiderata. Each entry should consist of:
-
-  1. Title: A concise name for the desideratum.
-  2. User Journey: A one or two-sentence statement focusing on the "user" (could be a human, machine, software, etc.) and their interaction or experience.
-  3. Description (optional): A more detailed explanation if needed.
-  4. Justification: The reasoning behind the desideratum. Why is it necessary or desired?
-  5. Recommendations (optional): Suggestions or guidance related to the desideratum.
-
-  Format as:
-
-  ### Desideratum Title
-
-  **User Journey**: [user] can [action].
-
-  **Description**: <More detailed explanation if needed (optional)>
-
-  **Justification**: <Why this is a significant or required desideratum>
-
-  **Recommendations**: <Any specific guidance or suggestions (optional)>
-
-  TODO: Remove this comment before finalizing.
--->
-<h3 id="d1-model-for-network-partitions-as-absent-commitments-to-mcr"><a class="header" href="#d1-model-for-network-partitions-as-absent-commitments-to-mcr">D1: Model for Network Partitions as Absent Commitments to MCR</a></h3>
-<p><strong>User Journey</strong>: A researcher or protocol implementer can refer to a formal model for network partitions in MCR, ultimately deriving from it the logic necessary to implement slashing and rewarding.</p>
-<p><strong>Justification</strong>: Network partitions effectively result in absent commitments to the current block height. While not changing the stake needing to agree on the current height, the slashing or rewarding based on this absent commitment should be expected to impact behavior in the repeated game of MCR.</p>
+<h3 id="d1-assess-impact-of-delays-and-network-partitions"><a class="header" href="#d1-assess-impact-of-delays-and-network-partitions">D1: Assess impact of delays and network partitions</a></h3>
+<p><strong>User Journey</strong>: A researcher or protocol implementer can understand the impact of delays and network partitions.</p>
+<p><strong>Justification</strong>: It is important to understand the impact on the protocol from delays in commitments and network partitions. Network partitions can also describe a variety of asynchrony problems, such as DOS-attacks, network upgrades, and other forms of asynchrony.</p>
+<p><strong>Recommendations</strong>:
+We assume all forms of asynchrony with which we are concerned can be modeled through network partitions. For example, a node that is not technically offline but that cannot commit to the current block height, could just be exposed to asynchronous delays. However we can model this by assuming a partition.</p>
+<h3 id="d2-provide-a-model-that-considers-absent-commitments"><a class="header" href="#d2-provide-a-model-that-considers-absent-commitments">D2: Provide a model that considers absent commitments</a></h3>
+<p><strong>User Journey</strong>: A researcher or protocol implementer can refer to a formal model that describes the impact of absent commitments. Furthermore, rewards and slashing conditions should be considered.</p>
+<p><strong>Justification</strong>: Network partitions effectively result in absent commitments to a given block height. While not changing the stake needed to agree on the height, it may impact liveness or hinder certain validators to commit. Rewards (and slashing) based on this absent commitment should be expected to impact behavior in the protocol. The model would support the derivation of the logic necessary to implement rewarding (and potentially slashing).</p>
 <p><strong>Recommendations</strong>:</p>
 <ul>
-<li>A simple way to approach would be to model the value of a node’s commitment or absenteeism to honest-agreeing, honest-disagreeing, dishonest-agreeing, and dishonest-disagreeing participants. This could then be adapted into a more complex model with shifting preferences.</li>
-<li>The literature on absenteeism in repeated games is generally a bit sparse and particularly so–on first review–for topics in computer science.</li>
+<li>Model the value of a node’s commitment or absenteeism to the available voting options.</li>
+<li>Model byzantine attack vectors such as DOS-attacks on honest participants.</li>
 </ul>
-<h3 id="d2-research-and-design-for-commitment-tolerance-window"><a class="header" href="#d2-research-and-design-for-commitment-tolerance-window">D2: Research and Design for Commitment Tolerance Window</a></h3>
-<p><strong>User Journey</strong>: A researcher or protocol implementer can understand why or why not a commitment tolerance window is necessary for MCR and why a particular design for this window was chosen.</p>
-<p><strong>Justification</strong>: It has been proposed that a commitment tolerance window would soften network partitions. That is, allowing participants to receive a reward or penalty after the needed stake has committed to the current block height could prevent the kind kind of stake drift and attacks described above.</p>
-<p><strong>Recommendations</strong>:</p>
+<h3 id="d3-consider-slashing-conditions-for-lack-of-participation"><a class="header" href="#d3-consider-slashing-conditions-for-lack-of-participation">D3: Consider slashing conditions for lack of participation</a></h3>
+<p><strong>User Journey</strong>: A researcher or protocol implementer can understand the impact of slashing conditions for lack of participation. And whether it is necessary to introduce such conditions.</p>
+<p><strong>Justification</strong>: It has been proposed to slash participants for lack of participation. This could be a way to prevent inactivity, however such extreme slashing conditions come with their own risks.</p>
+<p><strong>Recommendations</strong>:
+With the introduction of slashing conditions for lack of participation, a malicious actor could aim to partition the network, such that a subset of nodes struggle to provide their commitments (DOS-attack). See, for example, <a href="https://github.com/movementlabsxyz/rfcs/pull/29">Peer Attack in RFC-29</a>. Excessive penalization could lead to slashing of honest actors. It also could lead to an increase of the attackers proportion of total stake, further reducing the security. Introduction of such slashing conditions should be considered with caution.</p>
+<h3 id="d4-research-commitment-tolerance-window"><a class="header" href="#d4-research-commitment-tolerance-window">D4: Research Commitment Tolerance Window</a></h3>
+<p>It has been proposed that a tolerance window to commitment arrivals would soften the impact on validators for delays they experience.</p>
+<p><strong>User Journey</strong>: A researcher or protocol implementer can understand why a commitment tolerance window is necessary and why a particular design for this window was chosen.</p>
+<p><strong>Justification</strong>: Allowing participants to receive a reward after the required stake has already committed to a given block height could prevent centralization and DOS-attacks.</p>
+<p><strong>Recommendations</strong>:
+Consider the following parameters for the commitment tolerance window:</p>
 <ul>
-<li>Consider the following parameters for the commitment tolerance window:
-<ul>
-<li>Reward decay: the function describing the diminishing returns of rewards later in the window.</li>
-<li>Penalty decay: the function describing the increasing returns of penalties later in the window.</li>
-<li>Vote decay: the function describing the diminishing returns of votes later in the window. This would only be useful if previous rounds of voting are considered in the current round.</li>
+<li>Commitment happens only after some time has passed, forcing some degree of synchronization.</li>
+<li>Reward decay: a function describing the diminishing returns of rewards later in the window.</li>
 </ul>
-</li>
-</ul>
-<h3 id="d3-address-asynchronous-upgrades-fork-creation-and-fork-stake-problems"><a class="header" href="#d3-address-asynchronous-upgrades-fork-creation-and-fork-stake-problems">D3: Address Asynchronous Upgrades, Fork Creation, and Fork Stake Problems</a></h3>
-<p><strong>User Journey</strong>: A researcher or protocol implementer can understand the <a href="./asychronous-upgrades-problem.html">Asynchronous Upgrades, Fork Creation, and Fork Stake Problems</a> and how they are addressed in MCR.</p>
-<p><strong>Justification</strong>: These are problems encountered under asynchrony and systems addressing asynchrony which if not addressed would bring down the network.</p>
-<p><strong>Recommendations</strong>:</p>
-<ul>
-<li>Start by reviewing the <a href="./asychronous-upgrades-problem.html">Asynchronous Upgrades, Fork Creation, and Fork Stake Problems</a>.</li>
-</ul>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
+<p>2025-01-28: consider and rewrite towards the Postconfirmation protocol. Remove the additional asynchronous-upgrades-problem as it requires review.</p>
 
                     </main>
 
