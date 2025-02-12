@@ -19,7 +19,7 @@ We acknowledge and apply the conventions of [MIP-53: Conventions for Proposing P
 | Category | Criterion | Evaluation |
 |-----------|-----------|------------|
 | **General** | | |
-|| When to use | During a genesis period after which the resulting state is intended to be accepted as canonical by a more decentralized network |
+|| When to use | During a genesis period and after after which the resulting state is intended to be accepted as canonical entry point for a progressive more decentralized network. |
 ||| The benefits to the network of an immediate release against early technology outstrip the potential costs of failing to correctly resolve vulnerabilities introduce in genesis state. |
 || Suitable preceding models.<br> | NONE |
 || Suitable succeeding models | [MIP-54: The Biarritz Model](https://github.com/movementlabsxyz/MIP/pull/54) |
@@ -27,16 +27,16 @@ We acknowledge and apply the conventions of [MIP-53: Conventions for Proposing P
 ||| Allows for building genesis state which can be altered prior to open launch. |
 || Usership motivations | Allows for early release of network. |
 | **Components** | | |
-|| Gas Deficit Minter | We recognize the role of the Governed Gas Pool as one which can be replaced by simply computing and minting the burned gas to a governed account ex post facto. The Gas Deficit Minter thus takes on the role of allowing for the manual capture of gas fees. |
+|| Gas Deficit Minter | We recognize the role of the Governed Gas Pool as one which can be replaced by simply computing and minting the burned gas to a governed account retroactively. The Gas Deficit Minter thus takes on the role of allowing for the manual capture of gas fees. |
 || Bridge Insurance Account | We recognize the role of the Bridge Insurance Fund as similar to that of a singular account which can replace bridge losses. While the guarantees are weaker than those proposed under [MIP-54: The Biarritz Model](https://github.com/movementlabsxyz/MIP/pull/54), this can be sufficient to insure safe liquidity invariance under the presumed Right to Rollback or Right to Invalidate and Migrate |
 || Right to Rollback | Operators may revert or roll back ledger versions prior to the Bilbao Model concluding its role as a genesis stage  |
 || Right to Invalidate and Migrate | Operators may invalidate or migrate elements of state prior to the Bilbao Model concluding its role as a genesis stage. |
-|| Low-cost DA | The model assumes that the cost of the DA is low, for example that in internal or testnet environment is used for the genesis DA. This allows for concerns about gas fees to be deferred until the network is more stable, i.e., for immediate financial risks to the network to be regarded as negligible. |
-|| Low-cost Settlement | The model assumes that the cost of settlement is low, for example that in internal or testnet environment is used for the genesis settlement. This allows for concerns about gas fees to be deferred until the network is more stable, i.e., for immediate financial risks to the network to be regarded as negligible. |
+|| Low-cost DA | The model assumes that the cost of the DA is low, for example that an internal or testnet environment is used for the genesis DA. This allows for concerns about gas fees to be deferred until the network is more stable, i.e., for immediate financial risks to the network to be regarded as negligible. |
+|| Low-cost Settlement | The model assumes that the cost of settlement is low, for example that an internal or testnet environment is used for the genesis settlement. This allows for concerns about gas fees to be deferred until the network is more stable, i.e., for immediate financial risks to the network to be regarded as negligible. |
 || Signers Whitelist (Optional) | The model assumes that the signers are whitelisted and that the whitelist can be updated by the governing body. This increases the trustedness of the genesis ceremony and can be used to ensure that the network is not compromised by a malicious actor. |
 | **Operational Assumptions** | | |
 || **Low Availability Requirements** | Crashes are allowed to occur frequently. The state of the network is critical; its liveness is not. |
-|| **Fixes Can be Introduced Prior to Relinquishing Rights** | Once the Right to Rollback and the Right to Invalidate and Migrate are relinquished, all ability to fix vulnerabilities introduced in genesis state will be lost. To this end, it is assumed that outstanding concerns at the time of transition to the next stage, or else the network would forever remain under the Bilbao Model. |
+|| **Fixes Can be Introduced Prior to Relinquishing Rights** | Once the Right to Rollback and the Right to Invalidate and Migrate are relinquished, all ability to fix vulnerabilities introduced in genesis state will be lost. To this end, it is assumed that outstanding concerns at the time of transition to the next stage are resolved, or else the network would forever remain under the Bilbao Model. |
 || **Trust of Governance** | Users are willing to trust governing body with the operations described.  |
 
 ### Pros
