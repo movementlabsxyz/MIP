@@ -25,7 +25,7 @@ Provide a coherent and repeatable process for releasing artifacts for Movement t
 
 **User Journey**: Operators can programmatically fetch release artifacts and use them to run applications.
 
-**Justification**: Operators should be able to automate the process of fetching and deploying release artifacts. This will help ensure that applications are always running the latest version of Movement technologies.
+**Justification**: Operators should be able to automate the process of fetching and deploying release artifacts. This will help ensure that applications are always running the latest versions of Movement technologies.
 
 ### D3: Initiate all releases from source control
 
