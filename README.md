@@ -63,13 +63,15 @@ See [MG-0](./MG/mg-0) for an example to get started. A template is provided at [
 
 ## Files and numbering
 
+An MIP/MD uses the PR number as the MIP/MD number. Note that PRs that do not introduce a new MIP/MD are also accepted. Thus, there will be gaps in the MIP/MD number sequence.
+
 Each MIP, MD or MG is stored in a separate subdirectory with a name `mip-<number>`, `md-<number>` or `mg-<number>`. The subdirectory contains a `README.md` that describes the MIP, MD, or MG. All assets related to the MIP, MD or MG are stored in the same subdirectory.
 
-An MIP/MD starts as **Draft**s. They DO NOT acquire a number at this point.
-
-An MIP/MD is assigned their PR number as soon as they are in the **Review** process. MDs that do not introduce a new MIP/MD are also accepted. Thus, there will be gaps in the MIP/MD number sequence. These gaps will also emerge when MIPs/MDs are deprecated or rejected.
+An MIP/MD starts as **Draft**.
 
 PRs that don't introduce a new MIP/MD are also accepted, for example MIPs/MDs can be updated. PRs that **Update** a MIP/MD should state so in the PR title, e.g. `[Update] MIP-....`.
+
+**Parent-Child MIPs** are also supported. A child MIP is stored in a subdirectory of the parent MIP, named `mip-<number>.<index>`. The index is a number starting from 1. The child MIP should contain a `README.md` that describes the child MIP. For more information see [MIP-94](./MIP/mip-94).
 
 ## Status Terms
 
