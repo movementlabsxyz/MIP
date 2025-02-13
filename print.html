@@ -4207,7 +4207,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 Currently, when the relayer starts, it doesn’t reload the state that it has when it shuts down. If transfers are processed when the relayer stops, the transfers are lost and the relayer is not able to continue the transfer.</p>
 <p>Moreover, even if the data would be stored on where to continue, the relayer may crash for a variety of reasons. The relayer can go offline or crash. It needs to automatically understand which <code>complete_transfer</code> transactions it still needs to send to the target chain.</p>
 <h2 id="context"><a class="header" href="#context">Context</a></h2>
-<p>This algo is defined using the lock/mint-type Native Bridge protocol, described in <a href="https://github.com/movementlabsxyz/MIP/pull/58">MIP-58</a>.This bridge protocol has two function calls :</p>
+<p>This algorithm is defined using the lock/mint-type Native Bridge protocol, described in <a href="https://github.com/movementlabsxyz/MIP/pull/58">MIP-58</a>.This bridge protocol has two function calls :</p>
 <ul>
 <li><code>initiate_transfer</code> on the source chain (called by user)</li>
 <li><code>complete_transfer</code> on the target chain (called by relayer)</li>
@@ -4215,9 +4215,7 @@ Currently, when the relayer starts, it doesn’t reload the state that it has wh
 <p>This algorithm is compatible with using finalized blocks (see the remark on L2 complete verification). By pulling only finalized source blocks, the nonce are always updated on finalization.</p>
 <p>In this MIP we consider the lock/mint Native Bridge, see <a href="https://github.com/movementlabsxyz/MIP/pull/60">MIP-60</a>. We will discuss a single direction of transfer - from <strong>source chain</strong> to <strong>target chain</strong>.</p>
 <h2 id="specification-25"><a class="header" href="#specification-25">Specification</a></h2>
-<blockquote>
 <p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
-</blockquote>
 <p>!!! . The algorithm is the same in both directions. Hence each algorithm has to be implemented twice. Once for the transfer direction L1 –&gt; L2, and once for the L2 –&gt; L1 direction.</p>
 <p>The relayer can get its state from the source chain and target chain. The relayer operates two processes - potentially in parallel:</p>
 <p><strong>1. CONTINUOUS_BLOCK_PROCESSING</strong>: The relayer pulls transfer events from new finalized blocks from the source chain and processes them. Since we consider finalized blocks and this is a blockchain, new blocks are processed in order. For each transfer the relayer has to check if the transfer is completed on the target chain, and if not it has to complete the transfer.</p>
@@ -4393,8 +4391,7 @@ RETURN.
 <h3 id="bootstrap-algorithm"><a class="header" href="#bootstrap-algorithm">BOOTSTRAP algorithm</a></h3>
 <p>Next we describe how the bootstrap algorithm works and differs from the above.</p>
 <blockquote>
-<p>[!NOTE]
-A node that is bootstrapping SHOULD start the CONTINUOUS_BLOCK_PROCESSING algorithm in parallel. This allows to immediately assume normal operation while attempting to catch up with what has been missed.</p>
+<p>:bulb: A node that is bootstrapping SHOULD start the CONTINUOUS_BLOCK_PROCESSING algorithm in parallel. This allows to immediately assume normal operation while attempting to catch up with what has been missed.</p>
 </blockquote>
 <p><img src="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/bootstrap.png" alt="alt text" /></p>
 <p>The Algorithm differs from the CONTINUOUS_BLOCK_PROCESSING in that it runs in parallel and will catch up with missing transfers eventually. While not hindering the continuous operation of the Relayer.</p>
@@ -4425,10 +4422,8 @@ The relayer records on the source or target chain (whichever is cheaper) the <co
 <p>This creates a dependency to another component. For example, if the postgres db has an issue, the relayer has an issue. Even thought the relayer doesn’t need the db to process.</p>
 <h2 id="reference-implementation-19"><a class="header" href="#reference-implementation-19">Reference Implementation</a></h2>
 <h2 id="verification-25"><a class="header" href="#verification-25">Verification</a></h2>
-<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
 <h2 id="appendix-23"><a class="header" href="#appendix-23">Appendix</a></h2>
-<h2 id="copyright-10"><a class="header" href="#copyright-10">Copyright</a></h2>
-<p>Copyright and related rights waived via <a href="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/../LICENSE.html">CC0</a>.</p>
+<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-69-bridge-fees"><a class="header" href="#mip-69-bridge-fees">MIP-69: Bridge Fees</a></h1>
 <ul>
@@ -4630,7 +4625,7 @@ If $Balance(A, B) == 0$, we keep the fees as they are, if $Balance(A, B) &gt; 0$
 </li>
 </ul>
 <hr />
-<h2 id="copyright-11"><a class="header" href="#copyright-11">Copyright</a></h2>
+<h2 id="copyright-10"><a class="header" href="#copyright-10">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Review/issue66/MDMIP-for-bridge-fees/MIP/mip-69/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-71-informer-v1-for-the-operation-of-the-lockmint-native-bridge"><a class="header" href="#mip-71-informer-v1-for-the-operation-of-the-lockmint-native-bridge">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></h1>
@@ -4701,7 +4696,7 @@ Instead of the finalized state we could also consider the <span class="katex"><s
 <p>Needs discussion.</p>
 <hr />
 <h2 id="errata-10"><a class="header" href="#errata-10">Errata</a></h2>
-<h2 id="copyright-12"><a class="header" href="#copyright-12">Copyright</a></h2>
+<h2 id="copyright-11"><a class="header" href="#copyright-11">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Review/mip/informer-lockmintbridge/MIP/mip-71/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-74-rate-limiter-for-the-lockmint-type-native-bridge"><a class="header" href="#mip-74-rate-limiter-for-the-lockmint-type-native-bridge">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></h1>
@@ -4876,7 +4871,7 @@ The following are possible ways to adjust the rate limit:</p>
 <li>On the source chain the rate limit is not related to the Insurance Fund. This opens the question who sets the rate limit on the source chain. We answer this in this MIP.</li>
 </ul>
 <hr />
-<h2 id="copyright-13"><a class="header" href="#copyright-13">Copyright</a></h2>
+<h2 id="copyright-12"><a class="header" href="#copyright-12">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-92-move-stack"><a class="header" href="#mip-92-move-stack">MIP-92: Move Stack</a></h1>
@@ -5072,7 +5067,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h2 id="appendix-26"><a class="header" href="#appendix-26">Appendix</a></h2>
 <h3 id="a1-rfc-1"><a class="header" href="#a1-rfc-1">A1 RFC-1</a></h3>
 <p>RFC-1 in <a href="https://github.com/movementlabsxyz/rfcs">RFCs</a> is an initial document that outlines the components of the Move Stack and Movement SDK. It provides a detailed enumeration of components, their aliases, and purposes.</p>
-<h2 id="copyright-14"><a class="header" href="#copyright-14">Copyright</a></h2>
+<h2 id="copyright-13"><a class="header" href="#copyright-13">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Review/mip/move-stack/MIP/mip-92/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-6"><a class="header" href="#welcome-to-the-movement-network-mip-book-6">Welcome to the Movement Network MIP Book</a></h1>
