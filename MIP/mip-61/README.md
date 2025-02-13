@@ -35,7 +35,7 @@ Moreover, even if the data would be stored on where to continue, the relayer may
 
 ## Context
 
-This algo is defined using the lock/mint-type Native Bridge protocol, described in [MIP-58](https://github.com/movementlabsxyz/MIP/pull/58).This bridge protocol has two function calls :
+This algorithm is defined using the lock/mint-type Native Bridge protocol, described in [MIP-58](https://github.com/movementlabsxyz/MIP/pull/58).This bridge protocol has two function calls :
 
 - `initiate_transfer` on the source chain (called by user)
 - `complete_transfer` on the target chain (called by relayer)
@@ -46,7 +46,7 @@ In this MIP we consider the lock/mint Native Bridge, see [MIP-60](https://github
 
 ## Specification
 
-> _The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
+_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
 
 !!! . The algorithm is the same in both directions. Hence each algorithm has to be implemented twice. Once for the transfer direction L1 --> L2, and once for the L2 --> L1 direction.
 
@@ -279,8 +279,7 @@ For this we replace the `RETURN` above with `PROCESS_FINISHED_NONCE_HEIGHT`.
 
 Next we describe how the bootstrap algorithm works and differs from the above.
 
-> [!NOTE]
-> A node that is bootstrapping SHOULD start the CONTINUOUS_BLOCK_PROCESSING algorithm in parallel. This allows to immediately assume normal operation while attempting to catch up with what has been missed.
+> :bulb: A node that is bootstrapping SHOULD start the CONTINUOUS_BLOCK_PROCESSING algorithm in parallel. This allows to immediately assume normal operation while attempting to catch up with what has been missed.
 
 ![alt text](bootstrap.png)
 
@@ -322,10 +321,6 @@ This creates a dependency to another component. For example, if the postgres db 
 
 ## Verification
 
-## Changelog
-
 ## Appendix
 
-## Copyright
-
-Copyright and related rights waived via [CC0](../LICENSE.md).
+## Changelog
