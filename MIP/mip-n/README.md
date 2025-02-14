@@ -1,4 +1,4 @@
-# MIP-n: Baker Confirmations (ZK-FFS)
+# MIP-103: Baker Confirmations (ZK-FFS)
 
 - **Description**: Proposes a Zero Knowledge means of confirming commitments between layers aligned with the FFS protocol. 
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
@@ -15,6 +15,8 @@ Ultimately, the role of the contracts in the current FFS protocol are simply to 
 
 
 ## Specification
+![Baker Confirmations](./rsc/baker-confirmations.png)
+
 There are two crucial roles in a Baker Confirmer which we will address individually and in detail: 
 
 - **Attestors** generate commitments at a given block-height and sign them before broadcasting them to the Baker Network. 
