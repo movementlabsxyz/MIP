@@ -148,11 +148,11 @@ def COMPUTE_CONSENSUS(commitment, height, epoch):
 ##### Human Language Description of Heuristic
 This MIP does prescribe a specific heuristic for deciding when to run $COMPUTE\\_CONSENSUS$. I general, however, the **Validator** would save compute by only running $COMPUTE\\_CONSENSUS$ when it has received a sufficient number of commitments and stake weights, i.e., by precomputing the $COMPUTE\\_CONSENSUS$ procedure outside of the ZK execution environment.
 
-#### $POST_PROOF$
-Proof posting is intended to be a simple procedure which broadcasts a $COMMITMENT_PROOF$ message to Ledger A Participants. The message SHALL include the commitment, height, attestors, proof, slashing amounts, rewarding amounts, and signature. It does not require any additional computation.
+#### $POST\\_PROOF$
+Proof posting is intended to be a simple procedure which broadcasts a $COMMITMENT\\_PROOF$ message to Ledger A Participants. The message SHALL include the commitment, height, attestors, proof, slashing amounts, rewarding amounts, and signature. It does not require any additional computation.
 
 ##### Human Language Description of Heuristic
-This MIP does prescribe a specific heuristic for deciding when to run $POST_PROOF$. In general, however, the **Validator** has to balance on-chain costs with the expected value of the reward. 
+This MIP does prescribe a specific heuristic for deciding when to run $POST\\_PROOF$. In general, however, the **Validator** has to balance on-chain costs with the expected value of the reward. 
 
 To avoid disincentivizing honest posting behavior due to reward uncertainty, the on-chain reward mechanism should accept more than simply the initial commit. This phenomenon is addresses more completely in [Phenomena](#phenomena).
 
