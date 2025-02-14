@@ -48,7 +48,7 @@ There are thus four node types in a Baker Coin protocol:
   - $COMMITMENT\_PROOF(commitment, height, attestors, proof, signature) \rightarrow \text{Ledger A Participants}$ which attempts to post a commitment to a given Ledger B state at a given Ledger B height on Ledger A.
 - **Observing Attestors** perform the role of observing stake events on Ledger A and relaying them to the Baker Network. They thus *broadcast* the following messages.
   - $TRUSTED\_STAKE(amount, participant, epoch, signature) \rightarrow \text{Baker Coin Validators}$ which indicates a valid stake event on Ledger A as initiated by a Baker Coin Attestor via a $STAKE$ message.
-- **Ledger A Participants** perform the basic operations of a participant on Ledger A, as defined by Protocol A which MUST include the emission $STAKE_RECEIVED$ events. They thus *broadcast* the following messages:
+- **Ledger A Participants** perform the basic operations of a participant on Ledger A, as defined by Protocol A which MUST include the emission $STAKE\_RECEIVED$ events. They thus *broadcast* the following messages:
   - $STAKE\_RECEIVED(amount, participant, epoch, signature) \rightarrow \text{Observing Attestors}$ which indicates a valid stake event on Ledger A as initiated by a Baker Coin Attestor via a $STAKE$ message.
 
 We render the following assumptions about knowledge after receiving a given message in the Baker Coin protocol:
