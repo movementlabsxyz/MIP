@@ -22,7 +22,7 @@ There are two crucial roles in a Baker Confirmer which we will address individua
 
 In a simplified model of a Baker Network, all Participants are both Attestors and Validators. However, as we will demonstrate, this is not a strict requirement of the protocol.
 
-For simplicity we specify Baker Confirmations in terms of a simple unidirectional commitment scheme we call Baker Coin. We introduce but do not specify generalizations of this scheme which are especially intriguing for their composability, modularity, and multidirectionality.
+For simplicity we specify Baker Confirmations in terms of a simple unidirectional commitment scheme we call [Baker Coin](#baker-coin). We introduce but do not specify generalizations of this scheme which are especially intriguing for their composability, modularity, and multidirectionality.
 
 Finally, we describe how the specification addresses problems [MD-3](https://github.com/movementlabsxyz/MIP/pull/3), [MD-4](https://github.com/movementlabsxyz/MIP/pull/4), and [MD-5](https://github.com/movementlabsxyz/MIP/pull/5), as well as contending with problems inherent to the Baker Confirmations scheme itself. 
 
@@ -44,17 +44,17 @@ There are thus four node types in a Baker Coin protocol:
 - **Baker Coin Attestors** perform the basic operations of an **Attestor** but also send stake messages to Ledger A. They thus *broadcast* the following messages.
   - $COMMIT(commitment, height, signature) \rightarrow \text{Baker Coin Validators}$ which makes a signed `COMMITMENT` to a given Ledger B state at a given height.
   - $STAKE(amount, epoch, signature) \rightarrow \text{Ledger A Participants}$ which attempts to stake an amount of Coin A on Ledger A for a given epoch.
-- **Baker Coin Validators** perform the basic operations of a **Validator** but also receive $TRUSTED_STAKE$ messages from **Observing Attestors**. They thus *broadcast* the following messages.
-  - $COMMITMENT_PROOF(commitment, height, attestors, proof, signature) \rightarrow \text{Ledger A Participants}$ which attempts to post a commitment to a given Ledger B state at a given Ledger B height on Ledger A.
+- **Baker Coin Validators** perform the basic operations of a **Validator** but also receive $TRUSTED\_STAKE$ messages from **Observing Attestors**. They thus *broadcast* the following messages.
+  - $COMMITMENT\_PROOF(commitment, height, attestors, proof, signature) \rightarrow \text{Ledger A Participants}$ which attempts to post a commitment to a given Ledger B state at a given Ledger B height on Ledger A.
 - **Observing Attestors** perform the role of observing stake events on Ledger A and relaying them to the Baker Network. They thus *broadcast* the following messages.
-  - $TRUSTED_STAKE(amount, participant, epoch, signature) \rightarrow \text{Baker Coin Validators}$ which indicates a valid stake event on Ledger A as initiated by a Baker Coin Attestor via a $STAKE$ message.
+  - $TRUSTED\_STAKE(amount, participant, epoch, signature) \rightarrow \text{Baker Coin Validators}$ which indicates a valid stake event on Ledger A as initiated by a Baker Coin Attestor via a $STAKE$ message.
 - **Ledger A Participants** perform the basic operations of a participant on Ledger A, as defined by Protocol A which MUST include the emission $STAKE_RECEIVED$ events. They thus *broadcast* the following messages:
-  - $STAKE_RECEIVED(amount, participant, epoch, signature) \rightarrow \text{Observing Attestors}$ which indicates a valid stake event on Ledger A as initiated by a Baker Coin Attestor via a $STAKE$ message.
+  - $STAKE\_RECEIVED(amount, participant, epoch, signature) \rightarrow \text{Observing Attestors}$ which indicates a valid stake event on Ledger A as initiated by a Baker Coin Attestor via a $STAKE$ message.
 
 We render the following assumptions about knowledge after receiving a given message in the Baker Coin protocol:
 
-1. Once an **Observing Attestor** has received sufficient and accordingly verified $STAKE_RECEIVED$ messages from Ledger A Participants, the effects of the corresponding $STAKE$ messages on Ledger A SHALL remain fixed for the remainder of the epoch.
-2. Once a **Baker Coin Validator** has received sufficient and accordingly verified $TRUSTED_STAKE$ messages from **Observing Attestors**, it SHALL correctly update its internal representation of stake weights for the remainder of the epoch.
+1. Once an **Observing Attestor** has received sufficient and accordingly verified $STAKE\_RECEIVED$ messages from Ledger A Participants, the effects of the corresponding $STAKE$ messages on Ledger A SHALL remain fixed for the remainder of the epoch.
+2. Once a **Baker Coin Validator** has received sufficient and accordingly verified $TRUSTED\_STAKE$ messages from **Observing Attestors**, it SHALL correctly update its internal representation of stake weights for the remainder of the epoch.
 
 We may now address the specific and practical behavior of the **Attestor** and the **Validator** in a Baker Coin protocol, so as to explain the core mechanism of Baker Confirmations.
 
@@ -71,15 +71,15 @@ The form of state transition function MUST be such that for a given height all r
 ### Validators
 The role of the Validator is more complex. The Validator MUST:
 
-1. Run a procedure $RECEIVE_COMMITMENT$ which accepts a commitment and height from an Attestor and updates its internal representation of the commitments.
-2. Run a procedure $RECEIVE_TRUSTED_STAKE$ which accepts a stake amount, participant, and epoch from an Observing Attestor and updates its internal representation of the stake weights.
-3. Use a heuristic to decide when to run a procedure $COMPUTE_PROOF$ which computes a Zero Knowledge proof of consensus on a given commitment at a given height.
-4. Use a heuristic to decide when to run a procedure $POST_PROOF$ which posts the Zero Knowledge proof of consensus on a given commitment by broadcasting a $COMMITMENT_PROOF$ message to Ledger A Participants.
+1. Run a procedure $RECEIVE\_COMMITMENT$ which accepts a commitment and height from an Attestor and updates its internal representation of the commitments.
+2. Run a procedure $RECEIVE\_TRUSTED\_STAKE$ which accepts a stake amount, participant, and epoch from an Observing Attestor and updates its internal representation of the stake weights.
+3. Use a heuristic to decide when to run a procedure $COMPUTE\_PROOF$ which computes a Zero Knowledge proof of consensus on a given commitment at a given height.
+4. Use a heuristic to decide when to run a procedure $POST\_PROOF$ which posts the Zero Knowledge proof of consensus on a given commitment by broadcasting a $COMMITMENT\_PROOF$ message to Ledger A Participants.
 
-#### $RECEIVE_COMMITMENT$
+#### $RECEIVE\_COMMITMENT$
 
 ##### Human Language Description of Procedure
-RECEIVE_COMMITMENT takes a commitment and height from an Attestor. It verifies the commitment and stores it in a table indexed by height. It then notifies the heuristic checker to decide whether to run COMPUTE_PROOF.
+$RECEIVE\_COMMITMENT$ takes a commitment and height from an Attestor. It verifies the commitment and stores it in a table indexed by height. It then notifies the heuristic checker to decide whether to run $COMPUTE\_PROOF$.
 
 ##### Pseudocode Description of Procedure
 ```python
@@ -95,13 +95,13 @@ def RECEIVE_COMMITMENT(commitment, height, signature):
     self.heuristic_checker.notify()
 ```
 
-#### $RECEIVE_TRUSTED_STAKE$
+#### $RECEIVE\_TRUSTED\_STAKE$
 
 ##### Human Language Description of Procedure
-RECEIVE_TRUSTED_STAKE takes a stake amount, participant, and epoch from an Observing Attestor. It verifies the stake amount and epoch and stores it in a table indexed by participant and epoch, but MUST only modify stake weights for the next epoch. If this constraint is not applied, then the epoch staking constraint is violated.
+$RECEIVE\_TRUSTED\_STAKE$ takes a stake amount, participant, and epoch from an Observing Attestor. It verifies the stake amount and epoch and stores it in a table indexed by participant and epoch, but MUST only modify stake weights for the next epoch. If this constraint is not applied, then the epoch staking constraint is violated.
 
 > [!WARNING]
-> The constraint on the epoch staking above is naive as it does not account for the time it takes for a Validator to receive a $TRUSTED_STAKE$ message from an Observing Attestor. This will be discussed in more detail below. 
+> The constraint on the epoch staking above is naive as it does not account for the time it takes for a Validator to receive a $TRUSTED\_STAKE$ message from an Observing Attestor. This will be discussed in more detail below. 
 
 ##### Pseudocode Description of Procedure
 ```python
@@ -118,10 +118,10 @@ def RECEIVE_TRUSTED_STAKE(amount, participant, epoch, signature):
     self.stake_weights[participant][epoch] = amount
 ```
 
-#### $COMPUTE_CONSENSUS$ and Heuristic
+#### $COMPUTE\_CONSENSUS$ and Heuristic
 
 ##### Human Language Description of Procedure
-$COMPUTE_CONSENSUS$ tabulates all of the commitments and stake weights for a given height and epoch and computes a Zero Knowledge proof of consensus on a given commitment at a given height. It additionally outputs slashing and rewarding amounts for the participants who submitted the commitments according to slashing function $S$ and rewarding function $R$. It is run in a ZK execution environment and so outputs a proof of the computation.
+$COMPUTE\_CONSENSUS$ tabulates all of the commitments and stake weights for a given height and epoch and computes a Zero Knowledge proof of consensus on a given commitment at a given height. It additionally outputs slashing and rewarding amounts for the participants who submitted the commitments according to slashing function $S$ and rewarding function $R$. It is run in a ZK execution environment and so outputs a proof of the computation.
 
 ##### Pseudocode Description of Procedure
 ```python
@@ -144,7 +144,7 @@ def COMPUTE_CONSENSUS(commitment, height, epoch):
 ```
 
 ##### Human Language Description of Heuristic
-This MIP does prescribe a specific heuristic for deciding when to run $COMPUTE_CONSENSUS$. I general, however, the **Validator** would save compute by only running $COMPUTE_CONSENSUS$ when it has received a sufficient number of commitments and stake weights, i.e., by precomputing the $COMPUTE_CONSENSUS$ procedure outside of the ZK execution environment.
+This MIP does prescribe a specific heuristic for deciding when to run $COMPUTE\_CONSENSUS$. I general, however, the **Validator** would save compute by only running $COMPUTE\_CONSENSUS$ when it has received a sufficient number of commitments and stake weights, i.e., by precomputing the $COMPUTE\_CONSENSUS$ procedure outside of the ZK execution environment.
 
 #### $POST_PROOF$
 Proof posting is intended to be a simple procedure which broadcasts a $COMMITMENT_PROOF$ message to Ledger A Participants. The message SHALL include the commitment, height, attestors, proof, slashing amounts, rewarding amounts, and signature. It does not require any additional computation.
