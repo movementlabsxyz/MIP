@@ -285,6 +285,8 @@ Next we describe how the bootstrap algorithm works and differs from the above.
 
 The Algorithm differs from the CONTINUOUS_BLOCK_PROCESSING in that it runs in parallel and will catch up with missing transfers eventually. While not hindering the continuous operation of the Relayer.
 
+The BOOTSTRAP algorithm will run for both the L1 and the L2 chains. Hence we have to set the `start_block` and `end_block` for both chains. On a given chain there will be both `initiate_transfer` and `complete_transfer` events, since the bridge is bi-directional.
+
 ```javascript
 BOOTSTRAPPING
 // Start the continuous block pocessing protocol in parrallel to this algorithm
@@ -292,24 +294,26 @@ START CONTINUOUS_BLOCK_PROCESSING protocol
 SET `first_CP_block` = first processed block by CONTINUOUS_BLOCK_PROCESSING
 
 // Set initial processed block parameters
-SET `end_source_block` = `first_CP_block` - 1
-SET `start_source_block` = some INPUT value
+SET `end_block` = `first_CP_block` - 1
+SET `start_block` = some INPUT value
 
 // Process source blocks in the specified range
-FOR `current_block` = `start_source_block` TO `end_source_block` DO:
-    RUN CONTINUOUS_BLOCK_PROCESSING using `current_block` as the source block.
+FOR `current_block` = `start_block` TO `end_block` DO:
+    RUN CONTINUOUS_BLOCK_PROCESSING using `current_block` as the block.
 ```
 
 #### Bootstrap input types
 
+The following input types are possible:
+
 **Manual input**
-Based on knowledge of when the relayer stopped, we can inject a parameter about the source block height from which the relayer should start to bootstrap. Default is the genesis or some arbitrary long interval in the past, e.g. 2 weeks.
+Based on knowledge of when the relayer stopped, we can inject a parameter about the block height from which the relayer should start to bootstrap. Default is the genesis or some arbitrary long interval in the past, e.g. 2 weeks.
 
 **Reading from local memory**
-In the CONTINUOUS_BLOCK_PROCESSING Algorithm the Relayer can record the height of the source block `completed_block_height` as described in the Calculation-Completed-Block-Height algorithm. When rebooting or bootstrapping the node, the relayer can start from the last point it left.
+In the CONTINUOUS_BLOCK_PROCESSING Algorithm the Relayer can record the height of the block `completed_block_height` as described in the Calculation-Completed-Block-Height algorithm. When rebooting or bootstrapping the node, the relayer can start from the last point it left.
 
 **Reading from chain**
-The relayer records on the source or target chain (whichever is cheaper) the `completed_block_height` (see [PROCESS_FINISHED_NONCE_HEIGHT](#calculation-of-completed-source-block-height). This can happen infrequent. A separate algorithm needs to be spelled out which records the highest source block, below which all source blocks with transfers are completed.
+The relayer records on the source or target chain the `completed_block_height` (see [PROCESS_FINISHED_NONCE_HEIGHT](#calculation-of-completed-source-block-height). This can happen infrequent. A separate algorithm needs to be spelled out which records the highest source block, below which all source blocks with transfers are completed.
 
 ## Considered Alternatives
 
