@@ -1,8 +1,4 @@
-Below is a draft MD based on PMIP‑17:
-
----
-
-# MD-<number>: Formalize Pre‑Mortem Process for Risk Mitigation
+# MD-94: Formalize Pre‑Mortem Process for Risk Mitigation
 
 - **Description**: Standardize a pre‑mortem process to proactively identify catastrophic risks and drive actionable mitigation measures in Movement’s blockchain operations.
 - **Authors**: [Elliott Dehnbostel](mailto:elliott.dehnbostel@movementlabs.xyz)
@@ -19,7 +15,7 @@ Pre‑mortem sessions are structured risk assessments that simulate potential ca
 - **Justification**: Regular sessions ensure continuous risk evaluation and timely identification of vulnerabilities, improving preparedness for unlikely but high‑impact events.
 - **Recommendations**:
   - **Frequency**: Host bi‑weekly sessions for technical teams and quarterly sessions for business leadership.
-  - **Facilitation**: Designate a facilitator to guide discussion and ensure a structured format.
+  - **Facilitation**: Designate a rotating facilitator to guide discussion and ensure a structured format.
   - **Participation**: Involve a diverse group from technical, security, and operational teams.
 
 ### D2: Comprehensive Scenario Development
@@ -36,7 +32,7 @@ Pre‑mortem sessions are structured risk assessments that simulate potential ca
 - **User Journey**: After a session, stakeholders can immediately implement recommended actions to mitigate identified vulnerabilities.
 - **Justification**: The true value of pre‑mortems lies in transforming theoretical risks into concrete, actionable improvement plans.
 - **Recommendations**:
-  - **Outcome Documentation**: Record actionable insights and assign clear responsibilities with deadlines.
+  - **Outcome Documentation**: Record actionable insights and assign clear responsibilities with feasible deadlines.
   - **Integration**: Incorporate session findings into the broader risk management process.
   - **Accountability**: Set up follow‑up reviews to ensure action items are implemented and evaluated over time.
 
@@ -51,4 +47,4 @@ Pre‑mortem sessions are structured risk assessments that simulate potential ca
 
 ## Changelog
 
-- **2025-02-13:** Initial draft of the Pre‑Mortem Process Implementation MD based on PMIP‑17.
+- **2025-02-13:** Initial draft of the Pre‑Mortem Process Implementation MD based on [(unpublished) PMIP‑17](https://github.com/movementlabsxyz/PMIP/pull/17).
