@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge - MIP</title>
+        <title>MD-104: Formalize Pre‑Mortem Process for Risk Mitigation - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -12,21 +12,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../../../../../favicon.svg">
-        <link rel="shortcut icon" href="../../../../../favicon.png">
-        <link rel="stylesheet" href="../../../../../css/variables.css">
-        <link rel="stylesheet" href="../../../../../css/general.css">
-        <link rel="stylesheet" href="../../../../../css/chrome.css">
-        <link rel="stylesheet" href="../../../../../css/print.css" media="print">
+        <link rel="icon" href="../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../../../../../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../../../../../fonts/fonts.css">
+        <link rel="stylesheet" href="../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../../../../../highlight.css">
-        <link rel="stylesheet" href="../../../../../tomorrow-night.css">
-        <link rel="stylesheet" href="../../../../../ayu-highlight.css">
+        <link rel="stylesheet" href="../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -35,11 +35,11 @@
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "../../../../../";
+            var path_to_root = "../../../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../../../../toc.js"></script>
+        <script src="../../../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../../../../../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -125,7 +125,7 @@
                     <h1 class="menu-title">MIP</h1>
 
                     <div class="right-buttons">
-                        <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/movementlabsxyz/MIP" title="Git repository" aria-label="Git repository">
@@ -158,37 +158,72 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-74-rate-limiter-for-the-lockmint-type-native-bridge"><a class="header" href="#md-74-rate-limiter-for-the-lockmint-type-native-bridge">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></h1>
+<h1 id="md-104-formalize-premortem-process-for-risk-mitigation"><a class="header" href="#md-104-formalize-premortem-process-for-risk-mitigation">MD-104: Formalize Pre‑Mortem Process for Risk Mitigation</a></h1>
 <ul>
-<li><strong>Description</strong>: A rate limitation mechanism for the Lock/Mint-type Native Bridge.</li>
-<li><strong>Authors</strong>: <a href="mailto:andreas.penzkofer@movementlabs.xyz">Andreas Penzkofer</a></li>
+<li><strong>Description</strong>: Standardize a pre‑mortem process to proactively identify catastrophic risks and drive actionable mitigation measures in Movement’s blockchain operations.</li>
+<li><strong>Authors</strong>: <a href="mailto:elliott.dehnbostel@movementlabs.xyz">Elliott Dehnbostel</a></li>
 </ul>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<p>The Lock/Mint-type Native Bridge (hereafter called the “Native Bridge”), see <a href="https://github.com/movementlabsxyz/MIP/pull/58">MIP-58</a>, must be protected against faulty components and attacks. A Rate-Limiter is a mechanism that can help to protect the Native Bridge. It limits the volume of transferred value, the maximum value transferred with a given transfer, or the number of transactions.</p>
+<p>Pre‑mortem sessions are structured risk assessments that simulate potential catastrophic failure scenarios before they occur. This process helps uncover hidden vulnerabilities, drive proactive planning, and foster cross‑functional collaboration. By formalizing this process, Movement Labs can enhance its risk awareness, improve operational resilience, and ensure that actionable steps are taken to mitigate identified risks.</p>
 <h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
-<h3 id="d1-specify-the-actors-and-their-trust-assumptions"><a class="header" href="#d1-specify-the-actors-and-their-trust-assumptions">D1: Specify the actors and their trust assumptions</a></h3>
-<p><strong>User Journey</strong>: The developer should understand existing trust assumptions.</p>
-<p><strong>Description</strong>: The Native Bridge is operated via contracts, actors and components. What are the trust assumptions on these?</p>
-<h3 id="d2-specify-the-risks-and-threats-from-components"><a class="header" href="#d2-specify-the-risks-and-threats-from-components">D2: Specify the risks and threats from components</a></h3>
-<p><strong>User Journey</strong>: The developer should understand the risks from components.</p>
-<p><strong>Description</strong>: We must ensure that risks are minimized even in the case that a component is compromised or faulty.</p>
-<p><strong>Recommendations</strong>: Address the risks by first identifying the relevant parties and their trust assumptions. Then, specify the risks and threats from these components. How can we restrict the risks?</p>
-<h3 id="d3-define-the-rate-limiting-mechanism"><a class="header" href="#d3-define-the-rate-limiting-mechanism">D3: Define the rate-limiting mechanism</a></h3>
-<p><strong>User Journey</strong>: The developer should understand the rate-limiting mechanism.</p>
-<p><strong>Description</strong>: The rate-limiting mechanism should be defined in a way that it is clear how it works and how it can be adjusted. Moreover all components and their parameters should be defined. It should also be defined what is being rate-limited.</p>
-<h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
+<h3 id="d1-regularly-scheduled-and-structured-premortem-sessions"><a class="header" href="#d1-regularly-scheduled-and-structured-premortem-sessions">D1: Regularly Scheduled and Structured Pre‑Mortem Sessions</a></h3>
+<ul>
+<li><strong>User Journey</strong>: Leadership, technical teams, and security experts can participate in scheduled sessions to analyze potential catastrophic scenarios.</li>
+<li><strong>Justification</strong>: Regular sessions ensure continuous risk evaluation and timely identification of vulnerabilities, improving preparedness for unlikely but high‑impact events.</li>
+<li><strong>Recommendations</strong>:
+<ul>
+<li><strong>Frequency</strong>: Host bi‑weekly sessions for technical teams and quarterly sessions for business leadership.</li>
+<li><strong>Facilitation</strong>: Designate a rotating facilitator to guide discussion and ensure a structured format.</li>
+<li><strong>Participation</strong>: Involve a diverse group from technical, security, and operational teams.</li>
+</ul>
+</li>
+</ul>
+<h3 id="d2-comprehensive-scenario-development"><a class="header" href="#d2-comprehensive-scenario-development">D2: Comprehensive Scenario Development</a></h3>
+<ul>
+<li><strong>User Journey</strong>: Participants can collaboratively craft detailed narratives that outline potential disaster scenarios, including triggers, impacts, and recovery challenges.</li>
+<li><strong>Justification</strong>: Detailed scenario narratives help teams understand the full spectrum of risks and identify root causes, leading to more effective preventive measures.</li>
+<li><strong>Recommendations</strong>:
+<ul>
+<li><strong>Data‑Driven Selection</strong>: Pre‑select scenarios using current operational risks, historical data, and game‑theoretic analysis.</li>
+<li><strong>Narrative Detailing</strong>: Ensure each scenario includes triggers, cascading impacts, and potential recovery challenges.</li>
+<li><strong>Documentation</strong>: Record scenarios in a standardized template for consistency.</li>
+</ul>
+</li>
+</ul>
+<h3 id="d3-actionable-outcomes-and-followup"><a class="header" href="#d3-actionable-outcomes-and-followup">D3: Actionable Outcomes and Follow‑Up</a></h3>
+<ul>
+<li><strong>User Journey</strong>: After a session, stakeholders can immediately implement recommended actions to mitigate identified vulnerabilities.</li>
+<li><strong>Justification</strong>: The true value of pre‑mortems lies in transforming theoretical risks into concrete, actionable improvement plans.</li>
+<li><strong>Recommendations</strong>:
+<ul>
+<li><strong>Outcome Documentation</strong>: Record actionable insights and assign clear responsibilities with feasible deadlines.</li>
+<li><strong>Integration</strong>: Incorporate session findings into the broader risk management process.</li>
+<li><strong>Accountability</strong>: Set up follow‑up reviews to ensure action items are implemented and evaluated over time.</li>
+</ul>
+</li>
+</ul>
+<h3 id="d4-crossfunctional-collaboration-and-transparency"><a class="header" href="#d4-crossfunctional-collaboration-and-transparency">D4: Cross‑Functional Collaboration and Transparency</a></h3>
+<ul>
+<li><strong>User Journey</strong>: Different teams (technical, security, and business) collaborate openly during sessions to contribute diverse perspectives on risk.</li>
+<li><strong>Justification</strong>: A multidisciplinary approach ensures that a wide range of potential failure modes is considered, leading to more robust risk mitigation strategies.</li>
+<li><strong>Recommendations</strong>:
+<ul>
+<li><strong>Diverse Participation</strong>: Ensure representation from all relevant departments.</li>
+<li><strong>Open Dialogue</strong>: Foster an environment that encourages honest and candid discussion.</li>
+<li><strong>Shared Documentation</strong>: Make session outcomes accessible to all stakeholders for continuous learning and improvement.</li>
+</ul>
+</li>
+</ul>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../../../Review/mip/informer-lockmintbridge/MD/md-71/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../../Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../../../Review/premortems/MD/md-104/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -196,13 +231,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../../../Review/mip/informer-lockmintbridge/MD/md-71/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../../Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../../../Review/premortems/MD/md-104/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>
@@ -215,13 +247,13 @@
         </script>
 
 
-        <script src="../../../../../elasticlunr.min.js"></script>
-        <script src="../../../../../mark.min.js"></script>
-        <script src="../../../../../searcher.js"></script>
+        <script src="../../../../elasticlunr.min.js"></script>
+        <script src="../../../../mark.min.js"></script>
+        <script src="../../../../searcher.js"></script>
 
-        <script src="../../../../../clipboard.min.js"></script>
-        <script src="../../../../../highlight.js"></script>
-        <script src="../../../../../book.js"></script>
+        <script src="../../../../clipboard.min.js"></script>
+        <script src="../../../../highlight.js"></script>
+        <script src="../../../../book.js"></script>
 
         <!-- Custom JS scripts -->
 
