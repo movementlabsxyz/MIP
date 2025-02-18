@@ -329,6 +329,8 @@ extract_approval_status() {
     local file="$1"
     local type="$2"
     local number="$3"
+    local category="$4"
+    local branch="$5"
     
     # Extract the approval line - get the whole line containing "Approval"
     local approval_line=$(grep "^\s*-\s*\*\*Approval\*\*:" "$file")
@@ -338,11 +340,15 @@ extract_approval_status() {
         return
     fi
 
-    # Check for approval status and write to appropriate section
+    # Get standardized path for the link
+    local standardized_path=$(get_standardized_path "$type" "$number")
+    local link_path="${category}/${branch}/${standardized_path}/index.html"
+
+    # Check for approval status and write to appropriate section with link
     if [[ $approval_line == *":white_check_mark:"* ]]; then
-        echo "- ${type}-${number}" >> "src/APPROVAL_STATUS.md.approved"
+        echo "- ${type}-${number} ([link](${link_path}))" >> "src/APPROVAL_STATUS.md.approved"
     elif [[ $approval_line == *":x:"* ]]; then
-        echo "- ${type}-${number}" >> "src/APPROVAL_STATUS.md.rejected"
+        echo "- ${type}-${number} ([link](${link_path}))" >> "src/APPROVAL_STATUS.md.rejected"
     fi
 }
 
@@ -385,7 +391,7 @@ process_readme_files() {
     if [ -d "$folder" ]; then
         if [ -f "$folder/README.md" ]; then
             # Extract approval status before escaping dollar signs
-            extract_approval_status "$folder/README.md" "$type" "$mip_number"
+            extract_approval_status "$folder/README.md" "$type" "$mip_number" "$category" "$branch"
             
             # Escape dollar signs in the README.md file
             escape_dollar_signs "$folder/README.md"
@@ -863,7 +869,7 @@ for category in "Merged" "Review"; do
     echo "" >> "$SRC_DIR/SUMMARY.md"
 done
 
-# Add this function to format the final approval status
+# Format the final approval status
 format_approval_status() {
     local temp_file="src/APPROVAL_STATUS.tmp"
     local final_file="src/APPROVAL_STATUS.md"
