@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MD-2: Enclave Crash-resistant Key Management - MIP</title>
+        <title>MIP-53: Conventions for Proposing Progressive L2 Models - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -12,21 +12,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../../../../../favicon.svg">
-        <link rel="shortcut icon" href="../../../../../favicon.png">
-        <link rel="stylesheet" href="../../../../../css/variables.css">
-        <link rel="stylesheet" href="../../../../../css/general.css">
-        <link rel="stylesheet" href="../../../../../css/chrome.css">
-        <link rel="stylesheet" href="../../../../../css/print.css" media="print">
+        <link rel="icon" href="../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../../../../../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../../../../../fonts/fonts.css">
+        <link rel="stylesheet" href="../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../../../../../highlight.css">
-        <link rel="stylesheet" href="../../../../../tomorrow-night.css">
-        <link rel="stylesheet" href="../../../../../ayu-highlight.css">
+        <link rel="stylesheet" href="../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -35,11 +35,11 @@
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "../../../../../";
+            var path_to_root = "../../../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../../../../toc.js"></script>
+        <script src="../../../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../../../../../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -125,7 +125,7 @@
                     <h1 class="menu-title">MIP</h1>
 
                     <div class="right-buttons">
-                        <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/movementlabsxyz/MIP" title="Git repository" aria-label="Git repository">
@@ -158,32 +158,64 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-2-enclave-crash-resistant-key-management"><a class="header" href="#md-2-enclave-crash-resistant-key-management">MD-2: Enclave Crash-resistant Key Management</a></h1>
+<h1 id="mip-53-conventions-for-proposing-progressive-l2-models"><a class="header" href="#mip-53-conventions-for-proposing-progressive-l2-models">MIP-53: Conventions for Proposing Progressive L2 Models</a></h1>
 <ul>
-<li><strong>Description</strong>: Provide a mechanism for allowing the use of keys in an enclave that can be recovered after crashes without breaking encapsulation.</li>
+<li><strong>Description</strong>: Introduces conventions for proposing progressive L2 models.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
+<li><strong>Reviewer</strong>: Andreas Penzkofer</li>
 </ul>
-<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
-<h3 id="d1-minimize-direct-access-to-bridge-keys-while-maintaining-use"><a class="header" href="#d1-minimize-direct-access-to-bridge-keys-while-maintaining-use">D1: Minimize Direct Access to Bridge Keys while Maintaining Use</a></h3>
-<p><strong>User Journey</strong>: Movement Labs Atomic Bridge Service Operators (MLABSO) can run the service with appropriate signing keys without direct access to said keys.</p>
-<p><strong>Justification</strong>: Without direct access to the keys, MLABSO are forced to use a more secure mechanism for signing messages which can be more easily secured audited such as an HSM or enclave.</p>
-<h3 id="d2-only-allow-attested-usage-of-bridge-keys"><a class="header" href="#d2-only-allow-attested-usage-of-bridge-keys">D2: Only Allow Attested Usage of Bridge Keys</a></h3>
-<p><strong>User Journey</strong>: Only attested software can use bridge keys.</p>
-<p><strong>Justification</strong>: Even without direct access to the keys, MLABSO could still abuse bridge keys by abusing their access to the secure signing mechanism. Enforcing attestation of software using the keys can help mitigate this risk.</p>
-<h3 id="d3-time-lock-key-usage"><a class="header" href="#d3-time-lock-key-usage">D3: Time-Lock Key Usage</a></h3>
-<p><strong>User Journey</strong>: MLABSO can only reliably replace software using a key in a time-locked manner.</p>
-<p><strong>Justification</strong>: The software using a given key may require updates or replacement. Time-locking can allow this to occur without diminishing the benefits of attestations.</p>
+<h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
+<p>Movement’s L2 system will progress through various changes during its life, and each stage is presented through a new L2 model (which we call <strong>progressive L2 model</strong>). Thus a given progressive L2 model describes as a particular stage in the evolution of the L2 system.  A given progressive L2 model stage is defined through the sum of its improvements and it may encompass components that are not directly related to each other.</p>
+<p>We propose a set of conventions including naming, formatting, and related standards to assist reviewing proposals for said models. Finally a collection point of these terms to provide an overview</p>
+<h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
+<p>In order to facilitate the development of L2 systems, it is important to have a clear and consistent way to propose and review models for these systems. This MIP aims to provide a set of conventions for proposing progressive L2 models that will help to ensure that proposals are clear, consistent, and easy to review.</p>
+<h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
+<p>Progressive L2 models should adhere to conventions of the following forms:</p>
+<ul>
+<li><strong>naming</strong>: apply a standard naming format.</li>
+<li><strong>acknowledgement of standards</strong>: acknowledge the conventions of this MIP.</li>
+<li><strong>summary table</strong>: a table succinctly noting key features of the model.</li>
+<li><strong>statement towards progression</strong>: a statement of how the model suits a progressive approach to L2 design and release.</li>
+<li><strong>pros and cons</strong>: a list of pros and cons.</li>
+</ul>
+<h3 id="naming"><a class="header" href="#naming">Naming</a></h3>
+<p>All proposed progressive L2 models MUST adopt a name of the form “The [Location] Model” where [Location] is a location where the proposal was drafted or a similarly symbolic location. This name should be the title of the associated MIP.</p>
+<p>In text, the model SHOULD be referred to as “[Location] Model,” that is, the name of the model in title case.</p>
+<h3 id="acknowledgement-of-standards"><a class="header" href="#acknowledgement-of-standards">Acknowledgement of Standards</a></h3>
+<p>At the start of the “Specification” section of the MIP, the author MUST include the following markdown snippet:</p>
+<pre><code>We acknowledge and apply the conventions of [MIP-53: Conventions for Proposing Progressive L2 Models](../mip-53/).
+</code></pre>
+<h3 id="summary-table"><a class="header" href="#summary-table">Summary Table</a></h3>
+<p>All proposed progressive L2 models MUST complete the following table:</p>
+<div class="table-wrapper"><table><thead><tr><th>Category</th><th>Criterion</th><th>Evaluation</th></tr></thead><tbody>
+<tr><td><strong>General</strong></td><td></td><td></td></tr>
+<tr><td>X</td><td>When to use</td><td>A brief general description of the circumstances under which the model is appropriate.</td></tr>
+<tr><td>X</td><td>Suitable preceding models</td><td>A list of models or descriptions of models that are suitable precursors to this model.</td></tr>
+<tr><td>X</td><td>Suitable succeeding models</td><td>A list of models or descriptions of models that are suitable successors to this model.</td></tr>
+<tr><td>X</td><td>Technological motivations</td><td>A brief description of the technological motivations for using the model.</td></tr>
+<tr><td>X</td><td>Usership motivations</td><td>A brief description of the user motivations for using the model.</td></tr>
+<tr><td><strong>Components</strong></td><td></td><td></td></tr>
+<tr><td>X</td><td><a href="link/to/component/design">Component Name 1</a></td><td>A description of usage of said component.</td></tr>
+<tr><td>X</td><td><a href="link/to/component/design">Component Name 2</a></td><td>A description of usage of said component.</td></tr>
+</tbody></table>
+</div>
+<h3 id="statement-towards-progression"><a class="header" href="#statement-towards-progression">Statement Towards Progression</a></h3>
+<p>All proposed progressive L2 models MUST include a statement of how the model suits a progressive approach to L2 design and release. This statement SHOULD be a paragraph in length and immediately follow the summary table–as if it were a caption for the table.</p>
+<h3 id="pros-and-cons"><a class="header" href="#pros-and-cons">Pros and Cons</a></h3>
+<p>All proposed progressive L2 models MUST include a list of pros and cons. This list SHOULD be formatted as two separate bulleted lists in subsections titled “Pros” and “Cons.”</p>
+<h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
+<h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../../../index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../../Approved/main/MIP/mip-39/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../../../Review/l-monninger/long-range-attacks/MD/md-5/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../../Approved/main/MIP/mip-58/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -193,11 +225,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../../../index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../../Approved/main/MIP/mip-39/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../../../Review/l-monninger/long-range-attacks/MD/md-5/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../../Approved/main/MIP/mip-58/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -212,13 +244,13 @@
         </script>
 
 
-        <script src="../../../../../elasticlunr.min.js"></script>
-        <script src="../../../../../mark.min.js"></script>
-        <script src="../../../../../searcher.js"></script>
+        <script src="../../../../elasticlunr.min.js"></script>
+        <script src="../../../../mark.min.js"></script>
+        <script src="../../../../searcher.js"></script>
 
-        <script src="../../../../../clipboard.min.js"></script>
-        <script src="../../../../../highlight.js"></script>
-        <script src="../../../../../book.js"></script>
+        <script src="../../../../clipboard.min.js"></script>
+        <script src="../../../../highlight.js"></script>
+        <script src="../../../../book.js"></script>
 
         <!-- Custom JS scripts -->
 

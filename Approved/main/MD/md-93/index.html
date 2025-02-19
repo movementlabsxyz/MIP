@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MD-2: Enclave Crash-resistant Key Management - MIP</title>
+        <title>MD-93: Parent-Child MIPs - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -12,21 +12,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../../../../../favicon.svg">
-        <link rel="shortcut icon" href="../../../../../favicon.png">
-        <link rel="stylesheet" href="../../../../../css/variables.css">
-        <link rel="stylesheet" href="../../../../../css/general.css">
-        <link rel="stylesheet" href="../../../../../css/chrome.css">
-        <link rel="stylesheet" href="../../../../../css/print.css" media="print">
+        <link rel="icon" href="../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../../../../../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../../../../../fonts/fonts.css">
+        <link rel="stylesheet" href="../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../../../../../highlight.css">
-        <link rel="stylesheet" href="../../../../../tomorrow-night.css">
-        <link rel="stylesheet" href="../../../../../ayu-highlight.css">
+        <link rel="stylesheet" href="../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -35,11 +35,11 @@
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "../../../../../";
+            var path_to_root = "../../../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../../../../toc.js"></script>
+        <script src="../../../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../../../../../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -125,7 +125,7 @@
                     <h1 class="menu-title">MIP</h1>
 
                     <div class="right-buttons">
-                        <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/movementlabsxyz/MIP" title="Git repository" aria-label="Git repository">
@@ -158,32 +158,37 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-2-enclave-crash-resistant-key-management"><a class="header" href="#md-2-enclave-crash-resistant-key-management">MD-2: Enclave Crash-resistant Key Management</a></h1>
+<h1 id="md-93-parent-child-mips"><a class="header" href="#md-93-parent-child-mips">MD-93: Parent-Child MIPs</a></h1>
 <ul>
-<li><strong>Description</strong>: Provide a mechanism for allowing the use of keys in an enclave that can be recovered after crashes without breaking encapsulation.</li>
-<li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
+<li><strong>Description</strong>: Provide formal structure for parent and child MIPs.</li>
+<li><strong>Authors</strong>: <a href="mailto:andy.golay@movementlabs.xyz">Andy Golay</a></li>
 </ul>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>Provide formal structure for parent-child MIPs. For more complicated MIPs, or MIPs which have implementations specific to various software stacks, infrastructure providers, etc., it can make sense for the sake of organization to have child MIPs to add specific details, rather than making the parent MIP too verbose or cluttered.</p>
+<h2 id="definitions"><a class="header" href="#definitions">Definitions</a></h2>
+<ul>
+<li>
+<p><strong>Parent MIP</strong>: The main MIP for to a specific improvement proposal.</p>
+</li>
+<li>
+<p><strong>Child MIP</strong>: Also MAY be referred to as a sub-MIP. Child MIPs give detail on specific domains referenced within a parent MIP. They are substantial enough that they make sense to refactor into MIPs associated with the parent MIP.</p>
+</li>
+</ul>
 <h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
-<h3 id="d1-minimize-direct-access-to-bridge-keys-while-maintaining-use"><a class="header" href="#d1-minimize-direct-access-to-bridge-keys-while-maintaining-use">D1: Minimize Direct Access to Bridge Keys while Maintaining Use</a></h3>
-<p><strong>User Journey</strong>: Movement Labs Atomic Bridge Service Operators (MLABSO) can run the service with appropriate signing keys without direct access to said keys.</p>
-<p><strong>Justification</strong>: Without direct access to the keys, MLABSO are forced to use a more secure mechanism for signing messages which can be more easily secured audited such as an HSM or enclave.</p>
-<h3 id="d2-only-allow-attested-usage-of-bridge-keys"><a class="header" href="#d2-only-allow-attested-usage-of-bridge-keys">D2: Only Allow Attested Usage of Bridge Keys</a></h3>
-<p><strong>User Journey</strong>: Only attested software can use bridge keys.</p>
-<p><strong>Justification</strong>: Even without direct access to the keys, MLABSO could still abuse bridge keys by abusing their access to the secure signing mechanism. Enforcing attestation of software using the keys can help mitigate this risk.</p>
-<h3 id="d3-time-lock-key-usage"><a class="header" href="#d3-time-lock-key-usage">D3: Time-Lock Key Usage</a></h3>
-<p><strong>User Journey</strong>: MLABSO can only reliably replace software using a key in a time-locked manner.</p>
-<p><strong>Justification</strong>: The software using a given key may require updates or replacement. Time-locking can allow this to occur without diminishing the benefits of attestations.</p>
+<h3 id="d1-convention-for-parent-and-child-mip-file-organization-and-naming"><a class="header" href="#d1-convention-for-parent-and-child-mip-file-organization-and-naming">D1: Convention for parent and child MIP file organization and naming</a></h3>
+<p><strong>User Journey</strong>: Proposer can adhere to a standardized template for substantial, detailed subsections of MIPs which warrant being categorized as their own related child MIP.</p>
+<p><strong>Justification</strong>: The file organization and naming must be consistent, so there should be a formal convention.</p>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../../../index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../../Approved/main/MD/md-91/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../../../Review/l-monninger/long-range-attacks/MD/md-5/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../../index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -193,11 +198,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../../../index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../../Approved/main/MD/md-91/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../../../Review/l-monninger/long-range-attacks/MD/md-5/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../../index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -212,13 +217,13 @@
         </script>
 
 
-        <script src="../../../../../elasticlunr.min.js"></script>
-        <script src="../../../../../mark.min.js"></script>
-        <script src="../../../../../searcher.js"></script>
+        <script src="../../../../elasticlunr.min.js"></script>
+        <script src="../../../../mark.min.js"></script>
+        <script src="../../../../searcher.js"></script>
 
-        <script src="../../../../../clipboard.min.js"></script>
-        <script src="../../../../../highlight.js"></script>
-        <script src="../../../../../book.js"></script>
+        <script src="../../../../clipboard.min.js"></script>
+        <script src="../../../../highlight.js"></script>
+        <script src="../../../../book.js"></script>
 
         <!-- Custom JS scripts -->
 

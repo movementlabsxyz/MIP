@@ -159,100 +159,42 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<blockquote>
-<p>Alphabetically ordered list of terms used in this repository.</p>
-</blockquote>
-<p><strong>Attester</strong>  (not recommended)
-The term attester has been deprecated in favor of validator. &gt; <a href="https://github.com/movementlabsxyz/MIP/blob/mip/FFS/MIP/mip-34/README.md">MIP-34</a></p>
-<p><strong>Batch</strong><br />
-Less clean, but more common term for sequencer batch. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of L2Blocks (superBlocks) that should be processed for Postconfirmations. Use with care. &gt; <a href="https://github.com/movementlabsxyz/MIP/blob/mip/FFS/MIP/mip-34/README.md">MIP-34</a></p>
-<p><strong>Blob</strong><br />
-The set of transactions that is sent to the the DA before transactions are ordered.</p>
-<p><strong>Block</strong>
-More common term for L2Block. May be mixed up with the batch of transactions sent to the sequencer, the L1Block or with the batch of L2Blocks that should be processed by the L1-contract. So treat with care.</p>
-<p><strong>Circulating token</strong>
-Token that is not locked and in circulation on L1 or L2.</p>
-<p><strong>Fastconfirmation</strong><br />
-The process of confirming a (sequence of) L2Blocks on L2. &gt; <a href="https://github.com/movementlabsxyz/MIP/blob/mip/FFS/MIP/mip-34/README.md">MIP-34</a></p>
-<p><strong>Fast Finality Settlement (FFS)</strong><br />
-The objective of the Fast-Finality-Settlement (FFS) protocol is to confirm that transactions are processed correctly and back this confirmation through crypto-economic security. It does not relate to the ordering of transactions.</p>
-<p><strong>$GasToken</strong>
-Token used to pay for fees on L2. Could be $L2MOVE.</p>
-<p><strong>Governed Gas Pool</strong>
-A token pool on L2 that holds the gas token ($L2MOVE).</p>
-<p><strong>Informer</strong>
-An entity that monitors L1 <strong>and</strong> L2 to understand token supply.</p>
-<p><strong>$L1MOVE</strong>
-ERC-20 type token for the Movement Network with the source contract on L1. See also $MOVE.</p>
-<p><strong>$L2MOVE</strong>
-Native token on L2. Used to pay for L2 gas.</p>
-<p><strong>L2Block</strong><br />
-A block of transactions that is derived from a protoBlock. It contains information about the state root produced by the transactions in the block. &gt; <a href="https://github.com/movementlabsxyz/MIP/blob/mip/FFS/MIP/mip-34/README.md">MIP-34</a></p>
-<p><strong>Level 2 (L2)</strong>
-Two chains are present in our architecture: a base chain (or L1) and a second chain (or L2). We refer to L2 as a chain that is not the base chain.</p>
-<p><strong>$MOVE</strong>
-ERC-20 type token for the Movement Network with the source contract on L1. See also $L1MOVE.</p>
-<p><strong>Native Bridge (NB)</strong>
-Native bridge that permits to exchange of $L1MOVE into $L2MOVE, and vice versa. This bridge mints $L2MOVE.</p>
-<p><strong>Postconfirmation</strong><br />
-The process of confirming a (sequence of) blocks after it has been processed by the FFS protocol on L1. &gt; <a href="https://github.com/movementlabsxyz/MIP/blob/mip/FFS/MIP/mip-34/README.md">MIP-34</a></p>
-<p><strong>Potential token</strong>
-Token that could potentially be converted to circulating $L1MOVE or $L2MOVE token. A bridge transfer releases the potential token on the target change, while it locks source chain tokens into the potential token.</p>
-<p><strong>Potential total supply</strong>
-Total supply plus potential token supply.</p>
-<p><strong>ProtoBlock</strong>
-A block of ordered transaction provided by sequencer or DA on L2. No execution applied at this point. &gt; <a href="https://github.com/movementlabsxyz/MIP/blob/mip/FFS/MIP/mip-34/README.md">MIP-34</a></p>
-<p><strong>$StakingToken</strong>
-Token used for staking on L1. Could be $L1MOVE.</p>
-<p><strong>SuperBlock</strong>
-A range of L2Blocks that is processed by the FFS protocol. It contains information about the state root produced by the sequence of L2Blocks in the superBlock. &gt; <a href="https://github.com/movementlabsxyz/MIP/blob/mip/FFS/MIP/mip-34/README.md">MIP-34</a></p>
-<p><strong>Quorum certificate</strong>
-Validators may create a super-majority signed certificate that approves a certain L2 state.</p>
-<p><strong>Validator</strong><br />
-A validator is a node that participates in the FFS protocol. Validators execute transactions from sequencer-batches and validate their correctness. &gt; <a href="https://github.com/movementlabsxyz/MIP/blob/mip/FFS/MIP/mip-34/README.md">MIP-34</a></p>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="approval-status"><a class="header" href="#approval-status">Approval Status</a></h1>
-<p>An MIP or MD is approved (✅) or rejected (❌) by the governance. For more details see <a href="https://github.com/movementlabsxyz/MIP/blob/main/README.md">this document</a>.</p>
-<h2 id="md"><a class="header" href="#md">MD</a></h2>
-<h3 id="approved"><a class="header" href="#approved">Approved</a></h3>
-<ul>
-<li>MD-61 (<a href="Review/mip/relayer-bootstrap-and-reboot/MD/md-61/index.html">link</a>)</li>
-</ul>
-<h3 id="rejected"><a class="header" href="#rejected">Rejected</a></h3>
-<h2 id="mip"><a class="header" href="#mip">MIP</a></h2>
-<h3 id="approved-1"><a class="header" href="#approved-1">Approved</a></h3>
-<ul>
-<li>MIP-84 (<a href="Merged/main/MIP/mip-84/index.html">link</a>)</li>
-</ul>
-<h3 id="rejected-1"><a class="header" href="#rejected-1">Rejected</a></h3>
+<h2 id="glossary"><a class="header" href="#glossary">Glossary</a></h2>
+<p>Alphabetically ordered list of terms defined through MGs.</p>
+<p>**<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mord mathnormal" style="margin-right:0.02778em;">MO</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">ERC</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord">20</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal" style="margin-right:0.02778em;">or</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">e</span><span class="mord mathnormal">m</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.10903em;">tN</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02691em;">tw</span><span class="mord mathnormal" style="margin-right:0.02778em;">or</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mord mathnormal">i</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mord mathnormal">eso</span><span class="mord mathnormal">u</span><span class="mord mathnormal">rceco</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">c</span><span class="mord mathnormal">t</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal">L</span><span class="mord">1.</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">ee</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">so</span></span></span></span>MOVE. <a href="Approved/main/MG/mg-39/">→ MG-39</a></p>
+<p>**<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">L</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.02778em;">MO</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">pp</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">ers</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span></span></span></span>L1MOVE token. <a href="Approved/main/MG/mg-39/">→ MG-39</a></p>
+<p>**<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">MO</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">ERC</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord">20</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal" style="margin-right:0.02778em;">or</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">e</span><span class="mord mathnormal">m</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.10903em;">tN</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02691em;">tw</span><span class="mord mathnormal" style="margin-right:0.02778em;">or</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mord mathnormal">i</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mord mathnormal">eso</span><span class="mord mathnormal">u</span><span class="mord mathnormal">rceco</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">c</span><span class="mord mathnormal">t</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal">L</span><span class="mord">1.</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">ee</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">so</span></span></span></span>L1MOVE. <a href="Approved/main/MG/mg-39/">→ MG-39</a></p>
+<p><strong>Native Bridge</strong> -
+The bridge that allows the transfer of tokens between L1 and L2, which hold <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mord mathnormal" style="margin-right:0.02778em;">MO</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord mathnormal">an</span><span class="mord mathnormal">d</span></span></span></span>L2MOVE token, respectively. The native bridge has the capability to mint $L2MOVE tokens. <a href="Approved/main/MG/mg-39/">→ MG-39</a></p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book"><a class="header" href="#welcome-to-the-movement-network-mip-book">Welcome to the Movement Network MIP Book</a></h1>
-<h2 id="merged"><a class="header" href="#merged">Merged</a></h2>
+<h2 id="approved"><a class="header" href="#approved">Approved</a></h2>
 <h3 id="mips"><a class="header" href="#mips">MIPs</a></h3>
 <ul>
-<li><a href="Merged/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
-<li><a href="Merged/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
-<li><a href="Merged/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
-<li><a href="Merged/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge Design</a></li>
-<li><a href="Merged/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
-<li><a href="Merged/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
-<li><a href="Merged/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
-<li><a href="Merged/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
-<li><a href="Merged/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
-<li><a href="Merged/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
+<li><a href="Approved/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
+<li><a href="Approved/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
+<li><a href="Approved/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
+<li><a href="Approved/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge Design</a></li>
+<li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
+<li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
+<li><a href="Approved/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
+<li><a href="Approved/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
+<li><a href="Approved/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
+<li><a href="Approved/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
 </ul>
 <h3 id="mds"><a class="header" href="#mds">MDs</a></h3>
 <ul>
-<li><a href="Merged/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
-<li><a href="Merged/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
-<li><a href="Merged/main/MD/md-15/">MD-15: Movement Glossary</a></li>
-<li><a href="Merged/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
-<li><a href="Merged/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
-<li><a href="Merged/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
+<li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
+<li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
+<li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
+<li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
+<li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
+<li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
+<li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
 </ul>
 <h3 id="mgs"><a class="header" href="#mgs">MGs</a></h3>
 <ul>
-<li><a href="Merged/main/MG/mg-39/">MG-39:  MOVE Token – Bridge Design</a></li>
+<li><a href="Approved/main/MG/mg-39/">MG-39:  MOVE Token – Bridge Design</a></li>
 </ul>
 <h2 id="review"><a class="header" href="#review">Review</a></h2>
 <h3 id="mips-1"><a class="header" href="#mips-1">MIPs</a></h3>
@@ -282,7 +224,6 @@ A validator is a node that participates in the FFS protocol. Validators execute 
 <h3 id="mds-1"><a class="header" href="#mds-1">MDs</a></h3>
 <ul>
 <li><a href="Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/">MD-2: Enclave Crash-resistant Key Management</a></li>
-<li><a href="Review/l-monninger/gas-offset/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
 <li><a href="Review/l-monninger/long-range-attacks/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
@@ -303,32 +244,33 @@ A validator is a node that participates in the FFS protocol. Validators execute 
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-1"><a class="header" href="#welcome-to-the-movement-network-mip-book-1">Welcome to the Movement Network MIP Book</a></h1>
-<h2 id="merged-1"><a class="header" href="#merged-1">Merged</a></h2>
+<h2 id="approved-1"><a class="header" href="#approved-1">Approved</a></h2>
 <h3 id="mips-2"><a class="header" href="#mips-2">MIPs</a></h3>
 <ul>
-<li><a href="Merged/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
-<li><a href="Merged/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
-<li><a href="Merged/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
-<li><a href="Merged/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge Design</a></li>
-<li><a href="Merged/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
-<li><a href="Merged/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
-<li><a href="Merged/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
-<li><a href="Merged/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
-<li><a href="Merged/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
-<li><a href="Merged/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
+<li><a href="Approved/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
+<li><a href="Approved/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
+<li><a href="Approved/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
+<li><a href="Approved/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge Design</a></li>
+<li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
+<li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
+<li><a href="Approved/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
+<li><a href="Approved/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
+<li><a href="Approved/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
+<li><a href="Approved/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
 </ul>
 <h3 id="mds-2"><a class="header" href="#mds-2">MDs</a></h3>
 <ul>
-<li><a href="Merged/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
-<li><a href="Merged/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
-<li><a href="Merged/main/MD/md-15/">MD-15: Movement Glossary</a></li>
-<li><a href="Merged/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
-<li><a href="Merged/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
-<li><a href="Merged/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
+<li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
+<li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
+<li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
+<li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
+<li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
+<li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
+<li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
 </ul>
 <h3 id="mgs-1"><a class="header" href="#mgs-1">MGs</a></h3>
 <ul>
-<li><a href="Merged/main/MG/mg-39/">MG-39:  MOVE Token – Bridge Design</a></li>
+<li><a href="Approved/main/MG/mg-39/">MG-39:  MOVE Token – Bridge Design</a></li>
 </ul>
 <h2 id="review-1"><a class="header" href="#review-1">Review</a></h2>
 <h3 id="mips-3"><a class="header" href="#mips-3">MIPs</a></h3>
@@ -358,7 +300,6 @@ A validator is a node that participates in the FFS protocol. Validators execute 
 <h3 id="mds-3"><a class="header" href="#mds-3">MDs</a></h3>
 <ul>
 <li><a href="Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/">MD-2: Enclave Crash-resistant Key Management</a></li>
-<li><a href="Review/l-monninger/gas-offset/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
 <li><a href="Review/l-monninger/long-range-attacks/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
@@ -382,12 +323,12 @@ A validator is a node that participates in the FFS protocol. Validators execute 
 <ul>
 <li><strong>Description</strong>: ENTL proposes a simple challenge-reponse protocol to link Enclave usage to a given program. It additionally proposes a means of time-locking to allow the replacement of said program while maintaining security.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
-<li><strong>Desiderata</strong>: <a href="Merged/main/MIP/mip-1/../../MD/md-1">MD-1</a></li>
+<li><strong>Desiderata</strong>: <a href="Approved/main/MIP/mip-1/../../MD/md-1">MD-1</a></li>
 </ul>
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
 <p>ENTL proposes a simple challenge-response protocol to link Enclave usage to a given program. It additionally proposes a means of time-locking to allow the replacement of said program while maintaining security. This approach is demonstrated to be both generalizable and cryptographically sound.</p>
 <h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
-<p>This protocol was originally suggested as a solution to minimizing trust assumptions in the Atomic Bridge under <a href="Merged/main/MIP/mip-1/../MD/md-1">MD-1</a>. However, similar problems were encountered under Movement Labs Governance Stage 0 concerning general key usage.</p>
+<p>This protocol was originally suggested as a solution to minimizing trust assumptions in the Atomic Bridge under <a href="Approved/main/MIP/mip-1/../MD/md-1">MD-1</a>. However, similar problems were encountered under Movement Labs Governance Stage 0 concerning general key usage.</p>
 <h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
 <p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
 <h3 id="protocol-description"><a class="header" href="#protocol-description">Protocol Description</a></h3>
@@ -468,7 +409,7 @@ A validator is a node that participates in the FFS protocol. Validators execute 
 </ul>
 <h4 id="crash-resistance-and-recovery"><a class="header" href="#crash-resistance-and-recovery">Crash Resistance and Recovery</a></h4>
 <p>Enclave products such as <a href="https://aws.amazon.com/ec2/nitro/nitro-enclaves/">AWS Nitro Enclaves</a> and <a href="https://www.intel.com/content/www/us/en/products/docs/accelerator-engines/software-guard-extensions.html">Intel SGX</a>-based products generally <a href="https://ieeexplore.ieee.org/document/9743462">do not allow backups</a>. This means that if you were to generate keys within an enclave, as suggested above, you may not be able to recover them if the enclave crashes.</p>
-<p>Several suggestions are made to resolve this problem in <a href="Merged/main/MIP/mip-1/../MD/md-2">MD-2</a>.</p>
+<p>Several suggestions are made to resolve this problem in <a href="Approved/main/MIP/mip-1/../MD/md-2">MD-2</a>.</p>
 <h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
 <h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
 <p>ENTL assumes a valid Client program is one that (1) can provide the correct nonce and (2)</p>
@@ -480,10 +421,10 @@ A validator is a node that participates in the FFS protocol. Validators execute 
 <li><strong>Description</strong>: Terms should be well defined. This is achieved through the <a href="https://github.com/movementlabsxyz/MIP/wiki/glossary">Glossary</a> and the Movement Gloss (MG) process.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 <li><strong>Reviewer</strong>: Andreas Penzkofer</li>
-<li><strong>Desiderata</strong>: <a href="Merged/main/MIP/mip-15/../../MD/md-15/README.html">MD-15</a></li>
+<li><strong>Desiderata</strong>: <a href="Approved/main/MIP/mip-15/../../MD/md-15/README.html">MD-15</a></li>
 </ul>
 <h2 id="abstract-1"><a class="header" href="#abstract-1">Abstract</a></h2>
-<p>This MIP defines the <a href="Merged/main/MIP/mip-15/../GLOSSARY.html">Glossary</a>, which contains an overview of relevant terms used in this repo. This glossary defines terms that are frequently used.</p>
+<p>This MIP defines the <a href="Approved/main/MIP/mip-15/../GLOSSARY.html">Glossary</a>, which contains an overview of relevant terms used in this repo. This glossary defines terms that are frequently used.</p>
 <p>Furthermore, this MIP introduces the Movement Gloss (MG) document type and establishes a process for introducing new glossary terms. The MG document type will be used to define terms unique to Movement Labs and to provide specific definitions for terms that are used in a unique way, underspecified in the literature, or have a specific meaning in the context of Movement Labs.</p>
 <h2 id="motivation-1"><a class="header" href="#motivation-1">Motivation</a></h2>
 <p>In order to communicate with more specificity in all contexts, Movement Labs should introduce a glossary. We require alignment of terms across this repository and beyond.</p>
@@ -492,7 +433,7 @@ A validator is a node that participates in the FFS protocol. Validators execute 
 <blockquote>
 <p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
 </blockquote>
-<h3 id="glossary"><a class="header" href="#glossary">Glossary</a></h3>
+<h3 id="glossary-1"><a class="header" href="#glossary-1">Glossary</a></h3>
 <p>The <a href="https://github.com/movementlabsxyz/MIP/wiki/glossary">Glossary</a> is an alphabetically ordered list of terms that should be defined and may be frequently referenced. The glossary should be a living document that is updated as new terms are introduced or as terms are redefined.</p>
 <p>The Glossary file contains:</p>
 <ul>
@@ -506,9 +447,9 @@ A validator is a node that participates in the FFS protocol. Validators execute 
 </code></pre>
 <h3 id="mg-movement-gloss"><a class="header" href="#mg-movement-gloss">MG (Movement Gloss)</a></h3>
 <p>An MG is a definition of a term that requires detailed explanation. Any term introduced through an MG MUST be declared in the Glossary.</p>
-<p>A template for the MG is provided at <a href="Merged/main/MIP/mip-15/../../md-template.html">mg-template</a>. The template covers the requested elements listed in <a href="Merged/main/MIP/mip-15/../../MD/md-15/README.html">MD-15.D1</a>.</p>
-<p>An example MG is provided at <a href="Merged/main/MIP/mip-15/../../MG/mg-0/README.html">mg-0</a>.</p>
-<p>An MG document MUST not be accepted unless it is required by an MIP or MD. For example, herein, we justify the introduction of <a href="Merged/main/MIP/mip-15/../../MG/mg-0/README.html">MG-0</a>. MG-0 defines the term “gloss” which is used in the context of Movement Labs to denote the definition of a term as would feature as an entry in a glossary. For the MGs, it is important to include in the glossary both clarify as the acronym “MG” and to provide an example gloss.</p>
+<p>A template for the MG is provided at <a href="Approved/main/MIP/mip-15/../../md-template.html">mg-template</a>. The template covers the requested elements listed in <a href="Approved/main/MIP/mip-15/../../MD/md-15/README.html">MD-15.D1</a>.</p>
+<p>An example MG is provided at <a href="Approved/main/MIP/mip-15/../../MG/mg-0/README.html">mg-0</a>.</p>
+<p>An MG document MUST not be accepted unless it is required by an MIP or MD. For example, herein, we justify the introduction of <a href="Approved/main/MIP/mip-15/../../MG/mg-0/README.html">MG-0</a>. MG-0 defines the term “gloss” which is used in the context of Movement Labs to denote the definition of a term as would feature as an entry in a glossary. For the MGs, it is important to include in the glossary both clarify as the acronym “MG” and to provide an example gloss.</p>
 <h4 id="mg-structure"><a class="header" href="#mg-structure">MG Structure</a></h4>
 <p><strong>Term</strong>
 Definition of the term.</p>
@@ -519,8 +460,8 @@ Provide examples of the term’s usage in context.</p>
 <p><strong>Changelog</strong>
 Document any post-publication changes to the glossary entry.</p>
 <h2 id="reference-implementation-1"><a class="header" href="#reference-implementation-1">Reference Implementation</a></h2>
-<p>See the <a href="Merged/main/MIP/mip-15/../../GLOSSARY.html">Glossary</a>.</p>
-<p>See the MG document type template at <a href="Merged/main/MIP/mip-15/../../md-template.html">mg-template</a> and the example MG at <a href="Merged/main/MIP/mip-15/../../MG/mg-0/README.html">mg-0</a>.</p>
+<p>See the <a href="Approved/main/MIP/mip-15/../../GLOSSARY.html">Glossary</a>.</p>
+<p>See the MG document type template at <a href="Approved/main/MIP/mip-15/../../md-template.html">mg-template</a> and the example MG at <a href="Approved/main/MIP/mip-15/../../MG/mg-0/README.html">mg-0</a>.</p>
 <h2 id="verification-1"><a class="header" href="#verification-1">Verification</a></h2>
 <h2 id="changelog-1"><a class="header" href="#changelog-1">Changelog</a></h2>
 <h2 id="appendix-1"><a class="header" href="#appendix-1">Appendix</a></h2>
@@ -529,7 +470,7 @@ Document any post-publication changes to the glossary entry.</p>
 <ul>
 <li><strong>Description</strong>: Release Conventions for Movement Technologies address the delivery of canonical artifacts to the Movement community.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
-<li><strong>Desiderata</strong>: <a href="Merged/main/MIP/mip-23/../../MD/md-23">MD-23</a></li>
+<li><strong>Desiderata</strong>: <a href="Approved/main/MIP/mip-23/../../MD/md-23">MD-23</a></li>
 </ul>
 <h2 id="abstract-2"><a class="header" href="#abstract-2">Abstract</a></h2>
 <p>Release Conventions for Movement Technologies standardize the process of delivering artifacts to the Movement community. By providing a coherent and repeatable process for releasing artifacts, these conventions ensure that Movement technologies are accessible and easy to use.</p>
@@ -538,7 +479,7 @@ Document any post-publication changes to the glossary entry.</p>
 <p>Movement technologies are continually evolving, and there’s a need to ensure that the process of releasing artifacts is both organized and standardized. By establishing Release Conventions for Movement Technologies, we aim to facilitate the delivery of canonical artifacts to the Movement community. This will ensure that Movement technologies are accessible, easy to use, and well-vetted.</p>
 <h2 id="specification-2"><a class="header" href="#specification-2">Specification</a></h2>
 <p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
-<p>The definitions of “artifact” and “release” are accepted from <a href="Merged/main/MIP/mip-23/../../MD/md-23">MD-23</a>.</p>
+<p>The definitions of “artifact” and “release” are accepted from <a href="Approved/main/MIP/mip-23/../../MD/md-23">MD-23</a>.</p>
 <p>We break the specification into four sections:</p>
 <ol>
 <li>Standardized release naming convention</li>
@@ -781,7 +722,7 @@ This introduces possible concurrent unwanted behaviors, and a timelock has to be
 </ol>
 <p>The following diagram (Figure 1) illustrates the steps above:</p>
 <hr />
-<p><img src="Merged/main/MIP/mip-39/L1ToL2.png" alt="alt text" />
+<p><img src="Approved/main/MIP/mip-39/L1ToL2.png" alt="alt text" />
 <strong>Figure 1</strong>: Time chart of the bridge protocol from L1 to L2.</p>
 <hr />
 <blockquote>
@@ -860,7 +801,7 @@ This introduces possible concurrent unwanted behaviors, and a timelock has to be
 </ol>
 <p>The following diagram (Figure 1) illustrates the steps above:</p>
 <hr />
-<p><img src="Merged/main/MIP/mip-39/L2ToL1.png" alt="alt text" /></p>
+<p><img src="Approved/main/MIP/mip-39/L2ToL1.png" alt="alt text" /></p>
 <p><strong>Figure 2</strong>: Time chart of the bridge protocol from L2 to L1.</p>
 <hr />
 <h4 id="security--permissions-1"><a class="header" href="#security--permissions-1">Security &amp; Permissions</a></h4>
@@ -893,7 +834,7 @@ This introduces possible concurrent unwanted behaviors, and a timelock has to be
 </ul>
 <h3 id="relayer-and-services"><a class="header" href="#relayer-and-services">Relayer and Services</a></h3>
 <p>The (Rust) relayer logics are in <a href="https://github.com/movementlabsxyz/movement/tree/main/protocol-units/bridge/service">service folder</a>.</p>
-<p><img src="Merged/main/MIP/mip-39/L1ToL2.png" alt="alt text" /></p>
+<p><img src="Approved/main/MIP/mip-39/L1ToL2.png" alt="alt text" /></p>
 <blockquote>
 <p>[!WARNING]
 If the value of the parameter <code>timeLockL2</code> is larger than <code>timeLockL1</code>, the following scenario can happen:</p>
@@ -921,7 +862,7 @@ If the value of the parameter <code>timeLockL2</code> is larger than <code>timeL
 <p>In this section we focus on the timelocks’ values, as this involves a sequence of operations on L1 and L2.
 We model the bridge transactions (L1 to L2) and the transfers of assets with a <a href="https://www.cis.upenn.edu/~alur/TCS94.pdf">network of timed automata</a>.
 The safety and liveness properties are defined by temporal logics formulas and can be verified with model-checking tools such as <a href="http://www.uppaal.org/">UPPAAL</a>.</p>
-<p>The UPPAAL model is available in <a href="Merged/main/MIP/mip-39/./uppaal-models/bridge-up-v2.xml">this-file</a>.
+<p>The UPPAAL model is available in <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-up-v2.xml">this-file</a>.
 To reproduce the results and check the properties on the model, you need a working version of UPPAAL.</p>
 <p>The results of the model-checking verification are as follows: let $maxRelayerDelay $ be the <strong>maximum delay</strong> for the relayer to relay an event, and $timeLock1$ and $timeLock2$ be the timelocks on L1 and L2 respectively.</p>
 <blockquote>
@@ -943,12 +884,12 @@ We have <strong>proved</strong> (model-checked with UPPAAL) the following proper
 <h2 id="changelog-3"><a class="header" href="#changelog-3">Changelog</a></h2>
 <hr />
 <h2 id="appendix-3"><a class="header" href="#appendix-3">Appendix</a></h2>
-<p>The UPPAAL models of the L1 to L2 transfers are available in the <a href="Merged/main/MIP/mip-39/./uppaal-models">uppaal-models</a> directory.
-The simplest model is <a href="Merged/main/MIP/mip-39/./uppaal-models/bridge-up-v2.xml">bridge-up-v2.xml</a> and the more complex model is <a href="Merged/main/MIP/mip-39/./uppaal-models/bridge-up-v3.xml">bridge-up-v3.xml</a> with probabilities.</p>
+<p>The UPPAAL models of the L1 to L2 transfers are available in the <a href="Approved/main/MIP/mip-39/./uppaal-models">uppaal-models</a> directory.
+The simplest model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-up-v2.xml">bridge-up-v2.xml</a> and the more complex model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-up-v3.xml">bridge-up-v3.xml</a> with probabilities.</p>
 <p>You can request a license to use UPPAAL at <a href="http://www.uppaal.org/">UPPAAL</a>.</p>
 <hr />
 <h2 id="copyright"><a class="header" href="#copyright">Copyright</a></h2>
-<p>Copyright and related rights waived via <a href="Merged/main/MIP/mip-39/../LICENSE.html">CC0</a>.</p>
+<p>Copyright and related rights waived via <a href="Approved/main/MIP/mip-39/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-53-conventions-for-proposing-progressive-l2-models"><a class="header" href="#mip-53-conventions-for-proposing-progressive-l2-models">MIP-53: Conventions for Proposing Progressive L2 Models</a></h1>
 <ul>
@@ -987,8 +928,8 @@ The simplest model is <a href="Merged/main/MIP/mip-39/./uppaal-models/bridge-up-
 <tr><td>X</td><td>Technological motivations</td><td>A brief description of the technological motivations for using the model.</td></tr>
 <tr><td>X</td><td>Usership motivations</td><td>A brief description of the user motivations for using the model.</td></tr>
 <tr><td><strong>Components</strong></td><td></td><td></td></tr>
-<tr><td>X</td><td><a href="Merged/main/MIP/mip-53/link/to/component/design">Component Name 1</a></td><td>A description of usage of said component.</td></tr>
-<tr><td>X</td><td><a href="Merged/main/MIP/mip-53/link/to/component/design">Component Name 2</a></td><td>A description of usage of said component.</td></tr>
+<tr><td>X</td><td><a href="Approved/main/MIP/mip-53/link/to/component/design">Component Name 1</a></td><td>A description of usage of said component.</td></tr>
+<tr><td>X</td><td><a href="Approved/main/MIP/mip-53/link/to/component/design">Component Name 2</a></td><td>A description of usage of said component.</td></tr>
 </tbody></table>
 </div>
 <h3 id="statement-towards-progression"><a class="header" href="#statement-towards-progression">Statement Towards Progression</a></h3>
@@ -1155,7 +1096,7 @@ This bridge design is a simpler version compared to the previous HTLC-based impl
     Target_Contract --&gt;&gt; User: Tokens Delivered
 </code></pre>
 <p><em>Figure: Interaction flow diagram.</em></p>
-<p><img src="Merged/main/MIP/mip-58/tx-history.png" alt="Transaction History" />
+<p><img src="Approved/main/MIP/mip-58/tx-history.png" alt="Transaction History" />
 <em>Figure: Users would be able to see if the bridge has been completed. It’s either pending or completed.</em></p>
 <h3 id="protocol-description-1"><a class="header" href="#protocol-description-1">Protocol description</a></h3>
 <h4 id="l1--l2"><a class="header" href="#l1--l2">L1 → L2</a></h4>
@@ -1171,7 +1112,7 @@ This bridge design is a simpler version compared to the previous HTLC-based impl
 <p>[!NOTE]
 Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides additional reorg protection. We MAY consider Fastconfirmation instead of Postconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-65</a>. This assumes the L2 is extremely unlikely to reorg AND the committee is considered to be safe.</p>
 </blockquote>
-<p><img src="Merged/main/MIP/mip-58/L1ToL2.png" alt="L1-L2" /></p>
+<p><img src="Approved/main/MIP/mip-58/L1ToL2.png" alt="L1-L2" /></p>
 <h4 id="l2--l1"><a class="header" href="#l2--l1">L2 → L1</a></h4>
 <ol>
 <li>User initiates a bridge transfer on L2. Contract stores a mapping of the user <code>nonce</code> to bridge details for easy access. User transfers \ amount to the contract which burns it. The transaction emits originator, recipient, amount and <code>nonce</code>.</li>
@@ -1180,7 +1121,7 @@ Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides add
 <li>L1 contract verifies that <code>complete_transfer</code> is correct by comparing the provided <code>bridgeTransferId</code> hash and the emitted values of initiator, recipient, amount and <code>nonce</code>. Also <code>nonce</code> must not be used yet. Finally, it transfers \ to the recipient address from the locked token pool.</li>
 <li>User is notified on the frontend that their transaction has been completed.</li>
 </ol>
-<p><img src="Merged/main/MIP/mip-58/L2ToL1.png" alt="L2-L1" /></p>
+<p><img src="Approved/main/MIP/mip-58/L2ToL1.png" alt="L2-L1" /></p>
 <h3 id="key-features"><a class="header" href="#key-features">Key features</a></h3>
 <p>We discuss the key features also in relation to the HTLC-based bridge to provide a comparison with the previous design.</p>
 <ol>
@@ -1333,7 +1274,7 @@ Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides add
 </ul>
 <hr />
 <h2 id="copyright-1"><a class="header" href="#copyright-1">Copyright</a></h2>
-<p>Copyright and related rights waived via <a href="Merged/main/MIP/mip-58/../LICENSE.html">CC0</a>.</p>
+<p>Copyright and related rights waived via <a href="Approved/main/MIP/mip-58/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-60-cross-chain-bridge-architectures"><a class="header" href="#mip-60-cross-chain-bridge-architectures">MIP-60: Cross-chain bridge architectures</a></h1>
 <ul>
@@ -1464,7 +1405,7 @@ A simple <em>lock/mint</em>, <em>burn/mint</em> or <em>lock/unlock</em> mechanis
 <h3 id="security---htlc-based-design"><a class="header" href="#security---htlc-based-design">Security - HTLC-based design</a></h3>
 <p>See <a href="https://github.com/movementlabsxyz/MIP/blob/mip-move-bridge-architecture/MIP/mip-39/README.md">MIP-39</a> for a complete discussion of the security of this type of design.</p>
 <h3 id="security---trusted-relayer-design"><a class="header" href="#security---trusted-relayer-design">Security - Trusted-Relayer design</a></h3>
-<p>See <a href="Merged/main/MIP/mip-60/index.html#58">Trusted Relayer design</a>.</p>
+<p>See <a href="Approved/main/MIP/mip-60/index.html#58">Trusted Relayer design</a>.</p>
 <p>Assuming we have a <em>correct</em> implementation of the lock/mint contracts on the source and target chains, and a trusted relayer, we may still have to deal with the following issues:</p>
 <ul>
 <li>Relayer is down (or network is slow): how do we detect that the relayer is down? And what measurements are taken.</li>
@@ -1492,7 +1433,7 @@ The <a href="https://cross-chainriskframework.github.io/framework/01intro/introd
 <p>[5] “SoK: Cross-chain Token Bridges and Risk”, 2024 IEEE International Conference on Blockchain and Cryptocurrency (ICBC), Dublin, Ireland, 2024, pp. 696-711. <a href="https://ieeexplore.ieee.org/document/10634379">IEEE Xplore</a></p>
 <h2 id="appendix-6"><a class="header" href="#appendix-6">Appendix</a></h2>
 <h2 id="copyright-2"><a class="header" href="#copyright-2">Copyright</a></h2>
-<p>Copyright and related rights waived via <a href="Merged/main/MIP/mip-60/../LICENSE.html">CC0</a>.</p>
+<p>Copyright and related rights waived via <a href="Approved/main/MIP/mip-60/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-84-lock-mint-native-bridge-basics-of-relayer-trust-assumptions"><a class="header" href="#mip-84-lock-mint-native-bridge-basics-of-relayer-trust-assumptions">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></h1>
 <ul>
@@ -1505,12 +1446,12 @@ The <a href="https://cross-chainriskframework.github.io/framework/01intro/introd
 <p>The lock/mint-type bridge has the following core actors and components: a user who initiates a transfer, a bridge operator, bridge contracts that facilitate the transfer, and a Relayer that submits the completion of the transfer to the bridge contracts.</p>
 <p>The trust assumptions on the Relayer component have significant implications for the security of the bridge and they can introduce the need for additional components.</p>
 <hr />
-<p><img src="Merged/main/MIP/mip-84/image.png" alt="alt text" /></p>
+<p><img src="Approved/main/MIP/mip-84/image.png" alt="alt text" /></p>
 <p><strong>Figure 1</strong>: <em>The Relayer is in charge of <em>relaying</em> bridge transactions. If a user initiates a bridge transfer request on the L2 with a transaction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span> with a sender <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">s</span></span></span></span>, recipient <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span>, for an amount <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span></span></span></span>, we expect the Relayer to relay the request to the L1 with a matching transaction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span>. However, a compromised or buggy Relayer may tamper with the bridge transfer data and relay <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9463em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span> where <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9463em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span> may differ from <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span></span></span></span>. A fraudulent or buggy Relayer may also create a transaction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>, without a corresponding transaction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>.</em></p>
 <hr />
 <p>In a scenario based approach we clarify minimally required components and why they are needed. We distinguish between a trusted, partially trusted, and untrusted Relayer (with proofs).</p>
 <h2 id="motivation-7"><a class="header" href="#motivation-7">Motivation</a></h2>
-<p>We need to clarify the trust assumptions for the Relayer and what consequences should be drawn from these. In many cases a rate limitation may be necessary, see also the Appendix <a href="Merged/main/MIP/mip-84/index.html#a1-background-eigenlayer">A1: Eigenlayer AVS</a>.</p>
+<p>We need to clarify the trust assumptions for the Relayer and what consequences should be drawn from these. In many cases a rate limitation may be necessary, see also the Appendix <a href="Approved/main/MIP/mip-84/index.html#a1-background-eigenlayer">A1: Eigenlayer AVS</a>.</p>
 <p>This addresses the following desiderata in <a href="https://github.com/movementlabsxyz/MIP/blob/mip/rate-limiter-lock-mint-bridge/MD/md-74/README.md#D1">MD-74</a>:</p>
 <ul>
 <li>D1 : Specify the actors and their trust assumptions</li>
@@ -1617,7 +1558,7 @@ Option 2: Each FFS validator node MUST run a service that obtains (or gets from 
 </ul>
 <p>Since the finality is crypto-economically protected by the FFS nodes with <code>value_FFS_stake</code>, a rate limitation may have to be applied that ensures, that the value that can be transferred within a given time is crypto-economically protected by the FFS validator set. Otherwise the FFS validator nodes may be incentivized to collude and include invalid transfers that could drain the locked L1 token pool (or equivalently mint until a possible supply limit on the L2).</p>
 <p>However, compared to the optimistic chains there is no watchtower service that can invalidate malicious checkpoints (i.e. checkpoint produced by collusion) and thus FFS validator nodes may have nothing at stake, raising the question whether there needs to be some operator with reaction time <code>time_react</code> that can halt the bridge and possibly slash the FFS validator nodes.</p>
-<p>For a solution on a rate limitation see Section <a href="Merged/main/MIP/mip-84/index.html#insurance-based-untrusted-relayer">Insurance-based untrusted Relayer</a>. Replace <code>value_insurance</code> by <code>value_FFS_stake</code>.</p>
+<p>For a solution on a rate limitation see Section <a href="Approved/main/MIP/mip-84/index.html#insurance-based-untrusted-relayer">Insurance-based untrusted Relayer</a>. Replace <code>value_insurance</code> by <code>value_FFS_stake</code>.</p>
 <ul>
 <li>Timing:</li>
 </ul>
@@ -1652,7 +1593,7 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 </ul>
 <hr />
 <h2 id="copyright-3"><a class="header" href="#copyright-3">Copyright</a></h2>
-<p>Copyright and related rights waived via <a href="Merged/main/MIP/mip-84/../LICENSE.html">CC0</a>.</p>
+<p>Copyright and related rights waived via <a href="Approved/main/MIP/mip-84/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-88-simplified-rate-limiter-for-the-lockmint-bridge"><a class="header" href="#mip-88-simplified-rate-limiter-for-the-lockmint-bridge">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></h1>
 <ul>
@@ -1673,7 +1614,7 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <p>There are two Insurance Funds, one on the L1 (<code>L1InsuranceFund</code>) and one on the L2 (<code>L2InsuranceFund</code>). In this simplified design <code>L1InsuranceFund</code> MUST hold the same balance as <code>L2InsuranceFund</code>, i.e.</p>
 <p>Value (<code>L1InsuranceFund</code>) = Value (<code>L2InsuranceFund</code>) = <code>InsuranceFundValueOnChain</code></p>
 <p>Due to the symmetry the rate limit on the source chain can be determined by the same equation as on the target chain. This has the advantage, that the Governance Operator does not have to set the rate limit on the source chain, as requested in <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a>.</p>
-<p><img src="Merged/main/MIP/mip-88/overview.png" alt="alt text" />
+<p><img src="Approved/main/MIP/mip-88/overview.png" alt="alt text" />
 <em>Figure 1: Architecture of the Rate Limitation system with symmetric Insurance Fund</em></p>
 <p>We define</p>
 <ul>
@@ -1690,7 +1631,7 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <h3 id="trusted-governance-operator-informs-about-insurance-fund-value"><a class="header" href="#trusted-governance-operator-informs-about-insurance-fund-value">Trusted Governance Operator informs about Insurance Fund Value</a></h3>
 <p>This section extends the ideas of the previous section.</p>
 <p>We can simplify our approach even further based on the trust assumptions on the Governance Operator. Since we trust the Governance Operator to allocate symmetrically funds to the insurance fund <code>L1InsuranceFund</code> and <code>L2InsuranceFund</code>, we MAY <strong>go a step further</strong> and also trust the Governance Operator to <strong>report honestly and timely</strong> about the balance on the Insurance Fund.</p>
-<p><img src="Merged/main/MIP/mip-88/overview.png" alt="alt text" />
+<p><img src="Approved/main/MIP/mip-88/overview.png" alt="alt text" />
 <em>Figure 2: Architecture of the Rate Limitation system with Insurance Fund only on one Layer</em></p>
 <p>Let there be an Insurance Fund on the L2 (<code>L2InsuranceFund</code>) with token amount of value <code>InsuranceFundValueOnChain</code>. The Governance Operator MUST provide the value <code>InsuranceFundValueOnChain</code> to the Rate Limitation contract on L1 in a timely manner and reliably. Similar to the previous section, if we register the budget on a daily basis, for security reasons, we MUST only utilize one half of each direction’s Insurance fund budget per day.</p>
 <p>Since compared to the previous solution the funds are only held on one chain the rate limitation is now calculated as follows:</p>
@@ -1703,7 +1644,7 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <h2 id="verification-8"><a class="header" href="#verification-8">Verification</a></h2>
 <h2 id="appendix-8"><a class="header" href="#appendix-8">Appendix</a></h2>
 <h2 id="copyright-4"><a class="header" href="#copyright-4">Copyright</a></h2>
-<p>Copyright and related rights waived via <a href="Merged/main/MIP/mip-88/../LICENSE.html">CC0</a>.</p>
+<p>Copyright and related rights waived via <a href="Approved/main/MIP/mip-88/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-94-parent-child-mips"><a class="header" href="#mip-94-parent-child-mips">MIP-94: Parent-Child MIPs</a></h1>
 <ul>
@@ -1726,12 +1667,12 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <strong>Example:</strong> If the child MIP is the 1st child MIP of MIP 5, the child MIP will be <code>mip-5.1</code></p>
 </li>
 <li>
-<p>Add a <code>README.md</code> fill containing the child MIP contents. Follow the <a href="Merged/main/MIP/mip-94/../../mip-template.html">MIP template</a> but don’t repeat redundant information from the parent MIP.</p>
+<p>Add a <code>README.md</code> fill containing the child MIP contents. Follow the <a href="Approved/main/MIP/mip-94/../../mip-template.html">MIP template</a> but don’t repeat redundant information from the parent MIP.</p>
 </li>
 </ol>
 <h2 id="reference-implementation-8"><a class="header" href="#reference-implementation-8">Reference Implementation</a></h2>
 <p>This MIP contains a reference implementation of parent-child MIPs:</p>
-<p><img src="Merged/main/MIP/mip-94/image.png" alt="parent-child MIP reference" /></p>
+<p><img src="Approved/main/MIP/mip-94/image.png" alt="parent-child MIP reference" /></p>
 <ul>
 <li>The parent MIP is MIP 94.</li>
 <li>Within the <code>mip-94</code> directory are two folders: <code>mip-94.1</code> and <code>mip-94.2</code>, each with their own <code>README.md</code> file.</li>
@@ -1740,35 +1681,36 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <h2 id="changelog-6"><a class="header" href="#changelog-6">Changelog</a></h2>
 <h2 id="appendix-9"><a class="header" href="#appendix-9">Appendix</a></h2>
 <h2 id="copyright-5"><a class="header" href="#copyright-5">Copyright</a></h2>
-<p>Copyright and related rights waived via <a href="Merged/main/MIP/mip-94/../LICENSE.html">CC0</a>.</p>
+<p>Copyright and related rights waived via <a href="Approved/main/MIP/mip-94/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-2"><a class="header" href="#welcome-to-the-movement-network-mip-book-2">Welcome to the Movement Network MIP Book</a></h1>
-<h2 id="merged-2"><a class="header" href="#merged-2">Merged</a></h2>
+<h2 id="approved-2"><a class="header" href="#approved-2">Approved</a></h2>
 <h3 id="mips-4"><a class="header" href="#mips-4">MIPs</a></h3>
 <ul>
-<li><a href="Merged/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
-<li><a href="Merged/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
-<li><a href="Merged/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
-<li><a href="Merged/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge Design</a></li>
-<li><a href="Merged/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
-<li><a href="Merged/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
-<li><a href="Merged/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
-<li><a href="Merged/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
-<li><a href="Merged/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
-<li><a href="Merged/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
+<li><a href="Approved/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
+<li><a href="Approved/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
+<li><a href="Approved/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
+<li><a href="Approved/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge Design</a></li>
+<li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
+<li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
+<li><a href="Approved/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
+<li><a href="Approved/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
+<li><a href="Approved/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
+<li><a href="Approved/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
 </ul>
 <h3 id="mds-4"><a class="header" href="#mds-4">MDs</a></h3>
 <ul>
-<li><a href="Merged/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
-<li><a href="Merged/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
-<li><a href="Merged/main/MD/md-15/">MD-15: Movement Glossary</a></li>
-<li><a href="Merged/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
-<li><a href="Merged/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
-<li><a href="Merged/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
+<li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
+<li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
+<li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
+<li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
+<li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
+<li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
+<li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
 </ul>
 <h3 id="mgs-2"><a class="header" href="#mgs-2">MGs</a></h3>
 <ul>
-<li><a href="Merged/main/MG/mg-39/">MG-39:  MOVE Token – Bridge Design</a></li>
+<li><a href="Approved/main/MG/mg-39/">MG-39:  MOVE Token – Bridge Design</a></li>
 </ul>
 <h2 id="review-2"><a class="header" href="#review-2">Review</a></h2>
 <h3 id="mips-5"><a class="header" href="#mips-5">MIPs</a></h3>
@@ -1798,7 +1740,6 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <h3 id="mds-5"><a class="header" href="#mds-5">MDs</a></h3>
 <ul>
 <li><a href="Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/">MD-2: Enclave Crash-resistant Key Management</a></li>
-<li><a href="Review/l-monninger/gas-offset/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
 <li><a href="Review/l-monninger/long-range-attacks/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
@@ -1930,15 +1871,45 @@ Consider the following parameters for the commitment tolerance window:</p>
 <h2 id="changelog-7"><a class="header" href="#changelog-7">Changelog</a></h2>
 <p>2025-01-28: consider and rewrite towards the Postconfirmation protocol. Remove the additional asynchronous-upgrades-problem as it requires review.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="md-4-postconfirmation-gas-costs-and-rewards"><a class="header" href="#md-4-postconfirmation-gas-costs-and-rewards">MD-4: Postconfirmation: Gas Costs and Rewards</a></h1>
+<ul>
+<li><strong>Description</strong>: Provide models for the game theory of offsetting gas costs in MCR.</li>
+<li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a>, Andreas Penzkofer</li>
+</ul>
+<h2 id="overview-2"><a class="header" href="#overview-2">Overview</a></h2>
+<p>The Postconfirmation protocol <a href="https://github.com/movementlabsxyz/MIP/blob/mip/MCR/MIP/mip-37/README.md">MIP-37</a> is a stake-based settlement protocol on L1. Postconfirmations confirm superBlocks, which are a sequence of L2Blocks.</p>
+<p><strong>Postconfirmer</strong>. Once 2/3 of the total stake has been accumulated, a special actor must trigger the Postconfirmation. This action consumes additional gas compared to the basic validator confirmations. Moreover, a special actor has to update the contract to a new epoch to update the stake of validators, which also consumes gas. We call this actor the Postconfirmer.</p>
+<h4 id="challenges-with-the-current-approach-1"><a class="header" href="#challenges-with-the-current-approach-1">Challenges with the current approach</a></h4>
+<p><a href="https://github.com/movementlabsxyz/movement/tree/main/protocol-units/settlement/mcr">MCR</a> is an implementation of Postconfirmation. In it’s <a href="https://github.com/movementlabsxyz/movement/tree/baa83356a14d44fd4e8346e1eddfc184cebc17d3/protocol-units/settlement/mcr">current form</a>, the last validator that is required to reach 2/3 of the total stake becomes the Postconfirmer.</p>
+<p>The current implementation of MCR does not offset gas costs for this validator. This could lead to a disincentive to participate in the game, as the accumulated stake approaches 2/3 of the total stake.</p>
+<h4 id="challenges-with-the-proposed-solution"><a class="header" href="#challenges-with-the-proposed-solution">Challenges with the proposed solution</a></h4>
+<p>Naturally, it has been proposed to reward the Postconfirmer. However, this also creates game-theoretic problems, as validators could be incentivized to wait until the last moment to participate to gain that reward, which could increase the finality time of the protocol.</p>
+<p>It has also been proposed to have the Postconfirmer selected through randomness obtained from the L1. This also could create a game-theoretic problems, as the Postconfirmer is, for example, in control of when to postconfirm. I.e., liveness is affected.</p>
+<h2 id="desiderata-2"><a class="header" href="#desiderata-2">Desiderata</a></h2>
+<h3 id="d1-investigate-gas-costs-in-the-postconfirmation-protocol-and-impact-of-rewards"><a class="header" href="#d1-investigate-gas-costs-in-the-postconfirmation-protocol-and-impact-of-rewards">D1: Investigate gas costs in the Postconfirmation protocol and impact of rewards</a></h3>
+<p><strong>User Journey</strong>:
+A researcher or protocol implementer can understand the game theory of gas costs without rewards for the Postconfirmation and similar tasks.</p>
+<p><strong>Justification</strong>:
+The current implementation of MCR does not reward the last validator. This could lead to a disincentive to participate in the game. We require to analyze this.</p>
+<h3 id="d2-provide-a-model-for-gas-costs-with-rewards-for-postconfirmation"><a class="header" href="#d2-provide-a-model-for-gas-costs-with-rewards-for-postconfirmation">D2: Provide a model for gas costs with rewards for Postconfirmation</a></h3>
+<p><strong>User Journey</strong>: A researcher or protocol implementer can understand the game theory with Postconfirmation reward.</p>
+<p><strong>Justification</strong>: Naive proposals suggest to reward the Postconfirmer transparently can alleviate some of the issue. Provide a model which demonstrates the game theory of this.</p>
+<h3 id="d3-provide-models-for-when-the-validators-are-not-omnicscient-about-their-expected-rewards-and-costs"><a class="header" href="#d3-provide-models-for-when-the-validators-are-not-omnicscient-about-their-expected-rewards-and-costs">D3: Provide models for when the validators are not omnicscient about their expected rewards and costs</a></h3>
+<p><strong>User Journey</strong>:
+A researcher or protocol implementer can understand the game theory of gas costs when  incomplete information.</p>
+<p><strong>Justification</strong>:
+Information incompleteness may improve the game theory of costs and rewards. Provide models which demonstrate this for incompleteness derived from network latency, randomness in the rewards, and more.</p>
+<h2 id="changelog-8"><a class="header" href="#changelog-8">Changelog</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-15-movement-glossary"><a class="header" href="#md-15-movement-glossary">MD-15: Movement Glossary</a></h1>
 <ul>
 <li><strong>Description</strong>: Provide a glossary for Movement Vocabulary.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 <li><strong>Reviewer</strong>: Andreas Penzkofer</li>
 </ul>
-<h2 id="overview-2"><a class="header" href="#overview-2">Overview</a></h2>
+<h2 id="overview-3"><a class="header" href="#overview-3">Overview</a></h2>
 <p>In order to communicate with more specificity in all contexts, Movement Labs should introduce a glossary. This glossary should define terms both unique to Movement Labs and general terms that are used in a unique way, underspecified in the literature, or have a specific meaning in the context of Movement Labs.</p>
-<h2 id="desiderata-2"><a class="header" href="#desiderata-2">Desiderata</a></h2>
+<h2 id="desiderata-3"><a class="header" href="#desiderata-3">Desiderata</a></h2>
 <!--
   List out the specific desiderata. Each entry should consist of:
 
@@ -1976,19 +1947,19 @@ Consider the following parameters for the commitment tolerance window:</p>
 <ul>
 <li>MD can also introduce MG to further aid in clarity, but they will not be ratified until they have been supported in an MIP.</li>
 </ul>
-<h2 id="changelog-8"><a class="header" href="#changelog-8">Changelog</a></h2>
+<h2 id="changelog-9"><a class="header" href="#changelog-9">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-23-define-artifact-releases-for-movement-technologies"><a class="header" href="#md-23-define-artifact-releases-for-movement-technologies">MD-23: Define Artifact Releases for Movement Technologies</a></h1>
 <ul>
 <li><strong>Description</strong>: Define a process for releasing artifacts for Movement technologies.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 </ul>
-<h2 id="overview-3"><a class="header" href="#overview-3">Overview</a></h2>
+<h2 id="overview-4"><a class="header" href="#overview-4">Overview</a></h2>
 <p>Provide a coherent and repeatable process for releasing artifacts for Movement technologies. This should be used for specifying the process of releasing artifacts for Movement technologies–particularly those that may require third-parties to adjust their usage of said technologies.</p>
 <h2 id="definitions-1"><a class="header" href="#definitions-1">Definitions</a></h2>
 <p><strong>artifact</strong>: a deployable unit of software that is the result of a build process. This could be a library, a binary, a container image, or a well-known configuration file.</p>
 <p><strong>release</strong>: a versioned artifact that is made available to the public. This could be a stable release, a beta release, or a release candidate.</p>
-<h2 id="desiderata-3"><a class="header" href="#desiderata-3">Desiderata</a></h2>
+<h2 id="desiderata-4"><a class="header" href="#desiderata-4">Desiderata</a></h2>
 <h3 id="d1-apply-standardized-release-naming-convention"><a class="header" href="#d1-apply-standardized-release-naming-convention">D1: Apply standardized release naming convention</a></h3>
 <p><strong>User Journey</strong>: All users can easily identify the type of release, software units, and versioning of Movement technologies.</p>
 <p><strong>Justification</strong>: A standardized naming convention for releases will help developers understand the purpose of a release and the changes it contains. This will help developers make informed decisions about which releases to use.</p>
@@ -2001,16 +1972,16 @@ Consider the following parameters for the commitment tolerance window:</p>
 <h3 id="d4-define-standard-relationship-between-releases-and-governance"><a class="header" href="#d4-define-standard-relationship-between-releases-and-governance">D4: Define standard relationship between releases and governance</a></h3>
 <p><strong>User Journey</strong>: All users can understand the relationship between releases and governance, i.e., how a particular release gets voted in as canonical for a given set of Movement technologies.</p>
 <p><strong>Justification</strong>: A clear relationship between releases and governance will help users understand how releases are approved and what criteria they must meet. This will help users trust that releases are of high quality and meet the needs of the community.</p>
-<h2 id="changelog-9"><a class="header" href="#changelog-9">Changelog</a></h2>
+<h2 id="changelog-10"><a class="header" href="#changelog-10">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-91-define-move-stack-and-movement-sdk"><a class="header" href="#md-91-define-move-stack-and-movement-sdk">MD-91: Define Move Stack and Movement SDK</a></h1>
 <ul>
 <li><strong>Description</strong>: Define the Move Stack and the Movement SDK to provide clear categorization of our software components and standardize language around the Movement technologies.</li>
 <li><strong>Authors</strong>: Andreas Penzkofer</li>
 </ul>
-<h2 id="overview-4"><a class="header" href="#overview-4">Overview</a></h2>
+<h2 id="overview-5"><a class="header" href="#overview-5">Overview</a></h2>
 <p>The Move Stack and Movement SDK are foundational components for Movement technologies, aimed at empowering developers with standardized tools, interfaces, and services for building, interacting with, and maintaining Movement Labs’ networks and dApps.</p>
-<h2 id="desiderata-4"><a class="header" href="#desiderata-4">Desiderata</a></h2>
+<h2 id="desiderata-5"><a class="header" href="#desiderata-5">Desiderata</a></h2>
 <h3 id="d1-standardization-of-development-stack"><a class="header" href="#d1-standardization-of-development-stack">D1: Standardization of Development Stack</a></h3>
 <p><strong>User Journey</strong>: Developers can utilize a well-documented stack to build and maintain Movement Labs’ networks and dApps.</p>
 <p><strong>Justification</strong>: Ensures high quality of documentation.</p>
@@ -2026,14 +1997,14 @@ Consider the following parameters for the commitment tolerance window:</p>
 <h3 id="d4-reduce-confusion-between-sdk-and-stack"><a class="header" href="#d4-reduce-confusion-between-sdk-and-stack">D4: Reduce confusion between SDK and Stack</a></h3>
 <p><strong>User Journey</strong>: Developers are able to understand what the SDK implies.</p>
 <p><strong>Justification</strong>: There has been much confusion about what the SDK constitutes. There is great need for clarification to align language in the ecosystem.</p>
-<h2 id="changelog-10"><a class="header" href="#changelog-10">Changelog</a></h2>
+<h2 id="changelog-11"><a class="header" href="#changelog-11">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-93-parent-child-mips"><a class="header" href="#md-93-parent-child-mips">MD-93: Parent-Child MIPs</a></h1>
 <ul>
 <li><strong>Description</strong>: Provide formal structure for parent and child MIPs.</li>
 <li><strong>Authors</strong>: <a href="mailto:andy.golay@movementlabs.xyz">Andy Golay</a></li>
 </ul>
-<h2 id="overview-5"><a class="header" href="#overview-5">Overview</a></h2>
+<h2 id="overview-6"><a class="header" href="#overview-6">Overview</a></h2>
 <p>Provide formal structure for parent-child MIPs. For more complicated MIPs, or MIPs which have implementations specific to various software stacks, infrastructure providers, etc., it can make sense for the sake of organization to have child MIPs to add specific details, rather than making the parent MIP too verbose or cluttered.</p>
 <h2 id="definitions-2"><a class="header" href="#definitions-2">Definitions</a></h2>
 <ul>
@@ -2044,39 +2015,40 @@ Consider the following parameters for the commitment tolerance window:</p>
 <p><strong>Child MIP</strong>: Also MAY be referred to as a sub-MIP. Child MIPs give detail on specific domains referenced within a parent MIP. They are substantial enough that they make sense to refactor into MIPs associated with the parent MIP.</p>
 </li>
 </ul>
-<h2 id="desiderata-5"><a class="header" href="#desiderata-5">Desiderata</a></h2>
+<h2 id="desiderata-6"><a class="header" href="#desiderata-6">Desiderata</a></h2>
 <h3 id="d1-convention-for-parent-and-child-mip-file-organization-and-naming"><a class="header" href="#d1-convention-for-parent-and-child-mip-file-organization-and-naming">D1: Convention for parent and child MIP file organization and naming</a></h3>
 <p><strong>User Journey</strong>: Proposer can adhere to a standardized template for substantial, detailed subsections of MIPs which warrant being categorized as their own related child MIP.</p>
 <p><strong>Justification</strong>: The file organization and naming must be consistent, so there should be a formal convention.</p>
-<h2 id="changelog-11"><a class="header" href="#changelog-11">Changelog</a></h2>
+<h2 id="changelog-12"><a class="header" href="#changelog-12">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-3"><a class="header" href="#welcome-to-the-movement-network-mip-book-3">Welcome to the Movement Network MIP Book</a></h1>
-<h2 id="merged-3"><a class="header" href="#merged-3">Merged</a></h2>
+<h2 id="approved-3"><a class="header" href="#approved-3">Approved</a></h2>
 <h3 id="mips-6"><a class="header" href="#mips-6">MIPs</a></h3>
 <ul>
-<li><a href="Merged/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
-<li><a href="Merged/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
-<li><a href="Merged/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
-<li><a href="Merged/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge Design</a></li>
-<li><a href="Merged/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
-<li><a href="Merged/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
-<li><a href="Merged/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
-<li><a href="Merged/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
-<li><a href="Merged/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
-<li><a href="Merged/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
+<li><a href="Approved/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
+<li><a href="Approved/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
+<li><a href="Approved/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
+<li><a href="Approved/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge Design</a></li>
+<li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
+<li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
+<li><a href="Approved/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
+<li><a href="Approved/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
+<li><a href="Approved/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
+<li><a href="Approved/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
 </ul>
 <h3 id="mds-6"><a class="header" href="#mds-6">MDs</a></h3>
 <ul>
-<li><a href="Merged/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
-<li><a href="Merged/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
-<li><a href="Merged/main/MD/md-15/">MD-15: Movement Glossary</a></li>
-<li><a href="Merged/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
-<li><a href="Merged/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
-<li><a href="Merged/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
+<li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
+<li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
+<li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
+<li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
+<li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
+<li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
+<li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
 </ul>
 <h3 id="mgs-3"><a class="header" href="#mgs-3">MGs</a></h3>
 <ul>
-<li><a href="Merged/main/MG/mg-39/">MG-39:  MOVE Token – Bridge Design</a></li>
+<li><a href="Approved/main/MG/mg-39/">MG-39:  MOVE Token – Bridge Design</a></li>
 </ul>
 <h2 id="review-3"><a class="header" href="#review-3">Review</a></h2>
 <h3 id="mips-7"><a class="header" href="#mips-7">MIPs</a></h3>
@@ -2106,7 +2078,6 @@ Consider the following parameters for the commitment tolerance window:</p>
 <h3 id="mds-7"><a class="header" href="#mds-7">MDs</a></h3>
 <ul>
 <li><a href="Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/">MD-2: Enclave Crash-resistant Key Management</a></li>
-<li><a href="Review/l-monninger/gas-offset/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
 <li><a href="Review/l-monninger/long-range-attacks/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
@@ -2131,41 +2102,42 @@ Consider the following parameters for the commitment tolerance window:</p>
 <li><strong>Authors</strong>: <a href="mailto:franck.cassez@movementlabs.xyz">Franck Cassez</a></li>
 </ul>
 <h3 id="move"><a class="header" href="#move"><code>\$MOVE</code></a></h3>
-<p>see <a href="Merged/main/MG/mg-39/../../MIP/mip-39/README.html">MIP-39</a></p>
+<p>see <a href="Approved/main/MG/mg-39/../../MIP/mip-39/README.html">MIP-39</a></p>
 <h3 id="l1move"><a class="header" href="#l1move"><code>\$L1MOVE</code></a></h3>
-<p>see <a href="Merged/main/MG/mg-39/../../MIP/mip-39/README.html">MIP-39</a></p>
+<p>see <a href="Approved/main/MG/mg-39/../../MIP/mip-39/README.html">MIP-39</a></p>
 <h3 id="l2move"><a class="header" href="#l2move"><code>\$L2MOVE</code></a></h3>
-<p>see <a href="Merged/main/MG/mg-39/../../MIP/mip-39/README.html">MIP-39</a></p>
+<p>see <a href="Approved/main/MG/mg-39/../../MIP/mip-39/README.html">MIP-39</a></p>
 <h3 id="native-bridge"><a class="header" href="#native-bridge">Native Bridge</a></h3>
-<p>see <a href="Merged/main/MG/mg-39/../../MIP/mip-39/README.html">MIP-39</a></p>
+<p>see <a href="Approved/main/MG/mg-39/../../MIP/mip-39/README.html">MIP-39</a></p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-4"><a class="header" href="#welcome-to-the-movement-network-mip-book-4">Welcome to the Movement Network MIP Book</a></h1>
-<h2 id="merged-4"><a class="header" href="#merged-4">Merged</a></h2>
+<h2 id="approved-4"><a class="header" href="#approved-4">Approved</a></h2>
 <h3 id="mips-8"><a class="header" href="#mips-8">MIPs</a></h3>
 <ul>
-<li><a href="Merged/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
-<li><a href="Merged/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
-<li><a href="Merged/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
-<li><a href="Merged/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge Design</a></li>
-<li><a href="Merged/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
-<li><a href="Merged/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
-<li><a href="Merged/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
-<li><a href="Merged/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
-<li><a href="Merged/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
-<li><a href="Merged/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
+<li><a href="Approved/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
+<li><a href="Approved/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
+<li><a href="Approved/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
+<li><a href="Approved/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge Design</a></li>
+<li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
+<li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
+<li><a href="Approved/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
+<li><a href="Approved/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
+<li><a href="Approved/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
+<li><a href="Approved/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
 </ul>
 <h3 id="mds-8"><a class="header" href="#mds-8">MDs</a></h3>
 <ul>
-<li><a href="Merged/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
-<li><a href="Merged/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
-<li><a href="Merged/main/MD/md-15/">MD-15: Movement Glossary</a></li>
-<li><a href="Merged/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
-<li><a href="Merged/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
-<li><a href="Merged/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
+<li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
+<li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
+<li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
+<li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
+<li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
+<li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
+<li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
 </ul>
 <h3 id="mgs-4"><a class="header" href="#mgs-4">MGs</a></h3>
 <ul>
-<li><a href="Merged/main/MG/mg-39/">MG-39:  MOVE Token – Bridge Design</a></li>
+<li><a href="Approved/main/MG/mg-39/">MG-39:  MOVE Token – Bridge Design</a></li>
 </ul>
 <h2 id="review-4"><a class="header" href="#review-4">Review</a></h2>
 <h3 id="mips-9"><a class="header" href="#mips-9">MIPs</a></h3>
@@ -2195,7 +2167,6 @@ Consider the following parameters for the commitment tolerance window:</p>
 <h3 id="mds-9"><a class="header" href="#mds-9">MDs</a></h3>
 <ul>
 <li><a href="Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/">MD-2: Enclave Crash-resistant Key Management</a></li>
-<li><a href="Review/l-monninger/gas-offset/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
 <li><a href="Review/l-monninger/long-range-attacks/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
@@ -2216,32 +2187,33 @@ Consider the following parameters for the commitment tolerance window:</p>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-5"><a class="header" href="#welcome-to-the-movement-network-mip-book-5">Welcome to the Movement Network MIP Book</a></h1>
-<h2 id="merged-5"><a class="header" href="#merged-5">Merged</a></h2>
+<h2 id="approved-5"><a class="header" href="#approved-5">Approved</a></h2>
 <h3 id="mips-10"><a class="header" href="#mips-10">MIPs</a></h3>
 <ul>
-<li><a href="Merged/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
-<li><a href="Merged/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
-<li><a href="Merged/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
-<li><a href="Merged/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge Design</a></li>
-<li><a href="Merged/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
-<li><a href="Merged/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
-<li><a href="Merged/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
-<li><a href="Merged/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
-<li><a href="Merged/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
-<li><a href="Merged/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
+<li><a href="Approved/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
+<li><a href="Approved/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
+<li><a href="Approved/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
+<li><a href="Approved/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge Design</a></li>
+<li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
+<li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
+<li><a href="Approved/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
+<li><a href="Approved/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
+<li><a href="Approved/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
+<li><a href="Approved/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
 </ul>
 <h3 id="mds-10"><a class="header" href="#mds-10">MDs</a></h3>
 <ul>
-<li><a href="Merged/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
-<li><a href="Merged/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
-<li><a href="Merged/main/MD/md-15/">MD-15: Movement Glossary</a></li>
-<li><a href="Merged/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
-<li><a href="Merged/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
-<li><a href="Merged/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
+<li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
+<li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
+<li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
+<li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
+<li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
+<li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
+<li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
 </ul>
 <h3 id="mgs-5"><a class="header" href="#mgs-5">MGs</a></h3>
 <ul>
-<li><a href="Merged/main/MG/mg-39/">MG-39:  MOVE Token – Bridge Design</a></li>
+<li><a href="Approved/main/MG/mg-39/">MG-39:  MOVE Token – Bridge Design</a></li>
 </ul>
 <h2 id="review-5"><a class="header" href="#review-5">Review</a></h2>
 <h3 id="mips-11"><a class="header" href="#mips-11">MIPs</a></h3>
@@ -2271,7 +2243,6 @@ Consider the following parameters for the commitment tolerance window:</p>
 <h3 id="mds-11"><a class="header" href="#mds-11">MDs</a></h3>
 <ul>
 <li><a href="Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/">MD-2: Enclave Crash-resistant Key Management</a></li>
-<li><a href="Review/l-monninger/gas-offset/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
 <li><a href="Review/l-monninger/long-range-attacks/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
@@ -3415,7 +3386,7 @@ Changes will be required at Genesis to initialize the module, which will involve
 <p>This MIP provides an overview of an architecture of FFS, and its main components.</p>
 <h2 id="specification-16"><a class="header" href="#specification-16">Specification</a></h2>
 <p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
-<h3 id="overview-6"><a class="header" href="#overview-6">Overview</a></h3>
+<h3 id="overview-7"><a class="header" href="#overview-7">Overview</a></h3>
 <p><strong>FFS</strong>. The objective of Fast Finality Settlement (FFS) is to confirm that transactions are <em>processed</em> correctly and that the node has <em>read</em> the transactions in the correct order. It does not impact the already established order of transactions by the sequencer.</p>
 <p>The L2 chain increases by a new block in each (L2) round, and this block is the successor of the block in the previous round, the <em>predecessor</em>. Initially, there is a <em>genesis</em> block with no predecessor.</p>
 <p><strong>ProtoBlock</strong>. Each round corresponds to the processing of a batch of transactions, called <em>protoBlock</em>, which is proposed by the <em>sequencer</em> (can be centralized, decentralized, shared).</p>
@@ -3545,7 +3516,7 @@ This implies that if more than <span class="katex"><span class="katex-html" aria
 <li><strong>commit to a sequence of L2Blocks</strong>. The Fastconfirmation certificate could be per L2block. However, on L1 we want to commit to a sequence of blocks (a superBlock). This can be done by committing to the state root of the last block in the sequence or more complicated approaches using Merkle roots.</li>
 </ul>
 <h2 id="appendix-16"><a class="header" href="#appendix-16">Appendix</a></h2>
-<h2 id="changelog-12"><a class="header" href="#changelog-12">Changelog</a></h2>
+<h2 id="changelog-13"><a class="header" href="#changelog-13">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-37-ffs-postconfirmation"><a class="header" href="#mip-37-ffs-postconfirmation">MIP-37: FFS: Postconfirmation</a></h1>
 <ul>
@@ -3761,7 +3732,7 @@ function getAcceptorLastActivity() internal view returns (uint256) {
 <p>A reference implementation for Postconfirmation is provided by MCR, see <a href="https://github.com/movementlabsxyz/movement/tree/714831820d78b3910729a194cd0508fa1efd9aa9/protocol-units/settlement/mcr">here</a>.</p>
 <h2 id="verification-17"><a class="header" href="#verification-17">Verification</a></h2>
 <h2 id="appendix-17"><a class="header" href="#appendix-17">Appendix</a></h2>
-<h2 id="changelog-13"><a class="header" href="#changelog-13">Changelog</a></h2>
+<h2 id="changelog-14"><a class="header" href="#changelog-14">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-47-improve-gas-fee-collection-in-phases"><a class="header" href="#mip-47-improve-gas-fee-collection-in-phases">MIP-47: Improve Gas fee collection in phases</a></h1>
 <ul>
@@ -4084,7 +4055,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <h2 id="reference-implementation-18"><a class="header" href="#reference-implementation-18">Reference Implementation</a></h2>
 <h2 id="verification-20"><a class="header" href="#verification-20">Verification</a></h2>
 <h2 id="appendix-20"><a class="header" href="#appendix-20">Appendix</a></h2>
-<h2 id="changelog-14"><a class="header" href="#changelog-14">Changelog</a></h2>
+<h2 id="changelog-15"><a class="header" href="#changelog-15">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-50-insured-native-bridge"><a class="header" href="#mip-50-insured-native-bridge">MIP-50: Insured Native Bridge</a></h1>
 <ul>
@@ -4108,7 +4079,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li>The Bridge Pool Governor SHALL be expected to purchase token from the market to recover the loss and replenish the Insurance Fund.</li>
 </ol>
 <h2 id="verification-21"><a class="header" href="#verification-21">Verification</a></h2>
-<h2 id="changelog-15"><a class="header" href="#changelog-15">Changelog</a></h2>
+<h2 id="changelog-16"><a class="header" href="#changelog-16">Changelog</a></h2>
 <h2 id="appendix-21"><a class="header" href="#appendix-21">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-52-aptos-gas-pool"><a class="header" href="#mip-52-aptos-gas-pool">MIP-52: Aptos Gas Pool</a></h1>
@@ -4142,7 +4113,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li>Verify that the AptosVM does not validate burns. Otherwise, there may be logic outside of the framework <code>epilogue_gas_payer</code> path which needs to be updated.</li>
 <li>Identify any sponsorship or other gas payment mechanisms which may need to be updated to use the Gas Pool.</li>
 </ul>
-<h2 id="changelog-16"><a class="header" href="#changelog-16">Changelog</a></h2>
+<h2 id="changelog-17"><a class="header" href="#changelog-17">Changelog</a></h2>
 <h2 id="appendix-22"><a class="header" href="#appendix-22">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-54-the-biarritz-model"><a class="header" href="#mip-54-the-biarritz-model">MIP-54: The Biarritz Model</a></h1>
@@ -4193,7 +4164,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li><strong>1:1 token correlation</strong>: the model asserts a 1:1 token correlation between the L1 staking and L2 gas tokens. This may not be desirable in all cases as exploits on the bridge may compromise the security of staking on the L1 or sybil resistance on the L2.</li>
 </ol>
 <h2 id="verification-23"><a class="header" href="#verification-23">Verification</a></h2>
-<h2 id="changelog-17"><a class="header" href="#changelog-17">Changelog</a></h2>
+<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-55-the-bilbao-model"><a class="header" href="#mip-55-the-bilbao-model">MIP-55: The Bilbao Model</a></h1>
 <ul>
@@ -4490,7 +4461,7 @@ The relayer records on the source or target chain the <code>completed_block_heig
 <h2 id="reference-implementation-19"><a class="header" href="#reference-implementation-19">Reference Implementation</a></h2>
 <h2 id="verification-25"><a class="header" href="#verification-25">Verification</a></h2>
 <h2 id="appendix-23"><a class="header" href="#appendix-23">Appendix</a></h2>
-<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
+<h2 id="changelog-19"><a class="header" href="#changelog-19">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-69-bridge-fees"><a class="header" href="#mip-69-bridge-fees">MIP-69: Bridge Fees</a></h1>
 <ul>
@@ -4905,7 +4876,7 @@ The following are possible ways to adjust the rate limit:</p>
 <p>Needs discussion.</p>
 <p>We may add a formal model?</p>
 <hr />
-<h2 id="changelog-19"><a class="header" href="#changelog-19">Changelog</a></h2>
+<h2 id="changelog-20"><a class="header" href="#changelog-20">Changelog</a></h2>
 <h2 id="appendix-25"><a class="header" href="#appendix-25">Appendix</a></h2>
 <h3 id="a1-alternative-designs"><a class="header" href="#a1-alternative-designs">A1: Alternative designs</a></h3>
 <p>This MIP proposes a rate limiting mechanism for the Lock/Mint-type Native Bridge with symmetrical design. Below we discuss how we got here and which alternatives exist. The version discussed in this MIP is option C.</p>
@@ -5130,7 +5101,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h2 id="reference-implementation-23"><a class="header" href="#reference-implementation-23">Reference Implementation</a></h2>
 <p>For the reference implementation of the Move Stack refer to the <a href="https://github.com/movementlabsxyz">Movement GitHub repository</a>.</p>
 <h2 id="verification-29"><a class="header" href="#verification-29">Verification</a></h2>
-<h2 id="changelog-20"><a class="header" href="#changelog-20">Changelog</a></h2>
+<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
 <h2 id="appendix-26"><a class="header" href="#appendix-26">Appendix</a></h2>
 <h3 id="a1-rfc-1"><a class="header" href="#a1-rfc-1">A1 RFC-1</a></h3>
 <p>RFC-1 in <a href="https://github.com/movementlabsxyz/rfcs">RFCs</a> is an initial document that outlines the components of the Move Stack and Movement SDK. It provides a detailed enumeration of components, their aliases, and purposes.</p>
@@ -5138,32 +5109,33 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <p>Copyright and related rights waived via <a href="Review/mip/move-stack/MIP/mip-92/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-6"><a class="header" href="#welcome-to-the-movement-network-mip-book-6">Welcome to the Movement Network MIP Book</a></h1>
-<h2 id="merged-6"><a class="header" href="#merged-6">Merged</a></h2>
+<h2 id="approved-6"><a class="header" href="#approved-6">Approved</a></h2>
 <h3 id="mips-12"><a class="header" href="#mips-12">MIPs</a></h3>
 <ul>
-<li><a href="Merged/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
-<li><a href="Merged/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
-<li><a href="Merged/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
-<li><a href="Merged/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge Design</a></li>
-<li><a href="Merged/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
-<li><a href="Merged/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
-<li><a href="Merged/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
-<li><a href="Merged/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
-<li><a href="Merged/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
-<li><a href="Merged/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
+<li><a href="Approved/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
+<li><a href="Approved/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
+<li><a href="Approved/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
+<li><a href="Approved/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge Design</a></li>
+<li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
+<li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
+<li><a href="Approved/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
+<li><a href="Approved/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
+<li><a href="Approved/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
+<li><a href="Approved/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
 </ul>
 <h3 id="mds-12"><a class="header" href="#mds-12">MDs</a></h3>
 <ul>
-<li><a href="Merged/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
-<li><a href="Merged/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
-<li><a href="Merged/main/MD/md-15/">MD-15: Movement Glossary</a></li>
-<li><a href="Merged/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
-<li><a href="Merged/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
-<li><a href="Merged/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
+<li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
+<li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
+<li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
+<li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
+<li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
+<li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
+<li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
 </ul>
 <h3 id="mgs-6"><a class="header" href="#mgs-6">MGs</a></h3>
 <ul>
-<li><a href="Merged/main/MG/mg-39/">MG-39:  MOVE Token – Bridge Design</a></li>
+<li><a href="Approved/main/MG/mg-39/">MG-39:  MOVE Token – Bridge Design</a></li>
 </ul>
 <h2 id="review-6"><a class="header" href="#review-6">Review</a></h2>
 <h3 id="mips-13"><a class="header" href="#mips-13">MIPs</a></h3>
@@ -5193,7 +5165,6 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h3 id="mds-13"><a class="header" href="#mds-13">MDs</a></h3>
 <ul>
 <li><a href="Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/">MD-2: Enclave Crash-resistant Key Management</a></li>
-<li><a href="Review/l-monninger/gas-offset/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
 <li><a href="Review/l-monninger/long-range-attacks/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
@@ -5218,8 +5189,8 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <li><strong>Description</strong>: Provide a mechanism for allowing the use of keys in an enclave that can be recovered after crashes without breaking encapsulation.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 </ul>
-<h2 id="overview-7"><a class="header" href="#overview-7">Overview</a></h2>
-<h2 id="desiderata-6"><a class="header" href="#desiderata-6">Desiderata</a></h2>
+<h2 id="overview-8"><a class="header" href="#overview-8">Overview</a></h2>
+<h2 id="desiderata-7"><a class="header" href="#desiderata-7">Desiderata</a></h2>
 <h3 id="d1-minimize-direct-access-to-bridge-keys-while-maintaining-use-1"><a class="header" href="#d1-minimize-direct-access-to-bridge-keys-while-maintaining-use-1">D1: Minimize Direct Access to Bridge Keys while Maintaining Use</a></h3>
 <p><strong>User Journey</strong>: Movement Labs Atomic Bridge Service Operators (MLABSO) can run the service with appropriate signing keys without direct access to said keys.</p>
 <p><strong>Justification</strong>: Without direct access to the keys, MLABSO are forced to use a more secure mechanism for signing messages which can be more easily secured audited such as an HSM or enclave.</p>
@@ -5229,36 +5200,6 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h3 id="d3-time-lock-key-usage-1"><a class="header" href="#d3-time-lock-key-usage-1">D3: Time-Lock Key Usage</a></h3>
 <p><strong>User Journey</strong>: MLABSO can only reliably replace software using a key in a time-locked manner.</p>
 <p><strong>Justification</strong>: The software using a given key may require updates or replacement. Time-locking can allow this to occur without diminishing the benefits of attestations.</p>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-4-postconfirmation-gas-costs-and-rewards"><a class="header" href="#md-4-postconfirmation-gas-costs-and-rewards">MD-4: Postconfirmation: Gas Costs and Rewards</a></h1>
-<ul>
-<li><strong>Description</strong>: Provide models for the game theory of offsetting gas costs in MCR.</li>
-<li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a>, Andreas Penzkofer</li>
-</ul>
-<h2 id="overview-8"><a class="header" href="#overview-8">Overview</a></h2>
-<p>The Postconfirmation protocol <a href="https://github.com/movementlabsxyz/MIP/blob/mip/MCR/MIP/mip-37/README.md">MIP-37</a> is a stake-based settlement protocol on L1. Postconfirmations confirm superBlocks, which are a sequence of L2Blocks.</p>
-<p><strong>Postconfirmer</strong>. Once 2/3 of the total stake has been accumulated, a special actor must trigger the Postconfirmation. This action consumes additional gas compared to the basic validator confirmations. Moreover, a special actor has to update the contract to a new epoch to update the stake of validators, which also consumes gas. We call this actor the Postconfirmer.</p>
-<h4 id="challenges-with-the-current-approach-1"><a class="header" href="#challenges-with-the-current-approach-1">Challenges with the current approach</a></h4>
-<p><a href="https://github.com/movementlabsxyz/movement/tree/main/protocol-units/settlement/mcr">MCR</a> is an implementation of Postconfirmation. In it’s <a href="https://github.com/movementlabsxyz/movement/tree/baa83356a14d44fd4e8346e1eddfc184cebc17d3/protocol-units/settlement/mcr">current form</a>, the last validator that is required to reach 2/3 of the total stake becomes the Postconfirmer.</p>
-<p>The current implementation of MCR does not offset gas costs for this validator. This could lead to a disincentive to participate in the game, as the accumulated stake approaches 2/3 of the total stake.</p>
-<h4 id="challenges-with-the-proposed-solution"><a class="header" href="#challenges-with-the-proposed-solution">Challenges with the proposed solution</a></h4>
-<p>Naturally, it has been proposed to reward the Postconfirmer. However, this also creates game-theoretic problems, as validators could be incentivized to wait until the last moment to participate to gain that reward, which could increase the finality time of the protocol.</p>
-<p>It has also been proposed to have the Postconfirmer selected through randomness obtained from the L1. This also could create a game-theoretic problems, as the Postconfirmer is, for example, in control of when to postconfirm. I.e., liveness is affected.</p>
-<h2 id="desiderata-7"><a class="header" href="#desiderata-7">Desiderata</a></h2>
-<h3 id="d1-investigate-gas-costs-in-the-postconfirmation-protocol-and-impact-of-rewards"><a class="header" href="#d1-investigate-gas-costs-in-the-postconfirmation-protocol-and-impact-of-rewards">D1: Investigate gas costs in the Postconfirmation protocol and impact of rewards</a></h3>
-<p><strong>User Journey</strong>:
-A researcher or protocol implementer can understand the game theory of gas costs without rewards for the Postconfirmation and similar tasks.</p>
-<p><strong>Justification</strong>:
-The current implementation of MCR does not reward the last validator. This could lead to a disincentive to participate in the game. We require to analyze this.</p>
-<h3 id="d2-provide-a-model-for-gas-costs-with-rewards-for-postconfirmation"><a class="header" href="#d2-provide-a-model-for-gas-costs-with-rewards-for-postconfirmation">D2: Provide a model for gas costs with rewards for Postconfirmation</a></h3>
-<p><strong>User Journey</strong>: A researcher or protocol implementer can understand the game theory with Postconfirmation reward.</p>
-<p><strong>Justification</strong>: Naive proposals suggest to reward the Postconfirmer transparently can alleviate some of the issue. Provide a model which demonstrates the game theory of this.</p>
-<h3 id="d3-provide-models-for-when-the-validators-are-not-omnicscient-about-their-expected-rewards-and-costs"><a class="header" href="#d3-provide-models-for-when-the-validators-are-not-omnicscient-about-their-expected-rewards-and-costs">D3: Provide models for when the validators are not omnicscient about their expected rewards and costs</a></h3>
-<p><strong>User Journey</strong>:
-A researcher or protocol implementer can understand the game theory of gas costs when  incomplete information.</p>
-<p><strong>Justification</strong>:
-Information incompleteness may improve the game theory of costs and rewards. Provide models which demonstrate this for incompleteness derived from network latency, randomness in the rewards, and more.</p>
-<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-5-fast-finality-settlement---long-range-attacks"><a class="header" href="#md-5-fast-finality-settlement---long-range-attacks">MD-5: Fast Finality Settlement - Long Range Attacks</a></h1>
 <ul>

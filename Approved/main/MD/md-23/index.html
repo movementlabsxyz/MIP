@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MD-2: Enclave Crash-resistant Key Management - MIP</title>
+        <title>MD-23: Define Artifact Releases for Movement Technologies - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -12,21 +12,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../../../../../favicon.svg">
-        <link rel="shortcut icon" href="../../../../../favicon.png">
-        <link rel="stylesheet" href="../../../../../css/variables.css">
-        <link rel="stylesheet" href="../../../../../css/general.css">
-        <link rel="stylesheet" href="../../../../../css/chrome.css">
-        <link rel="stylesheet" href="../../../../../css/print.css" media="print">
+        <link rel="icon" href="../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../../../../../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../../../../../fonts/fonts.css">
+        <link rel="stylesheet" href="../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../../../../../highlight.css">
-        <link rel="stylesheet" href="../../../../../tomorrow-night.css">
-        <link rel="stylesheet" href="../../../../../ayu-highlight.css">
+        <link rel="stylesheet" href="../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -35,11 +35,11 @@
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "../../../../../";
+            var path_to_root = "../../../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../../../../toc.js"></script>
+        <script src="../../../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../../../../../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -125,7 +125,7 @@
                     <h1 class="menu-title">MIP</h1>
 
                     <div class="right-buttons">
-                        <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/movementlabsxyz/MIP" title="Git repository" aria-label="Git repository">
@@ -158,32 +158,40 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-2-enclave-crash-resistant-key-management"><a class="header" href="#md-2-enclave-crash-resistant-key-management">MD-2: Enclave Crash-resistant Key Management</a></h1>
+<h1 id="md-23-define-artifact-releases-for-movement-technologies"><a class="header" href="#md-23-define-artifact-releases-for-movement-technologies">MD-23: Define Artifact Releases for Movement Technologies</a></h1>
 <ul>
-<li><strong>Description</strong>: Provide a mechanism for allowing the use of keys in an enclave that can be recovered after crashes without breaking encapsulation.</li>
+<li><strong>Description</strong>: Define a process for releasing artifacts for Movement technologies.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 </ul>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>Provide a coherent and repeatable process for releasing artifacts for Movement technologies. This should be used for specifying the process of releasing artifacts for Movement technologies–particularly those that may require third-parties to adjust their usage of said technologies.</p>
+<h2 id="definitions"><a class="header" href="#definitions">Definitions</a></h2>
+<p><strong>artifact</strong>: a deployable unit of software that is the result of a build process. This could be a library, a binary, a container image, or a well-known configuration file.</p>
+<p><strong>release</strong>: a versioned artifact that is made available to the public. This could be a stable release, a beta release, or a release candidate.</p>
 <h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
-<h3 id="d1-minimize-direct-access-to-bridge-keys-while-maintaining-use"><a class="header" href="#d1-minimize-direct-access-to-bridge-keys-while-maintaining-use">D1: Minimize Direct Access to Bridge Keys while Maintaining Use</a></h3>
-<p><strong>User Journey</strong>: Movement Labs Atomic Bridge Service Operators (MLABSO) can run the service with appropriate signing keys without direct access to said keys.</p>
-<p><strong>Justification</strong>: Without direct access to the keys, MLABSO are forced to use a more secure mechanism for signing messages which can be more easily secured audited such as an HSM or enclave.</p>
-<h3 id="d2-only-allow-attested-usage-of-bridge-keys"><a class="header" href="#d2-only-allow-attested-usage-of-bridge-keys">D2: Only Allow Attested Usage of Bridge Keys</a></h3>
-<p><strong>User Journey</strong>: Only attested software can use bridge keys.</p>
-<p><strong>Justification</strong>: Even without direct access to the keys, MLABSO could still abuse bridge keys by abusing their access to the secure signing mechanism. Enforcing attestation of software using the keys can help mitigate this risk.</p>
-<h3 id="d3-time-lock-key-usage"><a class="header" href="#d3-time-lock-key-usage">D3: Time-Lock Key Usage</a></h3>
-<p><strong>User Journey</strong>: MLABSO can only reliably replace software using a key in a time-locked manner.</p>
-<p><strong>Justification</strong>: The software using a given key may require updates or replacement. Time-locking can allow this to occur without diminishing the benefits of attestations.</p>
+<h3 id="d1-apply-standardized-release-naming-convention"><a class="header" href="#d1-apply-standardized-release-naming-convention">D1: Apply standardized release naming convention</a></h3>
+<p><strong>User Journey</strong>: All users can easily identify the type of release, software units, and versioning of Movement technologies.</p>
+<p><strong>Justification</strong>: A standardized naming convention for releases will help developers understand the purpose of a release and the changes it contains. This will help developers make informed decisions about which releases to use.</p>
+<h3 id="d2-ensure-release-artifacts-can-be-fetched-programmatically-and-used-to-run-applications"><a class="header" href="#d2-ensure-release-artifacts-can-be-fetched-programmatically-and-used-to-run-applications">D2: Ensure release artifacts can be fetched programmatically and used to run applications</a></h3>
+<p><strong>User Journey</strong>: Operators can programmatically fetch release artifacts and use them to run applications.</p>
+<p><strong>Justification</strong>: Operators should be able to automate the process of fetching and deploying release artifacts. This will help ensure that applications are always running the latest versions of Movement technologies.</p>
+<h3 id="d3-initiate-all-releases-from-source-control"><a class="header" href="#d3-initiate-all-releases-from-source-control">D3: Initiate all releases from source control</a></h3>
+<p><strong>User Journey</strong>: Developers can initiate the release process from source control.</p>
+<p><strong>Justification</strong>: Releasing from source control ensures that the release process is repeatable and that all changes are tracked. This will help developers understand the history of a release and troubleshoot any issues that arise.</p>
+<h3 id="d4-define-standard-relationship-between-releases-and-governance"><a class="header" href="#d4-define-standard-relationship-between-releases-and-governance">D4: Define standard relationship between releases and governance</a></h3>
+<p><strong>User Journey</strong>: All users can understand the relationship between releases and governance, i.e., how a particular release gets voted in as canonical for a given set of Movement technologies.</p>
+<p><strong>Justification</strong>: A clear relationship between releases and governance will help users understand how releases are approved and what criteria they must meet. This will help users trust that releases are of high quality and meet the needs of the community.</p>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../../../index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../../Approved/main/MD/md-15/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../../../Review/l-monninger/long-range-attacks/MD/md-5/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../../Approved/main/MD/md-91/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -193,11 +201,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../../../index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../../Approved/main/MD/md-15/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../../../Review/l-monninger/long-range-attacks/MD/md-5/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../../Approved/main/MD/md-91/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -212,13 +220,13 @@
         </script>
 
 
-        <script src="../../../../../elasticlunr.min.js"></script>
-        <script src="../../../../../mark.min.js"></script>
-        <script src="../../../../../searcher.js"></script>
+        <script src="../../../../elasticlunr.min.js"></script>
+        <script src="../../../../mark.min.js"></script>
+        <script src="../../../../searcher.js"></script>
 
-        <script src="../../../../../clipboard.min.js"></script>
-        <script src="../../../../../highlight.js"></script>
-        <script src="../../../../../book.js"></script>
+        <script src="../../../../clipboard.min.js"></script>
+        <script src="../../../../highlight.js"></script>
+        <script src="../../../../book.js"></script>
 
         <!-- Custom JS scripts -->
 
