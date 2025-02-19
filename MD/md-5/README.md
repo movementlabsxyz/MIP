@@ -3,6 +3,7 @@
 - **Description**: Consider and model long-range attacks in the Fast Finality Settlement protocol.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz), Andreas Penzkofer
 
+
 ## Overview
 
 Long-range attacks are an inherent vulnerability to Proof-of-Stake (PoS) systems. Without an anchoring mechanisms blockchains are exposed to the risk of these.
