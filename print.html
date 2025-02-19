@@ -178,6 +178,7 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
 <li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
 <li><a href="Approved/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
+<li><a href="Approved/main/MIP/mip-61/">MIP-61: Relayer algorithm for the lock/mint Native Bridge</a></li>
 <li><a href="Approved/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
 <li><a href="Approved/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
 <li><a href="Approved/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
@@ -189,6 +190,7 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
+<li><a href="Approved/main/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
 <li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
 <li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
 </ul>
@@ -215,7 +217,6 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <li><a href="Review/l-monninger/aptos-gas-pool/MIP/mip-52/">MIP-52: Aptos Gas Pool</a></li>
 <li><a href="Review/l-monninger/the-biarritz-model/MIP/mip-54/">MIP-54: The Biarritz Model</a></li>
 <li><a href="Review/l-monninger/the-bilbao-model/MIP/mip-55/">MIP-55: The Bilbao Model</a></li>
-<li><a href="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/">MIP-61: Relayer algorithm for the lock/mint Native Bridge</a></li>
 <li><a href="Review/issue66/MDMIP-for-bridge-fees/MIP/mip-69/">MIP-69: Bridge Fees</a></li>
 <li><a href="Review/mip/informer-lockmintbridge/MIP/mip-71/">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
@@ -236,7 +237,6 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <li><a href="Review/mip/postconfirmation/MD/md-37/">MD-37: FFS: Postconfirmation</a></li>
 <li><a href="Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></li>
 <li><a href="Review/l-monninger/just-reward/MD/md-49/">MD-49: Movement L2 Gas Fees</a></li>
-<li><a href="Review/mip/relayer-bootstrap-and-reboot/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/issue66/MDMIP-for-bridge-fees/MD/md-69/">MD-69: Bridge fees</a></li>
 <li><a href="Review/mip/informer-lockmintbridge/MD/md-71/">MD-71: Informer service for the Lock/Mint-based Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></li>
@@ -254,6 +254,7 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
 <li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
 <li><a href="Approved/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
+<li><a href="Approved/main/MIP/mip-61/">MIP-61: Relayer algorithm for the lock/mint Native Bridge</a></li>
 <li><a href="Approved/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
 <li><a href="Approved/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
 <li><a href="Approved/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
@@ -265,6 +266,7 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
+<li><a href="Approved/main/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
 <li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
 <li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
 </ul>
@@ -291,7 +293,6 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <li><a href="Review/l-monninger/aptos-gas-pool/MIP/mip-52/">MIP-52: Aptos Gas Pool</a></li>
 <li><a href="Review/l-monninger/the-biarritz-model/MIP/mip-54/">MIP-54: The Biarritz Model</a></li>
 <li><a href="Review/l-monninger/the-bilbao-model/MIP/mip-55/">MIP-55: The Bilbao Model</a></li>
-<li><a href="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/">MIP-61: Relayer algorithm for the lock/mint Native Bridge</a></li>
 <li><a href="Review/issue66/MDMIP-for-bridge-fees/MIP/mip-69/">MIP-69: Bridge Fees</a></li>
 <li><a href="Review/mip/informer-lockmintbridge/MIP/mip-71/">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
@@ -312,7 +313,6 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <li><a href="Review/mip/postconfirmation/MD/md-37/">MD-37: FFS: Postconfirmation</a></li>
 <li><a href="Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></li>
 <li><a href="Review/l-monninger/just-reward/MD/md-49/">MD-49: Movement L2 Gas Fees</a></li>
-<li><a href="Review/mip/relayer-bootstrap-and-reboot/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/issue66/MDMIP-for-bridge-fees/MD/md-69/">MD-69: Bridge fees</a></li>
 <li><a href="Review/mip/informer-lockmintbridge/MD/md-71/">MD-71: Informer service for the Lock/Mint-based Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></li>
@@ -1435,6 +1435,256 @@ The <a href="https://cross-chainriskframework.github.io/framework/01intro/introd
 <h2 id="copyright-2"><a class="header" href="#copyright-2">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Approved/main/MIP/mip-60/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="mip-61-relayer-algorithm-for-the-lockmint-native-bridge"><a class="header" href="#mip-61-relayer-algorithm-for-the-lockmint-native-bridge">MIP-61: Relayer algorithm for the lock/mint Native Bridge</a></h1>
+<ul>
+<li><strong>Description</strong>: This MIP describes the process for continuous operation as well as the bootstrapping of the relayer in the lock/mint bridge.</li>
+<li><strong>Authors</strong>: Andreas Penzkofer, Philippe</li>
+</ul>
+<h2 id="abstract-7"><a class="header" href="#abstract-7">Abstract</a></h2>
+<p>We describe an algorithm that</p>
+<ul>
+<li>Continuously checks for <code>initiate_transfer</code> events on the source chain.</li>
+<li>Issues a <code>complete_transfer</code> transaction on the target chain if not done so far.</li>
+<li>Checks the completion of transfers on the target chain.</li>
+<li>Records the source chain block height, below which all transfers are completed on the target chain.</li>
+<li>Provides a bootstrap algorithm for the relayer.</li>
+</ul>
+<p>In this algorithm the target chain contract offers a <code>complete_transfer</code> function that records transfer by <code>nonce</code> and protects against re-issuance as any nonce can be only mapped to one transfer.</p>
+<h2 id="motivation-7"><a class="header" href="#motivation-7">Motivation</a></h2>
+<p>We would like to minimize the number of trusted components. In a minimal solution the relayer should only trust the source chain, the target chain and itself. Other trusted sources can be proposed optionally, but ideally no other trust assumptions should be utilized.</p>
+<p>Several complications:</p>
+<ul>
+<li>The <code>complete_transfer</code> transaction to the target chain for bridge transfers may fail, get lost, or other. Hence we cannot rely on delivery.</li>
+<li>The relayer may loose local memory.</li>
+<li>The relayer may have to be replaced.</li>
+<li>The relayer (or its replacement) MUST not ignore a single transfer.</li>
+<li>The relayer (or its replacement) MUST deliver eventually all transfers.</li>
+<li>The finality criteria on the source chain and target chain MUST be considered.</li>
+</ul>
+<p><strong>Bootstrapping</strong>
+Currently, when the relayer starts, it doesn’t reload the state that it has when it shuts down. If transfers are processed when the relayer stops, the transfers are lost and the relayer is not able to continue the transfer.</p>
+<p>Moreover, even if the data would be stored on where to continue, the relayer may crash for a variety of reasons. The relayer can go offline or crash. It needs to automatically understand which <code>complete_transfer</code> transactions it still needs to send to the target chain.</p>
+<h2 id="context"><a class="header" href="#context">Context</a></h2>
+<p>This algorithm is defined using the lock/mint-type Native Bridge protocol, described in <a href="https://github.com/movementlabsxyz/MIP/pull/58">MIP-58</a>.This bridge protocol has two function calls :</p>
+<ul>
+<li><code>initiate_transfer</code> on the source chain (called by user)</li>
+<li><code>complete_transfer</code> on the target chain (called by relayer)</li>
+</ul>
+<p>This algorithm is compatible with using finalized blocks (see the remark on L2 complete verification). By pulling only finalized source blocks, the nonce are always updated on finalization.</p>
+<p>In this MIP we consider the lock/mint Native Bridge, see <a href="https://github.com/movementlabsxyz/MIP/pull/60">MIP-60</a>. We will discuss a single direction of transfer - from <strong>source chain</strong> to <strong>target chain</strong>.</p>
+<h2 id="specification-7"><a class="header" href="#specification-7">Specification</a></h2>
+<p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
+<p>!!! . The algorithm is the same in both directions. Hence each algorithm has to be implemented twice. Once for the transfer direction L1 –&gt; L2, and once for the L2 –&gt; L1 direction.</p>
+<p>The relayer can get its state from the source chain and target chain. The relayer operates two processes - potentially in parallel:</p>
+<p><strong>1. CONTINUOUS_BLOCK_PROCESSING</strong>: The relayer pulls transfer events from new finalized blocks from the source chain and processes them. Since we consider finalized blocks and this is a blockchain, new blocks are processed in order. For each transfer the relayer has to check if the transfer is completed on the target chain, and if not it has to complete the transfer.</p>
+<p><strong>2. BOOTSTRAPPING:</strong> The relayer initiate the event polling at some point in the past. This point is either the genesis, some configurable source block height, or some checkpoint (possibly set on-chain)</p>
+<h3 id="assumptions-on-the-bridge-protocol"><a class="header" href="#assumptions-on-the-bridge-protocol">Assumptions on the Bridge Protocol</a></h3>
+<p><strong>Nonce</strong>:
+We assume the Native Bridge protocol MUST implement the assignment of an incrementing <code>nonce</code> on the source chain. Since there are two directions there MUST be two types of counters (<code>nonces</code>) - one for each transfer direction. The <code>nonce</code> is used to order the transfers.</p>
+<p><strong>Initiate Transfer</strong>:
+The <code>initiate_transfer</code> function on the source chain is called by the user. It emits an event <code>initiate_transfer</code> with the following properties:</p>
+<pre><code class="language-javascript">{
+    nonce: Number,          // Unique incrementing value for ordering transfers
+    recipient: String,  // Address of the recipient on the target chain
+    initiator: String,   // Address of the initiator on the source chain
+    amount: Number          // Amount being transferred
+}
+</code></pre>
+<p>This structure is used to record the transfer on the source chain.</p>
+<p><strong>Complete Transfer</strong>:
+The <code>complete_transfer</code> function on the target chain is called by the relayer. It emits an event <code>complete_transfer</code> with the following properties:</p>
+<pre><code class="language-javascript">{
+    nonce: Number,         // Matching nonce from the source chain
+    transferUID: String,   // Unique identifier for the transfer
+    recipient: String,     // Address of the recipient
+    initiator: String,      // Address of the initiator
+    amount: Number         // Amount that was transferred
+}
+</code></pre>
+<p>This structure is used to record the transfer on the target chain.</p>
+<h3 id="relayer-structures"><a class="header" href="#relayer-structures">Relayer Structures</a></h3>
+<p>Locally the relayer stores the following structure:</p>
+<pre><code class="language-javascript">// Relayer Local Structure
+{
+    nonces: {                          // Object keyed by nonce (integer)
+        [nonce: Number]: {             // Nonce as the integer key
+            blockHeight: Number,       // Height of the block containing the nonce
+            status: String,            // Status of the event
+            eventUID: String           // Unique identifier for the event
+        }
+    }
+}
+</code></pre>
+<p>The relayer differentiates three status types:</p>
+<ul>
+<li><code>transfer_initiated</code>: the event has been received but not processed and the <code>complete_transfer</code> transaction has not been sent to the target chain.</li>
+<li><code>transfer_pending</code>: the <code>complete_transfer</code> transaction has been sent to the target chain but is not yet finalized.</li>
+<li><code>transfer_completed</code>: we received the (finalized) complete event.</li>
+</ul>
+<p><strong>Optimization</strong>: There’s another substate for pending when the <code>complete_transfer</code> transaction failed. In this case we should retry earlier than if the <code>complete_transfer</code> transaction was successful. We MAY differentiate the state <code>transfer_pending_executed</code> and <code>transfer_pending_failed</code>.</p>
+<h3 id="initiate_transfer-events"><a class="header" href="#initiate_transfer-events">initiate_transfer events</a></h3>
+<h4 id="1-init_event_processing-algorithm"><a class="header" href="#1-init_event_processing-algorithm">1. INIT_EVENT_PROCESSING algorithm</a></h4>
+<p>For each <code>initiate_transfer</code> event do the following:</p>
+<p><img src="Approved/main/MIP/mip-61/init_event_processing.png" alt="event_processing" /></p>
+<pre><code class="language-javascript">INIT_EVENT_PROCESSING:
+// Input: initiate_transfer event from source chain
+// Input: target_chain_state - current state of the target chain
+SET `nonce` = `initiate_transfer_event.nonce` 
+    with nonce.status_transfer = `transfer_initiated`
+SET `transfer_uid` = `initiate_transfer_event.transfer_uid`
+
+// Check if the `nonce` is already recorded
+IF `nonce` is recorded THEN:
+    IF `nonce.status_transfer` is `transfer_completed` THEN:
+        RETURN.
+ELSE: 
+    CREATE new `nonce` entry locally and save it in ORDERED_SET.
+
+// note this is not the final state as is the case for most other state reads in this algorithm
+QUERY target chain contract for `nonce` in non-final and final state
+        
+// If `complete_transfer` transaction was sent previously to target chain
+IF `nonce` is found on target chain THEN:
+    IF `transfer_uid` does not match THEN:
+        REPORT error and EXIT
+
+    IF `nonce` transfer is final THEN:
+        SET `nonce.status_transfer` to `transfer_completed`
+        CLEAR cached data for `nonce` to free up memory
+    ELSE:
+        // the status should be `transfer_pending`
+        IF `nonce.status_transfer` is NOT `transfer_pending` THEN:
+            LOG "error: nonce.status_transfer is not transfer_pending"
+        SET `nonce.status_transfer` to `transfer_pending`
+        SET timeout for relayer to re-check later
+// If no `complete_transfer` transaction was sent 
+ELSE:
+    SEND `complete_transfer` transaction to target chain
+    SET `nonce.status_transfer` to `transfer_pending`
+    SET timeout for relayer to re-check later
+</code></pre>
+<blockquote>
+<p>[!NOTE]
+The relayer may send a transaction <code>complete_transfer</code> to the target chain for an entry that has the status <code>transfer_pending</code>. This status exists during the time between the sending and the finalized success of the <code>complete_transfer</code> transaction on the target chain.</p>
+</blockquote>
+<h4 id="2-continuous_block_processing-algorithm"><a class="header" href="#2-continuous_block_processing-algorithm">2. CONTINUOUS_BLOCK_PROCESSING algorithm</a></h4>
+<p>Next we describe the processing of source blocks and the completion of a transfer on the target chain, assuming the relayer is always online. Since this is a strong assumption, we reduce this requirement in the next section.</p>
+<p><img src="Approved/main/MIP/mip-61/continuous_processing.png" alt="continuous_processing" /></p>
+<pre><code class="language-javascript">CONTINUOUS_BLOCK_PROCESSING: 
+// Input: source_block - newly finalized block from source chain
+NEW `block` with blockHeight `source_block.height` in `blocks`
+
+// Process each initiate_transfer event
+FOR EACH `event` IN `source_block.initiate_transfer_events` DO:
+    RUN INIT_EVENT_PROCESSING(`event`)
+
+// Mark the block as processed, this 
+SET `block.status` as `block_processed`
+</code></pre>
+<blockquote>
+<p>[!NOTE]
+Setting the source_block.status as processed and storing that information in a file, or similar, could help with bootstrapping the relayer in the future.</p>
+</blockquote>
+<h4 id="3-process_finished_nonce_height-algorithm"><a class="header" href="#3-process_finished_nonce_height-algorithm">3. PROCESS_FINISHED_NONCE_HEIGHT algorithm</a></h4>
+<p>In this section the process is defined to calculate the completed part of the source chain <code>completed_block_height</code> and <code>completed_nonce_height</code>.</p>
+<p><img src="Approved/main/MIP/mip-61/complete_block_height.png" alt="complete_block_height" /></p>
+<p>Replace</p>
+<pre><code class="language-javascript">IF `nonce.status_transfer` is `transfer_completed` THEN:
+    RETURN
+</code></pre>
+<p>with</p>
+<pre><code class="language-javascript">PROCESS_FINISHED_NONCE_HEIGHT:
+IF `nonce.status_transfer` is `transfer_completed` THEN:
+    IF `nonce` is not `completed_nonce_height + 1` THEN: 
+        RETURN
+    ELSE:
+        SET `completed_nonce_height += 1`
+        // the following pruning is required to keep the memory sane.
+        DELETE every `nonce` with `nonce` &lt; `completed_nonce_height`
+        IF this `nonce` is the last nonce in the source block THEN:
+            SET `completed_block_height += 1`
+        IF the next `nonce.status_transfer` is `transfer_completed` THEN:
+            GOTO PROCESS_FINISHED_NONCE_HEIGHT
+        ELSE:
+            RETURN
+</code></pre>
+<h4 id="4-timeout-algorithm"><a class="header" href="#4-timeout-algorithm">4. TIMEOUT algorithm</a></h4>
+<p>Whenever the timeout of a transfer (which has <code>transfer_pending</code> status) is triggered. Start the event processing.</p>
+<pre><code class="language-javascript">TIMEOUT:
+// Input: timeoutTriggeredEvent - Event whose timeout has been triggered
+
+ON timeoutTriggered(`timeoutTriggeredEvent`) DO:
+    // Check if the transfer has a pending status
+    IF `timeoutTriggeredEvent.status` is `transfer_pending` THEN:
+        // Start the event processing for the triggered event
+        RUN EVENT_PROCESSING(`timeoutTriggeredEvent`).
+    ELSE:
+        // If status is not pending, ignore or log
+        LOG "Timeout triggered for a non-pending transfer.";
+</code></pre>
+<p><img src="Approved/main/MIP/mip-61/timeout.png" alt="alt text" /></p>
+<h3 id="complete_transfer-events"><a class="header" href="#complete_transfer-events">complete_transfer events</a></h3>
+<h4 id="1-complete_event_processing-algorithm"><a class="header" href="#1-complete_event_processing-algorithm">1. COMPLETE_EVENT_PROCESSING algorithm</a></h4>
+<p>Similar to the INIT_EVENT_PROCESSING algorithm, the COMPLETE_EVENT_PROCESSING algorithm processes the finalized <code>complete_transfer</code> events on the target chain.</p>
+<p>We can apply a similar algorithm as for the INIT_EVENT_PROCESSING algorithm.</p>
+<pre><code class="language-javascript">COMPLETE_EVENT_PROCESSING:
+// Input: complete_transfer event from target chain
+SET `nonce` = `complete_transfer_event.nonce` 
+    with nonce.status_transfer = `transfer_completed`
+SET `transfer_uid` = `complete_transfer_event.transfer_uid`
+
+// Check if the `nonce` is already recorded
+IF `nonce` is recorded THEN:
+    SET `nonce.status_transfer = transfer_completed` 
+ELSE: 
+    CREATE new `nonce` entry locally and save it in ORDERED_SET.
+
+RETURN.
+</code></pre>
+<p>As can be seen, the algorithm is simpler than the INIT_EVENT_PROCESSING algorithm.</p>
+<h4 id="2-process_finished_nonce_height-algorithm"><a class="header" href="#2-process_finished_nonce_height-algorithm">2. PROCESS_FINISHED_NONCE_HEIGHT algorithm</a></h4>
+<p>Similar to Section <a href="Approved/main/MIP/mip-61/index.html#PROCESS_FINISHED_NONCE_HEIGHT_algorithm">PROCESS_FINISHED_NONCE_HEIGHT</a>, we also utilize the <code>complete_transfer</code> events to calculate the <code>completed_block_height</code> and <code>completed_nonce_height</code> for the target chain.</p>
+<p>For this we replace the <code>RETURN</code> above with <code>PROCESS_FINISHED_NONCE_HEIGHT</code>.</p>
+<p><img src="Approved/main/MIP/mip-61/complete_event_processing.png" alt="alt text" /></p>
+<h3 id="bootstrap-algorithm"><a class="header" href="#bootstrap-algorithm">BOOTSTRAP algorithm</a></h3>
+<p>Next we describe how the bootstrap algorithm works and differs from the above.</p>
+<blockquote>
+<p>:bulb: A node that is bootstrapping SHOULD start the CONTINUOUS_BLOCK_PROCESSING algorithm in parallel. This allows to immediately assume normal operation while attempting to catch up with what has been missed.</p>
+</blockquote>
+<p><img src="Approved/main/MIP/mip-61/bootstrap.png" alt="alt text" /></p>
+<p>The Algorithm differs from the CONTINUOUS_BLOCK_PROCESSING in that it runs in parallel and will catch up with missing transfers eventually. While not hindering the continuous operation of the Relayer.</p>
+<p>The BOOTSTRAP algorithm will run for both the L1 and the L2 chains. Hence we have to set the <code>start_block</code> and <code>end_block</code> for both chains. On a given chain there will be both <code>initiate_transfer</code> and <code>complete_transfer</code> events, since the bridge is bi-directional.</p>
+<pre><code class="language-javascript">BOOTSTRAPPING
+// Start the continuous block pocessing protocol in parrallel to this algorithm
+START CONTINUOUS_BLOCK_PROCESSING protocol 
+SET `first_CP_block` = first processed block by CONTINUOUS_BLOCK_PROCESSING
+
+// Set initial processed block parameters
+SET `end_block` = `first_CP_block` - 1
+SET `start_block` = some INPUT value
+
+// Process source blocks in the specified range
+FOR `current_block` = `start_block` TO `end_block` DO:
+    RUN CONTINUOUS_BLOCK_PROCESSING using `current_block` as the block.
+</code></pre>
+<h4 id="bootstrap-input-types"><a class="header" href="#bootstrap-input-types">Bootstrap input types</a></h4>
+<p>The following input types are possible:</p>
+<p><strong>Manual input</strong>
+Based on knowledge of when the relayer stopped, we can inject a parameter about the block height from which the relayer should start to bootstrap. Default is the genesis or some arbitrary long interval in the past, e.g. 2 weeks.</p>
+<p><strong>Reading from local memory</strong>
+In the CONTINUOUS_BLOCK_PROCESSING Algorithm the Relayer can record the height of the block <code>completed_block_height</code> as described in the Calculation-Completed-Block-Height algorithm. When rebooting or bootstrapping the node, the relayer can start from the last point it left.</p>
+<p><strong>Reading from chain</strong>
+The relayer records on the source or target chain the <code>completed_block_height</code> (see <a href="Approved/main/MIP/mip-61/index.html#calculation-of-completed-source-block-height">PROCESS_FINISHED_NONCE_HEIGHT</a>. This can happen infrequent. A separate algorithm needs to be spelled out which records the highest source block, below which all source blocks with transfers are completed.</p>
+<h2 id="considered-alternatives"><a class="header" href="#considered-alternatives">Considered Alternatives</a></h2>
+<ol>
+<li>Use of indexer DB.</li>
+</ol>
+<p>This creates a dependency to another component. For example, if the postgres db has an issue, the relayer has an issue. Even thought the relayer doesn’t need the db to process.</p>
+<h2 id="reference-implementation-6"><a class="header" href="#reference-implementation-6">Reference Implementation</a></h2>
+<h2 id="verification-7"><a class="header" href="#verification-7">Verification</a></h2>
+<h2 id="appendix-7"><a class="header" href="#appendix-7">Appendix</a></h2>
+<h2 id="changelog-5"><a class="header" href="#changelog-5">Changelog</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-84-lock-mint-native-bridge-basics-of-relayer-trust-assumptions"><a class="header" href="#mip-84-lock-mint-native-bridge-basics-of-relayer-trust-assumptions">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></h1>
 <ul>
 <li><strong>Description</strong>: This MIP clarifies the trust assumptions for the Relayer, and what consequences should be drawn from these.</li>
@@ -1442,7 +1692,7 @@ The <a href="https://cross-chainriskframework.github.io/framework/01intro/introd
 <li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/blob/mip/rate-limiter-lock-mint-bridge/MD/md-74/README.md">MD-74</a></li>
 <li><strong>Approval</strong>: :white_check_mark:</li>
 </ul>
-<h2 id="abstract-7"><a class="header" href="#abstract-7">Abstract</a></h2>
+<h2 id="abstract-8"><a class="header" href="#abstract-8">Abstract</a></h2>
 <p>The lock/mint-type bridge has the following core actors and components: a user who initiates a transfer, a bridge operator, bridge contracts that facilitate the transfer, and a Relayer that submits the completion of the transfer to the bridge contracts.</p>
 <p>The trust assumptions on the Relayer component have significant implications for the security of the bridge and they can introduce the need for additional components.</p>
 <hr />
@@ -1450,7 +1700,7 @@ The <a href="https://cross-chainriskframework.github.io/framework/01intro/introd
 <p><strong>Figure 1</strong>: <em>The Relayer is in charge of <em>relaying</em> bridge transactions. If a user initiates a bridge transfer request on the L2 with a transaction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span> with a sender <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">s</span></span></span></span>, recipient <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span>, for an amount <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span></span></span></span>, we expect the Relayer to relay the request to the L1 with a matching transaction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span>. However, a compromised or buggy Relayer may tamper with the bridge transfer data and relay <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9463em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span> where <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9463em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span> may differ from <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span></span></span></span>. A fraudulent or buggy Relayer may also create a transaction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>, without a corresponding transaction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>.</em></p>
 <hr />
 <p>In a scenario based approach we clarify minimally required components and why they are needed. We distinguish between a trusted, partially trusted, and untrusted Relayer (with proofs).</p>
-<h2 id="motivation-7"><a class="header" href="#motivation-7">Motivation</a></h2>
+<h2 id="motivation-8"><a class="header" href="#motivation-8">Motivation</a></h2>
 <p>We need to clarify the trust assumptions for the Relayer and what consequences should be drawn from these. In many cases a rate limitation may be necessary, see also the Appendix <a href="Approved/main/MIP/mip-84/index.html#a1-background-eigenlayer">A1: Eigenlayer AVS</a>.</p>
 <p>This addresses the following desiderata in <a href="https://github.com/movementlabsxyz/MIP/blob/mip/rate-limiter-lock-mint-bridge/MD/md-74/README.md#D1">MD-74</a>:</p>
 <ul>
@@ -1463,7 +1713,7 @@ The <a href="https://cross-chainriskframework.github.io/framework/01intro/introd
 <li>All contracts are secure and reliable.</li>
 <li>The bridge operator is trusted.</li>
 </ol>
-<h2 id="specification-7"><a class="header" href="#specification-7">Specification</a></h2>
+<h2 id="specification-8"><a class="header" href="#specification-8">Specification</a></h2>
 <p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
 <p>We define the following terms:</p>
 <ul>
@@ -1563,10 +1813,10 @@ Option 2: Each FFS validator node MUST run a service that obtains (or gets from 
 <li>Timing:</li>
 </ul>
 <p>The expected time for the completion of the transfer is the time it takes is in the range of Postconfirmations and L1 finality time.</p>
-<h2 id="reference-implementation-6"><a class="header" href="#reference-implementation-6">Reference Implementation</a></h2>
-<h2 id="verification-7"><a class="header" href="#verification-7">Verification</a></h2>
-<h2 id="changelog-5"><a class="header" href="#changelog-5">Changelog</a></h2>
-<h2 id="appendix-7"><a class="header" href="#appendix-7">Appendix</a></h2>
+<h2 id="reference-implementation-7"><a class="header" href="#reference-implementation-7">Reference Implementation</a></h2>
+<h2 id="verification-8"><a class="header" href="#verification-8">Verification</a></h2>
+<h2 id="changelog-6"><a class="header" href="#changelog-6">Changelog</a></h2>
+<h2 id="appendix-8"><a class="header" href="#appendix-8">Appendix</a></h2>
 <h3 id="a1-background-eigenlayer"><a class="header" href="#a1-background-eigenlayer">A1: Background EigenLayer</a></h3>
 <p>In order to protect the protocol from exploits and potential losses, rate limiting is essential. For comparison the white paper <a href="https://docs.eigenlayer.xyz/assets/files/EigenLayer_WhitePaper-88c47923ca0319870c611decd6e562ad.pdf">EigenLayer: The Restaking Collective</a> proposes that AVS (Actively Validated Services) can run for a bridge and the stake of validators protects the transferred value crypto-economically through slashing conditions. More specifically section 3.4 Risk Management mentions</p>
 <blockquote>
@@ -1601,12 +1851,12 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <li><strong>Authors</strong>: Andreas Penzkofer, Primata</li>
 <li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/pull/74/files/MD/md-74/README.md">MD-74</a></li>
 </ul>
-<h2 id="abstract-8"><a class="header" href="#abstract-8">Abstract</a></h2>
+<h2 id="abstract-9"><a class="header" href="#abstract-9">Abstract</a></h2>
 <p>The design in <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a> considers that the insurance fund differs between the L1 and the L2. This MIP proposes a simplified design where the Insurance Fund is guaranteed to be the same on both sides.</p>
-<h2 id="motivation-8"><a class="header" href="#motivation-8">Motivation</a></h2>
+<h2 id="motivation-9"><a class="header" href="#motivation-9">Motivation</a></h2>
 <p>In the design in <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a> the rate limit is determined by the Insurance Fund on the target chain. The Governance Operator must ensure that the rate limit on the source chains is also set correctly. This means the Governance Operator is already active on both chain.</p>
 <p>Moreover, we may assume that the inflow to and outflow from \ tokens is the same on average.</p>
-<h2 id="specification-8"><a class="header" href="#specification-8">Specification</a></h2>
+<h2 id="specification-9"><a class="header" href="#specification-9">Specification</a></h2>
 <blockquote>
 <p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
 </blockquote>
@@ -1636,13 +1886,13 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <p>Let there be an Insurance Fund on the L2 (<code>L2InsuranceFund</code>) with token amount of value <code>InsuranceFundValueOnChain</code>. The Governance Operator MUST provide the value <code>InsuranceFundValueOnChain</code> to the Rate Limitation contract on L1 in a timely manner and reliably. Similar to the previous section, if we register the budget on a daily basis, for security reasons, we MUST only utilize one half of each direction’s Insurance fund budget per day.</p>
 <p>Since compared to the previous solution the funds are only held on one chain the rate limitation is now calculated as follows:</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">L</span><span class="mord mathnormal">imi</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">on source</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">L</span><span class="mord mathnormal">imi</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">on target</span></span><span class="mclose">)</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.3669em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">L</span><span class="mord mathnormal">imi</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">on source</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">L</span><span class="mord mathnormal">imi</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.3669em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord texttt">InsuranceFundValueOnChain</span></span><span class="mord">/4</span></span></span></span></span></p>
-<h2 id="reference-implementation-7"><a class="header" href="#reference-implementation-7">Reference Implementation</a></h2>
+<h2 id="reference-implementation-8"><a class="header" href="#reference-implementation-8">Reference Implementation</a></h2>
 <ul>
 <li><a href="https://github.com/movementlabsxyz/movement/pull/992">Solidity</a></li>
 <li><a href="https://github.com/movementlabsxyz/aptos-core/pull/113">Move</a></li>
 </ul>
-<h2 id="verification-8"><a class="header" href="#verification-8">Verification</a></h2>
-<h2 id="appendix-8"><a class="header" href="#appendix-8">Appendix</a></h2>
+<h2 id="verification-9"><a class="header" href="#verification-9">Verification</a></h2>
+<h2 id="appendix-9"><a class="header" href="#appendix-9">Appendix</a></h2>
 <h2 id="copyright-4"><a class="header" href="#copyright-4">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Approved/main/MIP/mip-88/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
@@ -1652,11 +1902,11 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <li><strong>Authors</strong>: <a href="mailto:andy.golay@movementlabs.xyz">Andy Golay</a></li>
 <li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/pull/93">MD-93</a></li>
 </ul>
-<h2 id="abstract-9"><a class="header" href="#abstract-9">Abstract</a></h2>
+<h2 id="abstract-10"><a class="header" href="#abstract-10">Abstract</a></h2>
 <p>This document formalizes parent-child MIPs.</p>
-<h2 id="motivation-9"><a class="header" href="#motivation-9">Motivation</a></h2>
+<h2 id="motivation-10"><a class="header" href="#motivation-10">Motivation</a></h2>
 <p>For more complex MIPs, or MIPs which have implementations specific to various software stacks, infrastructure providers, etc., it can makes sense for the sake of organization to have child MIPs to add specific details, rather than making the parent MIP too verbose or cluttered.</p>
-<h2 id="specification-9"><a class="header" href="#specification-9">Specification</a></h2>
+<h2 id="specification-10"><a class="header" href="#specification-10">Specification</a></h2>
 <p>To create a child MIP:</p>
 <ol>
 <li>
@@ -1670,16 +1920,16 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <p>Add a <code>README.md</code> fill containing the child MIP contents. Follow the <a href="Approved/main/MIP/mip-94/../../mip-template.html">MIP template</a> but don’t repeat redundant information from the parent MIP.</p>
 </li>
 </ol>
-<h2 id="reference-implementation-8"><a class="header" href="#reference-implementation-8">Reference Implementation</a></h2>
+<h2 id="reference-implementation-9"><a class="header" href="#reference-implementation-9">Reference Implementation</a></h2>
 <p>This MIP contains a reference implementation of parent-child MIPs:</p>
 <p><img src="Approved/main/MIP/mip-94/image.png" alt="parent-child MIP reference" /></p>
 <ul>
 <li>The parent MIP is MIP 94.</li>
 <li>Within the <code>mip-94</code> directory are two folders: <code>mip-94.1</code> and <code>mip-94.2</code>, each with their own <code>README.md</code> file.</li>
 </ul>
-<h2 id="verification-9"><a class="header" href="#verification-9">Verification</a></h2>
-<h2 id="changelog-6"><a class="header" href="#changelog-6">Changelog</a></h2>
-<h2 id="appendix-9"><a class="header" href="#appendix-9">Appendix</a></h2>
+<h2 id="verification-10"><a class="header" href="#verification-10">Verification</a></h2>
+<h2 id="changelog-7"><a class="header" href="#changelog-7">Changelog</a></h2>
+<h2 id="appendix-10"><a class="header" href="#appendix-10">Appendix</a></h2>
 <h2 id="copyright-5"><a class="header" href="#copyright-5">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Approved/main/MIP/mip-94/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
@@ -1694,6 +1944,7 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
 <li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
 <li><a href="Approved/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
+<li><a href="Approved/main/MIP/mip-61/">MIP-61: Relayer algorithm for the lock/mint Native Bridge</a></li>
 <li><a href="Approved/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
 <li><a href="Approved/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
 <li><a href="Approved/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
@@ -1705,6 +1956,7 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
+<li><a href="Approved/main/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
 <li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
 <li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
 </ul>
@@ -1731,7 +1983,6 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <li><a href="Review/l-monninger/aptos-gas-pool/MIP/mip-52/">MIP-52: Aptos Gas Pool</a></li>
 <li><a href="Review/l-monninger/the-biarritz-model/MIP/mip-54/">MIP-54: The Biarritz Model</a></li>
 <li><a href="Review/l-monninger/the-bilbao-model/MIP/mip-55/">MIP-55: The Bilbao Model</a></li>
-<li><a href="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/">MIP-61: Relayer algorithm for the lock/mint Native Bridge</a></li>
 <li><a href="Review/issue66/MDMIP-for-bridge-fees/MIP/mip-69/">MIP-69: Bridge Fees</a></li>
 <li><a href="Review/mip/informer-lockmintbridge/MIP/mip-71/">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
@@ -1752,7 +2003,6 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <li><a href="Review/mip/postconfirmation/MD/md-37/">MD-37: FFS: Postconfirmation</a></li>
 <li><a href="Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></li>
 <li><a href="Review/l-monninger/just-reward/MD/md-49/">MD-49: Movement L2 Gas Fees</a></li>
-<li><a href="Review/mip/relayer-bootstrap-and-reboot/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/issue66/MDMIP-for-bridge-fees/MD/md-69/">MD-69: Bridge fees</a></li>
 <li><a href="Review/mip/informer-lockmintbridge/MD/md-71/">MD-71: Informer service for the Lock/Mint-based Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></li>
@@ -1868,7 +2118,7 @@ Consider the following parameters for the commitment tolerance window:</p>
 <li>Commitment happens only after some time has passed, forcing some degree of synchronization.</li>
 <li>Reward decay: a function describing the diminishing returns of rewards later in the window.</li>
 </ul>
-<h2 id="changelog-7"><a class="header" href="#changelog-7">Changelog</a></h2>
+<h2 id="changelog-8"><a class="header" href="#changelog-8">Changelog</a></h2>
 <p>2025-01-28: consider and rewrite towards the Postconfirmation protocol. Remove the additional asynchronous-upgrades-problem as it requires review.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-4-postconfirmation-gas-costs-and-rewards"><a class="header" href="#md-4-postconfirmation-gas-costs-and-rewards">MD-4: Postconfirmation: Gas Costs and Rewards</a></h1>
@@ -1899,7 +2149,7 @@ The current implementation of MCR does not reward the last validator. This could
 A researcher or protocol implementer can understand the game theory of gas costs when  incomplete information.</p>
 <p><strong>Justification</strong>:
 Information incompleteness may improve the game theory of costs and rewards. Provide models which demonstrate this for incompleteness derived from network latency, randomness in the rewards, and more.</p>
-<h2 id="changelog-8"><a class="header" href="#changelog-8">Changelog</a></h2>
+<h2 id="changelog-9"><a class="header" href="#changelog-9">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-15-movement-glossary"><a class="header" href="#md-15-movement-glossary">MD-15: Movement Glossary</a></h1>
 <ul>
@@ -1947,7 +2197,7 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <ul>
 <li>MD can also introduce MG to further aid in clarity, but they will not be ratified until they have been supported in an MIP.</li>
 </ul>
-<h2 id="changelog-9"><a class="header" href="#changelog-9">Changelog</a></h2>
+<h2 id="changelog-10"><a class="header" href="#changelog-10">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-23-define-artifact-releases-for-movement-technologies"><a class="header" href="#md-23-define-artifact-releases-for-movement-technologies">MD-23: Define Artifact Releases for Movement Technologies</a></h1>
 <ul>
@@ -1972,16 +2222,43 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <h3 id="d4-define-standard-relationship-between-releases-and-governance"><a class="header" href="#d4-define-standard-relationship-between-releases-and-governance">D4: Define standard relationship between releases and governance</a></h3>
 <p><strong>User Journey</strong>: All users can understand the relationship between releases and governance, i.e., how a particular release gets voted in as canonical for a given set of Movement technologies.</p>
 <p><strong>Justification</strong>: A clear relationship between releases and governance will help users understand how releases are approved and what criteria they must meet. This will help users trust that releases are of high quality and meet the needs of the community.</p>
-<h2 id="changelog-10"><a class="header" href="#changelog-10">Changelog</a></h2>
+<h2 id="changelog-11"><a class="header" href="#changelog-11">Changelog</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="md-61-relayer-algorithm-for-the-lockmint-native-bridge"><a class="header" href="#md-61-relayer-algorithm-for-the-lockmint-native-bridge">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></h1>
+<ul>
+<li><strong>Description</strong>: A desiderata for the relayer in the lock/mint bridge, focusing on event processing, transfer completion, and robust recovery mechanisms.</li>
+<li><strong>Authors</strong>: Andreas Penzkofer, Philippe</li>
+<li><strong>Approval</strong>: :white_check_mark:</li>
+</ul>
+<h2 id="overview-5"><a class="header" href="#overview-5">Overview</a></h2>
+<p>This desiderata outlines the desired functionalities and recovery mechanisms for a Relayer handling the completion of transfers in the lock/mint Native Bridge protocol. It emphasizes uninterrupted operation, recovery from failure, and minimal dependencies.</p>
+<h2 id="desiderata-5"><a class="header" href="#desiderata-5">Desiderata</a></h2>
+<h3 id="d1-continuous-event-processing"><a class="header" href="#d1-continuous-event-processing">D1: Continuous Event Processing</a></h3>
+<p><strong>User Journey</strong>: The relayer continuously processes events from the source chain, created from user transfer requests, and ensures their completion on the target chain.</p>
+<p><strong>Justification</strong>: Guarantees the seamless execution of cross-chain transfers and minimizes delays or interruptions.</p>
+<h3 id="d2-robust-bootstrapping-mechanism"><a class="header" href="#d2-robust-bootstrapping-mechanism">D2: Robust Bootstrapping Mechanism</a></h3>
+<p><strong>User Journey</strong>: Upon restart, the relayer automatically determines the state of pending transfers and resumes processing without requiring manual intervention.</p>
+<p><strong>Justification</strong>: Ensures resilience and reliability even after unexpected failures or downtime.</p>
+<h3 id="d3-finality-aware-processing"><a class="header" href="#d3-finality-aware-processing">D3: Finality-aware Processing</a></h3>
+<p><strong>User Journey</strong>: The relayer respects the finality rules of both source and target chains. It ensures transfers are only processed once finalized on the source chain. It considers the finality of the target chain for completing transactions.</p>
+<p><strong>Justification</strong>: Prevents inconsistencies and sending duplicate transfer-completing transactions.</p>
+<h3 id="d4-minimal-trusted-components"><a class="header" href="#d4-minimal-trusted-components">D4: Minimal Trusted Components</a></h3>
+<p><strong>User Journey</strong>: The relayer operates independently without reliance on external indexers or databases.</p>
+<p><strong>Justification</strong>: Reduces operational complexity and points of failure, enhancing system robustness.</p>
+<h3 id="d5-timeout-and-retry-mechanism"><a class="header" href="#d5-timeout-and-retry-mechanism">D5: Timeout and Retry Mechanism</a></h3>
+<p><strong>User Journey</strong>: Pending transfers are retried automatically after a timeout, ensuring eventual completion without manual oversight.</p>
+<p><strong>Justification</strong>: Improves the reliability of the relayer by handling transient errors and network issues gracefully.</p>
+<p><strong>Recommendations</strong>: Implement a configurable timeout period for retries.</p>
+<h2 id="changelog-12"><a class="header" href="#changelog-12">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-91-define-move-stack-and-movement-sdk"><a class="header" href="#md-91-define-move-stack-and-movement-sdk">MD-91: Define Move Stack and Movement SDK</a></h1>
 <ul>
 <li><strong>Description</strong>: Define the Move Stack and the Movement SDK to provide clear categorization of our software components and standardize language around the Movement technologies.</li>
 <li><strong>Authors</strong>: Andreas Penzkofer</li>
 </ul>
-<h2 id="overview-5"><a class="header" href="#overview-5">Overview</a></h2>
+<h2 id="overview-6"><a class="header" href="#overview-6">Overview</a></h2>
 <p>The Move Stack and Movement SDK are foundational components for Movement technologies, aimed at empowering developers with standardized tools, interfaces, and services for building, interacting with, and maintaining Movement Labs’ networks and dApps.</p>
-<h2 id="desiderata-5"><a class="header" href="#desiderata-5">Desiderata</a></h2>
+<h2 id="desiderata-6"><a class="header" href="#desiderata-6">Desiderata</a></h2>
 <h3 id="d1-standardization-of-development-stack"><a class="header" href="#d1-standardization-of-development-stack">D1: Standardization of Development Stack</a></h3>
 <p><strong>User Journey</strong>: Developers can utilize a well-documented stack to build and maintain Movement Labs’ networks and dApps.</p>
 <p><strong>Justification</strong>: Ensures high quality of documentation.</p>
@@ -1997,14 +2274,14 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <h3 id="d4-reduce-confusion-between-sdk-and-stack"><a class="header" href="#d4-reduce-confusion-between-sdk-and-stack">D4: Reduce confusion between SDK and Stack</a></h3>
 <p><strong>User Journey</strong>: Developers are able to understand what the SDK implies.</p>
 <p><strong>Justification</strong>: There has been much confusion about what the SDK constitutes. There is great need for clarification to align language in the ecosystem.</p>
-<h2 id="changelog-11"><a class="header" href="#changelog-11">Changelog</a></h2>
+<h2 id="changelog-13"><a class="header" href="#changelog-13">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-93-parent-child-mips"><a class="header" href="#md-93-parent-child-mips">MD-93: Parent-Child MIPs</a></h1>
 <ul>
 <li><strong>Description</strong>: Provide formal structure for parent and child MIPs.</li>
 <li><strong>Authors</strong>: <a href="mailto:andy.golay@movementlabs.xyz">Andy Golay</a></li>
 </ul>
-<h2 id="overview-6"><a class="header" href="#overview-6">Overview</a></h2>
+<h2 id="overview-7"><a class="header" href="#overview-7">Overview</a></h2>
 <p>Provide formal structure for parent-child MIPs. For more complicated MIPs, or MIPs which have implementations specific to various software stacks, infrastructure providers, etc., it can make sense for the sake of organization to have child MIPs to add specific details, rather than making the parent MIP too verbose or cluttered.</p>
 <h2 id="definitions-2"><a class="header" href="#definitions-2">Definitions</a></h2>
 <ul>
@@ -2015,11 +2292,11 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <p><strong>Child MIP</strong>: Also MAY be referred to as a sub-MIP. Child MIPs give detail on specific domains referenced within a parent MIP. They are substantial enough that they make sense to refactor into MIPs associated with the parent MIP.</p>
 </li>
 </ul>
-<h2 id="desiderata-6"><a class="header" href="#desiderata-6">Desiderata</a></h2>
+<h2 id="desiderata-7"><a class="header" href="#desiderata-7">Desiderata</a></h2>
 <h3 id="d1-convention-for-parent-and-child-mip-file-organization-and-naming"><a class="header" href="#d1-convention-for-parent-and-child-mip-file-organization-and-naming">D1: Convention for parent and child MIP file organization and naming</a></h3>
 <p><strong>User Journey</strong>: Proposer can adhere to a standardized template for substantial, detailed subsections of MIPs which warrant being categorized as their own related child MIP.</p>
 <p><strong>Justification</strong>: The file organization and naming must be consistent, so there should be a formal convention.</p>
-<h2 id="changelog-12"><a class="header" href="#changelog-12">Changelog</a></h2>
+<h2 id="changelog-14"><a class="header" href="#changelog-14">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-3"><a class="header" href="#welcome-to-the-movement-network-mip-book-3">Welcome to the Movement Network MIP Book</a></h1>
 <h2 id="approved-3"><a class="header" href="#approved-3">Approved</a></h2>
@@ -2032,6 +2309,7 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
 <li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
 <li><a href="Approved/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
+<li><a href="Approved/main/MIP/mip-61/">MIP-61: Relayer algorithm for the lock/mint Native Bridge</a></li>
 <li><a href="Approved/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
 <li><a href="Approved/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
 <li><a href="Approved/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
@@ -2043,6 +2321,7 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
+<li><a href="Approved/main/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
 <li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
 <li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
 </ul>
@@ -2069,7 +2348,6 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <li><a href="Review/l-monninger/aptos-gas-pool/MIP/mip-52/">MIP-52: Aptos Gas Pool</a></li>
 <li><a href="Review/l-monninger/the-biarritz-model/MIP/mip-54/">MIP-54: The Biarritz Model</a></li>
 <li><a href="Review/l-monninger/the-bilbao-model/MIP/mip-55/">MIP-55: The Bilbao Model</a></li>
-<li><a href="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/">MIP-61: Relayer algorithm for the lock/mint Native Bridge</a></li>
 <li><a href="Review/issue66/MDMIP-for-bridge-fees/MIP/mip-69/">MIP-69: Bridge Fees</a></li>
 <li><a href="Review/mip/informer-lockmintbridge/MIP/mip-71/">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
@@ -2090,7 +2368,6 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <li><a href="Review/mip/postconfirmation/MD/md-37/">MD-37: FFS: Postconfirmation</a></li>
 <li><a href="Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></li>
 <li><a href="Review/l-monninger/just-reward/MD/md-49/">MD-49: Movement L2 Gas Fees</a></li>
-<li><a href="Review/mip/relayer-bootstrap-and-reboot/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/issue66/MDMIP-for-bridge-fees/MD/md-69/">MD-69: Bridge fees</a></li>
 <li><a href="Review/mip/informer-lockmintbridge/MD/md-71/">MD-71: Informer service for the Lock/Mint-based Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></li>
@@ -2121,6 +2398,7 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
 <li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
 <li><a href="Approved/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
+<li><a href="Approved/main/MIP/mip-61/">MIP-61: Relayer algorithm for the lock/mint Native Bridge</a></li>
 <li><a href="Approved/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
 <li><a href="Approved/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
 <li><a href="Approved/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
@@ -2132,6 +2410,7 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
+<li><a href="Approved/main/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
 <li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
 <li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
 </ul>
@@ -2158,7 +2437,6 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <li><a href="Review/l-monninger/aptos-gas-pool/MIP/mip-52/">MIP-52: Aptos Gas Pool</a></li>
 <li><a href="Review/l-monninger/the-biarritz-model/MIP/mip-54/">MIP-54: The Biarritz Model</a></li>
 <li><a href="Review/l-monninger/the-bilbao-model/MIP/mip-55/">MIP-55: The Bilbao Model</a></li>
-<li><a href="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/">MIP-61: Relayer algorithm for the lock/mint Native Bridge</a></li>
 <li><a href="Review/issue66/MDMIP-for-bridge-fees/MIP/mip-69/">MIP-69: Bridge Fees</a></li>
 <li><a href="Review/mip/informer-lockmintbridge/MIP/mip-71/">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
@@ -2179,7 +2457,6 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <li><a href="Review/mip/postconfirmation/MD/md-37/">MD-37: FFS: Postconfirmation</a></li>
 <li><a href="Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></li>
 <li><a href="Review/l-monninger/just-reward/MD/md-49/">MD-49: Movement L2 Gas Fees</a></li>
-<li><a href="Review/mip/relayer-bootstrap-and-reboot/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/issue66/MDMIP-for-bridge-fees/MD/md-69/">MD-69: Bridge fees</a></li>
 <li><a href="Review/mip/informer-lockmintbridge/MD/md-71/">MD-71: Informer service for the Lock/Mint-based Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></li>
@@ -2197,6 +2474,7 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
 <li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
 <li><a href="Approved/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
+<li><a href="Approved/main/MIP/mip-61/">MIP-61: Relayer algorithm for the lock/mint Native Bridge</a></li>
 <li><a href="Approved/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
 <li><a href="Approved/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
 <li><a href="Approved/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
@@ -2208,6 +2486,7 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
+<li><a href="Approved/main/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
 <li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
 <li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
 </ul>
@@ -2234,7 +2513,6 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <li><a href="Review/l-monninger/aptos-gas-pool/MIP/mip-52/">MIP-52: Aptos Gas Pool</a></li>
 <li><a href="Review/l-monninger/the-biarritz-model/MIP/mip-54/">MIP-54: The Biarritz Model</a></li>
 <li><a href="Review/l-monninger/the-bilbao-model/MIP/mip-55/">MIP-55: The Bilbao Model</a></li>
-<li><a href="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/">MIP-61: Relayer algorithm for the lock/mint Native Bridge</a></li>
 <li><a href="Review/issue66/MDMIP-for-bridge-fees/MIP/mip-69/">MIP-69: Bridge Fees</a></li>
 <li><a href="Review/mip/informer-lockmintbridge/MIP/mip-71/">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
@@ -2255,7 +2533,6 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <li><a href="Review/mip/postconfirmation/MD/md-37/">MD-37: FFS: Postconfirmation</a></li>
 <li><a href="Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></li>
 <li><a href="Review/l-monninger/just-reward/MD/md-49/">MD-49: Movement L2 Gas Fees</a></li>
-<li><a href="Review/mip/relayer-bootstrap-and-reboot/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/issue66/MDMIP-for-bridge-fees/MD/md-69/">MD-69: Bridge fees</a></li>
 <li><a href="Review/mip/informer-lockmintbridge/MD/md-71/">MD-71: Informer service for the Lock/Mint-based Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></li>
@@ -2268,15 +2545,15 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <li><strong>Authors</strong>: <a href="mailto:mikhail.zabaluev@movementlabs.xyz">Mikhail Zabaluev</a></li>
 <li><strong>Desiderata</strong>: <a href="Review/mikhail/suzuka-da-migrations/MIP/mip-13/../MD/md-13">MD-13</a></li>
 </ul>
-<h2 id="abstract-10"><a class="header" href="#abstract-10">Abstract</a></h2>
+<h2 id="abstract-11"><a class="header" href="#abstract-11">Abstract</a></h2>
 <p>The format of a well-known file defining migrations of the DA blob format enacted on specified
 block heights.
 This would be a hardfork or coordinated approach (TODO: clarify terminology) to upgrades, in that
 each node participating in the network SHOULD be deployed with an up to date copy of the file
 describing the migrations up to and above the current block height.</p>
-<h2 id="motivation-10"><a class="header" href="#motivation-10">Motivation</a></h2>
+<h2 id="motivation-11"><a class="header" href="#motivation-11">Motivation</a></h2>
 <p>In order to allow for safe upgrades, data model changes, and DA migrations, it has been proposed that we provide a data format which describes the canonical state of the DA over time.</p>
-<h2 id="specification-10"><a class="header" href="#specification-10">Specification</a></h2>
+<h2 id="specification-11"><a class="header" href="#specification-11">Specification</a></h2>
 <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
 <h3 id="da-migration-configuration-format"><a class="header" href="#da-migration-configuration-format">DA Migration Configuration Format</a></h3>
 <p>The format of a well-known file defining migrations is a JSON serialization of a map where keys
@@ -2336,13 +2613,13 @@ field.</p>
 implementation SHALL result in rejecting the configuration and reporting an error.
 The implementation MAY check the compatibility requirement given by <code>node_version</code>
 before reporting errors on unsupported values.</p>
-<h2 id="reference-implementation-9"><a class="header" href="#reference-implementation-9">Reference Implementation</a></h2>
+<h2 id="reference-implementation-10"><a class="header" href="#reference-implementation-10">Reference Implementation</a></h2>
 <!--
   The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
 
   TODO: Remove this comment before submitting
 -->
-<h2 id="verification-10"><a class="header" href="#verification-10">Verification</a></h2>
+<h2 id="verification-11"><a class="header" href="#verification-11">Verification</a></h2>
 <!--
 
   All proposals must contain a section that discusses the various aspects of verification pertinent to the introduced changes. This section should address:
@@ -2375,7 +2652,7 @@ before reporting errors on unsupported values.</p>
   TODO: Maintain this comment.
 -->
 <hr />
-<h2 id="appendix-10"><a class="header" href="#appendix-10">Appendix</a></h2>
+<h2 id="appendix-11"><a class="header" href="#appendix-11">Appendix</a></h2>
 <!--
   The Appendix should contain an enumerated list of reference materials and notes.
 
@@ -2393,13 +2670,13 @@ before reporting errors on unsupported values.</p>
 <li><strong>Authors</strong>: <a href="mailto:primata@movementlabs.xyz">Primata</a></li>
 <li><strong>Desiderata</strong>:</li>
 </ul>
-<h2 id="abstract-11"><a class="header" href="#abstract-11">Abstract</a></h2>
+<h2 id="abstract-12"><a class="header" href="#abstract-12">Abstract</a></h2>
 <p>MIP-18 advocates for the creation of two multisigs: one managed by Core Contributors engineers to propose contract upgrades and another managed by the Movement Foundation to execute them. This proposal enables testing of multisig services while ensuring secure and transparent upgrade processes for the Movement Token. The multisigs will be deployed on Ethereum, Sepolia, and Holesky (if available) networks.</p>
-<h2 id="motivation-11"><a class="header" href="#motivation-11">Motivation</a></h2>
+<h2 id="motivation-12"><a class="header" href="#motivation-12">Motivation</a></h2>
 <p>There is an immediate need to deploy the Movement Token (MOVEToken) using a robust, secure, and auditable upgrade mechanism. By creating two multisigs—one for proposal and one for execution—we ensure a transparent and decentralized governance process over upgrades to critical contracts.</p>
 <p>The first multisig allows Core Contributors engineers to propose upgrades via Safe’s multisig service. A remote key will automate the population of upgrade proposals. The second multisig, held by the Movement Foundation, will be responsible for executing the scheduled upgrades after a time delay, ensuring community trust and review.</p>
 <p>Also, while developing an independent multisig, handling signature showed to be an issue that might be indicative of better letting signature to be handled by safe.global.</p>
-<h2 id="specification-11"><a class="header" href="#specification-11">Specification</a></h2>
+<h2 id="specification-12"><a class="header" href="#specification-12">Specification</a></h2>
 <h3 id="multisig-setup"><a class="header" href="#multisig-setup">Multisig Setup</a></h3>
 <ol>
 <li>
@@ -2467,9 +2744,9 @@ before reporting errors on unsupported values.</p>
 <li>Multisig can fully transition to a fully automated KMS setup once we have that in place. MOVE Token deployment did not follow all procedures, dependency contracts were deployed by an EOA.</li>
 <li>Movement Foundation Safe will have ownership of Token Upgradeability - as far as I understood, please correct me if I’m wrong.</li>
 </ul>
-<h2 id="reference-implementation-10"><a class="header" href="#reference-implementation-10">Reference Implementation</a></h2>
+<h2 id="reference-implementation-11"><a class="header" href="#reference-implementation-11">Reference Implementation</a></h2>
 <p>The multisigs will be deployed using the Safe global multisig service, with contracts interacting through the SafeKit API. The remote key will automate transaction proposals for review by Core Contributors engineers.</p>
-<h2 id="verification-11"><a class="header" href="#verification-11">Verification</a></h2>
+<h2 id="verification-12"><a class="header" href="#verification-12">Verification</a></h2>
 <ol>
 <li>
 <p><strong>Correctness</strong>:<br />
@@ -2504,7 +2781,7 @@ Current Governance proposals have indicated that we should have full automation 
 </ol>
 <h2 id="errata-3"><a class="header" href="#errata-3">Errata</a></h2>
 <p>Any post-publication corrections or updates to this MIP will be documented here to maintain transparency and accuracy.</p>
-<h2 id="appendix-11"><a class="header" href="#appendix-11">Appendix</a></h2>
+<h2 id="appendix-12"><a class="header" href="#appendix-12">Appendix</a></h2>
 <ul>
 <li>[R1] Safe Multisig: https://safe.global/</li>
 <li>[R2] SafeKit API Documentation: https://docs.safe.global/sdk/api-kit</li>
@@ -2515,9 +2792,9 @@ Current Governance proposals have indicated that we should have full automation 
 <li><strong>Description</strong>: How to calculate gas fees for transactions on Movement L2.</li>
 <li><strong>Authors</strong>: <a href="mailto:franck.cassez@movementlabs.xyz">Franck Cassez</a></li>
 </ul>
-<h2 id="abstract-12"><a class="header" href="#abstract-12">Abstract</a></h2>
+<h2 id="abstract-13"><a class="header" href="#abstract-13">Abstract</a></h2>
 <p>This MIP describes the structure of the gas fees and overall resource consumption needed to execute, and post a transaction to the DA/L1.</p>
-<h2 id="motivation-12"><a class="header" href="#motivation-12">Motivation</a></h2>
+<h2 id="motivation-13"><a class="header" href="#motivation-13">Motivation</a></h2>
 <p>The transaction fees on L2s are multi-dimensional [<a href="Review/gas-fee-calculation/MIP/mip-19/index.html#ref-9">9</a>, <a href="Review/gas-fee-calculation/MIP/mip-19/index.html#ref-10">10</a>]. They comprise of <em>execution fees</em>, <em>settlement fees</em> and <em>data availability fees</em>.
 This MIP describes what the different types of fees are, and how the transaction fees can be computed.</p>
 <h2 id="scope-of-this-mip"><a class="header" href="#scope-of-this-mip">Scope of this MIP</a></h2>
@@ -2666,11 +2943,11 @@ We have not finalised the FFS details yet so it may be premature to try and defi
 <li><strong>Authors</strong>: <a href="mailto:andy.bell@movementlabs.xyz">Andy Bell</a></li>
 <li><strong>Desiderata</strong>: <a href="Review/andyjsbell/unwanted-framework/MIP/mip-24/../MD/md-0">MD-0</a></li>
 </ul>
-<h2 id="abstract-13"><a class="header" href="#abstract-13">Abstract</a></h2>
+<h2 id="abstract-14"><a class="header" href="#abstract-14">Abstract</a></h2>
 <p>The use of Movement’s fork of aptos core for the Movement Network is a subset of its total.  There are significant areas in this repository which are not used from a node, tooling and framework perspective.  Due to the size of the repository this MIP will only consider the redundancy inherited from the aptos framework.</p>
-<h2 id="motivation-13"><a class="header" href="#motivation-13">Motivation</a></h2>
+<h2 id="motivation-14"><a class="header" href="#motivation-14">Motivation</a></h2>
 <p>With the Movement network only using a subset Movement’s fork of aptos core we are introducing technical debt and opening the framework to attack vectors for functionality not used in the context of Movement’s network fork.  Large areas of code can be removed to alleviate this issue and provide more security assurances</p>
-<h2 id="specification-12"><a class="header" href="#specification-12">Specification</a></h2>
+<h2 id="specification-13"><a class="header" href="#specification-13">Specification</a></h2>
 <p>With closer inspection of the Movement fork of aptos core we are able to quickly identify areas of functionality that are not required in the context of the Movement network.  The following would be modules which would be strong candidates to be removed.</p>
 <ul>
 <li>
@@ -2729,11 +3006,11 @@ We have not finalised the FFS details yet so it may be premature to try and defi
 </li>
 </ul>
 <p>The initialisation and functioning of these modules are coupled with the VM directly and hence would require decoupling of this functionality at the VM level.</p>
-<h2 id="reference-implementation-11"><a class="header" href="#reference-implementation-11">Reference Implementation</a></h2>
-<h2 id="verification-12"><a class="header" href="#verification-12">Verification</a></h2>
+<h2 id="reference-implementation-12"><a class="header" href="#reference-implementation-12">Reference Implementation</a></h2>
+<h2 id="verification-13"><a class="header" href="#verification-13">Verification</a></h2>
 <p>With the removal of these modules we would expect the tests for Node, VM and framework would pass</p>
 <h2 id="errata-4"><a class="header" href="#errata-4">Errata</a></h2>
-<h2 id="appendix-12"><a class="header" href="#appendix-12">Appendix</a></h2>
+<h2 id="appendix-13"><a class="header" href="#appendix-13">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-25-proxy-aptos-framework-for-stage-0-governance"><a class="header" href="#mip-25-proxy-aptos-framework-for-stage-0-governance">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></h1>
 <ul>
@@ -2741,11 +3018,11 @@ We have not finalised the FFS details yet so it may be premature to try and defi
 <li><strong>Authors</strong>: <a href="mailto:andy.bell@movementlabs.xyz">Andy Bell</a></li>
 <li><strong>Desiderata</strong>: <a href="Review/andyjsbell/proxy-root/MIP/mip-25/../MD/md-0">MD-0</a></li>
 </ul>
-<h2 id="abstract-14"><a class="header" href="#abstract-14">Abstract</a></h2>
+<h2 id="abstract-15"><a class="header" href="#abstract-15">Abstract</a></h2>
 <p>This MIP describes a means by which during Stage 0 of the Movement network a signing key, single or multi, is able to manage the Aptos Framework without relying on the governance module included in the Aptos Framework.  This facilitating a more agile method in which Aptos Framework updates and modifications can be executed rapidly during this stage of the network.  This method would be deprecated in favour of decentralized governance in the future.</p>
-<h2 id="motivation-14"><a class="header" href="#motivation-14">Motivation</a></h2>
+<h2 id="motivation-15"><a class="header" href="#motivation-15">Motivation</a></h2>
 <p>During Stage 0 of the Movement network Movement Labs would hold centralized control of the node and Aptos Framework.  In order to update or modify the Aptos Framework this would involve the deployment of new node binaries to operators in the network who would then upgrade.  One option to facilitate Aptos Framework upgrades is the use of the governance module which forms part of the Aptos Framework.  This, however, is not optimal for stage 0 of the network and the proposal here is to include a new module in the framework which proxies functions executed with the priviledges of the Aptos Framework.  Following a similiar strategy as the governance module but allowing voting to be circumvented with the use of a trusted multisig wallet held and managed by Movement Labs.</p>
-<h2 id="specification-13"><a class="header" href="#specification-13">Specification</a></h2>
+<h2 id="specification-14"><a class="header" href="#specification-14">Specification</a></h2>
 <ol>
 <li>The Proxy module MUST be made available as part of the Aptos Framework.</li>
 <li>A single or multi-signature MUST be required to temporarily acquire the signing privileges of the Aptos Framework.</li>
@@ -2755,7 +3032,7 @@ We have not finalised the FFS details yet so it may be premature to try and defi
 <li>The controller account SHOULD be multisig, and this MUST be a strict requirement for the Proxy module. For testing purposes, this requirement MAY be relaxed to allow a single account.</li>
 <li>The Proxy module MUST allow the controller to remove the signing capabilities and render the module inoperable.  This MUST allow an upgrade path to a new governance like module.  This MUST be an irreversible action.</li>
 </ol>
-<h2 id="reference-implementation-12"><a class="header" href="#reference-implementation-12">Reference Implementation</a></h2>
+<h2 id="reference-implementation-13"><a class="header" href="#reference-implementation-13">Reference Implementation</a></h2>
 <pre><code class="language-rust">module aptos_framework::proxy {
     use std::hash::sha3_256;
     use std::signer;
@@ -3160,7 +3437,7 @@ Ideally, the <code>proxy</code> module would eventually be replaced by Aptos Gov
         // Proxy is now inactive
     }
 }</code></pre>
-<h2 id="verification-13"><a class="header" href="#verification-13">Verification</a></h2>
+<h2 id="verification-14"><a class="header" href="#verification-14">Verification</a></h2>
 <h3 id="1-correctness"><a class="header" href="#1-correctness">1. Correctness:</a></h3>
 <p>The reference implementation has been integrated with the Aptos Framework. The <code>multisig_account.move</code> module has been verified as a mechanism to allow the proxy controller to be managed by a predefined set of signers. A review of <code>aptos_governance.move</code> provided a useful framework for validating and executing approved scripts based on their script hash. Further testing, including integration tests, will be conducted to validate the reference implementation presented here, and this will be supported by specification files for formal verification.</p>
 <h3 id="2-security-implications"><a class="header" href="#2-security-implications">2. Security Implications:</a></h3>
@@ -3173,18 +3450,18 @@ Changes will be required at Genesis to initialize the module, which will involve
 <h3 id="5-peer-review-and-community-feedback"><a class="header" href="#5-peer-review-and-community-feedback">5. Peer Review and Community Feedback:</a></h3>
 <p>The proposal is subject to review and feedback from the Movement Labs team and the wider community to ensure that it meets the needs of the ecosystem.</p>
 <h2 id="errata-5"><a class="header" href="#errata-5">Errata</a></h2>
-<h2 id="appendix-13"><a class="header" href="#appendix-13">Appendix</a></h2>
+<h2 id="appendix-14"><a class="header" href="#appendix-14">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-27-contract-pipeline"><a class="header" href="#mip-27-contract-pipeline">MIP-27: Contract Pipeline</a></h1>
 <ul>
 <li><strong>Description</strong>: Proposal to establish a structured pipeline for new contract deployments, aligning with the infrastructure outlined in MIP-23 while maintaining the existing Movement Token under MIP-18.</li>
 <li><strong>Authors</strong>: <a href="mailto:primata@movementlabs.xyz">Primata</a></li>
 </ul>
-<h2 id="abstract-15"><a class="header" href="#abstract-15">Abstract</a></h2>
+<h2 id="abstract-16"><a class="header" href="#abstract-16">Abstract</a></h2>
 <p>MIP-27 proposes a Contract Pipeline that leverages a timelock-based infrastructure, ensuring security and decentralization for new contract deployments. While the Movement Token (MOVEToken) continues to operate under the provisions of MIP-18, future deployments should adhere to the structure set forth by MIP-23. The pipeline includes components such as a KMS multisig for transaction proposals, off-chain voting for stakers and token holders, and a timelock mechanism for executing transactions, providing transparency and decentralized control.</p>
-<h2 id="motivation-15"><a class="header" href="#motivation-15">Motivation</a></h2>
+<h2 id="motivation-16"><a class="header" href="#motivation-16">Motivation</a></h2>
 <p>Currently, Movement Token operates under the governance outlined in <a href="https://github.com/movementlabsxyz/MIP/blob/primata/mip-2/MIP/mip-18/README.md">MIP-18</a>, and we may wish to maintain this setup for the time being. However, for future deployments and upgrades, we should transition to a more robust infrastructure which includes the release conventions as described in MIP-23. This approach provides decentralized control, security, and accountability through multisig setups, timelocks, and community voting mechanisms. By establishing a structured pipeline, we ensure that the development process remains transparent, auditable, and aligned with the community’s interests.</p>
-<h2 id="specification-14"><a class="header" href="#specification-14">Specification</a></h2>
+<h2 id="specification-15"><a class="header" href="#specification-15">Specification</a></h2>
 <p>The Contract Pipeline includes the following components:</p>
 <h3 id="1-timelock"><a class="header" href="#1-timelock">1. <strong>Timelock</strong></a></h3>
 <ul>
@@ -3299,9 +3576,9 @@ Changes will be required at Genesis to initialize the module, which will involve
 </li>
 </ol>
 <p>This combined workflow ensures transparency, security, and decentralized control over contract deployments and upgrades by integrating GitHub releases, KMS multisig, and timelock mechanisms with off-chain community feedback.</p>
-<h2 id="reference-implementation-13"><a class="header" href="#reference-implementation-13">Reference Implementation</a></h2>
+<h2 id="reference-implementation-14"><a class="header" href="#reference-implementation-14">Reference Implementation</a></h2>
 <p>The pipeline will leverage KMS multisig setups and GitHub releases as a mechanism for secure and auditable transaction proposals. Off-chain voting mechanisms for stakers and token holders can be implemented using existing decentralized governance platforms.</p>
-<h2 id="verification-14"><a class="header" href="#verification-14">Verification</a></h2>
+<h2 id="verification-15"><a class="header" href="#verification-15">Verification</a></h2>
 <h3 id="1-correctness-1"><a class="header" href="#1-correctness-1">1. <strong>Correctness</strong></a></h3>
 <p>The pipeline’s correctness relies on the successful integration of KMS multisig, timelocks, GitHub releases, and off-chain voting mechanisms. Each component’s role must be clearly defined and enforced.</p>
 <h3 id="2-security-implications-1"><a class="header" href="#2-security-implications-1">2. <strong>Security Implications</strong></a></h3>
@@ -3322,7 +3599,7 @@ Changes will be required at Genesis to initialize the module, which will involve
 <p>The proposal will be reviewed by Movement Labs engineers and the broader community for feedback before final implementation.</p>
 <h2 id="errata-6"><a class="header" href="#errata-6">Errata</a></h2>
 <p>Any post-publication corrections or updates will be documented here to ensure transparency and accuracy.</p>
-<h2 id="appendix-14"><a class="header" href="#appendix-14">Appendix</a></h2>
+<h2 id="appendix-15"><a class="header" href="#appendix-15">Appendix</a></h2>
 <ul>
 <li>[R1] MIP-18: <a href="https://github.com/movementlabsxyz/MIP/blob/primata/mip-2/MIP/mip-18/README.md">Stage 0 Upgradeability and Multisigs</a></li>
 <li>[R2] MIP-23: <a href="https://github.com/movementlabsxyz/MIP/blob/l-monninger/releases/MIP/mip-n/README.md">Release Convetions for Movement Technologies</a></li>
@@ -3335,11 +3612,11 @@ Changes will be required at Genesis to initialize the module, which will involve
 <li><strong>Description</strong>: Naming conventions for actors in Movement protocol design, tests, and documentation.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 </ul>
-<h2 id="abstract-16"><a class="header" href="#abstract-16">Abstract</a></h2>
+<h2 id="abstract-17"><a class="header" href="#abstract-17">Abstract</a></h2>
 <p>This MIP outlines the naming conventions for actors in Movement protocol design, tests, and documentation. By standardizing the naming conventions, we aim to ensure that the Movement community can easily understand and navigate the Movement protocol ecosystem.</p>
-<h2 id="motivation-16"><a class="header" href="#motivation-16">Motivation</a></h2>
+<h2 id="motivation-17"><a class="header" href="#motivation-17">Motivation</a></h2>
 <p>Movement protocols are complex systems that involve multiple actors, such as users, developers, and validators. By establishing naming conventions for these actors, we can create a common language that simplifies communication and collaboration within the Movement community. Standardized naming conventions also make it easier for new participants to understand the Movement protocol ecosystem and contribute effectively.</p>
-<h2 id="specification-15"><a class="header" href="#specification-15">Specification</a></h2>
+<h2 id="specification-16"><a class="header" href="#specification-16">Specification</a></h2>
 <h3 id="generic-names"><a class="header" href="#generic-names">Generic Names</a></h3>
 <ul>
 <li>Alice: a generic user who interacts with a Movement protocol. The first user in a generic setup SHOULD be named Alice.</li>
@@ -3360,33 +3637,33 @@ Changes will be required at Genesis to initialize the module, which will involve
 </ul>
 </li>
 </ul>
-<h2 id="reference-implementation-14"><a class="header" href="#reference-implementation-14">Reference Implementation</a></h2>
-<h2 id="verification-15"><a class="header" href="#verification-15">Verification</a></h2>
+<h2 id="reference-implementation-15"><a class="header" href="#reference-implementation-15">Reference Implementation</a></h2>
+<h2 id="verification-16"><a class="header" href="#verification-16">Verification</a></h2>
 <h2 id="errata-7"><a class="header" href="#errata-7">Errata</a></h2>
-<h2 id="appendix-15"><a class="header" href="#appendix-15">Appendix</a></h2>
+<h2 id="appendix-16"><a class="header" href="#appendix-16">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-34-fast-finality-settlement"><a class="header" href="#mip-34-fast-finality-settlement">MIP-34: Fast Finality Settlement</a></h1>
 <ul>
 <li><strong>Description</strong>: Establish the scope and components that are part of the Fast Finality Settlement mechanism.</li>
 <li><strong>Authors</strong>: Franck Cassez, Andreas Penzkofer</li>
 </ul>
-<h2 id="abstract-17"><a class="header" href="#abstract-17">Abstract</a></h2>
+<h2 id="abstract-18"><a class="header" href="#abstract-18">Abstract</a></h2>
 <p>Fast Finality Settlement (FFS) is a mechanism that allows for fast <em>confirmation</em> of transactions backed by crypto-economic security. Moreover it capitalizes on the economic security from the L1. This MIP outlines the high-level specifications and architecture of FFS.</p>
 <p>FFS is divided into</p>
 <ul>
 <li><strong>Postconfirmation</strong>: a mechanism to confirm the validity of a block on L1, see <a href="https://github.com/movementlabsxyz/MIP/blob/mip/postconfirmation/MIP/mip-37/README.md">MIP-37</a>.</li>
 <li><strong>Fastconfirmation</strong>: a mechanism to confirm the validity of a block on L2, see <a href="https://github.com/movementlabsxyz/MIP/blob/mip/L2confirmation/MIP/mip-65/README.md">MIP-65</a>.</li>
 </ul>
-<h2 id="motivation-17"><a class="header" href="#motivation-17">Motivation</a></h2>
+<h2 id="motivation-18"><a class="header" href="#motivation-18">Motivation</a></h2>
 <p>Two chains are present in our architecture: a base chain (or L1) and a second chain (or L2). Rollups and other types of chains may publish or secure transaction data in a data availability (DA) layer or at Ethereum mainnet (L1).</p>
 <p>Validity and optimistic rollups can finalize transactions within approximately 30 minutes and ~1 week, respectively. Until a transaction is finalized, there is no assurance about its validity and result (success or failure). This can be a limiting factor for certain types of DeFi applications.</p>
 <p>Our objective is to enable transaction issuers to quickly get some guarantees that their transactions are correctly and successfully included in a block. The crypto-economic security is provided by a Proof-of-Stake (PoS) protocol. This mechanism can be deployed independently for a chain, or used in combination with existing settlement mechanisms, such as ZK and optimistic settlements.</p>
 <p>As a result, users can rely and trust the <strong>Fastconfirmation</strong> (sometimes also described as L2-finality) to use as confirmation. If the chain is configured to do so, wait for L1-finality, such as through <strong>Postconfirmation</strong>, end of challenge window for fraud proofs (optimistic rollup), or verification of a ZK-proof (validity rollup).</p>
 <p>A introduction to Postconfirmation can be found in <a href="https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement">this blog post</a> and a more detailed description of a (partial) implementation of the mechanism is available at <a href="https://blog.movementlabs.xyz/article/Postconfirmations-L2s-rollups-blockchain-movement">this blog post</a>.</p>
 <p>This MIP provides an overview of an architecture of FFS, and its main components.</p>
-<h2 id="specification-16"><a class="header" href="#specification-16">Specification</a></h2>
+<h2 id="specification-17"><a class="header" href="#specification-17">Specification</a></h2>
 <p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
-<h3 id="overview-7"><a class="header" href="#overview-7">Overview</a></h3>
+<h3 id="overview-8"><a class="header" href="#overview-8">Overview</a></h3>
 <p><strong>FFS</strong>. The objective of Fast Finality Settlement (FFS) is to confirm that transactions are <em>processed</em> correctly and that the node has <em>read</em> the transactions in the correct order. It does not impact the already established order of transactions by the sequencer.</p>
 <p>The L2 chain increases by a new block in each (L2) round, and this block is the successor of the block in the previous round, the <em>predecessor</em>. Initially, there is a <em>genesis</em> block with no predecessor.</p>
 <p><strong>ProtoBlock</strong>. Each round corresponds to the processing of a batch of transactions, called <em>protoBlock</em>, which is proposed by the <em>sequencer</em> (can be centralized, decentralized, shared).</p>
@@ -3487,7 +3764,7 @@ This contract provides the following functionalities:</p>
 <p><strong>Leader collects votes</strong>. The vote messages of each validator are directly sent to the L1 contract. Once the votes reach the required threshold for <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9989em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-2.453em;margin-left:-0.0502em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span></span></span></span>, the leader initiates the Postconfirmation process with the proof of the votes.</p>
 <p><img src="Review/mip/FFS/MIP/mip-34/PostconfirmationV1.png" alt="Version A Diagram" />
 <em>Figure 1: <strong>Postconfirmation</strong>: Leader-dependent L2Block generation process.</em></p>
-<h2 id="verification-16"><a class="header" href="#verification-16">Verification</a></h2>
+<h2 id="verification-17"><a class="header" href="#verification-17">Verification</a></h2>
 <blockquote>
 <p>:warning: :warning: The following may be better placed in the specific MIP of Postconfirmation. This SHOULD be revised upon readiness of <a href="https://github.com/movementlabsxyz/MIP/blob/mip/postconfirmation/MIP/mip-37/README.md">MIP-37</a> and <a href="https://github.com/movementlabsxyz/MIP/blob/mip/L2confirmation/MIP/mip-65/README.md">MIP-65</a>. Indeed, redundant information should be removed, once later MIPs are available.</p>
 </blockquote>
@@ -3515,8 +3792,8 @@ This implies that if more than <span class="katex"><span class="katex-html" aria
 <li><strong>delegation/weighted stakes</strong>: a mechanism for validators to delegate their voting power to other validators. Ability for validators to stake different amounts (and use weighted stakes super-majority).</li>
 <li><strong>commit to a sequence of L2Blocks</strong>. The Fastconfirmation certificate could be per L2block. However, on L1 we want to commit to a sequence of blocks (a superBlock). This can be done by committing to the state root of the last block in the sequence or more complicated approaches using Merkle roots.</li>
 </ul>
-<h2 id="appendix-16"><a class="header" href="#appendix-16">Appendix</a></h2>
-<h2 id="changelog-13"><a class="header" href="#changelog-13">Changelog</a></h2>
+<h2 id="appendix-17"><a class="header" href="#appendix-17">Appendix</a></h2>
+<h2 id="changelog-15"><a class="header" href="#changelog-15">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-37-ffs-postconfirmation"><a class="header" href="#mip-37-ffs-postconfirmation">MIP-37: FFS: Postconfirmation</a></h1>
 <ul>
@@ -3524,15 +3801,15 @@ This implies that if more than <span class="katex"><span class="katex-html" aria
 <li><strong>Authors</strong>: Andreas Penzkofer</li>
 <li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/tree/mip/postconfirmation/MD/md-37">MD-37</a>, <a href="https://github.com/movementlabsxyz/MIP/pull/4">MD-4</a>, <a href="https://github.com/movementlabsxyz/MIP/pull/5">MD-5</a></li>
 </ul>
-<h2 id="abstract-18"><a class="header" href="#abstract-18">Abstract</a></h2>
+<h2 id="abstract-19"><a class="header" href="#abstract-19">Abstract</a></h2>
 <p>Fast-Finality-Settlement (FFS) is proposed in <a href="https://github.com/movementlabsxyz/MIP/pull/34">MIP-34</a>, with two confirmation mechanisms: one on the base chain level (L1) and one on the rollup/sidechain level (L2). This MIP details the mechanism on Level 1 (L1), which is called <em><strong>Postconfirmation</strong></em>.</p>
 <p>The L2 produces <strong>L2Blocks</strong>. At certain intervals validators commit a sequence of L2Blocks in a <em><strong>superBlock</strong></em>, to L1. The L1 contract will verify if &gt;2/3 of the validators have attested to a given superBlock height. The action for this validation is called Postconfirmation and it is initiated by the <em><strong>acceptor</strong></em>. The acceptor is a specific validator selected for some interval and it is added to the protocol to provide separation of concerns (attestations vs. Postconfirmation) and provide more predictable costs and rewards.</p>
 <p>This provides an L1-protected guarantee that a superBlock (i.e. a sequence of L2Blocks) is accepted and correctly executed. This anchoring mechanism increases the security of the L2 as it protects the L2-state against long range attacks, see <a href="https://github.com/movementlabsxyz/MIP/tree/l-monninger/long-range-attacks/MD/md-5">MD-5</a>.</p>
 <p>A introduction to Postconfirmation can also be found in <a href="https://blog.movementlabs.xyz/article/security-and-fast-finality-settlement">this blog post</a> and a more detailed description of a (partial) implementation of the mechanism is available at <a href="https://blog.movementlabs.xyz/article/Postconfirmations-L2s-rollups-blockchain-movement">this blog post</a>.</p>
-<h2 id="motivation-18"><a class="header" href="#motivation-18">Motivation</a></h2>
+<h2 id="motivation-19"><a class="header" href="#motivation-19">Motivation</a></h2>
 <p>We require from the FFS protocol that it is secure and efficient, yet simple in its <em>initial</em> design. In order for the protocol to fulfill the requirement for simplicity, validators only communicate to the L1-contract and not with each other. This is a key design decision to reduce the complexity of the protocol, but can be improved in the future.</p>
 <p>We also request that rewards and costs are made more predictable for validators. For this, we propose a special role – the acceptor – to perform the action of updating the L1 contract to accept a given state by super majority. This action is called Postconfirmation.</p>
-<h2 id="specification-17"><a class="header" href="#specification-17">Specification</a></h2>
+<h2 id="specification-18"><a class="header" href="#specification-18">Specification</a></h2>
 <p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
 <p>Figure 1 shows the leader-independent (deterministic) block generation process, which is also discussed in <a href="https://github.com/movementlabsxyz/MIP/pull/34">MIP-34: Fast Finality Settlement</a>.</p>
 <p><img src="Review/mip/postconfirmation/MIP/mip-37/Postconfirmation.png" alt="Version A Diagram" />
@@ -3728,11 +4005,11 @@ function getAcceptorLastActivity() internal view returns (uint256) {
 <blockquote>
 <p>:bulb: Nodes MAY get slashed if it has been proven that the validator voted more than once for a given block height on L2. This is a security measure to protect against long-range attacks. However, this is part of the scope of <a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-65: Fastconfirmations</a> and not Postconfirmations.</p>
 </blockquote>
-<h2 id="reference-implementation-15"><a class="header" href="#reference-implementation-15">Reference Implementation</a></h2>
+<h2 id="reference-implementation-16"><a class="header" href="#reference-implementation-16">Reference Implementation</a></h2>
 <p>A reference implementation for Postconfirmation is provided by MCR, see <a href="https://github.com/movementlabsxyz/movement/tree/714831820d78b3910729a194cd0508fa1efd9aa9/protocol-units/settlement/mcr">here</a>.</p>
-<h2 id="verification-17"><a class="header" href="#verification-17">Verification</a></h2>
-<h2 id="appendix-17"><a class="header" href="#appendix-17">Appendix</a></h2>
-<h2 id="changelog-14"><a class="header" href="#changelog-14">Changelog</a></h2>
+<h2 id="verification-18"><a class="header" href="#verification-18">Verification</a></h2>
+<h2 id="appendix-18"><a class="header" href="#appendix-18">Appendix</a></h2>
+<h2 id="changelog-16"><a class="header" href="#changelog-16">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-47-improve-gas-fee-collection-in-phases"><a class="header" href="#mip-47-improve-gas-fee-collection-in-phases">MIP-47: Improve Gas fee collection in phases</a></h1>
 <ul>
@@ -3752,21 +4029,21 @@ function getAcceptorLastActivity() internal view returns (uint256) {
 
   TODO: Remove this comment before finalizing.
 -->
-<h2 id="abstract-19"><a class="header" href="#abstract-19">Abstract</a></h2>
+<h2 id="abstract-20"><a class="header" href="#abstract-20">Abstract</a></h2>
 <p>Currently gas fees are burned. Eventually gas fees should be redirected to a gas pool. This MIP provides a step-by-step guide how to get there.</p>
 <!--
   The Abstract is a multi-sentence (short paragraph) technical summary. This should be a very terse and human-readable version of the specification section. Someone should be able to read only the abstract to get the gist of what this specification does.
 
   TODO: Remove this comment before finalizing.
 -->
-<h2 id="motivation-19"><a class="header" href="#motivation-19">Motivation</a></h2>
+<h2 id="motivation-20"><a class="header" href="#motivation-20">Motivation</a></h2>
 <p>Gas fees should be used to pay for services that are required to operate the chain, provide for grants or other. Therefore, they should be captured in a governed pool.</p>
 <!--
   The motivation section should include a description of any nontrivial problems the MIP solves. It should not describe how the MIP solves those problems.
 
   TODO: Remove this comment before finalizing.
 -->
-<h2 id="specification-18"><a class="header" href="#specification-18">Specification</a></h2>
+<h2 id="specification-19"><a class="header" href="#specification-19">Specification</a></h2>
 <p>In the following a step-by-step guide to transition from the current model to the target step is provided:</p>
 <ol>
 <li>The gas token <code>\</code> is burned</li>
@@ -3797,13 +4074,13 @@ function getAcceptorLastActivity() internal view returns (uint256) {
   TODO: Remove this comment before finalizing
 -->
 <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
-<h2 id="reference-implementation-16"><a class="header" href="#reference-implementation-16">Reference Implementation</a></h2>
+<h2 id="reference-implementation-17"><a class="header" href="#reference-implementation-17">Reference Implementation</a></h2>
 <!--
   The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
 
   TODO: Remove this comment before submitting
 -->
-<h2 id="verification-18"><a class="header" href="#verification-18">Verification</a></h2>
+<h2 id="verification-19"><a class="header" href="#verification-19">Verification</a></h2>
 <!--
 
   All proposals must contain a section that discusses the various aspects of verification pertinent to the introduced changes. This section should address:
@@ -3836,7 +4113,7 @@ function getAcceptorLastActivity() internal view returns (uint256) {
   TODO: Maintain this comment.
 -->
 <hr />
-<h2 id="appendix-18"><a class="header" href="#appendix-18">Appendix</a></h2>
+<h2 id="appendix-19"><a class="header" href="#appendix-19">Appendix</a></h2>
 <!--
   The Appendix should contain an enumerated list of reference materials and notes.
 
@@ -3855,7 +4132,7 @@ function getAcceptorLastActivity() internal view returns (uint256) {
 <li><strong>Description</strong>: Use the <code>aptos_governance</code> framework for the Governed Gas Pool</li>
 <li><strong>Authors</strong>: <a href="mailto:richard@movementlabs.xyz">Richard Melkonian</a></li>
 </ul>
-<h2 id="abstract-20"><a class="header" href="#abstract-20">Abstract</a></h2>
+<h2 id="abstract-21"><a class="header" href="#abstract-21">Abstract</a></h2>
 <p>The Goverened Gas Pool design presented in <a href="Review/0xmovses/aptos-gov-pool/MIP/mip-48/../mip-44/">MIP-44</a> is required to be subject to onchain governance by a governing body that holds the
 <code>$L2-MOVE</code> token. In [MIP-44] governance mechanisms and roles are proposed, such as <code>Proposers</code> and <code>Executors</code> so that the collected gas can be used
 for the good of the network.</p>
@@ -3863,7 +4140,7 @@ for the good of the network.</p>
 directly to attestors as <code>$L1-MOVE</code> for rewards. For all these activities a dispersal of funds is required, this MIP proposes concrete ways to manage dispersal events
 in a safe immutable and secure manner.</p>
 <p>To decide on how acrued <code>$L2-MOVE</code> in the Governed Gas Pool should be used, a robust and thorough implementation of governance should be proposed.</p>
-<h2 id="motivation-20"><a class="header" href="#motivation-20">Motivation</a></h2>
+<h2 id="motivation-21"><a class="header" href="#motivation-21">Motivation</a></h2>
 <p>This MIP proposes an implementation of the governance mechanism proposed in [MIP-44] by using the <code>aptos_governance.move</code> module. We think this has several benefits.</p>
 <ol>
 <li><code>aptos_governance.move</code> is fully audited and battle tested.</li>
@@ -3871,9 +4148,9 @@ in a safe immutable and secure manner.</p>
 <li>Using aptos governance prepares us for extendeding it and using it for future proposals to upgrade or migrate the network, this will be a fairly common necessity post-mainnet.</li>
 <li>It strenghtens the utility of <code>$L2-MOVE</code> as this becomes the governance token.</li>
 </ol>
-<h2 id="specification-19"><a class="header" href="#specification-19">Specification</a></h2>
+<h2 id="specification-20"><a class="header" href="#specification-20">Specification</a></h2>
 <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
-<h2 id="reference-implementation-17"><a class="header" href="#reference-implementation-17">Reference Implementation</a></h2>
+<h2 id="reference-implementation-18"><a class="header" href="#reference-implementation-18">Reference Implementation</a></h2>
 <p>The <code>governed_gas_pool.move</code> would interact with <code>aptos_framework.move</code>, seperating the roles of actual governance, voting and storing of gas and dispersing those funds.</p>
 <pre><code class="language-rust">//pseudocode
 module GovernedGasPool::goverened_gas_pool {
@@ -3965,9 +4242,9 @@ module GovernedGasPool::goverened_gas_pool {
 }</code></pre>
 <p>Notice the call :
 <code>assert!(aptos_governance::is_proposal_approved&lt;GovernanceProposal&gt;(id), 2);</code></p>
-<h2 id="verification-19"><a class="header" href="#verification-19">Verification</a></h2>
+<h2 id="verification-20"><a class="header" href="#verification-20">Verification</a></h2>
 <h2 id="errata-9"><a class="header" href="#errata-9">Errata</a></h2>
-<h2 id="appendix-19"><a class="header" href="#appendix-19">Appendix</a></h2>
+<h2 id="appendix-20"><a class="header" href="#appendix-20">Appendix</a></h2>
 <hr />
 <h2 id="copyright-9"><a class="header" href="#copyright-9">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Review/0xmovses/aptos-gov-pool/MIP/mip-48/../LICENSE.html">CC0</a>.</p>
@@ -3979,11 +4256,11 @@ module GovernedGasPool::goverened_gas_pool {
 <li><strong>Reviewer</strong>: Andreas Penzkofer</li>
 <li><strong>Desiderata</strong>: <a href="Review/l-monninger/just-reward/MIP/mip-49/../MD/md-49/README.html">MD-49</a></li>
 </ul>
-<h2 id="abstract-21"><a class="header" href="#abstract-21">Abstract</a></h2>
+<h2 id="abstract-22"><a class="header" href="#abstract-22">Abstract</a></h2>
 <p>In response to <a href="Review/l-monninger/just-reward/MIP/mip-49/../MD/md-n/README.html">MD-49</a>, we propose a fee model for an Native Bridge - Fast Finality Settlement (NB-FFS) L2 system which interprets all fees as compensated for in gas fees, bridge fees, or FFS rewards which are adjusted by a governing body. We argue that this approach avoids many of the security and fairness issues that arise in more complex fee models, and is analogous to fee models used in traditional L1 systems. We provide an account of the complexity of other fee models and the limitations from which even theses models suffer. We exemplify these limitations by describing an NB-FFS system which uses Celestia as DA and Ethereum as the Settlement Layer.</p>
-<h2 id="motivation-21"><a class="header" href="#motivation-21">Motivation</a></h2>
+<h2 id="motivation-22"><a class="header" href="#motivation-22">Motivation</a></h2>
 <p><a href="Review/l-monninger/just-reward/MIP/mip-49/../MD/md-n/README.html">MD-49</a> requests a means of computing, charging, and distributing gas fees for the Movement L2s which rely on a separate DA and Settlement Layer. We provide such means for an NB-FFS system.</p>
-<h2 id="specification-20"><a class="header" href="#specification-20">Specification</a></h2>
+<h2 id="specification-21"><a class="header" href="#specification-21">Specification</a></h2>
 <p><img src="Review/l-monninger/just-reward/MIP/mip-49/governed-fees-and-rewards.png" alt="NB-FFS Governed Fees and Rewards" /></p>
 <h3 id="definitions-3"><a class="header" href="#definitions-3">Definitions</a></h3>
 <ul>
@@ -4052,10 +4329,10 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <h4 id="wrapped-token-fee-models"><a class="header" href="#wrapped-token-fee-models">Wrapped Token Fee Models</a></h4>
 <p>In contrast to NB-FFS Governed Fees and Rewards, wrapped token fee models attempt to wrap L2 transactions with corresponding DA and Settlement transactions, or else require native inclusion of requisite gas tokens in the L2 system.</p>
 <p>However, while DA fees can be known at execution, Settlement fees cannot. Thus, the wrapped token model would only account for tight bound on DA costs and would need to adopt a pessimistic model for Settlement costs. This would result in overcharging for Settlement costs.</p>
-<h2 id="reference-implementation-18"><a class="header" href="#reference-implementation-18">Reference Implementation</a></h2>
-<h2 id="verification-20"><a class="header" href="#verification-20">Verification</a></h2>
-<h2 id="appendix-20"><a class="header" href="#appendix-20">Appendix</a></h2>
-<h2 id="changelog-15"><a class="header" href="#changelog-15">Changelog</a></h2>
+<h2 id="reference-implementation-19"><a class="header" href="#reference-implementation-19">Reference Implementation</a></h2>
+<h2 id="verification-21"><a class="header" href="#verification-21">Verification</a></h2>
+<h2 id="appendix-21"><a class="header" href="#appendix-21">Appendix</a></h2>
+<h2 id="changelog-17"><a class="header" href="#changelog-17">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-50-insured-native-bridge"><a class="header" href="#mip-50-insured-native-bridge">MIP-50: Insured Native Bridge</a></h1>
 <ul>
@@ -4064,11 +4341,11 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li><strong>Reviewer</strong>: Andreas Penzkofer</li>
 <li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/pull/38">MD-38</a></li>
 </ul>
-<h2 id="abstract-22"><a class="header" href="#abstract-22">Abstract</a></h2>
+<h2 id="abstract-23"><a class="header" href="#abstract-23">Abstract</a></h2>
 <p>This MIP introduces an Insurance Fund for the bridge which can be used to cover losses. The Insurance Fund will be used to cover losses in the event of a hack or other catastrophic event and can insure a fixed supply of token is maintained.</p>
-<h2 id="motivation-22"><a class="header" href="#motivation-22">Motivation</a></h2>
+<h2 id="motivation-23"><a class="header" href="#motivation-23">Motivation</a></h2>
 <p><a href="https://github.com/movementlabsxyz/MIP/pull/38">MD-38</a> requests provisions for use of AB-FFS that enable a fixed supply of token. This MIP introduces an Insurance Fund for the bridge which can be used to cover losses. The Insurance Fund will be used to cover losses in the event of a hack or other catastrophic event and can insure a fixed supply of token is maintained.</p>
-<h2 id="specification-21"><a class="header" href="#specification-21">Specification</a></h2>
+<h2 id="specification-22"><a class="header" href="#specification-22">Specification</a></h2>
 <p><img src="Review/l-monninger/insured-bridge/MIP/mip-50/./insured-bridge.png" alt="Insured Bridge" /></p>
 <ol>
 <li>The Insurance Fund MUST store a supply of token greater than the sum of all transfer value which can flow over the bridge between during the Risk Period.</li>
@@ -4078,9 +4355,9 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li>The Insurance Fund Governor MUST account for some error on the value that is recorded on L1 and L2 by the informer. More specifically, due to the asynchrony of the bridge transfer steps as well the asynchrony in finality between L1 and L2, total circulating supply could and will vary at times, within some bounds.</li>
 <li>The Bridge Pool Governor SHALL be expected to purchase token from the market to recover the loss and replenish the Insurance Fund.</li>
 </ol>
-<h2 id="verification-21"><a class="header" href="#verification-21">Verification</a></h2>
-<h2 id="changelog-16"><a class="header" href="#changelog-16">Changelog</a></h2>
-<h2 id="appendix-21"><a class="header" href="#appendix-21">Appendix</a></h2>
+<h2 id="verification-22"><a class="header" href="#verification-22">Verification</a></h2>
+<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
+<h2 id="appendix-22"><a class="header" href="#appendix-22">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-52-aptos-gas-pool"><a class="header" href="#mip-52-aptos-gas-pool">MIP-52: Aptos Gas Pool</a></h1>
 <ul>
@@ -4089,11 +4366,11 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li><strong>Reviewer</strong>: Andreas Penzkofer</li>
 <li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/pulls">MD-38</a></li>
 </ul>
-<h2 id="abstract-23"><a class="header" href="#abstract-23">Abstract</a></h2>
+<h2 id="abstract-24"><a class="header" href="#abstract-24">Abstract</a></h2>
 <p>We propose a means of implementing a Gas Pool in Aptos to satisfy the token recirculation requirements indicated in <a href="https://github.com/movementlabsxyz/MIP/pulls">MD-38</a>. This solution will allow for gas used to be stored in the pool. The re-use of said gas is not a subject of this MIP. However, <a href="https://github.com/movementlabsxyz/MIP/pull/44">MIP-44</a>, <a href="https://github.com/movementlabsxyz/MIP/pull/41">MIP-41</a>, et al.  provide suggestions to this end.</p>
-<h2 id="motivation-23"><a class="header" href="#motivation-23">Motivation</a></h2>
+<h2 id="motivation-24"><a class="header" href="#motivation-24">Motivation</a></h2>
 <p>The introduction of a Gas Pool in Aptos will allow for the recirculation of gas used in the Aptos ecosystem. This ensures the supply can remain fixed and the gas can be re-used for purposes such as rewarding.</p>
-<h2 id="specification-22"><a class="header" href="#specification-22">Specification</a></h2>
+<h2 id="specification-23"><a class="header" href="#specification-23">Specification</a></h2>
 <p>Aptos pays gas in the <a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/aptos-vm/src/transaction_validation.rs#L194">epilogue</a> of a transaction <a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/aptos-vm/src/transaction_validation.rs#L34">dispatching</a> to <a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/transaction_validation.move#L274"><code>epilogue_gas_payer</code></a>. Depending on the <a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/transaction_validation.move#L305">validator reward setting</a>, <a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/transaction_validation.move#L274"><code>epilogue_gas_payer</code></a> will either call <code>transaction_fee::collect_fee</code> or <code>transaction_fee::burn_fee</code>.</p>
 <p>At the time of writing the <code>transaction_fee::collect_fee</code> path is still experimental.</p>
 <p><a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/transaction_fee.move#L218"><code>transaction_fee::burn_fee</code></a> internally calls <a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/transaction_fee.move#L229C17-L233C19"><code>coin::burn_from</code></a> which can be replaced with a transfer.</p>
@@ -4107,14 +4384,14 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <p>Coin burning logic can be kept in place and a similar features-based approach can be used to determine ensure the <code>transaction_fee::collect_fee</code> approach is used.</p>
 <h3 id="burn-replacement"><a class="header" href="#burn-replacement">Burn Replacement</a></h3>
 <p>The burn replacement approach replaces the <code>coin::burn_from</code> call in <code>transaction_fee::burn_fee</code> with a <code>coin::transfer_from</code> call to the Gas Pool.</p>
-<h2 id="verification-22"><a class="header" href="#verification-22">Verification</a></h2>
+<h2 id="verification-23"><a class="header" href="#verification-23">Verification</a></h2>
 <p><strong>Outstanding</strong>:</p>
 <ul>
 <li>Verify that the AptosVM does not validate burns. Otherwise, there may be logic outside of the framework <code>epilogue_gas_payer</code> path which needs to be updated.</li>
 <li>Identify any sponsorship or other gas payment mechanisms which may need to be updated to use the Gas Pool.</li>
 </ul>
-<h2 id="changelog-17"><a class="header" href="#changelog-17">Changelog</a></h2>
-<h2 id="appendix-22"><a class="header" href="#appendix-22">Appendix</a></h2>
+<h2 id="changelog-19"><a class="header" href="#changelog-19">Changelog</a></h2>
+<h2 id="appendix-23"><a class="header" href="#appendix-23">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-54-the-biarritz-model"><a class="header" href="#mip-54-the-biarritz-model">MIP-54: The Biarritz Model</a></h1>
 <ul>
@@ -4122,12 +4399,12 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 <li><strong>Desiderata</strong>: <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">∅</span></span></span></span></li>
 </ul>
-<h2 id="abstract-24"><a class="header" href="#abstract-24">Abstract</a></h2>
+<h2 id="abstract-25"><a class="header" href="#abstract-25">Abstract</a></h2>
 <p>We defined the Biarritz Model as a Native Bridge - Fast Finality Settlement (NB-FFS) model that features a Governed Gas Pool, Bridge Insurance Fund, and moderate operational assumptions. At the core of this model is the progressive use of governance to safely perform liquidity operations which are difficult to synchronize in an early NB-FFS L2.</p>
-<h2 id="motivation-24"><a class="header" href="#motivation-24">Motivation</a></h2>
+<h2 id="motivation-25"><a class="header" href="#motivation-25">Motivation</a></h2>
 <p>The Biarritz Model is motivated by the need for a <a href="Review/l-monninger/the-biarritz-model/MIP/mip-54/../mip-53/">progressive L2 model</a> that can safely perform liquidity and more generally fund-moving operations which are difficult to operate in an early NB-FFS L2. This model is intended to be a stepping stone towards more complex L2 models that require more sophisticated governance and operational assumptions.</p>
 <p>The Biarritz Model is a intended as a complete response to <a href="https://github.com/movementlabsxyz/MIP/pulls">MD-38</a>.</p>
-<h2 id="specification-23"><a class="header" href="#specification-23">Specification</a></h2>
+<h2 id="specification-24"><a class="header" href="#specification-24">Specification</a></h2>
 <p><img src="Review/l-monninger/the-biarritz-model/MIP/mip-54/the-biarritz-model.png" alt="The Biarritz Model" /></p>
 <p>We acknowledge and apply the conventions of <a href="https://github.com/movementlabsxyz/MIP/pull/53">MIP-53: Conventions for Proposing Progressive L2 Models</a>.</p>
 <div class="table-wrapper"><table><thead><tr><th>Category</th><th>Criterion</th><th>Evaluation</th></tr></thead><tbody>
@@ -4163,8 +4440,8 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li><strong>High trust in governance</strong>: the model requires a high level of trust in the governing body. When the governing body is narrowly defined, this may not be significantly more open than the Bilbao Model.</li>
 <li><strong>1:1 token correlation</strong>: the model asserts a 1:1 token correlation between the L1 staking and L2 gas tokens. This may not be desirable in all cases as exploits on the bridge may compromise the security of staking on the L1 or sybil resistance on the L2.</li>
 </ol>
-<h2 id="verification-23"><a class="header" href="#verification-23">Verification</a></h2>
-<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
+<h2 id="verification-24"><a class="header" href="#verification-24">Verification</a></h2>
+<h2 id="changelog-20"><a class="header" href="#changelog-20">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-55-the-bilbao-model"><a class="header" href="#mip-55-the-bilbao-model">MIP-55: The Bilbao Model</a></h1>
 <ul>
@@ -4172,11 +4449,11 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 <li><strong>Desiderata</strong>: <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">∅</span></span></span></span></li>
 </ul>
-<h2 id="abstract-25"><a class="header" href="#abstract-25">Abstract</a></h2>
+<h2 id="abstract-26"><a class="header" href="#abstract-26">Abstract</a></h2>
 <p>We define the Bilbao Model as an AB-FFS L2 model that features a Gas Deficit Minter, Bridge Insurance Account, low-cost DA, high centralized control, and ultimately high operational assumptions. At the core of this model is the highly-controlled use of trusted signers with high liquidity to replace components proposed in the <a href="https://github.com/movementlabsxyz/MIP/pull/54">Biarritz Model</a>.</p>
-<h2 id="motivation-25"><a class="header" href="#motivation-25">Motivation</a></h2>
+<h2 id="motivation-26"><a class="header" href="#motivation-26">Motivation</a></h2>
 <p>The Bilbao Model is a intended as a complete response to <a href="https://github.com/movementlabsxyz/MIP/pulls">MD-38</a> and a reduction of the <a href="https://github.com/movementlabsxyz/MIP/pull/54">Biarritz Model</a>.</p>
-<h2 id="specification-24"><a class="header" href="#specification-24">Specification</a></h2>
+<h2 id="specification-25"><a class="header" href="#specification-25">Specification</a></h2>
 <p>We acknowledge and apply the conventions of <a href="https://github.com/movementlabsxyz/MIP/pull/53">MIP-53: Conventions for Proposing Progressive L2 Models</a>.</p>
 <div class="table-wrapper"><table><thead><tr><th>Category</th><th>Criterion</th><th>Evaluation</th></tr></thead><tbody>
 <tr><td><strong>General</strong></td><td></td><td></td></tr>
@@ -4211,257 +4488,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li><strong>Highest trust in governance</strong>: the model requires complete trust in the governing body.</li>
 <li><strong>1:1 token correlation</strong>: the model asserts a 1:1 token correlation between the L1 staking and L2 gas tokens. This may not be desirable in all cases as exploits on the bridge may compromise the security of staking on the L1 or sybil resistance on the L2.</li>
 </ol>
-<h2 id="verification-24"><a class="header" href="#verification-24">Verification</a></h2>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="mip-61-relayer-algorithm-for-the-lockmint-native-bridge"><a class="header" href="#mip-61-relayer-algorithm-for-the-lockmint-native-bridge">MIP-61: Relayer algorithm for the lock/mint Native Bridge</a></h1>
-<ul>
-<li><strong>Description</strong>: This MIP describes the process for continuous operation as well as the bootstrapping of the relayer in the lock/mint bridge.</li>
-<li><strong>Authors</strong>: Andreas Penzkofer, Philippe</li>
-</ul>
-<h2 id="abstract-26"><a class="header" href="#abstract-26">Abstract</a></h2>
-<p>We describe an algorithm that</p>
-<ul>
-<li>Continuously checks for <code>initiate_transfer</code> events on the source chain.</li>
-<li>Issues a <code>complete_transfer</code> transaction on the target chain if not done so far.</li>
-<li>Checks the completion of transfers on the target chain.</li>
-<li>Records the source chain block height, below which all transfers are completed on the target chain.</li>
-<li>Provides a bootstrap algorithm for the relayer.</li>
-</ul>
-<p>In this algorithm the target chain contract offers a <code>complete_transfer</code> function that records transfer by <code>nonce</code> and protects against re-issuance as any nonce can be only mapped to one transfer.</p>
-<h2 id="motivation-26"><a class="header" href="#motivation-26">Motivation</a></h2>
-<p>We would like to minimize the number of trusted components. In a minimal solution the relayer should only trust the source chain, the target chain and itself. Other trusted sources can be proposed optionally, but ideally no other trust assumptions should be utilized.</p>
-<p>Several complications:</p>
-<ul>
-<li>The <code>complete_transfer</code> transaction to the target chain for bridge transfers may fail, get lost, or other. Hence we cannot rely on delivery.</li>
-<li>The relayer may loose local memory.</li>
-<li>The relayer may have to be replaced.</li>
-<li>The relayer (or its replacement) MUST not ignore a single transfer.</li>
-<li>The relayer (or its replacement) MUST deliver eventually all transfers.</li>
-<li>The finality criteria on the source chain and target chain MUST be considered.</li>
-</ul>
-<p><strong>Bootstrapping</strong>
-Currently, when the relayer starts, it doesn’t reload the state that it has when it shuts down. If transfers are processed when the relayer stops, the transfers are lost and the relayer is not able to continue the transfer.</p>
-<p>Moreover, even if the data would be stored on where to continue, the relayer may crash for a variety of reasons. The relayer can go offline or crash. It needs to automatically understand which <code>complete_transfer</code> transactions it still needs to send to the target chain.</p>
-<h2 id="context"><a class="header" href="#context">Context</a></h2>
-<p>This algorithm is defined using the lock/mint-type Native Bridge protocol, described in <a href="https://github.com/movementlabsxyz/MIP/pull/58">MIP-58</a>.This bridge protocol has two function calls :</p>
-<ul>
-<li><code>initiate_transfer</code> on the source chain (called by user)</li>
-<li><code>complete_transfer</code> on the target chain (called by relayer)</li>
-</ul>
-<p>This algorithm is compatible with using finalized blocks (see the remark on L2 complete verification). By pulling only finalized source blocks, the nonce are always updated on finalization.</p>
-<p>In this MIP we consider the lock/mint Native Bridge, see <a href="https://github.com/movementlabsxyz/MIP/pull/60">MIP-60</a>. We will discuss a single direction of transfer - from <strong>source chain</strong> to <strong>target chain</strong>.</p>
-<h2 id="specification-25"><a class="header" href="#specification-25">Specification</a></h2>
-<p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
-<p>!!! . The algorithm is the same in both directions. Hence each algorithm has to be implemented twice. Once for the transfer direction L1 –&gt; L2, and once for the L2 –&gt; L1 direction.</p>
-<p>The relayer can get its state from the source chain and target chain. The relayer operates two processes - potentially in parallel:</p>
-<p><strong>1. CONTINUOUS_BLOCK_PROCESSING</strong>: The relayer pulls transfer events from new finalized blocks from the source chain and processes them. Since we consider finalized blocks and this is a blockchain, new blocks are processed in order. For each transfer the relayer has to check if the transfer is completed on the target chain, and if not it has to complete the transfer.</p>
-<p><strong>2. BOOTSTRAPPING:</strong> The relayer initiate the event polling at some point in the past. This point is either the genesis, some configurable source block height, or some checkpoint (possibly set on-chain)</p>
-<h3 id="assumptions-on-the-bridge-protocol"><a class="header" href="#assumptions-on-the-bridge-protocol">Assumptions on the Bridge Protocol</a></h3>
-<p><strong>Nonce</strong>:
-We assume the Native Bridge protocol MUST implement the assignment of an incrementing <code>nonce</code> on the source chain. Since there are two directions there MUST be two types of counters (<code>nonces</code>) - one for each transfer direction. The <code>nonce</code> is used to order the transfers.</p>
-<p><strong>Initiate Transfer</strong>:
-The <code>initiate_transfer</code> function on the source chain is called by the user. It emits an event <code>initiate_transfer</code> with the following properties:</p>
-<pre><code class="language-javascript">{
-    nonce: Number,          // Unique incrementing value for ordering transfers
-    recipient: String,  // Address of the recipient on the target chain
-    initiator: String,   // Address of the initiator on the source chain
-    amount: Number          // Amount being transferred
-}
-</code></pre>
-<p>This structure is used to record the transfer on the source chain.</p>
-<p><strong>Complete Transfer</strong>:
-The <code>complete_transfer</code> function on the target chain is called by the relayer. It emits an event <code>complete_transfer</code> with the following properties:</p>
-<pre><code class="language-javascript">{
-    nonce: Number,         // Matching nonce from the source chain
-    transferUID: String,   // Unique identifier for the transfer
-    recipient: String,     // Address of the recipient
-    initiator: String,      // Address of the initiator
-    amount: Number         // Amount that was transferred
-}
-</code></pre>
-<p>This structure is used to record the transfer on the target chain.</p>
-<h3 id="relayer-structures"><a class="header" href="#relayer-structures">Relayer Structures</a></h3>
-<p>Locally the relayer stores the following structure:</p>
-<pre><code class="language-javascript">// Relayer Local Structure
-{
-    nonces: {                          // Object keyed by nonce (integer)
-        [nonce: Number]: {             // Nonce as the integer key
-            blockHeight: Number,       // Height of the block containing the nonce
-            status: String,            // Status of the event
-            eventUID: String           // Unique identifier for the event
-        }
-    }
-}
-</code></pre>
-<p>The relayer differentiates three status types:</p>
-<ul>
-<li><code>transfer_initiated</code>: the event has been received but not processed and the <code>complete_transfer</code> transaction has not been sent to the target chain.</li>
-<li><code>transfer_pending</code>: the <code>complete_transfer</code> transaction has been sent to the target chain but is not yet finalized.</li>
-<li><code>transfer_completed</code>: we received the (finalized) complete event.</li>
-</ul>
-<p><strong>Optimization</strong>: There’s another substate for pending when the <code>complete_transfer</code> transaction failed. In this case we should retry earlier than if the <code>complete_transfer</code> transaction was successful. We MAY differentiate the state <code>transfer_pending_executed</code> and <code>transfer_pending_failed</code>.</p>
-<h3 id="initiate_transfer-events"><a class="header" href="#initiate_transfer-events">initiate_transfer events</a></h3>
-<h4 id="1-init_event_processing-algorithm"><a class="header" href="#1-init_event_processing-algorithm">1. INIT_EVENT_PROCESSING algorithm</a></h4>
-<p>For each <code>initiate_transfer</code> event do the following:</p>
-<p><img src="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/init_event_processing.png" alt="event_processing" /></p>
-<pre><code class="language-javascript">INIT_EVENT_PROCESSING:
-// Input: initiate_transfer event from source chain
-// Input: target_chain_state - current state of the target chain
-SET `nonce` = `initiate_transfer_event.nonce` 
-    with nonce.status_transfer = `transfer_initiated`
-SET `transfer_uid` = `initiate_transfer_event.transfer_uid`
-
-// Check if the `nonce` is already recorded
-IF `nonce` is recorded THEN:
-    IF `nonce.status_transfer` is `transfer_completed` THEN:
-        RETURN.
-ELSE: 
-    CREATE new `nonce` entry locally and save it in ORDERED_SET.
-
-// note this is not the final state as is the case for most other state reads in this algorithm
-QUERY target chain contract for `nonce` in non-final and final state
-        
-// If `complete_transfer` transaction was sent previously to target chain
-IF `nonce` is found on target chain THEN:
-    IF `transfer_uid` does not match THEN:
-        REPORT error and EXIT
-
-    IF `nonce` transfer is final THEN:
-        SET `nonce.status_transfer` to `transfer_completed`
-        CLEAR cached data for `nonce` to free up memory
-    ELSE:
-        // the status should be `transfer_pending`
-        IF `nonce.status_transfer` is NOT `transfer_pending` THEN:
-            LOG "error: nonce.status_transfer is not transfer_pending"
-        SET `nonce.status_transfer` to `transfer_pending`
-        SET timeout for relayer to re-check later
-// If no `complete_transfer` transaction was sent 
-ELSE:
-    SEND `complete_transfer` transaction to target chain
-    SET `nonce.status_transfer` to `transfer_pending`
-    SET timeout for relayer to re-check later
-</code></pre>
-<blockquote>
-<p>[!NOTE]
-The relayer may send a transaction <code>complete_transfer</code> to the target chain for an entry that has the status <code>transfer_pending</code>. This status exists during the time between the sending and the finalized success of the <code>complete_transfer</code> transaction on the target chain.</p>
-</blockquote>
-<h4 id="2-continuous_block_processing-algorithm"><a class="header" href="#2-continuous_block_processing-algorithm">2. CONTINUOUS_BLOCK_PROCESSING algorithm</a></h4>
-<p>Next we describe the processing of source blocks and the completion of a transfer on the target chain, assuming the relayer is always online. Since this is a strong assumption, we reduce this requirement in the next section.</p>
-<p><img src="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/continuous_processing.png" alt="continuous_processing" /></p>
-<pre><code class="language-javascript">CONTINUOUS_BLOCK_PROCESSING: 
-// Input: source_block - newly finalized block from source chain
-NEW `block` with blockHeight `source_block.height` in `blocks`
-
-// Process each initiate_transfer event
-FOR EACH `event` IN `source_block.initiate_transfer_events` DO:
-    RUN INIT_EVENT_PROCESSING(`event`)
-
-// Mark the block as processed, this 
-SET `block.status` as `block_processed`
-</code></pre>
-<blockquote>
-<p>[!NOTE]
-Setting the source_block.status as processed and storing that information in a file, or similar, could help with bootstrapping the relayer in the future.</p>
-</blockquote>
-<h4 id="3-process_finished_nonce_height-algorithm"><a class="header" href="#3-process_finished_nonce_height-algorithm">3. PROCESS_FINISHED_NONCE_HEIGHT algorithm</a></h4>
-<p>In this section the process is defined to calculate the completed part of the source chain <code>completed_block_height</code> and <code>completed_nonce_height</code>.</p>
-<p><img src="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/complete_block_height.png" alt="complete_block_height" /></p>
-<p>Replace</p>
-<pre><code class="language-javascript">IF `nonce.status_transfer` is `transfer_completed` THEN:
-    RETURN
-</code></pre>
-<p>with</p>
-<pre><code class="language-javascript">PROCESS_FINISHED_NONCE_HEIGHT:
-IF `nonce.status_transfer` is `transfer_completed` THEN:
-    IF `nonce` is not `completed_nonce_height + 1` THEN: 
-        RETURN
-    ELSE:
-        SET `completed_nonce_height += 1`
-        // the following pruning is required to keep the memory sane.
-        DELETE every `nonce` with `nonce` &lt; `completed_nonce_height`
-        IF this `nonce` is the last nonce in the source block THEN:
-            SET `completed_block_height += 1`
-        IF the next `nonce.status_transfer` is `transfer_completed` THEN:
-            GOTO PROCESS_FINISHED_NONCE_HEIGHT
-        ELSE:
-            RETURN
-</code></pre>
-<h4 id="4-timeout-algorithm"><a class="header" href="#4-timeout-algorithm">4. TIMEOUT algorithm</a></h4>
-<p>Whenever the timeout of a transfer (which has <code>transfer_pending</code> status) is triggered. Start the event processing.</p>
-<pre><code class="language-javascript">TIMEOUT:
-// Input: timeoutTriggeredEvent - Event whose timeout has been triggered
-
-ON timeoutTriggered(`timeoutTriggeredEvent`) DO:
-    // Check if the transfer has a pending status
-    IF `timeoutTriggeredEvent.status` is `transfer_pending` THEN:
-        // Start the event processing for the triggered event
-        RUN EVENT_PROCESSING(`timeoutTriggeredEvent`).
-    ELSE:
-        // If status is not pending, ignore or log
-        LOG "Timeout triggered for a non-pending transfer.";
-</code></pre>
-<p><img src="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/timeout.png" alt="alt text" /></p>
-<h3 id="complete_transfer-events"><a class="header" href="#complete_transfer-events">complete_transfer events</a></h3>
-<h4 id="1-complete_event_processing-algorithm"><a class="header" href="#1-complete_event_processing-algorithm">1. COMPLETE_EVENT_PROCESSING algorithm</a></h4>
-<p>Similar to the INIT_EVENT_PROCESSING algorithm, the COMPLETE_EVENT_PROCESSING algorithm processes the finalized <code>complete_transfer</code> events on the target chain.</p>
-<p>We can apply a similar algorithm as for the INIT_EVENT_PROCESSING algorithm.</p>
-<pre><code class="language-javascript">COMPLETE_EVENT_PROCESSING:
-// Input: complete_transfer event from target chain
-SET `nonce` = `complete_transfer_event.nonce` 
-    with nonce.status_transfer = `transfer_completed`
-SET `transfer_uid` = `complete_transfer_event.transfer_uid`
-
-// Check if the `nonce` is already recorded
-IF `nonce` is recorded THEN:
-    SET `nonce.status_transfer = transfer_completed` 
-ELSE: 
-    CREATE new `nonce` entry locally and save it in ORDERED_SET.
-
-RETURN.
-</code></pre>
-<p>As can be seen, the algorithm is simpler than the INIT_EVENT_PROCESSING algorithm.</p>
-<h4 id="2-process_finished_nonce_height-algorithm"><a class="header" href="#2-process_finished_nonce_height-algorithm">2. PROCESS_FINISHED_NONCE_HEIGHT algorithm</a></h4>
-<p>Similar to Section <a href="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/index.html#PROCESS_FINISHED_NONCE_HEIGHT_algorithm">PROCESS_FINISHED_NONCE_HEIGHT</a>, we also utilize the <code>complete_transfer</code> events to calculate the <code>completed_block_height</code> and <code>completed_nonce_height</code> for the target chain.</p>
-<p>For this we replace the <code>RETURN</code> above with <code>PROCESS_FINISHED_NONCE_HEIGHT</code>.</p>
-<p><img src="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/complete_event_processing.png" alt="alt text" /></p>
-<h3 id="bootstrap-algorithm"><a class="header" href="#bootstrap-algorithm">BOOTSTRAP algorithm</a></h3>
-<p>Next we describe how the bootstrap algorithm works and differs from the above.</p>
-<blockquote>
-<p>:bulb: A node that is bootstrapping SHOULD start the CONTINUOUS_BLOCK_PROCESSING algorithm in parallel. This allows to immediately assume normal operation while attempting to catch up with what has been missed.</p>
-</blockquote>
-<p><img src="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/bootstrap.png" alt="alt text" /></p>
-<p>The Algorithm differs from the CONTINUOUS_BLOCK_PROCESSING in that it runs in parallel and will catch up with missing transfers eventually. While not hindering the continuous operation of the Relayer.</p>
-<p>The BOOTSTRAP algorithm will run for both the L1 and the L2 chains. Hence we have to set the <code>start_block</code> and <code>end_block</code> for both chains. On a given chain there will be both <code>initiate_transfer</code> and <code>complete_transfer</code> events, since the bridge is bi-directional.</p>
-<pre><code class="language-javascript">BOOTSTRAPPING
-// Start the continuous block pocessing protocol in parrallel to this algorithm
-START CONTINUOUS_BLOCK_PROCESSING protocol 
-SET `first_CP_block` = first processed block by CONTINUOUS_BLOCK_PROCESSING
-
-// Set initial processed block parameters
-SET `end_block` = `first_CP_block` - 1
-SET `start_block` = some INPUT value
-
-// Process source blocks in the specified range
-FOR `current_block` = `start_block` TO `end_block` DO:
-    RUN CONTINUOUS_BLOCK_PROCESSING using `current_block` as the block.
-</code></pre>
-<h4 id="bootstrap-input-types"><a class="header" href="#bootstrap-input-types">Bootstrap input types</a></h4>
-<p>The following input types are possible:</p>
-<p><strong>Manual input</strong>
-Based on knowledge of when the relayer stopped, we can inject a parameter about the block height from which the relayer should start to bootstrap. Default is the genesis or some arbitrary long interval in the past, e.g. 2 weeks.</p>
-<p><strong>Reading from local memory</strong>
-In the CONTINUOUS_BLOCK_PROCESSING Algorithm the Relayer can record the height of the block <code>completed_block_height</code> as described in the Calculation-Completed-Block-Height algorithm. When rebooting or bootstrapping the node, the relayer can start from the last point it left.</p>
-<p><strong>Reading from chain</strong>
-The relayer records on the source or target chain the <code>completed_block_height</code> (see <a href="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/index.html#calculation-of-completed-source-block-height">PROCESS_FINISHED_NONCE_HEIGHT</a>. This can happen infrequent. A separate algorithm needs to be spelled out which records the highest source block, below which all source blocks with transfers are completed.</p>
-<h2 id="considered-alternatives"><a class="header" href="#considered-alternatives">Considered Alternatives</a></h2>
-<ol>
-<li>Use of indexer DB.</li>
-</ol>
-<p>This creates a dependency to another component. For example, if the postgres db has an issue, the relayer has an issue. Even thought the relayer doesn’t need the db to process.</p>
-<h2 id="reference-implementation-19"><a class="header" href="#reference-implementation-19">Reference Implementation</a></h2>
 <h2 id="verification-25"><a class="header" href="#verification-25">Verification</a></h2>
-<h2 id="appendix-23"><a class="header" href="#appendix-23">Appendix</a></h2>
-<h2 id="changelog-19"><a class="header" href="#changelog-19">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-69-bridge-fees"><a class="header" href="#mip-69-bridge-fees">MIP-69: Bridge Fees</a></h1>
 <ul>
@@ -4876,7 +4903,7 @@ The following are possible ways to adjust the rate limit:</p>
 <p>Needs discussion.</p>
 <p>We may add a formal model?</p>
 <hr />
-<h2 id="changelog-20"><a class="header" href="#changelog-20">Changelog</a></h2>
+<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
 <h2 id="appendix-25"><a class="header" href="#appendix-25">Appendix</a></h2>
 <h3 id="a1-alternative-designs"><a class="header" href="#a1-alternative-designs">A1: Alternative designs</a></h3>
 <p>This MIP proposes a rate limiting mechanism for the Lock/Mint-type Native Bridge with symmetrical design. Below we discuss how we got here and which alternatives exist. The version discussed in this MIP is option C.</p>
@@ -5101,7 +5128,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h2 id="reference-implementation-23"><a class="header" href="#reference-implementation-23">Reference Implementation</a></h2>
 <p>For the reference implementation of the Move Stack refer to the <a href="https://github.com/movementlabsxyz">Movement GitHub repository</a>.</p>
 <h2 id="verification-29"><a class="header" href="#verification-29">Verification</a></h2>
-<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
+<h2 id="changelog-22"><a class="header" href="#changelog-22">Changelog</a></h2>
 <h2 id="appendix-26"><a class="header" href="#appendix-26">Appendix</a></h2>
 <h3 id="a1-rfc-1"><a class="header" href="#a1-rfc-1">A1 RFC-1</a></h3>
 <p>RFC-1 in <a href="https://github.com/movementlabsxyz/rfcs">RFCs</a> is an initial document that outlines the components of the Move Stack and Movement SDK. It provides a detailed enumeration of components, their aliases, and purposes.</p>
@@ -5119,6 +5146,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for Proposing Progressive L2 Models</a></li>
 <li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
 <li><a href="Approved/main/MIP/mip-60/">MIP-60: Cross-chain bridge architectures</a></li>
+<li><a href="Approved/main/MIP/mip-61/">MIP-61: Relayer algorithm for the lock/mint Native Bridge</a></li>
 <li><a href="Approved/main/MIP/mip-84/">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></li>
 <li><a href="Approved/main/MIP/mip-88/">MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge</a></li>
 <li><a href="Approved/main/MIP/mip-94/">MIP-94: Parent-Child MIPs</a></li>
@@ -5130,6 +5158,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
+<li><a href="Approved/main/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
 <li><a href="Approved/main/MD/md-91/">MD-91: Define Move Stack and Movement SDK</a></li>
 <li><a href="Approved/main/MD/md-93/">MD-93: Parent-Child MIPs</a></li>
 </ul>
@@ -5156,7 +5185,6 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <li><a href="Review/l-monninger/aptos-gas-pool/MIP/mip-52/">MIP-52: Aptos Gas Pool</a></li>
 <li><a href="Review/l-monninger/the-biarritz-model/MIP/mip-54/">MIP-54: The Biarritz Model</a></li>
 <li><a href="Review/l-monninger/the-bilbao-model/MIP/mip-55/">MIP-55: The Bilbao Model</a></li>
-<li><a href="Review/mip/relayer-bootstrap-and-reboot/MIP/mip-61/">MIP-61: Relayer algorithm for the lock/mint Native Bridge</a></li>
 <li><a href="Review/issue66/MDMIP-for-bridge-fees/MIP/mip-69/">MIP-69: Bridge Fees</a></li>
 <li><a href="Review/mip/informer-lockmintbridge/MIP/mip-71/">MIP-71: Informer V1 for the Operation of the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/">MIP-74: Rate limiter for the Lock/Mint-type Native Bridge</a></li>
@@ -5177,7 +5205,6 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <li><a href="Review/mip/postconfirmation/MD/md-37/">MD-37: FFS: Postconfirmation</a></li>
 <li><a href="Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></li>
 <li><a href="Review/l-monninger/just-reward/MD/md-49/">MD-49: Movement L2 Gas Fees</a></li>
-<li><a href="Review/mip/relayer-bootstrap-and-reboot/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
 <li><a href="Review/issue66/MDMIP-for-bridge-fees/MD/md-69/">MD-69: Bridge fees</a></li>
 <li><a href="Review/mip/informer-lockmintbridge/MD/md-71/">MD-71: Informer service for the Lock/Mint-based Native Bridge</a></li>
 <li><a href="Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></li>
@@ -5189,8 +5216,8 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <li><strong>Description</strong>: Provide a mechanism for allowing the use of keys in an enclave that can be recovered after crashes without breaking encapsulation.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 </ul>
-<h2 id="overview-8"><a class="header" href="#overview-8">Overview</a></h2>
-<h2 id="desiderata-7"><a class="header" href="#desiderata-7">Desiderata</a></h2>
+<h2 id="overview-9"><a class="header" href="#overview-9">Overview</a></h2>
+<h2 id="desiderata-8"><a class="header" href="#desiderata-8">Desiderata</a></h2>
 <h3 id="d1-minimize-direct-access-to-bridge-keys-while-maintaining-use-1"><a class="header" href="#d1-minimize-direct-access-to-bridge-keys-while-maintaining-use-1">D1: Minimize Direct Access to Bridge Keys while Maintaining Use</a></h3>
 <p><strong>User Journey</strong>: Movement Labs Atomic Bridge Service Operators (MLABSO) can run the service with appropriate signing keys without direct access to said keys.</p>
 <p><strong>Justification</strong>: Without direct access to the keys, MLABSO are forced to use a more secure mechanism for signing messages which can be more easily secured audited such as an HSM or enclave.</p>
@@ -5206,7 +5233,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <li><strong>Description</strong>: Consider and model long-range attacks in the Fast Finality Settlement protocol.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a>, Andreas Penzkofer</li>
 </ul>
-<h2 id="overview-9"><a class="header" href="#overview-9">Overview</a></h2>
+<h2 id="overview-10"><a class="header" href="#overview-10">Overview</a></h2>
 <p>Long-range attacks are an inherent vulnerability to Proof-of-Stake (PoS) systems. Without an anchoring mechanisms blockchains are exposed to the risk of these.</p>
 <p>The Fast Finality Settlement (<a href="https://github.com/movementlabsxyz/MIP/pull/34">MIP-34</a>) is a PoS based settlement mechanism and separates into</p>
 <ul>
@@ -5229,7 +5256,7 @@ A retired validator is bribed or hacked to sign blocks on an alternate chain, al
 <li><strong>Stake Bleeding</strong>:
 The attacker stalls the main chain by skipping block production while accumulating stake and rewards on a hidden branch, eventually overtaking the main chain.</li>
 </ol>
-<h2 id="desiderata-8"><a class="header" href="#desiderata-8">Desiderata</a></h2>
+<h2 id="desiderata-9"><a class="header" href="#desiderata-9">Desiderata</a></h2>
 <h3 id="d1-evaluate-the-opportunity-for-simple-long-range-attacks-and-detection-thereof"><a class="header" href="#d1-evaluate-the-opportunity-for-simple-long-range-attacks-and-detection-thereof">D1: Evaluate the opportunity for “simple” long-range attacks and detection thereof</a></h3>
 <p><strong>User Journey</strong>: A researcher or protocol implementer can understand how a simple long-range attack could be executed and detected.</p>
 <p><strong>Justification</strong>: Providing a model which demonstrates how a simple long-range attack could be executed and detected could enable us to derive preventative measures.</p>
@@ -5239,18 +5266,18 @@ The attacker stalls the main chain by skipping block production while accumulati
 <h3 id="d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof"><a class="header" href="#d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof">D3: Evaluate the opportunity for “stake-bleeding” long-range attacks and detection thereof</a></h3>
 <p><strong>User Journey</strong>: A researcher or protocol implementer can understand how a stake-bleeding long-range attack could be executed and detected.</p>
 <p><strong>Justification</strong>: Stake-bleeding long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a stake-bleeding long-range attack could be executed and detected could enable us to derive preventative measures.</p>
-<h2 id="changelog-22"><a class="header" href="#changelog-22">Changelog</a></h2>
+<h2 id="changelog-23"><a class="header" href="#changelog-23">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-6-suzuka-block-validation"><a class="header" href="#md-6-suzuka-block-validation">MD-6: Suzuka Block Validation</a></h1>
 <ul>
 <li><strong>Description</strong>: Provide means to validate blocks to prevent public DA DOS attacks.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 </ul>
-<h2 id="overview-10"><a class="header" href="#overview-10">Overview</a></h2>
+<h2 id="overview-11"><a class="header" href="#overview-11">Overview</a></h2>
 <p>The current implementation of the Suzuka Network relies on a public and permissionless DA. The blocks are further not validated besides their correctness w.r.t. the Aptos executor.</p>
 <p>This could lead to an unsophisticated DOS attack wherein the attacker simply spams the network with low gas fee–both on the DA and in the execution layer–blocks. A slightly more sophisticated attack would see the attack DOS the DA namespace itself in a <a href="https://forum.celestia.org/t/woods-attack-on-celestia/59">Woods Attack</a>.</p>
 <p>While we cannot prevent latter, providing solutions to the former may prove vital to fairness amongst genuine network participants.</p>
-<h2 id="desiderata-9"><a class="header" href="#desiderata-9">Desiderata</a></h2>
+<h2 id="desiderata-10"><a class="header" href="#desiderata-10">Desiderata</a></h2>
 <p>Transaction fairness (general term) : A fair block proposal of a node follows a random selection of the transactions among the set of pending transactions the node is aware of. This is also called <em>transaction fairness</em>.</p>
 <!--
   List out the specific desiderata. Each entry should consist of:
@@ -5323,12 +5350,12 @@ The attacker stalls the main chain by skipping block production while accumulati
 <li><strong>Description</strong>: Provide an account of possible Suzuka MEV attacks and censorship vulnerabilities, and propose solutions to mitigate these risks.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 </ul>
-<h2 id="overview-11"><a class="header" href="#overview-11">Overview</a></h2>
+<h2 id="overview-12"><a class="header" href="#overview-12">Overview</a></h2>
 <p>The Suzuka Network is known to be subject to MEV exploits in the form of manipulating block size and order. That is, while transactions within a block are ordered deterministically, full nodes are currently given freedom to chose which transactions to include in a block and when to send those blocks to the network. Execution-level validation will only assert that the sequence numbers are appropriate and other dApp-specific logic. There are no penalties for being to have withheld a transaction.</p>
 <p>The desiderata presented herein request a complete model of MEV in the Suzuka Network. They also make some provisional requests based on surmised ways to prevent certain MEV attacks.</p>
 <p>Most of the account of MEV attacks should be based on the model of transaction fairness given in <a href="Review/l-monninger/block-validation/MD/md-7/../md-6/README.html">MD-6</a>.</p>
 <p>Many of MEV attacks addressed can also be classed as censorship attacks. That is, a miner can choose to not include a transaction in a block. This is a form of censorship. As such, the desiderata herein also address censorship attacks.</p>
-<h2 id="desiderata-10"><a class="header" href="#desiderata-10">Desiderata</a></h2>
+<h2 id="desiderata-11"><a class="header" href="#desiderata-11">Desiderata</a></h2>
 <!--
   List out the specific desiderata. Each entry should consist of:
 
@@ -5398,13 +5425,13 @@ The attacker stalls the main chain by skipping block production while accumulati
 <li><strong>Description</strong>: Data format which describes migrations of the canonical state of the DA over time.</li>
 <li><strong>Authors</strong>: <a href="mailto:mikhail.zabaluev@movementlabs.xyz">Mikhail Zabaluev</a></li>
 </ul>
-<h2 id="overview-12"><a class="header" href="#overview-12">Overview</a></h2>
+<h2 id="overview-13"><a class="header" href="#overview-13">Overview</a></h2>
 <p>In order to allow for safe upgrades, data model changes, and DA migrations, it has been proposed
 that we provide a configuration data format which describes the canonical state of the DA over time.
 This would be a hardfork or coordinated approach (TODO: clarify terminology) to upgrades, in that
 each node participating in the network SHOULD be deployed with an up to date copy describing
 the migrations up to and above the current block height.</p>
-<h2 id="desiderata-11"><a class="header" href="#desiderata-11">Desiderata</a></h2>
+<h2 id="desiderata-12"><a class="header" href="#desiderata-12">Desiderata</a></h2>
 <h3 id="d1-produce-da-blobs-accordingly-to-migrations-config"><a class="header" href="#d1-produce-da-blobs-accordingly-to-migrations-config">D1: Produce DA Blobs Accordingly To Migrations Config</a></h3>
 <p><strong>User Journey</strong>: Producer of DA blobs (DA light node in current architecture)
 should encode using the formats defined by migration settings for the current block height.</p>
@@ -5437,7 +5464,7 @@ nodes is available on the DA in uniform format.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-17-bridge-fees"><a class="header" href="#md-17-bridge-fees">MD-17: Bridge Fees</a></h1>
 <p>Description: Bridges requires fees to assure it’s not drained and can self-sustain its operations.</p>
-<h2 id="overview-13"><a class="header" href="#overview-13">Overview</a></h2>
+<h2 id="overview-14"><a class="header" href="#overview-14">Overview</a></h2>
 <p>Bridges require a sustainable fee mechanism to prevent abuse and ensure they can self-sustain operations. This proposal outlines a dynamic fee structure for both the Ethereum and Movement chains. On the Ethereum side, fees will adjust according to gas price volatility, while on the Movement side, an oracle service will monitor and update gas prices in real time. The only external component that we are reliant on are RPC nodes.</p>
 <h2 id="definitions-4"><a class="header" href="#definitions-4">Definitions</a></h2>
 <ul>
@@ -5447,7 +5474,7 @@ nodes is available on the DA in uniform format.</p>
 <li><strong>Gas</strong>: The fee required to execute a transaction on the Ethereum or Movement network.</li>
 <li><strong>Priority Gas</strong>: Additional gas fee paid to prioritize a transaction for faster processing on the Ethereum or Movement network.</li>
 </ul>
-<h2 id="desiderata-12"><a class="header" href="#desiderata-12">Desiderata</a></h2>
+<h2 id="desiderata-13"><a class="header" href="#desiderata-13">Desiderata</a></h2>
 <h3 id="1-dynamic-fee-adjustment-on-ethereum"><a class="header" href="#1-dynamic-fee-adjustment-on-ethereum">1. Dynamic Fee Adjustment on Ethereum</a></h3>
 <ul>
 <li><strong>User Journey</strong>: The Bridge Relayer checks the base gas cost on Movement every 30 seconds. If the cost increases by 20%, the fee will increase by an additional 20% of the current price. If the cost decreases, it either decreases to the current price by an additional 20% of current price or reverts to the base cost.</li>
@@ -5511,7 +5538,7 @@ block.eth_priority_gas
 <li><strong>Description</strong>: Proposal for simplifying the native bridge mechanism using an attester-based approach and drawing inspiration from USDC’s CCTP. The goal is to reducing friction, cost, and complexity for Layer 2 onboarding.</li>
 <li><strong>Authors</strong>: <a href="mailto:primata@movementlabs.xyz">Primata</a></li>
 </ul>
-<h2 id="overview-14"><a class="header" href="#overview-14">Overview</a></h2>
+<h2 id="overview-15"><a class="header" href="#overview-15">Overview</a></h2>
 <p>This MD lays out steps to introduce and leverage an <strong>attester-based bridge model</strong> to create a frictionless, efficient, and secure cross-chain experience for Movement technologies.</p>
 <p>A bridge mechanism is essential for any Layer 2 solution, serving as the user’s first interaction with the network. This process must be smooth and frictionless, ensuring that dealing with tokens on L1 and bridging to native gas tokens on L2 does not overcomplicate the user experience. The bridge must balance user onboarding, cost-efficiency, and simplicity, while minimizing transaction complexity.</p>
 <p>We request to</p>
@@ -5523,7 +5550,7 @@ block.eth_priority_gas
 <h3 id="motivation-31"><a class="header" href="#motivation-31">Motivation</a></h3>
 <p>Our current bridge solution has been increasing in complexity with each iteration. Originally requiring three on-chain transactions, it now requires four, initiate bridge, lock, complete source chain, complete target chain. Additionally, the bridge does not currently support gas charging mechanisms to prevent exploits, and ongoing discussions are leaning toward adding further components, making it even more complex and computationally expensive.</p>
 <p>We believe the best approach is to draw from live implementations that have achieved a streamlined user experience with minimal cost to the user. One such example is USDC’s <a href="https://www.circle.com/en/cross-chain-transfer-protocol">CCTP</a>, which offers simplicity, security, and efficiency in cross-chain bridging. Instead of increasing the complexity of our current bridge design, we should aim to adopt more proven mechanisms.</p>
-<h2 id="desiderata-13"><a class="header" href="#desiderata-13">Desiderata</a></h2>
+<h2 id="desiderata-14"><a class="header" href="#desiderata-14">Desiderata</a></h2>
 <h3 id="d1-take-inspiration-from-cctp"><a class="header" href="#d1-take-inspiration-from-cctp">D1: Take inspiration from CCTP</a></h3>
 <h4 id="user-journey"><a class="header" href="#user-journey">User Journey</a></h4>
 <p>The developer can understand the <a href="https://developers.circle.com/stablecoins/docs/generic-message-passing">Cross-Chain Transfer Protocol (CCTP)</a> model and draw from it to design a bridge mechanism that is simple, secure, and efficient.</p>
@@ -5629,7 +5656,7 @@ The challenge is to make sure that the signature is only used once so no transac
 
   TODO: Remove this comment before finalizing.
 -->
-<h2 id="overview-15"><a class="header" href="#overview-15">Overview</a></h2>
+<h2 id="overview-16"><a class="header" href="#overview-16">Overview</a></h2>
 <p>We need to check that users can submit transactions. This MD outlines a simple automated solution.</p>
 <h2 id="definitions-5"><a class="header" href="#definitions-5">Definitions</a></h2>
 <p>Provide definitions that you think will empower the reader to quickly dive into the topic.</p>
@@ -5671,7 +5698,7 @@ The challenge is to make sure that the signature is only used once so no transac
 <li><strong>Authors</strong>: <a href="mailto:primata@movementlabs.xyz">Primata</a></li>
 <li><strong>Collaborators</strong>: Community contributions welcome</li>
 </ul>
-<h2 id="overview-16"><a class="header" href="#overview-16">Overview</a></h2>
+<h2 id="overview-17"><a class="header" href="#overview-17">Overview</a></h2>
 <p>The Move Name Service (MNS) is a system that allows users to register human-readable names on the Movement blockchain. It is designed to facilitate user-friendly interactions, registrations, and transactions on-chain. Expanding beyond traditional name services, MNS introduces the concept of access keys tied to a bonding curve, which determines the minting and burning prices of these keys. The MNS also provides revenue generation mechanisms for both the protocol and name owners.</p>
 <p>MNS falls under the SoFi category, offering a decentralized, permissionless framework that encourages community participation to build and iterate on infrastructure and services centered on Names and Rooms.</p>
 <h2 id="definitions-6"><a class="header" href="#definitions-6">Definitions</a></h2>
@@ -5681,7 +5708,7 @@ The challenge is to make sure that the signature is only used once so no transac
 <li><strong>Keys</strong>: Access key to Name’s rooms. Mintable and burnable according to a bonding curve.</li>
 <li><strong>Bonding Curve</strong>: A mathematical model used to determine minting and burning prices for access keys.</li>
 </ul>
-<h2 id="desiderata-14"><a class="header" href="#desiderata-14">Desiderata</a></h2>
+<h2 id="desiderata-15"><a class="header" href="#desiderata-15">Desiderata</a></h2>
 <h3 id="d1-decentralized-and-permissionless-name-system"><a class="header" href="#d1-decentralized-and-permissionless-name-system">D1: Decentralized and Permissionless Name System</a></h3>
 <p><strong>User Journey</strong>: Users can register human-readable names on the blockchain and access related services.</p>
 <p><strong>Justification</strong>: A decentralized name system is essential for empowering users with on-chain identities and ensuring they can interact with the blockchain without technical friction.</p>
@@ -5811,10 +5838,10 @@ struct Trade {
 <li><strong>Description</strong>: Fast Finality Settlement mechanism requirements.</li>
 <li><strong>Authors</strong>: Andreas Penzkofer</li>
 </ul>
-<h2 id="overview-17"><a class="header" href="#overview-17">Overview</a></h2>
+<h2 id="overview-18"><a class="header" href="#overview-18">Overview</a></h2>
 <h2 id="abstract-31"><a class="header" href="#abstract-31">Abstract</a></h2>
 <p>We require a mechanism to confirm the validity of transactions on L2. This mechanism should provide fast confirmations with crypto-economic security on L2. Moreover, it should also provide confirmations that leverage the economic security from L1 (this may be slower).</p>
-<h2 id="desiderata-15"><a class="header" href="#desiderata-15">Desiderata</a></h2>
+<h2 id="desiderata-16"><a class="header" href="#desiderata-16">Desiderata</a></h2>
 <h3 id="d1-postconfirmation"><a class="header" href="#d1-postconfirmation">D1: Postconfirmation</a></h3>
 <p><strong>User Journey</strong>: Validators can attest to the correctness of a sequence of L2Blocks (superBlocks) on L1.</p>
 <p><strong>Description</strong>: Postconfirmation is the process of confirming a sequence of L2Blocks on L1. Validators attest to the correctness of the L2Blocks. The postconfirmation process leverages the economic security of L1.</p>
@@ -5838,17 +5865,17 @@ struct Trade {
 <h3 id="d6-compare-fastconfirmations-with-postconfirmation"><a class="header" href="#d6-compare-fastconfirmations-with-postconfirmation">D6: Compare Fastconfirmations with Postconfirmation</a></h3>
 <p><strong>User Journey</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks.</p>
 <p><strong>Description</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks. The superBlock confirmed by postconfirmation must contain the L2Blocks that are confirmed by fastconfirmations.</p>
-<h2 id="changelog-23"><a class="header" href="#changelog-23">Changelog</a></h2>
+<h2 id="changelog-24"><a class="header" href="#changelog-24">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-37-ffs-postconfirmation"><a class="header" href="#md-37-ffs-postconfirmation">MD-37: FFS: Postconfirmation</a></h1>
 <ul>
 <li><strong>Description</strong>: Confirmations of superBlocks on L1. A sub-protocol of Fast Finality Settlement.</li>
 <li><strong>Authors</strong>: Andreas Penzkofer</li>
 </ul>
-<h2 id="overview-18"><a class="header" href="#overview-18">Overview</a></h2>
+<h2 id="overview-19"><a class="header" href="#overview-19">Overview</a></h2>
 <p>This document describes the requirements for the Postconfirmation protocol, a sub-protocol of the Fast Finality Settlement (FFS) protocol. Postconfirmation is responsible for confirming superBlocks on L1.</p>
 <p>See also the <a href="Review/mip/postconfirmation/MD/md-37/../mip-34/README.html">FFS protocol</a>.</p>
-<h2 id="desiderata-16"><a class="header" href="#desiderata-16">Desiderata</a></h2>
+<h2 id="desiderata-17"><a class="header" href="#desiderata-17">Desiderata</a></h2>
 <h3 id="d1-robust-postconfirmation-verification"><a class="header" href="#d1-robust-postconfirmation-verification">D1: Robust Postconfirmation verification</a></h3>
 <p><strong>User Journey</strong>: The L1 validation contract accurately verifies the super-majority proof for superBlocks and interacts effectively with the DA layer when necessary.</p>
 <p><strong>Justification</strong>: Ensuring the correctness of proofs at the L1 level prevents invalid states and secures the system’s integrity.</p>
@@ -5862,7 +5889,7 @@ struct Trade {
 <h3 id="d4-identify-slashing-conditions-where-necessary"><a class="header" href="#d4-identify-slashing-conditions-where-necessary">D4: Identify slashing conditions where necessary</a></h3>
 <p><strong>User Journey</strong>: Slashing conditions are clearly defined and enforced, with penalties for malicious behavior. Only utilize slashing if it is necessary.</p>
 <p><strong>Justification</strong>: Clearly defined slashing conditions deter malicious actors and protect the network from potential attacks. Overuse of slashing can discourage participation.</p>
-<h2 id="changelog-24"><a class="header" href="#changelog-24">Changelog</a></h2>
+<h2 id="changelog-25"><a class="header" href="#changelog-25">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs"><a class="header" href="#md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></h1>
 <ul>
@@ -5870,7 +5897,7 @@ struct Trade {
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 <li><strong>Reviewer</strong>: <a href="mailto:andreas.penzkofer@movementlabs.xyz">Andreas Penzkofer</a></li>
 </ul>
-<h2 id="overview-19"><a class="header" href="#overview-19">Overview</a></h2>
+<h2 id="overview-20"><a class="header" href="#overview-20">Overview</a></h2>
 <p><img src="Review/l-monninger/provisions-for-fixed-token-supply/MD/md-38/./fixed-supply-rewarding-problem.png" alt="Fixed Supply Rewarding Problem" /></p>
 <p>Using Fast Finality Settlement with the Native Bridge presents a challenge when the token supply is fixed.</p>
 <p>Burning token on the L2 without a way to return it to pools on the L2 or the L1 will result in a <strong>deflationary token</strong>, i.e., the supply decreases over time and eventually reaches 0 rendering any operations relying on gas impossible.</p>
@@ -5878,7 +5905,7 @@ struct Trade {
 <p>Using FFS-Postconfirmation requires a reward scheme on L1. On the other hand, users pay fees on L2 into an L2 pool. Namely, in this context, trying to use the same token for both L2 gas and L1 rewards requires that the token be bridged back over from L2 to L1, or else rely on a trusted signer to relay the gas. This document outlines the challenges and potential solutions for this problem.</p>
 <p>Users of the Movement SDK should be <strong>informed of different approaches and trade-offs when using the Native Bridge and Fast Finality Settlement with a fixed token supply.</strong> This document provides an initial conceptual framing towards that end.</p>
 <p>This document also seeks a response to the concerns raised in <a href="https://github.com/movementlabsxyz/MIP/pull/20">MD-20</a>.</p>
-<h2 id="desiderata-17"><a class="header" href="#desiderata-17">Desiderata</a></h2>
+<h2 id="desiderata-18"><a class="header" href="#desiderata-18">Desiderata</a></h2>
 <h3 id="d1-provide-mips-for-approaches-presented-in-appendix-a1-and-similar"><a class="header" href="#d1-provide-mips-for-approaches-presented-in-appendix-a1-and-similar">D1: Provide MIPs for Approaches Presented in Appendix A1 and Similar</a></h3>
 <p><strong>User Journey</strong>: Developers can reference MIPs for <strong>different approaches to using the Native Bridge and Fast Finality Settlement with a fixed token supply.</strong> Developers can also <strong>reference rejected MIPs</strong> to understand why certain approaches are not recommended.</p>
 <p><strong>Justification</strong>: Developers need a clear understanding of the different approaches to using the Native Bridge and Fast Finality Settlement with a fixed token supply. MIPs provide a clear and standardized way to document these approaches.</p>
@@ -5926,10 +5953,10 @@ struct Trade {
 <li><strong>Description</strong>: Provide a means of computing, charging, and distributing gas fees for the Movement L2s which rely on a separate DA and Settlement Layer, e.g., the Movement Network.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 </ul>
-<h2 id="overview-20"><a class="header" href="#overview-20">Overview</a></h2>
+<h2 id="overview-21"><a class="header" href="#overview-21">Overview</a></h2>
 <p>In order to understand how to fairly and effectively incentivize participation in the Movement Network, we need to establish a means of computing, charging, and distributing gas fees for the Movement L2s which rely on a separate DA and Settlement Layer. This will allow us to ensure that the Movement Network is able to operate efficiently and that the incentives for participation are aligned with the goals of the Movement Network.</p>
 <p>The work done in a Movement Network L2 is mostly outlined in <a href="https://github.com/movementlabsxyz/MIP/pull/19">MIP-19</a>. These desiderata request means to actually compute said work, charge proportional gas fees, and distribute these fees to the appropriate parties.</p>
-<h2 id="desiderata-18"><a class="header" href="#desiderata-18">Desiderata</a></h2>
+<h2 id="desiderata-19"><a class="header" href="#desiderata-19">Desiderata</a></h2>
 <h3 id="d1-specify-how-to-compute-execution-fees-for-a-movement-l2"><a class="header" href="#d1-specify-how-to-compute-execution-fees-for-a-movement-l2">D1: Specify How to Compute Execution Fees for a Movement L2</a></h3>
 <p><strong>User Journey</strong>: A developer can implement execution fee computation for a Movement L2 from a specification thereof.</p>
 <p><strong>Justification</strong>:  <a href="https://github.com/movementlabsxyz/MIP/pull/19">MIP-19</a> categorizes execution fees as “the costs that correspond to resources usage, CPU and permanent storage.” These need to be accounted for in any system to ensure the operators of nodes are appropriately incentivized for their participation and the fairness of resource usage is maintained.</p>
@@ -5945,33 +5972,6 @@ struct Trade {
 <h3 id="d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties"><a class="header" href="#d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties">D5: Specify How to Distribute Gas Fees to the Appropriate Parties</a></h3>
 <p><strong>User Journey</strong>: A network participant can understand how gas fees are distributed.</p>
 <p><strong>Justification</strong>: Gas fees must ultimately be used to pay extrinsic costs or else be considered as rewards. It is important to specify how gas fees are distributed to ensure that the system is fair and that the incentives for participation are aligned with the goals of the Movement Network.</p>
-<h2 id="changelog-25"><a class="header" href="#changelog-25">Changelog</a></h2>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-61-relayer-algorithm-for-the-lockmint-native-bridge"><a class="header" href="#md-61-relayer-algorithm-for-the-lockmint-native-bridge">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></h1>
-<ul>
-<li><strong>Description</strong>: A desiderata for the relayer in the lock/mint bridge, focusing on event processing, transfer completion, and robust recovery mechanisms.</li>
-<li><strong>Authors</strong>: Andreas Penzkofer, Philippe</li>
-<li><strong>Approval</strong>: :white_check_mark:</li>
-</ul>
-<h2 id="overview-21"><a class="header" href="#overview-21">Overview</a></h2>
-<p>This desiderata outlines the desired functionalities and recovery mechanisms for a Relayer handling the completion of transfers in the lock/mint Native Bridge protocol. It emphasizes uninterrupted operation, recovery from failure, and minimal dependencies.</p>
-<h2 id="desiderata-19"><a class="header" href="#desiderata-19">Desiderata</a></h2>
-<h3 id="d1-continuous-event-processing"><a class="header" href="#d1-continuous-event-processing">D1: Continuous Event Processing</a></h3>
-<p><strong>User Journey</strong>: The relayer continuously processes events from the source chain, created from user transfer requests, and ensures their completion on the target chain.</p>
-<p><strong>Justification</strong>: Guarantees the seamless execution of cross-chain transfers and minimizes delays or interruptions.</p>
-<h3 id="d2-robust-bootstrapping-mechanism"><a class="header" href="#d2-robust-bootstrapping-mechanism">D2: Robust Bootstrapping Mechanism</a></h3>
-<p><strong>User Journey</strong>: Upon restart, the relayer automatically determines the state of pending transfers and resumes processing without requiring manual intervention.</p>
-<p><strong>Justification</strong>: Ensures resilience and reliability even after unexpected failures or downtime.</p>
-<h3 id="d3-finality-aware-processing"><a class="header" href="#d3-finality-aware-processing">D3: Finality-aware Processing</a></h3>
-<p><strong>User Journey</strong>: The relayer respects the finality rules of both source and target chains. It ensures transfers are only processed once finalized on the source chain. It considers the finality of the target chain for completing transactions.</p>
-<p><strong>Justification</strong>: Prevents inconsistencies and sending duplicate transfer-completing transactions.</p>
-<h3 id="d4-minimal-trusted-components"><a class="header" href="#d4-minimal-trusted-components">D4: Minimal Trusted Components</a></h3>
-<p><strong>User Journey</strong>: The relayer operates independently without reliance on external indexers or databases.</p>
-<p><strong>Justification</strong>: Reduces operational complexity and points of failure, enhancing system robustness.</p>
-<h3 id="d5-timeout-and-retry-mechanism"><a class="header" href="#d5-timeout-and-retry-mechanism">D5: Timeout and Retry Mechanism</a></h3>
-<p><strong>User Journey</strong>: Pending transfers are retried automatically after a timeout, ensuring eventual completion without manual oversight.</p>
-<p><strong>Justification</strong>: Improves the reliability of the relayer by handling transient errors and network issues gracefully.</p>
-<p><strong>Recommendations</strong>: Implement a configurable timeout period for retries.</p>
 <h2 id="changelog-26"><a class="header" href="#changelog-26">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-69-bridge-fees"><a class="header" href="#md-69-bridge-fees">MD-69: Bridge fees</a></h1>
