@@ -60,7 +60,7 @@ The complete **Movement** roadmap is available [here](movement/README.md).
 - **March 3, 2025:** Movement Labs Research team introduces `ffs` General Node type, which is an `ffs` node process decoupled from Movement Lab's full node logic.
 - **March 8, 2025:** Movement Labs Research Team introduces the acceptor features upgrade for MCR, adding staking games for each feature combination. 
 - **March 10, 2025:** Movement Labs Research Team completes MIPs for contract-based `ffs`, providing an agreed upon set of solutions to the Fork Stake problem.
-- **March 15, 2025:** Movement Labs Research Team w/ Symbiotic Publishes a Dual-Staking contract with some initial MOVE provided. 
+- **March 15, 2025:** Movement Labs Research Team w/ Symbiotic Releases Symbiotic Stake Staking Game.
 - **March 17, 2025:** Movement Labs Research Team publishes Baker Confirmations reference implementation under the `baker-confirmations` repo.
 - **March 21, 2025:** Movement Labs Research Team holds the Staking Games I Closing Ceremony, marking an end to active community support while results are reviewed. 
 - **March 24, 2025:** Movement Labs Research Team w/ Movement Labs SRE Team introduces FFS testing environment and node spin-up tooling for contract-based `ffs`. This includes a Kurtosis-based ETH testnet.

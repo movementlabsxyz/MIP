@@ -5,6 +5,8 @@ The General stage of the roadmap is focused on the development and testing of im
 
 ### contract-based `ffs`
 1. Fork Stake Upgrade
+    - **Forks:** Adds abilities to represent forks on the `ffs` post-confirmations contract.
+    - **Fork Client:** Adds dedicated logic for fork selection to the client.
 1. Stable Delegation Upgrade
 1. `ffs` Node process and client library
 1. Signature Aggregation Ceremony 
