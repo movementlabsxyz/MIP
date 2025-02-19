@@ -1,6 +1,8 @@
 # MD-0: Formalize Movement Proposals
+
 - **Description**: Provide formal structure for proposing non-trivial improvements to Movement.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
+- **Approval**: :white_check_mark:
 
 ## Overview
 

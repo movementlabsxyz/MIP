@@ -3,6 +3,7 @@
 - **Description**: Add concept of child MIPs to extend MIPs that contain substantial amount of content.
 - **Authors**: [Andy Golay](mailto:andy.golay@movementlabs.xyz)
 - **Desiderata**: [MD-93](https://github.com/movementlabsxyz/MIP/pull/93)
+- **Approval**: :white_check_mark:
 
 ## Abstract
 

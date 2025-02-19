@@ -1,8 +1,9 @@
 # MD-15: Movement Glossary
+
 - **Description**: Provide a glossary for Movement Vocabulary.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
-
+- **Approval**: :white_check_mark:
 
 ## Overview
 In order to communicate with more specificity in all contexts, Movement Labs should introduce a glossary. This glossary should define terms both unique to Movement Labs and general terms that are used in a unique way, underspecified in the literature, or have a specific meaning in the context of Movement Labs.

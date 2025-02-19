@@ -2,6 +2,7 @@
 
 - **Description**: Consider delays, network partitions and asynchrony. And address how rewards and slashing conditions impact these.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz), Andreas Penzkofer
+- **Approval**: :white_check_mark:
 
 ## Overview
 

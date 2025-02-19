@@ -2,6 +2,7 @@
 
 - **Description**: This MIP provides some background on cross-chain bridges designs and trade-offs related to security, decentralization, and performance.
 - **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz), Andreas Penzkofer
+- **Approval**: :white_check_mark:
 
 ## Abstract
 

@@ -2,6 +2,7 @@
 
 - **Description**: Architecture of the HTLC-based Native Bridge for \$MOVE token.
 - **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz)
+- **Approval**: :white_check_mark:
 
 ## Abstract
 

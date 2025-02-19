@@ -2,6 +2,8 @@
 
 - **Description**: Define the Move Stack and the Movement SDK to provide clear categorization of our software components and standardize language around the Movement technologies.
 - **Authors**: Andreas Penzkofer
+- **Approval**: :white_check_mark:
+
 
 ## Overview
 
