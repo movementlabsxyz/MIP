@@ -1,4 +1,4 @@
-# MD-81: Movement Mainnet Feature Flags
+# MD-81: Movement Mainnet feature flags
 
 - **Description**: Define and manage feature flags for the Movement mainnet to optimize the network's launch with community-driven and developer-focused features.
 - **Authors**: [Primata](mailto:primata@movementlabs.xyz)
