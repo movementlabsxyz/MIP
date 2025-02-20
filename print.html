@@ -3454,13 +3454,14 @@ Changes will be required at Genesis to initialize the module, which will involve
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-27-contract-pipeline"><a class="header" href="#mip-27-contract-pipeline">MIP-27: Contract Pipeline</a></h1>
 <ul>
-<li><strong>Description</strong>: Proposal to establish a structured pipeline for new contract deployments, aligning with the infrastructure outlined in MIP-23 while maintaining the existing Movement Token under MIP-18.</li>
+<li><strong>Description</strong>: Proposal to establish a structured pipeline for new contract deployments, aligning with the infrastructure outlined in <a href="https://github.com/movementlabsxyz/MIP/pull/23">MIP-23</a> while maintaining the existing Movement Token under <a href="https://github.com/movementlabsxyz/MIP/pull/18">MIP-18</a>.</li>
 <li><strong>Authors</strong>: <a href="mailto:primata@movementlabs.xyz">Primata</a></li>
 </ul>
 <h2 id="abstract-16"><a class="header" href="#abstract-16">Abstract</a></h2>
-<p>MIP-27 proposes a Contract Pipeline that leverages a timelock-based infrastructure, ensuring security and decentralization for new contract deployments. While the Movement Token (MOVEToken) continues to operate under the provisions of MIP-18, future deployments should adhere to the structure set forth by MIP-23. The pipeline includes components such as a KMS multisig for transaction proposals, off-chain voting for stakers and token holders, and a timelock mechanism for executing transactions, providing transparency and decentralized control.</p>
+<p>This proposal establishes a Contract Pipeline that adheres to the decentralized governance principles set forth in <a href="https://github.com/movementlabsxyz/MIP/pull/23">MIP-23</a> while maintaining compatibility with the existing Movement Token governance under <a href="https://github.com/movementlabsxyz/MIP/pull/18">MIP-18</a>.</p>
+<p>MIP-27 proposes a Contract Pipeline that leverages a timelock-based infrastructure, ensuring security and decentralization for new contract deployments. While the Movement Token (MOVEToken) continues to operate under the provisions of <a href="https://github.com/movementlabsxyz/MIP/pull/18">MIP-18</a>, future deployments should adhere to the structure set forth by <a href="https://github.com/movementlabsxyz/MIP/pull/23">MIP-23</a>. The pipeline includes components such as a KMS multisig for transaction proposals, off-chain voting for stakers and token holders, and a timelock mechanism for executing transactions, providing transparency and decentralized control.</p>
 <h2 id="motivation-16"><a class="header" href="#motivation-16">Motivation</a></h2>
-<p>Currently, Movement Token operates under the governance outlined in <a href="https://github.com/movementlabsxyz/MIP/blob/primata/mip-2/MIP/mip-18/README.md">MIP-18</a>, and we may wish to maintain this setup for the time being. However, for future deployments and upgrades, we should transition to a more robust infrastructure which includes the release conventions as described in MIP-23. This approach provides decentralized control, security, and accountability through multisig setups, timelocks, and community voting mechanisms. By establishing a structured pipeline, we ensure that the development process remains transparent, auditable, and aligned with the community’s interests.</p>
+<p>Currently, Movement Token operates under the governance outlined in [<a href="https://github.com/movementlabsxyz/MIP/pull/18">MIP-18</a>](https://github.com/movementlabsxyz/MIP/blob/primata/mip-2/MIP/mip-18/README.md), and we may wish to maintain this setup for the time being. However, for future deployments and upgrades, we should transition to a more robust infrastructure which includes the release conventions as described in <a href="https://github.com/movementlabsxyz/MIP/pull/23">MIP-23</a>. This approach provides decentralized control, security, and accountability through multisig setups, timelocks, and community voting mechanisms. By establishing a structured pipeline, we ensure that the development process remains transparent, auditable, and aligned with the community’s interests.</p>
 <h2 id="specification-15"><a class="header" href="#specification-15">Specification</a></h2>
 <p>The Contract Pipeline includes the following components:</p>
 <h3 id="1-timelock"><a class="header" href="#1-timelock">1. <strong>Timelock</strong></a></h3>
@@ -3511,7 +3512,7 @@ Changes will be required at Genesis to initialize the module, which will involve
 <li>
 <p><strong>Deployment JSON Files</strong>:</p>
 <ul>
-<li>The release includes deployment JSON files following the standard proposed in MIP-23. These files include:
+<li>The release includes deployment JSON files following the standard proposed in <a href="https://github.com/movementlabsxyz/MIP/pull/23">MIP-23</a>. These files include:
 <ul>
 <li>Broadcast data.</li>
 <li>Transaction hash for signatures.</li>
@@ -3522,7 +3523,7 @@ Changes will be required at Genesis to initialize the module, which will involve
 </li>
 </ul>
 <p>These JSON files are the output generated by deployment scripts and provide the essential data for the release.</p>
-<p>When a broadcast occurs using <a href="https://book.getfoundry.sh/">Foundry</a>, it generates a <strong>run file</strong> that captures all transactions and state changes made during the execution of a script. This run file can be extremely useful for tracing deployed contracts, transaction data, and any modifications to on-chain state. These run files serve as a key integration artifact and fallback data source, ensuring transparency and auditability. Following the <strong>Release Conventions</strong> specified in MIP-23, these run files should be included in each release to provide a complete trace of the deployment or upgrade process.</p>
+<p>When a broadcast occurs using <a href="https://book.getfoundry.sh/">Foundry</a>, it generates a <strong>run file</strong> that captures all transactions and state changes made during the execution of a script. This run file can be extremely useful for tracing deployed contracts, transaction data, and any modifications to on-chain state. These run files serve as a key integration artifact and fallback data source, ensuring transparency and auditability. Following the <strong>Release Conventions</strong> specified in <a href="https://github.com/movementlabsxyz/MIP/pull/23">MIP-23</a>, these run files should be included in each release to provide a complete trace of the deployment or upgrade process.</p>
 <p>Once the implementation contract is deployed, a JSON file is generated under the path <code>protocol-units/settlement/mcr/contracts/script/helpers/upgrade/{contract}.json</code>. This file contains all the critical data required for the continuity of the upgrade process, including transaction details, contract addresses, and other metadata. The file is continuously updated during contract upgrades to reflect the latest data, making it a live reference document that tracks the state of the system over time.</p>
 <p>e.g.</p>
 <pre><code class="language-json">{
@@ -3597,15 +3598,8 @@ Changes will be required at Genesis to initialize the module, which will involve
 </ul>
 <h3 id="5-peer-review-and-community-feedback-1"><a class="header" href="#5-peer-review-and-community-feedback-1">5. <strong>Peer Review and Community Feedback</strong></a></h3>
 <p>The proposal will be reviewed by Movement Labs engineers and the broader community for feedback before final implementation.</p>
-<h2 id="errata-6"><a class="header" href="#errata-6">Errata</a></h2>
-<p>Any post-publication corrections or updates will be documented here to ensure transparency and accuracy.</p>
 <h2 id="appendix-15"><a class="header" href="#appendix-15">Appendix</a></h2>
-<ul>
-<li>[R1] MIP-18: <a href="https://github.com/movementlabsxyz/MIP/blob/primata/mip-2/MIP/mip-18/README.md">Stage 0 Upgradeability and Multisigs</a></li>
-<li>[R2] MIP-23: <a href="https://github.com/movementlabsxyz/MIP/blob/l-monninger/releases/MIP/mip-n/README.md">Release Convetions for Movement Technologies</a></li>
-</ul>
-<hr />
-<p>This proposal establishes a Contract Pipeline that adheres to the decentralized governance principles set forth in MIP-23 while maintaining compatibility with the existing Movement Token governance under MIP-18.</p>
+<h2 id="changelog-15"><a class="header" href="#changelog-15">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-28-naming-conventions-for-movement-protocol-design"><a class="header" href="#mip-28-naming-conventions-for-movement-protocol-design">MIP-28: Naming Conventions for Movement Protocol Design</a></h1>
 <ul>
@@ -3645,7 +3639,7 @@ Changes will be required at Genesis to initialize the module, which will involve
 <h2 id="reference-implementation-15"><a class="header" href="#reference-implementation-15">Reference Implementation</a></h2>
 <h2 id="verification-16"><a class="header" href="#verification-16">Verification</a></h2>
 <h2 id="appendix-16"><a class="header" href="#appendix-16">Appendix</a></h2>
-<h2 id="changelog-15"><a class="header" href="#changelog-15">Changelog</a></h2>
+<h2 id="changelog-16"><a class="header" href="#changelog-16">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-34-fast-finality-settlement"><a class="header" href="#mip-34-fast-finality-settlement">MIP-34: Fast Finality Settlement</a></h1>
 <ul>
@@ -3798,7 +3792,7 @@ This implies that if more than <span class="katex"><span class="katex-html" aria
 <li><strong>commit to a sequence of L2Blocks</strong>. The Fastconfirmation certificate could be per L2block. However, on L1 we want to commit to a sequence of blocks (a superBlock). This can be done by committing to the state root of the last block in the sequence or more complicated approaches using Merkle roots.</li>
 </ul>
 <h2 id="appendix-17"><a class="header" href="#appendix-17">Appendix</a></h2>
-<h2 id="changelog-16"><a class="header" href="#changelog-16">Changelog</a></h2>
+<h2 id="changelog-17"><a class="header" href="#changelog-17">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-37-ffs-postconfirmation"><a class="header" href="#mip-37-ffs-postconfirmation">MIP-37: FFS: Postconfirmation</a></h1>
 <ul>
@@ -4014,7 +4008,7 @@ function getAcceptorLastActivity() internal view returns (uint256) {
 <p>A reference implementation for Postconfirmation is provided by MCR, see <a href="https://github.com/movementlabsxyz/movement/tree/714831820d78b3910729a194cd0508fa1efd9aa9/protocol-units/settlement/mcr">here</a>.</p>
 <h2 id="verification-18"><a class="header" href="#verification-18">Verification</a></h2>
 <h2 id="appendix-18"><a class="header" href="#appendix-18">Appendix</a></h2>
-<h2 id="changelog-17"><a class="header" href="#changelog-17">Changelog</a></h2>
+<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-47-improve-gas-fee-collection-in-phases"><a class="header" href="#mip-47-improve-gas-fee-collection-in-phases">MIP-47: Improve Gas fee collection in phases</a></h1>
 <ul>
@@ -4105,7 +4099,7 @@ function getAcceptorLastActivity() internal view returns (uint256) {
 -->
 <p>Needs discussion.</p>
 <hr />
-<h2 id="errata-7"><a class="header" href="#errata-7">Errata</a></h2>
+<h2 id="errata-6"><a class="header" href="#errata-6">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -4248,7 +4242,7 @@ module GovernedGasPool::goverened_gas_pool {
 <p>Notice the call :
 <code>assert!(aptos_governance::is_proposal_approved&lt;GovernanceProposal&gt;(id), 2);</code></p>
 <h2 id="verification-20"><a class="header" href="#verification-20">Verification</a></h2>
-<h2 id="errata-8"><a class="header" href="#errata-8">Errata</a></h2>
+<h2 id="errata-7"><a class="header" href="#errata-7">Errata</a></h2>
 <h2 id="appendix-20"><a class="header" href="#appendix-20">Appendix</a></h2>
 <hr />
 <h2 id="copyright-9"><a class="header" href="#copyright-9">Copyright</a></h2>
@@ -4337,7 +4331,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <h2 id="reference-implementation-19"><a class="header" href="#reference-implementation-19">Reference Implementation</a></h2>
 <h2 id="verification-21"><a class="header" href="#verification-21">Verification</a></h2>
 <h2 id="appendix-21"><a class="header" href="#appendix-21">Appendix</a></h2>
-<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
+<h2 id="changelog-19"><a class="header" href="#changelog-19">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-50-insured-native-bridge"><a class="header" href="#mip-50-insured-native-bridge">MIP-50: Insured Native Bridge</a></h1>
 <ul>
@@ -4361,7 +4355,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li>The Bridge Pool Governor SHALL be expected to purchase token from the market to recover the loss and replenish the Insurance Fund.</li>
 </ol>
 <h2 id="verification-22"><a class="header" href="#verification-22">Verification</a></h2>
-<h2 id="changelog-19"><a class="header" href="#changelog-19">Changelog</a></h2>
+<h2 id="changelog-20"><a class="header" href="#changelog-20">Changelog</a></h2>
 <h2 id="appendix-22"><a class="header" href="#appendix-22">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-52-aptos-gas-pool"><a class="header" href="#mip-52-aptos-gas-pool">MIP-52: Aptos Gas Pool</a></h1>
@@ -4395,7 +4389,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li>Verify that the AptosVM does not validate burns. Otherwise, there may be logic outside of the framework <code>epilogue_gas_payer</code> path which needs to be updated.</li>
 <li>Identify any sponsorship or other gas payment mechanisms which may need to be updated to use the Gas Pool.</li>
 </ul>
-<h2 id="changelog-20"><a class="header" href="#changelog-20">Changelog</a></h2>
+<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
 <h2 id="appendix-23"><a class="header" href="#appendix-23">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-54-the-biarritz-model"><a class="header" href="#mip-54-the-biarritz-model">MIP-54: The Biarritz Model</a></h1>
@@ -4446,7 +4440,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li><strong>1:1 token correlation</strong>: the model asserts a 1:1 token correlation between the L1 staking and L2 gas tokens. This may not be desirable in all cases as exploits on the bridge may compromise the security of staking on the L1 or sybil resistance on the L2.</li>
 </ol>
 <h2 id="verification-24"><a class="header" href="#verification-24">Verification</a></h2>
-<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
+<h2 id="changelog-22"><a class="header" href="#changelog-22">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-55-the-bilbao-model"><a class="header" href="#mip-55-the-bilbao-model">MIP-55: The Bilbao Model</a></h1>
 <ul>
@@ -4765,7 +4759,7 @@ Instead of the finalized state we could also consider the <span class="katex"><s
 <h2 id="verification-27"><a class="header" href="#verification-27">Verification</a></h2>
 <p>Needs discussion.</p>
 <hr />
-<h2 id="errata-9"><a class="header" href="#errata-9">Errata</a></h2>
+<h2 id="errata-8"><a class="header" href="#errata-8">Errata</a></h2>
 <h2 id="copyright-11"><a class="header" href="#copyright-11">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Review/mip/informer-lockmintbridge/MIP/mip-71/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
@@ -4908,7 +4902,7 @@ The following are possible ways to adjust the rate limit:</p>
 <p>Needs discussion.</p>
 <p>We may add a formal model?</p>
 <hr />
-<h2 id="changelog-22"><a class="header" href="#changelog-22">Changelog</a></h2>
+<h2 id="changelog-23"><a class="header" href="#changelog-23">Changelog</a></h2>
 <h2 id="appendix-25"><a class="header" href="#appendix-25">Appendix</a></h2>
 <h3 id="a1-alternative-designs"><a class="header" href="#a1-alternative-designs">A1: Alternative designs</a></h3>
 <p>This MIP proposes a rate limiting mechanism for the Lock/Mint-type Native Bridge with symmetrical design. Below we discuss how we got here and which alternatives exist. The version discussed in this MIP is option C.</p>
@@ -5133,7 +5127,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h2 id="reference-implementation-23"><a class="header" href="#reference-implementation-23">Reference Implementation</a></h2>
 <p>For the reference implementation of the Move Stack refer to the <a href="https://github.com/movementlabsxyz">Movement GitHub repository</a>.</p>
 <h2 id="verification-29"><a class="header" href="#verification-29">Verification</a></h2>
-<h2 id="changelog-23"><a class="header" href="#changelog-23">Changelog</a></h2>
+<h2 id="changelog-24"><a class="header" href="#changelog-24">Changelog</a></h2>
 <h2 id="appendix-26"><a class="header" href="#appendix-26">Appendix</a></h2>
 <h3 id="a1-rfc-1"><a class="header" href="#a1-rfc-1">A1 RFC-1</a></h3>
 <p>RFC-1 in <a href="https://github.com/movementlabsxyz/rfcs">RFCs</a> is an initial document that outlines the components of the Move Stack and Movement SDK. It provides a detailed enumeration of components, their aliases, and purposes.</p>
@@ -5271,7 +5265,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <h3 id="d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof"><a class="header" href="#d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof">D3: Evaluate the opportunity for “stake-bleeding” long-range attacks and detection thereof</a></h3>
 <p><strong>User Journey</strong>: A researcher or protocol implementer can understand how a stake-bleeding long-range attack could be executed and detected.</p>
 <p><strong>Justification</strong>: Stake-bleeding long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a stake-bleeding long-range attack could be executed and detected could enable us to derive preventative measures.</p>
-<h2 id="changelog-24"><a class="header" href="#changelog-24">Changelog</a></h2>
+<h2 id="changelog-25"><a class="header" href="#changelog-25">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-6-suzuka-block-validation"><a class="header" href="#md-6-suzuka-block-validation">MD-6: Suzuka Block Validation</a></h1>
 <ul>
@@ -5337,7 +5331,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <li>This would be a highly experimental feature and should be researched and implemented with caution.</li>
 <li>Deterministic transaction and block ordering should cover most of the cases of unfairness. These are discussed in <a href="Review/l-monninger/block-validation/MD/md-6/../md-7/README.html">MD-7</a>. However, in theory you could also slash on conditions like including too many transactions from one user, sending too many blocks at a given time, sending too few blocks at a given time, sending blocks of unequal size when transactions are available, etc.</li>
 </ul>
-<h2 id="errata-10"><a class="header" href="#errata-10">Errata</a></h2>
+<h2 id="errata-9"><a class="header" href="#errata-9">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5412,7 +5406,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 </ol>
 </li>
 </ul>
-<h2 id="errata-11"><a class="header" href="#errata-11">Errata</a></h2>
+<h2 id="errata-10"><a class="header" href="#errata-10">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5455,7 +5449,7 @@ that is deployed on the node by the operator in a timely fashion, to read blobs 
 in the future. Migrations should be performed on the live chain so that
 by the designated height, all sequenced transaction data that has been submitted by compliant
 nodes is available on the DA in uniform format.</p>
-<h2 id="errata-12"><a class="header" href="#errata-12">Errata</a></h2>
+<h2 id="errata-11"><a class="header" href="#errata-11">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5536,7 +5530,7 @@ move_to(resource, BridgeConfig {
 block.eth_gas
 block.eth_priority_gas
 </code></pre>
-<h2 id="errata-13"><a class="header" href="#errata-13">Errata</a></h2>
+<h2 id="errata-12"><a class="header" href="#errata-12">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-21-native-bridge-with-attesters"><a class="header" href="#md-21-native-bridge-with-attesters">MD-21: Native Bridge with Attesters</a></h1>
 <ul>
@@ -5642,7 +5636,7 @@ The challenge is to make sure that the signature is only used once so no transac
 </li>
 </ol>
 <p>This process is bi-directional, allowing funds to be bridged between Layer 1 and Layer 2, and vice versa, with minimal complexity and friction.</p>
-<h2 id="errata-14"><a class="header" href="#errata-14">Errata</a></h2>
+<h2 id="errata-13"><a class="header" href="#errata-13">Errata</a></h2>
 <h2 id="appendix-27"><a class="header" href="#appendix-27">Appendix</a></h2>
 <ul>
 <li>[R1] USDC Cross-Chain Transfer Protocol: https://www.circle.com/en/cross-chain-transfer-protocol</li>
@@ -5684,7 +5678,7 @@ The challenge is to make sure that the signature is only used once so no transac
 <p>We will need the address for this job allowlisted to use the Suzuka testnet faucet.</p>
 <p><strong>Reference Implementation</strong>:</p>
 <p><a href="https://github.com/movementlabsxyz/movement/pull/726/"><code>movement</code> PR 726</a></p>
-<h2 id="errata-15"><a class="header" href="#errata-15">Errata</a></h2>
+<h2 id="errata-14"><a class="header" href="#errata-14">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5870,7 +5864,7 @@ struct Trade {
 <h3 id="d6-compare-fastconfirmations-with-postconfirmation"><a class="header" href="#d6-compare-fastconfirmations-with-postconfirmation">D6: Compare Fastconfirmations with Postconfirmation</a></h3>
 <p><strong>User Journey</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks.</p>
 <p><strong>Description</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks. The superBlock confirmed by postconfirmation must contain the L2Blocks that are confirmed by fastconfirmations.</p>
-<h2 id="changelog-25"><a class="header" href="#changelog-25">Changelog</a></h2>
+<h2 id="changelog-26"><a class="header" href="#changelog-26">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-37-ffs-postconfirmation"><a class="header" href="#md-37-ffs-postconfirmation">MD-37: FFS: Postconfirmation</a></h1>
 <ul>
@@ -5894,7 +5888,7 @@ struct Trade {
 <h3 id="d4-identify-slashing-conditions-where-necessary"><a class="header" href="#d4-identify-slashing-conditions-where-necessary">D4: Identify slashing conditions where necessary</a></h3>
 <p><strong>User Journey</strong>: Slashing conditions are clearly defined and enforced, with penalties for malicious behavior. Only utilize slashing if it is necessary.</p>
 <p><strong>Justification</strong>: Clearly defined slashing conditions deter malicious actors and protect the network from potential attacks. Overuse of slashing can discourage participation.</p>
-<h2 id="changelog-26"><a class="header" href="#changelog-26">Changelog</a></h2>
+<h2 id="changelog-27"><a class="header" href="#changelog-27">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs"><a class="header" href="#md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></h1>
 <ul>
@@ -5930,7 +5924,7 @@ struct Trade {
 <h3 id="d5-provide-and-argument-agains-the-need-to-resolve-ab-ffs-fixed-supply-concerns"><a class="header" href="#d5-provide-and-argument-agains-the-need-to-resolve-ab-ffs-fixed-supply-concerns">D5: Provide and Argument Agains the Need to Resolve AB-FFS Fixed Supply Concerns</a></h3>
 <p><strong>User Journey</strong>: Developers, exchanges, and users can understand why the bridge can be assumed reasonably secure and inherent fallibility is within network security contraints given a set of assumptions.</p>
 <p><strong>Justification</strong>: We can argue, for example, that many other bridge services use a trusted signer and that said trusted signer is uncomprimised is a fundamental and acceptable assumption.</p>
-<h2 id="errata-16"><a class="header" href="#errata-16">Errata</a></h2>
+<h2 id="errata-15"><a class="header" href="#errata-15">Errata</a></h2>
 <!--
   Errata should be maintained after publication.
 
@@ -5977,7 +5971,7 @@ struct Trade {
 <h3 id="d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties"><a class="header" href="#d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties">D5: Specify How to Distribute Gas Fees to the Appropriate Parties</a></h3>
 <p><strong>User Journey</strong>: A network participant can understand how gas fees are distributed.</p>
 <p><strong>Justification</strong>: Gas fees must ultimately be used to pay extrinsic costs or else be considered as rewards. It is important to specify how gas fees are distributed to ensure that the system is fair and that the incentives for participation are aligned with the goals of the Movement Network.</p>
-<h2 id="changelog-27"><a class="header" href="#changelog-27">Changelog</a></h2>
+<h2 id="changelog-28"><a class="header" href="#changelog-28">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-69-bridge-fees"><a class="header" href="#md-69-bridge-fees">MD-69: Bridge fees</a></h1>
 <ul>
@@ -6057,7 +6051,7 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 <p>The postconfirmation process is a synchronization mechanism for L2 to L1, see <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>.</p>
 <p>If the Relayer completes transfers from L2 to L1 without awaiting postconfirmation of the L2 <code>initiate</code> transaction, synchronization guarantees are reduced. The postconfirmation is an anchoring mechanism that binds the L2 to a certain L2 block height and hash, and hinders reorgs beyond a certain depth on L2.</p>
 <p>We need to check the implications for the Informer if the Relayer ignores postconfirmations.</p>
-<h2 id="errata-17"><a class="header" href="#errata-17">Errata</a></h2>
+<h2 id="errata-16"><a class="header" href="#errata-16">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-74-rate-limiter-for-the-lockmint-type-native-bridge"><a class="header" href="#md-74-rate-limiter-for-the-lockmint-type-native-bridge">MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge</a></h1>
 <ul>
@@ -6077,7 +6071,7 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 <h3 id="d3-define-the-rate-limiting-mechanism"><a class="header" href="#d3-define-the-rate-limiting-mechanism">D3: Define the rate-limiting mechanism</a></h3>
 <p><strong>User Journey</strong>: The developer should understand the rate-limiting mechanism.</p>
 <p><strong>Description</strong>: The rate-limiting mechanism should be defined in a way that it is clear how it works and how it can be adjusted. Moreover all components and their parameters should be defined. It should also be defined what is being rate-limited.</p>
-<h2 id="errata-18"><a class="header" href="#errata-18">Errata</a></h2>
+<h2 id="errata-17"><a class="header" href="#errata-17">Errata</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-104-formalize-premortem-process-for-risk-mitigation"><a class="header" href="#md-104-formalize-premortem-process-for-risk-mitigation">MD-104: Formalize Pre‑Mortem Process for Risk Mitigation</a></h1>
 <ul>
@@ -6135,7 +6129,7 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 </ul>
 </li>
 </ul>
-<h2 id="changelog-28"><a class="header" href="#changelog-28">Changelog</a></h2>
+<h2 id="changelog-29"><a class="header" href="#changelog-29">Changelog</a></h2>
 
                     </main>
 
