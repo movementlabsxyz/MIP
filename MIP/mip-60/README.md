@@ -96,7 +96,7 @@ The relayer mechanism is used to relay information about the _state_ of one chai
 
 If the relayer relays incorrect information, the bridge can be _hacked_ and assets _duplicated_ or _stolen_ (see [MIP-39](https://github.com/movementlabsxyz/MIP/blob/mip-move-bridge-architecture/MIP/mip-39/README.md), [MIP-46](https://github.com/movementlabsxyz/MIP/tree/mip/security_falliblity/MIP/mip-46)) This problem is addressed in [issue-838](https://github.com/movementlabsxyz/movement/issues/838).
 
-On Ethereum, a block is immutable when it is declared _final_. Until is is final, a block can be _reverted_ (i.e., the transactions in the block are not executed).
+On Ethereum, a block is immutable when it is declared _final_. Until it is final, a block can be _reverted_ (i.e., the transactions in the block are not executed).
 Other criteria can be used to accept a block as _almost-final_ with a risk that it is reverted, e.g. k-confirmations, where k is the number of blocks that have been added to the chain since the block was added, see also [issue-838](https://github.com/movementlabsxyz/movement/issues/838).
 
 > [!IMPORTANT]
