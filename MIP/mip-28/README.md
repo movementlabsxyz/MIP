@@ -24,6 +24,7 @@ Movement protocols are complex systems that involve multiple actors, such as use
 - (Malicious) Richard: a user who acts maliciously in a Movement protocol. The first malicious user in a generic setup SHOULD be named Richard.
 
     - An alternative My Boy Richard can also be used to refer to a user who acts unnecessarily outside of their own interests, perhaps for the greater good. This usage was introduced to avoid being too univocal; Malicious Richard originally and endearingly referred to an early team member at Movement Labs. When specifying My Boy Richard, the usage of Richard should be prefixed.
+    - Should "My Boy Richard" not be sufficient in describing the will or intention of the actor, "My Boy Primata" may be used when wishing to express an actor in the system who is incredibly generous, often acting for the greater good. You might think of Robin Hood as an example of a "My Boy Primata" actor.
 
 - (Naive) Eve: a user who acts naively in a Movement protocol. The first naive user in a generic setup SHOULD be named Eve.
 - (Lazy) Liam: a user who acts lazily in a Movement protocol. The first lazy user in a generic setup SHOULD be named Liam.
