@@ -84,6 +84,8 @@ Designing a safe bridge is a hard problem.
 
 ## Specification
 
+*The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.*
+
 ### Bridging from L1 to L2
 
 Let `user1` be a user with an account on L1, and `user2` be a user with an account on L2.
@@ -219,8 +221,6 @@ Contracts's APIs:
 | L1 | `request_refund()`   | User2          | BridgeTransferRefunded |
 
 The permissions are set to ensure that only the user who initiated the transfer can request a refund, and only the relayer can complete the transfer on L1.
-
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
 
 ## Reference Implementation
 
