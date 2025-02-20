@@ -1,7 +1,3 @@
-## Glossary
+# Glossary
 
-Alphabetically ordered list of terms defined through MGs.
-
-| Term          | Short Definition               | #MG                                                                 |
-|---------------|--------------------------------|-------------------------------------------------------------------------------------------------------|
-|         |     |       |
+This document has been transferred to the [Glossary](https://github.com/movementlabsxyz/MIP/wiki/glossary) on the Movement Labs GitHub Wiki.
