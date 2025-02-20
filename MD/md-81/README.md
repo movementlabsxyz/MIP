@@ -1,4 +1,4 @@
-# MD-81: Movement Mainnet Feature Flags
+# MD-81: Movement Mainnet feature flags
 
 - **Description**: Define and manage feature flags for the Movement mainnet to optimize the network's launch with community-driven and developer-focused features.
 - **Authors**: [Primata](mailto:primata@movementlabs.xyz)
@@ -113,7 +113,3 @@ Below is the table of features for Aptos mainnet, testnet, devnet, and their com
 | 80          | NATIVE\_MEMORY\_OPERATIONS                              | True            | True            | True           | null             | False            |
 
 ## Change Logs
-
-**Transparency and Clarity**: Any corrections or updates to this document will be tracked and published here to ensure accuracy.
-
-**Accountability**: Updates will include a reference to the date and version in which the error was identified and corrected.
