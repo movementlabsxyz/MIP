@@ -16,7 +16,7 @@ Moreover, we may assume that the inflow to and outflow from \$MOVE tokens is the
 
 ## Specification
 
-> _The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
+_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
 
 ### Symmetric Insurance Fund
 
@@ -75,6 +75,4 @@ $$
 
 ## Appendix
 
-## Copyright
-
-Copyright and related rights waived via [CC0](../LICENSE.md).
+## Changelog

@@ -84,6 +84,8 @@ Designing a safe bridge is a hard problem.
 
 ## Specification
 
+_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
+
 ### Bridging from L1 to L2
 
 Let `user1` be a user with an account on L1, and `user2` be a user with an account on L2.
@@ -299,10 +301,6 @@ Note that [safety-2] does hold if the relayer is down for more than $maxRelayerD
 
 The only difference between L1 to L2 is the way assets are created/destroyed. However, the formal model abstracts away this difference and the same properties hold for the L2 to L1 bridge.
 
-## Changelog
-
----
-
 ## Appendix
 
 The UPPAAL models of the L1 to L2 transfers are available in the [uppaal-models](./uppaal-models) directory.
@@ -310,8 +308,4 @@ The simplest model is [bridge-up-v2.xml](./uppaal-models/bridge-up-v2.xml) and t
 
 You can request a license to use UPPAAL at [UPPAAL](http://www.uppaal.org/).
 
----
-
-## Copyright
-
-Copyright and related rights waived via [CC0](../LICENSE.md).
+## Changelog
