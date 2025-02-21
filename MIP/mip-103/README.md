@@ -218,35 +218,35 @@ The role of the Validator is more complex. The Validator MUST:
 
 ### Generalizations
 
-#### Multidirectional Baker Confirmations and Composition
+- #### Multidirectional Baker Confirmations and Composition
 
-We can conceive of a class of Baker Confirmations which are not unidirectional. These include cases where votes from attester compose the state of multiple ledgers.
+  We can conceive of a class of Baker Confirmations which are not unidirectional. These include cases where votes from attester compose the state of multiple ledgers.
 
-We detail this possibility in [MIP-n](mip-n/README.md).
+  We detail this possibility in [MIP-n](mip-n/README.md).
 
-#### Staked A-Observers
+- #### Staked A-Observers
 
-We can conceive of a class of Baker Confirmations which are not observant. These include cases where the A-Observers are themselves staked and thus can be slashed for dishonest behavior.
+  We can conceive of a class of Baker Confirmations which are not observant. These include cases where the A-Observers are themselves staked and thus can be slashed for dishonest behavior.
 
-We detail this possibility in [MIP-n](mip-n/README.md).
+  We detail this possibility in [MIP-n](mip-n/README.md).
 
-#### Stake Checks
+- #### Stake Checks
 
-We can conceive of a class of Baker Confirmations wherein the proofs contain the stake amounts against which they were computed s.t. these amounts can be checked on-chain before the proof is accepted.
+  We can conceive of a class of Baker Confirmations wherein the proofs contain the stake amounts against which they were computed s.t. these amounts can be checked on-chain before the proof is accepted.
 
-We detail this possibility in [MIP-n](mip-n/README.md).
+  We detail this possibility in [MIP-n](mip-n/README.md).
 
-#### Hooks
+- #### Hooks
 
-We can conceive of a class of Baker Confirmations wherein the proofs contain hooks to trigger arbitrary logic on-chain.
+  We can conceive of a class of Baker Confirmations wherein the proofs contain hooks to trigger arbitrary logic on-chain.
 
-We detail this possibility in [MIP-n](mip-n/README.md).
+  We detail this possibility in [MIP-n](mip-n/README.md).
 
-#### Merkleization and State Certificates
+- #### Merkleization and State Certificates
 
-We can conceive of a class of Baker Confirmations wherein--instead of submitting clear-text commitments to readily dispatch on-chain logic--the commitments are submitted as Merkle roots against which Merkle-inclusion gated methods can be triggered by another service to dispatch on-chain logic.
+  We can conceive of a class of Baker Confirmations wherein--instead of submitting clear-text commitments to readily dispatch on-chain logic--the commitments are submitted as Merkle roots against which Merkle-inclusion gated methods can be triggered by another service to dispatch on-chain logic.
 
-We detail this possibility in [MIP-n](mip-n/README.md).
+  We detail this possibility in [MIP-n](mip-n/README.md).
 
 ## Reference Implementation
 
