@@ -212,9 +212,9 @@ The role of the Validator is more complex. The Validator MUST:
 
   In theory, Attesters can submit differing commitments to different Validators and arrive at a consensus on a given commitment at each. In simple cases, this behavior would not satisfy our Byzantine assumptions under FFS, and so does not need to be addressed.
 
-  However, this problem because more acute when you consider that the Validators may allow for the production of forks. In this case, an Attester could submit different commitments to different Validators to potentially earn rewards on different forks. To Validator A, Attester A may make Commitment A on Fork A. Attester A cannot recommit to Validator A, but could decide to commit to Validator B on Fork B.
+  However, this problem becomes more acute when considering that the Validators may allow for the production of forks. In this case, an Attester could submit different commitments to different Validators to potentially earn rewards on different forks. To Validator $V_1$, Attester $Att$ may make Commitment $C_1$ on Fork $F_1$. Attester $Att$ cannot recommit to Validator $V_1$, but could still commit to Validator $V_1$ on Fork $F_2$.
 
-  Because the on-chain contract must accept multiple commitments, it must also accept multiple proofs of consensus. Thus, Attester A's commitment to both Validator A and Validator B could be accepted on-chain.
+  Because the on-chain contract must accept multiple commitments, it must also accept multiple proofs of consensus. Thus, Attester $Att$'s commitment to both Validator $V_1$ and Validator $V_2$ could be accepted on-chain.
 
 ### Generalizations
 
