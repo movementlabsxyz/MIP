@@ -289,7 +289,7 @@ The BOOTSTRAP algorithm will run for both the L1 and the L2 chains. Hence we hav
 
 ```javascript
 BOOTSTRAPPING
-// Start the continuous block pocessing protocol in parrallel to this algorithm
+// Start the continuous block processing protocol in parallel to this algorithm
 START CONTINUOUS_BLOCK_PROCESSING protocol 
 SET `first_CP_block` = first processed block by CONTINUOUS_BLOCK_PROCESSING
 

@@ -44,7 +44,7 @@ We define the following terms:
 
 - **Trusted** : A component is trusted if it is assumed to be secure and reliable. No errors in the component can occur. Nor keys can get compromised.
 - **Untrusted** : A component is untrusted if it can have bugs, or misconfigurations, or worst case gets compromised (i.e., become byzantine). The component can stop/crash or tamper with messages, results of computations. It means an entity is not assumed to be reliable, necessitating verification or safeguards.
-- **Insurance-based Untrusted** : We assume that faults or compromise is extremely unlikely. Under normal operations the component is secure and reliable. The rarity of these events permits that the operator takes care of resulting hardship. Protective measures are taken to reduce the maximally caused damage that the component can cause incase it becomes faulty / Byzantine by providing an insurance fund.
+- **Insurance-based Untrusted** : We assume that faults or compromise is extremely unlikely. Under normal operations the component is secure and reliable. The rarity of these events permits that the operator takes care of resulting hardship. Protective measures are taken to reduce the maximally caused damage that the component can cause in case it becomes faulty / Byzantine by providing an insurance fund.
 - **Approval/proof-based Untrusted** : Faults or compromise could happen frequently and at any point in time. Any action should be approved by a trusted party or require a proof of correctness.
 
 #### Soundness and Completeness
