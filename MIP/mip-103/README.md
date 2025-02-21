@@ -39,7 +39,7 @@ Baker Coin is a class of unidirectional commitment protocols satisfying the [pos
 5. **Slashing**: A Baker Coin protocol MAY also remove or "slash" staked Coin A held in the verification contract on Ledger A in the event of a commitment. The value of this slashed token may range from 0 to 2^256 - 1, $\mathbb{F}_{2^{256}}$.
 6. **Observant**: A Baker Coin protocol MUST use a set of trusted **A-Observers** to relay valid stake events from Ledger A to validators in the Baker Network. These **A-Observers** are not necessarily the same as the **Attesters** for a given epoch.
 
-> [!NOTE]
+> :bulb:
 > The **Observant** constraint is intentionally suboptimal from the perspective of trust. We will be using it to underscore possibilities of **Internal Staking**, **Staked A-Observers**, Ledger B certificate summaries, and other composable solutions in this and future MIPs.
 
 There are thus four node types in a Baker Coin protocol:
@@ -82,139 +82,139 @@ The role of the Validator is more complex. The Validator MUST:
 
 #### $RECEIVE\\_COMMITMENT$
 
-##### Human Language Description of Procedure
+- ##### Human Language Description of Procedure
 
-$RECEIVE\\_COMMITMENT$ takes a commitment and height from an Attester. It verifies the commitment and stores it in a table indexed by height. It then notifies the heuristic checker to decide whether to run $COMPUTE\\_PROOF$.
+  $RECEIVE\\_COMMITMENT$ takes a commitment and height from an Attester. It verifies the commitment and stores it in a table indexed by height. It then notifies the heuristic checker to decide whether to run $COMPUTE\\_PROOF$.
 
-##### Pseudocode Description of Procedure
+  ##### Pseudocode Description of Procedure
 
-```python
-def RECEIVE_COMMITMENT(commitment, height, signature):
-    # Verify the commitment and signature
-    if not verify_commitment(commitment, height, signature):
-        return
+  ```python
+  def RECEIVE_COMMITMENT(commitment, height, signature):
+      # Verify the commitment and signature
+      if not verify_commitment(commitment, height, signature):
+          return
 
-    # Store the commitment in a table indexed by height
-    self.commitments[height] = commitment
+      # Store the commitment in a table indexed by height
+      self.commitments[height] = commitment
 
-    # Notify the heuristic checker to decide whether to run COMPUTE_PROOF
-    self.heuristic_checker.notify()
-```
+      # Notify the heuristic checker to decide whether to run COMPUTE_PROOF
+      self.heuristic_checker.notify()
+  ```
 
 #### $RECEIVE\\_TRUSTED\\_STAKE$
 
-##### Human Language Description of Procedure
+- ##### Human Language Description of Procedure
 
-$RECEIVE\\_TRUSTED\\_STAKE$ takes a stake amount, participant, and epoch from an A-Observer. It verifies the stake amount and epoch and stores it in a table indexed by participant and epoch, but MUST only modify stake weights for the next epoch. If this constraint is not applied, then the epoch staking constraint is violated.
+  $RECEIVE\\_TRUSTED\\_STAKE$ takes a stake amount, participant, and epoch from an A-Observer. It verifies the stake amount and epoch and stores it in a table indexed by participant and epoch, but MUST only modify stake weights for the next epoch. If this constraint is not applied, then the epoch staking constraint is violated.
 
-> [!WARNING]
-> The constraint on the epoch staking above is naive as it does not account for the time it takes for a Validator to receive a $TRUSTED\\_STAKE$ message from an A-Observer. This will be discussed in more detail below. 
+  > :warning:
+  > The constraint on the epoch staking above is naive as it does not account for the time it takes for a Validator to receive a $TRUSTED\\_STAKE$ message from an A-Observer. This will be discussed in more detail below. 
 
-##### Pseudocode Description of Procedure
+  ##### Pseudocode Description of Procedure
 
-```python
-def RECEIVE_TRUSTED_STAKE(amount, participant, epoch, signature):
-    # Verify the epoch 
-    if epoch < self.current_epoch + 1:
-        return
+  ```python
+  def RECEIVE_TRUSTED_STAKE(amount, participant, epoch, signature):
+      # Verify the epoch 
+      if epoch < self.current_epoch + 1:
+          return
 
-    # Verify the stake amount and signature
-    if not verify_stake(amount, participant, epoch, signature):
-        return
+      # Verify the stake amount and signature
+      if not verify_stake(amount, participant, epoch, signature):
+          return
 
-    # Store the stake amount in a table indexed by participant and epoch
-    self.stake_weights[participant][epoch] = amount
-```
+      # Store the stake amount in a table indexed by participant and epoch
+      self.stake_weights[participant][epoch] = amount
+  ```
 
 #### $COMPUTE\\_CONSENSUS$ and Heuristic
 
-##### Human Language Description of Procedure
+- ##### Human Language Description of Procedure
 
-$COMPUTE\\_CONSENSUS$ tabulates all of the commitments and stake weights for a given height and epoch and computes a Zero Knowledge proof of consensus on a given commitment at a given height. It additionally outputs slashing and rewarding amounts for the participants who submitted the commitments according to slashing function $S$ and rewarding function $R$. It is run in a ZK execution environment and so outputs a proof of the computation.
+  $COMPUTE\\_CONSENSUS$ tabulates all of the commitments and stake weights for a given height and epoch and computes a Zero Knowledge proof of consensus on a given commitment at a given height. It additionally outputs slashing and rewarding amounts for the participants who submitted the commitments according to slashing function $S$ and rewarding function $R$. It is run in a ZK execution environment and so outputs a proof of the computation.
 
-##### Pseudocode Description of Procedure
+  ##### Pseudocode Description of Procedure
 
-```python
-def COMPUTE_CONSENSUS(commitment, height, epoch):
-    # Tabulate all of the commitments and stake weights for a given height and epoch
-    commitments = self.commitments[height]
-    stake_weights = self.stake_weights[epoch]
+  ```python
+  def COMPUTE_CONSENSUS(commitment, height, epoch):
+      # Tabulate all of the commitments and stake weights for a given height and epoch
+      commitments = self.commitments[height]
+      stake_weights = self.stake_weights[epoch]
 
-    # Check if the sum of the stake weights voting on a given commitment is greater than the threshold
-    if sum(stake_weights[participant] for participant in commitments if commitments[participant] == commitment) > threshold:
-        # Compute the slashing and rewarding amounts
-        slashing_amounts = S(commitments, stake_weights, commitment, height, epoch)
-        rewarding_amounts = R(commitments, stake_weights, commitment, height, epoch)
+      # Check if the sum of the stake weights voting on a given commitment is greater than the threshold
+      if sum(stake_weights[participant] for participant in commitments if commitments[participant] == commitment) > threshold:
+          # Compute the slashing and rewarding amounts
+          slashing_amounts = S(commitments, stake_weights, commitment, height, epoch)
+          rewarding_amounts = R(commitments, stake_weights, commitment, height, epoch)
 
-        # Return the proof of consensus and the slashing and rewarding amounts
-        return proof, slashing_amounts, rewarding_amounts
-    else:
-        return None, None, None
+          # Return the proof of consensus and the slashing and rewarding amounts
+          return proof, slashing_amounts, rewarding_amounts
+      else:
+          return None, None, None
 
-```
+  ```
 
-##### Human Language Description of Heuristic
+  ##### Human Language Description of Heuristic
 
-This MIP does prescribe a specific heuristic for deciding when to run $COMPUTE\\_CONSENSUS$. I general, however, the **Validator** would save compute by only running $COMPUTE\\_CONSENSUS$ when it has received a sufficient number of commitments and stake weights, i.e., by precomputing the $COMPUTE\\_CONSENSUS$ procedure outside of the ZK execution environment.
+  This MIP does prescribe a specific heuristic for deciding when to run $COMPUTE\\_CONSENSUS$. In general, however, the **Validator** would save compute by only running $COMPUTE\\_CONSENSUS$ when it has received a sufficient number of commitments and stake weights, i.e., by precomputing the $COMPUTE\\_CONSENSUS$ procedure outside of the ZK execution environment.
 
 #### $POST\\_PROOF$
 
-Proof posting is intended to be a simple procedure which broadcasts a $COMMITMENT\\_PROOF$ message to A-Participants. The message SHALL include the commitment, height, Attesters, proof, slashing amounts, rewarding amounts, and signature. It does not require any additional computation.
+- Proof posting is intended to be a simple procedure which broadcasts a $COMMITMENT\\_PROOF$ message to A-Participants. The message SHALL include the commitment, height, Attesters, proof, slashing amounts, rewarding amounts, and signature. It does not require any additional computation.
 
-##### Human Language Description of Heuristic
+  ##### Human Language Description of Heuristic
 
-This MIP does prescribe a specific heuristic for deciding when to run $POST\\_PROOF$. In general, however, the **Validator** has to balance on-chain costs with the expected value of the reward.
+  This MIP does prescribe a specific heuristic for deciding when to run $POST\\_PROOF$. In general, however, the **Validator** has to balance on-chain costs with the expected value of the reward.
 
-To avoid disincentivizing honest posting behavior due to reward uncertainty, the on-chain reward mechanism should accept more than simply the initial commit. This phenomenon is addresses more completely in [Phenomena](#phenomena).
+  To avoid disincentivizing honest posting behavior due to reward uncertainty, the on-chain reward mechanism should accept more than simply the initial commit. This phenomenon is addresses more completely in [Phenomena](#phenomena).
 
 ### Phenomena
 
-#### Forking and Asynchrony
+- #### Forking and Asynchrony
 
-In general, forks are easier to represent off-chain than on-chain. We, however, note several distinct simplifications which arise from the Baker Confirmations protocol.
+  In general, forks are easier to represent off-chain than on-chain. We, however, note several distinct simplifications which arise from the Baker Confirmations protocol.
 
-##### Fork Representation
+  ##### Fork Representation
 
-Baker Confirmations for a Baker Coin Protocol remove the need to represent forks on-chain. The on-chain contract must simply verify the Zero Knowledge proof of consensus and dispatch the appropriate onchain events.
+  Baker Confirmations for a Baker Coin Protocol remove the need to represent forks on-chain. The on-chain contract must simply verify the Zero Knowledge proof of consensus and dispatch the appropriate onchain events.
 
-##### Fork Stake
+  ##### Fork Stake
 
-The primary problem with stake in an FFS confirmation device, outlined in [MD-3](https://github.com/movementlabsxyz/MIP/pull/3/files) is that--because said device is not inherently designed within the reorganization logic of the confirming ledger itself--rewards, once issued on a given fork, cannot be revoked. In contrast, in more conventional DLT, the rewards exist on the fork of the ledger itself and once that fork is orphaned, the rewards are revoked.
+  The primary problem with stake in an FFS confirmation device, outlined in [MD-3](https://github.com/movementlabsxyz/MIP/pull/3/files) is that--because said device is not inherently designed within the reorganization logic of the confirming ledger itself--rewards, once issued on a given fork, cannot be revoked. In contrast, in more conventional DLT, the rewards exist on the fork of the ledger itself and once that fork is orphaned, the rewards are revoked.
 
-This problem persists under Baker Confirmations for a Baker Coin Protocol. However, it is possible to remove gas attacks associated with these solutions:
+  This problem persists under Baker Confirmations for a Baker Coin Protocol. However, it is possible to remove gas attacks associated with these solutions:
 
-1. **Reward Delay**: One partial solution to the Fork Stake problem is to delay the emission of rewards by some number of epochs. The result is that contributing to a fork which does not survive for the duration of the delay period is not profitable. When tabulating on-chain, this delay is, however, problematic because it may lead to the cost of issuing a reward to an honest Partition A being correlated with the cost of issuing a reward to a malicious Partition B. When the delay is applied off-chain, however, these costs are negligible.
-2. **Gas Splitting**: Another partial solution to the Fork Stake problem is in fact to split the
+  1. **Reward Delay**: One partial solution to the Fork Stake problem is to delay the emission of rewards by some number of epochs. The result is that contributing to a fork which does not survive for the duration of the delay period is not profitable. When tabulating on-chain, this delay is, however, problematic because it may lead to the cost of issuing a reward to an honest Partition A being correlated with the cost of issuing a reward to a malicious Partition B. When the delay is applied off-chain, however, these costs are negligible.
+  2. **Gas Splitting**: Another partial solution to the Fork Stake problem is in fact to split the
 
-##### Liveness Disincentives
+  ##### Liveness Disincentives
 
-As discussed in  [MD-4](https://github.com/movementlabsxyz/MIP/pull/4/files), another issue with on-chain confirmation devices is that it becomes difficult to incentivize liveness because the cost of rolling over a commitment round or epoch is proportional to the size of the Validator set. This means that the last Validator to make a commitment in a round or epoch would need to be properly incentivized in order to cover their costs.
+  As discussed in  [MD-4](https://github.com/movementlabsxyz/MIP/pull/4/files), another issue with on-chain confirmation devices is that it becomes difficult to incentivize liveness because the cost of rolling over a commitment round or epoch is proportional to the size of the Validator set. This means that the last Validator to make a commitment in a round or epoch would need to be properly incentivized in order to cover their costs.
 
-The Baker Coin Protocol still suffers from this problem, as it is provided that the Validator post a proof containing clear-text rewards and slashes. This means that the Validator posting the proof still runs a transaction proportional to the size of the Validator set.
+  The Baker Coin Protocol still suffers from this problem, as it is provided that the Validator post a proof containing clear-text rewards and slashes. This means that the Validator posting the proof still runs a transaction proportional to the size of the Validator set.
 
-However, instead of a direct reward, the Validator could share the Merkle root of a reward, against which Validators would submit Merkle Proofs to claim their rewards. This then fixes the cost of the commitment transaction. We discuss this possibility further in the [Generalizations](#generalizations) section.
+  However, instead of a direct reward, the Validator could share the Merkle root of a reward, against which Validators would submit Merkle Proofs to claim their rewards. This then fixes the cost of the commitment transaction. We discuss this possibility further in the [Generalizations](#generalizations) section.
 
-###### Standoffs
+  ###### Standoffs
 
-[MD-4](https://github.com/movementlabsxyz/MIP/pull/4/files) also presents the problem of standoffs wherein a Validator, upon realizing it is the last Validator needed to reach a super-majority, may choose to withhold its commitment in order to maximize its reward.
+  [MD-4](https://github.com/movementlabsxyz/MIP/pull/4/files) also presents the problem of standoffs wherein a Validator, upon realizing it is the last Validator needed to reach a super-majority, may choose to withhold its commitment in order to maximize its reward.
 
-The Baker Coin Protocol is not immune to this problem. Commitments are still provided in clear-text and so the Validator can still choose to withhold its commitment with knowledge of the other commitments made. Commitment hiding schemes also do not work because the Validator must still provide a proof of consensus and thus will still be able to compute whether its vote would satisfy the super-majority threshold.
+  The Baker Coin Protocol is not immune to this problem. Commitments are still provided in clear-text and so the Validator can still choose to withhold its commitment with knowledge of the other commitments made. Commitment hiding schemes also do not work because the Validator must still provide a proof of consensus and thus will still be able to compute whether its vote would satisfy the super-majority threshold.
 
-#### Reward Uncertainty
+- #### Reward Uncertainty
 
-In general, the contracts receiving a Commitment in Baker Confirmations must be able to handle multiple and differing super-majority commitments to the same value. This presents several phenomena which are worthy of note.
+  In general, the contracts receiving a Commitment in Baker Confirmations must be able to handle multiple and differing super-majority commitments to the same value. This presents several phenomena which are worthy of note.
 
-##### Proofs of Differing Consensus
+  ##### Proofs of Differing Consensus
 
-In theory, each Validator can receive a different--but intersecting--set of commitments from the Attesters to reach a super-majority. Concerning attester rewards, this simply means that the on-chain contract MUST reward by the union of all accepted proofs of commitment to avoid over-rewarding Attesters.
+  In theory, each Validator can receive a different--but intersecting--set of commitments from the Attesters to reach a super-majority. Concerning attester rewards, this simply means that the on-chain contract MUST reward by the union of all accepted proofs of commitment to avoid over-rewarding Attesters.
 
-##### Proofs of Differing Commitments
+  ##### Proofs of Differing Commitments
 
-In theory, Attesters can submit differing commitments to different Validators and arrive at a consensus on a given commitment at each. In simple cases, this behavior would not satisfy our Byzantine assumptions under FFS, and so does not need to be addressed.
+  In theory, Attesters can submit differing commitments to different Validators and arrive at a consensus on a given commitment at each. In simple cases, this behavior would not satisfy our Byzantine assumptions under FFS, and so does not need to be addressed.
 
-However, this problem because more acute when you consider that the Validators may allow for the production of forks. In this case, an Attester could submit different commitments to different Validators to potentially earn rewards on different forks. To Validator A, Attester A may make Commitment A on Fork A. Attester A cannot recommit to Validator A, but could decide to commit to Validator B on Fork B.
+  However, this problem because more acute when you consider that the Validators may allow for the production of forks. In this case, an Attester could submit different commitments to different Validators to potentially earn rewards on different forks. To Validator A, Attester A may make Commitment A on Fork A. Attester A cannot recommit to Validator A, but could decide to commit to Validator B on Fork B.
 
-Because the on-chain contract must accept multiple commitments, it must also accept multiple proofs of consensus. Thus, Attester A's commitment to both Validator A and Validator B could be accepted on-chain.
+  Because the on-chain contract must accept multiple commitments, it must also accept multiple proofs of consensus. Thus, Attester A's commitment to both Validator A and Validator B could be accepted on-chain.
 
 ### Generalizations
 
