@@ -129,4 +129,4 @@ The Movement Labs team is currently reviewing and assessing this process.
 ## Changelog
 
 - 2024-12-18: Add information about the process and structure of MDs.
-- 2025-xx-xx: Incorporate updates on the process from SF. [PR#76](https://github.com/movementlabsxyz/MIP/pull/76)
+- 2025-01-14: Incorporate updates on the process from SF. [PR#76](https://github.com/movementlabsxyz/MIP/pull/76)
