@@ -188,6 +188,7 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
 <li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
 <li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
+<li><a href="Approved/main/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
 <li><a href="Approved/main/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
@@ -225,7 +226,6 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <h3 id="mds-1"><a class="header" href="#mds-1">MDs</a></h3>
 <ul>
 <li><a href="Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/">MD-2: Enclave Crash-resistant Key Management</a></li>
-<li><a href="Review/l-monninger/long-range-attacks/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
 <li><a href="Review/mikhail/suzuka-da-migrations/MD/md-13/">MD-13: Suzuka DA Migrations Format</a></li>
@@ -264,6 +264,7 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
 <li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
 <li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
+<li><a href="Approved/main/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
 <li><a href="Approved/main/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
@@ -301,7 +302,6 @@ The bridge that allows the transfer of tokens between L1 and L2, which hold <spa
 <h3 id="mds-3"><a class="header" href="#mds-3">MDs</a></h3>
 <ul>
 <li><a href="Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/">MD-2: Enclave Crash-resistant Key Management</a></li>
-<li><a href="Review/l-monninger/long-range-attacks/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
 <li><a href="Review/mikhail/suzuka-da-migrations/MD/md-13/">MD-13: Suzuka DA Migrations Format</a></li>
@@ -1954,6 +1954,7 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
 <li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
 <li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
+<li><a href="Approved/main/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
 <li><a href="Approved/main/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
@@ -1991,7 +1992,6 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <h3 id="mds-5"><a class="header" href="#mds-5">MDs</a></h3>
 <ul>
 <li><a href="Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/">MD-2: Enclave Crash-resistant Key Management</a></li>
-<li><a href="Review/l-monninger/long-range-attacks/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
 <li><a href="Review/mikhail/suzuka-da-migrations/MD/md-13/">MD-13: Suzuka DA Migrations Format</a></li>
@@ -2151,15 +2151,55 @@ A researcher or protocol implementer can understand the game theory of gas costs
 Information incompleteness may improve the game theory of costs and rewards. Provide models which demonstrate this for incompleteness derived from network latency, randomness in the rewards, and more.</p>
 <h2 id="changelog-9"><a class="header" href="#changelog-9">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="md-5-fast-finality-settlement---long-range-attacks"><a class="header" href="#md-5-fast-finality-settlement---long-range-attacks">MD-5: Fast Finality Settlement - Long Range Attacks</a></h1>
+<ul>
+<li><strong>Description</strong>: Consider and model long-range attacks in the Fast Finality Settlement protocol.</li>
+<li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a>, Andreas Penzkofer</li>
+</ul>
+<h2 id="overview-3"><a class="header" href="#overview-3">Overview</a></h2>
+<p>Long-range attacks are an inherent vulnerability to Proof-of-Stake (PoS) systems. Without an anchoring mechanisms blockchains are exposed to the risk of these.</p>
+<p>The Fast Finality Settlement (<a href="https://github.com/movementlabsxyz/MIP/pull/34">MIP-34</a>) is a PoS based settlement mechanism and separates into</p>
+<ul>
+<li>a Fastconfirmation protocol (<a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-64</a>) on L2. Fastconfirmations confirm L2Blocks.</li>
+<li>a Postconfirmation protocol (<a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>) on L1. Postconfirmations confirm superBlocks, which are a sequence of L2Blocks. Postconfirmations act as an anchoring mechanism.</li>
+</ul>
+<p><strong>Postconfirmation</strong>
+The stake and finality of Postconfirmations is protected by the underlying L1 finality. However, since the L1 is itself is a PoS system it may be susceptible to reorgs. Consequently, in combination with a reorg on L1,  Postconfirmations may be reverted, and the anchoring invalidated. The invalidation of anchors can permit long-range attacks on superBlocks.</p>
+<p>Albeit unlikely due to the high security of L1, long-range attacks in the Postconfirmation protocol should be considered and modeled.</p>
+<p><strong>Fastconfirmation</strong>
+Fastconfirmation on L2 are anchored through Postconfirmations on L1. An anchoring mechanism can protect against long-range attacks on L2Blocks. However, Fastconfirmations should consider the Postconfirmations.</p>
+<p>L2Blocks that are not postconfirmed are susceptible to long-range attacks.</p>
+<h3 id="introduction"><a class="header" href="#introduction">Introduction</a></h3>
+<p><a href="https://blog.positive.com/rewriting-history-a-brief-introduction-to-long-range-attacks-54e473acdba9">This reference</a> categorizes long-range attacks into</p>
+<ol>
+<li><strong>Simple Attack</strong>:
+The attacker forges an alternative blockchain branch from some earlier block, bypassing timestamp checks to produce blocks ahead of time and overtake the main chain.</li>
+<li><strong>Posterior Corruption</strong>:
+A retired validator is bribed or hacked to sign blocks on an alternate chain, allowing the attacker to increase their block production and potentially surpass the main chain.</li>
+<li><strong>Stake Bleeding</strong>:
+The attacker stalls the main chain by skipping block production while accumulating stake and rewards on a hidden branch, eventually overtaking the main chain.</li>
+</ol>
+<h2 id="desiderata-3"><a class="header" href="#desiderata-3">Desiderata</a></h2>
+<h3 id="d1-evaluate-the-opportunity-for-simple-long-range-attacks-and-detection-thereof"><a class="header" href="#d1-evaluate-the-opportunity-for-simple-long-range-attacks-and-detection-thereof">D1: Evaluate the opportunity for “simple” long-range attacks and detection thereof</a></h3>
+<p><strong>User Journey</strong>: A researcher or protocol implementer can understand how a simple long-range attack could be executed and detected.</p>
+<p><strong>Justification</strong>: Providing a model which demonstrates how a simple long-range attack could be executed and detected could enable us to derive preventative measures.</p>
+<h3 id="d2-evaluate-the-opportunity-for-posterior-corruption-long-range-attacks-and-detection-thereof"><a class="header" href="#d2-evaluate-the-opportunity-for-posterior-corruption-long-range-attacks-and-detection-thereof">D2: Evaluate the opportunity for “posterior corruption” long-range attacks and detection thereof</a></h3>
+<p><strong>User Journey</strong>: A researcher or protocol implementer can understand how a posterior corruption long-range attack could be executed and detected.</p>
+<p><strong>Justification</strong>: Posterior corruption long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a posterior corruption long-range attack could be executed and detected could enable us to derive preventative measures.</p>
+<h3 id="d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof"><a class="header" href="#d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof">D3: Evaluate the opportunity for “stake-bleeding” long-range attacks and detection thereof</a></h3>
+<p><strong>User Journey</strong>: A researcher or protocol implementer can understand how a stake-bleeding long-range attack could be executed and detected.</p>
+<p><strong>Justification</strong>: Stake-bleeding long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a stake-bleeding long-range attack could be executed and detected could enable us to derive preventative measures.</p>
+<h2 id="changelog-10"><a class="header" href="#changelog-10">Changelog</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-15-movement-glossary"><a class="header" href="#md-15-movement-glossary">MD-15: Movement Glossary</a></h1>
 <ul>
 <li><strong>Description</strong>: Provide a glossary for Movement Vocabulary.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 <li><strong>Reviewer</strong>: Andreas Penzkofer</li>
 </ul>
-<h2 id="overview-3"><a class="header" href="#overview-3">Overview</a></h2>
+<h2 id="overview-4"><a class="header" href="#overview-4">Overview</a></h2>
 <p>In order to communicate with more specificity in all contexts, Movement Labs should introduce a glossary. This glossary should define terms both unique to Movement Labs and general terms that are used in a unique way, underspecified in the literature, or have a specific meaning in the context of Movement Labs.</p>
-<h2 id="desiderata-3"><a class="header" href="#desiderata-3">Desiderata</a></h2>
+<h2 id="desiderata-4"><a class="header" href="#desiderata-4">Desiderata</a></h2>
 <!--
   List out the specific desiderata. Each entry should consist of:
 
@@ -2197,19 +2237,19 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <ul>
 <li>MD can also introduce MG to further aid in clarity, but they will not be ratified until they have been supported in an MIP.</li>
 </ul>
-<h2 id="changelog-10"><a class="header" href="#changelog-10">Changelog</a></h2>
+<h2 id="changelog-11"><a class="header" href="#changelog-11">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-23-define-artifact-releases-for-movement-technologies"><a class="header" href="#md-23-define-artifact-releases-for-movement-technologies">MD-23: Define Artifact Releases for Movement Technologies</a></h1>
 <ul>
 <li><strong>Description</strong>: Define a process for releasing artifacts for Movement technologies.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 </ul>
-<h2 id="overview-4"><a class="header" href="#overview-4">Overview</a></h2>
+<h2 id="overview-5"><a class="header" href="#overview-5">Overview</a></h2>
 <p>Provide a coherent and repeatable process for releasing artifacts for Movement technologies. This should be used for specifying the process of releasing artifacts for Movement technologies–particularly those that may require third-parties to adjust their usage of said technologies.</p>
 <h2 id="definitions-1"><a class="header" href="#definitions-1">Definitions</a></h2>
 <p><strong>artifact</strong>: a deployable unit of software that is the result of a build process. This could be a library, a binary, a container image, or a well-known configuration file.</p>
 <p><strong>release</strong>: a versioned artifact that is made available to the public. This could be a stable release, a beta release, or a release candidate.</p>
-<h2 id="desiderata-4"><a class="header" href="#desiderata-4">Desiderata</a></h2>
+<h2 id="desiderata-5"><a class="header" href="#desiderata-5">Desiderata</a></h2>
 <h3 id="d1-apply-standardized-release-naming-convention"><a class="header" href="#d1-apply-standardized-release-naming-convention">D1: Apply standardized release naming convention</a></h3>
 <p><strong>User Journey</strong>: All users can easily identify the type of release, software units, and versioning of Movement technologies.</p>
 <p><strong>Justification</strong>: A standardized naming convention for releases will help developers understand the purpose of a release and the changes it contains. This will help developers make informed decisions about which releases to use.</p>
@@ -2222,7 +2262,7 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <h3 id="d4-define-standard-relationship-between-releases-and-governance"><a class="header" href="#d4-define-standard-relationship-between-releases-and-governance">D4: Define standard relationship between releases and governance</a></h3>
 <p><strong>User Journey</strong>: All users can understand the relationship between releases and governance, i.e., how a particular release gets voted in as canonical for a given set of Movement technologies.</p>
 <p><strong>Justification</strong>: A clear relationship between releases and governance will help users understand how releases are approved and what criteria they must meet. This will help users trust that releases are of high quality and meet the needs of the community.</p>
-<h2 id="changelog-11"><a class="header" href="#changelog-11">Changelog</a></h2>
+<h2 id="changelog-12"><a class="header" href="#changelog-12">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-61-relayer-algorithm-for-the-lockmint-native-bridge"><a class="header" href="#md-61-relayer-algorithm-for-the-lockmint-native-bridge">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></h1>
 <ul>
@@ -2230,9 +2270,9 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <li><strong>Authors</strong>: Andreas Penzkofer, Philippe</li>
 <li><strong>Approval</strong>: :white_check_mark:</li>
 </ul>
-<h2 id="overview-5"><a class="header" href="#overview-5">Overview</a></h2>
+<h2 id="overview-6"><a class="header" href="#overview-6">Overview</a></h2>
 <p>This desiderata outlines the desired functionalities and recovery mechanisms for a Relayer handling the completion of transfers in the lock/mint Native Bridge protocol. It emphasizes uninterrupted operation, recovery from failure, and minimal dependencies.</p>
-<h2 id="desiderata-5"><a class="header" href="#desiderata-5">Desiderata</a></h2>
+<h2 id="desiderata-6"><a class="header" href="#desiderata-6">Desiderata</a></h2>
 <h3 id="d1-continuous-event-processing"><a class="header" href="#d1-continuous-event-processing">D1: Continuous Event Processing</a></h3>
 <p><strong>User Journey</strong>: The relayer continuously processes events from the source chain, created from user transfer requests, and ensures their completion on the target chain.</p>
 <p><strong>Justification</strong>: Guarantees the seamless execution of cross-chain transfers and minimizes delays or interruptions.</p>
@@ -2249,16 +2289,16 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <p><strong>User Journey</strong>: Pending transfers are retried automatically after a timeout, ensuring eventual completion without manual oversight.</p>
 <p><strong>Justification</strong>: Improves the reliability of the relayer by handling transient errors and network issues gracefully.</p>
 <p><strong>Recommendations</strong>: Implement a configurable timeout period for retries.</p>
-<h2 id="changelog-12"><a class="header" href="#changelog-12">Changelog</a></h2>
+<h2 id="changelog-13"><a class="header" href="#changelog-13">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-91-define-move-stack-and-movement-sdk"><a class="header" href="#md-91-define-move-stack-and-movement-sdk">MD-91: Define Move Stack and Movement SDK</a></h1>
 <ul>
 <li><strong>Description</strong>: Define the Move Stack and the Movement SDK to provide clear categorization of our software components and standardize language around the Movement technologies.</li>
 <li><strong>Authors</strong>: Andreas Penzkofer</li>
 </ul>
-<h2 id="overview-6"><a class="header" href="#overview-6">Overview</a></h2>
+<h2 id="overview-7"><a class="header" href="#overview-7">Overview</a></h2>
 <p>The Move Stack and Movement SDK are foundational components for Movement technologies, aimed at empowering developers with standardized tools, interfaces, and services for building, interacting with, and maintaining Movement Labs’ networks and dApps.</p>
-<h2 id="desiderata-6"><a class="header" href="#desiderata-6">Desiderata</a></h2>
+<h2 id="desiderata-7"><a class="header" href="#desiderata-7">Desiderata</a></h2>
 <h3 id="d1-standardization-of-development-stack"><a class="header" href="#d1-standardization-of-development-stack">D1: Standardization of Development Stack</a></h3>
 <p><strong>User Journey</strong>: Developers can utilize a well-documented stack to build and maintain Movement Labs’ networks and dApps.</p>
 <p><strong>Justification</strong>: Ensures high quality of documentation.</p>
@@ -2274,14 +2314,14 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <h3 id="d4-reduce-confusion-between-sdk-and-stack"><a class="header" href="#d4-reduce-confusion-between-sdk-and-stack">D4: Reduce confusion between SDK and Stack</a></h3>
 <p><strong>User Journey</strong>: Developers are able to understand what the SDK implies.</p>
 <p><strong>Justification</strong>: There has been much confusion about what the SDK constitutes. There is great need for clarification to align language in the ecosystem.</p>
-<h2 id="changelog-13"><a class="header" href="#changelog-13">Changelog</a></h2>
+<h2 id="changelog-14"><a class="header" href="#changelog-14">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-93-parent-child-mips"><a class="header" href="#md-93-parent-child-mips">MD-93: Parent-Child MIPs</a></h1>
 <ul>
 <li><strong>Description</strong>: Provide formal structure for parent and child MIPs.</li>
 <li><strong>Authors</strong>: <a href="mailto:andy.golay@movementlabs.xyz">Andy Golay</a></li>
 </ul>
-<h2 id="overview-7"><a class="header" href="#overview-7">Overview</a></h2>
+<h2 id="overview-8"><a class="header" href="#overview-8">Overview</a></h2>
 <p>Provide formal structure for parent-child MIPs. For more complicated MIPs, or MIPs which have implementations specific to various software stacks, infrastructure providers, etc., it can make sense for the sake of organization to have child MIPs to add specific details, rather than making the parent MIP too verbose or cluttered.</p>
 <h2 id="definitions-2"><a class="header" href="#definitions-2">Definitions</a></h2>
 <ul>
@@ -2292,11 +2332,11 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <p><strong>Child MIP</strong>: Also MAY be referred to as a sub-MIP. Child MIPs give detail on specific domains referenced within a parent MIP. They are substantial enough that they make sense to refactor into MIPs associated with the parent MIP.</p>
 </li>
 </ul>
-<h2 id="desiderata-7"><a class="header" href="#desiderata-7">Desiderata</a></h2>
+<h2 id="desiderata-8"><a class="header" href="#desiderata-8">Desiderata</a></h2>
 <h3 id="d1-convention-for-parent-and-child-mip-file-organization-and-naming"><a class="header" href="#d1-convention-for-parent-and-child-mip-file-organization-and-naming">D1: Convention for parent and child MIP file organization and naming</a></h3>
 <p><strong>User Journey</strong>: Proposer can adhere to a standardized template for substantial, detailed subsections of MIPs which warrant being categorized as their own related child MIP.</p>
 <p><strong>Justification</strong>: The file organization and naming must be consistent, so there should be a formal convention.</p>
-<h2 id="changelog-14"><a class="header" href="#changelog-14">Changelog</a></h2>
+<h2 id="changelog-15"><a class="header" href="#changelog-15">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-3"><a class="header" href="#welcome-to-the-movement-network-mip-book-3">Welcome to the Movement Network MIP Book</a></h1>
 <h2 id="approved-3"><a class="header" href="#approved-3">Approved</a></h2>
@@ -2319,6 +2359,7 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
 <li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
 <li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
+<li><a href="Approved/main/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
 <li><a href="Approved/main/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
@@ -2356,7 +2397,6 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <h3 id="mds-7"><a class="header" href="#mds-7">MDs</a></h3>
 <ul>
 <li><a href="Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/">MD-2: Enclave Crash-resistant Key Management</a></li>
-<li><a href="Review/l-monninger/long-range-attacks/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
 <li><a href="Review/mikhail/suzuka-da-migrations/MD/md-13/">MD-13: Suzuka DA Migrations Format</a></li>
@@ -2408,6 +2448,7 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
 <li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
 <li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
+<li><a href="Approved/main/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
 <li><a href="Approved/main/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
@@ -2445,7 +2486,6 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <h3 id="mds-9"><a class="header" href="#mds-9">MDs</a></h3>
 <ul>
 <li><a href="Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/">MD-2: Enclave Crash-resistant Key Management</a></li>
-<li><a href="Review/l-monninger/long-range-attacks/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
 <li><a href="Review/mikhail/suzuka-da-migrations/MD/md-13/">MD-13: Suzuka DA Migrations Format</a></li>
@@ -2484,6 +2524,7 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
 <li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
 <li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
+<li><a href="Approved/main/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
 <li><a href="Approved/main/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
@@ -2521,7 +2562,6 @@ Information incompleteness may improve the game theory of costs and rewards. Pro
 <h3 id="mds-11"><a class="header" href="#mds-11">MDs</a></h3>
 <ul>
 <li><a href="Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/">MD-2: Enclave Crash-resistant Key Management</a></li>
-<li><a href="Review/l-monninger/long-range-attacks/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
 <li><a href="Review/mikhail/suzuka-da-migrations/MD/md-13/">MD-13: Suzuka DA Migrations Format</a></li>
@@ -3599,7 +3639,7 @@ Changes will be required at Genesis to initialize the module, which will involve
 <h3 id="5-peer-review-and-community-feedback-1"><a class="header" href="#5-peer-review-and-community-feedback-1">5. <strong>Peer Review and Community Feedback</strong></a></h3>
 <p>The proposal will be reviewed by Movement Labs engineers and the broader community for feedback before final implementation.</p>
 <h2 id="appendix-15"><a class="header" href="#appendix-15">Appendix</a></h2>
-<h2 id="changelog-15"><a class="header" href="#changelog-15">Changelog</a></h2>
+<h2 id="changelog-16"><a class="header" href="#changelog-16">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-28-naming-conventions-for-movement-protocol-design"><a class="header" href="#mip-28-naming-conventions-for-movement-protocol-design">MIP-28: Naming Conventions for Movement Protocol Design</a></h1>
 <ul>
@@ -3639,7 +3679,7 @@ Changes will be required at Genesis to initialize the module, which will involve
 <h2 id="reference-implementation-15"><a class="header" href="#reference-implementation-15">Reference Implementation</a></h2>
 <h2 id="verification-16"><a class="header" href="#verification-16">Verification</a></h2>
 <h2 id="appendix-16"><a class="header" href="#appendix-16">Appendix</a></h2>
-<h2 id="changelog-16"><a class="header" href="#changelog-16">Changelog</a></h2>
+<h2 id="changelog-17"><a class="header" href="#changelog-17">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-34-fast-finality-settlement"><a class="header" href="#mip-34-fast-finality-settlement">MIP-34: Fast Finality Settlement</a></h1>
 <ul>
@@ -3662,7 +3702,7 @@ Changes will be required at Genesis to initialize the module, which will involve
 <p>This MIP provides an overview of an architecture of FFS, and its main components.</p>
 <h2 id="specification-17"><a class="header" href="#specification-17">Specification</a></h2>
 <p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
-<h3 id="overview-8"><a class="header" href="#overview-8">Overview</a></h3>
+<h3 id="overview-9"><a class="header" href="#overview-9">Overview</a></h3>
 <p><strong>FFS</strong>. The objective of Fast Finality Settlement (FFS) is to confirm that transactions are <em>processed</em> correctly and that the node has <em>read</em> the transactions in the correct order. It does not impact the already established order of transactions by the sequencer.</p>
 <p>The L2 chain increases by a new block in each (L2) round, and this block is the successor of the block in the previous round, the <em>predecessor</em>. Initially, there is a <em>genesis</em> block with no predecessor.</p>
 <p><strong>ProtoBlock</strong>. Each round corresponds to the processing of a batch of transactions, called <em>protoBlock</em>, which is proposed by the <em>sequencer</em> (can be centralized, decentralized, shared).</p>
@@ -3792,7 +3832,7 @@ This implies that if more than <span class="katex"><span class="katex-html" aria
 <li><strong>commit to a sequence of L2Blocks</strong>. The Fastconfirmation certificate could be per L2block. However, on L1 we want to commit to a sequence of blocks (a superBlock). This can be done by committing to the state root of the last block in the sequence or more complicated approaches using Merkle roots.</li>
 </ul>
 <h2 id="appendix-17"><a class="header" href="#appendix-17">Appendix</a></h2>
-<h2 id="changelog-17"><a class="header" href="#changelog-17">Changelog</a></h2>
+<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-37-ffs-postconfirmation"><a class="header" href="#mip-37-ffs-postconfirmation">MIP-37: FFS: Postconfirmation</a></h1>
 <ul>
@@ -4008,7 +4048,7 @@ function getAcceptorLastActivity() internal view returns (uint256) {
 <p>A reference implementation for Postconfirmation is provided by MCR, see <a href="https://github.com/movementlabsxyz/movement/tree/714831820d78b3910729a194cd0508fa1efd9aa9/protocol-units/settlement/mcr">here</a>.</p>
 <h2 id="verification-18"><a class="header" href="#verification-18">Verification</a></h2>
 <h2 id="appendix-18"><a class="header" href="#appendix-18">Appendix</a></h2>
-<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
+<h2 id="changelog-19"><a class="header" href="#changelog-19">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-47-improve-gas-fee-collection-in-phases"><a class="header" href="#mip-47-improve-gas-fee-collection-in-phases">MIP-47: Improve Gas fee collection in phases</a></h1>
 <ul>
@@ -4331,7 +4371,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <h2 id="reference-implementation-19"><a class="header" href="#reference-implementation-19">Reference Implementation</a></h2>
 <h2 id="verification-21"><a class="header" href="#verification-21">Verification</a></h2>
 <h2 id="appendix-21"><a class="header" href="#appendix-21">Appendix</a></h2>
-<h2 id="changelog-19"><a class="header" href="#changelog-19">Changelog</a></h2>
+<h2 id="changelog-20"><a class="header" href="#changelog-20">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-50-insured-native-bridge"><a class="header" href="#mip-50-insured-native-bridge">MIP-50: Insured Native Bridge</a></h1>
 <ul>
@@ -4355,7 +4395,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li>The Bridge Pool Governor SHALL be expected to purchase token from the market to recover the loss and replenish the Insurance Fund.</li>
 </ol>
 <h2 id="verification-22"><a class="header" href="#verification-22">Verification</a></h2>
-<h2 id="changelog-20"><a class="header" href="#changelog-20">Changelog</a></h2>
+<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
 <h2 id="appendix-22"><a class="header" href="#appendix-22">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-52-aptos-gas-pool"><a class="header" href="#mip-52-aptos-gas-pool">MIP-52: Aptos Gas Pool</a></h1>
@@ -4389,7 +4429,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li>Verify that the AptosVM does not validate burns. Otherwise, there may be logic outside of the framework <code>epilogue_gas_payer</code> path which needs to be updated.</li>
 <li>Identify any sponsorship or other gas payment mechanisms which may need to be updated to use the Gas Pool.</li>
 </ul>
-<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
+<h2 id="changelog-22"><a class="header" href="#changelog-22">Changelog</a></h2>
 <h2 id="appendix-23"><a class="header" href="#appendix-23">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-54-the-biarritz-model"><a class="header" href="#mip-54-the-biarritz-model">MIP-54: The Biarritz Model</a></h1>
@@ -4440,7 +4480,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li><strong>1:1 token correlation</strong>: the model asserts a 1:1 token correlation between the L1 staking and L2 gas tokens. This may not be desirable in all cases as exploits on the bridge may compromise the security of staking on the L1 or sybil resistance on the L2.</li>
 </ol>
 <h2 id="verification-24"><a class="header" href="#verification-24">Verification</a></h2>
-<h2 id="changelog-22"><a class="header" href="#changelog-22">Changelog</a></h2>
+<h2 id="changelog-23"><a class="header" href="#changelog-23">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-55-the-bilbao-model"><a class="header" href="#mip-55-the-bilbao-model">MIP-55: The Bilbao Model</a></h1>
 <ul>
@@ -4902,7 +4942,7 @@ The following are possible ways to adjust the rate limit:</p>
 <p>Needs discussion.</p>
 <p>We may add a formal model?</p>
 <hr />
-<h2 id="changelog-23"><a class="header" href="#changelog-23">Changelog</a></h2>
+<h2 id="changelog-24"><a class="header" href="#changelog-24">Changelog</a></h2>
 <h2 id="appendix-25"><a class="header" href="#appendix-25">Appendix</a></h2>
 <h3 id="a1-alternative-designs"><a class="header" href="#a1-alternative-designs">A1: Alternative designs</a></h3>
 <p>This MIP proposes a rate limiting mechanism for the Lock/Mint-type Native Bridge with symmetrical design. Below we discuss how we got here and which alternatives exist. The version discussed in this MIP is option C.</p>
@@ -5127,7 +5167,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h2 id="reference-implementation-23"><a class="header" href="#reference-implementation-23">Reference Implementation</a></h2>
 <p>For the reference implementation of the Move Stack refer to the <a href="https://github.com/movementlabsxyz">Movement GitHub repository</a>.</p>
 <h2 id="verification-29"><a class="header" href="#verification-29">Verification</a></h2>
-<h2 id="changelog-24"><a class="header" href="#changelog-24">Changelog</a></h2>
+<h2 id="changelog-25"><a class="header" href="#changelog-25">Changelog</a></h2>
 <h2 id="appendix-26"><a class="header" href="#appendix-26">Appendix</a></h2>
 <h3 id="a1-rfc-1"><a class="header" href="#a1-rfc-1">A1 RFC-1</a></h3>
 <p>RFC-1 in <a href="https://github.com/movementlabsxyz/rfcs">RFCs</a> is an initial document that outlines the components of the Move Stack and Movement SDK. It provides a detailed enumeration of components, their aliases, and purposes.</p>
@@ -5155,6 +5195,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <li><a href="Approved/main/MD/md-1/">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></li>
 <li><a href="Approved/main/MD/md-3/">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></li>
 <li><a href="Approved/main/MD/md-4/">MD-4: Postconfirmation: Gas Costs and Rewards</a></li>
+<li><a href="Approved/main/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Approved/main/MD/md-15/">MD-15: Movement Glossary</a></li>
 <li><a href="Approved/main/MD/md-23/">MD-23: Define Artifact Releases for Movement Technologies</a></li>
 <li><a href="Approved/main/MD/md-61/">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></li>
@@ -5192,7 +5233,6 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h3 id="mds-13"><a class="header" href="#mds-13">MDs</a></h3>
 <ul>
 <li><a href="Review/l-monninger/enclave-crash-resistant-keys/MD/md-2/">MD-2: Enclave Crash-resistant Key Management</a></li>
-<li><a href="Review/l-monninger/long-range-attacks/MD/md-5/">MD-5: Fast Finality Settlement - Long Range Attacks</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-6/">MD-6: Suzuka Block Validation</a></li>
 <li><a href="Review/l-monninger/block-validation/MD/md-7/">MD-7: Prevent Suzuka MEV Exploits and Censorship</a></li>
 <li><a href="Review/mikhail/suzuka-da-migrations/MD/md-13/">MD-13: Suzuka DA Migrations Format</a></li>
@@ -5215,8 +5255,8 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <li><strong>Description</strong>: Provide a mechanism for allowing the use of keys in an enclave that can be recovered after crashes without breaking encapsulation.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 </ul>
-<h2 id="overview-9"><a class="header" href="#overview-9">Overview</a></h2>
-<h2 id="desiderata-8"><a class="header" href="#desiderata-8">Desiderata</a></h2>
+<h2 id="overview-10"><a class="header" href="#overview-10">Overview</a></h2>
+<h2 id="desiderata-9"><a class="header" href="#desiderata-9">Desiderata</a></h2>
 <h3 id="d1-minimize-direct-access-to-bridge-keys-while-maintaining-use-1"><a class="header" href="#d1-minimize-direct-access-to-bridge-keys-while-maintaining-use-1">D1: Minimize Direct Access to Bridge Keys while Maintaining Use</a></h3>
 <p><strong>User Journey</strong>: Movement Labs Atomic Bridge Service Operators (MLABSO) can run the service with appropriate signing keys without direct access to said keys.</p>
 <p><strong>Justification</strong>: Without direct access to the keys, MLABSO are forced to use a more secure mechanism for signing messages which can be more easily secured audited such as an HSM or enclave.</p>
@@ -5226,46 +5266,6 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h3 id="d3-time-lock-key-usage-1"><a class="header" href="#d3-time-lock-key-usage-1">D3: Time-Lock Key Usage</a></h3>
 <p><strong>User Journey</strong>: MLABSO can only reliably replace software using a key in a time-locked manner.</p>
 <p><strong>Justification</strong>: The software using a given key may require updates or replacement. Time-locking can allow this to occur without diminishing the benefits of attestations.</p>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-5-fast-finality-settlement---long-range-attacks"><a class="header" href="#md-5-fast-finality-settlement---long-range-attacks">MD-5: Fast Finality Settlement - Long Range Attacks</a></h1>
-<ul>
-<li><strong>Description</strong>: Consider and model long-range attacks in the Fast Finality Settlement protocol.</li>
-<li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a>, Andreas Penzkofer</li>
-</ul>
-<h2 id="overview-10"><a class="header" href="#overview-10">Overview</a></h2>
-<p>Long-range attacks are an inherent vulnerability to Proof-of-Stake (PoS) systems. Without an anchoring mechanisms blockchains are exposed to the risk of these.</p>
-<p>The Fast Finality Settlement (<a href="https://github.com/movementlabsxyz/MIP/pull/34">MIP-34</a>) is a PoS based settlement mechanism and separates into</p>
-<ul>
-<li>a Fastconfirmation protocol (<a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-64</a>) on L2. Fastconfirmations confirm L2Blocks.</li>
-<li>a Postconfirmation protocol (<a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>) on L1. Postconfirmations confirm superBlocks, which are a sequence of L2Blocks. Postconfirmations act as an anchoring mechanism.</li>
-</ul>
-<p><strong>Postconfirmation</strong>
-The stake and finality of Postconfirmations is protected by the underlying L1 finality. However, since the L1 is itself is a PoS system it may be susceptible to reorgs. Consequently, in combination with a reorg on L1,  Postconfirmations may be reverted, and the anchoring invalidated. The invalidation of anchors can permit long-range attacks on superBlocks.</p>
-<p>Albeit unlikely due to the high security of L1, long-range attacks in the Postconfirmation protocol should be considered and modeled.</p>
-<p><strong>Fastconfirmation</strong>
-Fastconfirmation on L2 are anchored through Postconfirmations on L1. An anchoring mechanism can protect against long-range attacks on L2Blocks. However, Fastconfirmations should consider the Postconfirmations.</p>
-<p>L2Blocks that are not postconfirmed are susceptible to long-range attacks.</p>
-<h3 id="introduction"><a class="header" href="#introduction">Introduction</a></h3>
-<p><a href="https://blog.positive.com/rewriting-history-a-brief-introduction-to-long-range-attacks-54e473acdba9">This reference</a> categorizes long-range attacks into</p>
-<ol>
-<li><strong>Simple Attack</strong>:
-The attacker forges an alternative blockchain branch from some earlier block, bypassing timestamp checks to produce blocks ahead of time and overtake the main chain.</li>
-<li><strong>Posterior Corruption</strong>:
-A retired validator is bribed or hacked to sign blocks on an alternate chain, allowing the attacker to increase their block production and potentially surpass the main chain.</li>
-<li><strong>Stake Bleeding</strong>:
-The attacker stalls the main chain by skipping block production while accumulating stake and rewards on a hidden branch, eventually overtaking the main chain.</li>
-</ol>
-<h2 id="desiderata-9"><a class="header" href="#desiderata-9">Desiderata</a></h2>
-<h3 id="d1-evaluate-the-opportunity-for-simple-long-range-attacks-and-detection-thereof"><a class="header" href="#d1-evaluate-the-opportunity-for-simple-long-range-attacks-and-detection-thereof">D1: Evaluate the opportunity for “simple” long-range attacks and detection thereof</a></h3>
-<p><strong>User Journey</strong>: A researcher or protocol implementer can understand how a simple long-range attack could be executed and detected.</p>
-<p><strong>Justification</strong>: Providing a model which demonstrates how a simple long-range attack could be executed and detected could enable us to derive preventative measures.</p>
-<h3 id="d2-evaluate-the-opportunity-for-posterior-corruption-long-range-attacks-and-detection-thereof"><a class="header" href="#d2-evaluate-the-opportunity-for-posterior-corruption-long-range-attacks-and-detection-thereof">D2: Evaluate the opportunity for “posterior corruption” long-range attacks and detection thereof</a></h3>
-<p><strong>User Journey</strong>: A researcher or protocol implementer can understand how a posterior corruption long-range attack could be executed and detected.</p>
-<p><strong>Justification</strong>: Posterior corruption long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a posterior corruption long-range attack could be executed and detected could enable us to derive preventative measures.</p>
-<h3 id="d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof"><a class="header" href="#d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof">D3: Evaluate the opportunity for “stake-bleeding” long-range attacks and detection thereof</a></h3>
-<p><strong>User Journey</strong>: A researcher or protocol implementer can understand how a stake-bleeding long-range attack could be executed and detected.</p>
-<p><strong>Justification</strong>: Stake-bleeding long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a stake-bleeding long-range attack could be executed and detected could enable us to derive preventative measures.</p>
-<h2 id="changelog-25"><a class="header" href="#changelog-25">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-6-suzuka-block-validation"><a class="header" href="#md-6-suzuka-block-validation">MD-6: Suzuka Block Validation</a></h1>
 <ul>
