@@ -37,27 +37,27 @@ Baker Coin is a class of unidirectional commitment protocols satisfying the [pos
 3. **Epoch-bound**: A Baker Coin protocol MUST fix stake weights throughout an epoch $e \in E$ which begins at a Unix timestamp $t_e$ and ends at a Unix timestamp $t_{e+1}$. This has the same effect as fixing the **Attesters** for a given epoch.
 4. **Rewarding**: A Baker Coin protocol MAY dispatch events to issue new units of a given token or "coin," Coin A, on Ledger A in the event of a commitment. The value of this coin may range from 0 to 2^256 - 1, $\mathbb{F}_{2^{256}}$.
 5. **Slashing**: A Baker Coin protocol MAY also remove or "slash" staked Coin A held in the verification contract on Ledger A in the event of a commitment. The value of this slashed token may range from 0 to 2^256 - 1, $\mathbb{F}_{2^{256}}$.
-6. **Observant**: A Baker Coin protocol MUST use a set of trusted **Observing Attesters** to relay valid stake events from Ledger A to validators in the Baker Network. These **Observing Attesters** are not necessarily the same as the **Attesters** for a given epoch.
+6. **Observant**: A Baker Coin protocol MUST use a set of trusted **A-Observers** to relay valid stake events from Ledger A to validators in the Baker Network. These **A-Observers** are not necessarily the same as the **Attesters** for a given epoch.
 
 > [!NOTE]
-> The **Observant** constraint is intentionally suboptimal from the perspective of trust. We will be using it to underscore possibilities of **Internal Staking**, **Staked Observing Attesters**, Ledger B certificate summaries, and other composable solutions in this and future MIPs.
+> The **Observant** constraint is intentionally suboptimal from the perspective of trust. We will be using it to underscore possibilities of **Internal Staking**, **Staked A-Observers**, Ledger B certificate summaries, and other composable solutions in this and future MIPs.
 
 There are thus four node types in a Baker Coin protocol:
 
 - **Baker Coin Attesters** perform the basic operations of an **Attester** but also send stake messages to Ledger A. They thus *broadcast* the following messages.
   - $COMMIT(commitment, height, signature) \rightarrow \text{Baker Coin Validators}$ which makes a signed `COMMITMENT` to a given Ledger B state at a given height.
-  - $STAKE(amount, epoch, signature) \rightarrow \text{Ledger A Participants}$ which attempts to stake an amount of Coin A on Ledger A for a given epoch.
-- **Baker Coin Validators** perform the basic operations of a **Validator** but also receive $TRUSTED\\_STAKE$ messages from **Observing Attesters**. They thus *broadcast* the following messages.
-  - $COMMITMENT\\_PROOF(commitment, height, Attesters, proof, signature) \rightarrow \text{Ledger A Participants}$ which attempts to post a commitment to a given Ledger B state at a given Ledger B height on Ledger A.
-- **Observing Attesters** perform the role of observing stake events on Ledger A and relaying them to the Baker Network. They thus *broadcast* the following messages.
+  - $STAKE(amount, epoch, signature) \rightarrow \text{A-Participants}$ which attempts to stake an amount of Coin A on Ledger A for a given epoch.
+- **Baker Coin Validators** perform the basic operations of a **Validator** but also receive $TRUSTED\\_STAKE$ messages from **A-Observers**. They thus *broadcast* the following messages.
+  - $COMMITMENT\\_PROOF(commitment, height, Attesters, proof, signature) \rightarrow \text{A-Participants}$ which attempts to post a commitment to a given Ledger B state at a given Ledger B height on Ledger A.
+- **A-Observers** perform the role of observing stake events on Ledger A and relaying them to the Baker Network. They thus *broadcast* the following messages.
   - $TRUSTED\\_STAKE(amount, participant, epoch, signature) \rightarrow \text{Baker Coin Validators}$ which indicates a valid stake event on Ledger A as initiated by a Baker Coin Attester via a $STAKE$ message.
-- **Ledger A Participants** perform the basic operations of a participant on Ledger A, as defined by Protocol A which MUST include the emission $STAKE\\_RECEIVED$ events. They thus *broadcast* the following messages:
-  - $STAKE\\_RECEIVED(amount, participant, epoch, signature) \rightarrow \text{Observing Attesters}$ which indicates a valid stake event on Ledger A as initiated by a Baker Coin Attester via a $STAKE$ message.
+- **A-Participants (Ledger A Participants)** perform the basic operations of a participant on Ledger A, as defined by Protocol A which MUST include the emission $STAKE\\_RECEIVED$ events. They thus *broadcast* the following messages:
+  - $STAKE\\_RECEIVED(amount, participant, epoch, signature) \rightarrow \text{A-Observers}$ which indicates a valid stake event on Ledger A as initiated by a Baker Coin Attester via a $STAKE$ message.
 
 We render the following assumptions about knowledge after receiving a given message in the Baker Coin protocol:
 
-1. Once an **Observing Attester** has received sufficient and accordingly verified $STAKE\\_RECEIVED$ messages from Ledger A Participants, the effects of the corresponding $STAKE$ messages on Ledger A SHALL remain fixed for the remainder of the epoch.
-2. Once a **Baker Coin Validator** has received sufficient and accordingly verified $TRUSTED\\_STAKE$ messages from **Observing Attesters**, it SHALL correctly update its internal representation of stake weights for the remainder of the epoch.
+1. Once an **A-Observer** has received sufficient and accordingly verified $STAKE\\_RECEIVED$ messages from A-Participants, the effects of the corresponding $STAKE$ messages on Ledger A SHALL remain fixed for the remainder of the epoch.
+2. Once a **Baker Coin Validator** has received sufficient and accordingly verified $TRUSTED\\_STAKE$ messages from **A-Observers**, it SHALL correctly update its internal representation of stake weights for the remainder of the epoch.
 
 We may now address the specific and practical behavior of the **Attester** and the **Validator** in a Baker Coin protocol, so as to explain the core mechanism of Baker Confirmations.
 
@@ -76,9 +76,9 @@ The form of state transition function MUST be such that for a given height all r
 The role of the Validator is more complex. The Validator MUST:
 
 1. Run a procedure $RECEIVE\\_COMMITMENT$ which accepts a commitment and height from an Attester and updates its internal representation of the commitments.
-2. Run a procedure $RECEIVE\\_TRUSTED\\_STAKE$ which accepts a stake amount, participant, and epoch from an Observing Attester and updates its internal representation of the stake weights.
+2. Run a procedure $RECEIVE\\_TRUSTED\\_STAKE$ which accepts a stake amount, participant, and epoch from an A-Observer and updates its internal representation of the stake weights.
 3. Use a heuristic to decide when to run a procedure $COMPUTE\\_PROOF$ which computes a Zero Knowledge proof of consensus on a given commitment at a given height.
-4. Use a heuristic to decide when to run a procedure $POST\\_PROOF$ which posts the Zero Knowledge proof of consensus on a given commitment by broadcasting a $COMMITMENT\\_PROOF$ message to Ledger A Participants.
+4. Use a heuristic to decide when to run a procedure $POST\\_PROOF$ which posts the Zero Knowledge proof of consensus on a given commitment by broadcasting a $COMMITMENT\\_PROOF$ message to A-Participants.
 
 #### $RECEIVE\\_COMMITMENT$
 
@@ -105,10 +105,10 @@ def RECEIVE_COMMITMENT(commitment, height, signature):
 
 ##### Human Language Description of Procedure
 
-$RECEIVE\\_TRUSTED\\_STAKE$ takes a stake amount, participant, and epoch from an Observing Attester. It verifies the stake amount and epoch and stores it in a table indexed by participant and epoch, but MUST only modify stake weights for the next epoch. If this constraint is not applied, then the epoch staking constraint is violated.
+$RECEIVE\\_TRUSTED\\_STAKE$ takes a stake amount, participant, and epoch from an A-Observer. It verifies the stake amount and epoch and stores it in a table indexed by participant and epoch, but MUST only modify stake weights for the next epoch. If this constraint is not applied, then the epoch staking constraint is violated.
 
 > [!WARNING]
-> The constraint on the epoch staking above is naive as it does not account for the time it takes for a Validator to receive a $TRUSTED\\_STAKE$ message from an Observing Attester. This will be discussed in more detail below. 
+> The constraint on the epoch staking above is naive as it does not account for the time it takes for a Validator to receive a $TRUSTED\\_STAKE$ message from an A-Observer. This will be discussed in more detail below. 
 
 ##### Pseudocode Description of Procedure
 
@@ -159,7 +159,7 @@ This MIP does prescribe a specific heuristic for deciding when to run $COMPUTE\\
 
 #### $POST\\_PROOF$
 
-Proof posting is intended to be a simple procedure which broadcasts a $COMMITMENT\\_PROOF$ message to Ledger A Participants. The message SHALL include the commitment, height, Attesters, proof, slashing amounts, rewarding amounts, and signature. It does not require any additional computation.
+Proof posting is intended to be a simple procedure which broadcasts a $COMMITMENT\\_PROOF$ message to A-Participants. The message SHALL include the commitment, height, Attesters, proof, slashing amounts, rewarding amounts, and signature. It does not require any additional computation.
 
 ##### Human Language Description of Heuristic
 
@@ -167,7 +167,7 @@ This MIP does prescribe a specific heuristic for deciding when to run $POST\\_PR
 
 To avoid disincentivizing honest posting behavior due to reward uncertainty, the on-chain reward mechanism should accept more than simply the initial commit. This phenomenon is addresses more completely in [Phenomena](#phenomena).
 
-### Phenomena 
+### Phenomena
 
 #### Forking and Asynchrony
 
@@ -224,9 +224,9 @@ We can conceive of a class of Baker Confirmations which are not unidirectional. 
 
 We detail this possibility in [MIP-n](mip-n/README.md).
 
-#### Staked Observing Attesters
+#### Staked A-Observers
 
-We can conceive of a class of Baker Confirmations which are not observant. These include cases where the Observing Attesters are themselves staked and thus can be slashed for dishonest behavior.
+We can conceive of a class of Baker Confirmations which are not observant. These include cases where the A-Observers are themselves staked and thus can be slashed for dishonest behavior.
 
 We detail this possibility in [MIP-n](mip-n/README.md).
 
