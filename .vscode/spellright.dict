@@ -5,6 +5,8 @@ Fastconfirmations
 multisig
 postconfirm
 postconfirmed
+protoBlock
+protoBlocks
 timelock
 timelocks
 trustlessness
