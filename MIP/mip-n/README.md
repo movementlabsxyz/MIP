@@ -1,5 +1,5 @@
 # MIP-52: Aptos Gas Pool
-- **Description**: Introduces implementation specification for the Gas Pool in Aptos. 
+- **Description**: Introduces implementation specification for the Gas Pool in the Aptos Framework
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
 - **Desiderata**: [MD-38](https://github.com/movementlabsxyz/MIP/pulls)
@@ -10,7 +10,7 @@ We propose a means of implementing a Gas Pool in Aptos to satisfy the token reci
 
 ## Motivation
 
-The introduction of a Gas Pool in Aptos will allow for the recirculation of gas used in the Aptos ecosystem. This ensures the supply can remain fixed and the gas can be re-used for purposes such as rewarding. 
+The introduction of a Gas Pool in Aptos will allow for the recirculation of gas used in the Aptos Framework based ecosystem. This ensures the supply can remain fixed and the gas can be re-used for purposes such as rewarding. 
 
 ## Specification
 
