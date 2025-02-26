@@ -1,4 +1,4 @@
-# MIP-27: Contract Pipeline
+# MIP-27: Contract pipeline
 
 - **Description**: Proposal to establish a structured pipeline for new contract deployments, aligning with the infrastructure outlined in [MIP-23](https://github.com/movementlabsxyz/MIP/pull/23) while maintaining the existing Movement Token under [MIP-18](https://github.com/movementlabsxyz/MIP/pull/18).
 - **Authors**: [Primata](mailto:primata@movementlabs.xyz)
@@ -11,7 +11,7 @@ MIP-27 proposes a Contract Pipeline that leverages a timelock-based infrastructu
 
 ## Motivation
 
-Currently, Movement Token operates under the governance outlined in [[MIP-18](https://github.com/movementlabsxyz/MIP/pull/18)](https://github.com/movementlabsxyz/MIP/blob/primata/mip-2/MIP/mip-18/README.md), and we may wish to maintain this setup for the time being. However, for future deployments and upgrades, we should transition to a more robust infrastructure which includes the release conventions as described in [MIP-23](https://github.com/movementlabsxyz/MIP/pull/23). This approach provides decentralized control, security, and accountability through multisig setups, timelocks, and community voting mechanisms. By establishing a structured pipeline, we ensure that the development process remains transparent, auditable, and aligned with the community's interests.
+Currently, Movement Token operates under the governance outlined in [MIP-18](https://github.com/movementlabsxyz/MIP/pull/18)], and we may wish to maintain this setup for the time being. However, for future deployments and upgrades, we should transition to a more robust infrastructure which includes the release conventions as described in [MIP-23](https://github.com/movementlabsxyz/MIP/pull/23). This approach provides decentralized control, security, and accountability through multisig setups, timelocks, and community voting mechanisms. By establishing a structured pipeline, we ensure that the development process remains transparent, auditable, and aligned with the community's interests.
 
 ## Specification
 
@@ -22,25 +22,25 @@ The Contract Pipeline includes the following components:
 - **Role**: The timelock holds ownership of all upgradeable contracts.
 - **Purpose**: Ensures that contract upgrades are executed only after a specified delay, allowing time for review and potential cancellation by stakeholders.
 
-### 2. **KMS Multisig Setup**  
+### 2. **KMS multisig setup**  
 
 - **Role**: Proposes transactions to the timelock.
 - **Components**:
-  - **1 KMS Key**: Proposes transactions based on accepted tags.
-  - **3 KMS Keys**: Accept transactions only if the transaction hash is contained in a GitHub release.
-  - **1 KMS Key**: Schedules the timelock transaction.
+  - **1 KMS key**: Proposes transactions based on accepted tags.
+  - **3 KMS keys**: Accept transactions only if the transaction hash is contained in a GitHub release.
+  - **1 KMS key**: Schedules the timelock transaction.
 
-### 3. **Off-Chain Voting Mechanism**  
+### 3. **Off-Chain voting mechanism**  
 
 - **Role**: Allows stakers and token holders to participate in "heat-checking" decisions, where off-chain voting provides feedback before finalizing transaction proposals.
 - **Purpose**: Increases community involvement and allows for decentralized input into key governance decisions.
 
-### 4. **Engineering Crew**  
+### 4. **Engineering crew**  
 
 - **Role**: The engineering team has the ability to push new contract versions for upgrades.
 - **Interaction**: The engineering team collaborates with the multisig setup to ensure proposed transactions align with the accepted development standards.
 
-### 5. **MCR Domain**  
+### 5. **MCR domain**  
 
 - **Role**: This domain is composed of network stakers who can execute timelocked transactions.
 - **Purpose**: Provides an additional layer of decentralized control by allowing stakers to be responsible for executing transactions after the timelock period has elapsed.
@@ -50,13 +50,13 @@ The Contract Pipeline includes the following components:
 - **Role**: The functional component of the protocol.
 - **Purpose**: Allow users to interact with Movement as a protocol.
 
-## Workflow for Releases
+## Workflow for releases
 
-1. **Engineers Push Releases**:  
+1. **Engineers push releases**:  
    - Engineers push new releases containing the necessary deployment data and transaction details. Each release tag initializes the workflow.
    - Engineers release a new implementation contract on the network. The old contract is versioned and a new iterable contract is created. E.g. MOVEToken is deployed. It currently contains MOVETokenV1 (current implementation) and MOVEToken. ALL work is to be done on MOVEToken. Once a new upgrade occurs, the deployed MOVEToken version is renamed MOVETokenV2 and a new iterable contract is created and named MOVEToken.
 
-2. **Deployment JSON Files**:  
+2. **Deployment JSON files**:  
    - The release includes deployment JSON files following the standard proposed in [MIP-23](https://github.com/movementlabsxyz/MIP/pull/23). These files include:
      - Broadcast data.
      - Transaction hash for signatures.
@@ -88,7 +88,7 @@ The Contract Pipeline includes the following components:
 
    This structured approach ensures that the entire deployment and upgrade lifecycle is well-documented, traceable, and consistent with the release process, allowing for seamless integration and upgrades across the system.
 
-1. **GitHub Release**:  
+1. **GitHub release**:  
    - The deployment JSON files are bundled into a GitHub release, which serves as the source of truth for the multisig setup. The release verifies the transaction hash and other deployment details before initiating the next step in the workflow.
 
 2. **Proposal**:  
@@ -100,7 +100,7 @@ The Contract Pipeline includes the following components:
 4. **Scheduling**:  
    - Once consensus is reached, a separate KMS key schedules the timelock transaction. This step locks the transaction for a predefined period, allowing for review.
 
-5. **Voting and Heat Checking**:  
+5. **Voting and heat checking**:  
    - During the timelock period, stakers and token holders participate in off-chain voting to provide feedback on the proposed transaction. This allows the community to give input before the final execution.
 
 6. **Execution**:  
@@ -108,7 +108,7 @@ The Contract Pipeline includes the following components:
 
 This combined workflow ensures transparency, security, and decentralized control over contract deployments and upgrades by integrating GitHub releases, KMS multisig, and timelock mechanisms with off-chain community feedback.
 
-## Reference Implementation
+## Reference implementation
 
 The pipeline will leverage KMS multisig setups and GitHub releases as a mechanism for secure and auditable transaction proposals. Off-chain voting mechanisms for stakers and token holders can be implemented using existing decentralized governance platforms.
 
@@ -118,21 +118,21 @@ The pipeline will leverage KMS multisig setups and GitHub releases as a mechanis
 
    The pipeline's correctness relies on the successful integration of KMS multisig, timelocks, GitHub releases, and off-chain voting mechanisms. Each component's role must be clearly defined and enforced.
 
-### 2. **Security Implications**  
+### 2. **Security implications**  
 
 - The timelock ensures that transactions are not executed immediately, allowing time for review and cancellation.
 - The KMS multisig setup adds an additional layer of security by requiring multiple approvals from trusted parties.
 - The use of GitHub releases ensures transparency and verifiability for each deployment.
 
-### 3. **Performance Impacts**  
+### 3. **Performance impacts**  
 
 - The timelock may introduce slight delays in contract upgrades, but this is a necessary tradeoff for increased security and transparency.
 
-### 4. **Validation Procedures**  
+### 4. **Validation procedures**  
 
 - Formal testing of the KMS multisig setup, timelock mechanisms, and GitHub release workflows should be conducted to ensure proper functionality.
 
-### 5. **Peer Review and Community Feedback**  
+### 5. **Peer review and community feedback**  
 
    The proposal will be reviewed by Movement Labs engineers and the broader community for feedback before final implementation.
 
