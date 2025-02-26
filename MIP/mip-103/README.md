@@ -179,7 +179,7 @@ The role of the Validator is more complex. The Validator MUST:
 
   ##### Fork Stake
 
-  The primary problem with stake in an FFS confirmation device, outlined in [MD-3](https://github.com/movementlabsxyz/MIP/pull/3/files) is that--because said device is not inherently designed within the reorganization logic of the confirming ledger itself--rewards, once issued on a given fork, cannot be revoked. In contrast, in more conventional DLT, the rewards exist on the fork of the ledger itself and once that fork is orphaned, the rewards are revoked.
+  The primary problem with stake in an FFS confirmation device, outlined in [MD-3](https://github.com/movementlabsxyz/MIP/blob/md/mcr-asynchrony-part-2/MD/md-3/asychronous-upgrades-problem.md) is that--because said device is not inherently designed within the reorganization logic of the confirming ledger itself--rewards, once issued on a given fork, cannot be revoked. In contrast, in more conventional DLT, the rewards exist on the fork of the ledger itself and once that fork is orphaned, the rewards are revoked.
 
   This problem persists under Baker Confirmations for a Baker Coin Protocol. However, it is possible to remove gas attacks associated with these solutions:
 
