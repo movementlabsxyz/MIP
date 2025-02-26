@@ -186,13 +186,17 @@ The role of the Validator is more complex. The Validator MUST:
   1. **Reward Delay**: One partial solution to the Fork Stake problem is to delay the emission of rewards by some number of epochs. The result is that contributing to a fork which does not survive for the duration of the delay period is not profitable. When tabulating on-chain, this delay is, however, problematic because it may lead to the cost of issuing a reward to an honest Partition A being correlated with the cost of issuing a reward to a malicious Partition B. When the delay is applied off-chain, however, these costs are negligible.
   2. **Gas Splitting**: Another partial solution to the Fork Stake problem is in fact to split the
 
-  ##### Liveness Disincentives
+  ##### Confirmation rewards and liveness
 
-  As discussed in  [MD-4](https://github.com/movementlabsxyz/MIP/pull/4/files), another issue with on-chain confirmation devices is that it becomes difficult to incentivize liveness because the cost of rolling over a commitment round or epoch is proportional to the size of the Validator set. This means that the last Validator to make a commitment in a round or epoch would need to be properly incentivized in order to cover their costs.
+  An issue with on-chain confirmation is that the cost of confirming or rolling over an epoch is proportional to the size of the Validator set. As a result this specific task requires incentivization in order to cover the cost.
+  
+  As discussed in [MD-4](https://github.com/movementlabsxyz/MIP/pull/102), dependent on the implementation, this may lead to disincentives for Validators to post proofs, if not properly rewarded, or a race to post at the correct time to receive the reward. If less then the threshold stake of validators behave honest, but rational, this could lead to hard to predict behavior for the liveness of the protocol.
 
-  The Baker Coin Protocol still suffers from this problem, as it is provided that the Validator post a proof containing clear-text rewards and slashes. This means that the Validator posting the proof still runs a transaction proportional to the size of the Validator set.
+  [MIP-37](https://github.com/movementlabsxyz/MIP/pull/37) separates this issue from the validators, by introducing the notion of an **acceptor**, which is dedicated for the service of confirming and rolling over an epoch. This removes race conditions and makes the rewards for this task more predictable. Moreover, it moves the liveness concerns into a more classical realm with timeouts.
 
-  However, instead of a direct reward, the Validator could share the Merkle root of a reward, against which Validators would submit Merkle Proofs to claim their rewards. This then fixes the cost of the commitment transaction. We discuss this possibility further in the [Generalizations](#generalizations) section.
+  The Baker Coin Protocol still may suffer from the problem described in [MD-4](https://github.com/movementlabsxyz/MIP/pull/102), as it is provided that the Validator post a proof containing clear-text rewards and slashes. This means that the Validator posting the proof still runs a transaction proportional to the size of the Validator set.
+
+  Note that the Validator could share the Merkle root of rewards, against which Validators would submit Merkle Proofs to claim their rewards. This then fixes the cost of the commitment transaction. We discuss this possibility further in the [Generalizations](#generalizations) section.
 
   ###### Standoffs
 
