@@ -188,7 +188,7 @@ The role of the Validator is more complex. The Validator MUST:
 
   ##### Liveness Disincentives
 
-  As discussed in  [MD-4](https://github.com/movementlabsxyz/MIP/pull/4/files), another issue with on-chain confirmation devices is that it becomes difficult to incentivize liveness because the cost of rolling over a commitment round or epoch is proportional to the size of the Validator set. This means that the last Validator to make a commitment in a round or epoch would need to be properly incentivized in order to cover their costs.
+  As discussed in  [MD-4](https://github.com/movementlabsxyz/MIP/blob/update/gas-offset/MD/md-4/rollover-gas.md), another issue with on-chain confirmation devices is that it becomes difficult to incentivize liveness because the cost of rolling over a commitment round or epoch is proportional to the size of the Validator set. This means that the last Validator to make a commitment in a round or epoch would need to be properly incentivized in order to cover their costs.
 
   The Baker Coin Protocol still suffers from this problem, as it is provided that the Validator post a proof containing clear-text rewards and slashes. This means that the Validator posting the proof still runs a transaction proportional to the size of the Validator set.
 
