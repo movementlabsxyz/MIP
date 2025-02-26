@@ -2,7 +2,7 @@
 
 - **Description**: Proposes a Zero Knowledge means of confirming commitments between layers aligned with the FFS protocol. 
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Desiderata**: [MD-34](https://github.com/movementlabsxyz/MIP/pull/34), [MD-3](https://github.com/movementlabsxyz/MIP/pull/3), [MD-4](https://github.com/movementlabsxyz/MIP/pull/4), [MD-5](https://github.com/movementlabsxyz/MIP/pull/5)
+- **Desiderata**: [MD-34](https://github.com/movementlabsxyz/MIP/pull/34), [MD-3](https://github.com/movementlabsxyz/MIP/pull/3), [MD-4](https://github.com/movementlabsxyz/MIP/pull/4), [MD-5](https://github.com/movementlabsxyz/MIP/pull/5), [MD-37](https://github.com/movementlabsxyz/MIP/pull/37), [MD-65](https://github.com/movementlabsxyz/MIP/pull/65)
 - **Etymology**: The first draft of this proposal was written in a cafe on Baker Street in San Francisco.
 
 ## Abstract
