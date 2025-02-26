@@ -97,7 +97,7 @@ Finally, an MIP/MD can also be updated:
 
 ## Style guide
 
-#### Header Convention
+#### Header convention
 
 For headers it is recommended to use standard sentence structure, i.e. do not capitalize letters apart from the first word, specific terms or acronyms.
 
@@ -113,7 +113,7 @@ Do not use
 ## This Header is Incorrect for Movement Labs' MIPs
 ```
 
-#### Capitalization Convention
+#### Capitalization convention
 
 Ensure clarity and consistency in distinguishing between internal components and general roles. When referring to specific entities within our system, capitalize their names. Use lowercase when referring to general roles or concepts. For example:
 

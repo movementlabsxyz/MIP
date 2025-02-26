@@ -1,6 +1,6 @@
-# MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge
+# MIP-88: Simplified Rate Limiter for the lock/mint Native Bridge
 
-- **Description**: A simplified design for the rate limiter of the Lock/Mint bridge.
+- **Description**: A simplified design for the rate limiter of the Lock/Mint Native Bridge.
 - **Authors**: Andreas Penzkofer, Primata
 - **Desiderata**: [MD-74](https://github.com/movementlabsxyz/MIP/pull/74/files/MD/md-74/README.md)
 
@@ -47,7 +47,7 @@ rateLimit (L1→L2, \text{on source}) = rateLimit (L1→L2, \text{on target}) \\
 = \texttt{InsuranceFundValueOnChain} / 2
 $$
 
-### Trusted Governance Operator informs about Insurance Fund Value
+### Trusted Governance Operator informs about Insurance Fund value
 
 This section extends the ideas of the previous section.
 
@@ -66,7 +66,7 @@ rateLimit (L1→L2, \text{on source}) = rateLimit (L1→L2, \text{on target}) \\
 = \texttt{InsuranceFundValueOnChain} / 4
 $$
 
-## Reference Implementation
+## Reference implementation
 
 - [Solidity](https://github.com/movementlabsxyz/movement/pull/992)
 - [Move](https://github.com/movementlabsxyz/aptos-core/pull/113)

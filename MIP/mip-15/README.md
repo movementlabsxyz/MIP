@@ -48,21 +48,21 @@ An example MG is provided at [mg-0](../../MG/mg-0/README.md).
 
 An MG document MUST not be accepted unless it is required by an MIP or MD. For example, herein, we justify the introduction of [MG-0](../../MG/mg-0/README.md). MG-0 defines the term "gloss" which is used in the context of Movement Labs to denote the definition of a term as would feature as an entry in a glossary. For the MGs, it is important to include in the glossary both clarify as the acronym "MG" and to provide an example gloss.
 
-#### MG Structure
+#### MG structure
 
 **Term**
 Definition of the term.
 
-**Related Work**
+**Related work**
 Enumerate key usages of the term or related terms in other contexts.
 
-**Example Usages**
+**Example usages**
 Provide examples of the term's usage in context.
 
 **Changelog**
 Document any post-publication changes to the glossary entry.
 
-## Reference Implementation
+## Reference implementation
 
 See the [Glossary](../../GLOSSARY.md).
 

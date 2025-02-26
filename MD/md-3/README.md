@@ -1,4 +1,4 @@
-# MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony
+# MD-3: Postconfirmation: commitment delay, network partitions, and asynchrony
 
 - **Description**: Consider delays, network partitions and asynchrony. And address how rewards and slashing conditions impact these.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz), Andreas Penzkofer
@@ -32,7 +32,7 @@ In it's [current form](https://github.com/movementlabsxyz/movement/tree/baa83356
 
 ### D1: Assess impact of delays and network partitions
 
-**User Journey**: A researcher or protocol implementer can understand the impact of delays and network partitions.
+**User journey**: A researcher or protocol implementer can understand the impact of delays and network partitions.
 
 **Justification**: It is important to understand the impact on the protocol from delays in commitments and network partitions. Network partitions can also describe a variety of asynchrony problems, such as DOS-attacks, network upgrades, and other forms of asynchrony.
 
@@ -41,7 +41,7 @@ We assume all forms of asynchrony with which we are concerned can be modeled thr
 
 ### D2: Provide a model that considers absent commitments
 
-**User Journey**: A researcher or protocol implementer can refer to a formal model that describes the impact of absent commitments. Furthermore, rewards and slashing conditions should be considered.
+**User journey**: A researcher or protocol implementer can refer to a formal model that describes the impact of absent commitments. Furthermore, rewards and slashing conditions should be considered.
 
 **Justification**: Network partitions effectively result in absent commitments to a given block height. While not changing the stake needed to agree on the height, it may impact liveness or hinder certain validators to commit. Rewards (and slashing) based on this absent commitment should be expected to impact behavior in the protocol. The model would support the derivation of the logic necessary to implement rewarding (and potentially slashing).
 
@@ -52,18 +52,18 @@ We assume all forms of asynchrony with which we are concerned can be modeled thr
 
 ### D3: Consider slashing conditions for lack of participation
 
-**User Journey**: A researcher or protocol implementer can understand the impact of slashing conditions for lack of participation. And whether it is necessary to introduce such conditions.
+**User journey**: A researcher or protocol implementer can understand the impact of slashing conditions for lack of participation. And whether it is necessary to introduce such conditions.
 
 **Justification**: It has been proposed to slash participants for lack of participation. This could be a way to prevent inactivity, however such extreme slashing conditions come with their own risks.
 
 **Recommendations**:
 With the introduction of slashing conditions for lack of participation, a malicious actor could aim to partition the network, such that a subset of nodes struggle to provide their commitments (DOS-attack). See, for example, [Peer Attack in RFC-29](https://github.com/movementlabsxyz/rfcs/pull/29). Excessive penalization could lead to slashing of honest actors. It also could lead to an increase of the attackers proportion of total stake, further reducing the security. Introduction of such slashing conditions should be considered with caution.
 
-### D4: Research Commitment Tolerance Window
+### D4: Research commitment tolerance window
 
 It has been proposed that a tolerance window to commitment arrivals would soften the impact on validators for delays they experience.
 
-**User Journey**: A researcher or protocol implementer can understand why a commitment tolerance window is necessary and why a particular design for this window was chosen.
+**User journey**: A researcher or protocol implementer can understand why a commitment tolerance window is necessary and why a particular design for this window was chosen.
 
 **Justification**: Allowing participants to receive a reward after the required stake has already committed to a given block height could prevent centralization and DOS-attacks.
 

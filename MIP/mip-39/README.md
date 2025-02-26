@@ -1,4 +1,4 @@
-# MIP-39: MOVE Token -- HTLC-based Native Bridge Design
+# MIP-39: MOVE Token -- HTLC-based Native Bridge design
 
 - **Description**: Architecture of the HTLC-based Native Bridge for \$MOVE token.
 - **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz)
@@ -124,7 +124,7 @@ The following diagram (Figure 1) illustrates the steps above:
 **Figure 1**: Time chart of the bridge protocol from L1 to L2.
 
 ---
-> [!CAUTION] 
+> [!CAUTION]
 > Fault-tolerance
 > As there can be crashes or delays or network partitions, the protocol should be _fault-tolerant_ to a certain extent.
 This is done by the use of `timelocks` on the L1 and L2 sides that restrict the operations above to occur within _bounded time windows_.
@@ -181,7 +181,7 @@ A successful transfer from L2 to L1 requires the following these steps:
 1. _user2_ burns their \$L2MOVE tokens in the `atoic_bridge_initiator.move`  contract on L2. The contract emits an event `BridgeTransferInitiated` to the L2 logs. At this point in time the transfer becomes `INITIALIZED` (or pending) on L2.
 2. A _relayer_ monitors the L2 logs and when they see the `BridgeTransferInitiated` event, they send a transaction to the `AtomicBridgeCounperPartyMOVE.sol` contract on L1 asking the module to prepare to _unlock_ \$L1MOVE tokens. The status of the bridge transfer on L1 becomes `PENDING`. An event `BridgeTransferLocked` is emitted to the L1 logs.
 
-> [!TIP] 
+> [!TIP]
 > Check point. `user2' does not have the asset on L2 anymore.
 > At that point the bridge transfers details are known by the L1 and the L2.
 
@@ -206,7 +206,7 @@ The following diagram (Figure 1) illustrates the steps above:
 
 ---
 
-#### Security & Permissions
+#### Security & permissions
 
 Contracts's APIs:
 
@@ -224,7 +224,7 @@ The permissions are set to ensure that only the user who initiated the transfer 
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
 
-## Reference Implementation
+## Reference implementation
 
 ### Bridging from L1 to L2
 
@@ -242,7 +242,7 @@ The contracts involved are:
 - Solidity contract [AtomicBridgeCounterPartyMOVE.sol](http:githug.com/movementlabsxyz/movement/blob/main/protocol-units/bridge/contracts/src/AtomicBridgeCounterPartyMOVE.sol) on L1,
 - module [atomic_bridge_initiator.move](https://github.com/movementlabsxyz/aptos-core/blob/061155119258caab512aec6aa860b086e5f312e0/aptos-move/framework/aptos-framework/sources/atomic_bridge.move#L121) on L2.
 
-### Relayer and Services
+### Relayer and services
 
 The (Rust) relayer logics are in [service folder](https://github.com/movementlabsxyz/movement/tree/main/protocol-units/bridge/service).
 
@@ -258,7 +258,7 @@ The (Rust) relayer logics are in [service folder](https://github.com/movementlab
 User gets funds on L2, and gets their fund back on L1.
 
 <!--
-  The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
+  The reference implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
 
   TODO: Remove this comment before submitting
 -->

@@ -1,4 +1,4 @@
-# MD-4: Postconfirmation: Gas Costs and Rewards
+# MD-4: Postconfirmation: gas costs and rewards
 
 - **Description**: Provide models for the game theory of offsetting gas costs in MCR.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz), Andreas Penzkofer
@@ -11,7 +11,7 @@ The Postconfirmation protocol [MIP-37](https://github.com/movementlabsxyz/MIP/bl
 
 #### Challenges with the current approach
 
-[MCR](https://github.com/movementlabsxyz/movement/tree/main/protocol-units/settlement/mcr) is an implementation of Postconfirmation. In it's [current form](https://github.com/movementlabsxyz/movement/tree/baa83356a14d44fd4e8346e1eddfc184cebc17d3/protocol-units/settlement/mcr), the last validator that is required to reach 2/3 of the total stake becomes the Postconfirmer.
+[MCR](https://github.com/movementlabsxyz/movement/tree/main/protocol-units/settlement/mcr) is an implementation of Postconfirmation. In it's [current form](https://github.com/movementlabsxyz/movement/tree/baa83356a14d44fd4e8346e1eddfc184cebc17d3/protocol-units/settlement/mcr), the last validator that is required to reach 2/3 of the total stake becomes the actor to postconfirm.
 
 The current implementation of MCR does not offset gas costs for this validator. This could lead to a disincentive to participate in the game, as the accumulated stake approaches 2/3 of the total stake.
 
@@ -25,7 +25,7 @@ It has also been proposed to have the Postconfirmer selected through randomness 
 
 ### D1: Investigate gas costs in the Postconfirmation protocol and impact of rewards
 
-**User Journey**:
+**User journey**:
 A researcher or protocol implementer can understand the game theory of gas costs without rewards for the Postconfirmation and similar tasks.
 
 **Justification**:
@@ -33,13 +33,13 @@ The current implementation of MCR does not reward the last validator. This could
 
 ### D2: Provide a model for gas costs with rewards for Postconfirmation
 
-**User Journey**: A researcher or protocol implementer can understand the game theory with Postconfirmation reward.
+**User journey**: A researcher or protocol implementer can understand the game theory with Postconfirmation reward.
 
 **Justification**: Naive proposals suggest to reward the Postconfirmer transparently can alleviate some of the issue. Provide a model which demonstrates the game theory of this.
 
-### D3: Provide models for when the validators are not omnicscient about their expected rewards and costs
+### D3: Provide models for when the validators are not omniscient about their expected rewards and costs
 
-**User Journey**:
+**User journey**:
 A researcher or protocol implementer can understand the game theory of gas costs when  incomplete information.
 
 **Justification**:

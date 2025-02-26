@@ -1,4 +1,4 @@
-# MIP-53: Conventions for Proposing Progressive L2 Models
+# MIP-53: Conventions for proposing Progressive L2 Models
 
 - **Description**: Introduces conventions for proposing progressive L2 models.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
@@ -6,7 +6,7 @@
 
 ## Abstract
 
-Movement's L2 system will progress through various changes during its life, and each stage is presented through a new L2 model (which we call **progressive L2 model**). Thus a given progressive L2 model describes as a particular stage in the evolution of the L2 system.  A given progressive L2 model stage is defined through the sum of its improvements and it may encompass components that are not directly related to each other. 
+Movement's L2 system will progress through various changes during its life, and each stage is presented through a new L2 model (which we call **progressive L2 model**). Thus a given progressive L2 model describes as a particular stage in the evolution of the L2 system.  A given progressive L2 model stage is defined through the sum of its improvements and it may encompass components that are not directly related to each other.
 
 We propose a set of conventions including naming, formatting, and related standards to assist reviewing proposals for said models. Finally a collection point of these terms to provide an overview
 
@@ -32,15 +32,15 @@ All proposed progressive L2 models MUST adopt a name of the form "The [Location]
 
 In text, the model SHOULD be referred to as "[Location] Model," that is, the name of the model in title case.
 
-### Acknowledgement of Standards
+### Acknowledgement of standards
 
 At the start of the "Specification" section of the MIP, the author MUST include the following markdown snippet:
 
 ```
-We acknowledge and apply the conventions of [MIP-53: Conventions for Proposing Progressive L2 Models](../mip-53/).
+We acknowledge and apply the conventions of [MIP-53: Conventions for proposing Progressive L2 Models](../mip-53/).
 ```
 
-### Summary Table
+### Summary table
 
 All proposed progressive L2 models MUST complete the following table:
 
@@ -56,11 +56,11 @@ All proposed progressive L2 models MUST complete the following table:
 |X| [Component Name 1](link/to/component/design) | A description of usage of said component.  |
 |X| [Component Name 2](link/to/component/design) | A description of usage of said component.  |
 
-### Statement Towards Progression
+### Statement towards progression
 
 All proposed progressive L2 models MUST include a statement of how the model suits a progressive approach to L2 design and release. This statement SHOULD be a paragraph in length and immediately follow the summary table--as if it were a caption for the table.
 
-### Pros and Cons
+### Pros and cons
 
 All proposed progressive L2 models MUST include a list of pros and cons. This list SHOULD be formatted as two separate bulleted lists in subsections titled "Pros" and "Cons."
 

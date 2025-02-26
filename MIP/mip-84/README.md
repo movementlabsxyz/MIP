@@ -1,4 +1,4 @@
-# MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions
+# MIP-84: Lock-Mint Native Bridge: basics of Relayer trust assumptions
 
 - **Description**: This MIP clarifies the trust assumptions for the Relayer, and what consequences should be drawn from these.
 - **Authors**: Andreas Penzkofer
@@ -47,7 +47,7 @@ We define the following terms:
 - **Insurance-based Untrusted** : We assume that faults or compromise is extremely unlikely. Under normal operations the component is secure and reliable. The rarity of these events permits that the operator takes care of resulting hardship. Protective measures are taken to reduce the maximally caused damage that the component can cause incase it becomes faulty / Byzantine by providing an insurance fund.
 - **Approval/proof-based Untrusted** : Faults or compromise could happen frequently and at any point in time. Any action should be approved by a trusted party or require a proof of correctness.
 
-#### Soundness and Completeness
+#### Soundness and completeness
 
 1. **Sound Relayer** : the Relayer generates an appropriate event $(s,r,a)$ on the destination chain, only when the corresponding event $(s,r,a)$ on the source chain occurred.
 1. **Complete Relayer** : the Relayer does not fail to produce the event $(s,r,a)$ on the destination chain when the corresponding event $(s,r,a)$ on the source chain occurs.
@@ -56,7 +56,7 @@ We define the following terms:
 
 **Assumption**: The Relayer is fully trusted to submit the completion of the transfer to the bridge contracts.
 
-**Soundness / Completeness**: There is no formal argument as to why the Relayer would be complete or sound, other than it being capable of performing the actions of listening for and generating $(s,r,a)$ events.
+**Soundness / completeness**: There is no formal argument as to why the Relayer would be complete or sound, other than it being capable of performing the actions of listening for and generating $(s,r,a)$ events.
 
 **Risks**: We assume the Relayer is safe.
 
@@ -67,7 +67,7 @@ The Relayer always submits the correct completion transaction, i.e. without tamp
 
 **Assumption**: The Relayer is insurance-based untrusted. The completion of the transfer to the bridge contracts is expected to operate correctly. However, in case of an error, the bridge operator can compensate for the error.
 
-**Soundness / Completeness**: We don't entirely trust the relaying mechanism, but we provide insured bounds. The value of the insurance fund is greater than the value that can be transferred within a certain time frame. The latter requires a rate limitation. This mechanism permits eventual soundness and completeness. See below the solution parts.
+**Soundness / completeness**: We don't entirely trust the relaying mechanism, but we provide insured bounds. The value of the insurance fund is greater than the value that can be transferred within a certain time frame. The latter requires a rate limitation. This mechanism permits eventual soundness and completeness. See below the solution parts.
 
 **Risk**: The Relayer may be erroneous, misconfigured, or compromised. The Relayer may submit the completion of the transfer to the bridge contracts with errors.
 
@@ -82,20 +82,20 @@ User is affected: A complaint by the user should be individually handled. A mech
 
 Abuse / Miscalculation: The Relayer may release (mint) excessively tokens on the L1 (L2). Any token that is released (minted) on the target chain without a corresponding burn (lock) on the source chain will increase the total circulating supply across L1 and L2. However, the Bridge Operator MUST ensure that the total circulating supply of the token remains constant.
 
-**Solution Part 1:**
+**Solution part 1:**
 The bridge operator MUST learn about the excessive minting (unlocking) through some monitoring system. The monitoring service MAY be only an initial warning system that informs the bridge operator to take action. This action could involve halting the bridge or starting an investigation.
 
 The Informer, see [MIP-71](https://github.com/movementlabsxyz/MIP/pull/71), addresses this part.
 
-**Solution Part 2:**
+**Solution part 2:**
 The bridge operator MUST have the ability to halt the bridge. This is necessary to prevent further excessive minting (unlocking) of tokens.
 
-**Solution Part 3:**
+**Solution part 3:**
 The bridge operator MUST compensate for the excessive minting (unlocking) by burning (locking) the excessive minted tokens on the target chain. This requires the provision of a fund from which the bridge operator can burn (lock) the excessive minted tokens.
 
 The Insurance Fund, see [MIP-50](https://github.com/movementlabsxyz/MIP/pull/50), addresses this part.
 
-**Solution Part 4:**
+**Solution part 4:**
 In a system with low latency, or unbounded transfer size the Relayer may be able to mint (release) tokens that far exceed the Insurance Fund `value_insurance`. To prevent this a rate limitation is necessary, which limits the maximum amount of tokens that can be transferred with a certain reaction time `time_react` of the bridge operator.
 
 Since the Relayer operates on the target chain, the rate limitation MUST be implemented on the target chain. Furthermore, it MUST consider `time_react` and `value_insurance`.
@@ -114,7 +114,7 @@ The Rate Limiter, see [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74) a
 
 **Consequence**: The transfer has to consider the finality on the source chain. The transfer may also take a long time to complete. For example in optimistic rollups the finality is reached after 1 week.
 
-**Solution with ZK Chains**:
+**Solution with ZK chains**:
 
 - L2-->L1 direction:
 
@@ -128,7 +128,7 @@ Not clear.
 
 The expected time for the completion of the transfer is the time it takes is in the range of ZK proofs.
 
-**Solution with Optimistic Chains**:
+**Solution with optimistic chains**:
 
 - L2-->L1 direction:
 
@@ -169,7 +169,7 @@ For a solution on a rate limitation see Section [Insurance-based untrusted Relay
 
 The expected time for the completion of the transfer is the time it takes is in the range of Postconfirmations and L1 finality time.
 
-## Reference Implementation
+## Reference implementation
 
 ## Verification
 
@@ -201,7 +201,4 @@ In our setting we trust the bridge operator, and thus we replace
 - finalization by the reaction time of the operator
 - the staked value by the insurance fund
 
----
-## Copyright
-
-Copyright and related rights waived via [CC0](../LICENSE.md).
+## Changelog
