@@ -143,7 +143,7 @@ The pipeline will leverage KMS multisig setups and GitHub releases as a mechanis
 
 #### 1. **Correctness**  
 
-   The pipeline's correctness relies on the successful integration of KMS multisig, timelocks, GitHub releases, and off-chain voting mechanisms. Each component's role must be clearly defined and enforced.
+The pipeline's correctness relies on the successful integration of KMS multisig, timelocks, GitHub releases, and off-chain voting mechanisms. Each component's role must be clearly defined and enforced.
 
 #### 2. **Security implications**  
 
@@ -153,11 +153,11 @@ The pipeline will leverage KMS multisig setups and GitHub releases as a mechanis
 
 #### 3. **Performance impacts**  
 
-- The timelock may introduce slight delays in contract upgrades, but this is a necessary tradeoff for increased security and transparency.
+The timelock may introduce slight delays in contract upgrades, but this is a necessary tradeoff for increased security and transparency.
 
 #### 4. **Validation procedures**  
 
-- Formal testing of the KMS multisig setup, timelock mechanisms, and GitHub release workflows should be conducted to ensure proper functionality.
+Formal testing of the KMS multisig setup, timelock mechanisms, and GitHub release workflows should be conducted to ensure proper functionality.
 
 #### 5. **Peer review and community feedback**  
 
