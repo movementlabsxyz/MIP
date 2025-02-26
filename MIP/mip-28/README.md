@@ -1,4 +1,4 @@
-# MIP-28: Naming Conventions for Movement Protocol Design
+# MIP-28: Naming conventions for Movement protocol design
 
 - **Description**: Naming conventions for actors in Movement protocol design, tests, and documentation.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
@@ -13,13 +13,13 @@ Movement protocols are complex systems that involve multiple actors, such as use
 
 ## Specification
 
-### Generic Names
+### Generic names
 
 - Alice: a generic user who interacts with a Movement protocol. The first user in a generic setup SHOULD be named Alice.
 - Bob: a generic user who interacts with a Movement protocol. The second user in a generic setup SHOULD be named Bob.
 - Charlie: a generic user who interacts with a Movement protocol. The third user in a generic setup SHOULD be named Charlie.
 
-### Specific Names
+### Specific names
 
 - (Malicious) Richard: a user who acts maliciously in a Movement protocol. The first malicious user in a generic setup SHOULD be named Richard.
 
@@ -31,7 +31,7 @@ Movement protocols are complex systems that involve multiple actors, such as use
 
     - (Latent) Liam is also acceptable to refer to a user who acts lazily but with the potential to act otherwise. This usage was introduced to avoid being too univocal; Lazy Liam originally and endearingly referred to an early team member at Movement Labs. When specifying Latent Liam, the usage of Liam should be prefixed.
 
-## Reference Implementation
+## Reference implementation
 
 ## Verification
 
