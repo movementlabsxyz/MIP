@@ -1,0 +1,371 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions - MIP</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">MIP</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/movementlabsxyz/MIP" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="mip-84-lock-mint-native-bridge-basics-of-relayer-trust-assumptions"><a class="header" href="#mip-84-lock-mint-native-bridge-basics-of-relayer-trust-assumptions">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></h1>
+<ul>
+<li><strong>Description</strong>: This MIP clarifies the trust assumptions for the Relayer, and what consequences should be drawn from these.</li>
+<li><strong>Authors</strong>: Andreas Penzkofer</li>
+<li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/blob/mip/rate-limiter-lock-mint-bridge/MD/md-74/README.md">MD-74</a></li>
+<li><strong>Approval</strong>: :white_check_mark:</li>
+</ul>
+<h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
+<p>The lock/mint-type bridge has the following core actors and components: a user who initiates a transfer, a bridge operator, bridge contracts that facilitate the transfer, and a Relayer that submits the completion of the transfer to the bridge contracts.</p>
+<p>The trust assumptions on the Relayer component have significant implications for the security of the bridge and they can introduce the need for additional components.</p>
+<hr />
+<p><img src="image.png" alt="alt text" /></p>
+<p><strong>Figure 1</strong>: <em>The Relayer is in charge of <em>relaying</em> bridge transactions. If a user initiates a bridge transfer request on the L2 with a transaction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span> with a sender <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">s</span></span></span></span>, recipient <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span>, for an amount <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span></span></span></span>, we expect the Relayer to relay the request to the L1 with a matching transaction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span>. However, a compromised or buggy Relayer may tamper with the bridge transfer data and relay <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9463em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span> where <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9463em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span> may differ from <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span></span></span></span>. A fraudulent or buggy Relayer may also create a transaction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>, without a corresponding transaction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>.</em></p>
+<hr />
+<p>In a scenario based approach we clarify minimally required components and why they are needed. We distinguish between a trusted, partially trusted, and untrusted Relayer (with proofs).</p>
+<h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
+<p>We need to clarify the trust assumptions for the Relayer and what consequences should be drawn from these. In many cases a rate limitation may be necessary, see also the Appendix <a href="#a1-background-eigenlayer">A1: Eigenlayer AVS</a>.</p>
+<p>This addresses the following desiderata in <a href="https://github.com/movementlabsxyz/MIP/blob/mip/rate-limiter-lock-mint-bridge/MD/md-74/README.md#D1">MD-74</a>:</p>
+<ul>
+<li>D1 : Specify the actors and their trust assumptions</li>
+<li>D2 : Specify the risks and threats from components</li>
+</ul>
+<h4 id="base-assumptions"><a class="header" href="#base-assumptions">Base assumptions</a></h4>
+<p>We make the following base assumption:</p>
+<ol>
+<li>All contracts are secure and reliable.</li>
+<li>The bridge operator is trusted.</li>
+</ol>
+<h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
+<p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
+<p>We define the following terms:</p>
+<ul>
+<li><strong>Trusted</strong> : A component is trusted if it is assumed to be secure and reliable. No errors in the component can occur. Nor keys can get compromised.</li>
+<li><strong>Untrusted</strong> : A component is untrusted if it can have bugs, or misconfigurations, or worst case gets compromised (i.e., become byzantine). The component can stop/crash or tamper with messages, results of computations. It means an entity is not assumed to be reliable, necessitating verification or safeguards.</li>
+<li><strong>Insurance-based Untrusted</strong> : We assume that faults or compromise is extremely unlikely. Under normal operations the component is secure and reliable. The rarity of these events permits that the operator takes care of resulting hardship. Protective measures are taken to reduce the maximally caused damage that the component can cause incase it becomes faulty / Byzantine by providing an insurance fund.</li>
+<li><strong>Approval/proof-based Untrusted</strong> : Faults or compromise could happen frequently and at any point in time. Any action should be approved by a trusted party or require a proof of correctness.</li>
+</ul>
+<h4 id="soundness-and-completeness"><a class="header" href="#soundness-and-completeness">Soundness and Completeness</a></h4>
+<ol>
+<li><strong>Sound Relayer</strong> : the Relayer generates an appropriate event <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span> on the destination chain, only when the corresponding event <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span> on the source chain occurred.</li>
+<li><strong>Complete Relayer</strong> : the Relayer does not fail to produce the event <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span> on the destination chain when the corresponding event <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span> on the source chain occurs.</li>
+</ol>
+<h3 id="trusted-relayer"><a class="header" href="#trusted-relayer">Trusted Relayer</a></h3>
+<p><strong>Assumption</strong>: The Relayer is fully trusted to submit the completion of the transfer to the bridge contracts.</p>
+<p><strong>Soundness / Completeness</strong>: There is no formal argument as to why the Relayer would be complete or sound, other than it being capable of performing the actions of listening for and generating <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span> events.</p>
+<p><strong>Risks</strong>: We assume the Relayer is safe.</p>
+<p><strong>Consequence</strong>:
+The Relayer always submits the correct completion transaction, i.e. without tampering with the sender, receiver and amount. The Relayer can transfer without any restrictions. Since the Relayer is trusted, no additional components are needed. Furthermore, no additional protective measures are needed.</p>
+<h3 id="insurance-based-untrusted-relayer"><a class="header" href="#insurance-based-untrusted-relayer">Insurance-based untrusted Relayer</a></h3>
+<p><strong>Assumption</strong>: The Relayer is insurance-based untrusted. The completion of the transfer to the bridge contracts is expected to operate correctly. However, in case of an error, the bridge operator can compensate for the error.</p>
+<p><strong>Soundness / Completeness</strong>: We don’t entirely trust the relaying mechanism, but we provide insured bounds. The value of the insurance fund is greater than the value that can be transferred within a certain time frame. The latter requires a rate limitation. This mechanism permits eventual soundness and completeness. See below the solution parts.</p>
+<p><strong>Risk</strong>: The Relayer may be erroneous, misconfigured, or compromised. The Relayer may submit the completion of the transfer to the bridge contracts with errors.</p>
+<ol>
+<li>Abuse of Mint/Release: The Relayer may transfer tokens without a respective initiation on the source chain.</li>
+<li>Miscalculation: The Relayer may transfer the wrong amount of tokens.</li>
+<li>Misallocation: The Relayer may transfer tokens to the wrong address.</li>
+<li>Censorship: The Relayer may never transfer certain tokens.</li>
+<li>Error: The Relayer may submit invalid transfers leading to failed transfers.</li>
+</ol>
+<p><strong>Consequence</strong>:
+User is affected: A complaint by the user should be individually handled. A mechanism to accept complaints MAY be provided. The complaint should be handled by a trusted party, such as a governance component.</p>
+<p>Abuse / Miscalculation: The Relayer may release (mint) excessively tokens on the L1 (L2). Any token that is released (minted) on the target chain without a corresponding burn (lock) on the source chain will increase the total circulating supply across L1 and L2. However, the Bridge Operator MUST ensure that the total circulating supply of the token remains constant.</p>
+<p><strong>Solution Part 1:</strong>
+The bridge operator MUST learn about the excessive minting (unlocking) through some monitoring system. The monitoring service MAY be only an initial warning system that informs the bridge operator to take action. This action could involve halting the bridge or starting an investigation.</p>
+<p>The Informer, see <a href="https://github.com/movementlabsxyz/MIP/pull/71">MIP-71</a>, addresses this part.</p>
+<p><strong>Solution Part 2:</strong>
+The bridge operator MUST have the ability to halt the bridge. This is necessary to prevent further excessive minting (unlocking) of tokens.</p>
+<p><strong>Solution Part 3:</strong>
+The bridge operator MUST compensate for the excessive minting (unlocking) by burning (locking) the excessive minted tokens on the target chain. This requires the provision of a fund from which the bridge operator can burn (lock) the excessive minted tokens.</p>
+<p>The Insurance Fund, see <a href="https://github.com/movementlabsxyz/MIP/pull/50">MIP-50</a>, addresses this part.</p>
+<p><strong>Solution Part 4:</strong>
+In a system with low latency, or unbounded transfer size the Relayer may be able to mint (release) tokens that far exceed the Insurance Fund <code>value_insurance</code>. To prevent this a rate limitation is necessary, which limits the maximum amount of tokens that can be transferred with a certain reaction time <code>time_react</code> of the bridge operator.</p>
+<p>Since the Relayer operates on the target chain, the rate limitation MUST be implemented on the target chain. Furthermore, it MUST consider <code>time_react</code> and <code>value_insurance</code>.</p>
+<p>Furthermore, since the Relayer is limited by the rate limitation, the intake of transfers on the source chain MUST be limited by the rate limitation. The rate limitation on the source chain MUST consider the rate limitation on the target chain.</p>
+<p>Since this is a symmetrical problem, this rate limitation MUST be implemented in both directions.</p>
+<p>The Rate Limiter, see <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a> addresses this part.</p>
+<h3 id="approvalproof-based-untrusted-relayer"><a class="header" href="#approvalproof-based-untrusted-relayer">Approval/proof-based untrusted Relayer</a></h3>
+<p><strong>Assumption</strong>: The Relayer is untrusted to submit the completion of the transfer to the bridge contracts. A proof or approval is required.</p>
+<p><strong>Risk</strong>: The source chain may be faulty or reorg. Hence only finalized proofs or approvals should be accepted (finalized with respect to the source chain).</p>
+<p><strong>Consequence</strong>: The transfer has to consider the finality on the source chain. The transfer may also take a long time to complete. For example in optimistic rollups the finality is reached after 1 week.</p>
+<p><strong>Solution with ZK Chains</strong>:</p>
+<ul>
+<li>L2–&gt;L1 direction:</li>
+</ul>
+<p>The Relayer submits a proof on L1 that the transfer was initiated successfully on the L2 chain and is part of the L1 verified ZK proof of the commitment of the L2 chain.</p>
+<ul>
+<li>L1 –&gt; L2 direction:</li>
+</ul>
+<p>Not clear.</p>
+<ul>
+<li>Timing:</li>
+</ul>
+<p>The expected time for the completion of the transfer is the time it takes is in the range of ZK proofs.</p>
+<p><strong>Solution with Optimistic Chains</strong>:</p>
+<ul>
+<li>L2–&gt;L1 direction:</li>
+</ul>
+<p>The Relayer submits a proof on L1 that the transfer was initiated successfully on L2 and is part the commitment on L1.</p>
+<p>Since the finality is crypto-economically protected by watchtower nodes, a rate limitation may have to be applied that ensures, that the value that can be transferred is crypto-economically protected. Otherwise the watchtower nodes may be incentivized to collude and finalize invalid transfers.</p>
+<ul>
+<li>L1 –&gt; L2 direction:</li>
+</ul>
+<p>Not clear.</p>
+<ul>
+<li>Timing:</li>
+</ul>
+<p>The expected time for the completion of the transfer is the time it takes is in the range of optimistic proofs.</p>
+<p><strong>Solution with FFS Chains</strong>:</p>
+<p>!!! warning The following is only a first sketch and should be updated once an MIP specifically for this solution exists.</p>
+<ul>
+<li>L2–&gt;L1 direction:</li>
+</ul>
+<p>The Relayer submits a proof on L1 that the transfer was initiated successfully and is within the commitment on L1 (e.g. via Merkle).</p>
+<ul>
+<li>L1 –&gt; L2 direction:</li>
+</ul>
+<p>Option 1: Each FFS validator node MUST run a service that can read the L1 chain for successful initiate transfers. Thus they would be able to discover invalid transfers and reject them.
+Option 2: Each FFS validator node MUST run a service that obtains (or gets from a trusted source) Transaction Merkle roots from the L1 blocks. The Relayer provides a proof that the transfer was initiated successfully and is finalized.</p>
+<ul>
+<li>Rate Limiting:</li>
+</ul>
+<p>Since the finality is crypto-economically protected by the FFS nodes with <code>value_FFS_stake</code>, a rate limitation may have to be applied that ensures, that the value that can be transferred within a given time is crypto-economically protected by the FFS validator set. Otherwise the FFS validator nodes may be incentivized to collude and include invalid transfers that could drain the locked L1 token pool (or equivalently mint until a possible supply limit on the L2).</p>
+<p>However, compared to the optimistic chains there is no watchtower service that can invalidate malicious checkpoints (i.e. checkpoint produced by collusion) and thus FFS validator nodes may have nothing at stake, raising the question whether there needs to be some operator with reaction time <code>time_react</code> that can halt the bridge and possibly slash the FFS validator nodes.</p>
+<p>For a solution on a rate limitation see Section <a href="#insurance-based-untrusted-relayer">Insurance-based untrusted Relayer</a>. Replace <code>value_insurance</code> by <code>value_FFS_stake</code>.</p>
+<ul>
+<li>Timing:</li>
+</ul>
+<p>The expected time for the completion of the transfer is the time it takes is in the range of Postconfirmations and L1 finality time.</p>
+<h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
+<h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
+<h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
+<h3 id="a1-background-eigenlayer"><a class="header" href="#a1-background-eigenlayer">A1: Background EigenLayer</a></h3>
+<p>In order to protect the protocol from exploits and potential losses, rate limiting is essential. For comparison the white paper <a href="https://docs.eigenlayer.xyz/assets/files/EigenLayer_WhitePaper-88c47923ca0319870c611decd6e562ad.pdf">EigenLayer: The Restaking Collective</a> proposes that AVS (Actively Validated Services) can run for a bridge and the stake of validators protects the transferred value crypto-economically through slashing conditions. More specifically section 3.4 Risk Management mentions</p>
+<blockquote>
+<p>[…] to restrict the Profit from Corruption of any particular AVS […] a bridge can restrict the value flow within the period of slashing.</p>
+</blockquote>
+<p>Eigenlayer provides the following definition on strong economic security in their <a href="https://docs.eigenlayer.xyz/assets/files/EIGEN_Token_Whitepaper-0df8e17b7efa052fd2a22e1ade9c6f69.pdf">white paper (EIGEN: The Universal Intersubjective Work Token)</a>:</p>
+<blockquote>
+<p><em>Formal Definition of Strong crypto-economic Security</em>
+If [a bridge] acquires more [crypto-economic] security than the harm it can suffer from an attack within the interval <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">ee</span><span class="mord mathnormal mtight">m</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> slots, then it achieves strong crypto-economic security, i.e.<br>
+        <em>[Economic]-security ≥ Harm-from-corruption [..] in <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">ee</span><span class="mord mathnormal mtight">m</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> slots</em></p>
+</blockquote>
+<blockquote>
+<p>[..] consider a [..] bridge [..] for a rollup, which has a <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mclose">)</span></span></span></span>-rate-limit [..]. Now if [<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">re</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">ee</span><span class="mord mathnormal mtight">m</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>,] the total value transacted by the bridge is less than <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span> during any attack period, and therefore the harm from corruption for the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span> period is less than or equal to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span>. If the [crypto-economic] security is greater than X then this [bridge] works correctly.</p>
+</blockquote>
+<p>In essence this boils down to rate limit the bridge by considering</p>
+<ul>
+<li>how long does it take to finalize transfers (ZK, optimistic)</li>
+<li>how much value can be protected crypto-economically</li>
+</ul>
+<p>In our setting we trust the bridge operator, and thus we replace</p>
+<ul>
+<li>finalization by the reaction time of the operator</li>
+<li>the staked value by the insurance fund</li>
+</ul>
+<hr />
+<h2 id="copyright"><a class="header" href="#copyright">Copyright</a></h2>
+<p>Copyright and related rights waived via <a href="../LICENSE.html">CC0</a>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../Merged/main/MIP/mip-61/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../../Merged/main/MIP/mip-88/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../Merged/main/MIP/mip-61/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../../Merged/main/MIP/mip-88/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../../elasticlunr.min.js"></script>
+        <script src="../../../../mark.min.js"></script>
+        <script src="../../../../searcher.js"></script>
+
+        <script src="../../../../clipboard.min.js"></script>
+        <script src="../../../../highlight.js"></script>
+        <script src="../../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
