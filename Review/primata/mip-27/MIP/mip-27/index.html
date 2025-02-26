@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MIP-27: Contract Pipeline - MIP</title>
+        <title>MIP-27: Contract pipeline - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -158,7 +158,7 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="mip-27-contract-pipeline"><a class="header" href="#mip-27-contract-pipeline">MIP-27: Contract Pipeline</a></h1>
+<h1 id="mip-27-contract-pipeline"><a class="header" href="#mip-27-contract-pipeline">MIP-27: Contract pipeline</a></h1>
 <ul>
 <li><strong>Description</strong>: Proposal to establish a structured pipeline for new contract deployments, aligning with the infrastructure outlined in <a href="https://github.com/movementlabsxyz/MIP/pull/23">MIP-23</a> while maintaining the existing Movement Token under <a href="https://github.com/movementlabsxyz/MIP/pull/18">MIP-18</a>.</li>
 <li><strong>Authors</strong>: <a href="mailto:primata@movementlabs.xyz">Primata</a></li>
@@ -167,7 +167,7 @@
 <p>This proposal establishes a Contract Pipeline that adheres to the decentralized governance principles set forth in <a href="https://github.com/movementlabsxyz/MIP/pull/23">MIP-23</a> while maintaining compatibility with the existing Movement Token governance under <a href="https://github.com/movementlabsxyz/MIP/pull/18">MIP-18</a>.</p>
 <p>MIP-27 proposes a Contract Pipeline that leverages a timelock-based infrastructure, ensuring security and decentralization for new contract deployments. While the Movement Token (MOVEToken) continues to operate under the provisions of <a href="https://github.com/movementlabsxyz/MIP/pull/18">MIP-18</a>, future deployments should adhere to the structure set forth by <a href="https://github.com/movementlabsxyz/MIP/pull/23">MIP-23</a>. The pipeline includes components such as a KMS multisig for transaction proposals, off-chain voting for stakers and token holders, and a timelock mechanism for executing transactions, providing transparency and decentralized control.</p>
 <h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
-<p>Currently, Movement Token operates under the governance outlined in [<a href="https://github.com/movementlabsxyz/MIP/pull/18">MIP-18</a>](https://github.com/movementlabsxyz/MIP/blob/primata/mip-2/MIP/mip-18/README.md), and we may wish to maintain this setup for the time being. However, for future deployments and upgrades, we should transition to a more robust infrastructure which includes the release conventions as described in <a href="https://github.com/movementlabsxyz/MIP/pull/23">MIP-23</a>. This approach provides decentralized control, security, and accountability through multisig setups, timelocks, and community voting mechanisms. By establishing a structured pipeline, we ensure that the development process remains transparent, auditable, and aligned with the community’s interests.</p>
+<p>Currently, Movement Token operates under the governance outlined in <a href="https://github.com/movementlabsxyz/MIP/pull/18">MIP-18</a>], and we may wish to maintain this setup for the time being. However, for future deployments and upgrades, we should transition to a more robust infrastructure which includes the release conventions as described in <a href="https://github.com/movementlabsxyz/MIP/pull/23">MIP-23</a>. This approach provides decentralized control, security, and accountability through multisig setups, timelocks, and community voting mechanisms. By establishing a structured pipeline, we ensure that the development process remains transparent, auditable, and aligned with the community’s interests.</p>
 <h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
 <p>The Contract Pipeline includes the following components:</p>
 <h3 id="1-timelock"><a class="header" href="#1-timelock">1. <strong>Timelock</strong></a></h3>
@@ -175,28 +175,28 @@
 <li><strong>Role</strong>: The timelock holds ownership of all upgradeable contracts.</li>
 <li><strong>Purpose</strong>: Ensures that contract upgrades are executed only after a specified delay, allowing time for review and potential cancellation by stakeholders.</li>
 </ul>
-<h3 id="2-kms-multisig-setup"><a class="header" href="#2-kms-multisig-setup">2. <strong>KMS Multisig Setup</strong></a></h3>
+<h3 id="2-kms-multisig-setup"><a class="header" href="#2-kms-multisig-setup">2. <strong>KMS multisig setup</strong></a></h3>
 <ul>
 <li><strong>Role</strong>: Proposes transactions to the timelock.</li>
 <li><strong>Components</strong>:
 <ul>
-<li><strong>1 KMS Key</strong>: Proposes transactions based on accepted tags.</li>
-<li><strong>3 KMS Keys</strong>: Accept transactions only if the transaction hash is contained in a GitHub release.</li>
-<li><strong>1 KMS Key</strong>: Schedules the timelock transaction.</li>
+<li><strong>1 KMS key</strong>: Proposes transactions based on accepted tags.</li>
+<li><strong>3 KMS keys</strong>: Accept transactions only if the transaction hash is contained in a GitHub release.</li>
+<li><strong>1 KMS key</strong>: Schedules the timelock transaction.</li>
 </ul>
 </li>
 </ul>
-<h3 id="3-off-chain-voting-mechanism"><a class="header" href="#3-off-chain-voting-mechanism">3. <strong>Off-Chain Voting Mechanism</strong></a></h3>
+<h3 id="3-off-chain-voting-mechanism"><a class="header" href="#3-off-chain-voting-mechanism">3. <strong>Off-Chain voting mechanism</strong></a></h3>
 <ul>
 <li><strong>Role</strong>: Allows stakers and token holders to participate in “heat-checking” decisions, where off-chain voting provides feedback before finalizing transaction proposals.</li>
 <li><strong>Purpose</strong>: Increases community involvement and allows for decentralized input into key governance decisions.</li>
 </ul>
-<h3 id="4-engineering-crew"><a class="header" href="#4-engineering-crew">4. <strong>Engineering Crew</strong></a></h3>
+<h3 id="4-engineering-crew"><a class="header" href="#4-engineering-crew">4. <strong>Engineering crew</strong></a></h3>
 <ul>
 <li><strong>Role</strong>: The engineering team has the ability to push new contract versions for upgrades.</li>
 <li><strong>Interaction</strong>: The engineering team collaborates with the multisig setup to ensure proposed transactions align with the accepted development standards.</li>
 </ul>
-<h3 id="5-mcr-domain"><a class="header" href="#5-mcr-domain">5. <strong>MCR Domain</strong></a></h3>
+<h3 id="5-mcr-domain"><a class="header" href="#5-mcr-domain">5. <strong>MCR domain</strong></a></h3>
 <ul>
 <li><strong>Role</strong>: This domain is composed of network stakers who can execute timelocked transactions.</li>
 <li><strong>Purpose</strong>: Provides an additional layer of decentralized control by allowing stakers to be responsible for executing transactions after the timelock period has elapsed.</li>
@@ -206,17 +206,17 @@
 <li><strong>Role</strong>: The functional component of the protocol.</li>
 <li><strong>Purpose</strong>: Allow users to interact with Movement as a protocol.</li>
 </ul>
-<h2 id="workflow-for-releases"><a class="header" href="#workflow-for-releases">Workflow for Releases</a></h2>
+<h2 id="workflow-for-releases"><a class="header" href="#workflow-for-releases">Workflow for releases</a></h2>
 <ol>
 <li>
-<p><strong>Engineers Push Releases</strong>:</p>
+<p><strong>Engineers push releases</strong>:</p>
 <ul>
 <li>Engineers push new releases containing the necessary deployment data and transaction details. Each release tag initializes the workflow.</li>
 <li>Engineers release a new implementation contract on the network. The old contract is versioned and a new iterable contract is created. E.g. MOVEToken is deployed. It currently contains MOVETokenV1 (current implementation) and MOVEToken. ALL work is to be done on MOVEToken. Once a new upgrade occurs, the deployed MOVEToken version is renamed MOVETokenV2 and a new iterable contract is created and named MOVEToken.</li>
 </ul>
 </li>
 <li>
-<p><strong>Deployment JSON Files</strong>:</p>
+<p><strong>Deployment JSON files</strong>:</p>
 <ul>
 <li>The release includes deployment JSON files following the standard proposed in <a href="https://github.com/movementlabsxyz/MIP/pull/23">MIP-23</a>. These files include:
 <ul>
@@ -246,7 +246,7 @@
 <p>This structured approach ensures that the entire deployment and upgrade lifecycle is well-documented, traceable, and consistent with the release process, allowing for seamless integration and upgrades across the system.</p>
 </li>
 <li>
-<p><strong>GitHub Release</strong>:</p>
+<p><strong>GitHub release</strong>:</p>
 <ul>
 <li>The deployment JSON files are bundled into a GitHub release, which serves as the source of truth for the multisig setup. The release verifies the transaction hash and other deployment details before initiating the next step in the workflow.</li>
 </ul>
@@ -270,7 +270,7 @@
 </ul>
 </li>
 <li>
-<p><strong>Voting and Heat Checking</strong>:</p>
+<p><strong>Voting and heat checking</strong>:</p>
 <ul>
 <li>During the timelock period, stakers and token holders participate in off-chain voting to provide feedback on the proposed transaction. This allows the community to give input before the final execution.</li>
 </ul>
@@ -283,26 +283,26 @@
 </li>
 </ol>
 <p>This combined workflow ensures transparency, security, and decentralized control over contract deployments and upgrades by integrating GitHub releases, KMS multisig, and timelock mechanisms with off-chain community feedback.</p>
-<h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
+<h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference implementation</a></h2>
 <p>The pipeline will leverage KMS multisig setups and GitHub releases as a mechanism for secure and auditable transaction proposals. Off-chain voting mechanisms for stakers and token holders can be implemented using existing decentralized governance platforms.</p>
 <h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
 <h3 id="1-correctness"><a class="header" href="#1-correctness">1. <strong>Correctness</strong></a></h3>
 <p>The pipeline’s correctness relies on the successful integration of KMS multisig, timelocks, GitHub releases, and off-chain voting mechanisms. Each component’s role must be clearly defined and enforced.</p>
-<h3 id="2-security-implications"><a class="header" href="#2-security-implications">2. <strong>Security Implications</strong></a></h3>
+<h3 id="2-security-implications"><a class="header" href="#2-security-implications">2. <strong>Security implications</strong></a></h3>
 <ul>
 <li>The timelock ensures that transactions are not executed immediately, allowing time for review and cancellation.</li>
 <li>The KMS multisig setup adds an additional layer of security by requiring multiple approvals from trusted parties.</li>
 <li>The use of GitHub releases ensures transparency and verifiability for each deployment.</li>
 </ul>
-<h3 id="3-performance-impacts"><a class="header" href="#3-performance-impacts">3. <strong>Performance Impacts</strong></a></h3>
+<h3 id="3-performance-impacts"><a class="header" href="#3-performance-impacts">3. <strong>Performance impacts</strong></a></h3>
 <ul>
 <li>The timelock may introduce slight delays in contract upgrades, but this is a necessary tradeoff for increased security and transparency.</li>
 </ul>
-<h3 id="4-validation-procedures"><a class="header" href="#4-validation-procedures">4. <strong>Validation Procedures</strong></a></h3>
+<h3 id="4-validation-procedures"><a class="header" href="#4-validation-procedures">4. <strong>Validation procedures</strong></a></h3>
 <ul>
 <li>Formal testing of the KMS multisig setup, timelock mechanisms, and GitHub release workflows should be conducted to ensure proper functionality.</li>
 </ul>
-<h3 id="5-peer-review-and-community-feedback"><a class="header" href="#5-peer-review-and-community-feedback">5. <strong>Peer Review and Community Feedback</strong></a></h3>
+<h3 id="5-peer-review-and-community-feedback"><a class="header" href="#5-peer-review-and-community-feedback">5. <strong>Peer review and community feedback</strong></a></h3>
 <p>The proposal will be reviewed by Movement Labs engineers and the broader community for feedback before final implementation.</p>
 <h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
 <h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
