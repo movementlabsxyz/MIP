@@ -8,7 +8,6 @@
 # test first in the above repo before updating scripts in this repo.
 # --------------------------------------------------------------
 
-
 # Ensure we're running with bash 4 or higher (needed for associative arrays)
 if ((BASH_VERSINFO[0] < 4)); then
     echo "This script requires bash version 4 or higher"
@@ -34,6 +33,14 @@ GITHUB_REPO="MIP"
 API_URL="https://api.github.com"
 
 AUTH_HEADER=$(bash get_auth_token.sh)
+
+# Test if the token is valid
+response=$(curl -s -H "$AUTH_HEADER" https://api.github.com/user)
+if echo "$response" | jq -e '.message? | contains("Bad credentials")' >/dev/null; then
+    echo "❌ ERROR: GitHub authentication failed. Token might be invalid or expired."
+    exit 1
+fi
+
 
 # Set up absolute paths
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -246,33 +253,56 @@ escape_dollar_signs() {
 
 # Initialize README and SUMMARY.md
 initialize_glossary_and_summary() {
-    mkdir -p glossary_parts
+    mkdir -p glossary_parts src
     echo "# Welcome to the Movement Network MIP Book" > src/README.md
     echo "" >> src/README.md
+
+    WIKI_REPO="https://github.com/movementlabsxyz/MIP.wiki.git"
+    WIKI_DIR="/tmp/mip_wiki"
+    GLOSSARY_FILE="src/GLOSSARY.md"
+
+    echo "Fetching glossary from the MIP Wiki..."
     
-    # Create the GLOSSARY.md file directly instead of copying
-    cat > src/GLOSSARY.md << 'EOL'
-## Glossary
+    # Remove any previous clone
+    rm -rf "$WIKI_DIR"
 
-Alphabetically ordered list of terms defined through MGs.
+    # Clone the wiki repo
+    if git clone --depth=1 "$WIKI_REPO" "$WIKI_DIR"; then
+        if [ -f "$WIKI_DIR/Glossary.md" ]; then
+            echo "Extracting glossary..."
+            cp "$WIKI_DIR/Glossary.md" "$GLOSSARY_FILE"
+            echo "Successfully downloaded glossary."
+        else
+            echo "Error: Glossary file not found in Wiki repository. Using fallback."
+            fallback_glossary
+        fi
+    else
+        echo "Error: I failed to clone the Wiki repository. Using fallback."
+        fallback_glossary
+    fi
 
-**$L1MOVE** - 
-ERC-20 type token for the Movement Network with the source contract on L1. See also $MOVE. [→ MG-39](Approved/main/MG/mg-39/)
+    # Cleanup
+    rm -rf "$WIKI_DIR"
 
-**$L2MOVE** - 
-wrapped version of the $L1MOVE token. [→ MG-39](Approved/main/MG/mg-39/)
-
-**$MOVE** - 
-ERC-20 type token for the Movement Network with the source contract on L1. See also $L1MOVE. [→ MG-39](Approved/main/MG/mg-39/)
-
-**Native Bridge** - 
-The bridge that allows the transfer of tokens between L1 and L2, which hold $L1MOVE and $L2MOVE token, respectively. The native bridge has the capability to mint $L2MOVE tokens. [→ MG-39](Approved/main/MG/mg-39/)
-EOL
-    
+    # Output the glossary file content for debugging
+    echo "DEBUG: Glossary file content:"
+    cat "$GLOSSARY_FILE"
     echo "# Summary" > src/SUMMARY.md
     echo "[Glossary](GLOSSARY.md)" >> src/SUMMARY.md
     echo "" >> src/SUMMARY.md
 }
+
+# Fallback glossary function
+fallback_glossary() {
+    cat > "$GLOSSARY_FILE" << 'EOL'
+## Glossary
+
+⚠ **Warning**: Failed to fetch the latest glossary from the GitHub Wiki.
+Please check [the glossary online](https://github.com/movementlabsxyz/MIP/wiki/glossary).
+
+EOL
+}
+
 
 get_standardized_path() {
     local type="$1"    # MD, MG or MIP (uppercase)
@@ -479,8 +509,8 @@ copy_branch_content() {
     fi
 
     # Debugging: Print the JSON response to understand its structure
-    #echo "DEBUG: JSON response for branch $branch:"
-    #echo "$pr_info" | jq .
+    # echo "DEBUG: JSON response for branch $branch:"
+    # echo "$pr_info" | jq .
 
     # Check if the response is an empty array
     if [ "$(echo "$pr_info" | jq 'length')" -eq 0 ]; then
@@ -489,6 +519,7 @@ copy_branch_content() {
     fi
 
     # Safely get PR information with null checks
+
     is_draft=$(echo "$pr_info" | jq -r '.[0].draft // false')
     pr_title=$(echo "$pr_info" | jq -r '.[0].title // empty')
 

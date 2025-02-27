@@ -14,7 +14,6 @@ Different types of bridges have been considered for the Native Bridge, see [MIP-
 This proposal advocates for replacing the current HTLC-based bridge design, with a lock/mint-type bridge with a simpler and more efficient two-transaction mechanism. The proposed design reduces costs, enhances security, minimizes user friction, and avoids potential exploits caused by refund logic. It addresses long-standing issues such as reliance on sponsored transactions, outdated audits, and unimplemented fee mechanisms speeding the process to achieve a fully functional bridge that movement yet has been unable to complete, and lots of under issues raised and still pending.
 
 **Reminder: HTLC-based bridge**
-
 The HTLC-type Native Bridge design poses numerous challenges, including inefficiency, cost, and user frustration:
 
 1. **Transaction complexity**
@@ -47,7 +46,6 @@ Requires four interactions:
    - We could strip down the Relayer code and achieve a final design much more quickly.
 
 **Protocol simplification (compared to HTLC-based Native Bridge)**
-
 The proposed lock/mint bridge design mitigates these issues, creating a safer, faster, and user-friendly bridge while maintaining operational reliability.
 
 - Combine lock and completion functionality on the counterparty contract.
@@ -56,6 +54,8 @@ The proposed lock/mint bridge design mitigates these issues, creating a safer, f
 - Consolidate Initiator and Counterparty into a single contract (this might be the most dangerous thing proposed but it has already been proposed for HTLC Native Bridge implementation).
 
 ## Specification
+
+_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
 
 The lock/mint bridge design focuses on minimizing complexity and maximizing security. It also leverages the trust assumption on the Relayer to streamline operations and enhance user experience.
 
@@ -81,7 +81,7 @@ An entity that can set the bridge fee and adjust the rate limit.
 **Rate limiter**
 A mechanism that limits the number of tokens that can be transferred. The rate limitation is discussed in [MIP-74](https://github.com/movementlabsxyz/MIP/pull/74).
 
-**(Partially Trusted) Relayer**
+**(Partially trusted) Relayer**
 An off-chain partially trusted component (except for bugs or theft of keys) that can read relevant events from either chain and processes transfer requests by completing them on the target chain. It MAY operate nodes on both chains to learn about the finalization of `complete_transfer` transactions. The operation of the Relayer, including the bootstrapping process, is detailed in [MIP-61](https://github.com/movementlabsxyz/MIP/pull/61).
 
 ### Storage fields
@@ -257,7 +257,7 @@ We discuss the key features also in relation to the HTLC-based bridge to provide
 
 [Move Implementation](https://github.com/movementlabsxyz/aptos-core/tree/andygolay/simplified-bridge)
 
-### (Optional) Recommendations
+### (Optional) recommendations
 
 #### Batch completion for multisig Relayer**
 
@@ -297,8 +297,4 @@ Multisig Relayers could process pending transactions in batches during downtime 
 - [Arbitrum Bridge](https://bridge.arbitrum.io/?destinationChain=arbitrum-one&sourceChain=ethereum)
 - [Blast Bridge](https://docs.blast.io/building/bridges/mainnet)
 
----
-
-## Copyright
-
-Copyright and related rights waived via [CC0](../LICENSE.md).
+## Changelog

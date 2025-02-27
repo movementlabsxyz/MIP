@@ -19,7 +19,7 @@ graph LR
 The [Glossary](https://github.com/movementlabsxyz/MIP/wiki/glossary) contains an alphabetically ordered list of terms used in this repository. 
 In addition MG serves as a platform to define glossary terms, which are used in the MIPs and MDs.
 
-!!! info For more information on the process in this repository, see also [MIP-0](./MIP/mip-0/README.md).
+> :bulb: For more information on the process in this repository, see also[MIP-0](./MIP/mip-0/README.md).
 
 ## Movement Desiderata (MD)
 
@@ -82,7 +82,7 @@ An MIP/MG should at all times have one of the following statuses:
 - **Draft** - (set by author) An MIP/MD that is open for consideration. (It does not yet hold an MIP/MD number)
 - **Review** - (set by author) The MIP/MD is under peer review. The MIP/MD should receive an **MIP/MD number**, according to the rules described in the [Files and numbering](#files-and-numbering) section. At this point the editor should be involved to ensure the MIP/MD adheres to the guidelines.
 
-!!! info In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim.
+> :bulb: In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim.
 
 After acceptance the MIP/MD is merged into `main` and the branch should be deleted.
 
@@ -94,6 +94,60 @@ Additionally, the following statuses are used for MIPs/MDs that are not actively
 Finally, an MIP/MD can also be updated:
 
 - **Update** - (set by author) An MIP/MD is being updated. The title should list the MIP/MD number, e.g. `[Update] MIP-0 ...`.
+
+## Style guide
+
+#### Header convention
+
+For headers it is recommended to use standard sentence structure, i.e. do not capitalize letters apart from the first word, specific terms or acronyms.
+
+For example, use
+
+```markdown
+## This header is correct for Movement Labs' MIPs
+```
+
+Do not use
+
+```markdown
+## This Header is Incorrect for Movement Labs' MIPs
+```
+
+#### Capitalization convention
+
+Ensure clarity and consistency in distinguishing between internal components and general roles. When referring to specific entities within our system, capitalize their names. Use lowercase when referring to general roles or concepts. For example:
+
+- **Relayer** refers to our specific relayer, while **relayer** refers to any agent performing relaying.  
+- **Validator** refers to our designated validators, while **validator** is a general term for any entity validating transactions.  
+
+#### Note boxes
+
+Avoid using
+
+```markdown
+> [!NOTE]
+> ...
+```
+
+or
+
+```markdown
+!!! note ...
+```
+
+or
+
+```markdown
+::: note ... :::
+```
+
+These do not render correctly either in the GitHub preview or in the rendered markdown. Instead use emojis to indicate the type of note, e.g.
+
+```markdown
+\> 👀 Note, that ...
+\> :warning: This is a warning ..
+\> :bulb: Here is something to learn ..
+```
 
 ## Governance
 
@@ -112,3 +166,7 @@ Currently the editors are [@apenzk](https://github.com/apenzk).
 An author commits to becoming the owner of the MIP/MD they propose. This means that for any future changes to the MIP/MD the author will be notified.
 
 The author MUST add themselves as a code owner in [CODEWONERS](.github/CODEOWNERS).
+
+## Copyright
+
+Copyright and related rights waived via [CC0](LICENSE.md).
