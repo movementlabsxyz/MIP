@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MD-1: Minimize Risk of Compromised Bridge Key without Governance - MIP</title>
+        <title>MD-1: Minimize risk of compromised bridge key without governance - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -158,7 +158,7 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-1-minimize-risk-of-compromised-bridge-key-without-governance"><a class="header" href="#md-1-minimize-risk-of-compromised-bridge-key-without-governance">MD-1: Minimize Risk of Compromised Bridge Key without Governance</a></h1>
+<h1 id="md-1-minimize-risk-of-compromised-bridge-key-without-governance"><a class="header" href="#md-1-minimize-risk-of-compromised-bridge-key-without-governance">MD-1: Minimize risk of compromised bridge key without governance</a></h1>
 <ul>
 <li><strong>Description</strong>: Provide a mechanism to minimize the risk of a compromised bridge key without relying on governance.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
@@ -170,50 +170,16 @@
 <p>Until a robust design for relaying bridge messages based on votes is attained, bridge trust assumptions are offset by a presumed trustworthy bridge signing service which uses known keys that would be controlled by Movement Labs.</p>
 <p>This desiderata requests a means to minimize the risk of a compromised bridge key without relying on on-chain governance.</p>
 <h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
-<!--
-  List out the specific desiderata. Each entry should consist of:
-
-  1. Title: A concise name for the desideratum.
-  2. User Journey: A one or two-sentence statement focusing on the "user" (could be a human, machine, software, etc.) and their interaction or experience.
-  3. Description (optional): A more detailed explanation if needed.
-  4. Justification: The reasoning behind the desideratum. Why is it necessary or desired?
-  5. Recommendations (optional): Suggestions or guidance related to the desideratum.
-
-  Format as:
-
-  ### Desideratum Title
-
-  **User Journey**: [user] can [action].
-
-  **Description**: <More detailed explanation if needed (optional)>
-
-  **Justification**: <Why this is a significant or required desideratum>
-
-  **Recommendations**: <Any specific guidance or suggestions (optional)>
-
-  TODO: Remove this comment before finalizing.
--->
-<h3 id="d1-minimize-direct-access-to-bridge-keys-while-maintaining-use"><a class="header" href="#d1-minimize-direct-access-to-bridge-keys-while-maintaining-use">D1: Minimize Direct Access to Bridge Keys while Maintaining Use</a></h3>
-<p><strong>User Journey</strong>: Movement Labs Atomic Bridge Service Operators (MLABSO) can run the service with appropriate signing keys without direct access to said keys.</p>
+<h3 id="d1-minimize-direct-access-to-bridge-keys-while-maintaining-use"><a class="header" href="#d1-minimize-direct-access-to-bridge-keys-while-maintaining-use">D1: Minimize direct access to bridge keys while maintaining use</a></h3>
+<p><strong>User journey</strong>: Movement Labs Atomic Bridge Service Operators (MLABSO) can run the service with appropriate signing keys without direct access to said keys.</p>
 <p><strong>Justification</strong>: Without direct access to the keys, MLABSO are forced to use a more secure mechanism for signing messages which can be more easily secured audited such as an HSM or enclave.</p>
-<h3 id="d2-only-allow-attested-usage-of-bridge-keys"><a class="header" href="#d2-only-allow-attested-usage-of-bridge-keys">D2: Only Allow Attested Usage of Bridge Keys</a></h3>
-<p><strong>User Journey</strong>: Only attested software can use bridge keys.</p>
+<h3 id="d2-only-allow-attested-usage-of-bridge-keys"><a class="header" href="#d2-only-allow-attested-usage-of-bridge-keys">D2: Only allow attested usage of bridge keys</a></h3>
+<p><strong>User journey</strong>: Only attested software can use bridge keys.</p>
 <p><strong>Justification</strong>: Even without direct access to the keys, MLABSO could still abuse bridge keys by abusing their access to the secure signing mechanism. Enforcing attestation of software using the keys can help mitigate this risk.</p>
-<h3 id="d3-time-lock-key-usage"><a class="header" href="#d3-time-lock-key-usage">D3: Time-Lock Key Usage</a></h3>
-<p><strong>User Journey</strong>: MLABSO can only reliably replace software using a key in a time-locked manner.</p>
+<h3 id="d3-time-lock-key-usage"><a class="header" href="#d3-time-lock-key-usage">D3: Time-lock key usage</a></h3>
+<p><strong>User journey</strong>: MLABSO can only reliably replace software using a key in a time-locked manner.</p>
 <p><strong>Justification</strong>: The software using a given key may require updates or replacement. Time-locking can allow this to occur without diminishing the benefits of attestations.</p>
-<h2 id="errata"><a class="header" href="#errata">Errata</a></h2>
-<!--
-  Errata should be maintained after publication.
-
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the desiderata in which the error was identified.
-
-  TODO: Maintain this comment.
--->
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 
                     </main>
 

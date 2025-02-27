@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony - MIP</title>
+        <title>MD-3: Postconfirmation: commitment delay, network partitions, and asynchrony - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -158,7 +158,7 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-3-postconfirmation--commitment-delay-network-partitions-and-asynchrony"><a class="header" href="#md-3-postconfirmation--commitment-delay-network-partitions-and-asynchrony">MD-3: Postconfirmation : Commitment Delay, Network Partitions, and Asynchrony</a></h1>
+<h1 id="md-3-postconfirmation-commitment-delay-network-partitions-and-asynchrony"><a class="header" href="#md-3-postconfirmation-commitment-delay-network-partitions-and-asynchrony">MD-3: Postconfirmation: commitment delay, network partitions, and asynchrony</a></h1>
 <ul>
 <li><strong>Description</strong>: Consider delays, network partitions and asynchrony. And address how rewards and slashing conditions impact these.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a>, Andreas Penzkofer</li>
@@ -183,12 +183,12 @@
 <p><strong>Introduction of slashing conditions</strong>. Slashing conditions, similar to rewards, have significant impact on the protocol, which should be well understood before implementation.</p>
 <h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
 <h3 id="d1-assess-impact-of-delays-and-network-partitions"><a class="header" href="#d1-assess-impact-of-delays-and-network-partitions">D1: Assess impact of delays and network partitions</a></h3>
-<p><strong>User Journey</strong>: A researcher or protocol implementer can understand the impact of delays and network partitions.</p>
+<p><strong>User journey</strong>: A researcher or protocol implementer can understand the impact of delays and network partitions.</p>
 <p><strong>Justification</strong>: It is important to understand the impact on the protocol from delays in commitments and network partitions. Network partitions can also describe a variety of asynchrony problems, such as DOS-attacks, network upgrades, and other forms of asynchrony.</p>
 <p><strong>Recommendations</strong>:
 We assume all forms of asynchrony with which we are concerned can be modeled through network partitions. For example, a node that is not technically offline but that cannot commit to the current block height, could just be exposed to asynchronous delays. However we can model this by assuming a partition.</p>
 <h3 id="d2-provide-a-model-that-considers-absent-commitments"><a class="header" href="#d2-provide-a-model-that-considers-absent-commitments">D2: Provide a model that considers absent commitments</a></h3>
-<p><strong>User Journey</strong>: A researcher or protocol implementer can refer to a formal model that describes the impact of absent commitments. Furthermore, rewards and slashing conditions should be considered.</p>
+<p><strong>User journey</strong>: A researcher or protocol implementer can refer to a formal model that describes the impact of absent commitments. Furthermore, rewards and slashing conditions should be considered.</p>
 <p><strong>Justification</strong>: Network partitions effectively result in absent commitments to a given block height. While not changing the stake needed to agree on the height, it may impact liveness or hinder certain validators to commit. Rewards (and slashing) based on this absent commitment should be expected to impact behavior in the protocol. The model would support the derivation of the logic necessary to implement rewarding (and potentially slashing).</p>
 <p><strong>Recommendations</strong>:</p>
 <ul>
@@ -196,13 +196,13 @@ We assume all forms of asynchrony with which we are concerned can be modeled thr
 <li>Model byzantine attack vectors such as DOS-attacks on honest participants.</li>
 </ul>
 <h3 id="d3-consider-slashing-conditions-for-lack-of-participation"><a class="header" href="#d3-consider-slashing-conditions-for-lack-of-participation">D3: Consider slashing conditions for lack of participation</a></h3>
-<p><strong>User Journey</strong>: A researcher or protocol implementer can understand the impact of slashing conditions for lack of participation. And whether it is necessary to introduce such conditions.</p>
+<p><strong>User journey</strong>: A researcher or protocol implementer can understand the impact of slashing conditions for lack of participation. And whether it is necessary to introduce such conditions.</p>
 <p><strong>Justification</strong>: It has been proposed to slash participants for lack of participation. This could be a way to prevent inactivity, however such extreme slashing conditions come with their own risks.</p>
 <p><strong>Recommendations</strong>:
 With the introduction of slashing conditions for lack of participation, a malicious actor could aim to partition the network, such that a subset of nodes struggle to provide their commitments (DOS-attack). See, for example, <a href="https://github.com/movementlabsxyz/rfcs/pull/29">Peer Attack in RFC-29</a>. Excessive penalization could lead to slashing of honest actors. It also could lead to an increase of the attackers proportion of total stake, further reducing the security. Introduction of such slashing conditions should be considered with caution.</p>
-<h3 id="d4-research-commitment-tolerance-window"><a class="header" href="#d4-research-commitment-tolerance-window">D4: Research Commitment Tolerance Window</a></h3>
+<h3 id="d4-research-commitment-tolerance-window"><a class="header" href="#d4-research-commitment-tolerance-window">D4: Research commitment tolerance window</a></h3>
 <p>It has been proposed that a tolerance window to commitment arrivals would soften the impact on validators for delays they experience.</p>
-<p><strong>User Journey</strong>: A researcher or protocol implementer can understand why a commitment tolerance window is necessary and why a particular design for this window was chosen.</p>
+<p><strong>User journey</strong>: A researcher or protocol implementer can understand why a commitment tolerance window is necessary and why a particular design for this window was chosen.</p>
 <p><strong>Justification</strong>: Allowing participants to receive a reward after the required stake has already committed to a given block height could prevent centralization and DOS-attacks.</p>
 <p><strong>Recommendations</strong>:
 Consider the following parameters for the commitment tolerance window:</p>

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MD-61: Relayer algorithm for the Lock/Mint Native Bridge - MIP</title>
+        <title>MD-61: Relayer algorithm for the lock/mint Native Bridge - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -158,7 +158,7 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-61-relayer-algorithm-for-the-lockmint-native-bridge"><a class="header" href="#md-61-relayer-algorithm-for-the-lockmint-native-bridge">MD-61: Relayer algorithm for the Lock/Mint Native Bridge</a></h1>
+<h1 id="md-61-relayer-algorithm-for-the-lockmint-native-bridge"><a class="header" href="#md-61-relayer-algorithm-for-the-lockmint-native-bridge">MD-61: Relayer algorithm for the lock/mint Native Bridge</a></h1>
 <ul>
 <li><strong>Description</strong>: A desiderata for the relayer in the lock/mint bridge, focusing on event processing, transfer completion, and robust recovery mechanisms.</li>
 <li><strong>Authors</strong>: Andreas Penzkofer, Philippe</li>
@@ -167,20 +167,20 @@
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
 <p>This desiderata outlines the desired functionalities and recovery mechanisms for a Relayer handling the completion of transfers in the lock/mint Native Bridge protocol. It emphasizes uninterrupted operation, recovery from failure, and minimal dependencies.</p>
 <h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
-<h3 id="d1-continuous-event-processing"><a class="header" href="#d1-continuous-event-processing">D1: Continuous Event Processing</a></h3>
-<p><strong>User Journey</strong>: The relayer continuously processes events from the source chain, created from user transfer requests, and ensures their completion on the target chain.</p>
+<h3 id="d1-continuous-event-processing"><a class="header" href="#d1-continuous-event-processing">D1: Continuous event processing</a></h3>
+<p><strong>User journey</strong>: The relayer continuously processes events from the source chain, created from user transfer requests, and ensures their completion on the target chain.</p>
 <p><strong>Justification</strong>: Guarantees the seamless execution of cross-chain transfers and minimizes delays or interruptions.</p>
-<h3 id="d2-robust-bootstrapping-mechanism"><a class="header" href="#d2-robust-bootstrapping-mechanism">D2: Robust Bootstrapping Mechanism</a></h3>
-<p><strong>User Journey</strong>: Upon restart, the relayer automatically determines the state of pending transfers and resumes processing without requiring manual intervention.</p>
+<h3 id="d2-robust-bootstrapping-mechanism"><a class="header" href="#d2-robust-bootstrapping-mechanism">D2: Robust bootstrapping mechanism</a></h3>
+<p><strong>User journey</strong>: Upon restart, the relayer automatically determines the state of pending transfers and resumes processing without requiring manual intervention.</p>
 <p><strong>Justification</strong>: Ensures resilience and reliability even after unexpected failures or downtime.</p>
-<h3 id="d3-finality-aware-processing"><a class="header" href="#d3-finality-aware-processing">D3: Finality-aware Processing</a></h3>
-<p><strong>User Journey</strong>: The relayer respects the finality rules of both source and target chains. It ensures transfers are only processed once finalized on the source chain. It considers the finality of the target chain for completing transactions.</p>
+<h3 id="d3-finality-aware-processing"><a class="header" href="#d3-finality-aware-processing">D3: Finality-aware processing</a></h3>
+<p><strong>User journey</strong>: The relayer respects the finality rules of both source and target chains. It ensures transfers are only processed once finalized on the source chain. It considers the finality of the target chain for completing transactions.</p>
 <p><strong>Justification</strong>: Prevents inconsistencies and sending duplicate transfer-completing transactions.</p>
-<h3 id="d4-minimal-trusted-components"><a class="header" href="#d4-minimal-trusted-components">D4: Minimal Trusted Components</a></h3>
-<p><strong>User Journey</strong>: The relayer operates independently without reliance on external indexers or databases.</p>
+<h3 id="d4-minimal-trusted-components"><a class="header" href="#d4-minimal-trusted-components">D4: Minimal trusted components</a></h3>
+<p><strong>User journey</strong>: The relayer operates independently without reliance on external indexers or databases.</p>
 <p><strong>Justification</strong>: Reduces operational complexity and points of failure, enhancing system robustness.</p>
-<h3 id="d5-timeout-and-retry-mechanism"><a class="header" href="#d5-timeout-and-retry-mechanism">D5: Timeout and Retry Mechanism</a></h3>
-<p><strong>User Journey</strong>: Pending transfers are retried automatically after a timeout, ensuring eventual completion without manual oversight.</p>
+<h3 id="d5-timeout-and-retry-mechanism"><a class="header" href="#d5-timeout-and-retry-mechanism">D5: Timeout and retry mechanism</a></h3>
+<p><strong>User journey</strong>: Pending transfers are retried automatically after a timeout, ensuring eventual completion without manual oversight.</p>
 <p><strong>Justification</strong>: Improves the reliability of the relayer by handling transient errors and network issues gracefully.</p>
 <p><strong>Recommendations</strong>: Implement a configurable timeout period for retries.</p>
 <h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>

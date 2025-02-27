@@ -168,8 +168,8 @@
 <h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
 <p>Different types of bridges have been considered for the Native Bridge, see <a href="https://github.com/movementlabsxyz/MIP/pull/60">MIP-60</a>. The initial design employed a HTLC-based bridge, which has been found to lead to bad UX, requires four transactions, and a complex design.</p>
 <p>This proposal advocates for replacing the current HTLC-based bridge design, with a lock/mint-type bridge with a simpler and more efficient two-transaction mechanism. The proposed design reduces costs, enhances security, minimizes user friction, and avoids potential exploits caused by refund logic. It addresses long-standing issues such as reliance on sponsored transactions, outdated audits, and unimplemented fee mechanisms speeding the process to achieve a fully functional bridge that movement yet has been unable to complete, and lots of under issues raised and still pending.</p>
-<p><strong>Reminder: HTLC-based bridge</strong></p>
-<p>The HTLC-type Native Bridge design poses numerous challenges, including inefficiency, cost, and user frustration:</p>
+<p><strong>Reminder: HTLC-based bridge</strong>
+The HTLC-type Native Bridge design poses numerous challenges, including inefficiency, cost, and user frustration:</p>
 <ol>
 <li><strong>Transaction complexity</strong>
 Requires four interactions:
@@ -224,8 +224,8 @@ Requires four interactions:
 </ul>
 </li>
 </ol>
-<p><strong>Protocol simplification (compared to HTLC-based Native Bridge)</strong></p>
-<p>The proposed lock/mint bridge design mitigates these issues, creating a safer, faster, and user-friendly bridge while maintaining operational reliability.</p>
+<p><strong>Protocol simplification (compared to HTLC-based Native Bridge)</strong>
+The proposed lock/mint bridge design mitigates these issues, creating a safer, faster, and user-friendly bridge while maintaining operational reliability.</p>
 <ul>
 <li>Combine lock and completion functionality on the counterparty contract.</li>
 <li>Remove refund logic to streamline operations and improve security.</li>
@@ -233,6 +233,7 @@ Requires four interactions:
 <li>Consolidate Initiator and Counterparty into a single contract (this might be the most dangerous thing proposed but it has already been proposed for HTLC Native Bridge implementation).</li>
 </ul>
 <h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
+<p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
 <p>The lock/mint bridge design focuses on minimizing complexity and maximizing security. It also leverages the trust assumption on the Relayer to streamline operations and enhance user experience.</p>
 <h3 id="components"><a class="header" href="#components">Components</a></h3>
 <p>The following components are involved</p>
@@ -248,7 +249,7 @@ A contract capable of minting \.</p>
 An entity that can set the bridge fee and adjust the rate limit.</p>
 <p><strong>Rate limiter</strong>
 A mechanism that limits the number of tokens that can be transferred. The rate limitation is discussed in <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a>.</p>
-<p><strong>(Partially Trusted) Relayer</strong>
+<p><strong>(Partially trusted) Relayer</strong>
 An off-chain partially trusted component (except for bugs or theft of keys) that can read relevant events from either chain and processes transfer requests by completing them on the target chain. It MAY operate nodes on both chains to learn about the finalization of <code>complete_transfer</code> transactions. The operation of the Relayer, including the bootstrapping process, is detailed in <a href="https://github.com/movementlabsxyz/MIP/pull/61">MIP-61</a>.</p>
 <h3 id="storage-fields"><a class="header" href="#storage-fields">Storage fields</a></h3>
 <p>The storage fields are directional, hence we need to mirror the mapping for L1→L2, as well as L2→L1. Hence, we will talk about source and target chain.</p>
@@ -441,7 +442,7 @@ Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides add
 <h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference implementation</a></h2>
 <p><a href="https://github.com/movementlabsxyz/movement/tree/primata/simple-native-bridge">Solidity Implementation</a></p>
 <p><a href="https://github.com/movementlabsxyz/aptos-core/tree/andygolay/simplified-bridge">Move Implementation</a></p>
-<h3 id="optional-recommendations"><a class="header" href="#optional-recommendations">(Optional) Recommendations</a></h3>
+<h3 id="optional-recommendations"><a class="header" href="#optional-recommendations">(Optional) recommendations</a></h3>
 <h4 id="batch-completion-for-multisig-relayer"><a class="header" href="#batch-completion-for-multisig-relayer">Batch completion for multisig Relayer**</a></h4>
 <p>Multisig Relayers could process pending transactions in batches during downtime of the standard Relayer, ensuring timely resolution.</p>
 <h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
@@ -490,9 +491,7 @@ Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides add
 <li><a href="https://bridge.arbitrum.io/?destinationChain=arbitrum-one&amp;sourceChain=ethereum">Arbitrum Bridge</a></li>
 <li><a href="https://docs.blast.io/building/bridges/mainnet">Blast Bridge</a></li>
 </ul>
-<hr />
-<h2 id="copyright"><a class="header" href="#copyright">Copyright</a></h2>
-<p>Copyright and related rights waived via <a href="../LICENSE.html">CC0</a>.</p>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 
                     </main>
 

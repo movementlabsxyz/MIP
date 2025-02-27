@@ -201,10 +201,10 @@ Currently, when the relayer starts, it doesn’t reload the state that it has wh
 <p>The relayer can get its state from the source chain and target chain. The relayer operates two processes - potentially in parallel:</p>
 <p><strong>1. CONTINUOUS_BLOCK_PROCESSING</strong>: The relayer pulls transfer events from new finalized blocks from the source chain and processes them. Since we consider finalized blocks and this is a blockchain, new blocks are processed in order. For each transfer the relayer has to check if the transfer is completed on the target chain, and if not it has to complete the transfer.</p>
 <p><strong>2. BOOTSTRAPPING:</strong> The relayer initiate the event polling at some point in the past. This point is either the genesis, some configurable source block height, or some checkpoint (possibly set on-chain)</p>
-<h3 id="assumptions-on-the-bridge-protocol"><a class="header" href="#assumptions-on-the-bridge-protocol">Assumptions on the Bridge Protocol</a></h3>
+<h3 id="assumptions-on-the-bridge-protocol"><a class="header" href="#assumptions-on-the-bridge-protocol">Assumptions on the bridge protocol</a></h3>
 <p><strong>Nonce</strong>:
 We assume the Native Bridge protocol MUST implement the assignment of an incrementing <code>nonce</code> on the source chain. Since there are two directions there MUST be two types of counters (<code>nonces</code>) - one for each transfer direction. The <code>nonce</code> is used to order the transfers.</p>
-<p><strong>Initiate Transfer</strong>:
+<p><strong>Initiate transfer</strong>:
 The <code>initiate_transfer</code> function on the source chain is called by the user. It emits an event <code>initiate_transfer</code> with the following properties:</p>
 <pre><code class="language-javascript">{
     nonce: Number,          // Unique incrementing value for ordering transfers
@@ -214,7 +214,7 @@ The <code>initiate_transfer</code> function on the source chain is called by the
 }
 </code></pre>
 <p>This structure is used to record the transfer on the source chain.</p>
-<p><strong>Complete Transfer</strong>:
+<p><strong>Complete transfer</strong>:
 The <code>complete_transfer</code> function on the target chain is called by the relayer. It emits an event <code>complete_transfer</code> with the following properties:</p>
 <pre><code class="language-javascript">{
     nonce: Number,         // Matching nonce from the source chain
@@ -225,7 +225,7 @@ The <code>complete_transfer</code> function on the target chain is called by the
 }
 </code></pre>
 <p>This structure is used to record the transfer on the target chain.</p>
-<h3 id="relayer-structures"><a class="header" href="#relayer-structures">Relayer Structures</a></h3>
+<h3 id="relayer-structures"><a class="header" href="#relayer-structures">Relayer structures</a></h3>
 <p>Locally the relayer stores the following structure:</p>
 <pre><code class="language-javascript">// Relayer Local Structure
 {
@@ -398,12 +398,12 @@ Based on knowledge of when the relayer stopped, we can inject a parameter about 
 In the CONTINUOUS_BLOCK_PROCESSING Algorithm the Relayer can record the height of the block <code>completed_block_height</code> as described in the Calculation-Completed-Block-Height algorithm. When rebooting or bootstrapping the node, the relayer can start from the last point it left.</p>
 <p><strong>Reading from chain</strong>
 The relayer records on the source or target chain the <code>completed_block_height</code> (see <a href="#calculation-of-completed-source-block-height">PROCESS_FINISHED_NONCE_HEIGHT</a>. This can happen infrequent. A separate algorithm needs to be spelled out which records the highest source block, below which all source blocks with transfers are completed.</p>
-<h2 id="considered-alternatives"><a class="header" href="#considered-alternatives">Considered Alternatives</a></h2>
+<h2 id="considered-alternatives"><a class="header" href="#considered-alternatives">Considered alternatives</a></h2>
 <ol>
 <li>Use of indexer DB.</li>
 </ol>
 <p>This creates a dependency to another component. For example, if the postgres db has an issue, the relayer has an issue. Even thought the relayer doesn’t need the db to process.</p>
-<h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
+<h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference implementation</a></h2>
 <h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
 <h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
 <h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>

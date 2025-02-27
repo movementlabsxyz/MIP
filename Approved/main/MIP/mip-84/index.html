@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions - MIP</title>
+        <title>MIP-84: Lock-Mint Native Bridge: basics of Relayer trust assumptions - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -158,7 +158,7 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="mip-84-lock-mint-native-bridge-basics-of-relayer-trust-assumptions"><a class="header" href="#mip-84-lock-mint-native-bridge-basics-of-relayer-trust-assumptions">MIP-84: Lock-Mint Native Bridge: Basics of Relayer trust assumptions</a></h1>
+<h1 id="mip-84-lock-mint-native-bridge-basics-of-relayer-trust-assumptions"><a class="header" href="#mip-84-lock-mint-native-bridge-basics-of-relayer-trust-assumptions">MIP-84: Lock-Mint Native Bridge: basics of Relayer trust assumptions</a></h1>
 <ul>
 <li><strong>Description</strong>: This MIP clarifies the trust assumptions for the Relayer, and what consequences should be drawn from these.</li>
 <li><strong>Authors</strong>: Andreas Penzkofer</li>
@@ -195,20 +195,20 @@
 <li><strong>Insurance-based Untrusted</strong> : We assume that faults or compromise is extremely unlikely. Under normal operations the component is secure and reliable. The rarity of these events permits that the operator takes care of resulting hardship. Protective measures are taken to reduce the maximally caused damage that the component can cause incase it becomes faulty / Byzantine by providing an insurance fund.</li>
 <li><strong>Approval/proof-based Untrusted</strong> : Faults or compromise could happen frequently and at any point in time. Any action should be approved by a trusted party or require a proof of correctness.</li>
 </ul>
-<h4 id="soundness-and-completeness"><a class="header" href="#soundness-and-completeness">Soundness and Completeness</a></h4>
+<h4 id="soundness-and-completeness"><a class="header" href="#soundness-and-completeness">Soundness and completeness</a></h4>
 <ol>
 <li><strong>Sound Relayer</strong> : the Relayer generates an appropriate event <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span> on the destination chain, only when the corresponding event <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span> on the source chain occurred.</li>
 <li><strong>Complete Relayer</strong> : the Relayer does not fail to produce the event <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span> on the destination chain when the corresponding event <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span> on the source chain occurs.</li>
 </ol>
 <h3 id="trusted-relayer"><a class="header" href="#trusted-relayer">Trusted Relayer</a></h3>
 <p><strong>Assumption</strong>: The Relayer is fully trusted to submit the completion of the transfer to the bridge contracts.</p>
-<p><strong>Soundness / Completeness</strong>: There is no formal argument as to why the Relayer would be complete or sound, other than it being capable of performing the actions of listening for and generating <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span> events.</p>
+<p><strong>Soundness / completeness</strong>: There is no formal argument as to why the Relayer would be complete or sound, other than it being capable of performing the actions of listening for and generating <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span> events.</p>
 <p><strong>Risks</strong>: We assume the Relayer is safe.</p>
 <p><strong>Consequence</strong>:
 The Relayer always submits the correct completion transaction, i.e. without tampering with the sender, receiver and amount. The Relayer can transfer without any restrictions. Since the Relayer is trusted, no additional components are needed. Furthermore, no additional protective measures are needed.</p>
 <h3 id="insurance-based-untrusted-relayer"><a class="header" href="#insurance-based-untrusted-relayer">Insurance-based untrusted Relayer</a></h3>
 <p><strong>Assumption</strong>: The Relayer is insurance-based untrusted. The completion of the transfer to the bridge contracts is expected to operate correctly. However, in case of an error, the bridge operator can compensate for the error.</p>
-<p><strong>Soundness / Completeness</strong>: We don’t entirely trust the relaying mechanism, but we provide insured bounds. The value of the insurance fund is greater than the value that can be transferred within a certain time frame. The latter requires a rate limitation. This mechanism permits eventual soundness and completeness. See below the solution parts.</p>
+<p><strong>Soundness / completeness</strong>: We don’t entirely trust the relaying mechanism, but we provide insured bounds. The value of the insurance fund is greater than the value that can be transferred within a certain time frame. The latter requires a rate limitation. This mechanism permits eventual soundness and completeness. See below the solution parts.</p>
 <p><strong>Risk</strong>: The Relayer may be erroneous, misconfigured, or compromised. The Relayer may submit the completion of the transfer to the bridge contracts with errors.</p>
 <ol>
 <li>Abuse of Mint/Release: The Relayer may transfer tokens without a respective initiation on the source chain.</li>
@@ -220,15 +220,15 @@ The Relayer always submits the correct completion transaction, i.e. without tamp
 <p><strong>Consequence</strong>:
 User is affected: A complaint by the user should be individually handled. A mechanism to accept complaints MAY be provided. The complaint should be handled by a trusted party, such as a governance component.</p>
 <p>Abuse / Miscalculation: The Relayer may release (mint) excessively tokens on the L1 (L2). Any token that is released (minted) on the target chain without a corresponding burn (lock) on the source chain will increase the total circulating supply across L1 and L2. However, the Bridge Operator MUST ensure that the total circulating supply of the token remains constant.</p>
-<p><strong>Solution Part 1:</strong>
+<p><strong>Solution part 1:</strong>
 The bridge operator MUST learn about the excessive minting (unlocking) through some monitoring system. The monitoring service MAY be only an initial warning system that informs the bridge operator to take action. This action could involve halting the bridge or starting an investigation.</p>
 <p>The Informer, see <a href="https://github.com/movementlabsxyz/MIP/pull/71">MIP-71</a>, addresses this part.</p>
-<p><strong>Solution Part 2:</strong>
+<p><strong>Solution part 2:</strong>
 The bridge operator MUST have the ability to halt the bridge. This is necessary to prevent further excessive minting (unlocking) of tokens.</p>
-<p><strong>Solution Part 3:</strong>
+<p><strong>Solution part 3:</strong>
 The bridge operator MUST compensate for the excessive minting (unlocking) by burning (locking) the excessive minted tokens on the target chain. This requires the provision of a fund from which the bridge operator can burn (lock) the excessive minted tokens.</p>
 <p>The Insurance Fund, see <a href="https://github.com/movementlabsxyz/MIP/pull/50">MIP-50</a>, addresses this part.</p>
-<p><strong>Solution Part 4:</strong>
+<p><strong>Solution part 4:</strong>
 In a system with low latency, or unbounded transfer size the Relayer may be able to mint (release) tokens that far exceed the Insurance Fund <code>value_insurance</code>. To prevent this a rate limitation is necessary, which limits the maximum amount of tokens that can be transferred with a certain reaction time <code>time_react</code> of the bridge operator.</p>
 <p>Since the Relayer operates on the target chain, the rate limitation MUST be implemented on the target chain. Furthermore, it MUST consider <code>time_react</code> and <code>value_insurance</code>.</p>
 <p>Furthermore, since the Relayer is limited by the rate limitation, the intake of transfers on the source chain MUST be limited by the rate limitation. The rate limitation on the source chain MUST consider the rate limitation on the target chain.</p>
@@ -238,7 +238,7 @@ In a system with low latency, or unbounded transfer size the Relayer may be able
 <p><strong>Assumption</strong>: The Relayer is untrusted to submit the completion of the transfer to the bridge contracts. A proof or approval is required.</p>
 <p><strong>Risk</strong>: The source chain may be faulty or reorg. Hence only finalized proofs or approvals should be accepted (finalized with respect to the source chain).</p>
 <p><strong>Consequence</strong>: The transfer has to consider the finality on the source chain. The transfer may also take a long time to complete. For example in optimistic rollups the finality is reached after 1 week.</p>
-<p><strong>Solution with ZK Chains</strong>:</p>
+<p><strong>Solution with ZK chains</strong>:</p>
 <ul>
 <li>L2–&gt;L1 direction:</li>
 </ul>
@@ -251,7 +251,7 @@ In a system with low latency, or unbounded transfer size the Relayer may be able
 <li>Timing:</li>
 </ul>
 <p>The expected time for the completion of the transfer is the time it takes is in the range of ZK proofs.</p>
-<p><strong>Solution with Optimistic Chains</strong>:</p>
+<p><strong>Solution with optimistic chains</strong>:</p>
 <ul>
 <li>L2–&gt;L1 direction:</li>
 </ul>
@@ -286,7 +286,7 @@ Option 2: Each FFS validator node MUST run a service that obtains (or gets from 
 <li>Timing:</li>
 </ul>
 <p>The expected time for the completion of the transfer is the time it takes is in the range of Postconfirmations and L1 finality time.</p>
-<h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
+<h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference implementation</a></h2>
 <h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
 <h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 <h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
@@ -314,9 +314,7 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <li>finalization by the reaction time of the operator</li>
 <li>the staked value by the insurance fund</li>
 </ul>
-<hr />
-<h2 id="copyright"><a class="header" href="#copyright">Copyright</a></h2>
-<p>Copyright and related rights waived via <a href="../LICENSE.html">CC0</a>.</p>
+<h2 id="changelog-1"><a class="header" href="#changelog-1">Changelog</a></h2>
 
                     </main>
 
