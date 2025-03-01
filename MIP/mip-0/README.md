@@ -1,4 +1,4 @@
-# MIP-0: Formalize Movement Proposals
+# MIP-0: Formalize Movement proposals
 
 - **Description**: A process through which Movement Improvement Proposals standardize and formalize specifications for Movement technologies.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz), Andreas Penzkofer
@@ -15,6 +15,8 @@ Movement technologies continually evolve, and there's a need to ensure that the 
 
 ## Specification
 
+_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
+
 ### Extensions to this MIP
 
 We treat the following documents as extensions to this MIP:
@@ -24,7 +26,7 @@ We treat the following documents as extensions to this MIP:
 - [MIP template](../../mip-template.md)
 - [MG template](../../mg-template.md)
 
-### Process
+### High-level process
 
 There are two lifecycle streams: the **github lifecycle** and the **approval lifecycle**. The approval lifecycle is reflective of which MIPs have been approved for implementation. The github lifecycle is reflective of the progress of the MIP in terms of its readiness and review.
 
@@ -89,11 +91,11 @@ An author commits to becoming the owner of the MIP/MD they propose. This means t
 
 The author MUST add themselves as a code owner in [CODEWONERS](.github/CODEOWNERS).
 
-### Proposal Stages
+### Proposal stages
 
 The Movement Improvement Proposal process is divided into three stages: Issue, MD, and MIP.
 
-#### Stage Issue
+#### Stage issue
 
 Issues are used to propose trivial changes or improvements to Movement technologies. They are used to discuss and document the rationale behind a proposed change, and to gather feedback from the community. Issues are not formalized and do not require a specific structure. They are used to gauge interest and to start discussions.
 
@@ -121,11 +123,11 @@ A Movement Improvement Proposal (MIP) is a design document that provides informa
   
 **Structure**: Each MIP must adhere to [this template](../../mip-template.md), which requires details like title, description, author, status, and more. A MIP also includes sections like Abstract, Motivation, Specification, Reference Implementation, Verification, Changelog, and Appendix, see next.
 
-**Section Reference Implementation**: A reference implementation or a sample MIP following the MIP template can be provided to guide potential proposers. This MIP (MIP-0) serves as a practical example, aiding in understanding the format and expectations.
+**Section reference implementation**: A reference implementation or a sample MIP following the MIP template can be provided to guide potential proposers. This MIP (MIP-0) serves as a practical example, aiding in understanding the format and expectations.
   
-**(Optional) Section Definitions**: Provide definitions that you think will empower the reader to quickly dive into the topic.
+**(Optional) section definitions**: Provide definitions that you think will empower the reader to quickly dive into the topic.
 
-**Section Verification**
+**Section verification**:
 
 1. Correctness: Each MIP must convincingly demonstrate its correctness.
 

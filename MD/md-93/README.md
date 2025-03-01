@@ -1,4 +1,4 @@
-# MD-93: Parent-Child MIPs
+# MD-93: Parent-child MIPs
 
 - **Description**: Provide formal structure for parent and child MIPs.
 - **Authors**: [Andy Golay](mailto:andy.golay@movementlabs.xyz)
@@ -18,7 +18,7 @@ Provide formal structure for parent-child MIPs. For more complicated MIPs, or MI
 
 ### D1: Convention for parent and child MIP file organization and naming
 
-**User Journey**: Proposer can adhere to a standardized template for substantial, detailed subsections of MIPs which warrant being categorized as their own related child MIP.
+**User journey**: Proposer can adhere to a standardized template for substantial, detailed subsections of MIPs which warrant being categorized as their own related child MIP.
 
 **Justification**: The file organization and naming must be consistent, so there should be a formal convention.
 
