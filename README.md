@@ -3,7 +3,7 @@
 
 We differentiate between **issue**, **MD** and **MIP**.
 
-An overview of the MIPs and MDs can be found in the [OVERVIEW](https://movementlabsxyz.github.io/MIP/).
+A user-friendly overview of the MIPs and MDs can be found in the [MIP Book](https://movementlabsxyz.github.io/MIP/).
 
 The lifecycle of a proposal should be:
 
