@@ -218,6 +218,7 @@ A validator is a node that participates in the FFS protocol. Validators execute 
 <li><a href="Approved/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
 <li><a href="Approved/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
 <li><a href="Approved/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
+<li><a href="Approved/main/MIP/mip-28/">MIP-28: Naming conventions for Movement protocol design</a></li>
 <li><a href="Approved/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge design</a></li>
 <li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for proposing Progressive L2 Models</a></li>
 <li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
@@ -252,7 +253,6 @@ A validator is a node that participates in the FFS protocol. Validators execute 
 <li><a href="Review/andyjsbell/unwanted-framework/MIP/mip-24/">MIP-24: Removal of redundant functionality from framework</a></li>
 <li><a href="Review/andyjsbell/proxy-root/MIP/mip-25/">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></li>
 <li><a href="Review/primata/mip-27/MIP/mip-27/">MIP-27: Contract pipeline</a></li>
-<li><a href="Review/l-monninger/actor-naming-conventions/MIP/mip-28/">MIP-28: Naming conventions for Movement protocol design</a></li>
 <li><a href="Review/mip/FFS/MIP/mip-34/">MIP-34: Fast Finality Settlement</a></li>
 <li><a href="Review/mip/postconfirmation/MIP/mip-37/">MIP-37: FFS: Postconfirmation</a></li>
 <li><a href="Review/mip/gas-fees-incremental-additions/MIP/mip-47/">MIP-47: Improve Gas fee collection in phases</a></li>
@@ -293,6 +293,7 @@ A validator is a node that participates in the FFS protocol. Validators execute 
 <li><a href="Approved/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
 <li><a href="Approved/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
 <li><a href="Approved/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
+<li><a href="Approved/main/MIP/mip-28/">MIP-28: Naming conventions for Movement protocol design</a></li>
 <li><a href="Approved/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge design</a></li>
 <li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for proposing Progressive L2 Models</a></li>
 <li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
@@ -327,7 +328,6 @@ A validator is a node that participates in the FFS protocol. Validators execute 
 <li><a href="Review/andyjsbell/unwanted-framework/MIP/mip-24/">MIP-24: Removal of redundant functionality from framework</a></li>
 <li><a href="Review/andyjsbell/proxy-root/MIP/mip-25/">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></li>
 <li><a href="Review/primata/mip-27/MIP/mip-27/">MIP-27: Contract pipeline</a></li>
-<li><a href="Review/l-monninger/actor-naming-conventions/MIP/mip-28/">MIP-28: Naming conventions for Movement protocol design</a></li>
 <li><a href="Review/mip/FFS/MIP/mip-34/">MIP-34: Fast Finality Settlement</a></li>
 <li><a href="Review/mip/postconfirmation/MIP/mip-37/">MIP-37: FFS: Postconfirmation</a></li>
 <li><a href="Review/mip/gas-fees-incremental-additions/MIP/mip-47/">MIP-47: Improve Gas fee collection in phases</a></li>
@@ -653,12 +653,52 @@ impl Release&lt;JSONFieldArtifact&gt; for JSONFieldRelease {
 <h2 id="appendix-2"><a class="header" href="#appendix-2">Appendix</a></h2>
 <h2 id="changelog-2"><a class="header" href="#changelog-2">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="mip-28-naming-conventions-for-movement-protocol-design"><a class="header" href="#mip-28-naming-conventions-for-movement-protocol-design">MIP-28: Naming conventions for Movement protocol design</a></h1>
+<ul>
+<li><strong>Description</strong>: Naming conventions for actors in Movement protocol design, tests, and documentation.</li>
+<li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
+</ul>
+<h2 id="abstract-3"><a class="header" href="#abstract-3">Abstract</a></h2>
+<p>This MIP outlines the naming conventions for actors in Movement protocol design, tests, and documentation. By standardizing the naming conventions, we aim to ensure that the Movement community can easily understand and navigate the Movement protocol ecosystem.</p>
+<h2 id="motivation-3"><a class="header" href="#motivation-3">Motivation</a></h2>
+<p>Movement protocols are complex systems that involve multiple actors, such as users, developers, and validators. By establishing naming conventions for these actors, we can create a common language that simplifies communication and collaboration within the Movement community. Standardized naming conventions also make it easier for new participants to understand the Movement protocol ecosystem and contribute effectively.</p>
+<h2 id="specification-3"><a class="header" href="#specification-3">Specification</a></h2>
+<h3 id="generic-names"><a class="header" href="#generic-names">Generic names</a></h3>
+<ul>
+<li>Alice: a generic user who interacts with a Movement protocol. The first user in a generic setup SHOULD be named Alice.</li>
+<li>Bob: a generic user who interacts with a Movement protocol. The second user in a generic setup SHOULD be named Bob.</li>
+<li>Charlie: a generic user who interacts with a Movement protocol. The third user in a generic setup SHOULD be named Charlie.</li>
+</ul>
+<h3 id="specific-names"><a class="header" href="#specific-names">Specific names</a></h3>
+<ul>
+<li>
+<p>(Malicious) Richard: a user who acts maliciously in a Movement protocol. The first malicious user in a generic setup SHOULD be named Richard.</p>
+<ul>
+<li>An alternative My Boy Richard can also be used to refer to a user who acts unnecessarily outside of their own interests, perhaps for the greater good. This usage was introduced to avoid being too univocal; Malicious Richard originally and endearingly referred to an early team member at Movement Labs. When specifying My Boy Richard, the usage of Richard should be prefixed.</li>
+<li>Should “My Boy Richard” not be sufficient in describing the will or intention of the actor, “My Boy Primata” may be used when wishing to express an actor in the system who is incredibly generous, often acting for the greater good. You might think of Robin Hood as an example of a “My Boy Primata” actor.</li>
+</ul>
+</li>
+<li>
+<p>(Naive) Eve: a user who acts naively in a Movement protocol. The first naive user in a generic setup SHOULD be named Eve.</p>
+</li>
+<li>
+<p>(Lazy) Liam: a user who acts lazily in a Movement protocol. The first lazy user in a generic setup SHOULD be named Liam.</p>
+<ul>
+<li>(Latent) Liam is also acceptable to refer to a user who acts lazily but with the potential to act otherwise. This usage was introduced to avoid being too univocal; Lazy Liam originally and endearingly referred to an early team member at Movement Labs. When specifying Latent Liam, the usage of Liam should be prefixed.</li>
+</ul>
+</li>
+</ul>
+<h2 id="reference-implementation-3"><a class="header" href="#reference-implementation-3">Reference implementation</a></h2>
+<h2 id="verification-3"><a class="header" href="#verification-3">Verification</a></h2>
+<h2 id="appendix-3"><a class="header" href="#appendix-3">Appendix</a></h2>
+<h2 id="changelog-3"><a class="header" href="#changelog-3">Changelog</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-39-move-token--htlc-based-native-bridge-design"><a class="header" href="#mip-39-move-token--htlc-based-native-bridge-design">MIP-39: MOVE Token – HTLC-based Native Bridge design</a></h1>
 <ul>
 <li><strong>Description</strong>: Architecture of the HTLC-based Native Bridge for \ token.</li>
 <li><strong>Authors</strong>: <a href="mailto:franck.cassez@movementlabs.xyz">Franck Cassez</a></li>
 </ul>
-<h2 id="abstract-3"><a class="header" href="#abstract-3">Abstract</a></h2>
+<h2 id="abstract-4"><a class="header" href="#abstract-4">Abstract</a></h2>
 <p>This MIP describes the high-level architecture of the <a href="https://bitcoinwiki.org/wiki/hashed-timelock-contracts">HTLC-based</a> \ token Native Bridge. The architecture describes the main bridge components and high-level requirements.</p>
 <h2 id="definitions"><a class="header" href="#definitions">Definitions</a></h2>
 <ul>
@@ -666,7 +706,7 @@ impl Release&lt;JSONFieldArtifact&gt; for JSONFieldRelease {
 <li><strong>$L1MOVE</strong> (or $MOVE) : ERC-20 type token with the source contract on L1</li>
 <li><strong>$L2MOVE</strong> :  Token that is created on L2 after $L1MOVE token is locked on L1. We also say $L1MOVE is bridged from L1 to L2. $L2MOVE may publicly also be called $MOVE but as this causes confusion, here we stick to $L2MOVE to make clear this token lives on L2.</li>
 </ul>
-<h2 id="motivation-3"><a class="header" href="#motivation-3">Motivation</a></h2>
+<h2 id="motivation-4"><a class="header" href="#motivation-4">Motivation</a></h2>
 <p>The Movement chain (L2) uses the $L2MOVE token to pay for gas fees. As a result users need to hold $L2MOVE tokens to pay for their transactions.</p>
 <blockquote>
 <p>[!IMPORTANT]
@@ -724,7 +764,7 @@ The transfer of tokens is one-to-one: a user bridges <span class="katex"><span c
 </ul>
 <p>Some solutions <a href="https://arxiv.org/abs/2410.02029">XChainWatcher</a> rely on monitoring bridges and detect attacks.</p>
 <p>Designing a safe bridge is a hard problem.</p>
-<h2 id="specification-3"><a class="header" href="#specification-3">Specification</a></h2>
+<h2 id="specification-4"><a class="header" href="#specification-4">Specification</a></h2>
 <p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
 <h3 id="bridging-from-l1-to-l2"><a class="header" href="#bridging-from-l1-to-l2">Bridging from L1 to L2</a></h3>
 <p>Let <code>user1</code> be a user with an account on L1, and <code>user2</code> be a user with an account on L2.</p>
@@ -859,7 +899,7 @@ This introduces possible concurrent unwanted behaviors, and a timelock has to be
 </div>
 <p>The permissions are set to ensure that only the user who initiated the transfer can request a refund, and only the relayer can complete the transfer on L1.</p>
 <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
-<h2 id="reference-implementation-3"><a class="header" href="#reference-implementation-3">Reference implementation</a></h2>
+<h2 id="reference-implementation-4"><a class="header" href="#reference-implementation-4">Reference implementation</a></h2>
 <h3 id="bridging-from-l1-to-l2-1"><a class="header" href="#bridging-from-l1-to-l2-1">Bridging from L1 to L2</a></h3>
 <p>The contracts involved are:</p>
 <ul>
@@ -891,7 +931,7 @@ If the value of the parameter <code>timeLockL2</code> is larger than <code>timeL
 
   TODO: Remove this comment before submitting
 -->
-<h2 id="verification-3"><a class="header" href="#verification-3">Verification</a></h2>
+<h2 id="verification-4"><a class="header" href="#verification-4">Verification</a></h2>
 <h3 id="bridge-l1-to-l2"><a class="header" href="#bridge-l1-to-l2">Bridge L1 to L2</a></h3>
 <p>The correctness of the bridge operation from L1 to L2 depends on several factors:</p>
 <ul>
@@ -922,11 +962,11 @@ We have <strong>proved</strong> (model-checked with UPPAAL) the following proper
 <p>Note that [safety-2] does hold if the relayer is down for more than $maxRelayerDelay$, or the timelocks are not set correctly.</p>
 <h3 id="bridge-l2-to-l1"><a class="header" href="#bridge-l2-to-l1">Bridge L2 to L1</a></h3>
 <p>The only difference between L1 to L2 is the way assets are created/destroyed. However, the formal model abstracts away this difference and the same properties hold for the L2 to L1 bridge.</p>
-<h2 id="appendix-3"><a class="header" href="#appendix-3">Appendix</a></h2>
+<h2 id="appendix-4"><a class="header" href="#appendix-4">Appendix</a></h2>
 <p>The UPPAAL models of the L1 to L2 transfers are available in the <a href="Approved/main/MIP/mip-39/./uppaal-models">uppaal-models</a> directory.
 The simplest model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-up-v2.xml">bridge-up-v2.xml</a> and the more complex model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-up-v3.xml">bridge-up-v3.xml</a> with probabilities.</p>
 <p>You can request a license to use UPPAAL at <a href="http://www.uppaal.org/">UPPAAL</a>.</p>
-<h2 id="changelog-3"><a class="header" href="#changelog-3">Changelog</a></h2>
+<h2 id="changelog-4"><a class="header" href="#changelog-4">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-53-conventions-for-proposing-progressive-l2-models"><a class="header" href="#mip-53-conventions-for-proposing-progressive-l2-models">MIP-53: Conventions for proposing Progressive L2 Models</a></h1>
 <ul>
@@ -934,12 +974,12 @@ The simplest model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-u
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 <li><strong>Reviewer</strong>: Andreas Penzkofer</li>
 </ul>
-<h2 id="abstract-4"><a class="header" href="#abstract-4">Abstract</a></h2>
+<h2 id="abstract-5"><a class="header" href="#abstract-5">Abstract</a></h2>
 <p>Movement’s L2 system will progress through various changes during its life, and each stage is presented through a new L2 model (which we call <strong>progressive L2 model</strong>). Thus a given progressive L2 model describes as a particular stage in the evolution of the L2 system.  A given progressive L2 model stage is defined through the sum of its improvements and it may encompass components that are not directly related to each other.</p>
 <p>We propose a set of conventions including naming, formatting, and related standards to assist reviewing proposals for said models. Finally a collection point of these terms to provide an overview</p>
-<h2 id="motivation-4"><a class="header" href="#motivation-4">Motivation</a></h2>
+<h2 id="motivation-5"><a class="header" href="#motivation-5">Motivation</a></h2>
 <p>In order to facilitate the development of L2 systems, it is important to have a clear and consistent way to propose and review models for these systems. This MIP aims to provide a set of conventions for proposing progressive L2 models that will help to ensure that proposals are clear, consistent, and easy to review.</p>
-<h2 id="specification-4"><a class="header" href="#specification-4">Specification</a></h2>
+<h2 id="specification-5"><a class="header" href="#specification-5">Specification</a></h2>
 <p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
 <p>Progressive L2 models should adhere to conventions of the following forms:</p>
 <ul>
@@ -974,18 +1014,18 @@ The simplest model is <a href="Approved/main/MIP/mip-39/./uppaal-models/bridge-u
 <p>All proposed progressive L2 models MUST include a statement of how the model suits a progressive approach to L2 design and release. This statement SHOULD be a paragraph in length and immediately follow the summary table–as if it were a caption for the table.</p>
 <h3 id="pros-and-cons"><a class="header" href="#pros-and-cons">Pros and cons</a></h3>
 <p>All proposed progressive L2 models MUST include a list of pros and cons. This list SHOULD be formatted as two separate bulleted lists in subsections titled “Pros” and “Cons.”</p>
-<h2 id="verification-4"><a class="header" href="#verification-4">Verification</a></h2>
-<h2 id="appendix-4"><a class="header" href="#appendix-4">Appendix</a></h2>
-<h2 id="changelog-4"><a class="header" href="#changelog-4">Changelog</a></h2>
+<h2 id="verification-5"><a class="header" href="#verification-5">Verification</a></h2>
+<h2 id="appendix-5"><a class="header" href="#appendix-5">Appendix</a></h2>
+<h2 id="changelog-5"><a class="header" href="#changelog-5">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-58-lockmint-type-native-bridge-with-trusted-relayer"><a class="header" href="#mip-58-lockmint-type-native-bridge-with-trusted-relayer">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></h1>
 <ul>
 <li><strong>Description</strong>: Proposes a lock/mint-type Native Bridge that capitalizes on the trust-assumption on the Relayer.</li>
 <li><strong>Authors</strong>: <a href="mailto:primata@movementlabs.xyz">Primata</a>, Andreas Penzkofer</li>
 </ul>
-<h2 id="abstract-5"><a class="header" href="#abstract-5">Abstract</a></h2>
+<h2 id="abstract-6"><a class="header" href="#abstract-6">Abstract</a></h2>
 <p>We propose a lock/mint-type Native Bridge. The lock/mint bridge design streamlines operations, enhances security, and improves user experience (compared to the previously employed HTLC-based Native Bridge) making it easier to bridge assets between chains.</p>
-<h2 id="motivation-5"><a class="header" href="#motivation-5">Motivation</a></h2>
+<h2 id="motivation-6"><a class="header" href="#motivation-6">Motivation</a></h2>
 <p>Different types of bridges have been considered for the Native Bridge, see <a href="https://github.com/movementlabsxyz/MIP/pull/60">MIP-60</a>. The initial design employed a HTLC-based bridge, which has been found to lead to bad UX, requires four transactions, and a complex design.</p>
 <p>This proposal advocates for replacing the current HTLC-based bridge design, with a lock/mint-type bridge with a simpler and more efficient two-transaction mechanism. The proposed design reduces costs, enhances security, minimizes user friction, and avoids potential exploits caused by refund logic. It addresses long-standing issues such as reliance on sponsored transactions, outdated audits, and unimplemented fee mechanisms speeding the process to achieve a fully functional bridge that movement yet has been unable to complete, and lots of under issues raised and still pending.</p>
 <p><strong>Reminder: HTLC-based bridge</strong>
@@ -1052,7 +1092,7 @@ The proposed lock/mint bridge design mitigates these issues, creating a safer, f
 <li>Cheaper transactions because of reduction of logic.</li>
 <li>Consolidate Initiator and Counterparty into a single contract (this might be the most dangerous thing proposed but it has already been proposed for HTLC Native Bridge implementation).</li>
 </ul>
-<h2 id="specification-5"><a class="header" href="#specification-5">Specification</a></h2>
+<h2 id="specification-6"><a class="header" href="#specification-6">Specification</a></h2>
 <p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
 <p>The lock/mint bridge design focuses on minimizing complexity and maximizing security. It also leverages the trust assumption on the Relayer to streamline operations and enhance user experience.</p>
 <h3 id="components"><a class="header" href="#components">Components</a></h3>
@@ -1259,13 +1299,13 @@ Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides add
 </ul>
 </li>
 </ol>
-<h2 id="reference-implementation-4"><a class="header" href="#reference-implementation-4">Reference implementation</a></h2>
+<h2 id="reference-implementation-5"><a class="header" href="#reference-implementation-5">Reference implementation</a></h2>
 <p><a href="https://github.com/movementlabsxyz/movement/tree/primata/simple-native-bridge">Solidity Implementation</a></p>
 <p><a href="https://github.com/movementlabsxyz/aptos-core/tree/andygolay/simplified-bridge">Move Implementation</a></p>
 <h3 id="optional-recommendations"><a class="header" href="#optional-recommendations">(Optional) recommendations</a></h3>
 <h4 id="batch-completion-for-multisig-relayer"><a class="header" href="#batch-completion-for-multisig-relayer">Batch completion for multisig Relayer**</a></h4>
 <p>Multisig Relayers could process pending transactions in batches during downtime of the standard Relayer, ensuring timely resolution.</p>
-<h2 id="verification-5"><a class="header" href="#verification-5">Verification</a></h2>
+<h2 id="verification-6"><a class="header" href="#verification-6">Verification</a></h2>
 <ol>
 <li>
 <p><strong>Correctness</strong></p>
@@ -1295,7 +1335,7 @@ Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides add
 </ul>
 </li>
 </ol>
-<h2 id="appendix-5"><a class="header" href="#appendix-5">Appendix</a></h2>
+<h2 id="appendix-6"><a class="header" href="#appendix-6">Appendix</a></h2>
 <h3 id="a1-related-issues"><a class="header" href="#a1-related-issues">A1: Related issues</a></h3>
 <ul>
 <li><a href="https://github.com/movementlabsxyz/movement/issues/838">Movement Issue #838</a></li>
@@ -1311,16 +1351,16 @@ Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides add
 <li><a href="https://bridge.arbitrum.io/?destinationChain=arbitrum-one&amp;sourceChain=ethereum">Arbitrum Bridge</a></li>
 <li><a href="https://docs.blast.io/building/bridges/mainnet">Blast Bridge</a></li>
 </ul>
-<h2 id="changelog-5"><a class="header" href="#changelog-5">Changelog</a></h2>
+<h2 id="changelog-6"><a class="header" href="#changelog-6">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-60-cross-chain-bridge-architectures"><a class="header" href="#mip-60-cross-chain-bridge-architectures">MIP-60: Cross-chain bridge architectures</a></h1>
 <ul>
 <li><strong>Description</strong>: This MIP provides some background on cross-chain bridges designs and trade-offs related to security, decentralization, and performance.</li>
 <li><strong>Authors</strong>: <a href="mailto:franck.cassez@movementlabs.xyz">Franck Cassez</a>, Andreas Penzkofer</li>
 </ul>
-<h2 id="abstract-6"><a class="header" href="#abstract-6">Abstract</a></h2>
+<h2 id="abstract-7"><a class="header" href="#abstract-7">Abstract</a></h2>
 <p>Cross-chain bridges allow assets to be transferred between different blockchains. This MIP provides some background on cross-chain bridge designs and the trade-offs related to security, decentralization, and performance.</p>
-<h2 id="motivation-6"><a class="header" href="#motivation-6">Motivation</a></h2>
+<h2 id="motivation-7"><a class="header" href="#motivation-7">Motivation</a></h2>
 <p>To transfer assets from Ethereum to the chain (and back), we have to employ a <em>bridge</em>. Ideally we would re-use an existing bridge, but there is no available bridge template from Ethereum to Move-based chains, so we have to design one.
 Designing a bridge between two blockchains is a complex task. As pointed out in <a href="https://ethereum.org/en/developers/docs/bridges/#integrating-bridges">Bridges – Ethereum Foundation</a>:</p>
 <blockquote>
@@ -1379,7 +1419,7 @@ As both parties can decide to withdraw or accept the swap, a swap requires each 
 <p>:bulb:
 Source and target imply direction: e.g. for a swap, burn/mint and lock/unlock between a user1 on chain A and a user2 on chain B, the source chain of user1 is chain A and the target chain is chain B. For these three bridge mechanisms the transfer in opposite direction would be called the same. In contrast, <strong>lock/mint</strong> implies that the source chain is the chain where the native asset lives. But the bridge also operates in the opposite direction - however a more correct term for the opposite direction would be a <strong>burn/unlock</strong> mechanism instead.</p>
 </blockquote>
-<h2 id="specification-6"><a class="header" href="#specification-6">Specification</a></h2>
+<h2 id="specification-7"><a class="header" href="#specification-7">Specification</a></h2>
 <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
 <h3 id="cross-chain-communication-and-the-relayer"><a class="header" href="#cross-chain-communication-and-the-relayer">Cross-chain communication and the relayer</a></h3>
 <p>The transfer of assets between two chains requires a mechanism to communicate between the two chains. This mechanism is necessarily off-chain: a chain can emit events/messages to a channel but cannot receive event from a channel (they need to be converted to transactions).</p>
@@ -1457,23 +1497,23 @@ A simple <em>lock/mint</em>, <em>burn/mint</em> or <em>lock/unlock</em> mechanis
 <p>:bulb:
 The <a href="https://cross-chainriskframework.github.io/framework/01intro/introduction/">cross-chain risk framework</a> provides some guidelines and criteria for evaluating cross-chain protocols security. Risk mitigation strategies are also discussed in <a href="https://arxiv.org/abs/2410.02029">XChainWatcher</a> and  this <a href="https://doi.org/10.48550/arXiv.2403.00405">SoK on Cross-Chain Bridging Architectural Design Flaws and Mitigations</a>.</p>
 </blockquote>
-<h2 id="reference-implementation-5"><a class="header" href="#reference-implementation-5">Reference implementation</a></h2>
-<h2 id="verification-6"><a class="header" href="#verification-6">Verification</a></h2>
+<h2 id="reference-implementation-6"><a class="header" href="#reference-implementation-6">Reference implementation</a></h2>
+<h2 id="verification-7"><a class="header" href="#verification-7">Verification</a></h2>
 <h2 id="references"><a class="header" href="#references">References</a></h2>
 <p>[1] Maurice Herlihy: “Atomic Cross-Chain Swaps”. PODC 2018: 245-254 <a href="https://dl.acm.org/doi/10.1145/3212734.3212736">DOI</a></p>
 <p>[2] Maurice Herlihy, Barbara Liskov, Liuba Shrira: “Cross-chain deals and adversarial commerce”. VLDB J. 31(6): 1291-1309 (2022) <a href="https://dl.acm.org/doi/10.1007/s00778-021-00686-1">DOI</a></p>
 <p>[3] André Augusto, Rafael Belchior, Jonas Pfannschmidt, André Vasconcelos, Miguel Correia: “XChainWatcher: Monitoring and Identifying Attacks in Cross-Chain Bridges”. (2024) <a href="https://arxiv.org/abs/2410.02029">CoRR abs/2410.02029</a></p>
 <p>[4] Jakob Svennevik Notland, Jinguye Li, Mariusz Nowostawski, Peter Halland Haro: “SoK: Cross-Chain Bridging Architectural Design Flaws and Mitigations”. (2024) <a href="https://doi.org/10.48550/arXiv.2403.00405">CoRR abs/2403.00405</a></p>
 <p>[5] “SoK: Cross-chain Token Bridges and Risk”, 2024 IEEE International Conference on Blockchain and Cryptocurrency (ICBC), Dublin, Ireland, 2024, pp. 696-711. <a href="https://ieeexplore.ieee.org/document/10634379">IEEE Xplore</a></p>
-<h2 id="appendix-6"><a class="header" href="#appendix-6">Appendix</a></h2>
-<h2 id="changelog-6"><a class="header" href="#changelog-6">Changelog</a></h2>
+<h2 id="appendix-7"><a class="header" href="#appendix-7">Appendix</a></h2>
+<h2 id="changelog-7"><a class="header" href="#changelog-7">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-61-relayer-algorithm-for-the-lockmint-native-bridge"><a class="header" href="#mip-61-relayer-algorithm-for-the-lockmint-native-bridge">MIP-61: Relayer algorithm for the lock/mint Native Bridge</a></h1>
 <ul>
 <li><strong>Description</strong>: This MIP describes the process for continuous operation as well as the bootstrapping of the relayer in the lock/mint bridge.</li>
 <li><strong>Authors</strong>: Andreas Penzkofer, Philippe</li>
 </ul>
-<h2 id="abstract-7"><a class="header" href="#abstract-7">Abstract</a></h2>
+<h2 id="abstract-8"><a class="header" href="#abstract-8">Abstract</a></h2>
 <p>We describe an algorithm that</p>
 <ul>
 <li>Continuously checks for <code>initiate_transfer</code> events on the source chain.</li>
@@ -1483,7 +1523,7 @@ The <a href="https://cross-chainriskframework.github.io/framework/01intro/introd
 <li>Provides a bootstrap algorithm for the relayer.</li>
 </ul>
 <p>In this algorithm the target chain contract offers a <code>complete_transfer</code> function that records transfer by <code>nonce</code> and protects against re-issuance as any nonce can be only mapped to one transfer.</p>
-<h2 id="motivation-7"><a class="header" href="#motivation-7">Motivation</a></h2>
+<h2 id="motivation-8"><a class="header" href="#motivation-8">Motivation</a></h2>
 <p>We would like to minimize the number of trusted components. In a minimal solution the relayer should only trust the source chain, the target chain and itself. Other trusted sources can be proposed optionally, but ideally no other trust assumptions should be utilized.</p>
 <p>Several complications:</p>
 <ul>
@@ -1505,7 +1545,7 @@ Currently, when the relayer starts, it doesn’t reload the state that it has wh
 </ul>
 <p>This algorithm is compatible with using finalized blocks (see the remark on L2 complete verification). By pulling only finalized source blocks, the nonce are always updated on finalization.</p>
 <p>In this MIP we consider the lock/mint Native Bridge, see <a href="https://github.com/movementlabsxyz/MIP/pull/60">MIP-60</a>. We will discuss a single direction of transfer - from <strong>source chain</strong> to <strong>target chain</strong>.</p>
-<h2 id="specification-7"><a class="header" href="#specification-7">Specification</a></h2>
+<h2 id="specification-8"><a class="header" href="#specification-8">Specification</a></h2>
 <p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
 <p>!!! . The algorithm is the same in both directions. Hence each algorithm has to be implemented twice. Once for the transfer direction L1 –&gt; L2, and once for the L2 –&gt; L1 direction.</p>
 <p>The relayer can get its state from the source chain and target chain. The relayer operates two processes - potentially in parallel:</p>
@@ -1713,10 +1753,10 @@ The relayer records on the source or target chain the <code>completed_block_heig
 <li>Use of indexer DB.</li>
 </ol>
 <p>This creates a dependency to another component. For example, if the postgres db has an issue, the relayer has an issue. Even thought the relayer doesn’t need the db to process.</p>
-<h2 id="reference-implementation-6"><a class="header" href="#reference-implementation-6">Reference implementation</a></h2>
-<h2 id="verification-7"><a class="header" href="#verification-7">Verification</a></h2>
-<h2 id="appendix-7"><a class="header" href="#appendix-7">Appendix</a></h2>
-<h2 id="changelog-7"><a class="header" href="#changelog-7">Changelog</a></h2>
+<h2 id="reference-implementation-7"><a class="header" href="#reference-implementation-7">Reference implementation</a></h2>
+<h2 id="verification-8"><a class="header" href="#verification-8">Verification</a></h2>
+<h2 id="appendix-8"><a class="header" href="#appendix-8">Appendix</a></h2>
+<h2 id="changelog-8"><a class="header" href="#changelog-8">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-84-lock-mint-native-bridge-basics-of-relayer-trust-assumptions"><a class="header" href="#mip-84-lock-mint-native-bridge-basics-of-relayer-trust-assumptions">MIP-84: Lock-Mint Native Bridge: basics of Relayer trust assumptions</a></h1>
 <ul>
@@ -1725,7 +1765,7 @@ The relayer records on the source or target chain the <code>completed_block_heig
 <li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/blob/mip/rate-limiter-lock-mint-bridge/MD/md-74/README.md">MD-74</a></li>
 <li><strong>Approval</strong>: :white_check_mark:</li>
 </ul>
-<h2 id="abstract-8"><a class="header" href="#abstract-8">Abstract</a></h2>
+<h2 id="abstract-9"><a class="header" href="#abstract-9">Abstract</a></h2>
 <p>The lock/mint-type bridge has the following core actors and components: a user who initiates a transfer, a bridge operator, bridge contracts that facilitate the transfer, and a Relayer that submits the completion of the transfer to the bridge contracts.</p>
 <p>The trust assumptions on the Relayer component have significant implications for the security of the bridge and they can introduce the need for additional components.</p>
 <hr />
@@ -1733,7 +1773,7 @@ The relayer records on the source or target chain the <code>completed_block_heig
 <p><strong>Figure 1</strong>: <em>The Relayer is in charge of <em>relaying</em> bridge transactions. If a user initiates a bridge transfer request on the L2 with a transaction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span> with a sender <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">s</span></span></span></span>, recipient <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span>, for an amount <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span></span></span></span>, we expect the Relayer to relay the request to the L1 with a matching transaction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span>. However, a compromised or buggy Relayer may tamper with the bridge transfer data and relay <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9463em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span> where <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9463em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span> may differ from <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span></span></span></span>. A fraudulent or buggy Relayer may also create a transaction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>, without a corresponding transaction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>.</em></p>
 <hr />
 <p>In a scenario based approach we clarify minimally required components and why they are needed. We distinguish between a trusted, partially trusted, and untrusted Relayer (with proofs).</p>
-<h2 id="motivation-8"><a class="header" href="#motivation-8">Motivation</a></h2>
+<h2 id="motivation-9"><a class="header" href="#motivation-9">Motivation</a></h2>
 <p>We need to clarify the trust assumptions for the Relayer and what consequences should be drawn from these. In many cases a rate limitation may be necessary, see also the Appendix <a href="Approved/main/MIP/mip-84/index.html#a1-background-eigenlayer">A1: Eigenlayer AVS</a>.</p>
 <p>This addresses the following desiderata in <a href="https://github.com/movementlabsxyz/MIP/blob/mip/rate-limiter-lock-mint-bridge/MD/md-74/README.md#D1">MD-74</a>:</p>
 <ul>
@@ -1746,7 +1786,7 @@ The relayer records on the source or target chain the <code>completed_block_heig
 <li>All contracts are secure and reliable.</li>
 <li>The bridge operator is trusted.</li>
 </ol>
-<h2 id="specification-8"><a class="header" href="#specification-8">Specification</a></h2>
+<h2 id="specification-9"><a class="header" href="#specification-9">Specification</a></h2>
 <p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
 <p>We define the following terms:</p>
 <ul>
@@ -1846,10 +1886,10 @@ Option 2: Each FFS validator node MUST run a service that obtains (or gets from 
 <li>Timing:</li>
 </ul>
 <p>The expected time for the completion of the transfer is the time it takes is in the range of Postconfirmations and L1 finality time.</p>
-<h2 id="reference-implementation-7"><a class="header" href="#reference-implementation-7">Reference implementation</a></h2>
-<h2 id="verification-8"><a class="header" href="#verification-8">Verification</a></h2>
-<h2 id="changelog-8"><a class="header" href="#changelog-8">Changelog</a></h2>
-<h2 id="appendix-8"><a class="header" href="#appendix-8">Appendix</a></h2>
+<h2 id="reference-implementation-8"><a class="header" href="#reference-implementation-8">Reference implementation</a></h2>
+<h2 id="verification-9"><a class="header" href="#verification-9">Verification</a></h2>
+<h2 id="changelog-9"><a class="header" href="#changelog-9">Changelog</a></h2>
+<h2 id="appendix-9"><a class="header" href="#appendix-9">Appendix</a></h2>
 <h3 id="a1-background-eigenlayer"><a class="header" href="#a1-background-eigenlayer">A1: Background EigenLayer</a></h3>
 <p>In order to protect the protocol from exploits and potential losses, rate limiting is essential. For comparison the white paper <a href="https://docs.eigenlayer.xyz/assets/files/EigenLayer_WhitePaper-88c47923ca0319870c611decd6e562ad.pdf">EigenLayer: The Restaking Collective</a> proposes that AVS (Actively Validated Services) can run for a bridge and the stake of validators protects the transferred value crypto-economically through slashing conditions. More specifically section 3.4 Risk Management mentions</p>
 <blockquote>
@@ -1874,7 +1914,7 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <li>finalization by the reaction time of the operator</li>
 <li>the staked value by the insurance fund</li>
 </ul>
-<h2 id="changelog-9"><a class="header" href="#changelog-9">Changelog</a></h2>
+<h2 id="changelog-10"><a class="header" href="#changelog-10">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-88-simplified-rate-limiter-for-the-lockmint-native-bridge"><a class="header" href="#mip-88-simplified-rate-limiter-for-the-lockmint-native-bridge">MIP-88: Simplified Rate Limiter for the lock/mint Native Bridge</a></h1>
 <ul>
@@ -1882,12 +1922,12 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <li><strong>Authors</strong>: Andreas Penzkofer, Primata</li>
 <li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/pull/74/files/MD/md-74/README.md">MD-74</a></li>
 </ul>
-<h2 id="abstract-9"><a class="header" href="#abstract-9">Abstract</a></h2>
+<h2 id="abstract-10"><a class="header" href="#abstract-10">Abstract</a></h2>
 <p>The design in <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a> considers that the insurance fund differs between the L1 and the L2. This MIP proposes a simplified design where the Insurance Fund is guaranteed to be the same on both sides.</p>
-<h2 id="motivation-9"><a class="header" href="#motivation-9">Motivation</a></h2>
+<h2 id="motivation-10"><a class="header" href="#motivation-10">Motivation</a></h2>
 <p>In the design in <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a> the rate limit is determined by the Insurance Fund on the target chain. The Governance Operator must ensure that the rate limit on the source chains is also set correctly. This means the Governance Operator is already active on both chain.</p>
 <p>Moreover, we may assume that the inflow to and outflow from \ tokens is the same on average.</p>
-<h2 id="specification-9"><a class="header" href="#specification-9">Specification</a></h2>
+<h2 id="specification-10"><a class="header" href="#specification-10">Specification</a></h2>
 <p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
 <h3 id="symmetric-insurance-fund"><a class="header" href="#symmetric-insurance-fund">Symmetric Insurance Fund</a></h3>
 <p>There are two Insurance Funds, one on the L1 (<code>L1InsuranceFund</code>) and one on the L2 (<code>L2InsuranceFund</code>). In this simplified design <code>L1InsuranceFund</code> MUST hold the same balance as <code>L2InsuranceFund</code>, i.e.</p>
@@ -1915,14 +1955,14 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <p>Let there be an Insurance Fund on the L2 (<code>L2InsuranceFund</code>) with token amount of value <code>InsuranceFundValueOnChain</code>. The Governance Operator MUST provide the value <code>InsuranceFundValueOnChain</code> to the Rate Limitation contract on L1 in a timely manner and reliably. Similar to the previous section, if we register the budget on a daily basis, for security reasons, we MUST only utilize one half of each direction’s Insurance fund budget per day.</p>
 <p>Since compared to the previous solution the funds are only held on one chain the rate limitation is now calculated as follows:</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">L</span><span class="mord mathnormal">imi</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">on source</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">L</span><span class="mord mathnormal">imi</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">on target</span></span><span class="mclose">)</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.3669em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">L</span><span class="mord mathnormal">imi</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord text"><span class="mord">on source</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">L</span><span class="mord mathnormal">imi</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.3669em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord texttt">InsuranceFundValueOnChain</span></span><span class="mord">/4</span></span></span></span></span></p>
-<h2 id="reference-implementation-8"><a class="header" href="#reference-implementation-8">Reference implementation</a></h2>
+<h2 id="reference-implementation-9"><a class="header" href="#reference-implementation-9">Reference implementation</a></h2>
 <ul>
 <li><a href="https://github.com/movementlabsxyz/movement/pull/992">Solidity</a></li>
 <li><a href="https://github.com/movementlabsxyz/aptos-core/pull/113">Move</a></li>
 </ul>
-<h2 id="verification-9"><a class="header" href="#verification-9">Verification</a></h2>
-<h2 id="appendix-9"><a class="header" href="#appendix-9">Appendix</a></h2>
-<h2 id="changelog-10"><a class="header" href="#changelog-10">Changelog</a></h2>
+<h2 id="verification-10"><a class="header" href="#verification-10">Verification</a></h2>
+<h2 id="appendix-10"><a class="header" href="#appendix-10">Appendix</a></h2>
+<h2 id="changelog-11"><a class="header" href="#changelog-11">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-94-parent-child-mips"><a class="header" href="#mip-94-parent-child-mips">MIP-94: Parent-child MIPs</a></h1>
 <ul>
@@ -1930,11 +1970,11 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <li><strong>Authors</strong>: <a href="mailto:andy.golay@movementlabs.xyz">Andy Golay</a></li>
 <li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/pull/93">MD-93</a></li>
 </ul>
-<h2 id="abstract-10"><a class="header" href="#abstract-10">Abstract</a></h2>
+<h2 id="abstract-11"><a class="header" href="#abstract-11">Abstract</a></h2>
 <p>This document formalizes parent-child MIPs.</p>
-<h2 id="motivation-10"><a class="header" href="#motivation-10">Motivation</a></h2>
+<h2 id="motivation-11"><a class="header" href="#motivation-11">Motivation</a></h2>
 <p>For more complex MIPs, or MIPs which have implementations specific to various software stacks, infrastructure providers, etc., it can makes sense for the sake of organization to have child MIPs to add specific details, rather than making the parent MIP too verbose or cluttered.</p>
-<h2 id="specification-10"><a class="header" href="#specification-10">Specification</a></h2>
+<h2 id="specification-11"><a class="header" href="#specification-11">Specification</a></h2>
 <p>To create a child MIP:</p>
 <ol>
 <li>
@@ -1948,16 +1988,16 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <p>Add a <code>README.md</code> fill containing the child MIP contents. Follow the <a href="Approved/main/MIP/mip-94/../../mip-template.html">MIP template</a> but don’t repeat redundant information from the parent MIP.</p>
 </li>
 </ol>
-<h2 id="reference-implementation-9"><a class="header" href="#reference-implementation-9">Reference implementation</a></h2>
+<h2 id="reference-implementation-10"><a class="header" href="#reference-implementation-10">Reference implementation</a></h2>
 <p>This MIP contains a reference implementation of parent-child MIPs:</p>
 <p><img src="Approved/main/MIP/mip-94/image.png" alt="parent-child MIP reference" /></p>
 <ul>
 <li>The parent MIP is MIP 94.</li>
 <li>Within the <code>mip-94</code> directory are two folders: <code>mip-94.1</code> and <code>mip-94.2</code>, each with their own <code>README.md</code> file.</li>
 </ul>
-<h2 id="verification-10"><a class="header" href="#verification-10">Verification</a></h2>
-<h2 id="changelog-11"><a class="header" href="#changelog-11">Changelog</a></h2>
-<h2 id="appendix-10"><a class="header" href="#appendix-10">Appendix</a></h2>
+<h2 id="verification-11"><a class="header" href="#verification-11">Verification</a></h2>
+<h2 id="changelog-12"><a class="header" href="#changelog-12">Changelog</a></h2>
+<h2 id="appendix-11"><a class="header" href="#appendix-11">Appendix</a></h2>
 <h2 id="copyright"><a class="header" href="#copyright">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Approved/main/MIP/mip-94/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
@@ -1968,6 +2008,7 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <li><a href="Approved/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
 <li><a href="Approved/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
 <li><a href="Approved/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
+<li><a href="Approved/main/MIP/mip-28/">MIP-28: Naming conventions for Movement protocol design</a></li>
 <li><a href="Approved/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge design</a></li>
 <li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for proposing Progressive L2 Models</a></li>
 <li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
@@ -2002,7 +2043,6 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <li><a href="Review/andyjsbell/unwanted-framework/MIP/mip-24/">MIP-24: Removal of redundant functionality from framework</a></li>
 <li><a href="Review/andyjsbell/proxy-root/MIP/mip-25/">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></li>
 <li><a href="Review/primata/mip-27/MIP/mip-27/">MIP-27: Contract pipeline</a></li>
-<li><a href="Review/l-monninger/actor-naming-conventions/MIP/mip-28/">MIP-28: Naming conventions for Movement protocol design</a></li>
 <li><a href="Review/mip/FFS/MIP/mip-34/">MIP-34: Fast Finality Settlement</a></li>
 <li><a href="Review/mip/postconfirmation/MIP/mip-37/">MIP-37: FFS: Postconfirmation</a></li>
 <li><a href="Review/mip/gas-fees-incremental-additions/MIP/mip-47/">MIP-47: Improve Gas fee collection in phases</a></li>
@@ -2057,7 +2097,7 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <h3 id="d3-time-lock-key-usage"><a class="header" href="#d3-time-lock-key-usage">D3: Time-lock key usage</a></h3>
 <p><strong>User journey</strong>: MLABSO can only reliably replace software using a key in a time-locked manner.</p>
 <p><strong>Justification</strong>: The software using a given key may require updates or replacement. Time-locking can allow this to occur without diminishing the benefits of attestations.</p>
-<h2 id="changelog-12"><a class="header" href="#changelog-12">Changelog</a></h2>
+<h2 id="changelog-13"><a class="header" href="#changelog-13">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-3-postconfirmation-commitment-delay-network-partitions-and-asynchrony"><a class="header" href="#md-3-postconfirmation-commitment-delay-network-partitions-and-asynchrony">MD-3: Postconfirmation: commitment delay, network partitions, and asynchrony</a></h1>
 <ul>
@@ -2111,7 +2151,7 @@ Consider the following parameters for the commitment tolerance window:</p>
 <li>Commitment happens only after some time has passed, forcing some degree of synchronization.</li>
 <li>Reward decay: a function describing the diminishing returns of rewards later in the window.</li>
 </ul>
-<h2 id="changelog-13"><a class="header" href="#changelog-13">Changelog</a></h2>
+<h2 id="changelog-14"><a class="header" href="#changelog-14">Changelog</a></h2>
 <p>2025-01-28: consider and rewrite towards the Postconfirmation protocol. Remove the additional asynchronous-upgrades-problem as it requires review.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-4-postconfirmation-gas-costs-and-rewards"><a class="header" href="#md-4-postconfirmation-gas-costs-and-rewards">MD-4: Postconfirmation: gas costs and rewards</a></h1>
@@ -2142,7 +2182,7 @@ The current implementation of MCR does not reward the last validator. This could
 A researcher or protocol implementer can understand the game theory of gas costs when  incomplete information.</p>
 <p><strong>Justification</strong>:
 Information incompleteness may improve the game theory of costs and rewards. Provide models which demonstrate this for incompleteness derived from network latency, randomness in the rewards, and more.</p>
-<h2 id="changelog-14"><a class="header" href="#changelog-14">Changelog</a></h2>
+<h2 id="changelog-15"><a class="header" href="#changelog-15">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-5-fast-finality-settlement---long-range-attacks"><a class="header" href="#md-5-fast-finality-settlement---long-range-attacks">MD-5: Fast Finality Settlement - long range attacks</a></h1>
 <ul>
@@ -2182,7 +2222,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <h3 id="d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof"><a class="header" href="#d3-evaluate-the-opportunity-for-stake-bleeding-long-range-attacks-and-detection-thereof">D3: Evaluate the opportunity for “stake-bleeding” long-range attacks and detection thereof</a></h3>
 <p><strong>User journey</strong>: A researcher or protocol implementer can understand how a stake-bleeding long-range attack could be executed and detected.</p>
 <p><strong>Justification</strong>: Stake-bleeding long-range attacks are a known vulnerability to PoS networks. Providing a model which demonstrates how a stake-bleeding long-range attack could be executed and detected could enable us to derive preventative measures.</p>
-<h2 id="changelog-15"><a class="header" href="#changelog-15">Changelog</a></h2>
+<h2 id="changelog-16"><a class="header" href="#changelog-16">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-15-movement-glossary"><a class="header" href="#md-15-movement-glossary">MD-15: Movement Glossary</a></h1>
 <ul>
@@ -2207,7 +2247,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <ul>
 <li>MD can also introduce MG to further aid in clarity, but they will not be ratified until they have been supported in an MIP.</li>
 </ul>
-<h2 id="changelog-16"><a class="header" href="#changelog-16">Changelog</a></h2>
+<h2 id="changelog-17"><a class="header" href="#changelog-17">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-23-define-artifact-releases-for-movement-technologies"><a class="header" href="#md-23-define-artifact-releases-for-movement-technologies">MD-23: Define artifact releases for Movement Technologies</a></h1>
 <ul>
@@ -2232,7 +2272,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <h3 id="d4-define-standard-relationship-between-releases-and-governance"><a class="header" href="#d4-define-standard-relationship-between-releases-and-governance">D4: Define standard relationship between releases and governance</a></h3>
 <p><strong>User journey</strong>: All users can understand the relationship between releases and governance, i.e., how a particular release gets voted in as canonical for a given set of Movement technologies.</p>
 <p><strong>Justification</strong>: A clear relationship between releases and governance will help users understand how releases are approved and what criteria they must meet. This will help users trust that releases are of high quality and meet the needs of the community.</p>
-<h2 id="changelog-17"><a class="header" href="#changelog-17">Changelog</a></h2>
+<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-61-relayer-algorithm-for-the-lockmint-native-bridge"><a class="header" href="#md-61-relayer-algorithm-for-the-lockmint-native-bridge">MD-61: Relayer algorithm for the lock/mint Native Bridge</a></h1>
 <ul>
@@ -2259,7 +2299,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <p><strong>User journey</strong>: Pending transfers are retried automatically after a timeout, ensuring eventual completion without manual oversight.</p>
 <p><strong>Justification</strong>: Improves the reliability of the relayer by handling transient errors and network issues gracefully.</p>
 <p><strong>Recommendations</strong>: Implement a configurable timeout period for retries.</p>
-<h2 id="changelog-18"><a class="header" href="#changelog-18">Changelog</a></h2>
+<h2 id="changelog-19"><a class="header" href="#changelog-19">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-91-define-move-stack-and-movement-sdk"><a class="header" href="#md-91-define-move-stack-and-movement-sdk">MD-91: Define Move Stack and Movement SDK</a></h1>
 <ul>
@@ -2284,7 +2324,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <h3 id="d4-reduce-confusion-between-sdk-and-stack"><a class="header" href="#d4-reduce-confusion-between-sdk-and-stack">D4: Reduce confusion between SDK and Stack</a></h3>
 <p><strong>User journey</strong>: Developers are able to understand what the SDK implies.</p>
 <p><strong>Justification</strong>: There has been much confusion about what the SDK constitutes. There is great need for clarification to align language in the ecosystem.</p>
-<h2 id="changelog-19"><a class="header" href="#changelog-19">Changelog</a></h2>
+<h2 id="changelog-20"><a class="header" href="#changelog-20">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-93-parent-child-mips"><a class="header" href="#md-93-parent-child-mips">MD-93: Parent-child MIPs</a></h1>
 <ul>
@@ -2306,7 +2346,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <h3 id="d1-convention-for-parent-and-child-mip-file-organization-and-naming"><a class="header" href="#d1-convention-for-parent-and-child-mip-file-organization-and-naming">D1: Convention for parent and child MIP file organization and naming</a></h3>
 <p><strong>User journey</strong>: Proposer can adhere to a standardized template for substantial, detailed subsections of MIPs which warrant being categorized as their own related child MIP.</p>
 <p><strong>Justification</strong>: The file organization and naming must be consistent, so there should be a formal convention.</p>
-<h2 id="changelog-20"><a class="header" href="#changelog-20">Changelog</a></h2>
+<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-3"><a class="header" href="#welcome-to-the-movement-network-mip-book-3">Welcome to the Movement Network MIP Book</a></h1>
 <h2 id="approved-3"><a class="header" href="#approved-3">Approved</a></h2>
@@ -2315,6 +2355,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <li><a href="Approved/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
 <li><a href="Approved/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
 <li><a href="Approved/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
+<li><a href="Approved/main/MIP/mip-28/">MIP-28: Naming conventions for Movement protocol design</a></li>
 <li><a href="Approved/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge design</a></li>
 <li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for proposing Progressive L2 Models</a></li>
 <li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
@@ -2349,7 +2390,6 @@ The attacker stalls the main chain by skipping block production while accumulati
 <li><a href="Review/andyjsbell/unwanted-framework/MIP/mip-24/">MIP-24: Removal of redundant functionality from framework</a></li>
 <li><a href="Review/andyjsbell/proxy-root/MIP/mip-25/">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></li>
 <li><a href="Review/primata/mip-27/MIP/mip-27/">MIP-27: Contract pipeline</a></li>
-<li><a href="Review/l-monninger/actor-naming-conventions/MIP/mip-28/">MIP-28: Naming conventions for Movement protocol design</a></li>
 <li><a href="Review/mip/FFS/MIP/mip-34/">MIP-34: Fast Finality Settlement</a></li>
 <li><a href="Review/mip/postconfirmation/MIP/mip-37/">MIP-37: FFS: Postconfirmation</a></li>
 <li><a href="Review/mip/gas-fees-incremental-additions/MIP/mip-47/">MIP-47: Improve Gas fee collection in phases</a></li>
@@ -2403,6 +2443,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <li><a href="Approved/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
 <li><a href="Approved/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
 <li><a href="Approved/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
+<li><a href="Approved/main/MIP/mip-28/">MIP-28: Naming conventions for Movement protocol design</a></li>
 <li><a href="Approved/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge design</a></li>
 <li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for proposing Progressive L2 Models</a></li>
 <li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
@@ -2437,7 +2478,6 @@ The attacker stalls the main chain by skipping block production while accumulati
 <li><a href="Review/andyjsbell/unwanted-framework/MIP/mip-24/">MIP-24: Removal of redundant functionality from framework</a></li>
 <li><a href="Review/andyjsbell/proxy-root/MIP/mip-25/">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></li>
 <li><a href="Review/primata/mip-27/MIP/mip-27/">MIP-27: Contract pipeline</a></li>
-<li><a href="Review/l-monninger/actor-naming-conventions/MIP/mip-28/">MIP-28: Naming conventions for Movement protocol design</a></li>
 <li><a href="Review/mip/FFS/MIP/mip-34/">MIP-34: Fast Finality Settlement</a></li>
 <li><a href="Review/mip/postconfirmation/MIP/mip-37/">MIP-37: FFS: Postconfirmation</a></li>
 <li><a href="Review/mip/gas-fees-incremental-additions/MIP/mip-47/">MIP-47: Improve Gas fee collection in phases</a></li>
@@ -2478,6 +2518,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <li><a href="Approved/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
 <li><a href="Approved/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
 <li><a href="Approved/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
+<li><a href="Approved/main/MIP/mip-28/">MIP-28: Naming conventions for Movement protocol design</a></li>
 <li><a href="Approved/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge design</a></li>
 <li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for proposing Progressive L2 Models</a></li>
 <li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
@@ -2512,7 +2553,6 @@ The attacker stalls the main chain by skipping block production while accumulati
 <li><a href="Review/andyjsbell/unwanted-framework/MIP/mip-24/">MIP-24: Removal of redundant functionality from framework</a></li>
 <li><a href="Review/andyjsbell/proxy-root/MIP/mip-25/">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></li>
 <li><a href="Review/primata/mip-27/MIP/mip-27/">MIP-27: Contract pipeline</a></li>
-<li><a href="Review/l-monninger/actor-naming-conventions/MIP/mip-28/">MIP-28: Naming conventions for Movement protocol design</a></li>
 <li><a href="Review/mip/FFS/MIP/mip-34/">MIP-34: Fast Finality Settlement</a></li>
 <li><a href="Review/mip/postconfirmation/MIP/mip-37/">MIP-37: FFS: Postconfirmation</a></li>
 <li><a href="Review/mip/gas-fees-incremental-additions/MIP/mip-47/">MIP-47: Improve Gas fee collection in phases</a></li>
@@ -2552,15 +2592,15 @@ The attacker stalls the main chain by skipping block production while accumulati
 <li><strong>Authors</strong>: <a href="mailto:mikhail.zabaluev@movementlabs.xyz">Mikhail Zabaluev</a></li>
 <li><strong>Desiderata</strong>: <a href="Review/mikhail/suzuka-da-migrations/MIP/mip-13/../MD/md-13">MD-13</a></li>
 </ul>
-<h2 id="abstract-11"><a class="header" href="#abstract-11">Abstract</a></h2>
+<h2 id="abstract-12"><a class="header" href="#abstract-12">Abstract</a></h2>
 <p>The format of a well-known file defining migrations of the DA blob format enacted on specified
 block heights.
 This would be a hardfork or coordinated approach (TODO: clarify terminology) to upgrades, in that
 each node participating in the network SHOULD be deployed with an up to date copy of the file
 describing the migrations up to and above the current block height.</p>
-<h2 id="motivation-11"><a class="header" href="#motivation-11">Motivation</a></h2>
+<h2 id="motivation-12"><a class="header" href="#motivation-12">Motivation</a></h2>
 <p>In order to allow for safe upgrades, data model changes, and DA migrations, it has been proposed that we provide a data format which describes the canonical state of the DA over time.</p>
-<h2 id="specification-11"><a class="header" href="#specification-11">Specification</a></h2>
+<h2 id="specification-12"><a class="header" href="#specification-12">Specification</a></h2>
 <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</p>
 <h3 id="da-migration-configuration-format"><a class="header" href="#da-migration-configuration-format">DA Migration Configuration Format</a></h3>
 <p>The format of a well-known file defining migrations is a JSON serialization of a map where keys
@@ -2620,13 +2660,13 @@ field.</p>
 implementation SHALL result in rejecting the configuration and reporting an error.
 The implementation MAY check the compatibility requirement given by <code>node_version</code>
 before reporting errors on unsupported values.</p>
-<h2 id="reference-implementation-10"><a class="header" href="#reference-implementation-10">Reference Implementation</a></h2>
+<h2 id="reference-implementation-11"><a class="header" href="#reference-implementation-11">Reference Implementation</a></h2>
 <!--
   The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
 
   TODO: Remove this comment before submitting
 -->
-<h2 id="verification-11"><a class="header" href="#verification-11">Verification</a></h2>
+<h2 id="verification-12"><a class="header" href="#verification-12">Verification</a></h2>
 <!--
 
   All proposals must contain a section that discusses the various aspects of verification pertinent to the introduced changes. This section should address:
@@ -2659,7 +2699,7 @@ before reporting errors on unsupported values.</p>
   TODO: Maintain this comment.
 -->
 <hr />
-<h2 id="appendix-11"><a class="header" href="#appendix-11">Appendix</a></h2>
+<h2 id="appendix-12"><a class="header" href="#appendix-12">Appendix</a></h2>
 <!--
   The Appendix should contain an enumerated list of reference materials and notes.
 
@@ -2677,13 +2717,13 @@ before reporting errors on unsupported values.</p>
 <li><strong>Authors</strong>: <a href="mailto:primata@movementlabs.xyz">Primata</a></li>
 <li><strong>Desiderata</strong>:</li>
 </ul>
-<h2 id="abstract-12"><a class="header" href="#abstract-12">Abstract</a></h2>
+<h2 id="abstract-13"><a class="header" href="#abstract-13">Abstract</a></h2>
 <p>MIP-18 advocates for the creation of two multisigs: one managed by Core Contributors engineers to propose contract upgrades and another managed by the Movement Foundation to execute them. This proposal enables testing of multisig services while ensuring secure and transparent upgrade processes for the Movement Token. The multisigs will be deployed on Ethereum, Sepolia, and Holesky (if available) networks.</p>
-<h2 id="motivation-12"><a class="header" href="#motivation-12">Motivation</a></h2>
+<h2 id="motivation-13"><a class="header" href="#motivation-13">Motivation</a></h2>
 <p>There is an immediate need to deploy the Movement Token (MOVEToken) using a robust, secure, and auditable upgrade mechanism. By creating two multisigs—one for proposal and one for execution—we ensure a transparent and decentralized governance process over upgrades to critical contracts.</p>
 <p>The first multisig allows Core Contributors engineers to propose upgrades via Safe’s multisig service. A remote key will automate the population of upgrade proposals. The second multisig, held by the Movement Foundation, will be responsible for executing the scheduled upgrades after a time delay, ensuring community trust and review.</p>
 <p>Also, while developing an independent multisig, handling signature showed to be an issue that might be indicative of better letting signature to be handled by safe.global.</p>
-<h2 id="specification-12"><a class="header" href="#specification-12">Specification</a></h2>
+<h2 id="specification-13"><a class="header" href="#specification-13">Specification</a></h2>
 <h3 id="multisig-setup"><a class="header" href="#multisig-setup">Multisig Setup</a></h3>
 <ol>
 <li>
@@ -2751,9 +2791,9 @@ before reporting errors on unsupported values.</p>
 <li>Multisig can fully transition to a fully automated KMS setup once we have that in place. MOVE Token deployment did not follow all procedures, dependency contracts were deployed by an EOA.</li>
 <li>Movement Foundation Safe will have ownership of Token Upgradeability - as far as I understood, please correct me if I’m wrong.</li>
 </ul>
-<h2 id="reference-implementation-11"><a class="header" href="#reference-implementation-11">Reference Implementation</a></h2>
+<h2 id="reference-implementation-12"><a class="header" href="#reference-implementation-12">Reference Implementation</a></h2>
 <p>The multisigs will be deployed using the Safe global multisig service, with contracts interacting through the SafeKit API. The remote key will automate transaction proposals for review by Core Contributors engineers.</p>
-<h2 id="verification-12"><a class="header" href="#verification-12">Verification</a></h2>
+<h2 id="verification-13"><a class="header" href="#verification-13">Verification</a></h2>
 <ol>
 <li>
 <p><strong>Correctness</strong>:<br />
@@ -2788,7 +2828,7 @@ Current Governance proposals have indicated that we should have full automation 
 </ol>
 <h2 id="errata-1"><a class="header" href="#errata-1">Errata</a></h2>
 <p>Any post-publication corrections or updates to this MIP will be documented here to maintain transparency and accuracy.</p>
-<h2 id="appendix-12"><a class="header" href="#appendix-12">Appendix</a></h2>
+<h2 id="appendix-13"><a class="header" href="#appendix-13">Appendix</a></h2>
 <ul>
 <li>[R1] Safe Multisig: https://safe.global/</li>
 <li>[R2] SafeKit API Documentation: https://docs.safe.global/sdk/api-kit</li>
@@ -2799,9 +2839,9 @@ Current Governance proposals have indicated that we should have full automation 
 <li><strong>Description</strong>: How to calculate gas fees for transactions on Movement L2.</li>
 <li><strong>Authors</strong>: <a href="mailto:franck.cassez@movementlabs.xyz">Franck Cassez</a></li>
 </ul>
-<h2 id="abstract-13"><a class="header" href="#abstract-13">Abstract</a></h2>
+<h2 id="abstract-14"><a class="header" href="#abstract-14">Abstract</a></h2>
 <p>This MIP describes the structure of the gas fees and overall resource consumption needed to execute, and post a transaction to the DA/L1.</p>
-<h2 id="motivation-13"><a class="header" href="#motivation-13">Motivation</a></h2>
+<h2 id="motivation-14"><a class="header" href="#motivation-14">Motivation</a></h2>
 <p>The transaction fees on L2s are multi-dimensional [<a href="Review/gas-fee-calculation/MIP/mip-19/index.html#ref-9">9</a>, <a href="Review/gas-fee-calculation/MIP/mip-19/index.html#ref-10">10</a>]. They comprise of <em>execution fees</em>, <em>settlement fees</em> and <em>data availability fees</em>.
 This MIP describes what the different types of fees are, and how the transaction fees can be computed.</p>
 <h2 id="scope-of-this-mip"><a class="header" href="#scope-of-this-mip">Scope of this MIP</a></h2>
@@ -2950,11 +2990,11 @@ We have not finalised the FFS details yet so it may be premature to try and defi
 <li><strong>Authors</strong>: <a href="mailto:andy.bell@movementlabs.xyz">Andy Bell</a></li>
 <li><strong>Desiderata</strong>: <a href="Review/andyjsbell/unwanted-framework/MIP/mip-24/../MD/md-0">MD-0</a></li>
 </ul>
-<h2 id="abstract-14"><a class="header" href="#abstract-14">Abstract</a></h2>
+<h2 id="abstract-15"><a class="header" href="#abstract-15">Abstract</a></h2>
 <p>The use of Movement’s fork of aptos core for the Movement Network is a subset of its total.  There are significant areas in this repository which are not used from a node, tooling and framework perspective.  Due to the size of the repository this MIP will only consider the redundancy inherited from the aptos framework.</p>
-<h2 id="motivation-14"><a class="header" href="#motivation-14">Motivation</a></h2>
+<h2 id="motivation-15"><a class="header" href="#motivation-15">Motivation</a></h2>
 <p>With the Movement network only using a subset Movement’s fork of aptos core we are introducing technical debt and opening the framework to attack vectors for functionality not used in the context of Movement’s network fork.  Large areas of code can be removed to alleviate this issue and provide more security assurances</p>
-<h2 id="specification-13"><a class="header" href="#specification-13">Specification</a></h2>
+<h2 id="specification-14"><a class="header" href="#specification-14">Specification</a></h2>
 <p>With closer inspection of the Movement fork of aptos core we are able to quickly identify areas of functionality that are not required in the context of the Movement network.  The following would be modules which would be strong candidates to be removed.</p>
 <ul>
 <li>
@@ -3013,11 +3053,11 @@ We have not finalised the FFS details yet so it may be premature to try and defi
 </li>
 </ul>
 <p>The initialisation and functioning of these modules are coupled with the VM directly and hence would require decoupling of this functionality at the VM level.</p>
-<h2 id="reference-implementation-12"><a class="header" href="#reference-implementation-12">Reference Implementation</a></h2>
-<h2 id="verification-13"><a class="header" href="#verification-13">Verification</a></h2>
+<h2 id="reference-implementation-13"><a class="header" href="#reference-implementation-13">Reference Implementation</a></h2>
+<h2 id="verification-14"><a class="header" href="#verification-14">Verification</a></h2>
 <p>With the removal of these modules we would expect the tests for Node, VM and framework would pass</p>
 <h2 id="errata-2"><a class="header" href="#errata-2">Errata</a></h2>
-<h2 id="appendix-13"><a class="header" href="#appendix-13">Appendix</a></h2>
+<h2 id="appendix-14"><a class="header" href="#appendix-14">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-25-proxy-aptos-framework-for-stage-0-governance"><a class="header" href="#mip-25-proxy-aptos-framework-for-stage-0-governance">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></h1>
 <ul>
@@ -3025,11 +3065,11 @@ We have not finalised the FFS details yet so it may be premature to try and defi
 <li><strong>Authors</strong>: <a href="mailto:andy.bell@movementlabs.xyz">Andy Bell</a></li>
 <li><strong>Desiderata</strong>: <a href="Review/andyjsbell/proxy-root/MIP/mip-25/../MD/md-0">MD-0</a></li>
 </ul>
-<h2 id="abstract-15"><a class="header" href="#abstract-15">Abstract</a></h2>
+<h2 id="abstract-16"><a class="header" href="#abstract-16">Abstract</a></h2>
 <p>This MIP describes a means by which during Stage 0 of the Movement network a signing key, single or multi, is able to manage the Aptos Framework without relying on the governance module included in the Aptos Framework.  This facilitating a more agile method in which Aptos Framework updates and modifications can be executed rapidly during this stage of the network.  This method would be deprecated in favour of decentralized governance in the future.</p>
-<h2 id="motivation-15"><a class="header" href="#motivation-15">Motivation</a></h2>
+<h2 id="motivation-16"><a class="header" href="#motivation-16">Motivation</a></h2>
 <p>During Stage 0 of the Movement network Movement Labs would hold centralized control of the node and Aptos Framework.  In order to update or modify the Aptos Framework this would involve the deployment of new node binaries to operators in the network who would then upgrade.  One option to facilitate Aptos Framework upgrades is the use of the governance module which forms part of the Aptos Framework.  This, however, is not optimal for stage 0 of the network and the proposal here is to include a new module in the framework which proxies functions executed with the priviledges of the Aptos Framework.  Following a similiar strategy as the governance module but allowing voting to be circumvented with the use of a trusted multisig wallet held and managed by Movement Labs.</p>
-<h2 id="specification-14"><a class="header" href="#specification-14">Specification</a></h2>
+<h2 id="specification-15"><a class="header" href="#specification-15">Specification</a></h2>
 <ol>
 <li>The Proxy module MUST be made available as part of the Aptos Framework.</li>
 <li>A single or multi-signature MUST be required to temporarily acquire the signing privileges of the Aptos Framework.</li>
@@ -3039,7 +3079,7 @@ We have not finalised the FFS details yet so it may be premature to try and defi
 <li>The controller account SHOULD be multisig, and this MUST be a strict requirement for the Proxy module. For testing purposes, this requirement MAY be relaxed to allow a single account.</li>
 <li>The Proxy module MUST allow the controller to remove the signing capabilities and render the module inoperable.  This MUST allow an upgrade path to a new governance like module.  This MUST be an irreversible action.</li>
 </ol>
-<h2 id="reference-implementation-13"><a class="header" href="#reference-implementation-13">Reference Implementation</a></h2>
+<h2 id="reference-implementation-14"><a class="header" href="#reference-implementation-14">Reference Implementation</a></h2>
 <pre><code class="language-rust">module aptos_framework::proxy {
     use std::hash::sha3_256;
     use std::signer;
@@ -3444,7 +3484,7 @@ Ideally, the <code>proxy</code> module would eventually be replaced by Aptos Gov
         // Proxy is now inactive
     }
 }</code></pre>
-<h2 id="verification-14"><a class="header" href="#verification-14">Verification</a></h2>
+<h2 id="verification-15"><a class="header" href="#verification-15">Verification</a></h2>
 <h3 id="1-correctness"><a class="header" href="#1-correctness">1. Correctness:</a></h3>
 <p>The reference implementation has been integrated with the Aptos Framework. The <code>multisig_account.move</code> module has been verified as a mechanism to allow the proxy controller to be managed by a predefined set of signers. A review of <code>aptos_governance.move</code> provided a useful framework for validating and executing approved scripts based on their script hash. Further testing, including integration tests, will be conducted to validate the reference implementation presented here, and this will be supported by specification files for formal verification.</p>
 <h3 id="2-security-implications"><a class="header" href="#2-security-implications">2. Security Implications:</a></h3>
@@ -3457,19 +3497,19 @@ Changes will be required at Genesis to initialize the module, which will involve
 <h3 id="5-peer-review-and-community-feedback"><a class="header" href="#5-peer-review-and-community-feedback">5. Peer Review and Community Feedback:</a></h3>
 <p>The proposal is subject to review and feedback from the Movement Labs team and the wider community to ensure that it meets the needs of the ecosystem.</p>
 <h2 id="errata-3"><a class="header" href="#errata-3">Errata</a></h2>
-<h2 id="appendix-14"><a class="header" href="#appendix-14">Appendix</a></h2>
+<h2 id="appendix-15"><a class="header" href="#appendix-15">Appendix</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-27-contract-pipeline"><a class="header" href="#mip-27-contract-pipeline">MIP-27: Contract pipeline</a></h1>
 <ul>
 <li><strong>Description</strong>: Proposal to establish a structured pipeline for new contract deployments, aligning with the infrastructure outlined in <a href="https://github.com/movementlabsxyz/MIP/pull/23">MIP-23</a> while maintaining the existing Movement Token under <a href="https://github.com/movementlabsxyz/MIP/pull/18">MIP-18</a>.</li>
 <li><strong>Authors</strong>: <a href="mailto:primata@movementlabs.xyz">Primata</a></li>
 </ul>
-<h2 id="abstract-16"><a class="header" href="#abstract-16">Abstract</a></h2>
+<h2 id="abstract-17"><a class="header" href="#abstract-17">Abstract</a></h2>
 <p>This proposal establishes a Contract Pipeline that adheres to the decentralized governance principles set forth in <a href="https://github.com/movementlabsxyz/MIP/pull/23">MIP-23</a> while maintaining compatibility with the existing Movement Token governance under <a href="https://github.com/movementlabsxyz/MIP/pull/18">MIP-18</a>.</p>
 <p>MIP-27 proposes a Contract Pipeline that leverages a timelock-based infrastructure, ensuring security and decentralization for new contract deployments. While the Movement Token (\) continues to operate under the provisions of <a href="https://github.com/movementlabsxyz/MIP/pull/18">MIP-18</a>, future deployments should adhere to the structure set forth by <a href="https://github.com/movementlabsxyz/MIP/pull/23">MIP-23</a>. The pipeline includes components such as a KMS multisig for transaction proposals, off-chain voting for stakers and token holders, and a timelock mechanism for executing transactions, providing transparency and decentralized control.</p>
-<h2 id="motivation-16"><a class="header" href="#motivation-16">Motivation</a></h2>
+<h2 id="motivation-17"><a class="header" href="#motivation-17">Motivation</a></h2>
 <p>Currently, Movement Token operates under the governance outlined in <a href="https://github.com/movementlabsxyz/MIP/pull/18">MIP-18</a>, and we may wish to maintain this setup for the time being. However, for future deployments and upgrades, we should transition to a more robust infrastructure which includes the release conventions as described in <a href="https://github.com/movementlabsxyz/MIP/pull/23">MIP-23</a>. This approach provides decentralized control, security, and accountability through multisig setups, timelocks, and community voting mechanisms. By establishing a structured pipeline, we ensure that the development process remains transparent, auditable, and aligned with the community’s interests.</p>
-<h2 id="specification-15"><a class="header" href="#specification-15">Specification</a></h2>
+<h2 id="specification-16"><a class="header" href="#specification-16">Specification</a></h2>
 <p>The Contract Pipeline includes the following components:</p>
 <h4 id="1-timelock"><a class="header" href="#1-timelock">1. <strong>Timelock</strong></a></h4>
 <ul>
@@ -3560,9 +3600,9 @@ Changes will be required at Genesis to initialize the module, which will involve
 <p>During the timelock period, stakers and token holders participate in off-chain voting to provide feedback on the proposed transaction. This allows the community to give input before the final execution.</p>
 <h4 id="6-execution"><a class="header" href="#6-execution">6. Execution</a></h4>
 <p>After the timelock period, the MCR domain composed of network stakers is responsible for executing the transaction, completing the deployment or upgrade process.</p>
-<h2 id="reference-implementation-14"><a class="header" href="#reference-implementation-14">Reference implementation</a></h2>
+<h2 id="reference-implementation-15"><a class="header" href="#reference-implementation-15">Reference implementation</a></h2>
 <p>The pipeline will leverage KMS multisig setups and GitHub releases as a mechanism for secure and auditable transaction proposals. Off-chain voting mechanisms for stakers and token holders can be implemented using existing decentralized governance platforms.</p>
-<h2 id="verification-15"><a class="header" href="#verification-15">Verification</a></h2>
+<h2 id="verification-16"><a class="header" href="#verification-16">Verification</a></h2>
 <h4 id="1-correctness-1"><a class="header" href="#1-correctness-1">1. <strong>Correctness</strong></a></h4>
 <p>The pipeline’s correctness relies on the successful integration of KMS multisig, timelocks, GitHub releases, and off-chain voting mechanisms. Each component’s role must be clearly defined and enforced.</p>
 <h4 id="2-security-implications-1"><a class="header" href="#2-security-implications-1">2. <strong>Security implications</strong></a></h4>
@@ -3577,46 +3617,6 @@ Changes will be required at Genesis to initialize the module, which will involve
 <p>Formal testing of the KMS multisig setup, timelock mechanisms, and GitHub release workflows should be conducted to ensure proper functionality.</p>
 <h4 id="5-peer-review-and-community-feedback-1"><a class="header" href="#5-peer-review-and-community-feedback-1">5. <strong>Peer review and community feedback</strong></a></h4>
 <p>The proposal will be reviewed by Movement Labs engineers and the broader community for feedback before final implementation.</p>
-<h2 id="appendix-15"><a class="header" href="#appendix-15">Appendix</a></h2>
-<h2 id="changelog-21"><a class="header" href="#changelog-21">Changelog</a></h2>
-<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="mip-28-naming-conventions-for-movement-protocol-design"><a class="header" href="#mip-28-naming-conventions-for-movement-protocol-design">MIP-28: Naming conventions for Movement protocol design</a></h1>
-<ul>
-<li><strong>Description</strong>: Naming conventions for actors in Movement protocol design, tests, and documentation.</li>
-<li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
-</ul>
-<h2 id="abstract-17"><a class="header" href="#abstract-17">Abstract</a></h2>
-<p>This MIP outlines the naming conventions for actors in Movement protocol design, tests, and documentation. By standardizing the naming conventions, we aim to ensure that the Movement community can easily understand and navigate the Movement protocol ecosystem.</p>
-<h2 id="motivation-17"><a class="header" href="#motivation-17">Motivation</a></h2>
-<p>Movement protocols are complex systems that involve multiple actors, such as users, developers, and validators. By establishing naming conventions for these actors, we can create a common language that simplifies communication and collaboration within the Movement community. Standardized naming conventions also make it easier for new participants to understand the Movement protocol ecosystem and contribute effectively.</p>
-<h2 id="specification-16"><a class="header" href="#specification-16">Specification</a></h2>
-<h3 id="generic-names"><a class="header" href="#generic-names">Generic names</a></h3>
-<ul>
-<li>Alice: a generic user who interacts with a Movement protocol. The first user in a generic setup SHOULD be named Alice.</li>
-<li>Bob: a generic user who interacts with a Movement protocol. The second user in a generic setup SHOULD be named Bob.</li>
-<li>Charlie: a generic user who interacts with a Movement protocol. The third user in a generic setup SHOULD be named Charlie.</li>
-</ul>
-<h3 id="specific-names"><a class="header" href="#specific-names">Specific names</a></h3>
-<ul>
-<li>
-<p>(Malicious) Richard: a user who acts maliciously in a Movement protocol. The first malicious user in a generic setup SHOULD be named Richard.</p>
-<ul>
-<li>An alternative My Boy Richard can also be used to refer to a user who acts unnecessarily outside of their own interests, perhaps for the greater good. This usage was introduced to avoid being too univocal; Malicious Richard originally and endearingly referred to an early team member at Movement Labs. When specifying My Boy Richard, the usage of Richard should be prefixed.</li>
-<li>Should “My Boy Richard” not be sufficient in describing the will or intention of the actor, “My Boy Primata” may be used when wishing to express an actor in the system who is incredibly generous, often acting for the greater good. You might think of Robin Hood as an example of a “My Boy Primata” actor.</li>
-</ul>
-</li>
-<li>
-<p>(Naive) Eve: a user who acts naively in a Movement protocol. The first naive user in a generic setup SHOULD be named Eve.</p>
-</li>
-<li>
-<p>(Lazy) Liam: a user who acts lazily in a Movement protocol. The first lazy user in a generic setup SHOULD be named Liam.</p>
-<ul>
-<li>(Latent) Liam is also acceptable to refer to a user who acts lazily but with the potential to act otherwise. This usage was introduced to avoid being too univocal; Lazy Liam originally and endearingly referred to an early team member at Movement Labs. When specifying Latent Liam, the usage of Liam should be prefixed.</li>
-</ul>
-</li>
-</ul>
-<h2 id="reference-implementation-15"><a class="header" href="#reference-implementation-15">Reference implementation</a></h2>
-<h2 id="verification-16"><a class="header" href="#verification-16">Verification</a></h2>
 <h2 id="appendix-16"><a class="header" href="#appendix-16">Appendix</a></h2>
 <h2 id="changelog-22"><a class="header" href="#changelog-22">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
@@ -5119,6 +5119,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <li><a href="Approved/main/MIP/mip-1/">MIP-1: ENTL (Enclave Nonce Time-lock)</a></li>
 <li><a href="Approved/main/MIP/mip-15/">MIP-15: MG (Movement Gloss)</a></li>
 <li><a href="Approved/main/MIP/mip-23/">MIP-23: Release Conventions for Movement Technologies</a></li>
+<li><a href="Approved/main/MIP/mip-28/">MIP-28: Naming conventions for Movement protocol design</a></li>
 <li><a href="Approved/main/MIP/mip-39/">MIP-39: MOVE Token – HTLC-based Native Bridge design</a></li>
 <li><a href="Approved/main/MIP/mip-53/">MIP-53: Conventions for proposing Progressive L2 Models</a></li>
 <li><a href="Approved/main/MIP/mip-58/">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></li>
@@ -5153,7 +5154,6 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <li><a href="Review/andyjsbell/unwanted-framework/MIP/mip-24/">MIP-24: Removal of redundant functionality from framework</a></li>
 <li><a href="Review/andyjsbell/proxy-root/MIP/mip-25/">MIP-25: Proxy Aptos Framework for Stage 0 governance</a></li>
 <li><a href="Review/primata/mip-27/MIP/mip-27/">MIP-27: Contract pipeline</a></li>
-<li><a href="Review/l-monninger/actor-naming-conventions/MIP/mip-28/">MIP-28: Naming conventions for Movement protocol design</a></li>
 <li><a href="Review/mip/FFS/MIP/mip-34/">MIP-34: Fast Finality Settlement</a></li>
 <li><a href="Review/mip/postconfirmation/MIP/mip-37/">MIP-37: FFS: Postconfirmation</a></li>
 <li><a href="Review/mip/gas-fees-incremental-additions/MIP/mip-47/">MIP-47: Improve Gas fee collection in phases</a></li>
