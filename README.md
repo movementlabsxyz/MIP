@@ -19,7 +19,7 @@ graph LR
 The [Glossary](https://github.com/movementlabsxyz/MIP/wiki/glossary) contains an alphabetically ordered list of terms used in this repository. 
 In addition MG serves as a platform to define glossary terms, which are used in the MIPs and MDs.
 
-> :bulb: For more information on the process in this repository, see also[MIP-0](./MIP/mip-0/README.md).
+> :bulb: For more information on the process in this repository, see also [MIP-0](./MIP/mip-0/README.md).
 
 ## Movement Desiderata (MD)
 
