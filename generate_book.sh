@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# --------------------------- Info -----------------------------
+# We are testing this script in a different repo to make it work.
+# https://github.com/movementlabsxyz/mip-testing
+#
+# Thus, to not introduce errors to the public mdBook 
+# test first in the above repo before updating scripts in this repo.
+# --------------------------------------------------------------
+
 # Ensure we're running with bash 4 or higher (needed for associative arrays)
 if ((BASH_VERSINFO[0] < 4)); then
     echo "This script requires bash version 4 or higher"
@@ -24,7 +32,15 @@ GITHUB_OWNER="movementlabsxyz"
 GITHUB_REPO="MIP"
 API_URL="https://api.github.com"
 
-AUTH_HEADER="Authorization: token $GITHUB_TOKEN"
+AUTH_HEADER=$(bash get_auth_token.sh)
+
+# Test if the token is valid
+response=$(curl -s -H "$AUTH_HEADER" https://api.github.com/user)
+if echo "$response" | jq -e '.message? | contains("Bad credentials")' >/dev/null; then
+    echo "❌ ERROR: GitHub authentication failed. Token might be invalid or expired."
+    exit 1
+fi
+
 
 # Set up absolute paths
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -55,22 +71,46 @@ rm -rf src
 # Create src folder
 mkdir -p src
 
+# Install mdbook-katex
+cargo install mdbook-katex
+
 # Generate book.toml file with the correct title and GitHub repository
-cat >book.toml <<EOL
+cat >book.toml <<'EOL'
 [book]
 title = "MIP"
 
 [output.html]
 smart-punctuation = true
 no-section-label = true
-git-repository-url = "https://github.com/movementlabsxyz/MIP-Testing"
-site-url = "/MIP-Testing/"
+git-repository-url = "https://github.com/movementlabsxyz/MIP"
+site-url = "/MIP/"
+mathjax-support = true
 
 [output.html.search]
 heading-split-level = 0
 
 [output.html.playground]
 runnable = false
+
+[preprocessor.katex]
+after = ["links"]
+output = "html"
+leqno = false
+fleqn = false
+throw-on-error = false
+error-color = "#cc0000"
+min-rule-thickness = -1.0
+max-size = "Infinity"
+max-expand = 1000
+trust = true
+no-css = false
+include-src = false
+block-delimiter = { left = '$$', right = '$$' }
+inline-delimiter = { left = '$', right = '$' }
+pre-render = false
+
+[preprocessor.katex.macros]
+"\\" = "\\textbackslash"
 EOL
 
 # Clone MIP repository
@@ -124,35 +164,145 @@ sanitize_title_for_summary() {
     echo "$title"
 }
 
+# Update the escape_dollar_signs function to handle Markdown headers and math better
+escape_dollar_signs() {
+    local file="$1"
+    local temp_file="${file}.tmp"
+    
+    # Check if the source file exists
+    if [ ! -f "$file" ]; then
+        echo "Warning: Source file $file does not exist, skipping dollar sign escaping"
+        return 0
+    fi
+    
+    # Check if we can create and write to the temp file
+    if ! touch "$temp_file" 2>/dev/null; then
+        echo "Warning: Cannot create temporary file $temp_file, skipping dollar sign escaping"
+        return 0
+    fi
+    
+    while IFS= read -r line; do
+        # Skip lines that are already properly escaped
+        if [[ "$line" =~ ^\\\\ || "$line" =~ ^/\\\\ ]]; then
+            echo "$line" >> "$temp_file"
+            continue
+        fi
+        
+        # Handle Markdown headers with dollar signs
+        if [[ "$line" =~ ^#+ ]]; then
+            # This is a header line - escape any dollar signs
+            line="${line//\$/\\$}"
+            echo "$line" >> "$temp_file"
+            continue
+        fi
+        
+        # Handle math expressions
+        if [[ "$line" =~ \$\$.+\$\$ ]]; then
+            # Block math - preserve as is
+            echo "$line" >> "$temp_file"
+            continue
+        fi
+        
+        if [[ "$line" =~ \$[^#]+\$ ]]; then
+            # Inline math that doesn't contain headers - preserve as is
+            echo "$line" >> "$temp_file"
+            continue
+        fi
+        
+        # Escape token references
+        line="${line//\$L1MOVE/\\$L1MOVE}"
+        line="${line//\$L2MOVE/\\$L2MOVE}"
+        line="${line//\$MOVE/\\$MOVE}"
+        line="${line//\$ETH/\\$ETH}"
+        
+        # Handle special cases in SUMMARY.md
+        if [[ "$file" == *"SUMMARY.md" ]]; then
+            # Fix markdown links without over-escaping
+            line="${line//\]\(/](}"
+            # Only escape backslashes that aren't already escaped
+            line="${line//\\/\\\\}"
+            line="${line//\\\\\\/\\\\}"  # Fix double escapes
+        fi
+        
+        # Handle any remaining standalone dollar signs
+        # but only if they're not part of a math expression
+        if ! [[ "$line" =~ \$[^#]*\$ ]]; then
+            line="${line//\$ /\\$ }"
+            line="${line// \$/ \\$}"
+        fi
+        
+        echo "$line" >> "$temp_file" || {
+            echo "Warning: Failed to write to $temp_file, keeping original file unchanged"
+            rm -f "$temp_file"
+            return 0
+        }
+    done < "$file"
+    
+    # Only move the temp file if it exists and has content
+    if [ -f "$temp_file" ] && [ -s "$temp_file" ]; then
+        mv "$temp_file" "$file" || {
+            echo "Warning: Failed to replace $file with processed version, keeping original file"
+            rm -f "$temp_file"
+            return 0
+        }
+    else
+        echo "Warning: Temporary file $temp_file is missing or empty, keeping original file"
+        rm -f "$temp_file"
+    fi
+}
+
 # Initialize README and SUMMARY.md
 initialize_glossary_and_summary() {
-    mkdir -p glossary_parts
+    mkdir -p glossary_parts src
     echo "# Welcome to the Movement Network MIP Book" > src/README.md
     echo "" >> src/README.md
+
+    WIKI_REPO="https://github.com/movementlabsxyz/MIP.wiki.git"
+    WIKI_DIR="/tmp/mip_wiki"
+    GLOSSARY_FILE="src/GLOSSARY.md"
+
+    echo "Fetching glossary from the MIP Wiki..."
     
-    # Create the GLOSSARY.md file directly instead of copying
-    cat > src/GLOSSARY.md << 'EOL'
-## Glossary
+    # Remove any previous clone
+    rm -rf "$WIKI_DIR"
 
-Alphabetically ordered list of terms defined through MGs.
+    # Clone the wiki repo
+    if git clone --depth=1 "$WIKI_REPO" "$WIKI_DIR"; then
+        if [ -f "$WIKI_DIR/Glossary.md" ]; then
+            echo "Extracting glossary..."
+            cp "$WIKI_DIR/Glossary.md" "$GLOSSARY_FILE"
+            echo "Successfully downloaded glossary."
+        else
+            echo "Error: Glossary file not found in Wiki repository. Using fallback."
+            fallback_glossary
+        fi
+    else
+        echo "Error: I failed to clone the Wiki repository. Using fallback."
+        fallback_glossary
+    fi
 
-**$L1MOVE** - 
-ERC-20 type token for the Movement Network with the source contract on L1. See also $MOVE. [→ MG-39](Approved/main/MG/mg-39/)
+    # Cleanup
+    rm -rf "$WIKI_DIR"
 
-**$L2MOVE** - 
-wrapped version of the $L1MOVE token. [→ MG-39](Approved/main/MG/mg-39/)
-
-**$MOVE** - 
-ERC-20 type token for the Movement Network with the source contract on L1. See also $L1MOVE. [→ MG-39](Approved/main/MG/mg-39/)
-
-**Native Bridge** - 
-The bridge that allows the transfer of tokens between L1 and L2, which hold $L1MOVE and $L2MOVE token, respectively. The native bridge has the capability to mint $L2MOVE tokens. [→ MG-39](Approved/main/MG/mg-39/)
-EOL
-    
+    # Output the glossary file content for debugging
+    echo "DEBUG: Glossary file content:"
+    cat "$GLOSSARY_FILE"
     echo "# Summary" > src/SUMMARY.md
     echo "[Glossary](GLOSSARY.md)" >> src/SUMMARY.md
     echo "" >> src/SUMMARY.md
 }
+
+# Fallback glossary function
+fallback_glossary() {
+    cat > "$GLOSSARY_FILE" << 'EOL'
+## Glossary
+
+⚠ **Warning**: Failed to fetch the latest glossary from the GitHub Wiki.
+Please check [the glossary online](https://github.com/movementlabsxyz/MIP/wiki/glossary).
+
+EOL
+}
+
 
 get_standardized_path() {
     local type="$1"    # MD, MG or MIP (uppercase)
@@ -204,6 +354,9 @@ process_readme_files() {
     
     if [ -d "$folder" ]; then
         if [ -f "$folder/README.md" ]; then
+            # Escape dollar signs in the README.md file
+            escape_dollar_signs "$folder/README.md"
+            
             readme_title=$(head -n 10 "$folder/README.md" | grep -m 1 '^# ' || true)
             if [ -n "$readme_title" ]; then
                 readme_title="${readme_title#\# }"
@@ -268,7 +421,6 @@ process_main_branch() {
         exit 1
     fi
 
-    echo "Contents of $branch_temp_dir:"
     ls -la "$branch_temp_dir"
 
     # Copy root-level files (like GLOSSARY.md) into the Approved directory
@@ -345,17 +497,40 @@ copy_branch_content() {
     branch_url_encoded=$(urlencode "$branch")
     pr_info=$(curl -s -H "$AUTH_HEADER" "$API_URL/repos/$GITHUB_OWNER/$GITHUB_REPO/pulls?head=$GITHUB_OWNER:$branch_url_encoded&state=open")
 
-    pr_count=$(echo "$pr_info" | jq '. | length')
+    # Enhanced error handling for API response
+    if [ -z "$pr_info" ]; then
+        echo "Error: Empty response from GitHub API for branch $branch"
+        return
+    fi
 
-    if [ "$pr_count" -eq 0 ]; then
+    if ! echo "$pr_info" | jq empty 2>/dev/null; then
+        echo "Error: Invalid JSON response from GitHub API for branch $branch"
+        return
+    fi
+
+    # Debugging: Print the JSON response to understand its structure
+    # echo "DEBUG: JSON response for branch $branch:"
+    # echo "$pr_info" | jq .
+
+    # Check if the response is an empty array
+    if [ "$(echo "$pr_info" | jq 'length')" -eq 0 ]; then
         echo "No open PR associated with branch $branch. Skipping."
         return
     fi
 
-    is_draft=$(echo "$pr_info" | jq '.[0].draft')
+    # Safely get PR information with null checks
 
-    if [ "$is_draft" == "true" ]; then
-        echo "Branch $branch is associated with a draft PR. Skipping."
+    is_draft=$(echo "$pr_info" | jq -r '.[0].draft // false')
+    pr_title=$(echo "$pr_info" | jq -r '.[0].title // empty')
+
+    if [ -z "$pr_title" ]; then
+        echo "Error: Could not get PR title for branch $branch"
+        return
+    fi
+
+    # Check both the draft status and if the title contains [draft] or [Draft]
+    if [ "$is_draft" == "true" ] || [[ "$pr_title" =~ \[([Dd]raft)\] ]]; then
+        echo "Branch $branch is associated with a draft PR or has [draft] in title. Skipping."
         return
     fi
 
@@ -373,7 +548,19 @@ copy_branch_content() {
         if [ -d "$branch_temp_dir/$type" ]; then
             echo "Found directory: $branch_temp_dir/$type"
             
+            # Add check for empty directory
+            if [ -z "$(ls -A "$branch_temp_dir/$type")" ]; then
+                echo "Directory $branch_temp_dir/$type is empty, skipping"
+                continue
+            fi
+            
             for folder in "$branch_temp_dir/$type"/*; do
+                # Check if folder exists and is a directory
+                if [ ! -d "$folder" ]; then
+                    echo "Skipping non-directory: $folder"
+                    continue
+                fi
+                
                 folder_name=$(basename "$folder")
                 lowercase_folder_name=$(echo "$folder_name" | tr '[:upper:]' '[:lower:]')
 
