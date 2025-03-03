@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Glossary - MIP</title>
+        <title>MD-61: Relayer algorithm for the lock/mint Native Bridge - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -12,21 +12,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -35,11 +35,11 @@
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "";
+            var path_to_root = "../../../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
+        <script src="../../../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -125,7 +125,7 @@
                     <h1 class="menu-title">MIP</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/movementlabsxyz/MIP" title="Git repository" aria-label="Git repository">
@@ -158,64 +158,42 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<blockquote>
-<p>Alphabetically ordered list of terms used in this repository.</p>
-</blockquote>
-<p><strong>Attester</strong>  (not recommended)
-The term attester has been deprecated in favor of validator. &gt; <a href="https://github.com/movementlabsxyz/MIP/blob/mip/FFS/MIP/mip-34/README.md">MIP-34</a></p>
-<p><strong>Batch</strong><br />
-Less clean, but more common term for sequencer batch. May be mixed up with the batch of transactions sent to the sequencer, or with the batch of L2Blocks (superBlocks) that should be processed for Postconfirmations. Use with care. &gt; <a href="https://github.com/movementlabsxyz/MIP/blob/mip/FFS/MIP/mip-34/README.md">MIP-34</a></p>
-<p><strong>Blob</strong><br />
-The set of transactions that is sent to the the DA before transactions are ordered.</p>
-<p><strong>Block</strong>
-More common term for L2Block. May be mixed up with the batch of transactions sent to the sequencer, the L1Block or with the batch of L2Blocks that should be processed by the L1-contract. So treat with care.</p>
-<p><strong>Circulating token</strong>
-Token that is not locked and in circulation on L1 or L2.</p>
-<p><strong>Fastconfirmation</strong><br />
-The process of confirming a (sequence of) L2Blocks on L2. &gt; <a href="https://github.com/movementlabsxyz/MIP/blob/mip/FFS/MIP/mip-34/README.md">MIP-34</a></p>
-<p><strong>Fast Finality Settlement (FFS)</strong><br />
-The objective of the Fast-Finality-Settlement (FFS) protocol is to confirm that transactions are processed correctly and back this confirmation through crypto-economic security. It does not relate to the ordering of transactions.</p>
-<p><strong>$GasToken</strong>
-Token used to pay for fees on L2. Could be $L2MOVE.</p>
-<p><strong>Governed Gas Pool</strong>
-A token pool on L2 that holds the gas token ($L2MOVE).</p>
-<p><strong>Informer</strong>
-An entity that monitors L1 <strong>and</strong> L2 to understand token supply.</p>
-<p><strong>$L1MOVE</strong>
-ERC-20 type token for the Movement Network with the source contract on L1. See also $MOVE.</p>
-<p><strong>$L2MOVE</strong>
-Native token on L2. Used to pay for L2 gas.</p>
-<p><strong>L2Block</strong><br />
-A block of transactions that is derived from a protoBlock. It contains information about the state root produced by the transactions in the block. &gt; <a href="https://github.com/movementlabsxyz/MIP/blob/mip/FFS/MIP/mip-34/README.md">MIP-34</a></p>
-<p><strong>Level 2 (L2)</strong>
-Two chains are present in our architecture: a base chain (or L1) and a second chain (or L2). We refer to L2 as a chain that is not the base chain.</p>
-<p><strong>$MOVE</strong>
-ERC-20 type token for the Movement Network with the source contract on L1. See also $L1MOVE.</p>
-<p><strong>Native Bridge (NB)</strong>
-Native bridge that permits to exchange of $L1MOVE into $L2MOVE, and vice versa. This bridge mints $L2MOVE.</p>
-<p><strong>Postconfirmation</strong><br />
-The process of confirming a (sequence of) blocks after it has been processed by the FFS protocol on L1. &gt; <a href="https://github.com/movementlabsxyz/MIP/blob/mip/FFS/MIP/mip-34/README.md">MIP-34</a></p>
-<p><strong>Potential token</strong>
-Token that could potentially be converted to circulating $L1MOVE or $L2MOVE token. A bridge transfer releases the potential token on the target change, while it locks source chain tokens into the potential token.</p>
-<p><strong>Potential total supply</strong>
-Total supply plus potential token supply.</p>
-<p><strong>ProtoBlock</strong>
-A block of ordered transaction provided by sequencer or DA on L2. No execution applied at this point. &gt; <a href="https://github.com/movementlabsxyz/MIP/blob/mip/FFS/MIP/mip-34/README.md">MIP-34</a></p>
-<p><strong>$StakingToken</strong>
-Token used for staking on L1. Could be $L1MOVE.</p>
-<p><strong>SuperBlock</strong>
-A range of L2Blocks that is processed by the FFS protocol. It contains information about the state root produced by the sequence of L2Blocks in the superBlock. &gt; <a href="https://github.com/movementlabsxyz/MIP/blob/mip/FFS/MIP/mip-34/README.md">MIP-34</a></p>
-<p><strong>Quorum certificate</strong>
-Validators may create a super-majority signed certificate that approves a certain L2 state.</p>
-<p><strong>Validator</strong><br />
-A validator is a node that participates in the FFS protocol. Validators execute transactions from sequencer-batches and validate their correctness. &gt; <a href="https://github.com/movementlabsxyz/MIP/blob/mip/FFS/MIP/mip-34/README.md">MIP-34</a></p>
+<h1 id="md-61-relayer-algorithm-for-the-lockmint-native-bridge"><a class="header" href="#md-61-relayer-algorithm-for-the-lockmint-native-bridge">MD-61: Relayer algorithm for the lock/mint Native Bridge</a></h1>
+<ul>
+<li><strong>Description</strong>: A desiderata for the relayer in the lock/mint bridge, focusing on event processing, transfer completion, and robust recovery mechanisms.</li>
+<li><strong>Authors</strong>: Andreas Penzkofer, Philippe</li>
+<li><strong>Approval</strong>: :white_check_mark:</li>
+</ul>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>This desiderata outlines the desired functionalities and recovery mechanisms for a Relayer handling the completion of transfers in the lock/mint Native Bridge protocol. It emphasizes uninterrupted operation, recovery from failure, and minimal dependencies.</p>
+<h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
+<h3 id="d1-continuous-event-processing"><a class="header" href="#d1-continuous-event-processing">D1: Continuous event processing</a></h3>
+<p><strong>User journey</strong>: The relayer continuously processes events from the source chain, created from user transfer requests, and ensures their completion on the target chain.</p>
+<p><strong>Justification</strong>: Guarantees the seamless execution of cross-chain transfers and minimizes delays or interruptions.</p>
+<h3 id="d2-robust-bootstrapping-mechanism"><a class="header" href="#d2-robust-bootstrapping-mechanism">D2: Robust bootstrapping mechanism</a></h3>
+<p><strong>User journey</strong>: Upon restart, the relayer automatically determines the state of pending transfers and resumes processing without requiring manual intervention.</p>
+<p><strong>Justification</strong>: Ensures resilience and reliability even after unexpected failures or downtime.</p>
+<h3 id="d3-finality-aware-processing"><a class="header" href="#d3-finality-aware-processing">D3: Finality-aware processing</a></h3>
+<p><strong>User journey</strong>: The relayer respects the finality rules of both source and target chains. It ensures transfers are only processed once finalized on the source chain. It considers the finality of the target chain for completing transactions.</p>
+<p><strong>Justification</strong>: Prevents inconsistencies and sending duplicate transfer-completing transactions.</p>
+<h3 id="d4-minimal-trusted-components"><a class="header" href="#d4-minimal-trusted-components">D4: Minimal trusted components</a></h3>
+<p><strong>User journey</strong>: The relayer operates independently without reliance on external indexers or databases.</p>
+<p><strong>Justification</strong>: Reduces operational complexity and points of failure, enhancing system robustness.</p>
+<h3 id="d5-timeout-and-retry-mechanism"><a class="header" href="#d5-timeout-and-retry-mechanism">D5: Timeout and retry mechanism</a></h3>
+<p><strong>User journey</strong>: Pending transfers are retried automatically after a timeout, ensuring eventual completion without manual oversight.</p>
+<p><strong>Justification</strong>: Improves the reliability of the relayer by handling transient errors and network issues gracefully.</p>
+<p><strong>Recommendations</strong>: Implement a configurable timeout period for retries.</p>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../Merged/main/MD/md-23/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
-                            <a rel="next prefetch" href="APPROVAL_STATUS.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../../Merged/main/MD/md-91/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -225,8 +203,11 @@ A validator is a node that participates in the FFS protocol. Validators execute 
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../Merged/main/MD/md-23/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
-                    <a rel="next prefetch" href="APPROVAL_STATUS.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../../Merged/main/MD/md-91/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -241,13 +222,13 @@ A validator is a node that participates in the FFS protocol. Validators execute 
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="../../../../elasticlunr.min.js"></script>
+        <script src="../../../../mark.min.js"></script>
+        <script src="../../../../searcher.js"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="../../../../clipboard.min.js"></script>
+        <script src="../../../../highlight.js"></script>
+        <script src="../../../../book.js"></script>
 
         <!-- Custom JS scripts -->
 

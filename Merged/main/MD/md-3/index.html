@@ -1,0 +1,267 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>MD-3: Postconfirmation: commitment delay, network partitions, and asynchrony - MIP</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">MIP</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/movementlabsxyz/MIP" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="md-3-postconfirmation-commitment-delay-network-partitions-and-asynchrony"><a class="header" href="#md-3-postconfirmation-commitment-delay-network-partitions-and-asynchrony">MD-3: Postconfirmation: commitment delay, network partitions, and asynchrony</a></h1>
+<ul>
+<li><strong>Description</strong>: Consider delays, network partitions and asynchrony. And address how rewards and slashing conditions impact these.</li>
+<li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a>, Andreas Penzkofer</li>
+<li><strong>Approval</strong>: :white_check_mark:</li>
+</ul>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>The Postconfirmation protocol <a href="https://github.com/movementlabsxyz/MIP/blob/mip/MCR/MIP/mip-37/README.md">MIP-37</a> is a stake-based settlement protocol on L1.</p>
+<p>Since it is a distributed protocol we have to account for</p>
+<ul>
+<li>commitment delays</li>
+<li>network partitions</li>
+<li>asynchrony</li>
+</ul>
+<h4 id="challenges-with-the-current-approach"><a class="header" href="#challenges-with-the-current-approach">Challenges with the current approach</a></h4>
+<p><a href="https://github.com/movementlabsxyz/movement/tree/main/protocol-units/settlement/mcr">MCR</a> is an implementation of Postconfirmation.</p>
+<p>In it’s <a href="https://github.com/movementlabsxyz/movement/tree/baa83356a14d44fd4e8346e1eddfc184cebc17d3/protocol-units/settlement/mcr">current form</a>, it does not account for effects on validators through commitment delays, network partitions, or asynchrony:</p>
+<ul>
+<li>once <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> of the active stake is reached the state gets committed.</li>
+<li>rewards and slashing is not implemented. Thus, not being successful in this type of race is not disadvantageous. However, rewards (and potentially slashing) are necessary to incentivize participation.</li>
+</ul>
+<h4 id="challenges-with-future-approaches"><a class="header" href="#challenges-with-future-approaches">Challenges with future approaches</a></h4>
+<p><strong>Introduction of rewards</strong>. With the introduction of rewards well connected nodes may have a higher rate of rewarded commitments, which could lead to a rapid centralization of the network. Moreover, network partitions forced by an adversary could lead to further centralization.</p>
+<p><strong>Introduction of slashing conditions</strong>. Slashing conditions, similar to rewards, have significant impact on the protocol, which should be well understood before implementation.</p>
+<h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
+<h3 id="d1-assess-impact-of-delays-and-network-partitions"><a class="header" href="#d1-assess-impact-of-delays-and-network-partitions">D1: Assess impact of delays and network partitions</a></h3>
+<p><strong>User journey</strong>: A researcher or protocol implementer can understand the impact of delays and network partitions.</p>
+<p><strong>Justification</strong>: It is important to understand the impact on the protocol from delays in commitments and network partitions. Network partitions can also describe a variety of asynchrony problems, such as DOS-attacks, network upgrades, and other forms of asynchrony.</p>
+<p><strong>Recommendations</strong>:
+We assume all forms of asynchrony with which we are concerned can be modeled through network partitions. For example, a node that is not technically offline but that cannot commit to the current block height, could just be exposed to asynchronous delays. However we can model this by assuming a partition.</p>
+<h3 id="d2-provide-a-model-that-considers-absent-commitments"><a class="header" href="#d2-provide-a-model-that-considers-absent-commitments">D2: Provide a model that considers absent commitments</a></h3>
+<p><strong>User journey</strong>: A researcher or protocol implementer can refer to a formal model that describes the impact of absent commitments. Furthermore, rewards and slashing conditions should be considered.</p>
+<p><strong>Justification</strong>: Network partitions effectively result in absent commitments to a given block height. While not changing the stake needed to agree on the height, it may impact liveness or hinder certain validators to commit. Rewards (and slashing) based on this absent commitment should be expected to impact behavior in the protocol. The model would support the derivation of the logic necessary to implement rewarding (and potentially slashing).</p>
+<p><strong>Recommendations</strong>:</p>
+<ul>
+<li>Model the value of a node’s commitment or absenteeism to the available voting options.</li>
+<li>Model byzantine attack vectors such as DOS-attacks on honest participants.</li>
+</ul>
+<h3 id="d3-consider-slashing-conditions-for-lack-of-participation"><a class="header" href="#d3-consider-slashing-conditions-for-lack-of-participation">D3: Consider slashing conditions for lack of participation</a></h3>
+<p><strong>User journey</strong>: A researcher or protocol implementer can understand the impact of slashing conditions for lack of participation. And whether it is necessary to introduce such conditions.</p>
+<p><strong>Justification</strong>: It has been proposed to slash participants for lack of participation. This could be a way to prevent inactivity, however such extreme slashing conditions come with their own risks.</p>
+<p><strong>Recommendations</strong>:
+With the introduction of slashing conditions for lack of participation, a malicious actor could aim to partition the network, such that a subset of nodes struggle to provide their commitments (DOS-attack). See, for example, <a href="https://github.com/movementlabsxyz/rfcs/pull/29">Peer Attack in RFC-29</a>. Excessive penalization could lead to slashing of honest actors. It also could lead to an increase of the attackers proportion of total stake, further reducing the security. Introduction of such slashing conditions should be considered with caution.</p>
+<h3 id="d4-research-commitment-tolerance-window"><a class="header" href="#d4-research-commitment-tolerance-window">D4: Research commitment tolerance window</a></h3>
+<p>It has been proposed that a tolerance window to commitment arrivals would soften the impact on validators for delays they experience.</p>
+<p><strong>User journey</strong>: A researcher or protocol implementer can understand why a commitment tolerance window is necessary and why a particular design for this window was chosen.</p>
+<p><strong>Justification</strong>: Allowing participants to receive a reward after the required stake has already committed to a given block height could prevent centralization and DOS-attacks.</p>
+<p><strong>Recommendations</strong>:
+Consider the following parameters for the commitment tolerance window:</p>
+<ul>
+<li>Commitment happens only after some time has passed, forcing some degree of synchronization.</li>
+<li>Reward decay: a function describing the diminishing returns of rewards later in the window.</li>
+</ul>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
+<p>2025-01-28: consider and rewrite towards the Postconfirmation protocol. Remove the additional asynchronous-upgrades-problem as it requires review.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../Merged/main/MD/md-1/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../../Merged/main/MD/md-4/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../Merged/main/MD/md-1/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../../Merged/main/MD/md-4/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../../elasticlunr.min.js"></script>
+        <script src="../../../../mark.min.js"></script>
+        <script src="../../../../searcher.js"></script>
+
+        <script src="../../../../clipboard.min.js"></script>
+        <script src="../../../../highlight.js"></script>
+        <script src="../../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
