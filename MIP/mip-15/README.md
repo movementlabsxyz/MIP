@@ -4,6 +4,7 @@
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
 - **Desiderata**: [MD-15](../../MD/md-15/README.md)
+- **Approval**: :white_check_mark:
 
 ## Abstract
 

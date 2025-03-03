@@ -2,6 +2,7 @@
 
 - **Description**: A single sentence description summarizing the items in the desiderata.
 - **Authors**: [Author](mailto:author@email.com)
+- **Approval**: <!--Either approved (:white_check_mark:) or rejected (:x:) by the governance body. To be inserted by governance. -->
 
 <!--
   READ MIP-0 BEFORE USING THIS TEMPLATE!

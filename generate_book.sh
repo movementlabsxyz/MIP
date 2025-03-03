@@ -19,13 +19,13 @@ fi
 set -e
 
 # Initialize arrays
-declare -A approved_entries_readme=()
-declare -A approved_entries_summary=()
+declare -A merged_entries_readme=()
+declare -A merged_entries_summary=()
 declare -A review_entries_readme=()
 declare -A review_entries_summary=()
-declare -A approved_mips=()
-declare -A approved_mds=()
-declare -A approved_mgs=()
+declare -A merged_mips=()
+declare -A merged_mds=()
+declare -A merged_mgs=()
 
 # Variables
 GITHUB_OWNER="movementlabsxyz"
@@ -284,11 +284,19 @@ initialize_glossary_and_summary() {
     # Cleanup
     rm -rf "$WIKI_DIR"
 
+    # Initialize approval status files
+    echo "# Approval Status" > "src/APPROVAL_STATUS.md"
+    echo "" >> "src/APPROVAL_STATUS.md"
+    # Initialize temporary files for approved and rejected entries
+    : > "src/APPROVAL_STATUS.md.approved"
+    : > "src/APPROVAL_STATUS.md.rejected"
+
     # Output the glossary file content for debugging
     echo "DEBUG: Glossary file content:"
     cat "$GLOSSARY_FILE"
     echo "# Summary" > src/SUMMARY.md
     echo "[Glossary](GLOSSARY.md)" >> src/SUMMARY.md
+    echo "[Approval Status](APPROVAL_STATUS.md)" >> src/SUMMARY.md
     echo "" >> src/SUMMARY.md
 }
 
@@ -316,6 +324,34 @@ get_standardized_path() {
     echo "${type}/${type,,}-${number}"
 }
 
+# Add this function near the top with other functions:
+extract_approval_status() {
+    local file="$1"
+    local type="$2"
+    local number="$3"
+    local category="$4"
+    local branch="$5"
+    
+    # Extract the approval line - get the whole line containing "Approval"
+    local approval_line=$(grep "^\s*-\s*\*\*Approval\*\*:" "$file")
+
+    # Skip if this is a template line (contains both symbols)
+    if [[ $approval_line == *":white_check_mark:"* && $approval_line == *":x:"* ]]; then
+        return
+    fi
+
+    # Get standardized path for the link
+    local standardized_path=$(get_standardized_path "$type" "$number")
+    local link_path="${category}/${branch}/${standardized_path}/index.html"
+
+    # Check for approval status and write to appropriate section with link
+    if [[ $approval_line == *":white_check_mark:"* ]]; then
+        echo "- ${type}-${number} ([link](${link_path}))" >> "src/APPROVAL_STATUS.md.approved"
+    elif [[ $approval_line == *":x:"* ]]; then
+        echo "- ${type}-${number} ([link](${link_path}))" >> "src/APPROVAL_STATUS.md.rejected"
+    fi
+}
+
 process_readme_files() {
     local base_path="$1"
     local category="$2"
@@ -327,26 +363,26 @@ process_readme_files() {
     local folder="$SRC_DIR/$category/$branch/$standardized_path"
     local entry_key="${type^^}|$mip_number"
     
-    # Skip if we're trying to add a Review entry but the path contains "Approved"
-    if [ "$category" == "Review" ] && [[ "$folder" == *"/Approved/"* ]]; then
-        echo "DEBUG: Skipping review entry because path contains 'Approved': $folder"
+    # Skip if we're trying to add a Review entry but the path contains "Merged"
+    if [ "$category" == "Review" ] && [[ "$folder" == *"/Merged/"* ]]; then
+        echo "DEBUG: Skipping review entry because path contains 'Merged': $folder"
         return
     fi
     
     # Enhanced duplicate checking
     if [ "$category" == "Review" ]; then
-        if [ "${type^^}" == "MIP" ] && [ -n "${approved_mips[$mip_number]}" ]; then
-            echo "DEBUG: Skipping review entry for MIP-$mip_number (exists in approved)"
+        if [ "${type^^}" == "MIP" ] && [ -n "${merged_mips[$mip_number]}" ]; then
+            echo "DEBUG: Skipping review entry for MIP-$mip_number (exists in merged)"
             return
-        elif [ "${type^^}" == "MD" ] && [ -n "${approved_mds[$mip_number]}" ]; then
-            echo "DEBUG: Skipping review entry for MD-$mip_number (exists in approved)"
+        elif [ "${type^^}" == "MD" ] && [ -n "${merged_mds[$mip_number]}" ]; then
+            echo "DEBUG: Skipping review entry for MD-$mip_number (exists in merged)"
             return
-        elif [ "${type^^}" == "MG" ] && [ -n "${approved_mgs[$mip_number]}" ]; then
-            echo "DEBUG: Skipping review entry for MG-$mip_number (exists in approved)"
+        elif [ "${type^^}" == "MG" ] && [ -n "${merged_mgs[$mip_number]}" ]; then
+            echo "DEBUG: Skipping review entry for MG-$mip_number (exists in merged)"
             return
         fi
         
-        if [ -n "${approved_entries_readme[$entry_key]}" ] || [ -n "${review_entries_readme[$entry_key]}" ]; then
+        if [ -n "${merged_entries_readme[$entry_key]}" ] || [ -n "${review_entries_readme[$entry_key]}" ]; then
             echo "DEBUG: Skipping duplicate review entry for $type-$mip_number"
             return
         fi
@@ -354,6 +390,9 @@ process_readme_files() {
     
     if [ -d "$folder" ]; then
         if [ -f "$folder/README.md" ]; then
+            # Extract approval status before escaping dollar signs
+            extract_approval_status "$folder/README.md" "$type" "$mip_number" "$category" "$branch"
+            
             # Escape dollar signs in the README.md file
             escape_dollar_signs "$folder/README.md"
             
@@ -372,29 +411,29 @@ process_readme_files() {
             # For SUMMARY.md, keep the README.md in the path
             summary_entry="- [$readme_title]($relative_path/README.md)"
             
-            if [ "$category" == "Approved" ]; then
-                echo "DEBUG: Adding to approved entries: $type-$mip_number"
-                approved_entries_readme["$entry_key"]="$readme_entry"
-                approved_entries_summary["$entry_key"]="$summary_entry"
+            if [ "$category" == "Merged" ]; then
+                echo "DEBUG: Adding to merged entries: $type-$mip_number"
+                merged_entries_readme["$entry_key"]="$readme_entry"
+                merged_entries_summary["$entry_key"]="$summary_entry"
                 if [ "$type" == "MIP" ]; then
-                    approved_mips["$mip_number"]=1
-                    echo "DEBUG: Marked MIP-$mip_number as approved"
+                    merged_mips["$mip_number"]=1
+                    echo "DEBUG: Marked MIP-$mip_number as merged"
                 elif [ "$type" == "MD" ]; then
-                    approved_mds["$mip_number"]=1
-                    echo "DEBUG: Marked MD-$mip_number as approved"
+                    merged_mds["$mip_number"]=1
+                    echo "DEBUG: Marked MD-$mip_number as merged"
                 elif [ "$type" == "MG" ]; then
-                    approved_mgs["$mip_number"]=1
-                    echo "DEBUG: Marked MG-$mip_number as approved"
+                    merged_mgs["$mip_number"]=1
+                    echo "DEBUG: Marked MG-$mip_number as merged"
                 fi
             else
-                if [ "$type" == "MIP" ] && [ -n "${approved_mips[$mip_number]}" ]; then
-                    echo "DEBUG: Skipping review entry for MIP-$mip_number as it exists in approved"
+                if [ "$type" == "MIP" ] && [ -n "${merged_mips[$mip_number]}" ]; then
+                    echo "DEBUG: Skipping review entry for MIP-$mip_number (exists in merged)"
                     return
-                elif [ "$type" == "MD" ] && [ -n "${approved_mds[$mip_number]}" ]; then
-                    echo "DEBUG: Skipping review entry for MD-$mip_number as it exists in approved"
+                elif [ "$type" == "MD" ] && [ -n "${merged_mds[$mip_number]}" ]; then
+                    echo "DEBUG: Skipping review entry for MD-$mip_number (exists in merged)"
                     return
-                elif [ "$type" == "MG" ] && [ -n "${approved_mgs[$mip_number]}" ]; then
-                    echo "DEBUG: Skipping review entry for MG-$mip_number as it exists in approved"
+                elif [ "$type" == "MG" ] && [ -n "${merged_mgs[$mip_number]}" ]; then
+                    echo "DEBUG: Skipping review entry for MG-$mip_number (exists in merged)"
                     return
                 fi
                 
@@ -406,10 +445,10 @@ process_readme_files() {
     fi
 }
 
-# Function to process the main branch (Approved category)
+# Function to process the main branch (Merged category)
 process_main_branch() {
     local branch="main"
-    local category="Approved"
+    local category="Merged"
 
     mkdir -p "$SRC_DIR/$category/$branch"
     branch_temp_dir=$(mktemp -d)
@@ -423,7 +462,7 @@ process_main_branch() {
 
     ls -la "$branch_temp_dir"
 
-    # Copy root-level files (like GLOSSARY.md) into the Approved directory
+    # Copy root-level files (like GLOSSARY.md) into the Merged directory
     if [ -d "$branch_temp_dir" ]; then
         for file in "$branch_temp_dir"/*; do
             if [ -f "$file" ]; then
@@ -580,16 +619,16 @@ copy_branch_content() {
 
                 # Enhanced duplicate checking before processing
                 entry_key="${type}|${mip_number}"
-                if [ -n "${approved_mips[$mip_number]}" ] && [ "$type" == "MIP" ]; then
-                    echo "DEBUG: Skipping MIP-$mip_number in branch $branch (exists in approved)"
+                if [ -n "${merged_mips[$mip_number]}" ] && [ "$type" == "MIP" ]; then
+                    echo "DEBUG: Skipping MIP-$mip_number in branch $branch (exists in merged)"
                     continue
-                elif [ -n "${approved_mds[$mip_number]}" ] && [ "$type" == "MD" ]; then
-                    echo "DEBUG: Skipping MD-$mip_number in branch $branch (exists in approved)"
+                elif [ -n "${merged_mds[$mip_number]}" ] && [ "$type" == "MD" ]; then
+                    echo "DEBUG: Skipping MD-$mip_number in branch $branch (exists in merged)"
                     continue
-                elif [ -n "${approved_mgs[$mip_number]}" ] && [ "$type" == "MG" ]; then
-                    echo "DEBUG: Skipping MG-$mip_number in branch $branch (exists in approved)"
+                elif [ -n "${merged_mgs[$mip_number]}" ] && [ "$type" == "MG" ]; then
+                    echo "DEBUG: Skipping MG-$mip_number in branch $branch (exists in merged)"
                     continue
-                elif [ -n "${approved_entries_readme[$entry_key]}" ] || [ -n "${review_entries_readme[$entry_key]}" ]; then
+                elif [ -n "${merged_entries_readme[$entry_key]}" ] || [ -n "${review_entries_readme[$entry_key]}" ]; then
                     echo "DEBUG: Skipping duplicate entry for $type-$mip_number in branch $branch"
                     continue
                 fi
@@ -618,7 +657,7 @@ copy_branch_content() {
 
 initialize_glossary_and_summary
 
-# Process main branch (Approved category)
+# Process main branch (Merged category)
 process_main_branch
 
 # Process other branches (Review category)
@@ -631,11 +670,11 @@ for branch in $branches; do
 done
 
 # Before writing to README.md and SUMMARY.md, add debug:
-echo "DEBUG: Number of approved entries: ${#approved_entries_readme[@]}"
+echo "DEBUG: Number of merged entries: ${#merged_entries_readme[@]}"
 echo "DEBUG: Number of review entries: ${#review_entries_readme[@]}"
 
 # In the section that writes to README.md and SUMMARY.md:
-for category in "Approved" "Review"; do
+for category in "Merged" "Review"; do
     echo "## $category" >> "$SRC_DIR/README.md"
     echo "" >> "$SRC_DIR/README.md"
     echo "- [$category](README.md)" >> "$SRC_DIR/SUMMARY.md"
@@ -648,8 +687,8 @@ for category in "Approved" "Review"; do
     declare -a mip_entries_summary
 
     # Use the appropriate arrays based on category
-    if [ "$category" == "Approved" ]; then
-        entries_array=("${!approved_entries_readme[@]}")
+    if [ "$category" == "Merged" ]; then
+        entries_array=("${!merged_entries_readme[@]}")
     else
         entries_array=("${!review_entries_readme[@]}")
     fi
@@ -658,25 +697,25 @@ for category in "Approved" "Review"; do
     for key in "${entries_array[@]}"; do
         IFS='|' read -r type number <<< "$key"
         
-        if [ "$category" == "Approved" ]; then
-            readme_value="${approved_entries_readme[$key]}"
-            summary_value="${approved_entries_summary[$key]}"
+        if [ "$category" == "Merged" ]; then
+            readme_value="${merged_entries_readme[$key]}"
+            summary_value="${merged_entries_summary[$key]}"
         else
-            # Skip if this is a review entry but exists in approved arrays
-            if [ "$type" == "MIP" ] && [ -n "${approved_mips[$number]}" ]; then
-                echo "DEBUG: SKIPPING review entry MIP-$number (exists in approved_mips)"
+            # Skip if this is a review entry but exists in merged arrays
+            if [ "$type" == "MIP" ] && [ -n "${merged_mips[$number]}" ]; then
+                echo "DEBUG: SKIPPING review entry MIP-$number (exists in merged_mips)"
                 continue
-            elif [ "$type" == "MD" ] && [ -n "${approved_mds[$number]}" ]; then
-                echo "DEBUG: SKIPPING review entry MD-$number (exists in approved_mds)"
+            elif [ "$type" == "MD" ] && [ -n "${merged_mds[$number]}" ]; then
+                echo "DEBUG: SKIPPING review entry MD-$number (exists in merged_mds)"
                 continue
-            elif [ "$type" == "MG" ] && [ -n "${approved_mgs[$number]}" ]; then
-                echo "DEBUG: SKIPPING review entry MG-$number (exists in approved_mgs)"
+            elif [ "$type" == "MG" ] && [ -n "${merged_mgs[$number]}" ]; then
+                echo "DEBUG: SKIPPING review entry MG-$number (exists in merged_mgs)"
                 continue
-            elif [[ "${review_entries_readme[$key]}" == *"/Approved/"* ]]; then
-                echo "DEBUG: SKIPPING review entry $type-$number (path contains Approved)"
+            elif [[ "${review_entries_readme[$key]}" == *"/Merged/"* ]]; then
+                echo "DEBUG: SKIPPING review entry $type-$number (path contains Merged)"
                 continue
-            elif [[ "${review_entries_readme[$key]}" =~ ^.*\(Approved/.*\)$ ]]; then
-                echo "DEBUG: SKIPPING review entry $type-$number (link points to Approved)"
+            elif [[ "${review_entries_readme[$key]}" =~ ^.*\(Merged/.*\)$ ]]; then
+                echo "DEBUG: SKIPPING review entry $type-$number (link points to Merged)"
                 continue
             fi
             
@@ -684,9 +723,9 @@ for category in "Approved" "Review"; do
             summary_value="${review_entries_summary[$key]}"
         fi
 
-        # Additional check to ensure the path doesn't contain "Approved"
-        if [ "$category" == "Review" ] && [[ "$readme_value" =~ Approved/ ]]; then
-            echo "DEBUG: SKIPPING review entry $type-$number (contains Approved in path)"
+        # Additional check to ensure the path doesn't contain "Merged"
+        if [ "$category" == "Review" ] && [[ "$readme_value" =~ Merged/ ]]; then
+            echo "DEBUG: SKIPPING review entry $type-$number (contains Merged in path)"
             continue
         fi
 
@@ -702,7 +741,7 @@ for category in "Approved" "Review"; do
         fi
     done
 
-    # Before writing entries, filter out any approved entries from review arrays
+    # Before writing entries, filter out any merged entries from review arrays
     if [ "$category" == "Review" ]; then
         # Create temporary arrays
         declare -a filtered_mip_entries_readme
@@ -714,36 +753,36 @@ for category in "Approved" "Review"; do
 
         # Filter MIP entries
         for entry in "${mip_entries_readme[@]}"; do
-            if [[ ! "$entry" =~ ^.*\(Approved/.*\)$ ]] && [[ ! "$entry" =~ Approved/ ]]; then
+            if [[ ! "$entry" =~ ^.*\(Merged/.*\)$ ]] && [[ ! "$entry" =~ Merged/ ]]; then
                 filtered_mip_entries_readme+=("$entry")
             fi
         done
         for entry in "${mip_entries_summary[@]}"; do
-            if [[ ! "$entry" =~ ^.*\(Approved/.*\)$ ]] && [[ ! "$entry" =~ Approved/ ]]; then
+            if [[ ! "$entry" =~ ^.*\(Merged/.*\)$ ]] && [[ ! "$entry" =~ Merged/ ]]; then
                 filtered_mip_entries_summary+=("$entry")
             fi
         done
 
         # Filter MD entries
         for entry in "${md_entries_readme[@]}"; do
-            if [[ ! "$entry" =~ ^.*\(Approved/.*\)$ ]] && [[ ! "$entry" =~ Approved/ ]]; then
+            if [[ ! "$entry" =~ ^.*\(Merged/.*\)$ ]] && [[ ! "$entry" =~ Merged/ ]]; then
                 filtered_md_entries_readme+=("$entry")
             fi
         done
         for entry in "${md_entries_summary[@]}"; do
-            if [[ ! "$entry" =~ ^.*\(Approved/.*\)$ ]] && [[ ! "$entry" =~ Approved/ ]]; then
+            if [[ ! "$entry" =~ ^.*\(Merged/.*\)$ ]] && [[ ! "$entry" =~ Merged/ ]]; then
                 filtered_md_entries_summary+=("$entry")
             fi
         done
 
         # Filter MG entries
         for entry in "${mg_entries_readme[@]}"; do
-            if [[ ! "$entry" =~ ^.*\(Approved/.*\)$ ]] && [[ ! "$entry" =~ Approved/ ]]; then
+            if [[ ! "$entry" =~ ^.*\(Merged/.*\)$ ]] && [[ ! "$entry" =~ Merged/ ]]; then
                 filtered_mg_entries_readme+=("$entry")
             fi
         done
         for entry in "${mg_entries_summary[@]}"; do
-            if [[ ! "$entry" =~ ^.*\(Approved/.*\)$ ]] && [[ ! "$entry" =~ Approved/ ]]; then
+            if [[ ! "$entry" =~ ^.*\(Merged/.*\)$ ]] && [[ ! "$entry" =~ Merged/ ]]; then
                 filtered_mg_entries_summary+=("$entry")
             fi
         done
@@ -829,6 +868,54 @@ for category in "Approved" "Review"; do
     echo "" >> "$SRC_DIR/README.md"
     echo "" >> "$SRC_DIR/SUMMARY.md"
 done
+
+# Format the final approval status
+format_approval_status() {
+    local temp_file="src/APPROVAL_STATUS.tmp"
+    local final_file="src/APPROVAL_STATUS.md"
+    local approved_file="src/APPROVAL_STATUS.md.approved"
+    local rejected_file="src/APPROVAL_STATUS.md.rejected"
+
+    # Initialize sections with explanatory text
+    echo "# Approval Status" > "$temp_file"
+    echo "" >> "$temp_file"
+    echo "An MIP or MD is approved (✅) or rejected (❌) by the governance. For more details see [this document](https://github.com/movementlabsxyz/MIP/blob/main/README.md)." >> "$temp_file"
+    echo "" >> "$temp_file"
+    
+    echo "## MD" >> "$temp_file"
+    echo "" >> "$temp_file"
+    echo "### Approved" >> "$temp_file"
+    if [ -f "$approved_file" ]; then
+        grep "^- MD-" "$approved_file" | sort -V >> "$temp_file" || true
+    fi
+    echo "" >> "$temp_file"
+    echo "### Rejected" >> "$temp_file"
+    if [ -f "$rejected_file" ]; then
+        grep "^- MD-" "$rejected_file" | sort -V >> "$temp_file" || true
+    fi
+    echo "" >> "$temp_file"
+    
+    echo "## MIP" >> "$temp_file"
+    echo "" >> "$temp_file"
+    echo "### Approved" >> "$temp_file"
+    if [ -f "$approved_file" ]; then
+        grep "^- MIP-" "$approved_file" | sort -V >> "$temp_file" || true
+    fi
+    echo "" >> "$temp_file"
+    echo "### Rejected" >> "$temp_file"
+    if [ -f "$rejected_file" ]; then
+        grep "^- MIP-" "$rejected_file" | sort -V >> "$temp_file" || true
+    fi
+    
+    # Replace original file with formatted version
+    mv "$temp_file" "$final_file"
+    
+    # Clean up temporary files
+    rm -f "$approved_file" "$rejected_file"
+}
+
+# Replace the sort command before mdbook build with:
+format_approval_status
 
 # Build the book
 if ! mdbook build; then

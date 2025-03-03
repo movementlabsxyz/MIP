@@ -3,6 +3,7 @@
 - **Description**: ENTL proposes a simple challenge-reponse protocol to link Enclave usage to a given program. It additionally proposes a means of time-locking to allow the replacement of said program while maintaining security.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Desiderata**: [MD-1](../../MD/md-1)
+- **Approval**: :white_check_mark:
 
 ## Abstract
 

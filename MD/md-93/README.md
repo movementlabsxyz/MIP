@@ -2,6 +2,7 @@
 
 - **Description**: Provide formal structure for parent and child MIPs.
 - **Authors**: [Andy Golay](mailto:andy.golay@movementlabs.xyz)
+- **Approval**: :white_check_mark:
 
 ## Overview
 
