@@ -9,11 +9,7 @@ We propose a means of implementing a Gas Pool in Aptos to satisfy the token reci
 
 ## Motivation
 
-<<<<<<< HEAD:MIP/mip-n/README.md
 The introduction of a Gas Pool in Aptos will allow for the recirculation of gas used in the Aptos Framework based ecosystem. This ensures the supply can remain fixed and the gas can be re-used for purposes such as rewarding. 
-=======
-The introduction of a Gas Pool in Aptos will allow for the recirculation of gas used in the Aptos ecosystem. This ensures the supply can remain fixed and the gas can be re-used for purposes such as rewarding.
->>>>>>> de4722c3a5d98d98ab4c59b70f29e2328eeb46a8:MIP/mip-52/README.md
 
 ## Specification
 
