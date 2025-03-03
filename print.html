@@ -4346,24 +4346,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <h2 id="abstract-24"><a class="header" href="#abstract-24">Abstract</a></h2>
 <p>We propose a means of implementing a Gas Pool in Aptos to satisfy the token recirculation requirements indicated in <a href="https://github.com/movementlabsxyz/MIP/pulls">MD-38</a>. This solution will allow for gas used to be stored in the pool. The re-use of said gas is not a subject of this MIP. However, <a href="https://github.com/movementlabsxyz/MIP/pull/44">MIP-44</a>, <a href="https://github.com/movementlabsxyz/MIP/pull/41">MIP-41</a>, et al.  provide suggestions to this end.</p>
 <h2 id="motivation-24"><a class="header" href="#motivation-24">Motivation</a></h2>
-<h1>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:MIP/mip-n/README.md
-The introduction of a Gas Pool in Aptos will allow for the recirculation of gas used in the Aptos Framework based ecosystem. This ensures the supply can remain fixed and the gas can be re-used for purposes such as rewarding.</h1>
-<p>The introduction of a Gas Pool in Aptos will allow for the recirculation of gas used in the Aptos ecosystem. This ensures the supply can remain fixed and the gas can be re-used for purposes such as rewarding.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>de4722c3a5d98d98ab4c59b70f29e2328eeb46a8:MIP/mip-52/README.md</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
+<p>The introduction of a Gas Pool in Aptos will allow for the recirculation of gas used in the Aptos Framework based ecosystem. This ensures the supply can remain fixed and the gas can be re-used for purposes such as rewarding.</p>
 <h2 id="specification-23"><a class="header" href="#specification-23">Specification</a></h2>
 <p>Aptos pays gas in the <a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/aptos-vm/src/transaction_validation.rs#L194">epilogue</a> of a transaction <a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/aptos-vm/src/transaction_validation.rs#L34">dispatching</a> to <a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/transaction_validation.move#L274"><code>epilogue_gas_payer</code></a>. Depending on the <a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/transaction_validation.move#L305">validator reward setting</a>, <a href="https://github.com/movementlabsxyz/aptos-core/blob/70be3926ff79ff4cdb0cee928f717fafcd41ecdd/aptos-move/framework/aptos-framework/sources/transaction_validation.move#L274"><code>epilogue_gas_payer</code></a> will either call <code>transaction_fee::collect_fee</code> or <code>transaction_fee::burn_fee</code>.</p>
 <p>At the time of writing the <code>transaction_fee::collect_fee</code> path is still experimental.</p>
