@@ -55,24 +55,24 @@ The **Movement** stage culminates in a the production rollout of Movement mainne
 The complete **Movement** roadmap is available [here](movement/README.md).
 
 ## Key Milestones
-- **February 23, 2025:** Movement Labs MIP committee approves acceptor features MIPs for `ffs` post-confirmations.
 - **February 24, 2025:** Movement Labs Research Team takes over FFS implementation under the `ffs` repo. Work begins to prepare existing MCR contracts for Staking Games I. 
-- **March 1-18, 2025:** Movement Labs Research Team launches [Staking Games I](./staking-games/staking-games-i/), planning to actively collect data through the March 18, 2025 deadline.
-- **March 3, 2025:** Movement Labs Research team introduces `ffs` General Node type, which is an `ffs` node process decoupled from Movement Lab's full node logic.
-- **March 8, 2025:** Movement Labs Research Team introduces the acceptor features upgrade for MCR, adding staking games for each feature combination. 
-- **March 10, 2025:** Movement Labs Research Team completes MIPs for contract-based `ffs`, providing an agreed upon set of solutions to the Fork Stake problem.
-- **March 15, 2025:** Movement Labs Research Team w/ Symbiotic Releases Symbiotic Stake Staking Game.
-- **March 17, 2025:** Movement Labs Research Team publishes Baker Confirmations reference implementation under the `baker-confirmations` repo.
-- **March 21, 2025:** Movement Labs Research Team holds the Staking Games I Closing Ceremony, marking an end to active community support while results are reviewed. 
-- **March 24, 2025:** Movement Labs Research Team w/ Movement Labs SRE Team introduces FFS testing environment and node spin-up tooling for contract-based `ffs`. This includes a Kurtosis-based ETH testnet.
-- **March 25 - April 9, 2025:** Movement Labs Research Team launches [Staking Games II](./staking-games/staking-games-ii/), planning to actively collect data through the April 9, 2025 deadline.
-- **March 28, 2025:** Movement Labs Research Team introduces the `ffs` Fork Stake upgrade for contract-based `ffs`. This may immediately apply to Staking Games II. This provides the first stable implementation of post-confirmations in the `ffs` repo.
-- **April 3, 2025:** Movement Labs Research Teams introduces first stable release of `ffs` repo.
-- **April 7, 2025:** Movement Labs Research Team completes first community-ready version of `baker-confirmations` repo.
-- **April 11, 2025:** Movement Labs Research Team holds the Staking Games II Closing Ceremony, marking an end to active community support while results are reviewed. 
-- **April 15, 2025:** Movement Labs Research Team stabilizes L2 Confirmations implementation in the `ffs` repo.
-- **April 18, 2025:** Movement Labs Research Team and Movement Labs Engineering team release first integration of stable `ffs` with the `movement-full-node`.
-- **April 21, 2025:** Movement Labs Research Team and Movement Labs SRE Team introduce FFS Research Kit, a suite of tools for researchers to run and test FFS implementations as will be leveraged in Staking Games III.
+- **March 14, 2025:** Movement Labs MIP committee approves acceptor features MIPs for `ffs` post-confirmations.
+- **March 17 - April 5, 2025:** Movement Labs Research Team launches [Staking Games I](./staking-games/staking-games-i/), planning to actively collect data through the March 18, 2025 deadline.
+- **March 20, 2025:** Movement Labs Research team introduces `ffs` General Node type, which is an `ffs` node process decoupled from Movement Lab's full node logic.
+- **March 24, 2025:** Movement Labs Research Team introduces the acceptor features upgrade for MCR, adding staking games for each feature combination. 
+- **March 25, 2025:** Movement Labs Research Team completes MIPs for contract-based `ffs`, providing an agreed upon set of solutions to the Fork Stake problem.
+- **March 30, 2025:** Movement Labs Research Team w/ Symbiotic Releases Symbiotic Stake Staking Game.
+- **April 1, 2025:** Movement Labs Research Team publishes Baker Confirmations reference implementation under the `baker-confirmations` repo.
+- **April 5, 2025:** Movement Labs Research Team holds the Staking Games I Closing Ceremony, marking an end to active community support while results are reviewed. 
+- **April 10, 2025:** Movement Labs Research Team w/ Movement Labs SRE Team introduces FFS testing environment and node spin-up tooling for contract-based `ffs`. This includes a Kurtosis-based ETH testnet.
+- **April 10 - April 29, 2025:** Movement Labs Research Team launches [Staking Games II](./staking-games/staking-games-ii/), planning to actively collect data through the April 9, 2025 deadline.
+- **April 12, 2025:** Movement Labs Research Team introduces the `ffs` Fork Stake upgrade for contract-based `ffs`. This may immediately apply to Staking Games II. This provides the first stable implementation of post-confirmations in the `ffs` repo.
+- **April 14, 2025:** Movement Labs Research Teams introduces first stable release of `ffs` repo.
+- **April 18, 2025:** Movement Labs Research Team completes first community-ready version of `baker-confirmations` repo.
+- **April 18, 2025:** Movement Labs Research Team holds the Staking Games II Closing Ceremony, marking an end to active community support while results are reviewed. 
+- **April 23, 2025:** Movement Labs Research Team stabilizes L2 Confirmations implementation in the `ffs` repo.
+- **April 27, 2025:** Movement Labs Research Team and Movement Labs Engineering team release first integration of stable `ffs` with the `movement-full-node`.
+- **April 29, 2025:** Movement Labs Research Team and Movement Labs SRE Team introduce FFS Research Kit, a suite of tools for researchers to run and test FFS implementations as will be leveraged in Staking Games III.
 - **May 16 - June 10, 2025:** Movement Labs Research Team launches [Staking Games III](./staking-games/staking-games-iii/), planning to actively collect data through the June 10, 2025 deadline.
 - **May 24, 2025:** Movement Labs Research Team releases stable implementation of the San Francisco Model in the `ffs` repo.
 - **June 10, 2025:** Movement Labs Research Team releases stable implementation of the San Francisco Model in the `baker-confirmations` repo.
