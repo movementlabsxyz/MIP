@@ -2,7 +2,7 @@
 ![Roadmap](./roadmap-summer.png)
 
 > [!NOTE]
-> The above roadmap diagrams features key milestones. For a more complete treatment, see [#key-milestones].
+> The above roadmap diagrams features key milestones. For a more complete treatment, see [Key Milestones](#key-milestones).
 
 This document contains a roadmap for Movement Lab's Fast Finality Settlement (FFS), a proof of stake L2 confirmations system. The roadmap advocates for continual community engagement via Staking Games and sees ultimately delivery of `ffs` to the `movement` mainnet by July 9, 2025.
 
