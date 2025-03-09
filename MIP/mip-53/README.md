@@ -51,6 +51,9 @@ All proposed progressive L2 models MUST complete the following table:
 | **Components** | |
 | _[Component Name 1](link/to/component/design)_ | A description of usage of said component.  |
 | _[Component Name 2](link/to/component/design)_ | A description of usage of said component.  |
+| **Operational Assumptions** | |
+| E.g. Availability | For example specific details on the availability. |
+| E.g. Trust | For example required trust assumptions. |
 
 ### Statement Towards Progression
 
