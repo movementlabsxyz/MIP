@@ -5,7 +5,7 @@
 
 ## Abstract
 
-The San Fran Model applies the changes to the type of the Native Bridge. It proposes bridge fees, a relayer, an informer, a rate limiter and fastconfirmations.
+The San Fran Model applies the changes to the type of the Native Bridge to lock/mint. It proposes bridge fees, a relayer, an informer, a rate limiter and fastconfirmations.
 
 ## Motivation
 
