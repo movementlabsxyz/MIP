@@ -1,12 +1,12 @@
 # MIP-55: The Bilbao Model
 
-- **Description**: Proposes an AB-FFS L2 model that features a Gas Deficit Minter, Bridge Insurance Account, low-cost DA and settlement, high centralized control, and ultimately high operational assumptions.
+- **Description**: Proposes an L2 model with Native Bridge and Postconfirmation protocol that features a Gas Deficit Minter, Native Bridge Insurance Account, low-cost DA and settlement, high centralized control, and ultimately high operational assumptions.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Desiderata**: $\emptyset$
 
 ## Abstract
 
-We define the Bilbao Model as an AB-FFS L2 model that features a Gas Deficit Minter, Bridge Insurance Account, low-cost DA, high centralized control, and ultimately high operational assumptions. At the core of this model is the highly-controlled use of trusted signers with high liquidity to replace components proposed in the [Biarritz Model](https://github.com/movementlabsxyz/MIP/pull/54).
+We define the Bilbao Model as L2 (Level 2) model with Native Bridge and Postconfirmation protocol that features a Gas Deficit Minter, Native Bridge Insurance Account, low-cost DA, high centralized control, and ultimately high operational assumptions. At the core of this model is the highly-controlled use of trusted signers with high liquidity to replace components proposed in the [Biarritz Model](https://github.com/movementlabsxyz/MIP/pull/54).
 
 ## Motivation
 
@@ -14,7 +14,7 @@ The Bilbao Model is a intended as a complete response to [MD-38](https://github.
 
 ## Specification
 
-We acknowledge and apply the conventions of [MIP-53: Conventions for Proposing Progressive L2 Models](https://github.com/movementlabsxyz/MIP/pull/53).
+_The conventions of [MIP-53: Conventions for Proposing Progressive L2 Models](../mip-53) are applied._
 
 | Category | Criterion | Evaluation |
 |-----------|-----------|------------|
