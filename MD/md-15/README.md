@@ -3,6 +3,7 @@
 - **Description**: Provide a glossary for Movement Vocabulary.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
+- **Approval**: :white_check_mark:
 
 ## Overview
 

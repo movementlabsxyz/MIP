@@ -3,6 +3,7 @@
 - **Description**: Introduces conventions for proposing progressive L2 models.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Desiderata**:
+- **Approval**: :white_check_mark:
 
 ## Abstract
 
