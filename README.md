@@ -3,23 +3,35 @@
 
 We differentiate between **issue**, **MD** and **MIP**.
 
-An overview of the MIPs and MDs can be found in the [OVERVIEW](https://movementlabsxyz.github.io/MIP/).
+A user-friendly overview of the MIPs and MDs can be found in the [MIP Book](https://movementlabsxyz.github.io/MIP/).
+
+The [Glossary](https://github.com/movementlabsxyz/MIP/wiki/glossary) contains an alphabetically ordered list of terms used in this repository. In addition MG serves as a platform to define glossary terms, which are used in the MIPs and MDs.
+
+## Process
 
 The lifecycle of a proposal should be:
 
-1. create a [new issue](https://github.com/movementlabsxyz/MIP/issues) to register the intent to write an MD/MIP and its scope.
-2. If 1. is approved (this may require some discussions), start writing an MD and create a PR for it using [this Draft](../../md-template.md).
-3. The author MAY start an MIP using [this Draft](../../mip-template.md) in the same PR as the MD. However, doing so may slow down the governance approval of the MD. A preferred approach is to start with the MD, then await governance approval and only then start the MIP in a separate PR.
+1. Create a [new issue](https://github.com/movementlabsxyz/MIP/issues) to register the intent to write an MD/MIP and its scope.
+2. If 1. received enough traction, start an **MD** using [this Draft](../../md-template.md) in a PR.
+    2.1) Upon readiness flag the MD for review by the governance.
+3. Start an **MIP** using [this Draft](../../mip-template.md) in a separate PR. The MIP may be written in parallel to the MD, but is dependent on the MD.
+    3.1) Upon readiness flag the MIP for review by the governance body.
+
+> :bulb: For more information on the process, see [MIP-0](./MIP/mip-0/README.md#process).
+
+**Github lifecycle**
 
 ```mermaid
 graph LR
-    A[Idea: issue] --> B[Request: MD] --> C[Solution: MIP]
+    A[1: Idea: issue] --> B[2: Define the Request: MD] --> C[3: Solution proposal: MIP]
 ```
 
-The [Glossary](https://github.com/movementlabsxyz/MIP/wiki/glossary) contains an alphabetically ordered list of terms used in this repository. 
-In addition MG serves as a platform to define glossary terms, which are used in the MIPs and MDs.
+**Governance lifecycle**
 
-!!! info For more information on the process in this repository, see also[MIP-0](./MIP/mip-0/README.md).
+```mermaid
+graph LR
+    A[2.1:  MD] -- Review / Reject --> B[3.1: MIP] -- Review / Reject --> C[Implementation]
+```
 
 ## Movement Desiderata (MD)
 
@@ -73,7 +85,7 @@ PRs that don't introduce a new MIP/MD are also accepted, for example MIPs/MDs ca
 
 **Parent-Child MIPs** are also supported. A child MIP is stored in a subdirectory of the parent MIP, named `mip-<number>.<index>`. The index is a number starting from 1. The child MIP should contain a `README.md` that describes the child MIP. For more information see [MIP-94](./MIP/mip-94).
 
-## Status Terms
+## Status terms
 
 An MIP/MD is proposed through a PR. Each MIP/MD PR should have a status in the name in the form `[status] MIP/MD-x: ...`.
 
@@ -82,7 +94,7 @@ An MIP/MG should at all times have one of the following statuses:
 - **Draft** - (set by author) An MIP/MD that is open for consideration. (It does not yet hold an MIP/MD number)
 - **Review** - (set by author) The MIP/MD is under peer review. The MIP/MD should receive an **MIP/MD number**, according to the rules described in the [Files and numbering](#files-and-numbering) section. At this point the editor should be involved to ensure the MIP/MD adheres to the guidelines.
 
-!!! info In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim.
+> :bulb: In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim.
 
 After acceptance the MIP/MD is merged into `main` and the branch should be deleted.
 
@@ -95,20 +107,80 @@ Finally, an MIP/MD can also be updated:
 
 - **Update** - (set by author) An MIP/MD is being updated. The title should list the MIP/MD number, e.g. `[Update] MIP-0 ...`.
 
-## Governance
+## Style guide
 
-For more information on the role of the governance, see [MIP-0: Governance](./MIP/mip-0/README.md#governance).
+#### Header convention
+
+For headers it is recommended to use standard sentence structure, i.e. do not capitalize letters apart from the first word, specific terms or acronyms.
+
+For example, use
+
+```markdown
+## This header is correct for Movement Labs' MIPs
+```
+
+Do not use
+
+```markdown
+## This Header is Incorrect for Movement Labs' MIPs
+```
+
+#### Capitalization convention
+
+Ensure clarity and consistency in distinguishing between internal components and general roles. When referring to specific entities within our system, capitalize their names. Use lowercase when referring to general roles or concepts. For example:
+
+- **Relayer** refers to our specific relayer, while **relayer** refers to any agent performing relaying.  
+- **Validator** refers to our designated validators, while **validator** is a general term for any entity validating transactions.  
+
+#### Note boxes
+
+Avoid using
+
+```markdown
+> [!NOTE]
+> ...
+```
+
+or
+
+```markdown
+!!! note ...
+```
+
+or
+
+```markdown
+::: note ... :::
+```
+
+These do not render correctly either in the GitHub preview or in the rendered markdown. Instead use emojis to indicate the type of note, e.g.
+
+```markdown
+\> 👀 Note, that ...
+\> :warning: This is a warning ..
+\> :bulb: Here is something to learn ..
+```
+
+## Approval and governance
+
+MDs and MIPs are approved or rejected by the governance body. The approval is not necessarily tightly coupled to the Github flow.
 
 Currently the governance consists of [@franck44](https://github.com/franck44), [@l-monninger](https://github.com/l-monninger), [@apenzk](https://github.com/apenzk), [@0xmovses](https://github.com/0xmovses), [@bhenhsi](https://github.com/bhenhsi).
 
+For more information on the role of the governance, see [MIP-0: Section "Governance"](./MIP/mip-0/README.md#governance).
+
 ## Editor
 
-For more information on the role of the editor, see [MIP-0: Editor](./MIP/mip-0/README.md#editor).
-
 Currently the editors are [@apenzk](https://github.com/apenzk).
+
+For more information on the role of the editor, see [MIP-0: Section "Editor"](./MIP/mip-0/README.md#editor).
 
 ## Code owners
 
 An author commits to becoming the owner of the MIP/MD they propose. This means that for any future changes to the MIP/MD the author will be notified.
 
 The author MUST add themselves as a code owner in [CODEWONERS](.github/CODEOWNERS).
+
+## Copyright
+
+Copyright and related rights waived via [CC0](LICENSE.md).

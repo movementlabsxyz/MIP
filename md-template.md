@@ -2,6 +2,7 @@
 
 - **Description**: A single sentence description summarizing the items in the desiderata.
 - **Authors**: [Author](mailto:author@email.com)
+- **Approval**: <!--Either approved (:white_check_mark:) or rejected (:x:) by the governance body. To be inserted by governance. -->
 
 <!--
   READ MIP-0 BEFORE USING THIS TEMPLATE!
@@ -31,7 +32,7 @@
   List out the specific desiderata. Each entry should consist of:
 
   1. Title: A concise name for the desideratum.
-  2. User Journey: A one or two-sentence statement focusing on the "user" (could be a human, machine, software, etc.) and their interaction or experience.
+  2. User journey: A one or two-sentence statement focusing on the "user" (could be a human, machine, software, etc.) and their interaction or experience.
   3. Description (optional): A more detailed explanation if needed.
   4. Justification: The reasoning behind the desideratum. Why is it necessary or desired?
   5. Recommendations (optional): Suggestions or guidance related to the desideratum.
@@ -40,7 +41,7 @@
 
   ### D<number>: Desideratum Title
 
-  **User Journey**: [user] can [action].
+  **User journey**: [user] can [action].
 
   **Description**: <More detailed explanation if needed (optional)>
 
