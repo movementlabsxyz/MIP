@@ -4409,43 +4409,45 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-54-the-biarritz-model"><a class="header" href="#mip-54-the-biarritz-model">MIP-54: The Biarritz Model</a></h1>
 <ul>
-<li><strong>Description</strong>: Proposes an NB-FFS L2 model that features on a Governed Gas Pool, Bridge Insurance Fund, and moderate operational assumptions.</li>
+<li><strong>Description</strong>: Proposes an L2 model with a Native Bridge and Postconfirmation that features a Governed Gas Pool, a Bridge Insurance Fund, and moderate operational assumptions.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
-<li><strong>Desiderata</strong>: <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">∅</span></span></span></span></li>
+<li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/pull/38">MD-38</a>.</li>
 </ul>
 <h2 id="abstract-25"><a class="header" href="#abstract-25">Abstract</a></h2>
-<p>We defined the Biarritz Model as a Native Bridge - Fast Finality Settlement (NB-FFS) model that features a Governed Gas Pool, Bridge Insurance Fund, and moderate operational assumptions. At the core of this model is the progressive use of governance to safely perform liquidity operations which are difficult to synchronize in an early NB-FFS L2.</p>
+<p>We define the Biarritz Model as a Native Bridge (NB) w/ Postconfirmation protocol model that features a Governed Gas Pool, Bridge Insurance Fund, and moderate operational assumptions. At the core of this model is the progressive use of governance to safely perform liquidity operations which are difficult to synchronize in an early model.</p>
+<p>The model may be extended beyond postconfirmation to feature a full Fast Finality Settlement (FFS), in which case we could refer to main characteristics also as <strong>NB-FFS</strong>.</p>
 <h2 id="motivation-25"><a class="header" href="#motivation-25">Motivation</a></h2>
-<p>The Biarritz Model is motivated by the need for a <a href="Review/l-monninger/the-biarritz-model/MIP/mip-54/../mip-53/">progressive L2 model</a> that can safely perform liquidity and more generally fund-moving operations which are difficult to operate in an early NB-FFS L2. This model is intended to be a stepping stone towards more complex L2 models that require more sophisticated governance and operational assumptions.</p>
-<p>The Biarritz Model is a intended as a complete response to <a href="https://github.com/movementlabsxyz/MIP/pulls">MD-38</a>.</p>
+<p>The Biarritz Model is motivated by the need for a <a href="https://github.com/movementlabsxyz/MIP/pull/53">progressive L2 model</a> that can safely perform liquidity and more generally fund-moving operations which are difficult to operate in an early NB-FFS L2. This model is intended to be a stepping stone towards more complex L2 models that require more sophisticated governance and operational assumptions.</p>
+<p>The Biarritz Model is intended as a complete response to <a href="https://github.com/movementlabsxyz/MIP/pull/38">MD-38</a>.</p>
 <h2 id="specification-24"><a class="header" href="#specification-24">Specification</a></h2>
+<p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
+<p><em>The conventions of <a href="Review/l-monninger/the-biarritz-model/MIP/mip-54/../mip-53">MIP-53: Conventions for Proposing Progressive L2 Models</a> are applied.</em></p>
 <p><img src="Review/l-monninger/the-biarritz-model/MIP/mip-54/the-biarritz-model.png" alt="The Biarritz Model" /></p>
-<p>We acknowledge and apply the conventions of <a href="https://github.com/movementlabsxyz/MIP/pull/53">MIP-53: Conventions for Proposing Progressive L2 Models</a>.</p>
-<div class="table-wrapper"><table><thead><tr><th>Category</th><th>Criterion</th><th>Evaluation</th></tr></thead><tbody>
-<tr><td><strong>General</strong></td><td></td><td></td></tr>
-<tr><td></td><td>When to use</td><td>When a transition from a genesis or centralized phase form of the L2 system towards a more decentralized setting is appropriate, but the security and safeness of design and implementation are still contested.</td></tr>
-<tr><td></td><td></td><td>When a secondary centralized phase of the L2 system is desired alongside increasing transparency of centralized operations.</td></tr>
-<tr><td></td><td>Suitable preceding models</td><td><a href="https://github.com/movementlabsxyz/MIP/pull/53">MIP-55: The Bilbao Model</a></td></tr>
-<tr><td></td><td>Suitable succeeding models</td><td><a href="https://github.com/movementlabsxyz/MIP/pull/40">MIP-40: NB-FFS Decoupled</a> INCOMPLETE</td></tr>
-<tr><td></td><td>Technological motivations</td><td>Contends with bridge fallibility under operational assumptions.</td></tr>
-<tr><td></td><td></td><td>Begins formal governance, but continues to allow for manual flexibility and recovery.</td></tr>
-<tr><td></td><td>Usership motivations</td><td>Provides network which is more open than <a href="https://github.com/movementlabsxyz/MIP/pull/53">MIP-55: The Bilbao Model</a>, potentially encouraging adoption.</td></tr>
-<tr><td><strong>Components</strong></td><td></td><td></td></tr>
-<tr><td></td><td><a href="https://github.com/movementlabsxyz/MIP/pulls">MIP-44: NB-FFS Governed Gas Pool</a></td><td>The Governed Gas Pool into which gas fees are deposited and from which the governing body disperses funds.</td></tr>
-<tr><td></td><td><a href="https://github.com/movementlabsxyz/MIP/pull/49">MIP-49: NB-FFS Governed Rewards and Fees</a></td><td>The means by which gas fees and rewards are adjusted by the governing body. Rewards are migrated manually from the L2 to the L1 by the governing body.</td></tr>
-<tr><td></td><td><a href="https://github.com/movementlabsxyz/MIP/pull/50">MIP-50: Insured Bridge</a></td><td>The Bridge Insurance Fund which is used to cover the cost of failed bridge operations. Insures atomically and synchronously that all losses from bridge failures can be covered.</td></tr>
-<tr><td></td><td>Relayer</td><td>A relayer operated by the governing body that facilitates message passing between L1 and L2.</td></tr>
-<tr><td></td><td>L1-L2 Token Correlation</td><td>The L1 token and the L2 token are bridged 1:1. Moreover the L2 token is the gas token and the L1 token is the staking token.</td></tr>
-<tr><td><strong>Operational Assumptions</strong></td><td></td><td></td></tr>
-<tr><td></td><td><strong>Bridge Liveness</strong></td><td>Operators can be relied upon to meet bridge liveness requirements.</td></tr>
-<tr><td></td><td><strong>Security of Governance</strong></td><td>Governing body’s powers cannot be exploited.</td></tr>
-<tr><td></td><td><strong>Trust of Governance</strong></td><td>Users are willing to trust governing body.</td></tr>
+<div class="table-wrapper"><table><thead><tr><th><strong>Category</strong> / <em>Criterion</em></th><th>Evaluation</th></tr></thead><tbody>
+<tr><td><strong>General</strong></td><td></td></tr>
+<tr><td><em>When to use</em></td><td>When a transition from a genesis or centralized phase form of the L2 system towards a more decentralized setting is appropriate, but the security and safeness of design and implementation are still contested.</td></tr>
+<tr><td></td><td>When a secondary centralized phase of the L2 system is desired alongside increasing transparency of centralized operations.</td></tr>
+<tr><td><em>Suitable preceding models</em></td><td><a href="https://github.com/movementlabsxyz/MIP/pull/55">MIP-55: The Bilbao Model</a></td></tr>
+<tr><td><em>Suitable succeeding models</em></td><td><a href="https://github.com/movementlabsxyz/MIP/pull/40">MIP-40: NB-FFS Decoupled</a> (INCOMPLETE)</td></tr>
+<tr><td><em>Technological motivations</em></td><td>Contends with bridge fallibility under operational assumptions.</td></tr>
+<tr><td></td><td>Begins formal governance, but continues to allow for manual flexibility and recovery.</td></tr>
+<tr><td><em>Usership motivations</em></td><td>Provides network which is more open than <a href="https://github.com/movementlabsxyz/MIP/pull/53">MIP-55: The Bilbao Model</a>, potentially encouraging adoption.</td></tr>
+<tr><td><strong>Components</strong></td><td></td></tr>
+<tr><td><em><a href="https://github.com/movementlabsxyz/MIP/pulls">MIP-44: NB-FFS Governed Gas Pool</a></em></td><td>The Governed Gas Pool into which gas fees are deposited and from which the governing body disperses funds.</td></tr>
+<tr><td><em><a href="https://github.com/movementlabsxyz/MIP/pull/49">MIP-49: NB-FFS Governed Rewards and Fees</a></em></td><td>The means by which gas fees and rewards are adjusted by the governing body. Rewards are migrated manually from the L2 to the L1 by the governing body.</td></tr>
+<tr><td><em><a href="https://github.com/movementlabsxyz/MIP/pull/50">MIP-50: Insured Bridge</a></em></td><td>The Bridge Insurance Fund which is used to cover the cost of failed bridge operations. Insures atomically and synchronously that all losses from bridge failures can be covered.</td></tr>
+<tr><td><em>Relayer</em></td><td>A relayer operated by the governing body that facilitates message passing between L1 and L2.</td></tr>
+<tr><td><em>L1-L2 Token Correlation</em></td><td>The L1 token and the L2 token are bridged 1:1. Moreover the L2 token is the gas token and the L1 token is the staking token.</td></tr>
+<tr><td><strong>Operational Assumptions</strong></td><td></td></tr>
+<tr><td><em>Bridge Liveness</em></td><td>Operators can be relied upon to meet bridge liveness requirements.</td></tr>
+<tr><td><em>Security of Governance</em></td><td>Governing body’s powers cannot be exploited.</td></tr>
+<tr><td><em>Trust of Governance</em></td><td>Users are willing to trust governing body.</td></tr>
 </tbody></table>
 </div>
 <h3 id="pros"><a class="header" href="#pros">Pros</a></h3>
 <ol>
 <li><strong>Delayed calculation of rewards to cover centralized expenses</strong>: because fees are held in the gas pool, the governing body need not calculate rewards which would be used to cover their own operating expenses until control of the governance is transferred to the community. The governing body can, for example, decide to use a percentage of captured gas to pay the centralized operators when a more stable token price is known some time after the L2 has been operational.</li>
-<li><strong>On-chain safety of bridge</strong>: the insurance of the bridge makes on-chain guarantees that all losses from bridge failures can be covered. This is a significant improvement over the Bilbao Model which requires off-chain coordination to cover losses.</li>
+<li><strong>On-chain safety of bridge</strong>: the insurance of the bridge makes on-chain guarantees that all losses from bridge failures can be covered. This is a significant improvement over <a href="https://github.com/movementlabsxyz/MIP/pull/55">The Bilbao Model</a> which requires off-chain coordination to cover losses.</li>
 <li><strong>Ease of migration</strong>: the model is designed to be easily migrated to a more decentralized model. The governing body can be replaced by a DAO or other decentralized governance model with minimal changes to the operational assumptions.</li>
 <li><strong>Delayed migration of rewards</strong>: the model allows for the governing body to manually migrate rewards from the L2 to the L1. This allows for a more gradual transition to a decentralized model and can avoid attacks available in more tightly integrated models.</li>
 </ol>
@@ -4459,37 +4461,38 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-55-the-bilbao-model"><a class="header" href="#mip-55-the-bilbao-model">MIP-55: The Bilbao Model</a></h1>
 <ul>
-<li><strong>Description</strong>: Proposes an AB-FFS L2 model that features a Gas Deficit Minter, Bridge Insurance Account, low-cost DA and settlement, high centralized control, and ultimately high operational assumptions.</li>
+<li><strong>Description</strong>: Proposes an L2 model with Native Bridge and Postconfirmation protocol that features a Gas Deficit Minter, Native Bridge Insurance Account, low-cost DA and settlement, high centralized control, and ultimately high operational assumptions.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
-<li><strong>Desiderata</strong>: <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">∅</span></span></span></span></li>
+<li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/pulls">MD-38</a></li>
 </ul>
 <h2 id="abstract-26"><a class="header" href="#abstract-26">Abstract</a></h2>
-<p>We define the Bilbao Model as an AB-FFS L2 model that features a Gas Deficit Minter, Bridge Insurance Account, low-cost DA, high centralized control, and ultimately high operational assumptions. At the core of this model is the highly-controlled use of trusted signers with high liquidity to replace components proposed in the <a href="https://github.com/movementlabsxyz/MIP/pull/54">Biarritz Model</a>.</p>
+<p>We define the Bilbao Model as L2 (Level 2) model with Native Bridge (<strong>NB</strong>) and Postconfirmation protocol that features a Gas Deficit Minter, Native Bridge Insurance Account, low-cost DA, high centralized control, and ultimately high operational assumptions. At the core of this model is the highly-controlled use of trusted signers with high liquidity to replace components proposed in the <a href="https://github.com/movementlabsxyz/MIP/pull/54">Biarritz Model</a>.</p>
+<p>The model may be extended beyond postconfirmation to feature a full Fast Finality Settlement (FFS), in which case we could refer to main characteristics also as <strong>NB-FFS</strong>.</p>
 <h2 id="motivation-26"><a class="header" href="#motivation-26">Motivation</a></h2>
-<p>The Bilbao Model is a intended as a complete response to <a href="https://github.com/movementlabsxyz/MIP/pulls">MD-38</a> and a reduction of the <a href="https://github.com/movementlabsxyz/MIP/pull/54">Biarritz Model</a>.</p>
+<p>The Bilbao Model is intended as a complete response to <a href="https://github.com/movementlabsxyz/MIP/pulls">MD-38</a> and a reduction of the <a href="https://github.com/movementlabsxyz/MIP/pull/54">Biarritz Model</a>.</p>
 <h2 id="specification-25"><a class="header" href="#specification-25">Specification</a></h2>
-<p>We acknowledge and apply the conventions of <a href="https://github.com/movementlabsxyz/MIP/pull/53">MIP-53: Conventions for Proposing Progressive L2 Models</a>.</p>
-<div class="table-wrapper"><table><thead><tr><th>Category</th><th>Criterion</th><th>Evaluation</th></tr></thead><tbody>
-<tr><td><strong>General</strong></td><td></td><td></td></tr>
-<tr><td></td><td>When to use</td><td>During a genesis period and after after which the resulting state is intended to be accepted as canonical entry point for a progressive more decentralized network.</td></tr>
-<tr><td></td><td></td><td>The benefits to the network of an immediate release against early technology outstrip the potential costs of failing to correctly resolve vulnerabilities introduce in genesis state.</td></tr>
-<tr><td></td><td>Suitable preceding models.<br></td><td>NONE</td></tr>
-<tr><td></td><td>Suitable succeeding models</td><td><a href="https://github.com/movementlabsxyz/MIP/pull/54">MIP-54: The Biarritz Model</a></td></tr>
-<tr><td></td><td>Technological motivations</td><td>Contends with bridge fallibility under high operational assumptions.</td></tr>
-<tr><td></td><td></td><td>Allows for building genesis state which can be altered prior to open launch.</td></tr>
-<tr><td></td><td>Usership motivations</td><td>Allows for early release of network.</td></tr>
-<tr><td><strong>Components</strong></td><td></td><td></td></tr>
-<tr><td></td><td>Gas Deficit Minter</td><td>We recognize the role of the Governed Gas Pool as one which can be replaced by simply computing and minting the burned gas to a governed account retroactively. The Gas Deficit Minter thus takes on the role of allowing for the manual capture of gas fees.</td></tr>
-<tr><td></td><td>Bridge Insurance Account</td><td>We recognize the role of the Bridge Insurance Fund as similar to that of a singular account which can replace bridge losses. While the guarantees are weaker than those proposed under <a href="https://github.com/movementlabsxyz/MIP/pull/54">MIP-54: The Biarritz Model</a>, this can be sufficient to insure safe liquidity invariance under the presumed Right to Rollback or Right to Invalidate and Migrate</td></tr>
-<tr><td></td><td>Right to Rollback</td><td>Operators may revert or roll back ledger versions prior to the Bilbao Model concluding its role as a genesis stage</td></tr>
-<tr><td></td><td>Right to Invalidate and Migrate</td><td>Operators may invalidate or migrate elements of state prior to the Bilbao Model concluding its role as a genesis stage.</td></tr>
-<tr><td></td><td>Low-cost DA</td><td>The model assumes that the cost of the DA is low, for example that an internal or testnet environment is used for the genesis DA. This allows for concerns about gas fees to be deferred until the network is more stable, i.e., for immediate financial risks to the network to be regarded as negligible.</td></tr>
-<tr><td></td><td>Low-cost Settlement</td><td>The model assumes that the cost of settlement is low, for example that an internal or testnet environment is used for the genesis settlement. This allows for concerns about gas fees to be deferred until the network is more stable, i.e., for immediate financial risks to the network to be regarded as negligible.</td></tr>
-<tr><td></td><td>Signers Whitelist (Optional)</td><td>The model assumes that the signers are whitelisted and that the whitelist can be updated by the governing body. This increases the trustedness of the genesis ceremony and can be used to ensure that the network is not compromised by a malicious actor.</td></tr>
-<tr><td><strong>Operational Assumptions</strong></td><td></td><td></td></tr>
-<tr><td></td><td><strong>Low Availability Requirements</strong></td><td>Crashes are allowed to occur frequently. The state of the network is critical; its liveness is not.</td></tr>
-<tr><td></td><td><strong>Fixes Can be Introduced Prior to Relinquishing Rights</strong></td><td>Once the Right to Rollback and the Right to Invalidate and Migrate are relinquished, all ability to fix vulnerabilities introduced in genesis state will be lost. To this end, it is assumed that outstanding concerns at the time of transition to the next stage are resolved, or else the network would forever remain under the Bilbao Model.</td></tr>
-<tr><td></td><td><strong>Trust of Governance</strong></td><td>Users are willing to trust governing body with the operations described.</td></tr>
+<p><em>The conventions of <a href="Review/l-monninger/the-bilbao-model/MIP/mip-55/../mip-53">MIP-53: Conventions for Proposing Progressive L2 Models</a> are applied.</em></p>
+<div class="table-wrapper"><table><thead><tr><th>Category / <em>Criterion</em></th><th>Evaluation</th></tr></thead><tbody>
+<tr><td><strong>General</strong></td><td></td></tr>
+<tr><td><em>When to use</em></td><td>During a genesis period and after after which the resulting state is intended to be accepted as canonical entry point for a progressive more decentralized network.</td></tr>
+<tr><td></td><td>The benefits to the network of an immediate release against early technology outstrip the potential costs of failing to correctly resolve vulnerabilities introduced in a genesis state.</td></tr>
+<tr><td><em>Suitable preceding models</em></td><td>NONE</td></tr>
+<tr><td><em>Suitable succeeding models</em></td><td><a href="https://github.com/movementlabsxyz/MIP/pull/54">MIP-54: The Biarritz Model</a></td></tr>
+<tr><td><em>Technological motivations</em></td><td>Contends with bridge fallibility under high operational assumptions.</td></tr>
+<tr><td></td><td>Allows for building genesis state which can be altered prior to launch.</td></tr>
+<tr><td><em>Usership motivations</em></td><td>Allows for early release of network.</td></tr>
+<tr><td><strong>Components</strong></td><td></td></tr>
+<tr><td><em>Gas Deficit Minter</em></td><td>We recognize the role of the Governed Gas Pool as one which can be replaced by simply computing and minting the burned gas to a governed account retroactively. The Gas Deficit Minter thus takes on the role of allowing for the manual capture of gas fees.</td></tr>
+<tr><td><em>Bridge Insurance Account</em></td><td>We recognize the role of the Bridge Insurance Fund as similar to that of a singular account which can replace bridge losses. While the guarantees are weaker than those proposed under <a href="https://github.com/movementlabsxyz/MIP/pull/54">MIP-54: The Biarritz Model</a>, this can be sufficient to insure safe liquidity invariance under the presumed Right to Rollback or Right to Invalidate and Migrate</td></tr>
+<tr><td><em>Right to Rollback</em></td><td>Operators may revert or roll back ledger versions prior to the Bilbao Model concluding its role as a genesis stage</td></tr>
+<tr><td><em>Right to Invalidate and Migrate</em></td><td>Operators may invalidate or migrate elements of state prior to the Bilbao Model concluding its role as a genesis stage.</td></tr>
+<tr><td><em>Low-cost DA</em></td><td>The model assumes that the cost of the DA is low, for example that an internal or testnet environment is used for the genesis DA. This allows for concerns about gas fees to be deferred until the network is more stable, i.e., for immediate financial risks to the network to be regarded as negligible.</td></tr>
+<tr><td><em>Low-cost Settlement</em></td><td>The model assumes that the cost of settlement is low, for example that an internal or testnet environment is used for the genesis settlement. This allows for concerns about gas fees to be deferred until the network is more stable, i.e., for immediate financial risks to the network to be regarded as negligible.</td></tr>
+<tr><td><em>Signers Whitelist (Optional)</em></td><td>The model assumes that the signers are whitelisted and that the whitelist can be updated by the governing body. This increases the trustedness of the genesis ceremony and can be used to ensure that the network is not compromised by a malicious actor.</td></tr>
+<tr><td><strong>Operational Assumptions</strong></td><td></td></tr>
+<tr><td><em>Low Availability Requirements</em></td><td>Crashes are allowed to occur frequently. The state of the network is critical; its liveness is not.</td></tr>
+<tr><td><em>Fixes Can be Introduced Prior to Relinquishing Rights</em></td><td>Once the Right to Rollback and the Right to Invalidate and Migrate are relinquished, all ability to fix vulnerabilities introduced in genesis state will be lost. To this end, it is assumed that outstanding concerns at the time of transition to the next stage are resolved, or else the network would forever remain under the Bilbao Model.</td></tr>
+<tr><td><em>Trust of Governance</em></td><td>Users are willing to trust governing body with the operations described.</td></tr>
 </tbody></table>
 </div>
 <h3 id="pros-1"><a class="header" href="#pros-1">Pros</a></h3>
@@ -4503,6 +4506,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li><strong>1:1 token correlation</strong>: the model asserts a 1:1 token correlation between the L1 staking and L2 gas tokens. This may not be desirable in all cases as exploits on the bridge may compromise the security of staking on the L1 or sybil resistance on the L2.</li>
 </ol>
 <h2 id="verification-25"><a class="header" href="#verification-25">Verification</a></h2>
+<h2 id="changelog-29"><a class="header" href="#changelog-29">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-69-bridge-fees"><a class="header" href="#mip-69-bridge-fees">MIP-69: Bridge Fees</a></h1>
 <ul>
@@ -4917,7 +4921,7 @@ The following are possible ways to adjust the rate limit:</p>
 <p>Needs discussion.</p>
 <p>We may add a formal model?</p>
 <hr />
-<h2 id="changelog-29"><a class="header" href="#changelog-29">Changelog</a></h2>
+<h2 id="changelog-30"><a class="header" href="#changelog-30">Changelog</a></h2>
 <h2 id="appendix-25"><a class="header" href="#appendix-25">Appendix</a></h2>
 <h3 id="a1-alternative-designs"><a class="header" href="#a1-alternative-designs">A1: Alternative designs</a></h3>
 <p>This MIP proposes a rate limiting mechanism for the Lock/Mint-type Native Bridge with symmetrical design. Below we discuss how we got here and which alternatives exist. The version discussed in this MIP is option C.</p>
@@ -5142,7 +5146,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h2 id="reference-implementation-23"><a class="header" href="#reference-implementation-23">Reference Implementation</a></h2>
 <p>For the reference implementation of the Move Stack refer to the <a href="https://github.com/movementlabsxyz">Movement GitHub repository</a>.</p>
 <h2 id="verification-29"><a class="header" href="#verification-29">Verification</a></h2>
-<h2 id="changelog-30"><a class="header" href="#changelog-30">Changelog</a></h2>
+<h2 id="changelog-31"><a class="header" href="#changelog-31">Changelog</a></h2>
 <h2 id="appendix-26"><a class="header" href="#appendix-26">Appendix</a></h2>
 <h3 id="a1-rfc-1"><a class="header" href="#a1-rfc-1">A1 RFC-1</a></h3>
 <p>RFC-1 in <a href="https://github.com/movementlabsxyz/rfcs">RFCs</a> is an initial document that outlines the components of the Move Stack and Movement SDK. It provides a detailed enumeration of components, their aliases, and purposes.</p>
@@ -5838,7 +5842,7 @@ struct Trade {
 <h3 id="d6-compare-fastconfirmations-with-postconfirmation"><a class="header" href="#d6-compare-fastconfirmations-with-postconfirmation">D6: Compare Fastconfirmations with Postconfirmation</a></h3>
 <p><strong>User Journey</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks.</p>
 <p><strong>Description</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks. The superBlock confirmed by postconfirmation must contain the L2Blocks that are confirmed by fastconfirmations.</p>
-<h2 id="changelog-31"><a class="header" href="#changelog-31">Changelog</a></h2>
+<h2 id="changelog-32"><a class="header" href="#changelog-32">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-37-ffs-postconfirmation"><a class="header" href="#md-37-ffs-postconfirmation">MD-37: FFS: Postconfirmation</a></h1>
 <ul>
@@ -5862,7 +5866,7 @@ struct Trade {
 <h3 id="d4-identify-slashing-conditions-where-necessary"><a class="header" href="#d4-identify-slashing-conditions-where-necessary">D4: Identify slashing conditions where necessary</a></h3>
 <p><strong>User Journey</strong>: Slashing conditions are clearly defined and enforced, with penalties for malicious behavior. Only utilize slashing if it is necessary.</p>
 <p><strong>Justification</strong>: Clearly defined slashing conditions deter malicious actors and protect the network from potential attacks. Overuse of slashing can discourage participation.</p>
-<h2 id="changelog-32"><a class="header" href="#changelog-32">Changelog</a></h2>
+<h2 id="changelog-33"><a class="header" href="#changelog-33">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs"><a class="header" href="#md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></h1>
 <ul>
@@ -5945,7 +5949,7 @@ struct Trade {
 <h3 id="d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties"><a class="header" href="#d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties">D5: Specify How to Distribute Gas Fees to the Appropriate Parties</a></h3>
 <p><strong>User Journey</strong>: A network participant can understand how gas fees are distributed.</p>
 <p><strong>Justification</strong>: Gas fees must ultimately be used to pay extrinsic costs or else be considered as rewards. It is important to specify how gas fees are distributed to ensure that the system is fair and that the incentives for participation are aligned with the goals of the Movement Network.</p>
-<h2 id="changelog-33"><a class="header" href="#changelog-33">Changelog</a></h2>
+<h2 id="changelog-34"><a class="header" href="#changelog-34">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-69-bridge-fees"><a class="header" href="#md-69-bridge-fees">MD-69: Bridge fees</a></h1>
 <ul>

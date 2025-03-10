@@ -160,37 +160,38 @@
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-55-the-bilbao-model"><a class="header" href="#mip-55-the-bilbao-model">MIP-55: The Bilbao Model</a></h1>
 <ul>
-<li><strong>Description</strong>: Proposes an AB-FFS L2 model that features a Gas Deficit Minter, Bridge Insurance Account, low-cost DA and settlement, high centralized control, and ultimately high operational assumptions.</li>
+<li><strong>Description</strong>: Proposes an L2 model with Native Bridge and Postconfirmation protocol that features a Gas Deficit Minter, Native Bridge Insurance Account, low-cost DA and settlement, high centralized control, and ultimately high operational assumptions.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
-<li><strong>Desiderata</strong>: <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8056em;vertical-align:-0.0556em;"></span><span class="mord">∅</span></span></span></span></li>
+<li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/pulls">MD-38</a></li>
 </ul>
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
-<p>We define the Bilbao Model as an AB-FFS L2 model that features a Gas Deficit Minter, Bridge Insurance Account, low-cost DA, high centralized control, and ultimately high operational assumptions. At the core of this model is the highly-controlled use of trusted signers with high liquidity to replace components proposed in the <a href="https://github.com/movementlabsxyz/MIP/pull/54">Biarritz Model</a>.</p>
+<p>We define the Bilbao Model as L2 (Level 2) model with Native Bridge (<strong>NB</strong>) and Postconfirmation protocol that features a Gas Deficit Minter, Native Bridge Insurance Account, low-cost DA, high centralized control, and ultimately high operational assumptions. At the core of this model is the highly-controlled use of trusted signers with high liquidity to replace components proposed in the <a href="https://github.com/movementlabsxyz/MIP/pull/54">Biarritz Model</a>.</p>
+<p>The model may be extended beyond postconfirmation to feature a full Fast Finality Settlement (FFS), in which case we could refer to main characteristics also as <strong>NB-FFS</strong>.</p>
 <h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
-<p>The Bilbao Model is a intended as a complete response to <a href="https://github.com/movementlabsxyz/MIP/pulls">MD-38</a> and a reduction of the <a href="https://github.com/movementlabsxyz/MIP/pull/54">Biarritz Model</a>.</p>
+<p>The Bilbao Model is intended as a complete response to <a href="https://github.com/movementlabsxyz/MIP/pulls">MD-38</a> and a reduction of the <a href="https://github.com/movementlabsxyz/MIP/pull/54">Biarritz Model</a>.</p>
 <h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
-<p>We acknowledge and apply the conventions of <a href="https://github.com/movementlabsxyz/MIP/pull/53">MIP-53: Conventions for Proposing Progressive L2 Models</a>.</p>
-<div class="table-wrapper"><table><thead><tr><th>Category</th><th>Criterion</th><th>Evaluation</th></tr></thead><tbody>
-<tr><td><strong>General</strong></td><td></td><td></td></tr>
-<tr><td></td><td>When to use</td><td>During a genesis period and after after which the resulting state is intended to be accepted as canonical entry point for a progressive more decentralized network.</td></tr>
-<tr><td></td><td></td><td>The benefits to the network of an immediate release against early technology outstrip the potential costs of failing to correctly resolve vulnerabilities introduce in genesis state.</td></tr>
-<tr><td></td><td>Suitable preceding models.<br></td><td>NONE</td></tr>
-<tr><td></td><td>Suitable succeeding models</td><td><a href="https://github.com/movementlabsxyz/MIP/pull/54">MIP-54: The Biarritz Model</a></td></tr>
-<tr><td></td><td>Technological motivations</td><td>Contends with bridge fallibility under high operational assumptions.</td></tr>
-<tr><td></td><td></td><td>Allows for building genesis state which can be altered prior to open launch.</td></tr>
-<tr><td></td><td>Usership motivations</td><td>Allows for early release of network.</td></tr>
-<tr><td><strong>Components</strong></td><td></td><td></td></tr>
-<tr><td></td><td>Gas Deficit Minter</td><td>We recognize the role of the Governed Gas Pool as one which can be replaced by simply computing and minting the burned gas to a governed account retroactively. The Gas Deficit Minter thus takes on the role of allowing for the manual capture of gas fees.</td></tr>
-<tr><td></td><td>Bridge Insurance Account</td><td>We recognize the role of the Bridge Insurance Fund as similar to that of a singular account which can replace bridge losses. While the guarantees are weaker than those proposed under <a href="https://github.com/movementlabsxyz/MIP/pull/54">MIP-54: The Biarritz Model</a>, this can be sufficient to insure safe liquidity invariance under the presumed Right to Rollback or Right to Invalidate and Migrate</td></tr>
-<tr><td></td><td>Right to Rollback</td><td>Operators may revert or roll back ledger versions prior to the Bilbao Model concluding its role as a genesis stage</td></tr>
-<tr><td></td><td>Right to Invalidate and Migrate</td><td>Operators may invalidate or migrate elements of state prior to the Bilbao Model concluding its role as a genesis stage.</td></tr>
-<tr><td></td><td>Low-cost DA</td><td>The model assumes that the cost of the DA is low, for example that an internal or testnet environment is used for the genesis DA. This allows for concerns about gas fees to be deferred until the network is more stable, i.e., for immediate financial risks to the network to be regarded as negligible.</td></tr>
-<tr><td></td><td>Low-cost Settlement</td><td>The model assumes that the cost of settlement is low, for example that an internal or testnet environment is used for the genesis settlement. This allows for concerns about gas fees to be deferred until the network is more stable, i.e., for immediate financial risks to the network to be regarded as negligible.</td></tr>
-<tr><td></td><td>Signers Whitelist (Optional)</td><td>The model assumes that the signers are whitelisted and that the whitelist can be updated by the governing body. This increases the trustedness of the genesis ceremony and can be used to ensure that the network is not compromised by a malicious actor.</td></tr>
-<tr><td><strong>Operational Assumptions</strong></td><td></td><td></td></tr>
-<tr><td></td><td><strong>Low Availability Requirements</strong></td><td>Crashes are allowed to occur frequently. The state of the network is critical; its liveness is not.</td></tr>
-<tr><td></td><td><strong>Fixes Can be Introduced Prior to Relinquishing Rights</strong></td><td>Once the Right to Rollback and the Right to Invalidate and Migrate are relinquished, all ability to fix vulnerabilities introduced in genesis state will be lost. To this end, it is assumed that outstanding concerns at the time of transition to the next stage are resolved, or else the network would forever remain under the Bilbao Model.</td></tr>
-<tr><td></td><td><strong>Trust of Governance</strong></td><td>Users are willing to trust governing body with the operations described.</td></tr>
+<p><em>The conventions of <a href="../mip-53">MIP-53: Conventions for Proposing Progressive L2 Models</a> are applied.</em></p>
+<div class="table-wrapper"><table><thead><tr><th>Category / <em>Criterion</em></th><th>Evaluation</th></tr></thead><tbody>
+<tr><td><strong>General</strong></td><td></td></tr>
+<tr><td><em>When to use</em></td><td>During a genesis period and after after which the resulting state is intended to be accepted as canonical entry point for a progressive more decentralized network.</td></tr>
+<tr><td></td><td>The benefits to the network of an immediate release against early technology outstrip the potential costs of failing to correctly resolve vulnerabilities introduced in a genesis state.</td></tr>
+<tr><td><em>Suitable preceding models</em></td><td>NONE</td></tr>
+<tr><td><em>Suitable succeeding models</em></td><td><a href="https://github.com/movementlabsxyz/MIP/pull/54">MIP-54: The Biarritz Model</a></td></tr>
+<tr><td><em>Technological motivations</em></td><td>Contends with bridge fallibility under high operational assumptions.</td></tr>
+<tr><td></td><td>Allows for building genesis state which can be altered prior to launch.</td></tr>
+<tr><td><em>Usership motivations</em></td><td>Allows for early release of network.</td></tr>
+<tr><td><strong>Components</strong></td><td></td></tr>
+<tr><td><em>Gas Deficit Minter</em></td><td>We recognize the role of the Governed Gas Pool as one which can be replaced by simply computing and minting the burned gas to a governed account retroactively. The Gas Deficit Minter thus takes on the role of allowing for the manual capture of gas fees.</td></tr>
+<tr><td><em>Bridge Insurance Account</em></td><td>We recognize the role of the Bridge Insurance Fund as similar to that of a singular account which can replace bridge losses. While the guarantees are weaker than those proposed under <a href="https://github.com/movementlabsxyz/MIP/pull/54">MIP-54: The Biarritz Model</a>, this can be sufficient to insure safe liquidity invariance under the presumed Right to Rollback or Right to Invalidate and Migrate</td></tr>
+<tr><td><em>Right to Rollback</em></td><td>Operators may revert or roll back ledger versions prior to the Bilbao Model concluding its role as a genesis stage</td></tr>
+<tr><td><em>Right to Invalidate and Migrate</em></td><td>Operators may invalidate or migrate elements of state prior to the Bilbao Model concluding its role as a genesis stage.</td></tr>
+<tr><td><em>Low-cost DA</em></td><td>The model assumes that the cost of the DA is low, for example that an internal or testnet environment is used for the genesis DA. This allows for concerns about gas fees to be deferred until the network is more stable, i.e., for immediate financial risks to the network to be regarded as negligible.</td></tr>
+<tr><td><em>Low-cost Settlement</em></td><td>The model assumes that the cost of settlement is low, for example that an internal or testnet environment is used for the genesis settlement. This allows for concerns about gas fees to be deferred until the network is more stable, i.e., for immediate financial risks to the network to be regarded as negligible.</td></tr>
+<tr><td><em>Signers Whitelist (Optional)</em></td><td>The model assumes that the signers are whitelisted and that the whitelist can be updated by the governing body. This increases the trustedness of the genesis ceremony and can be used to ensure that the network is not compromised by a malicious actor.</td></tr>
+<tr><td><strong>Operational Assumptions</strong></td><td></td></tr>
+<tr><td><em>Low Availability Requirements</em></td><td>Crashes are allowed to occur frequently. The state of the network is critical; its liveness is not.</td></tr>
+<tr><td><em>Fixes Can be Introduced Prior to Relinquishing Rights</em></td><td>Once the Right to Rollback and the Right to Invalidate and Migrate are relinquished, all ability to fix vulnerabilities introduced in genesis state will be lost. To this end, it is assumed that outstanding concerns at the time of transition to the next stage are resolved, or else the network would forever remain under the Bilbao Model.</td></tr>
+<tr><td><em>Trust of Governance</em></td><td>Users are willing to trust governing body with the operations described.</td></tr>
 </tbody></table>
 </div>
 <h3 id="pros"><a class="header" href="#pros">Pros</a></h3>
@@ -204,6 +205,7 @@
 <li><strong>1:1 token correlation</strong>: the model asserts a 1:1 token correlation between the L1 staking and L2 gas tokens. This may not be desirable in all cases as exploits on the bridge may compromise the security of staking on the L1 or sybil resistance on the L2.</li>
 </ol>
 <h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 
                     </main>
 
