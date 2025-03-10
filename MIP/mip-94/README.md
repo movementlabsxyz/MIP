@@ -1,4 +1,4 @@
-# MIP-94: Parent-Child MIPs
+# MIP-94: Parent-child MIPs
 
 - **Description**: Add concept of child MIPs to extend MIPs that contain substantial amount of content.
 - **Authors**: [Andy Golay](mailto:andy.golay@movementlabs.xyz)
@@ -23,7 +23,7 @@ To create a child MIP:
 
 3. Add a `README.md` fill containing the child MIP contents. Follow the [MIP template](../../mip-template.md) but don't repeat redundant information from the parent MIP.
 
-## Reference Implementation
+## Reference implementation
 
 This MIP contains a reference implementation of parent-child MIPs:
 
