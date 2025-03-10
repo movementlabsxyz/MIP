@@ -3,6 +3,7 @@
 - **Description**: Proposes an L2 model with a Native Bridge and Postconfirmation that features a Governed Gas Pool, a Bridge Insurance Fund, and moderate operational assumptions.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Desiderata**: [MD-38](https://github.com/movementlabsxyz/MIP/pull/38).
+- **Approval**: :white_check_mark:
 
 ## Abstract
 
