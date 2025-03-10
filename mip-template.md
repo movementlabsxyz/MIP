@@ -1,14 +1,16 @@
 # MIP-\<number\>: \<Title\>
+
 - **Description**: A single sentence summarizing the contents of the proposal.
 - **Authors**: [Author](mailto:author@email.com)
-- **Desiderata**: [MIP-\<number\>](../MIP/mip-\<number\>)
+- **Desiderata**: [MD-\<number\>](../MD/md-\<number\>)
+- **Approval**: <!--Either approved (:white_check_mark:) or rejected (:x:) by the governance body. To be inserted by governance. -->
 
 <!--
-  READ MIP-1 BEFORE USING THIS TEMPLATE!
+  READ MIP-0 BEFORE USING THIS TEMPLATE!
 
   This is the suggested template for new MIPs. After you have filled in the requisite fields, please delete these comments.
 
-  Note that an MIP number will be assigned by an editor. When opening a pull request to submit your MIP, please use an abbreviated title in the filename, `mip-draft_title_abbrev.md`.
+  Note that an MIP number will be assigned by an editor. When opening a pull request to submit your MIP, please use an abbreviated title in the filename, `README.md`.
 
   The title should be 44 characters or less. It should not repeat the MIP number in title, irrespective of the category.
 
@@ -43,13 +45,12 @@
   TODO: Remove this comment before finalizing
 -->
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
+_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
 
-
-## Reference Implementation
+## Reference implementation
 
 <!--
-  The Reference Implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
+  The reference implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
 
   TODO: Remove this comment before submitting
 -->
@@ -76,23 +77,6 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 Needs discussion.
 
----
-
-## Errata
-<!--
-  Errata should be maintained after publication.
-
-  1. **Transparency and Clarity**: An erratum acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
-
-  2. **Accountability**: By noting errors openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
-
-  Each erratum should briefly describe the discrepancy and the correction made, accompanied by a reference to the date and version of the proposal in which the error was identified.
-
-  TODO: Maintain this comment.
--->
-
----
-
 ## Appendix
 <!--
   The Appendix should contain an enumerated list of reference materials and notes.
@@ -104,9 +88,23 @@ Needs discussion.
 -->
 
 ### A1
+
 Nothing important here.
 
----
-## Copyright
+## Changelog
 
-Copyright and related rights waived via [CC0](../LICENSE.md).
+<!--
+  The Changelog should be maintained after publication.
+
+  1. **Transparency and Clarity**: The Changelog acknowledges any corrections made post-publication, ensuring that readers are not misled and are always equipped with the most accurate information.
+
+  2. **Accountability**: By noting changes openly, we maintain a high level of responsibility and ownership over our content. It’s an affirmation that we value precision and are ready to correct oversights.
+
+  Each Changelog should briefly describe each change made, accompanied by a reference to the date, version and PR in which the change was implemented.
+
+  The format should be as follows:
+  - **YYYY-MM-DD**: Description of change. [PR#](link-to-PR)
+
+  TODO: Maintain this comment.
+
+-->
