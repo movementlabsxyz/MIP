@@ -215,7 +215,7 @@ Each of the nodes $N_{\zeta_{s_j,k}}$ executes the task $\zeta_{s_j,k}$ with som
 Each transition task
 
 ```math
-\zeta_{s_j,k} \star \iota(N_{\zeta_{s_j,k}}) \rightarrow \zeta^{\prime}_{s_j,k}
+\zeta_{s_j,k} \ast \iota(N_{\zeta_{s_j,k}}) \rightarrow \zeta^{\prime}_{s_j,k}
 ``` 
 
 is commutative with each other and associative with each other, but the final state transition $s_1^{\prime}$ can only be computed via the set of all $\zeta^{\prime}_{s_j,k}$.
@@ -223,7 +223,7 @@ is commutative with each other and associative with each other, but the final st
 Each transition task
 
 ```math
-\zeta_{s_j,k} \star \iota(N_{\zeta_{s_j,k}}) \rightarrow \zeta^{\prime}_{s_j,k}
+\zeta_{s_j,k} \ast \iota(N_{\zeta_{s_j,k}}) \rightarrow \zeta^{\prime}_{s_j,k}
 ```  
 
 is incorrect with probability $\epsilon$. When given isomorphic noise the probability that $l$ agreeing nodes $N_{\zeta_{s_j,k}}$ return the correct result is $1 - \epsilon^l$.
