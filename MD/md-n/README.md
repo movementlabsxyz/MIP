@@ -208,7 +208,7 @@ We seek proposals for the distributed and decentralized systems which challenge 
 We propose the Anwansi Machine as an exotic distributed and decentralized compute system. The term "anwansi" is the Igbo word for "magic." This is a "magic machine" because its description is intended as an example and many components are left as "magic boxes."
 
 **Description**:
-The Anwansi Machine takes a state transition $s_1 \in S$ splits it into a smaller number of "magic" tasks $\{\zeta_{s_1,1}, \zeta_{s_1,2}, \ldots, \zeta_{s_1,n}\} \in \Zeta$ and distributes subsets of them to a subset of nodes $N_{\zeta_{s_j,k}}$. 
+The Anwansi Machine takes a state transition $s_1 \in S$ splits it into a smaller number of "magic" tasks $\{\zeta_{s_1,1}, \zeta_{s_1,2}, \ldots, \zeta_{s_1,n}\} \in \mathbb{Z}$ and distributes subsets of them to a subset of nodes $N_{\zeta_{s_j,k}}$. 
 
 Each of the nodes $N_{\zeta_{s_j,k}}$ executes the task $\zeta_{s_j,k}$ with some "unique isomorphic noise" $\iota(N_{\zeta_{s_j,k}})$ and returns the result to a "magic" aggregator node $N_{agg}$ which combines the results into a final state transition $s_1^{\prime} \in S^{\prime}$.
 
