@@ -212,9 +212,9 @@ The Anwansi Machine takes a state transition $\mathcal{t}_1 \in \mathcal{T}$ spl
 
 Each of the nodes $N_{\zeta_{\mathcal{t}_j,k}}$ executes the task $\zeta_{\mathcal{t}_j,k}$ with some "unique isomorphic noise" $\iota(N_{\zeta_{\mathcal{t}_j,k}})$ and returns the result to a "magic" aggregator node $N_{agg}$ which combines the results into a final state transition $\mathcal{t}_1^{\prime} \in \mathcal{T}^{\prime}$.
 
-Each transition task $\zeta_{\mathcal{t}_j,k} \star \iota(N_{\zeta_{\mathcal{t}_j,k}}) \arrow \zeta^{\prime}_{\mathcal{t}_j,k}$ is commutative with each other and associative with each other, but the final state transition $\mathcal{t}_1^{\prime}$ can only be computed via the set of all $\zeta^{\prime}_{\mathcal{t}_j,k}$.
+Each transition task $\zeta_{\mathcal{t}_j,k} \star \iota(N_{\zeta_{\mathcal{t}_j,k}}) \rightarrow \zeta^{\prime}_{\mathcal{t}_j,k}$ is commutative with each other and associative with each other, but the final state transition $\mathcal{t}_1^{\prime}$ can only be computed via the set of all $\zeta^{\prime}_{\mathcal{t}_j,k}$.
 
-Each transition task $\zeta_{\mathcal{t}_j,k} \star \iota(N_{\zeta_{\mathcal{t}_j,k}}) \arrow \zeta^{\prime}_{\mathcal{t}_j,k}$ is incorrect with probability $\epsilon$. When given isomorphic noise the probability that $l$ agreeing nodes $N_{\zeta_{\mathcal{t}_j,k}}$ return the correct result is $1 - \epsilon^l$.
+Each transition task $\zeta_{\mathcal{t}_j,k} \star \iota(N_{\zeta_{\mathcal{t}_j,k}}) \rightarrow \zeta^{\prime}_{\mathcal{t}_j,k}$ is incorrect with probability $\epsilon$. When given isomorphic noise the probability that $l$ agreeing nodes $N_{\zeta_{\mathcal{t}_j,k}}$ return the correct result is $1 - \epsilon^l$.
 
 The Awansi Machine protocol can be generalized to consider applying sets of user state transitions $\mathcal{T}$ to a set of nodes $N$ with some unique isomorphic noise $\iota(N)$ and returning a final state transition $\mathcal{T}^{\prime}$.
 
