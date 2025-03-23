@@ -208,22 +208,22 @@ We seek proposals for the distributed and decentralized systems which challenge 
 We propose the Anwansi Machine as an exotic distributed and decentralized compute system. The term "anwansi" is the Igbo word for "magic." This is a "magic machine" because its description is intended as an example and many components are left as "magic boxes."
 
 **Description**:
-The Anwansi Machine takes a state transition $\mathcal{t}_1 \in \mathcal{T}$ splits it into a smaller number of "magic" tasks $\{\zeta_{\mathcal{t}_1,1}, \zeta_{\mathcal{t}_1,2}, \ldots, \zeta_{\mathcal{t}_1,n}\} \in \Zeta$ and distributes subsets of them to a subset of nodes $N_{\zeta_{\mathcal{t}_j,k}}$. 
+The Anwansi Machine takes a state transition $s_1 \in S$ splits it into a smaller number of "magic" tasks $\{\zeta_{s_1,1}, \zeta_{s_1,2}, \ldots, \zeta_{s_1,n}\} \in \Zeta$ and distributes subsets of them to a subset of nodes $N_{\zeta_{s_j,k}}$. 
 
-Each of the nodes $N_{\zeta_{\mathcal{t}_j,k}}$ executes the task $\zeta_{\mathcal{t}_j,k}$ with some "unique isomorphic noise" $\iota(N_{\zeta_{\mathcal{t}_j,k}})$ and returns the result to a "magic" aggregator node $N_{agg}$ which combines the results into a final state transition $\mathcal{t}_1^{\prime} \in \mathcal{T}^{\prime}$.
+Each of the nodes $N_{\zeta_{s_j,k}}$ executes the task $\zeta_{s_j,k}$ with some "unique isomorphic noise" $\iota(N_{\zeta_{s_j,k}})$ and returns the result to a "magic" aggregator node $N_{agg}$ which combines the results into a final state transition $s_1^{\prime} \in S^{\prime}$.
 
-Each transition task $\zeta_{\mathcal{t}_j,k} \star \iota(N_{\zeta_{\mathcal{t}_j,k}}) \rightarrow \zeta^{\prime}_{\mathcal{t}_j,k}$ is commutative with each other and associative with each other, but the final state transition $\mathcal{t}_1^{\prime}$ can only be computed via the set of all $\zeta^{\prime}_{\mathcal{t}_j,k}$.
+Each transition task $\zeta_{s_j,k} \star \iota(N_{\zeta_{s_j,k}}) \rightarrow \zeta^{\prime}_{s_j,k}$ is commutative with each other and associative with each other, but the final state transition $s_1^{\prime}$ can only be computed via the set of all $\zeta^{\prime}_{s_j,k}$.
 
-Each transition task $\zeta_{\mathcal{t}_j,k} \star \iota(N_{\zeta_{\mathcal{t}_j,k}}) \rightarrow \zeta^{\prime}_{\mathcal{t}_j,k}$ is incorrect with probability $\epsilon$. When given isomorphic noise the probability that $l$ agreeing nodes $N_{\zeta_{\mathcal{t}_j,k}}$ return the correct result is $1 - \epsilon^l$.
+Each transition task $\zeta_{s_j,k} \star \iota(N_{\zeta_{s_j,k}}) \rightarrow \zeta^{\prime}_{s_j,k}$ is incorrect with probability $\epsilon$. When given isomorphic noise the probability that $l$ agreeing nodes $N_{\zeta_{s_j,k}}$ return the correct result is $1 - \epsilon^l$.
 
-The Awansi Machine protocol can be generalized to consider applying sets of user state transitions $\mathcal{T}$ to a set of nodes $N$ with some unique isomorphic noise $\iota(N)$ and returning a final state transition $\mathcal{T}^{\prime}$.
+The Awansi Machine protocol can be generalized to consider applying sets of user state transitions $S$ to a set of nodes $N$ with some unique isomorphic noise $\iota(N)$ and returning a final state transition $S^{\prime}$.
 
 The aggregator node $N_{agg}$ can be any node in the network or merely an abstraction realized when sampling the set of nodes $N$.
 
 **Properties**:
 
 - **Consistency**: The Anwansi Machine can be run in a traditional PBFT architecture with the key difference that not every node must run every computing task. All Awansi Replicas are consistent once a state transition is finalized.
-- **Atomic State Transition**: The Anwansi Machine executes a set of atomic state transitions $\mathcal{T}$ which can be any Turing machine state transition.
+- **Atomic State Transition**: The Anwansi Machine executes a set of atomic state transitions $S$ which can be any Turing machine state transition.
 - **State Transition Scheduling**: The Anwansi Machine schedules state transitions by distributing tasks to nodes and aggregating the results.
 - **Order**: The Anwansi Machine maintains a total order of state transitions but decomposes these stat transitions into smaller commutative and associative tasks.
 - **State Transition Atomicity**: The Anwansi Machine ensures that state transitions are atomic, meaning they are indivisible and either complete fully or have no effect at the aggregator.
