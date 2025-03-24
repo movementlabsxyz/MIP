@@ -10,7 +10,7 @@ Cross-chain bridges allow assets to be transferred between different blockchains
 
 ## Motivation
 
-To transfer assets from Ethereum to the chain (and back), we have to employ a _bridge_. Ideally we would re-use an existing bridge, but there is no available bridge template from Ethereum to Move-based chains, so we have to design one.
+To transfer assets from Ethereum to the chain (and back), we have to employ a _bridge_. Ideally we would reuse an existing bridge, but there is no available bridge template from Ethereum to Move-based chains, so we have to design one.
 Designing a bridge between two blockchains is a complex task. As pointed out in [Bridges – Ethereum Foundation](https://ethereum.org/en/developers/docs/bridges/#integrating-bridges):
 
 > 1. **Building your own bridge** – Building a secure and reliable bridge is not easy, especially if you take a more trust-minimized route. Moreover, it requires years of experience and technical expertise related to scalability and interoperability studies. Additionally, it would require a hands-on team to maintain a bridge and attract sufficient liquidity to make it feasible.
