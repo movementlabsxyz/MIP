@@ -219,6 +219,7 @@ A validator is a node that participates in the FFS protocol. Validators execute 
 <li>MD-3 (<a href="Merged/main/MD/md-3/index.html">link</a>)</li>
 <li>MD-15 (<a href="Merged/main/MD/md-15/index.html">link</a>)</li>
 <li>MD-61 (<a href="Merged/main/MD/md-61/index.html">link</a>)</li>
+<li>MD-69 (<a href="Review/issue66/MDMIP-for-bridge-fees/MD/md-69/index.html">link</a>)</li>
 <li>MD-74 (<a href="Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/index.html">link</a>)</li>
 <li>MD-91 (<a href="Merged/main/MD/md-91/index.html">link</a>)</li>
 <li>MD-93 (<a href="Merged/main/MD/md-93/index.html">link</a>)</li>
@@ -4473,6 +4474,7 @@ We do not expect the gas algebra to account for settlement costs. Under FFS, set
 <li><strong>Description</strong>: How to charge bridges fees when bridging $L2MOVE to $L1MOVE.</li>
 <li><strong>Authors</strong>: <a href="mailto:franck.cassez@movementlabs.xyz">Franck Cassez</a></li>
 <li><strong>Desiderata</strong>: <a href="Review/issue66/MDMIP-for-bridge-fees/MIP/mip-69/../../MD/md-69/README.html">MD-69</a></li>
+<li><strong>Approval</strong>: Stagnant</li>
 </ul>
 <h2 id="abstract-26"><a class="header" href="#abstract-26">Abstract</a></h2>
 <p>As pointed out in <a href="Review/issue66/MDMIP-for-bridge-fees/MIP/mip-69/../../MD/md-69/README.html">MD-69</a>, bridging \ tokens from Movement Chain to Ethereum (L1) requires the <em>relayer</em> to pay for Ethereum (L1) part of bridge transaction, the <em>L1 fees</em>.
@@ -5836,6 +5838,7 @@ struct Trade {
 <ul>
 <li><strong>Description</strong>: This MD provides some background on the bridge fees mechanism requirements.</li>
 <li><strong>Authors</strong>: <a href="Review/issue66/MDMIP-for-bridge-fees/MD/md-69/franck.cassez@movementlabs.xyz">Franck Cassez</a></li>
+<li><strong>Approval</strong>: :white_check_mark:</li>
 </ul>
 <h2 id="overview-22"><a class="header" href="#overview-22">Overview</a></h2>
 <p>To use the Movement Mainnet, users need to pay for <em>transaction fees</em> in $L2MOVE tokens. As the $MOVE token is minted on Ethereum ($L1MOVE), users need to transfer some $L1MOVE tokens from the Ethereum network to the Movement Mainnet (to get $L2MOVE), and back.
