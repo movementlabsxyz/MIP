@@ -2,8 +2,8 @@
 
 - **Description**: Introduces an Insurance Fund for the bridge which can be used to cover losses.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Reviewer**: Andreas Penzkofer
 - **Desiderata**: [MD-38](https://github.com/movementlabsxyz/MIP/pull/38)
+- **Approval**: Stagnant
 
 ## Abstract
 
@@ -14,7 +14,8 @@ This MIP introduces an Insurance Fund for the bridge which can be used to cover 
 [MD-38](https://github.com/movementlabsxyz/MIP/pull/38) requests provisions for use of AB-FFS that enable a fixed supply of token. This MIP introduces an Insurance Fund for the bridge which can be used to cover losses. The Insurance Fund will be used to cover losses in the event of a hack or other catastrophic event and can insure a fixed supply of token is maintained.
 
 ## Specification
-![Insured Bridge](./insured-bridge.png) 
+
+![Insured Bridge](./insured-bridge.png)
 
 1. The Insurance Fund MUST store a supply of token greater than the sum of all transfer value which can flow over the bridge between during the Risk Period.
 1. The Risk Period MUST reflect the time it takes for an informer to recognize the loss between the two chains and the time it takes for the Insurance Fund Governor to trigger the Insurance Fund to burn token.
@@ -25,6 +26,6 @@ This MIP introduces an Insurance Fund for the bridge which can be used to cover 
 
 ## Verification
 
-## Changelog
-
 ## Appendix
+
+## Changelog
