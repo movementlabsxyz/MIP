@@ -4,6 +4,7 @@
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Reviewer**: Andreas Penzkofer
 - **Desiderata**: [MD-15](../../MD/md-15/README.md)
+- **Approval**: :white_check_mark:
 
 ## Abstract
 
@@ -19,7 +20,7 @@ Furthermore, terms may be underspecified in literature, are used in a unique way
 
 ## Specification
 
-> _The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
+_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
 
 ### Glossary
 
@@ -48,21 +49,21 @@ An example MG is provided at [mg-0](../../MG/mg-0/README.md).
 
 An MG document MUST not be accepted unless it is required by an MIP or MD. For example, herein, we justify the introduction of [MG-0](../../MG/mg-0/README.md). MG-0 defines the term "gloss" which is used in the context of Movement Labs to denote the definition of a term as would feature as an entry in a glossary. For the MGs, it is important to include in the glossary both clarify as the acronym "MG" and to provide an example gloss.
 
-#### MG Structure
+#### MG structure
 
 **Term**
 Definition of the term.
 
-**Related Work**
+**Related work**
 Enumerate key usages of the term or related terms in other contexts.
 
-**Example Usages**
+**Example usages**
 Provide examples of the term's usage in context.
 
 **Changelog**
 Document any post-publication changes to the glossary entry.
 
-## Reference Implementation
+## Reference implementation
 
 See the [Glossary](../../GLOSSARY.md).
 
@@ -70,6 +71,6 @@ See the MG document type template at [mg-template](../../md-template.md) and the
 
 ## Verification
 
-## Changelog
-
 ## Appendix
+
+## Changelog
