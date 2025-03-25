@@ -19,7 +19,7 @@ The lifecycle of a proposal should be:
 
 > :bulb: For more information on the process, see [MIP-0](./MIP/mip-0/README.md#process).
 
-**Github lifecycle**
+**Proposal lifecycle**
 
 ```mermaid
 graph LR
@@ -30,7 +30,7 @@ graph LR
 
 ```mermaid
 graph LR
-    A[2.1:  MD] -- Review / Reject --> B[3.1: MIP] -- Review / Reject --> C[Implementation]
+    A[2.1:  MD] -- Accept decision --> B[3.1: MIP] -- Accept decision --> C[Implementation]
 ```
 
 ## Movement Desiderata (MD)
@@ -73,6 +73,10 @@ MGs serve to capture the **definitions** of terms introduced in the MIPs and MDs
 
 See [MG-0](./MG/mg-0) for an example to get started. A template is provided at [mg-template](mg-template.md).
 
+## Style guide
+
+See [STYLEGUIDE.md](STYLEGUIDE.md) for a style guide for the MIPs, MDs and MGs.
+
 ## Files and numbering
 
 An MIP/MD uses the PR number as the MIP/MD number. Note that PRs that do not introduce a new MIP/MD are also accepted. Thus, there will be gaps in the MIP/MD number sequence.
@@ -87,98 +91,41 @@ PRs that don't introduce a new MIP/MD are also accepted, for example MIPs/MDs ca
 
 ## Status terms
 
+**Github status terms**
 An MIP/MD is proposed through a PR. Each MIP/MD PR should have a status in the name in the form `[status] MIP/MD-x: ...`.
 
-An MIP/MG should at all times have one of the following statuses:
+An MIP/MG should at all times have one of the following PR statuses:
 
 - **Draft** - (set by author) An MIP/MD that is open for consideration. (It does not yet hold an MIP/MD number)
-- **Review** - (set by author) The MIP/MD is under peer review. The MIP/MD should receive an **MIP/MD number**, according to the rules described in the [Files and numbering](#files-and-numbering) section. At this point the editor should be involved to ensure the MIP/MD adheres to the guidelines.
+- **Review** - (set by author) The new MIP/MD is under peer review. The MIP/MD should receive an **MIP/MD number**, according to the rules described in the [Files and numbering](#files-and-numbering) section.
+- **Update** - (set by author) An existing MIP/MD is being updated. The title should list the MIP/MD number, e.g. `[Update] MIP-0 ...`.
 
-> :bulb: In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim.
+In case the editors are not available for an unacceptable long period of time, a reviewer should assume the role of the editor interim.
 
-After acceptance the MIP/MD is merged into `main` and the branch should be deleted.
+**Approval status terms**
+The governance body can set the following statuses. This type of status is displayed at the top of the MD/MIP-file.
 
-Additionally, the following statuses are used for MIPs/MDs that are not actively being worked on:
-
+- **Accepted** - an MIP/MD has been accepted by the governance body.
+- **Rejected** - an MIP/MD has been rejected by the governance body.
 - **Stagnant** - an MIP/MD that has not been updated for 6 months. Upon this status the PR will be closed.
 - **Withdrawn** - an MIP/MD that has been withdrawn.
 
-Finally, an MIP/MD can also be updated:
+## Roles
 
-- **Update** - (set by author) An MIP/MD is being updated. The title should list the MIP/MD number, e.g. `[Update] MIP-0 ...`.
-
-## Style guide
-
-#### Header convention
-
-For headers it is recommended to use standard sentence structure, i.e. do not capitalize letters apart from the first word, specific terms or acronyms.
-
-For example, use
-
-```markdown
-## This header is correct for Movement Labs' MIPs
-```
-
-Do not use
-
-```markdown
-## This Header is Incorrect for Movement Labs' MIPs
-```
-
-#### Capitalization convention
-
-Ensure clarity and consistency in distinguishing between internal components and general roles. When referring to specific entities within our system, capitalize their names. Use lowercase when referring to general roles or concepts. For example:
-
-- **Relayer** refers to our specific relayer, while **relayer** refers to any agent performing relaying.  
-- **Validator** refers to our designated validators, while **validator** is a general term for any entity validating transactions.  
-
-#### Note boxes
-
-Avoid using
-
-```markdown
-> [!NOTE]
-> ...
-```
-
-or
-
-```markdown
-!!! note ...
-```
-
-or
-
-```markdown
-::: note ... :::
-```
-
-These do not render correctly either in the GitHub preview or in the rendered markdown. Instead use emojis to indicate the type of note, e.g.
-
-```markdown
-\> 👀 Note, that ...
-\> :warning: This is a warning ..
-\> :bulb: Here is something to learn ..
-```
-
-## Approval and governance
-
+**Approval and governance**
 MDs and MIPs are approved or rejected by the governance body. The approval is not necessarily tightly coupled to the Github flow.
 
 Currently the governance consists of [@franck44](https://github.com/franck44), [@l-monninger](https://github.com/l-monninger), [@apenzk](https://github.com/apenzk), [@0xmovses](https://github.com/0xmovses), [@bhenhsi](https://github.com/bhenhsi).
 
 For more information on the role of the governance, see [MIP-0: Section "Governance"](./MIP/mip-0/README.md#governance).
 
-## Editor
-
+**Editor**
 Currently the editors are [@apenzk](https://github.com/apenzk).
 
 For more information on the role of the editor, see [MIP-0: Section "Editor"](./MIP/mip-0/README.md#editor).
 
-## Code owners
-
+**Code owners**
 An author commits to becoming the owner of the MIP/MD they propose. This means that for any future changes to the MIP/MD the author will be notified.
-
 The author MUST add themselves as a code owner in [CODEWONERS](.github/CODEOWNERS).
 
 ## Copyright
