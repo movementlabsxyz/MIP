@@ -15,8 +15,6 @@ This MD summarizes the requirements of the _Native Bridge_ (bridge in the sequel
 
 **Justification**: Provides a reference for documentation and implementation.
 
-**Recommendations**:
-
 ### D2: List the expected functionalities of the bridge
 
 **Description**: A list of expected functionalities.
