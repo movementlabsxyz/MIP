@@ -2,6 +2,7 @@
 
 - **Description**: Standardize a pre‑mortem process to proactively identify catastrophic risks and drive actionable mitigation measures in Movement’s blockchain operations.
 - **Authors**: [Elliott Dehnbostel](mailto:elliott.dehnbostel@movementlabs.xyz)
+- **Approval**: :x:
 
 ## Overview
 
