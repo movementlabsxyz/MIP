@@ -219,6 +219,7 @@ A validator is a node that participates in the FFS protocol. Validators execute 
 <li>MD-3 (<a href="Merged/main/MD/md-3/index.html">link</a>)</li>
 <li>MD-15 (<a href="Merged/main/MD/md-15/index.html">link</a>)</li>
 <li>MD-61 (<a href="Merged/main/MD/md-61/index.html">link</a>)</li>
+<li>MD-74 (<a href="Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/index.html">link</a>)</li>
 <li>MD-91 (<a href="Merged/main/MD/md-91/index.html">link</a>)</li>
 <li>MD-93 (<a href="Merged/main/MD/md-93/index.html">link</a>)</li>
 </ul>
@@ -4706,6 +4707,7 @@ If $Balance(A, B) == 0$, we keep the fees as they are, if $Balance(A, B) &gt; 0$
 <li><strong>Description</strong>: A rate limitation mechanism for the Lock/Mint-type Native Bridge.</li>
 <li><strong>Authors</strong>: Andreas Penzkofer, Primata</li>
 <li><strong>Desiderata</strong>: <a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/../../MD/md-74/README.html">MD-74</a></li>
+<li><strong>Approval</strong>: Stagnant</li>
 </ul>
 <h2 id="abstract-28"><a class="header" href="#abstract-28">Abstract</a></h2>
 <p>We propose a rate limitation mechanism to protect the Lock/Mint-type Native Bridge, hereafter called the <em>Native Bridge</em>, see <a href="https://github.com/movementlabsxyz/MIP/pull/58">MIP-58</a>, against faulty or compromised behavior of the Native Bridge components. It limits the volume of assets that can be transferred within a time window. This MIP proposes a solution to mitigate attacks and limit damages, and if paired with an insurance fund it may cover the potential losses incurred by our users.</p>
@@ -4837,10 +4839,6 @@ The following are possible ways to adjust the rate limit:</p>
 <p>The following algorithm is a recommendation for the operation of the Relayer:</p>
 <h2 id="reference-implementation-21"><a class="header" href="#reference-implementation-21">Reference Implementation</a></h2>
 <h2 id="verification-27"><a class="header" href="#verification-27">Verification</a></h2>
-<p>Needs discussion.</p>
-<p>We may add a formal model?</p>
-<hr />
-<h2 id="changelog-30"><a class="header" href="#changelog-30">Changelog</a></h2>
 <h2 id="appendix-25"><a class="header" href="#appendix-25">Appendix</a></h2>
 <h3 id="a1-alternative-designs"><a class="header" href="#a1-alternative-designs">A1: Alternative designs</a></h3>
 <p>This MIP proposes a rate limiting mechanism for the Lock/Mint-type Native Bridge with symmetrical design. Below we discuss how we got here and which alternatives exist. The version discussed in this MIP is option C.</p>
@@ -4872,9 +4870,7 @@ The following are possible ways to adjust the rate limit:</p>
 <li>Initiating transfers get rejected on the source chain, which improves safety and fulfills rate limit requirements on the source chain.</li>
 <li>On the source chain the rate limit is not related to the Insurance Fund. This opens the question who sets the rate limit on the source chain. We answer this in this MIP.</li>
 </ul>
-<hr />
-<h2 id="copyright-6"><a class="header" href="#copyright-6">Copyright</a></h2>
-<p>Copyright and related rights waived via <a href="Review/mip/rate-limiter-lock-mint-bridge/MIP/mip-74/../LICENSE.html">CC0</a>.</p>
+<h2 id="changelog-30"><a class="header" href="#changelog-30">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="mip-92-move-stack"><a class="header" href="#mip-92-move-stack">MIP-92: Move Stack</a></h1>
 <ul>
@@ -5069,7 +5065,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <h2 id="appendix-26"><a class="header" href="#appendix-26">Appendix</a></h2>
 <h3 id="a1-rfc-1"><a class="header" href="#a1-rfc-1">A1 RFC-1</a></h3>
 <p>RFC-1 in <a href="https://github.com/movementlabsxyz/rfcs">RFCs</a> is an initial document that outlines the components of the Move Stack and Movement SDK. It provides a detailed enumeration of components, their aliases, and purposes.</p>
-<h2 id="copyright-7"><a class="header" href="#copyright-7">Copyright</a></h2>
+<h2 id="copyright-6"><a class="header" href="#copyright-6">Copyright</a></h2>
 <p>Copyright and related rights waived via <a href="Review/mip/move-stack/MIP/mip-92/../LICENSE.html">CC0</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-6"><a class="header" href="#welcome-to-the-movement-network-mip-book-6">Welcome to the Movement Network MIP Book</a></h1>
@@ -5928,6 +5924,7 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 <ul>
 <li><strong>Description</strong>: A rate limitation mechanism for the Lock/Mint-type Native Bridge.</li>
 <li><strong>Authors</strong>: <a href="mailto:andreas.penzkofer@movementlabs.xyz">Andreas Penzkofer</a></li>
+<li><strong>Approval</strong>: :white_check_mark:</li>
 </ul>
 <h2 id="overview-23"><a class="header" href="#overview-23">Overview</a></h2>
 <p>The Lock/Mint-type Native Bridge (hereafter called the “Native Bridge”), see <a href="https://github.com/movementlabsxyz/MIP/pull/58">MIP-58</a>, must be protected against faulty components and attacks. A Rate-Limiter is a mechanism that can help to protect the Native Bridge. It limits the volume of transferred value, the maximum value transferred with a given transfer, or the number of transactions.</p>
@@ -5942,7 +5939,7 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 <h3 id="d3-define-the-rate-limiting-mechanism"><a class="header" href="#d3-define-the-rate-limiting-mechanism">D3: Define the rate-limiting mechanism</a></h3>
 <p><strong>User Journey</strong>: The developer should understand the rate-limiting mechanism.</p>
 <p><strong>Description</strong>: The rate-limiting mechanism should be defined in a way that it is clear how it works and how it can be adjusted. Moreover all components and their parameters should be defined. It should also be defined what is being rate-limited.</p>
-<h2 id="errata-13"><a class="header" href="#errata-13">Errata</a></h2>
+<h2 id="changelog-35"><a class="header" href="#changelog-35">Changelog</a></h2>
 
                     </main>
 

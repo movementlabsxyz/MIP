@@ -163,6 +163,7 @@
 <li><strong>Description</strong>: A rate limitation mechanism for the Lock/Mint-type Native Bridge.</li>
 <li><strong>Authors</strong>: Andreas Penzkofer, Primata</li>
 <li><strong>Desiderata</strong>: <a href="../../MD/md-74/README.html">MD-74</a></li>
+<li><strong>Approval</strong>: Stagnant</li>
 </ul>
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
 <p>We propose a rate limitation mechanism to protect the Lock/Mint-type Native Bridge, hereafter called the <em>Native Bridge</em>, see <a href="https://github.com/movementlabsxyz/MIP/pull/58">MIP-58</a>, against faulty or compromised behavior of the Native Bridge components. It limits the volume of assets that can be transferred within a time window. This MIP proposes a solution to mitigate attacks and limit damages, and if paired with an insurance fund it may cover the potential losses incurred by our users.</p>
@@ -294,10 +295,6 @@ The following are possible ways to adjust the rate limit:</p>
 <p>The following algorithm is a recommendation for the operation of the Relayer:</p>
 <h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference Implementation</a></h2>
 <h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
-<p>Needs discussion.</p>
-<p>We may add a formal model?</p>
-<hr />
-<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 <h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
 <h3 id="a1-alternative-designs"><a class="header" href="#a1-alternative-designs">A1: Alternative designs</a></h3>
 <p>This MIP proposes a rate limiting mechanism for the Lock/Mint-type Native Bridge with symmetrical design. Below we discuss how we got here and which alternatives exist. The version discussed in this MIP is option C.</p>
@@ -329,9 +326,7 @@ The following are possible ways to adjust the rate limit:</p>
 <li>Initiating transfers get rejected on the source chain, which improves safety and fulfills rate limit requirements on the source chain.</li>
 <li>On the source chain the rate limit is not related to the Insurance Fund. This opens the question who sets the rate limit on the source chain. We answer this in this MIP.</li>
 </ul>
-<hr />
-<h2 id="copyright"><a class="header" href="#copyright">Copyright</a></h2>
-<p>Copyright and related rights waived via <a href="../LICENSE.html">CC0</a>.</p>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 
                     </main>
 
