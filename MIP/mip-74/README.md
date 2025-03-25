@@ -3,6 +3,7 @@
 - **Description**: A rate limitation mechanism for the Lock/Mint-type Native Bridge.
 - **Authors**: Andreas Penzkofer, Primata
 - **Desiderata**: [MD-74](../../MD/md-74/README.md)
+- **Approval**: Stagnant
 
 ## Abstract
 
@@ -168,14 +169,6 @@ The following algorithm is a recommendation for the operation of the Relayer:
 
 ## Verification
 
-Needs discussion.
-
-We may add a formal model?
-
----
-
-## Changelog
-
 ## Appendix
 
 ### A1: Alternative designs
@@ -211,8 +204,4 @@ This proposal is discussed in this MIP.
 - Initiating transfers get rejected on the source chain, which improves safety and fulfills rate limit requirements on the source chain.
 - On the source chain the rate limit is not related to the Insurance Fund. This opens the question who sets the rate limit on the source chain. We answer this in this MIP.
 
----
-
-## Copyright
-
-Copyright and related rights waived via [CC0](../LICENSE.md).
+## Changelog

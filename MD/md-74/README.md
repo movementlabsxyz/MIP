@@ -1,6 +1,8 @@
 # MD-74: Rate-Limiter for the Lock/Mint-type Native Bridge
+
 - **Description**: A rate limitation mechanism for the Lock/Mint-type Native Bridge.
 - **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
+- **Approval**: :white_check_mark:
 
 ## Overview
 
@@ -28,4 +30,4 @@ The Lock/Mint-type Native Bridge (hereafter called the "Native Bridge"), see [MI
 
 **Description**: The rate-limiting mechanism should be defined in a way that it is clear how it works and how it can be adjusted. Moreover all components and their parameters should be defined. It should also be defined what is being rate-limited.
 
-## Errata
+## Changelog
