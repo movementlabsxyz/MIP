@@ -2,6 +2,7 @@
 
 - **Description**: This MD provides some background on the bridge fees mechanism requirements.
 - **Authors**: [Franck Cassez](franck.cassez@movementlabs.xyz)
+- **Approval**: :white_check_mark:
 
 ## Overview
 

@@ -3,6 +3,7 @@
 - **Description**: How to charge bridges fees when bridging \$L2MOVE to \$L1MOVE.
 - **Authors**: [Franck Cassez](mailto:franck.cassez@movementlabs.xyz)
 - **Desiderata**: [MD-69](../../MD/md-69/README.md)
+- **Approval**: Stagnant
 
 ## Abstract
 
