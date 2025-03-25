@@ -1,6 +1,7 @@
 # MD-71: Informer service for the Lock/Mint-based Native Bridge
 - **Description**: Provide a component that informs about the total circulating supply of \$MOVE across L1 and L2.
 - **Authors**: [Author](mailto:andreas.penzkofer@movementlabs.xyz)
+- **Approval**: Stagnant
 
 ## Overview
 

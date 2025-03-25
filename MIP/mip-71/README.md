@@ -3,6 +3,7 @@
 - **Description**: The Informer collects data from L1 and L2 about the supply of \$MOVE tokens and forwards the information to relevant parties, which is critical for the safe operation of the Native Bridge.
 - **Authors**: [Andreas Penzkofer](mailto:andreas.penzkofer@movementlabs.xyz)
 - **Desiderata**: [MD-71](../../MD/md-71)
+- **Approval**: Stagnant
 
 ## Abstract
 
