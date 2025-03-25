@@ -1,0 +1,547 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>MIP-58: Lock/Mint-type Native Bridge with trusted Relayer - MIP</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">MIP</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/movementlabsxyz/MIP" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="mip-58-lockmint-type-native-bridge-with-trusted-relayer"><a class="header" href="#mip-58-lockmint-type-native-bridge-with-trusted-relayer">MIP-58: Lock/Mint-type Native Bridge with trusted Relayer</a></h1>
+<ul>
+<li><strong>Description</strong>: Proposes a lock/mint-type Native Bridge that capitalizes on the trust-assumption on the Relayer.</li>
+<li><strong>Authors</strong>: <a href="mailto:primata@movementlabs.xyz">Primata</a>, Andreas Penzkofer</li>
+<li><strong>Approval</strong>:</li>
+</ul>
+<h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
+<p>We propose a lock/mint-type Native Bridge. The lock/mint bridge design streamlines operations, enhances security, and improves user experience (compared to the previously employed HTLC-based Native Bridge) making it easier to bridge assets between chains.</p>
+<h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
+<p>Different types of bridges have been considered for the Native Bridge, see <a href="https://github.com/movementlabsxyz/MIP/pull/60">MIP-60</a>. The initial design employed a HTLC-based bridge, which has been found to lead to bad UX, requires four transactions, and a complex design.</p>
+<p>This proposal advocates for replacing the current HTLC-based bridge design, with a lock/mint-type bridge with a simpler and more efficient two-transaction mechanism. The proposed design reduces costs, enhances security, minimizes user friction, and avoids potential exploits caused by refund logic. It addresses long-standing issues such as reliance on sponsored transactions, outdated audits, and unimplemented fee mechanisms speeding the process to achieve a fully functional bridge that movement yet has been unable to complete, and lots of under issues raised and still pending.</p>
+<p><strong>Reminder: HTLC-based bridge</strong>
+The HTLC-type Native Bridge design poses numerous challenges, including inefficiency, cost, and user frustration:</p>
+<ol>
+<li><strong>Transaction complexity</strong>
+Requires four interactions:
+<ul>
+<li>Two by the user (initiate the transfer and finalize the transfer).</li>
+<li>One by the Relayer to complete the transfer.</li>
+<li>One by a third party (tasked to the Relayer) to finalize refunds in case of failure.</li>
+<li>If any of these fails, users and the operator face losses.</li>
+</ul>
+</li>
+<li><strong>High cost</strong>
+<ul>
+<li>The multi-transaction setup is expensive for both users and the operator.</li>
+<li>Estimations in fee calculation that are too far off can result in significant losses.</li>
+<li>If fees are miscalculated by 25%, this leads to a 25% loss. When L1 fees increase, the loss can escalate dramatically in absolute terms.</li>
+</ul>
+</li>
+<li><strong>Unfriendly user experience</strong>
+<ul>
+<li>The current design requires users to have funds on the target chain for finalization. This increases friction and discourages adoption.</li>
+<li>Sponsored transactions are essential to the current implementation but remain unimplemented, leaving users stranded without funds.</li>
+</ul>
+</li>
+<li><strong>Security risks</strong>
+<ul>
+<li>Relayer keys are a critical point of failure. This assumption cannot be avoided.</li>
+<li>Refund logic introduces vulnerabilities where attackers could exploit the rate limit and Relayer downtime.</li>
+<li>For instance, if the Relayer fails to finalize on the initiator, a malicious actor could:
+<ul>
+<li>Take over the refund keys.</li>
+<li>Exploit both directions of the bridge (e.g., $L1MOVE→$L2MOVE and $L2MOVE→$L1MOVE) repeatedly, draining funds.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Maintenance burden</strong>
+<ul>
+<li>The current design requires a complete UI/UX overhaul, adding complexity and delay.</li>
+</ul>
+</li>
+<li><strong>Unnecessary complexity</strong>
+<ul>
+<li>HTLC-based bridges are largely abandoned in favor of simpler, more effective designs.</li>
+<li>Examples like the <a href="https://github.com/Consensys/htlc-bridge">Consensys HTLC</a> bridge demonstrate the <a href="https://entethalliance.org/crosschain-bridges-overview-where-we-are-now/">pitfalls of such approaches</a>.</li>
+</ul>
+</li>
+<li><strong>Infrastructure simplification</strong>
+<ul>
+<li>Infrastructure is still incomplete for the current HTLC bridge design and we are struggling to find sound solutions that balance UI/UX and security. For example, <a href="https://github.com/movementlabsxyz/movement/issues/838">this issue</a> regarding UX vs number of confirmations to require on the Ethereum side, is still under debate.</li>
+<li>Because of the over-engineered design, infrastructure is prone to error and we might end up being damaged by the amount of infrastructure we have not built yet and has to be built for the Relayer to fully function.</li>
+<li>We could strip down the Relayer code and achieve a final design much more quickly.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Protocol simplification (compared to HTLC-based Native Bridge)</strong>
+The proposed lock/mint bridge design mitigates these issues, creating a safer, faster, and user-friendly bridge while maintaining operational reliability.</p>
+<ul>
+<li>Combine lock and completion functionality on the counterparty contract.</li>
+<li>Remove refund logic to streamline operations and improve security.</li>
+<li>Cheaper transactions because of reduction of logic.</li>
+<li>Consolidate Initiator and Counterparty into a single contract (this might be the most dangerous thing proposed but it has already been proposed for HTLC Native Bridge implementation).</li>
+</ul>
+<h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
+<p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
+<p>The lock/mint bridge design focuses on minimizing complexity and maximizing security. It also leverages the trust assumption on the Relayer to streamline operations and enhance user experience.</p>
+<h3 id="components"><a class="header" href="#components">Components</a></h3>
+<p>The following components are involved</p>
+<p><strong>L1 Native Bridge contract</strong>
+The contract to which a user can request a bridge transfer L1→L2 and through which the Relayer completes transfers L2→L1.</p>
+<p><strong>L2 Native Bridge contract</strong>
+The contract to which a user can request a bridge transfer L2→L1 and through which the Relayer completes transfers L1→L2.</p>
+<p><strong>L1 token pool</strong>
+An address which collects \ that are transferred L1→L2 and from which tokens are released when transferred L2→L1.</p>
+<p><strong>L2 Mint contract</strong>
+A contract capable of minting \.</p>
+<p><strong>Governance operator</strong>
+An entity that can set the bridge fee and adjust the rate limit.</p>
+<p><strong>Rate limiter</strong>
+A mechanism that limits the number of tokens that can be transferred. The rate limitation is discussed in <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a>.</p>
+<p><strong>(Partially trusted) Relayer</strong>
+An off-chain partially trusted component (except for bugs or theft of keys) that can read relevant events from either chain and processes transfer requests by completing them on the target chain. It MAY operate nodes on both chains to learn about the finalization of <code>complete_transfer</code> transactions. The operation of the Relayer, including the bootstrapping process, is detailed in <a href="https://github.com/movementlabsxyz/MIP/pull/61">MIP-61</a>.</p>
+<h3 id="storage-fields"><a class="header" href="#storage-fields">Storage fields</a></h3>
+<p>The storage fields are directional, hence we need to mirror the mapping for L1→L2, as well as L2→L1. Hence, we will talk about source and target chain.</p>
+<h4 id="source-bridge-contract"><a class="header" href="#source-bridge-contract">Source bridge contract</a></h4>
+<pre><code class="language-rust">struct SourceBridgeTransfers {
+    /// A list of unique bridge transfer IDs.
+    bridge_transfer_ids: Vec&lt;u64&gt;,
+    /// A mapping of `bridge_transfer_id` to the bridge details.
+    bridge_transfer: HashMap&lt;u64, SourceBridgeDetails&gt;,
+}
+
+/// Details of a bridge transfer on the source chain.
+struct SourceBridgeDetails {
+    /// The address of the user initiating the bridge transfer.
+    originator: Address,
+    /// The address of the user receiving the bridge transfer.
+    recipient: Address,
+    /// The amount of tokens being transferred.
+    amount: u128,
+    /// A unique identifier for each bridge transfer, incremented by the contract.
+    nonce: u64,
+}</code></pre>
+<h4 id="target-bridge-contract"><a class="header" href="#target-bridge-contract">Target bridge contract</a></h4>
+<pre><code class="language-rust">struct TargetBridgeTransfers {
+    /// A list of unique bridge transfer IDs.
+    bridge_transfer_ids: Vec&lt;u64&gt;,
+    /// A mapping of `bridge_transfer_id` to the bridge details.
+    bridge_transfer: HashMap&lt;u64, TargetBridgeDetails&gt;,
+}
+
+/// Details of a bridge transfer on the target chain.
+struct TargetBridgeDetails {
+    /// The address of the user initiating the bridge transfer.
+    originator: String, // or `Address` if using an Ethereum-compatible type
+    /// The address of the user receiving the bridge transfer.
+    recipient: String,
+    /// The amount of tokens being transferred.
+    amount: u128,
+    /// A unique identifier for each bridge transfer, incremented by the contract.
+    nonce: u64,
+}</code></pre>
+<h3 id="transaction-flow"><a class="header" href="#transaction-flow">Transaction flow</a></h3>
+<blockquote>
+<p>[!NOTE]
+This bridge design is a simpler version compared to the previous HTLC-based implementation, thus less steps are required to complete a bridge transfer.</p>
+</blockquote>
+<p>The bridge is initiated by the user and completed by the Relayer. The Relayer is a trusted party that finalizes the bridge transfer on the target chain. The user is not required to have funds on the target chain to complete the transfer. The Relayer is responsible for completing the transfer on the target chain.</p>
+<ul>
+<li>There are two possible states, <code>transfer_initiated</code> or <code>transfer_completed</code>.</li>
+<li>User initiates the transfer.</li>
+<li>Relayer completes the transfer with parameter validation.</li>
+<li>Current HasuraDB built internally can provide enough infrastructure for users to know if their transaction has been completed. It does not differ from the current (HTLC-based) design in any way since user is not able to see if their transaction is in-flight. We could introduce this by notifying the user if the Relayer has been ordered to complete the transaction.</li>
+</ul>
+<pre><code class="language-mermaid">sequenceDiagram
+    participant User
+    participant Source_Contract as Source Chain Contract
+    participant Relayer
+    participant Target_Contract as Target Chain Contract
+
+    User -&gt;&gt; Source_Contract: Initiate Transfer
+    Source_Contract --&gt;&gt; Relayer: Emit Transfer Event
+    Relayer -&gt;&gt; Target_Contract: Complete Transfer
+    Target_Contract --&gt;&gt; User: Tokens Delivered
+</code></pre>
+<p><em>Figure: Interaction flow diagram.</em></p>
+<p><img src="tx-history.png" alt="Transaction History" />
+<em>Figure: Users would be able to see if the bridge has been completed. It’s either pending or completed.</em></p>
+<h3 id="protocol-description"><a class="header" href="#protocol-description">Protocol description</a></h3>
+<h4 id="l1--l2"><a class="header" href="#l1--l2">L1 → L2</a></h4>
+<ol>
+<li>User initiates a bridge transfer on L1 via a <code>initiate_transfer</code> transaction. Contract stores a mapping of the user <code>bridgeTransferId</code> for easy access. It transfers from the user \ to the contract. The transaction emits <code>originator</code>, <code>recipient</code>, <code>amount</code> and a <code>nonce</code>.</li>
+<li>Relayer awaits for finalization of the <code>initiate_transfer</code> transaction on L1.</li>
+<li>Relayer sends a <code>complete_transfer</code> transaction on L2 to complete the transfer.</li>
+<li>The contract verifies that the transaction is correct by comparing the provided <code>bridgeTransferId</code> hash and the emitted values of <code>originator</code>, <code>recipient</code>, <code>amount</code> and <code>nonce</code>. Finally, it mints \ and sends it to the recipient address.</li>
+<li>User is notified on the frontend that their transaction has been completed.</li>
+<li>The time to finality for the complete transaction on the L2 should be considered after the postconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>, to provide strong finality guarantees.</li>
+</ol>
+<blockquote>
+<p>[!NOTE]
+Postconfirmation is an anchoring mechanism for the L2 to the L1. It provides additional reorg protection. We MAY consider Fastconfirmation instead of Postconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-65</a>. This assumes the L2 is extremely unlikely to reorg AND the committee is considered to be safe.</p>
+</blockquote>
+<p><img src="L1ToL2.png" alt="L1-L2" /></p>
+<h4 id="l2--l1"><a class="header" href="#l2--l1">L2 → L1</a></h4>
+<ol>
+<li>User initiates a bridge transfer on L2. Contract stores a mapping of the user <code>nonce</code> to bridge details for easy access. User transfers \ amount to the contract which burns it. The transaction emits originator, recipient, amount and <code>nonce</code>.</li>
+<li>Relayer awaits for finalization of the transaction on L2. Finality COULD be considered the postconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/37">MIP-37</a>, to provide strong finality guarantees. However, we suggest the Relayer SHOULD consider fastconfirmation, see <a href="https://github.com/movementlabsxyz/MIP/pull/65">MIP-65</a> instead, due to high fluctuation of gas prices on L1 within time that is required for postconfirmation. Nevertheless, this introduces dependency on that the L2 is extremely unlikely to reorg AND the committee is considered to be safe.</li>
+<li>Relayer completes the transfer on L1 by sending a <code>complete_transfer</code> transaction.</li>
+<li>L1 contract verifies that <code>complete_transfer</code> is correct by comparing the provided <code>bridgeTransferId</code> hash and the emitted values of initiator, recipient, amount and <code>nonce</code>. Also <code>nonce</code> must not be used yet. Finally, it transfers \ to the recipient address from the locked token pool.</li>
+<li>User is notified on the frontend that their transaction has been completed.</li>
+</ol>
+<p><img src="L2ToL1.png" alt="L2-L1" /></p>
+<h3 id="key-features"><a class="header" href="#key-features">Key features</a></h3>
+<p>We discuss the key features also in relation to the HTLC-based bridge to provide a comparison with the previous design.</p>
+<ol>
+<li>
+<p><strong>Lock/Mint mechanism</strong></p>
+<ul>
+<li><strong>Initiation</strong>: User sends a transaction to initiate the bridge containing recipient and amount.</li>
+<li><strong>Completion</strong>: A Relayer or multi-signature group completes the transfer on the counterparty contract with the originator, recipient, amount and <code>nonce</code> for hash verification.</li>
+<li><strong>No funds requirement</strong>: User is not required to have funds on target chain and we do not have to build sponsored transactions.</li>
+<li><strong>Delivery by Relayer</strong>: Because the Relayer delivers the funds, there is no requirement for the user to complete the transaction on target chain, therefore simplifying the user experience and allowing a smooth onboarding on the network for transfers from L1 to L2. User only has to await for the finalization on the source chain and for the Relayer to perform the completion on target chain. This is standard practice for every major bridge in the ecosystem.</li>
+<li><strong>Less parameters</strong>: Because there is no exchange of secrets between the user and Relayer, we have a substantial reduction of logic.</li>
+<li><strong>Must complete transfers</strong>: Previously we reserve a refunder role to revert transactions. In this approach this is different as we guarantee delivery of funds through the same party that would guarantee funds being refunded, because transfers MUST be completed.</li>
+</ul>
+</li>
+<li>
+<p><strong>Consolidation of logic</strong></p>
+<ul>
+<li>Merge lock and completion functionality on the counterparty contract. Once lock is called, funds are already in the control of the user. In the HTLC implementation, once the timelock is over and complete on initiator has not been called, both the initiator and counterparty funds are available to the user, opening up for an exploit.</li>
+<li>Removes the refund functionality entirely to eliminate associated exploits.</li>
+</ul>
+</li>
+<li>
+<p><strong>Parameter validation</strong></p>
+<ul>
+<li>Ensure parameter validation on the counterparty to prevent invalid transactions.</li>
+</ul>
+</li>
+<li>
+<p><strong>Relayer redundancy</strong></p>
+<ul>
+<li>Use two types of Relayers:
+<ul>
+<li><strong>Automated relayer</strong>: Operated with minimal human involvement; its private key is highly secured.</li>
+<li><strong>Multi-signature Relayer</strong>: Managed by the team to guarantee transaction completion in case of failures.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Cost efficiency</strong></p>
+<ul>
+<li>Minimize gas costs by reducing the number of interactions and simplifying fee calculations.</li>
+</ul>
+</li>
+<li>
+<p><strong>Enhanced security</strong></p>
+<ul>
+<li>Avoid refund logic to close exploit windows.</li>
+<li>Protect against key compromise through key isolation or known by no parties and multi-signature Relayer setups.</li>
+<li>There is no scenario where a bridge could lead to double-spending. It’s either completed by Relayer or not.</li>
+<li>In the HTLC bridge the user can loose its bridge <code>preImage</code> which could lead to them being unable to complete the bridge. By not relying on a <code>preImage</code> from the user, it minimizes issues. It is not a loss in security because the purpose of the <code>preImage</code> is solely for refunding.</li>
+</ul>
+</li>
+<li>
+<p><strong>Batch processing for downtime</strong></p>
+<ul>
+<li>Multi-signature Relayers can process multiple pending transactions in a single batch to compensate for downtime.</li>
+</ul>
+</li>
+<li>
+<p><strong>BridgeTransferId</strong></p>
+<ul>
+<li>Continue using unique identifier to prevent double-spending and track transactions securely.</li>
+</ul>
+</li>
+<li>
+<p><strong>Initial bridge fee proposals</strong></p>
+<ul>
+<li>On the L1 to L2 bridge, do not charge fees.</li>
+<li>On the L2 to L1 bridge, charge a fee estimated by admin. It’s set to the gas spent in ethereum in move. This requires an oracle and can only be implemented after oracles are live and we are able to have a maintainer that is able to set the fees on L2.</li>
+</ul>
+<pre><code>entry fun set_fee(caller: &amp;signer, fee: u64) {
+   assert_is_maintainer(caller);
+   borrow_global&lt;BridgeConfig&gt;(@aptos_framework).fee = fee;
+}
+</code></pre>
+</li>
+<li>
+<p><strong>Best practices</strong></p>
+</li>
+</ol>
+<ul>
+<li>Adopt currently used bridge designs from established designs like Arbitrum, LayerZero and Blast bridges, which use a Relayer to finalize the bridge.</li>
+<li>User is not required to have funds on counterparty contract to finalize the bridge.</li>
+</ul>
+<h2 id="exploits-and-potential-losses"><a class="header" href="#exploits-and-potential-losses">Exploits and potential losses</a></h2>
+<ol>
+<li><strong>Key compromise</strong>
+<ul>
+<li>The compromise of the Relayer keys would lead to unauthorized transactions, putting the protocol at risk of unlimited value exploit.  The protocol must absorb the losses and rotate Relayers. To minimize this risk <a href="https://github.com/movementlabsxyz/MIP/pull/74">MIP-74</a> proposes a rate limitation even for the Relayer.</li>
+</ul>
+</li>
+<li><strong>Fee wrong estimation</strong>
+<ul>
+<li>Incorrect fee calculations (e.g., underestimating gas) can cause significant financial losses for the operator.</li>
+</ul>
+</li>
+</ol>
+<h2 id="reference-implementation"><a class="header" href="#reference-implementation">Reference implementation</a></h2>
+<p><a href="https://github.com/movementlabsxyz/movement/tree/primata/simple-native-bridge">Solidity Implementation</a></p>
+<p><a href="https://github.com/movementlabsxyz/aptos-core/tree/andygolay/simplified-bridge">Move Implementation</a></p>
+<h3 id="optional-recommendations"><a class="header" href="#optional-recommendations">(Optional) recommendations</a></h3>
+<h4 id="batch-completion-for-multisig-relayer"><a class="header" href="#batch-completion-for-multisig-relayer">Batch completion for multisig Relayer**</a></h4>
+<p>Multisig Relayers could process pending transactions in batches during downtime of the standard Relayer, ensuring timely resolution.</p>
+<h2 id="verification"><a class="header" href="#verification">Verification</a></h2>
+<ol>
+<li>
+<p><strong>Correctness</strong></p>
+<ul>
+<li>Simulate multiple transaction scenarios to ensure robustness.</li>
+<li>Test edge cases, including Relayer downtime and batch processing.</li>
+</ul>
+</li>
+<li>
+<p><strong>Security implications</strong></p>
+<ul>
+<li>Conduct audits focused on the simplified design.</li>
+<li>Implement rate-limiting safeguards and validate parameters in contracts.</li>
+</ul>
+</li>
+<li>
+<p><strong>Performance impacts</strong></p>
+<ul>
+<li>Benchmark gas costs and transaction throughput.</li>
+</ul>
+</li>
+<li>
+<p><strong>Validation procedures</strong></p>
+<ul>
+<li>Perform an audit and thorough testing, alongside an open invite to the community to verify the bridge.</li>
+<li>Seek community feedback and incorporate suggestions.</li>
+</ul>
+</li>
+</ol>
+<h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
+<h3 id="a1-related-issues"><a class="header" href="#a1-related-issues">A1: Related issues</a></h3>
+<ul>
+<li><a href="https://github.com/movementlabsxyz/movement/issues/838">Movement Issue #838</a></li>
+<li><a href="https://github.com/movementlabsxyz/movement/issues/842">Movement Issue #842</a></li>
+</ul>
+<h3 id="a2-gas-cost-comparison"><a class="header" href="#a2-gas-cost-comparison">A2: Gas cost comparison</a></h3>
+<ul>
+<li><strong>Current Design</strong>: ~400k gas per bridge round trip.</li>
+<li><strong>Simplified Design</strong>: ~200k gas per bridge round trip.</li>
+</ul>
+<h3 id="a3-referenced-designs"><a class="header" href="#a3-referenced-designs">A3: Referenced designs</a></h3>
+<ul>
+<li><a href="https://bridge.arbitrum.io/?destinationChain=arbitrum-one&amp;sourceChain=ethereum">Arbitrum Bridge</a></li>
+<li><a href="https://docs.blast.io/building/bridges/mainnet">Blast Bridge</a></li>
+</ul>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../Approved/main/MIP/mip-53/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../../Approved/main/MIP/mip-60/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../Approved/main/MIP/mip-53/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../../Approved/main/MIP/mip-60/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../../elasticlunr.min.js"></script>
+        <script src="../../../../mark.min.js"></script>
+        <script src="../../../../searcher.js"></script>
+
+        <script src="../../../../clipboard.min.js"></script>
+        <script src="../../../../highlight.js"></script>
+        <script src="../../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
