@@ -3,6 +3,7 @@
 - **Description**: Introduces a solution to make the bridge interface usable if the bridge relies on finalized Ethereum blocks
 - **Authors**: [Andy Golay](mailto:andy.golay@movementlabs.xyz)
 - **Desiderata**: $\emptyset$
+- **Approval**: Stagnant
 
 ## Abstract 1 (Philippe?)
 
@@ -10,7 +11,7 @@ The current implementation of the bridge transaction processing, suppose that al
 This proposition explore the finality waiting case. For all bridged blockchain (L1/L2), only finale transaction are processed.
 This change change the behavior in the `relayer` that need to wait finalized block to propagate event and in the UI where only finalized TX can be used to notify user bridge state change.
 
-This proposition discribe an update of the UI where rather than users waiting for their L2 wallet to pop up to complete a bridge transfer on the destination chain, if we require several minutes to consider a block finalized, then users can refer to their transfer history in the wallet UI and click a "Complete" button to sign the transaction to complete the bridge transfer. The wallet pop up will automatically be populated with the bridge transfer ID and pre-image.
+This proposition describe an update of the UI where rather than users waiting for their L2 wallet to pop up to complete a bridge transfer on the destination chain, if we require several minutes to consider a block finalized, then users can refer to their transfer history in the wallet UI and click a "Complete" button to sign the transaction to complete the bridge transfer. The wallet pop up will automatically be populated with the bridge transfer ID and pre-image.
 
 ## Motivation
 
@@ -49,17 +50,16 @@ This specification includes a user persona, use case, and user scenarios, as wel
 
 ### Persona
 
- - User: the bridge user is interested in bridging assets between Ethereum and Movement network. They may be assumed to have some past experience and knowledge of using crypto wallets and apps.
- - Movement: the movement organization that run the Bridge.
- - Relayer: process lock transfer and complete initator Tx needed by the bridge protocol.
+- User: the bridge user is interested in bridging assets between Ethereum and Movement network. They may be assumed to have some past experience and knowledge of using crypto wallets and apps.
+- Movement: the movement organization that run the Bridge.
+- Relayer: process lock transfer and complete initator Tx needed by the bridge protocol.
 
-### Use case 
+### Use case
 
 "As a User, I want to swap MOVE on L1 to MOVE on L2, and back from L2 to L1, so that I can use Movement network apps, and move value bidirectionally between Movement network and Ethereum."
 "As a User, I want to have a secure bridge process, so that I can't lost my fund."
 "As Movement, I want the user to use have a good experience with the bridge transfer so that it come back and use the movement blockchain."
 "As Movement, I want the bridge to be secured so that Movement or User don't lost fund.
-
 
 ### Scenario of main use case
 
