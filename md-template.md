@@ -52,7 +52,7 @@
   TODO: Remove this comment before finalizing.
 -->
 
-# Changelog
+## Changelog
 
 <!--
   The changelog should be maintained after publication.
