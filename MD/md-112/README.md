@@ -1,4 +1,4 @@
-# MD-\<number\>: Technology publication strategy
+# MD-112: Technology publication strategy
 
 - **Description**: Require a technology publication strategy for both the vision and current state of the technology.
 - **Authors**: Andreas Penzkofer
