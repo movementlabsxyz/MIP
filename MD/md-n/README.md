@@ -1,6 +1,6 @@
 # MD-n: PQC Virtual Machine
 - **Description**: Provide PQC for transaction signing and on-chain modules. 
-- **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
+- **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz), [Nico Wang](mailto:lnwang@pllab.cs.nthu.edu.tw)
 
 ## Overview
 
