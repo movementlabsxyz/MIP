@@ -1,6 +1,5 @@
-# MD-n: PQC Virtual Machine Cryptography
-
-- **Description**: Provide PQC cryptography for transaction signing and on-chain modules. 
+# MD-n: PQC Virtual Machine
+- **Description**: Provide PQC for transaction signing and on-chain modules. 
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 
 ## Overview
