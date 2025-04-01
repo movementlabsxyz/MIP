@@ -1,6 +1,6 @@
 # MD-n: MLIR Move Compiler Stack
 - **Description**: Provide an MLIR compiler stack for Move.
-- **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
+- **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz), [Gene Huang](mailto:clhuang@pllab.cs.nthu.edu.tw)
 
 ## Overview
 
