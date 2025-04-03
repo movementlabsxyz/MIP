@@ -179,11 +179,11 @@ The expected time for the completion of the transfer is the time it takes is in 
 
 ### A1: Background EigenLayer
 
-In order to protect the protocol from exploits and potential losses, rate limiting is essential. For comparison the white paper [EigenLayer: The Restaking Collective](https://docs.eigenlayer.xyz/assets/files/EigenLayer_WhitePaper-88c47923ca0319870c611decd6e562ad.pdf) proposes that AVS (Actively Validated Services) can run for a bridge and the stake of validators protects the transferred value crypto-economically through slashing conditions. More specifically section 3.4 Risk Management mentions
+In order to protect the protocol from exploits and potential losses, rate limiting is essential. For comparison the whitepaper [EigenLayer: The Restaking Collective](https://docs.eigenlayer.xyz/assets/files/EigenLayer_WhitePaper-88c47923ca0319870c611decd6e562ad.pdf) proposes that AVS (Actively Validated Services) can run for a bridge and the stake of validators protects the transferred value crypto-economically through slashing conditions. More specifically section 3.4 Risk Management mentions
 
 > [...] to restrict the Profit from Corruption of any particular AVS [...] a bridge can restrict the value flow within the period of slashing.
 
-Eigenlayer provides the following definition on strong economic security in their [white paper (EIGEN: The Universal Intersubjective Work Token)](https://docs.eigenlayer.xyz/assets/files/EIGEN_Token_Whitepaper-0df8e17b7efa052fd2a22e1ade9c6f69.pdf):
+Eigenlayer provides the following definition on strong economic security in their [whitepaper (EIGEN: The Universal Intersubjective Work Token)](https://docs.eigenlayer.xyz/assets/files/EIGEN_Token_Whitepaper-0df8e17b7efa052fd2a22e1ade9c6f69.pdf):
 
 > *Formal Definition of Strong crypto-economic Security*
 If [a bridge] acquires more [crypto-economic] security than the harm it can suffer from an attack within the interval $T_{redeem}$ slots, then it achieves strong crypto-economic security, i.e.<br>
