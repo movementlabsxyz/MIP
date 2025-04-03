@@ -32,8 +32,8 @@ Technology vision and current state publication strategy should be communicated 
 
 - MIP: Technical excerpt that specify the concrete ideas, technical details and requirements for a technology.
 - Blog post: Informal piece that explain the author's thoughts on a technology, and that may be focused on important MIPs.
-- Light paper: High-level overview of a technology, and that may include concrete ideas, technical details and requirements. They may be updated when new blog posts are published, or when the technology matures. They are in essence a **live paper**.
-- White paper: A long-form piece that provides a deep dive into a technology, and that may include concrete ideas, technical details and requirements. They are the *north stars*, i.e. the technological distinguishing feature of the technology.
+- Litepaper: High-level overview of a technology, and that may include concrete ideas, technical details and requirements. They may be updated when new blog posts are published, or when the technology matures. They are in essence a **live paper**.
+- Whitepaper: A long-form piece that provides a deep dive into a technology, and that may include concrete ideas, technical details and requirements. They are the *north stars*, i.e. the technological distinguishing feature of the technology.
 
 ### D3: Create a process to make technological vision updates accessible to the community
 
@@ -44,6 +44,6 @@ Technology vision and current state publication strategy should be communicated 
 
 **Recommendation**: Consider the following process:
 
-- Define a clear process to transform MIPs into blog posts, light papers.
+- Define a clear process to transform MIPs into blog posts, litepapers.
 
 ## Changelog
