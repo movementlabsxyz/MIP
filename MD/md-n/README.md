@@ -132,6 +132,47 @@ Thus, our protocol now admits a $p$ probability of Byzantine attack. The expecte
 
 This is **fully-synchronous** because a decision will be cast on $h$ by $t + d$. 
 
+### A6: Example Minority-Selecting Protocol (with revotes)
+
+Consider the following synchronous protocol:
+
+Any voter may cast their vote only once for a given slot height. Votes $v \in V_h$, where $|V_h| = |V|$ is the number of voters, are cast for states $s \in S_h$ at slot height $h \in H$. The first recorded vote on height $h$ determines the timestamp $t_h$ of that slot. Let $\sigma_h(s_h)$ be the number of votes for state $s_h$ at slot height $h$.
+
+> :warning: Since nodes could set the timestamp arbitrarily into the future for a given slot height, we MUST require that nodes cannot vote for heights that are too far away from accepted heights.
+
+We assume that the nodes can become faulty, vote for a branch with state $s^x_h$ and can acknowledge they voted for the wrong branch. We suggest that these nodes should be permitted to rejoin and support a different branch (with state $s_h$) that they deem correct. In order to vote for $s_h$ they MUST be permitted to cast an additional vote for $s_h$ at height $h$.
+
+The proposed protocol is as follows:
+
+1. Given a vote for state $s_h$ at slot height $h$, update
+ $\sigma_h(s_h) \leftarrow \sigma_h(s_h) + 1$.
+
+Slots are handled sequentially, i.e. if slot height $h^*$ has not been processed, then slot height $h^*+1$ is not processed.
+
+For each undecided height $h^*$ < h$
+
+2. If $\sigma_{h^*}(s_h^*) > \frac{2}{3}|V|$ AND $t \leq t_h^* + \Delta$, accept the tuple $(s_h^*, h^*)$. Continue processing slot $h^*+1$.
+3. Else If $t > t_h^* + \Delta$, select the branch with the highest weight. Continue processing slot $h^*+1$.
+4. Else Return
+
+**What can go wrong?**
+If no branch is finalized at $t_h^* + \Delta$, the protocol will select the branch with the highest weight, this may not be secure against a Byzantine minority.
+
+### A5: Example Minority-Selecting Protocol (without revotes)
+
+Assume the previous protocol, but nodes are not permitted to cast more than one vote per slot height. However, we still would like to entertain that nodes can resubmit their vote for a different branch.
+
+In order to do this, we must permit that votes are propagated along the branch to the currently undecided root.
+
+We update rule 1 to be:
+
+1. Given a vote for state $s_h$ at slot height $h$, update
+    1. $\sigma_h(s_h) \leftarrow \sigma_h(s_h) + 1$.
+    2. For each ancestor state $s_{h-k}$ of $s_h$ in the tree that is not finalized and for which the vote has not already been cast, $\sigma_{h-k}(s_{h-k}) \leftarrow \sigma_{h-k}(s_{h-k}) + 1$.
+
+We note this is marginally different to the previous example.
+
+**What can go wrong?**
+1. Same problem as previous example.
+
 ## Changelog
-
-
