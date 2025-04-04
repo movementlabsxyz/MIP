@@ -147,16 +147,16 @@ The proposed protocol is as follows:
 1. Given a vote for state $s_h$ at slot height $h$, update
  $\sigma_h(s_h) \leftarrow \sigma_h(s_h) + 1$.
 
-Slots are handled sequentially, i.e. if slot height $h^*$ has not been processed, then slot height $h^*+1$ is not processed.
+Slots are handled sequentially, i.e. if slot height $h^+$ has not been processed, then slot height $h^++1$ is not processed.
 
-For each undecided height $h^*$ < h$
+For each undecided height $h^+$ < h$
 
-2. If $\sigma_{h^*}(s_h^*) > \frac{2}{3}|V|$ AND $t \leq t_h^* + \Delta$, accept the tuple $(s_h^*, h^*)$. Continue processing slot $h^*+1$.
-3. Else If $t > t_h^* + \Delta$, select the branch with the highest weight. Continue processing slot $h^*+1$.
+2. If $\sigma_{h^+}(s_h^+) > \frac{2}{3}|V|$ AND $t \leq t_h^+ + \Delta$, accept the tuple $(s_h^+, h^+)$. Continue processing slot $h^++1$.
+3. Else If $t > t_h^+ + \Delta$, select the branch with the highest weight. Continue processing slot $h^++1$.
 4. Else Return
 
 **What can go wrong?**
-If no branch is finalized at $t_h^* + \Delta$, the protocol will select the branch with the highest weight, this may not be secure against a Byzantine minority.
+If no branch is finalized at $t_h^+ + \Delta$, the protocol will select the branch with the highest weight, this may not be secure against a Byzantine minority.
 
 ### A5: Example Minority-Selecting Protocol (without revotes)
 
