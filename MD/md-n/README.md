@@ -156,7 +156,9 @@ For each undecided height $h^+$ < h$
 4. Else Return
 
 **What can go wrong?**
-If no branch is finalized at $t_h^+ + \Delta$, the protocol will select the branch with the highest weight, this may not be secure against a Byzantine minority.
+
+- If no branch is finalized at $t_h^+ + \Delta$, the protocol will select the branch with the highest weight, this may not be secure against a Byzantine minority.
+- Since votes of a node can double count, it is possible that eventually the wrong branch wins, since a byzantine actor plus the initial wrong "honest" votes can outvote the correct branch.
 
 ### A5: Example Minority-Selecting Protocol (without revotes)
 
@@ -174,5 +176,22 @@ We note this is marginally different to the previous example.
 
 **What can go wrong?**
 1. Same problem as previous example.
+
+### A6: Example Minority-Selecting Protocol (with revotes but no double counting)
+
+Assume the previous protocol, but votes are removed from branches that are not supported any longer.
+
+We change rule 1 to be:
+
+1. Given a vote for state $s_h$ at slot height $h$, update
+ $\sigma_h(s_h) \leftarrow \sigma_h(s_h) + 1$.
+2. For each ancestor state $s_{h-k}$ of $s_h$ in the tree that is not finalized and for which the vote has not already been cast, $\sigma_{h-k}(s_{h-k}) \leftarrow \sigma_{h-k}(s_{h-k}) + 1$.
+3. For each height $h^+< h$, remove all votes for $s_{h^+}$ from a branch that is not an ancestor of $s_h$.
+
+> :bulb: This has infact similar behavior and properties to [Tangle 2.0 Leaderless Nakamoto Consensus on the Heaviest DAG](https://ieeexplore.ieee.org/document/9907014). However, here we have a tree and an L1 to synchronize and remove problems with partitions, which makes the challenges much easier.
+
+**What can go wrong?**
+
+- If no branch is finalized at $t_h^+ + \Delta$, the protocol will select the branch with the highest weight, this may not be secure against a Byzantine minority.
 
 ## Changelog
