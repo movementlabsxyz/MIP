@@ -106,7 +106,7 @@ Regardless, Dongmen Postconfirmation protocols are required to provide a formal 
 ### A4: Example Minority-Aware Protocol
 Consider the following fully-synchronous protocol:
 
-1. Votes $v \in V$ are cast for states $s \in S$ at height $h \in H$.
+1. Votes $v \in V_h$ are cast for states $s \in S_h$ at height $h \in H$.
 2. A decision in made on a vote $s, h$ by time $t \in T$.
     1. If $V_{h}(s) > \frac{2*|V|}{3}$, accept $s, h$
     2. Otherwise, begin **Play Foward** algorithm.
