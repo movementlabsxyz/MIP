@@ -1,4 +1,4 @@
-# MD-n: Dongmen (Postconfirmations) Standards
+# MD-116: Dongmen (Postconfirmations) Standards
 
 - **Description**: Provides a set of liveness and correctness requirements for Postconfirmations protocols. 
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
