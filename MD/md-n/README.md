@@ -7,7 +7,7 @@
 
 ## Overview
 
-As identified in [MD-3](https://github.com/movementlabsxyz/MIP/tree/main/MD/md-3), [MD-4](https://github.com/movementlabsxyz/MIP/tree/main/MD/md-4), [MD-5](https://github.com/movementlabsxyz/MIP/tree/main/MD/md-4), [MIP-34](https://github.com/movementlabsxyz/MIP/pulls?page=2&q=is%3Apr+is%3Aopen), and [MIP-37](https://github.com/movementlabsxyz/MIP/pull/37), naive interpretations--such as MCR--of the Postconfirmations protocol fall short of modern BFT expectations. 
+As identified in [MD-3](https://github.com/movementlabsxyz/MIP/tree/main/MD/md-3), [MD-4](https://github.com/movementlabsxyz/MIP/tree/main/MD/md-4), [MD-5](https://github.com/movementlabsxyz/MIP/tree/main/MD/md-5), [MIP-34](https://github.com/movementlabsxyz/MIP/pulls?page=2&q=is%3Apr+is%3Aopen), and [MIP-37](https://github.com/movementlabsxyz/MIP/pull/37), naive interpretations--such as MCR--of the Postconfirmations protocol fall short of modern BFT expectations. 
 
 We summarize the shortcomings relevant to these standards as follows:
 
