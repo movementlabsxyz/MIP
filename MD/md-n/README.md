@@ -2,7 +2,7 @@
 
 - **Description**: Provides a set of liveness and correctness requirements for Postconfirmations protocols. 
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Approval**: :red-cross:
+- **Approval**: 
 - **Etymology**: These standards were originally drafted in the Dongmen neighborhood of Taipei. 
 
 ## Overview
