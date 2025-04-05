@@ -1,6 +1,6 @@
-# MD-118: Define the assumptions of the L1 for the Postconfirmation protocol
+# MD-118: Describe the implications of L1 assumptions for the Postconfirmation protocol
 
-- **Description**: Postconfirmations are an anchoring mechanisms for the L2 protocol. Safety and liveness assumptions depend thus on the L1. This desideratum defines possible assumptions and requirements that should be clearly stated when defining the Postconfirmation protocol.
+- **Description**: Postconfirmations are an anchoring mechanisms for the L2 protocol. Safety and liveness assumptions depend thus on the L1. This desideratum requests to explain the implications of L1 assumptions for the Postconfirmation protocol.
 - **Authors**: [Andreas Penzkofer]()
 - **Approval**: <!--Either approved (:white_check_mark:) or rejected (:x:) by the governance body. To be inserted by governance. -->
 
