@@ -11,7 +11,7 @@ As identified in [MD-3](https://github.com/movementlabsxyz/MIP/tree/main/MD/md-3
 
 We summarize the shortcomings relevant to these standards as follows:
 
-1. **Asynchronicity**: per [FLP](https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf), asynchronous voting protocols cannot achieve consensus in the presence of one or more faulty processes. Thus, Asynchronous Postconfirmations protocols, i.e., those not defining a Global Stabilization Times, are **not in fact BFT consensus protocols.** MCR, for example--due its single vote per slot without any bound--may remain in permanent disagreement. 
+1. **Asynchronicity**: per [FLP](https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf), asynchronous voting protocols cannot achieve consensus in the presence of one or more faulty processes. Thus, Asynchronous Postconfirmations protocols, i.e., those not defining a Global Stabilization Times, are **not in fact BFT consensus protocols.** MCR, for example--if implemented with a single vote per slot and without any bound on when the slot moves to a new committee--may remain in permanent disagreement. 
 2. **Liveness**: failure to come to consensus presents a liveness shortcoming. Permanent disagreement means that the network will never progress to the next accepted state. Further, we assert indefinite disagreement is unnecessary in the context of Postconfirmations. 
 
 For more detailed information on these properties, see [BFT Synchronicity and Liveness](#a1-bft-synchronicity-and-liveness).
