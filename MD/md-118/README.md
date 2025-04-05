@@ -32,7 +32,7 @@ Consider the following properties of the L1:
 Consider the following properties that derive from the L1:
 
 - Broadcast guarantees, such as when is a message from protocol participants considered broadcast and when delivered.
-- Finality guarantees, such as when a message is considered final.
+- Finality guarantees, such as when a message is considered final, see [A1](#a1-message-delivery-and-finality).
 
 ### D3: The properties that derive from the L1 for the Postconfirmation protocol must be clearly stated, IF the L1 does NOT fulfill the assumptions
 
@@ -42,5 +42,15 @@ Consider the following properties that derive from the L1:
 
 - address how the guarantees explored in #D2 are impacted by the violation of the assumptions.
 - what happens if the finality of the L1 is violated and the ledger reverts to a previous state.
+
+## Appendix
+
+### A1: Message delivery and finality
+
+The Postconfirmation protocol is run as a smart contract on the L1. Messages from validators are only considered for the state transition once they are executed on the L1. Since the L1 guarantees broadcast to all participants, accepted votes have total order broadcast properties, provided the L1 is safe.
+
+Votes from validators MUST not be considered as long as they are only in the mempool of the L1. The are counted as propagated once they are finalized (not the weaker form of confirmed).
+
+Since finality is strictly a stronger guarantee than confirmation (in e.g. a single block), broadcast has total order broadcast properties.
 
 ## Changelog
