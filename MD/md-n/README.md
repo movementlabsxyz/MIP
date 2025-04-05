@@ -22,7 +22,7 @@ Because the Dongmen Postconfirmations Standards request a **fully-synchronous** 
 
 ## Definitions
 
-- **Fully-synchronous**: A network and protocol assumption in which message transmission and processing are guaranteed to complete within known, fixed bounds. A protocol that assumes this model must commit or reject decisions by a deterministically computable time.
+- **Fully-synchronous**: Describes a synchronous model. A network and protocol assumption in which message transmission and processing are guaranteed to complete within known, fixed bounds. Messages destined to be handled within a certain bound may arrive outside of these bounds, however, they are then ignored. A protocol that assumes this model must commit or reject decisions by a deterministically computable time. 
 
 - **Global Stabilization Time (GST)**: The unknown point in time after which a partially synchronous network behaves synchronously. This term is critical in distinguishing traditional BFT protocols from fully-synchronous ones, which assume GST has already occurred or is always satisfied.
 
