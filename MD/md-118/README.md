@@ -1,4 +1,4 @@
-# MD-118: Describe the implications of L1 assumptions for the Postconfirmation protocol
+# MD-118: Implications of L1 assumptions for the Postconfirmation protocol
 
 - **Description**: Postconfirmations are an anchoring mechanisms for the L2 protocol. Safety and liveness assumptions depend thus on the L1. This desideratum requests to explain the implications of L1 assumptions for the Postconfirmation protocol.
 - **Authors**: [Andreas Penzkofer]()
@@ -14,7 +14,7 @@ Protocols should describe, what are the assumptions on the L1, and how it behave
 
 ### D1: The properties of the L1 must be clearly stated
 
-**User journey (Operator)**: An operator wants to deploy a Postconfirmation protocol. It must understand, what properties the L1 provides and under what conditions these properties hold.
+**User journey (Operator)**: An operator wants to deploy a Postconfirmation protocol. They must understand, what properties the L1 provides and under what conditions these properties hold.
 
 **Recommendations**:
 Consider the following properties of the L1:
