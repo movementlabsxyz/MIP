@@ -132,56 +132,78 @@ Thus, our protocol now admits a $p$ probability of Byzantine attack. The expecte
 
 This is **fully-synchronous** because a decision will be cast on $h$ by $t + d$. 
 
-### A6: Example Minority-Selecting Protocol (with revotes)
+### A6: Examples Minority-Selecting Protocols
 
 Consider the following synchronous protocol:
 
-Any voter may cast their vote only once for a given slot height. Votes $v \in V_h$, where $|V_h| = |V|$ is the number of voters, are cast for states $s \in S_h$ at slot height $h \in H$. The first recorded vote on height $h$ determines the timestamp $t_h$ of that slot. Let $\sigma_h(s_h)$ be the number of votes for state $s_h$ at slot height $h$.
-
-> :warning: Since nodes could set the timestamp arbitrarily into the future for a given slot height, we MUST require that nodes cannot vote for heights that are too far away from accepted heights.
-
-We assume that the nodes can become faulty, vote for a branch with state $s^x_h$ and can acknowledge they voted for the wrong branch. We suggest that these nodes should be permitted to rejoin and support a different branch (with state $s_h$) that they deem correct. In order to vote for $s_h$ they MUST be permitted to cast an additional vote for $s_h$ at height $h$.
-
-The proposed protocol is as follows:
-
-1. Given a vote for state $s_h$ at slot height $h$, update
- $\sigma_h(s_h) \leftarrow \sigma_h(s_h) + 1$.
+Voters, where $N$ is the number of voters, cast their votes $v \in V_h$, for states $s \in S_h$ at slot height $h \in H$. The first recorded vote on height $h$ determines the timestamp $t_h$ of that slot. Let $\sigma_h(s_h)$ be the number of votes for state $s_h$ at slot height $h$. A voter can cast at most one vote per state per slot height.
 
 Slots are handled sequentially, i.e. if slot height $h^+$ has not been processed, then slot height $h^++1$ is not processed.
 
-For each undecided height $h^+$ < h$
+The basic protocol looks as follows:
 
-2. If $\sigma_{h^+}(s_h^+) > \frac{2}{3}|V|$ AND $t \leq t_h^+ + \Delta$, accept the tuple $(s_h^+, h^+)$. Continue processing slot $h^++1$.
-3. Else If $t > t_h^+ + \Delta$, select the branch with the highest weight. Continue processing slot $h^++1$.
-4. Else Return
+1. Vote and potential vote propagation (described in next subsections)
+1. For each undecided height $h^+ < h$
+    1. If $\sigma_{h^+}(s_h^+) > \frac{2}{3}|V|$ AND $t \leq t_h^+ + \Delta$, accept the tuple $(s_h^+, h^+)$. Continue processing slot $h^++1$.
+    2. Else If $t > t_h^+ + \Delta$, select the branch with the highest weight. Continue processing slot $h^++1$.
+    3. Else Return
+
+Note that 2.ii) is where the **synchronous nature** of the protocol is used.
+
+> :warning: Since nodes could set the timestamp arbitrarily into the future for a given slot height, we MUST require that nodes cannot vote for heights that are too far away from accepted heights. This is important for the synchronous model.
+
+We assume that the nodes can become faulty or byzantine, vote for a branch with state $s^x_h$ and may acknowledge they voted for the wrong branch.
+
+We suggest that these nodes should be permitted to support a different branch (with state $s_h$) that they deem correct (and that is in conflict with their previous vote). In order to vote for $s_h$ they MUST be permitted to cast an additional vote (**revote**) for $s_h$ at height $h$.
+
+Since a the choice for a new branch would mean that all previous votes are invalid (from the point of view of the voter itself), this raises the question of how to handle revotes, and in particular the ancestor votes that depend on this.
+
+A combination of the following two properties can be used to achieve the desired protocol:
+
+- Revoting
+    1. Revoting is not allowed. (Voter can cast one vote per slot height only)
+    1. Revoting is allowed.
+- Counting of votes
+    1. Double counting, i.e., all votes count, including votes before revoting.
+    1. Only the last vote counts.
+- Propagation of votes
+    1. Votes are cast for a branch, not a state. (less transactions but per transaction more computation)
+    1. Votes are cast for a state, not a branch. (more transactions but per transaction less computation)
+
+Lets explore sone of the options:
+
+#### A6.1: Revotes, double counting, no propagation
+
+Step 1 of the above algorithm becomes
+
+1. Given a vote for state $s_h$ at slot height $h$, update
+ $\sigma_h(s_h) \leftarrow \sigma_h(s_h) + 1$.
 
 **What can go wrong?**
 
 - If no branch is finalized at $t_h^+ + \Delta$, the protocol will select the branch with the highest weight, this may not be secure against a Byzantine minority.
 - Since votes of a node can double count, it is possible that eventually the wrong branch wins, since a byzantine actor plus the initial wrong "honest" votes can outvote the correct branch.
 
-### A5: Example Minority-Selecting Protocol (without revotes)
+#### A6.2: No Revotes, single-counting, with propagation
 
-Assume the previous protocol, but nodes are not permitted to cast more than one vote per slot height. However, we still would like to entertain that nodes can resubmit their vote for a different branch.
+Here we would like to entertain that nodes can resubmit their vote for a different branch, but existing votes cannot be changed. We also would like to propagate votes a long a branch to ensure that this branch is maximally supported.
 
-In order to do this, we must permit that votes are propagated along the branch to the currently undecided root.
-
-We update rule 1 to be:
+Step 1 of the above algorithm becomes
 
 1. Given a vote for state $s_h$ at slot height $h$, update
     1. $\sigma_h(s_h) \leftarrow \sigma_h(s_h) + 1$.
-    2. For each ancestor state $s_{h-k}$ of $s_h$ in the tree that is not finalized and for which the vote has not already been cast, $\sigma_{h-k}(s_{h-k}) \leftarrow \sigma_{h-k}(s_{h-k}) + 1$.
+    2. For each ancestor state $s_{h-k}$, $k>0$ of $s_h$ in the tree that is not yet voted on, $\sigma_{h-k}(s_{h-k}) \leftarrow \sigma_{h-k}(s_{h-k}) + 1$.
 
-We note this is marginally different to the previous example.
+We note this is marginally different to the previous example. It differs only in that a voter can batch votes for a branch not a state. This is not a meaningful solution but it is the precursor to the next example.
 
 **What can go wrong?**
 1. Same problem as previous example.
 
-### A6: Example Minority-Selecting Protocol (with revotes but no double counting)
+#### A6.3: Revotes, single-counting, with propagation
 
-Assume the previous protocol, but votes are removed from branches that are not supported any longer.
+Assume the previous protocol, but votes are removed from branches that are not supported any longer. This means we override previous votes.
 
-We change rule 1 to be:
+Step 1 of the above algorithm becomes
 
 1. Given a vote for state $s_h$ at slot height $h$, update
  $\sigma_h(s_h) \leftarrow \sigma_h(s_h) + 1$.
