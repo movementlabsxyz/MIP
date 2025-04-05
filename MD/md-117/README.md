@@ -35,4 +35,22 @@ As a result, [MD-116.D4](https://github.com/movementlabsxyz/MIP/tree/l-monninger
 
 **Justification**: The Ximen Standards seek to ensure common synchronicity attacks, such as [Commitment Hostage Attacks](https://github.com/movementlabsxyz/MIP/tree/main/MD/md-3), are well-considered for an adhering protocol. Owing to the complexity and often [off-path](https://economics.stackexchange.com/questions/57998/on-and-off-equilibrium-path-game-theory) nature of these attacks, the Ximen Standards recognize that full and rigorous criteria for protections against these attacks are not practical. 
 
+## Appendix
+
+### A1: Example
+
+We build on the example of [MD-116.A6.3](https://github.com/movementlabsxyz/MIP/tree/l-monninger/dongmen-standards/MD/md-n#a63-revotes-single-counting-with-propagation) to build a simple example of a protocol that satisfies the desiderata above.
+
+We assume the protocol progresses through epochs, which we argue in this this example is the equivalent to a view change. If the epoch changes, new voters must vote on the oldest not decided height. Voters that have been voters in the previous epoch may not have to vote again.
+
+We change step 2 of the algorithm to be:
+
+1. For each undecided height $h^+ < h$
+    1. If $\sigma_{h^+}(s_h^+) > \frac{2}{3}N$ AND $t \leq t_h^+ + \Delta$, accept the tuple $(s_h^+, h^+)$. Continue processing slot $h^++1$.
+    3. Else Return
+
+**What can go wrong?**
+
+- Liveness may get stuck for epoch lengths. The L1 synchronizes the committee at epoch boundaries, and if enough committee members are honest and live eventually the protocol will be live again.
+
 ## Changelog
