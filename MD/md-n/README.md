@@ -144,7 +144,7 @@ The basic protocol looks as follows:
 
 1. Vote and potential vote propagation (described in next subsections)
 1. For each undecided height $h^+ < h$
-    1. If $\sigma_{h^+}(s_h^+) > \frac{2}{3}|V|$ AND $t \leq t_h^+ + \Delta$, accept the tuple $(s_h^+, h^+)$. Continue processing slot $h^++1$.
+    1. If $\sigma_{h^+}(s_h^+) > \frac{2}{3}N$ AND $t \leq t_h^+ + \Delta$, accept the tuple $(s_h^+, h^+)$. Continue processing slot $h^++1$.
     2. Else If $t > t_h^+ + \Delta$, select the branch with the highest weight. Continue processing slot $h^++1$.
     3. Else Return
 
