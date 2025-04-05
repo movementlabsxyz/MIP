@@ -2,7 +2,7 @@
 
 - **Description**: Provides a set of liveness and correctness requirements for Postconfirmations protocols. 
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Approval**: :red-cross:
+- **Approval**: 
 - **Etymology**: These standards were originally drafted in the Dongmen neighborhood of Taipei. 
 
 ## Overview
@@ -11,7 +11,7 @@ As identified in [MD-3](https://github.com/movementlabsxyz/MIP/tree/main/MD/md-3
 
 We summarize the shortcomings relevant to these standards as follows:
 
-1. **Asynchronicity**: per [FLP](https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf), asynchronous voting protocols cannot achieve consensus in the presence of one or more faulty processes. Thus, Asynchronous Postconfirmations protocols, i.e., those not defining a Global Stabilization Times, are **not in fact BFT consensus protocols.** MCR, for example--due its single vote per slot without any bound--may remain in permanent disagreement. 
+1. **Asynchronicity**: per [FLP](https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf), asynchronous voting protocols cannot achieve consensus in the presence of one or more faulty processes. Thus, Asynchronous Postconfirmations protocols, i.e., those not defining a Global Stabilization Times, are **not in fact BFT consensus protocols.** MCR, for example--if implemented with a single vote per slot and without any bound on when the slot moves to a new committee--may remain in permanent disagreement. 
 2. **Liveness**: failure to come to consensus presents a liveness shortcoming. Permanent disagreement means that the network will never progress to the next accepted state. Further, we assert indefinite disagreement is unnecessary in the context of Postconfirmations. 
 
 For more detailed information on these properties, see [BFT Synchronicity and Liveness](#a1-bft-synchronicity-and-liveness).
@@ -22,7 +22,7 @@ Because the Dongmen Postconfirmations Standards request a **fully-synchronous** 
 
 ## Definitions
 
-- **Fully-synchronous**: A network and protocol assumption in which message transmission and processing are guaranteed to complete within known, fixed bounds. A protocol that assumes this model must commit or reject decisions by a deterministically computable time.
+- **Fully-synchronous**: Describes a synchronous model. A network and protocol assumption in which message transmission and processing are guaranteed to complete within known, fixed bounds. Messages destined to be handled within a certain bound may arrive outside of these bounds, however, they are then ignored. A protocol that assumes this model must commit or reject decisions by a deterministically computable time. 
 
 - **Global Stabilization Time (GST)**: The unknown point in time after which a partially synchronous network behaves synchronously. This term is critical in distinguishing traditional BFT protocols from fully-synchronous ones, which assume GST has already occurred or is always satisfied.
 
@@ -106,7 +106,7 @@ Regardless, Dongmen Postconfirmation protocols are required to provide a formal 
 ### A4: Example Minority-Aware Protocol
 Consider the following fully-synchronous protocol:
 
-1. Votes $v \in V$ are cast for states $s \in S$ at height $h \in H$.
+1. Votes $v \in V_h$ are cast for states $s \in S_h$ at height $h \in H$.
 2. A decision in made on a vote $s, h$ by time $t \in T$.
     1. If $V_{h}(s) > \frac{2*|V|}{3}$, accept $s, h$
     2. Otherwise, begin **Play Foward** algorithm.
