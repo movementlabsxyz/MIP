@@ -2,6 +2,7 @@
 
 - **Description**: This MIP describes the process for continuous operation as well as the bootstrapping of the relayer in the lock/mint bridge.
 - **Authors**: Andreas Penzkofer, Philippe
+- **Approval**: Stagnant
 
 ## Abstract
 

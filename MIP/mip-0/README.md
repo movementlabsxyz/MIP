@@ -48,7 +48,12 @@ An MIP/MD is proposed through a PR. Each MIP/MD PR should have a status. For add
 
 #### Approval lifecycle
 
-An MIP and MD is **approved** (:white_check_mark:) or **rejected** (:x:) by the governance.
+An MIP and MD is
+
+- **approved** (:white_check_mark:) 
+- **rejected** (:x:) by the governance
+- **stagnant** (no updates for 6 months)
+- **withdrawn** (by the author)
 
 The approval lifecycle of a proposal is
 
@@ -59,7 +64,7 @@ The approval lifecycle of a proposal is
 
 ```mermaid
 graph LR
-    A[1: Proposal of MD] -- 2: Review / Reject --> B[3: Proposal of MIP] -- 4: Review / Reject --> C[Implementation]
+    A[1: Proposal of MD] -- 2: Approval decision --> B[3: Proposal of MIP] -- 4: Approval decision --> C[Implementation]
 ```
 
 ### Roles
