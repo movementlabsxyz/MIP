@@ -53,16 +53,15 @@ We change step 2 of the algorithm to be:
 **What can go wrong?**
 
 - Liveness may get stuck for epoch lengths. The L1 synchronizes the committee at epoch boundaries, and if enough committee members are honest and live eventually the protocol will be live again.
+
 ```mermaid
 graph TD
-
-
   %% Subgraph for Fig 1 b
   subgraph "Fig 1 b)"
-    s_0b --> s_1b
-    s_1b -->|70%| s_2b
-    s_1b -->|30%| s_2b'
-    s_2b -->|70%| s_3b
+    s_0b["s_0"] --> s_1b["s_1"]
+    s_1b -->|70%| s_2b["s_2"]
+    s_1b -->|30%| s_2b'["s_2'"]
+    s_2b -->|70%| s_3b["s_3"]
 
     style s_2b fill:#afa,stroke:#0a0,stroke-width:2px
     style s_2b' fill:#afa,stroke:#0a0,stroke-width:2px
@@ -71,20 +70,20 @@ graph TD
 
   %% Subgraph for Fig 1 a
   subgraph "Fig 1 a)"
-    s_0a -->|70%| s_1a
-    s_1a -->|50%| s_2a
-    s_1a -->|50%| s_2a'
-    s_2a -->|50%| s_3a
+    s_0a["s_0"] -->|70%| s_1a["s_1"]
+    s_1a -->|50%| s_2a["s_2"]
+    s_1a -->|50%| s_2a'["s_2'"]
+    s_2a -->|50%| s_3a["s_3"]
 
     style s_1a fill:#faa,stroke:#f00,stroke-width:2px
     style s_2a fill:#faa,stroke:#f00,stroke-width:2px
     style s_2a' fill:#faa,stroke:#f00,stroke-width:2px
     style s_3a fill:#faa,stroke:#f00,stroke-width:2px
   end
-
 ```
 
-*Fig 1 a: Committee A (red). Time = Δ. Committee A (red) was active in time [0..Δ]. <code>s1</code> gathers 70% of votes and will be committed. Votes for <code>s2</code> and <code>s2'</code> will be ignored.*
-*Fig 1 b: Committee B (green). Time = 2Δ. Committee B (green) was active in time [Δ..2Δ]. <code>s3</code> will be committed.*
+*Fig 1 a: Committee A (🟥 ). Time = Δ. Committee A (red) was active in time (0..Δ]. `s_1` gathers 70% of votes and will be committed. Votes for `s_2` and `s_2'` will be ignored.*
+
+*Fig 1 b: Committee B (🟩 ). Time = 2Δ. Committee B (green) was active in time (Δ..2Δ]. `s_3` will be committed.*
 
 ## Changelog
