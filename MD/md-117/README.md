@@ -54,12 +54,10 @@ We change step 2 of the algorithm to be:
 
 - Liveness may get stuck for epoch lengths. The L1 synchronizes the committee at epoch boundaries, and if enough committee members are honest and live eventually the protocol will be live again.
 
-
 <div style="display: flex; gap: 2rem; align-items: flex-start;">
 
-<div style="flex: 1; text-align: center;">
-
-```mermaid
+  <div style="flex: 1; border: 1px solid #ccc; padding: 1rem; border-radius: 8px; text-align: center;">
+    <pre class="mermaid">
 graph TD
   s0 -->|70%| s1
   s1 -->|50%| s2
@@ -70,28 +68,24 @@ graph TD
   style s2 fill:#faa,stroke:#f00,stroke-width:2px
   style s2' fill:#faa,stroke:#f00,stroke-width:2px
   style s3 fill:#faa,stroke:#f00,stroke-width:2px
-```
+    </pre>
+    <p><strong>Fig 1 a):</strong> Time = Δ. Committee A (red) was active. <code>s1</code> gathers 70% of votes and will be committed. Votes for <code>s2</code> and <code>s2'</code> will be ignored.</p>
+  </div>
 
-<p><strong>Fig 1 a):</strong> Time = Δ. Committee A (red) was active. <code>s1</code> gathers 70% of votes and will be committed. Votes for <code>s2</code> and <code>s2'</code> will be ignored.</p>
-</div>
-
-<div style="flex: 1; text-align: center;">
-
-```mermaid
+  <div style="flex: 1; border: 1px solid #ccc; padding: 1rem; border-radius: 8px; text-align: center;">
+    <pre class="mermaid">
 graph TD
   s0 --> s1
   s1 -->|70%| s2
   s1 -->|30%| s2'
   s2 --> |70%| s3
 
-style s2 fill:#afa,stroke:#0a0,stroke-width:2px
-style s2' fill:#afa,stroke:#0a0,stroke-width:2px
-style s3 fill:#afa,stroke:#0a0,stroke-width:2px
-
-```
-
-<p><strong>Fig 1 b):</strong> Time = 2Δ. Committee B (green) was active. <code>s3</code> and <code>s4</code> will be committed.</p>
-</div>
+  style s2 fill:#afa,stroke:#0a0,stroke-width:2px
+  style s2' fill:#afa,stroke:#0a0,stroke-width:2px
+  style s3 fill:#afa,stroke:#0a0,stroke-width:2px
+    </pre>
+    <p><strong>Fig 1 b):</strong> Time = 2Δ. Committee B (green) was active. <code>s3</code> and <code>s4</code> will be committed.</p>
+  </div>
 
 </div>
 
