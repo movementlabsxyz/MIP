@@ -1,50 +1,43 @@
-# MD-116: Dongmen Standards for Postconfirmations
+# MD-116: Dongmen Standards - Liveness-favoring Postconfirmation protocol
 
-- **Description**: Provides a set of liveness and correctness requirements for quasi-synchronous Postconfirmations protocols.
+- **Description**: Provides a set of liveness and correctness requirements for liveness-favoring Postconfirmations protocols.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Approval**: 
 - **Etymology**: These standards were originally drafted in the Dongmen neighborhood of Taipei. 
 
 ## Overview
 
+We suggest and investigate a protocol which is **quasi-synchronous**, **fork-transferable**, **fork-perfect**, and **minority-aware**. The last three of these terms are introduced and defined in this MD.
+
+However, we already arrive at the conclusion that a protocol that satisfies the **quasi-synchronous** requirement does not provide BFT protection. That is, confirmed branches (created through a state fork) may exist, that do not have a supermajority of support.
+
+For a protocol that does satisfy BFT requirements, see the [MD-117: Ximen Postconfirmations Standards](https://github.com/movementlabsxyz/MIP/tree/l-monninger/dongmen-standards/MD/md-n).
+
+#### Motivation
+
 As identified in [MD-3](https://github.com/movementlabsxyz/MIP/tree/main/MD/md-3), [MD-4](https://github.com/movementlabsxyz/MIP/tree/main/MD/md-4), [MD-5](https://github.com/movementlabsxyz/MIP/tree/main/MD/md-5), [MIP-34](https://github.com/movementlabsxyz/MIP/pulls?page=2&q=is%3Apr+is%3Aopen), and [MIP-37](https://github.com/movementlabsxyz/MIP/pull/37), naive interpretations--such as MCR--of the Postconfirmations protocol fall short of modern BFT expectations. 
 
 We summarize the shortcomings relevant to these standards as follows:
 
-1. **Quasi-Asynchronicity**:
-
-per [FLP](https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf), protocols under asynchronous network conditions cannot achieve consensus in the presence of one or more faulty processes. As noted in [MD-118](https://github.com/movementlabsxyz/MIP/tree/main/MD/md-118) Appendix A1, the L1 essentially provides strong guarantees on the network conditions, which possibly could be classified as **totally ordered broadcast**, as the L1 records votes and finalizes them in blocks that reach all participants.
-
-!!! We do not require this discussion on asynchronicity.
-
-2. **Temporary Liveness issues**:
-
+1. **Liveness issues**:
 Votes on a given commitment height may never arrive as the postconfirmation attesters may become inactive, which could stall the liveness of the protocol.
-
 Thus, Postconfirmations protocols that do not define synchronization times, timeouts and/or a view change on who is the attester committee, can loose liveness indefinitely.
 
-3. **Temporary forks**:
-
+2. **Temporary forks**:
 Failure to come to consensus presents a liveness shortcoming. Permanent disagreement about the state on L2 means that the network will never progress to the next accepted state. We assert indefinite disagreement is unnecessary in the context of Postconfirmations, as attesters may change over time or their view of the state may change.
 
-OLD
-
-, are **not in fact BFT consensus protocols.** MCR, for example--if implemented with a single vote per slot and without any bound on when the slot moves to a new committee--may remain in permanent disagreement.
+Certain types of Postconfirmation protocols are, thus, **not in fact BFT consensus protocols.** MCR, for example--if implemented with a single vote per commitment slot height or without any bound on when the slot moves to a new committee--may remain in permanent disagreement.
 
 For more detailed information on these properties, see [BFT Synchronicity and Liveness](#a1-bft-synchronicity-and-liveness).
-
-In response to these shortcomings, this MD requests a protocol which is **quasi-synchronous**, **fork-transferable**, **fork-perfect**, and **minority-aware**. The last three of these terms are introduced and defined in this MD.
-
-In order to be a **quasi-synchronous** protocol, we assert said protocol can no longer be traditionally-BFT. That is, non-supermajority branches may exist under these standards. For a protocol that satisfies BFT requirements, see the [Ximen Postconfirmations Standards]().
 
 ## Definitions
 
 - **Fork and Branch**: A fork on L2 is the event of a divergence in what is considered the "correct" state on L2. A branch is a chain of blocks (or consensus rounds). A fork creates two or more branches.
 
 - **Quasi-models**: We attempt to transfer the concept of message propagation guarantees in network models to the Postconfirmation protocol. For more details on the models, see [Appendix A1.1]().
-  - **Quasi-synchronous**: The protocol assume that all relevant voting messages are delivered within time $\Delta$. Based on the received votes, the protocol will make a decision. Messages destined to be handled within the bound may arrive outside of these bounds, however, they are then ignored. It is liveness-favoring. 
-  - **Quasi-partially synchronous**: A supermajority of votes are delivered within time $\Delta$ at some finite point in the future. Steps are taken to ensure that the protocol can make a decision at some finite point in the future. This is similar to the concept of Global Stabilization Time (GST). This is safety-favoring.
-  - **Quasi-asynchronous**: There is no bound on when the supermajority of votes will be delivered. This is safety-favoring.
+  - **Quasi-synchronous**: The protocol assume that all relevant voting messages are delivered within time $\Delta$. Based on the received votes, the protocol will make a decision. Messages destined to be handled within the bound may arrive outside of these bounds, however, they are then ignored. It is **liveness-favoring**.
+  - **Quasi-partially synchronous**: A supermajority of votes are delivered within time $\Delta$ at some finite point in the future. Steps are taken to ensure that the protocol can make a decision at some finite point in the future. This is similar to the concept of Global Stabilization Time (GST). This is **safety-favoring**.
+  - **Quasi-asynchronous**: There is no bound on when the supermajority of votes will be delivered. This is **safety-favoring**.
 
 - **Branch-transferable**: A property of a protocol that allows consumers to transfer application state from a forked chain of consensus rounds (i.e. a branch) while preserving verifiability and audibility, even in the presence of honest partitions or temporary disagreement.
 
