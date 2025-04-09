@@ -19,8 +19,8 @@ Protocols should describe, what are the assumptions on the L1, and how it behave
 **Recommendations**:
 Consider the following properties of the L1:
 
-- Synchrony: at what intervals are messages broadcasted and finalized?
-- Safety: under what conditions is the L1 safe?
+- Synchrony: how synchronous is the L1?
+- Safety: under what conditions is the L1 safe? For examples, single block confirmations are not safe in Ethereum.
 - Liveness: is the protocol always live? What delays should be considered?
 - Censorship resistance: can the L1 censor voting messages of the Postconfirmation protocol?
 
@@ -44,13 +44,14 @@ Consider the following properties of the L1:
   - the delivery to the L1
 - Finality guarantees, such as when a message is considered final, see [A1](#a1-message-delivery-and-finality).
 
-### D4: Behavior of protocol if L1 assumptions are violated.
+### D4: Behavior of protocol if L1 assumptions are violated
 
 **User journey (Operator)**: An operator wants to deploy a Postconfirmation protocol. They must understand, how the protocol behaves if the L1 does NOT fulfill one of the assumptions for the L1 holds.
 
 **Recommendations**:
 
 - What happens if the finality of the L1 is violated and the ledger reverts to a previous state. How does the Postconfirmation protocol behave? Are votes resubmitted?
+- What is the weakest set of assumptions under which a given protocol works?
 
 ## Appendix
 
