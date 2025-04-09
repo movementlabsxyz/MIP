@@ -53,40 +53,38 @@ We change step 2 of the algorithm to be:
 **What can go wrong?**
 
 - Liveness may get stuck for epoch lengths. The L1 synchronizes the committee at epoch boundaries, and if enough committee members are honest and live eventually the protocol will be live again.
-
-<div style="display: flex; gap: 2rem; align-items: flex-start;">
-
-  <div style="flex: 1; border: 1px solid #ccc; padding: 1rem; border-radius: 8px; text-align: center;">
-    <pre class="mermaid">
+```mermaid
 graph TD
-  s0 -->|70%| s1
-  s1 -->|50%| s2
-  s1 -->|50%| s2'
-  s2 --> |50%| s3
 
-  style s1 fill:#faa,stroke:#f00,stroke-width:2px
-  style s2 fill:#faa,stroke:#f00,stroke-width:2px
-  style s2' fill:#faa,stroke:#f00,stroke-width:2px
-  style s3 fill:#faa,stroke:#f00,stroke-width:2px
-    </pre>
-    <p><strong>Fig 1 a):</strong> Time = Δ. Committee A (red) was active. <code>s1</code> gathers 70% of votes and will be committed. Votes for <code>s2</code> and <code>s2'</code> will be ignored.</p>
-  </div>
 
-  <div style="flex: 1; border: 1px solid #ccc; padding: 1rem; border-radius: 8px; text-align: center;">
-    <pre class="mermaid">
-graph TD
-  s0 --> s1
-  s1 -->|70%| s2
-  s1 -->|30%| s2'
-  s2 --> |70%| s3
+  %% Subgraph for Fig 1 b
+  subgraph "Fig 1 b)"
+    s_0b --> s_1b
+    s_1b -->|70%| s_2b
+    s_1b -->|30%| s_2b'
+    s_2b -->|70%| s_3b
 
-  style s2 fill:#afa,stroke:#0a0,stroke-width:2px
-  style s2' fill:#afa,stroke:#0a0,stroke-width:2px
-  style s3 fill:#afa,stroke:#0a0,stroke-width:2px
-    </pre>
-    <p><strong>Fig 1 b):</strong> Time = 2Δ. Committee B (green) was active. <code>s3</code> and <code>s4</code> will be committed.</p>
-  </div>
+    style s_2b fill:#afa,stroke:#0a0,stroke-width:2px
+    style s_2b' fill:#afa,stroke:#0a0,stroke-width:2px
+    style s_3b fill:#afa,stroke:#0a0,stroke-width:2px
+  end
 
-</div>
+  %% Subgraph for Fig 1 a
+  subgraph "Fig 1 a)"
+    s_0a -->|70%| s_1a
+    s_1a -->|50%| s_2a
+    s_1a -->|50%| s_2a'
+    s_2a -->|50%| s_3a
+
+    style s_1a fill:#faa,stroke:#f00,stroke-width:2px
+    style s_2a fill:#faa,stroke:#f00,stroke-width:2px
+    style s_2a' fill:#faa,stroke:#f00,stroke-width:2px
+    style s_3a fill:#faa,stroke:#f00,stroke-width:2px
+  end
+
+```
+
+*Fig 1 a: Committee A (red). Time = Δ. Committee A (red) was active in time [0..Δ]. <code>s1</code> gathers 70% of votes and will be committed. Votes for <code>s2</code> and <code>s2'</code> will be ignored.*
+*Fig 1 b: Committee B (green). Time = 2Δ. Committee B (green) was active in time [Δ..2Δ]. <code>s3</code> will be committed.*
 
 ## Changelog
