@@ -188,7 +188,7 @@ graph TD
   style s3' fill:#faa,stroke:#f00,stroke-width:2px
 ```
 
-<p><strong>Fig 1 a):</strong> Time = Δ. Committee A was active. <code>s2</code> gathers the highest number of votes and will be committed. Votes for <code>s2'</code> and <code>s3'</code> will be ignored.</p>
+<p><strong>Fig 1 a):</strong> Time = Δ. Committee A (red) was active. <code>s2</code> gathers the highest number of votes and will be committed. Votes for <code>s2'</code> and <code>s3'</code> will be ignored.</p>
 </div>
 
 <div style="flex: 1; text-align: center;">
@@ -203,10 +203,10 @@ graph TD
 
   style s2' fill:#fff,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5
   style s3' fill:#fff,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5
-  style s3 fill:#faa,stroke:#f00,stroke-width:2px
+  style s3 fill:#afa,stroke:#0a0,stroke-width:2px
 ```
 
-<p><strong>Fig 1 b):</strong> Time = 2Δ. Committee B was active. <code>s3</code> will be committed.</p>
+<p><strong>Fig 1 b):</strong> Time = 2Δ. Committee B (green)was active. <code>s3</code> will be committed.</p>
 </div>
 
 </div>
@@ -290,7 +290,7 @@ graph TD
   style s3' fill:#faa,stroke:#f00,stroke-width:2px
 ```
 
-<p><strong>Fig 1 a):</strong> Time = Δ. Committee A was active. State <code>s2</code> gathers the highest number of votes and will be committed. Votes for <code>s2'</code> and <code>s3'</code> will be ignored.</p>
+<p><strong>Fig 1 a):</strong> Time = Δ. Committee A (red) was active. State <code>s2</code> gathers the highest number of votes and will be committed. Votes for <code>s2'</code> and <code>s3'</code> will be ignored.</p>
 </div>
 
 <div style="flex: 1; text-align: center;">
@@ -305,10 +305,10 @@ graph TD
 
   style s2' fill:#fff,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5
   style s3' fill:#fff,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5
-  style s3 fill:#faa,stroke:#f00,stroke-width:2px
+  style s3 fill:#afa,stroke:#0a0,stroke-width:2px
 ```
 
-<p><strong>Fig 1 b):</strong> Time = 2Δ. Committee B was active. <code>s3</code> will be committed.</p>
+<p><strong>Fig 1 b):</strong> Time = 2Δ. Committee B (green) was active. <code>s3</code> will be committed.</p>
 </div>
 
 </div>
@@ -363,7 +363,7 @@ graph TD
   style s3' fill:#faa,stroke:#f00,stroke-width:2px
 ```
 
-<p><strong>Fig 1 a):</strong> Time = Δ. Committee A was active. State <code>s2'</code> gathers at least the minimum number of votes of any state in that branch.</p>
+<p><strong>Fig 1 a):</strong> Time = Δ. Committee A (red) was active. State <code>s2'</code> gathers at least the minimum number of votes of any state in that branch.</p>
 </div>
 
 <div style="flex: 1; text-align: center;">
