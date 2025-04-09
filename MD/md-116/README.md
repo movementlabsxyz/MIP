@@ -171,77 +171,63 @@ The basic protocol looks as follows:
 
 Note that 2.ii) is where the **quasi-synchronous nature** of the protocol is used, and which implies a liveness-favoring property.
 
-<div style="display: flex; gap: 2rem; align-items: flex-start;">
-
-<div style="flex: 1; text-align: center;">
-
 ```mermaid
 graph TD
-  s0 -->|11%| s1
-  s1 -->|10%| s2
-  s1 -->|9%| s2'
-  s2' --> |9%| s3'
+  %% Subgraph for Fig 1 b
+  subgraph "Fig 1 b)"
+    s0b["s_0"] --> s1b["s_1"]
+    s1b --> s2b["s_2"]
+    s1b --> s2b'["s_2'"]
+    s2b -->|10%| s3b["s_3"]
+    s2b' --> s3b'["s_3'"]
 
-  style s1 fill:#faa,stroke:#f00,stroke-width:2px
-  style s2 fill:#faa,stroke:#f00,stroke-width:2px
-  style s2' fill:#faa,stroke:#f00,stroke-width:2px
-  style s3' fill:#faa,stroke:#f00,stroke-width:2px
+    style s2b' fill:#fff,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5
+    style s3b' fill:#fff,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5
+    style s3b fill:#afa,stroke:#0a0,stroke-width:2px
+  end
+
+  %% Subgraph for Fig 1 a
+  subgraph "Fig 1 a)"
+    s0a["s_0"] -->|11%| s1a["s_1"]
+    s1a -->|10%| s2a["s_2"]
+    s1a -->|9%| s2a'["s_2'"]
+    s2a' -->|9%| s3a'["s_3'"]
+
+    style s1a fill:#faa,stroke:#f00,stroke-width:2px
+    style s2a fill:#faa,stroke:#f00,stroke-width:2px
+    style s2a' fill:#faa,stroke:#f00,stroke-width:2px
+    style s3a' fill:#faa,stroke:#f00,stroke-width:2px
+  end
 ```
 
-<p><strong>Fig 1 a):</strong> Time = Δ. Committee A (red) was active. <code>s2</code> gathers the highest number of votes and will be committed. Votes for <code>s2'</code> and <code>s3'</code> will be ignored.</p>
-</div>
+*Fig 1 a: Committee A (🟥 ). Time = Δ. Committee A (red) was active for (0..Δ]. `s_2` gathers the highest number of votes and will be committed. Votes for `s_2'` and `s_3'` will be ignored.*
 
-<div style="flex: 1; text-align: center;">
+*Fig 1 b: Committee B (🟩 ). Time = 2Δ. Committee B (green) was active for (Δ..2Δ]. `s_3` will be committed.*
 
-```mermaid
-graph TD
-  s0 --> s1
-  s1 --> s2
-  s1 --> s2'
-  s2 --> |10%| s3
-  s2' -->  s3'
-
-  style s2' fill:#fff,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5
-  style s3' fill:#fff,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5
-  style s3 fill:#afa,stroke:#0a0,stroke-width:2px
-```
-
-<p><strong>Fig 1 b):</strong> Time = 2Δ. Committee B (green)was active. <code>s3</code> will be committed.</p>
-</div>
-
-</div>
 
 > :warning: Since nodes could set the timestamp arbitrarily into the future for a given slot height, we MUST require that nodes cannot vote for heights that are too far away from accepted heights. This is important for the quasi-synchronous model.
 
 **Revoting**: We assume that the nodes can become faulty or byzantine, vote for a branch with state $s'_h$ and may acknowledge they voted for the wrong branch. We suggest that these nodes should be permitted to support a different branch (with state $s_h$) that they deem correct (and that is in conflict with their previous vote). In order to vote for $s_h$ they MUST be permitted to cast an additional vote (**revote**) for $s_h$ at height $h$.
 
-<div style="display: flex; gap: 2rem; align-items: flex-start;">
+```mermaid
+graph TD
+  %% Subgraph for Fig 2 b
+  subgraph "Fig 2 b) After revoting"
+    s0b["s_0"] -->|90%| s1b["s_1"]
+    s0b -->|10%| s1b'["s_1'"]
+    s1b -->|90%| s2b["s_2"]
+  end
 
-  <div style="flex: 1; text-align: center;">
-    
-  ```mermaid
-  graph TD
-    s0a -->|50%| s1a
-    s0a -->|50%| s1a'
-    s1a -->|50%| s2a
-  ```
+  %% Subgraph for Fig 2 a
+  subgraph "Fig 2 a) Initial state"
+    s0a["s_0"] -->|50%| s1a["s_1"]
+    s0a -->|50%| s1a'["s_1'"]
+    s1a -->|50%| s2a["s_2"]
+  end
+```
 
-  <p><strong>Fig 2 a):</strong> Initial state. Vote support is indicating on the arrows.</p>
-  </div>
-
-  <div style="flex: 1; text-align: center;">
-    
-  ```mermaid
-  graph TD
-    s0b -->|90%| s1b
-    s0b -->|10%| s1a'
-    s1b -->|90%| s2a
-  ```
-
-  <p><strong>Fig 2 b):</strong> After revoting.</p>
-  </div>
-
-</div>
+*Fig 2 a: Initial state. Vote support is indicated on the arrows.*  
+*Fig 2 b: After revoting.*
 
 Since a the choice for a new branch would mean that all previous votes are invalid (from the point of view of the voter itself), this raises the question of how to handle revotes, and in particular the ancestor votes that depend on this.
 
@@ -272,46 +258,40 @@ Step 1 of the above algorithm becomes
 - Honest actors have to take care of apply their votes to all heights, otherwise the protocol will be less safe. See the Figure below, where $s_2'$ is favored over $s_2'$ despite that $s_3$' has much more weight.
 - Since votes of a node can double count, it is possible that eventually the wrong branch wins, since a byzantine actor plus the initial wrong "honest" votes can outvote the correct branch.
 
-
-<div style="display: flex; gap: 2rem; align-items: flex-start;">
-
-<div style="flex: 1; text-align: center;">
-
 ```mermaid
 graph TD
-  s0 -->|80%| s1
-  s1 -->|10%| s2
-  s1 -->|9%| s2'
-  s2' --> |30%| s3'
 
-  style s1 fill:#faa,stroke:#f00,stroke-width:2px
-  style s2 fill:#faa,stroke:#f00,stroke-width:2px
-  style s2' fill:#faa,stroke:#f00,stroke-width:2px
-  style s3' fill:#faa,stroke:#f00,stroke-width:2px
+  %% Subgraph for Fig 3 b
+  subgraph "Fig 3 b)"
+    s0b["s_0"] --> s1b["s_1"]
+    s1b --> s2b["s_2"]
+    s1b --> s2b'["s_2'"]
+    s2b -->|10%| s3b["s_3"]
+    s2b' --> s3b'["s_3'"]
+
+    style s2b' fill:#fff,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5
+    style s3b' fill:#fff,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5
+    style s3b fill:#afa,stroke:#0a0,stroke-width:2px
+  end
+
+  %% Subgraph for Fig 3 a
+  subgraph "Fig 3 a)"
+    s0a["s_0"] -->|80%| s1a["s_1"]
+    s1a -->|10%| s2a["s_2"]
+    s1a -->|9%| s2a'["s_2'"]
+    s2a' -->|30%| s3a'["s_3'"]
+
+    style s1a fill:#faa,stroke:#f00,stroke-width:2px
+    style s2a fill:#faa,stroke:#f00,stroke-width:2px
+    style s2a' fill:#faa,stroke:#f00,stroke-width:2px
+    style s3a' fill:#faa,stroke:#f00,stroke-width:2px
+  end
+
 ```
 
-<p><strong>Fig 1 a):</strong> Time = Δ. Committee A (red) was active. State <code>s2</code> gathers the highest number of votes and will be committed. Votes for <code>s2'</code> and <code>s3'</code> will be ignored.</p>
-</div>
+*Fig 3 a: Committee A (🟥 ). Time = Δ. Committee A was active for (0..Δ]. State `s_2` gathers the highest number of votes and will be committed. Votes for `s_2'` and `s_3'` will be ignored.* 
 
-<div style="flex: 1; text-align: center;">
-
-```mermaid
-graph TD
-  s0 --> s1
-  s1 --> s2
-  s1 --> s2'
-  s2 --> |10%| s3
-  s2' -->  s3'
-
-  style s2' fill:#fff,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5
-  style s3' fill:#fff,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5
-  style s3 fill:#afa,stroke:#0a0,stroke-width:2px
-```
-
-<p><strong>Fig 1 b):</strong> Time = 2Δ. Committee B (green) was active. <code>s3</code> will be committed.</p>
-</div>
-
-</div>
+*Fig 3 b: Committee B (🟩 ). Time = 2Δ. Committee B was active for (Δ..2Δ]. `s_3` will be committed.*
 
 #### A6.2: No Revotes, single-counting, with propagation
 
@@ -345,42 +325,37 @@ Step 1 of the above algorithm becomes
 
 - If no branch is finalized at $t_h^+ + \Delta$, the protocol will select the branch with the highest weight, this may not be secure against a Byzantine minority.
 
-
-<div style="display: flex; gap: 2rem; align-items: flex-start;">
-
-<div style="flex: 1; text-align: center;">
-
 ```mermaid
 graph TD
-  s0 -->|80%| s1
-  s1 -->|10%| s2
-  s1 -->|30%| s2'
-  s2' --> |30%| s3'
 
-  style s1 fill:#faa,stroke:#f00,stroke-width:2px
-  style s2 fill:#faa,stroke:#f00,stroke-width:2px
-  style s2' fill:#faa,stroke:#f00,stroke-width:2px
-  style s3' fill:#faa,stroke:#f00,stroke-width:2px
+  %% Subgraph for Fig 4 b
+  subgraph "Fig 4 b)"
+    s0b["s_0"] --> s1b["s_1"]
+    s1b --> s2b["s_2"]
+    s1b --> s2b'["s_2'"]
+    s2b' --> s3b'["s_3'"]
+
+    style s2b fill:#fff,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5
+  end
+
+  %% Subgraph for Fig 4 a
+  subgraph "Fig 4 a)"
+    s0a["s_0"] -->|80%| s1a["s_1"]
+    s1a -->|10%| s2a["s_2"]
+    s1a -->|30%| s2a'["s_2'"]
+    s2a' -->|30%| s3a'["s_3'"]
+
+    style s1a fill:#faa,stroke:#f00,stroke-width:2px
+    style s2a fill:#faa,stroke:#f00,stroke-width:2px
+    style s2a' fill:#faa,stroke:#f00,stroke-width:2px
+    style s3a' fill:#faa,stroke:#f00,stroke-width:2px
+  end
+
 ```
 
-<p><strong>Fig 1 a):</strong> Time = Δ. Committee A (red) was active. State <code>s2'</code> gathers at least the minimum number of votes of any state in that branch.</p>
-</div>
+*Fig 4 a: Committee A (🟥 ). Time = Δ. Committee A was active for (0..Δ]. State `s_2'` gathers at least the minimum number of votes of any state in that branch.*  
 
-<div style="flex: 1; text-align: center;">
+*Fig 4 b: Committee B (🟩 ). Time = 2Δ. Committee B was active for (Δ..2Δ]. Nothing happens.*
 
-```mermaid
-graph TD
-  s0 --> s1
-  s1 --> s2
-  s1 --> s2'
-  s2' -->  s3'
-
-  style s2 fill:#fff,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5
-```
-
-<p><strong>Fig 1 b):</strong> Time = 2Δ. Committee B was active. Nothing happens.</p>
-</div>
-
-</div>
 
 ## Changelog
