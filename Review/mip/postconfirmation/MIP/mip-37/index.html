@@ -162,7 +162,7 @@
 <ul>
 <li><strong>Description</strong>: Confirmations of superBlocks on L1. A sub-protocol of Fast Finality Settlement.</li>
 <li><strong>Authors</strong>: Andreas Penzkofer</li>
-<li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/tree/mip/postconfirmation/MD/md-37">MD-37</a>, <a href="https://github.com/movementlabsxyz/MIP/pull/4">MD-4</a>, <a href="https://github.com/movementlabsxyz/MIP/pull/5">MD-5</a></li>
+<li><strong>Desiderata</strong>: <a href="https://github.com/movementlabsxyz/MIP/tree/mip/postconfirmation/MD/md-37">MD-37</a>, <a href="https://github.com/movementlabsxyz/MIP/pull/4">MD-4</a>, <a href="https://github.com/movementlabsxyz/MIP/pull/5">MD-5</a>, <a href="https://github.com/movementlabsxyz/MIP/pull/117">MD-117</a></li>
 </ul>
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
 <p>Fast-Finality-Settlement (FFS) is proposed in <a href="https://github.com/movementlabsxyz/MIP/pull/34">MIP-34</a>, with two confirmation mechanisms: one on the base chain level (L1) and one on the rollup/sidechain level (L2). This MIP details the mechanism on Level 1 (L1), which is called <em><strong>Postconfirmation</strong></em>.</p>
@@ -183,24 +183,29 @@
 <h4 id="l2blocks"><a class="header" href="#l2blocks">L2Blocks</a></h4>
 <p>L2Blocks are deterministically derived from the sequencer-batches, which are called protoBlocks. Validators calculate the next deterministic transition (imposed through the sequence of transactions <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">x</span><span class="mord mathnormal">s</span></span></span></span>) <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0636em;vertical-align:-0.011em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel x-arrow"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0526em;"><span style="top:-3.322em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight x-arrow-pad"><span class="mord mtight"><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">x</span><span class="mord mathnormal mtight">s</span><span class="mspace mtight"><span class="mtight"> </span></span></span></span></span><span class="svg-align" style="top:-2.689em;"><span class="pstrut" style="height:2.7em;"></span><span class="hide-tail" style="height:0.522em;min-width:1.469em;"><svg xmlns="http://www.w3.org/2000/svg" width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128 -16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20  11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7  39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85 -40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5 -12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67  151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.011em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7519em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span>, where <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7519em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span> are L2Blocks.</p>
 <h4 id="superblock"><a class="header" href="#superblock">SuperBlock</a></h4>
-<p>The Postconfirmation protocol is unlikely to attest to each individual L2Block. L2Blocks may be produced at higher frequency than L1Blocks or the cost of Postconfirmation is high leading to low frequency commitment. Therefore, after a defined number of L2blocks (or L1Blocks, if this is preferred), validators calculate the next (deterministic) superBlock and commit to it in the L1 contract. The L1 contract will verify if &gt;2/3 of the validators have attested at a given superBlock height to a superBlock. Each incremental hight increase may be considered a round.</p>
+<p>The Postconfirmation protocol is unlikely to attest to each individual L2Block. L2Blocks may be produced at higher frequency than L1Blocks or the cost of Postconfirmation is high, thus leading to low frequency commitments. Therefore, after a defined number of L2blocks, validators calculate the next (deterministic) superBlock and commit to it in the L1 contract. The L1 contract will verify (triggered by the acceptor) if &gt;2/3 of the validators have attested at a given superBlock height to a superBlock. Each incremental hight increase may be considered a round.</p>
 <h4 id="commitment"><a class="header" href="#commitment">Commitment</a></h4>
 <p>Validators commit the hash of the superBlock on the L1-contract. It commits the validator to a certain superBlock at a given height, with no option for changing their opinion. (This is intentional - validators should not be able to revert).</p>
-<pre><code class="language-solidity">struct superBlockCommitment {
+<pre><code class="language-solidity">struct Commitment {
   uint256 height;
-  bytes32 commitment;
-  bytes32 superBlockId;
+  bytes32 value;
+  bytes32 id;
 }
 </code></pre>
 <h4 id="epochs"><a class="header" href="#epochs">Epochs</a></h4>
 <p>We require epochs in order to provide</p>
 <ul>
-<li><strong>secure on- and off-boarding process</strong> of validators. A validator MUST live in a well-defined state for a sufficient amount of time. The available states are <code>stake</code>, <code>unstake</code>, and <code>not-staking</code> (in code only the former two may be required). This longevity of a given state both provides stability to the protocol, as well as is a security measure to prevent validators from harming the protocol towards the end of an epoch without implications, as they remain accountable for at least one epoch.</li>
+<li><strong>secure on- and off-boarding process</strong> of validators. A validator MUST live in a well-defined state for a sufficient amount of time. The available states are <code>staked</code>, <code>unstaking</code>, and <code>not-staking</code> (in code only the former two may be required). This longevity of a given state both provides stability to the protocol, as well as is a security measure to prevent validators from harming the protocol towards the end of an epoch without implications. Specifically,
+<ul>
+<li>if a validator calls the <code>stake</code> function, the tokens get locked and voting SHOULD begin at the start of the next epoch.</li>
+<li>if a validator calls the <code>unstake</code> function, voting SHOULD end at the end of the current epoch. The tokens SHOULD get unlocked no earlier than the end of the next epoch.</li>
+</ul>
+</li>
 <li><strong>reward and penalty application</strong>. The borders between periods are also used to manage rewards and penalties. This also renders inefficiencies as calculation of voting weights could be expensive or attackable and thus it should be performed infrequent.</li>
 </ul>
 <p>The <code>epochDuration</code> MUST be set when initializing a chain. It MAY be changeable later on through a governance mechanism. The <code>epochDuration</code> should be set to a value that is large enough to allow for the <code>staking</code> and <code>unstaking</code> process to be completed. Moreover, it should be long enough for human operators to react.</p>
 <blockquote>
-<p>:bulb: The initial recommendation for <code>epochDuration</code> is 1 day.</p>
+<p>:bulb: The initial recommendation for <code>epochDuration</code> is 1 day, but it could be lower, as long as it is substantially larger than the finality time of the L1. E.g. in Ethereum the <code>epochDuration</code> could be 1 hour, however this would increase gas costs due to frequent epoch transitions.</p>
 </blockquote>
 <p>There are three relevant epoch types</p>
 <h5 id="1-presentepoch"><a class="header" href="#1-presentepoch">1. <code>presentEpoch</code></a></h5>
@@ -214,28 +219,30 @@
 </code></pre>
 <p>and <code>L1GenesisTime</code> is the time when the L1 contract was deployed.</p>
 <h5 id="2-assignedepoch"><a class="header" href="#2-assignedepoch">2. <code>assignedEpoch</code></a></h5>
-<p>If a superBlock height is new, the current <code>presentEpoch</code> value is assigned to the superBlock height.</p>
-<pre><code class="language-solidity">/// map each block height to an epoch
-mapping(uint256 blockHeight =&gt; uint256 epoch) public superBlockHeightAssignedEpoch;
-superBlockCommitment memory superBlockCommitment
+<p>If a commitment height is new, the current <code>presentEpoch</code> value is assigned to the commitment height.</p>
+<pre><code class="language-solidity">/// map each commitment height to an epoch
+mapping(uint256 commitmentHeight =&gt; uint256 epoch) public commitmentHeightAssignedEpoch;
 
-if (superBlockHeightAssignedEpoch[blockCommitment.height] == 0) {
-  superBlockHeightAssignedEpoch[blockCommitment.height] = getEpochFromL1BlockTime();
+// assume an instance of Commitment
+Commitment memory commitment;
+
+if (commitmentHeightAssignedEpoch[commitment.height] == 0) {
+  commitmentHeightAssignedEpoch[commitment.height] = getEpochFromL1BlockTime();
 }
 </code></pre>
-<p>Any validator can commit the hash of a superBlock. The rollover function should update to the correct epoch for a given superBlock height (and the heights above).</p>
+<p>Any validator can commit the hash of a superBlock. The rollover function should update to the correct epoch for a given commitment height (and the heights above).</p>
 <blockquote>
-<p>:warning: This may result in an attack vector. An adversary could commit to far in the future superBlock heights. While this has no implications on the security, it may increase costs within the contract operation for the acceptor.</p>
+<p>:warning: This may result in an attack vector. An adversary could commit to far in the future commitment heights. While this has no implications on the security, it may increase costs within the contract operation for the acceptor.</p>
 </blockquote>
-<p>As an initial measure, the height of the superBlock should not be able to be set too far into the future. Hence there SHOULD be a <code>leadingBlockTolerance</code>, that limits how far into the future a block can be added.</p>
+<p>As an initial measure, the height of the commitment should not be able to be set too far into the future. Hence there SHOULD be a <code>leadingBlockTolerance</code>, that limits how far into the future a block can be added.</p>
 <pre><code class="language-solidity">if (lastPostconfirmedBlockHeight + leadingBlockTolerance &lt; blockCommitment.height) {
     revert ValidatorAlreadyCommitted();
     }
 </code></pre>
-<p>The validators have to check if the current superBlock height (off-L1) is within the above window. Otherwise the commitment of the (honest) validator will not be added to the L1 contract.</p>
+<p>The validators have to check if the current commitment height (off-L1) is within the above window. Otherwise the commitment of the (honest) validator will not be added to the L1 contract.</p>
 <h5 id="3-acceptingepoch"><a class="header" href="#3-acceptingepoch">3. <code>acceptingEpoch</code></a></h5>
-<p>Votes are counted in the current <code>acceptingEpoch</code>. If there are enough commitments for a <code>superBlockId</code> the superBlock height receives a Postconfirmation status.</p>
-<p>The current <code>acceptingEpoch</code> can be queried by</p>
+<p>Votes are counted in the current <code>acceptingEpoch</code>. If there are enough votes for a commitment <code>id</code> the commitment height receives a Postconfirmation status (for the corresponding commitment value).</p>
+<p>The current <code>acceptingEpoch</code> SHOULD be queried by</p>
 <pre><code class="language-solidity">function getAcceptingEpoch() public view returns (uint256) {
     return acceptingEpoch;
 }
@@ -316,9 +323,10 @@ while (getAcceptingEpoch() &lt; NextSuperBlockEpoch) {
 <blockquote>
 <p>:warning: Close to the epoch border there should be some buffer. Otherwise the protocol rolls over too early.</p>
 </blockquote>
-<p>This step protects against liveness issues through inactive validators by taking advantage the L1 clock. Either the acceptor (or the volunteer-acceptor) has not been active for some time that is considered problematic for liveness, or over 1/3 of the validators have not been active in the <code>acceptingEpoch</code>. Either way, the current <code>acceptingEpoch</code> has not been live and should be skipped.</p>
+<p>This step protects against liveness issues through inactive validators by taking advantage of the L1 clock. For more on this consult <a href="https://github.com/movementlabsxyz/MIP/pull/117">MD-117</a>. The current <code>acceptingEpoch</code> has not been live and should be skipped.</p>
 <h4 id="acceptor"><a class="header" href="#acceptor">Acceptor</a></h4>
-<p>Every interval <code>acceptorTerm</code> one of the validators takes on the role to perform the Postconfirmation functionality. This acceptor is responsible for updating the contract state once a super-majority is reached for a superBlock height. The acceptor is rewarded for this service, see the <a href="#rewards">Rewards section</a>. We note that this does not equate to a leader in a traditional consensus protocol, as the acceptor does not propose new states. Its role can also be taken over by a <a href="#volunteer-acceptor">volunteer-acceptor</a>.</p>
+<p>An acceptor provides the postconfirmation functionality and rolls over the epoch. In order to allow for sufficient time for honest validators to provide their commitments, the postconfirmation for a given commitment SHOULD be delayed.</p>
+<p>Every interval <code>acceptorTerm</code> one of the validators takes on the role to perform the Postconfirmation functionality. This acceptor is responsible for updating the contract state once a super-majority is reached for a commitment height. The acceptor is rewarded for this service, see the <a href="#rewards">Rewards section</a>. We note that this does not equate to a leader in a traditional consensus protocol, as the acceptor does not propose new states. Its role can also be taken over by a <a href="#volunteer-acceptor">volunteer-acceptor</a>.</p>
 <blockquote>
 <p>:bulb: We separate the acceptor from the validators to achieve separation of concerns and simplify the reward mechanism for the validators. This addresses <a href="https://github.com/movementlabsxyz/MIP/tree/l-monninger/gas-offset/MD/md-4">MD-4:D1</a>.</p>
 </blockquote>
@@ -336,11 +344,12 @@ function getAcceptorFromL1Randomness(bytes32 blockHash) internal view returns (a
 }
 </code></pre>
 <h4 id="volunteer-acceptor"><a class="header" href="#volunteer-acceptor">Volunteer-acceptor</a></h4>
-<p>If the acceptor does not update the contract state for some time, this is negative for the liveness of the protocol. In particular if the <code>acceptorTerm</code> is in the range for the time that is required for the <code>leadingBlockTolerance</code>. Thus it is recommended that <code>acceptorTerm</code> &lt;&lt; time(<code>leadingBlockTolerance</code>). However, such a requirement may not be trivial to solve.</p>
-<p>In order to guarantee liveness the protocol ensures that anyone can voluntarily provide the service of the acceptor. However, no reward is being issued for this service (unless the acceptor has missed the liveness window, see <a href="#rewards">Rewards</a>). The first volunteer-acceptor to provide the service after elapse of the liveness window will be accepted and receives the reward for the service. This is a liveness measure.</p>
+<p>The acceptor is supposed to update the contract state once enough votes are collected for the lowest unconfirmed commitment height. However, if the acceptor does not update the contract state for <code>acceptorLivenessWindow</code> the protocol allows for a volunteer-acceptor to provide the service.</p>
+<p>The first volunteer-acceptor to provide the service of the acceptor after elapse of the liveness window will be accepted and receives the reward for the service, see <a href="#rewards">Rewards</a>. This is a liveness measure.</p>
 <h4 id="rewards"><a class="header" href="#rewards">Rewards</a></h4>
-<p>Validators are rewarded for their service. The reward is calculated proportional to the validator stake and activity. The reward is issued in the next epoch.</p>
-<p>The acceptor is rewarded for the service. The reward is calculated proportional to the activity. The reward is issued in the next epoch. The volunteer-acceptor is not rewarded unless the acceptor has missed the liveness window <code>acceptorLivenessWindow</code>.</p>
+<p><strong>Validators</strong> are rewarded for their service. The reward is calculated proportional to the validator stake and activity. The reward is issued in the next epoch.</p>
+<p>The <strong>acceptor</strong> is rewarded for the service. The reward is calculated proportional to the activity. The reward is issued in the next epoch.</p>
+<p>The <strong>volunteer-acceptor</strong> is rewarded for their service (the acceptor must have missed the liveness window <code>acceptorLivenessWindow</code>).</p>
 <pre><code class="language-solidity">function rewardAcceptor(address acceptor) internal {
     uint256 reward = calculateAcceptorReward(acceptor);
     // Check if the acceptor has missed the liveness window
