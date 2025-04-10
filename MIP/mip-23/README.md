@@ -142,7 +142,7 @@ Releases establish the canonical version of a software unit for a given environm
 
 2. Releases MUST trigger the update of all usage of that software unit to the appropriate tag by Movement Labs. This SHOULD be automated to the extent possible to ensure that the source control reflects the canonical release.
 
-## Reference Implementation
+## Reference implementation
 
 ## Verification
 

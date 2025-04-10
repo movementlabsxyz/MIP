@@ -4,10 +4,14 @@ Fastconfirmation
 Fastconfirmations
 Merkle
 multisig
+postconfirm
+postconfirmed
+Postconfirmer
 protoBlock
 protoBlocks
 timelock
 timelocks
+trustless
 trustlessness
 unstake
 unstaking

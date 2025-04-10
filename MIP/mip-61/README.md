@@ -2,6 +2,7 @@
 
 - **Description**: This MIP describes the process for continuous operation as well as the bootstrapping of the relayer in the lock/mint bridge.
 - **Authors**: Andreas Penzkofer, Philippe
+- **Approval**: Stagnant
 
 ## Abstract
 
@@ -56,12 +57,12 @@ The relayer can get its state from the source chain and target chain. The relaye
 
 **2. BOOTSTRAPPING:** The relayer initiate the event polling at some point in the past. This point is either the genesis, some configurable source block height, or some checkpoint (possibly set on-chain)
 
-### Assumptions on the Bridge Protocol
+### Assumptions on the bridge protocol
 
 **Nonce**:
 We assume the Native Bridge protocol MUST implement the assignment of an incrementing `nonce` on the source chain. Since there are two directions there MUST be two types of counters (`nonces`) - one for each transfer direction. The `nonce` is used to order the transfers.
 
-**Initiate Transfer**:
+**Initiate transfer**:
 The `initiate_transfer` function on the source chain is called by the user. It emits an event `initiate_transfer` with the following properties:
 
 ```javascript
@@ -75,7 +76,7 @@ The `initiate_transfer` function on the source chain is called by the user. It e
 
 This structure is used to record the transfer on the source chain.
 
-**Complete Transfer**:
+**Complete transfer**:
 The `complete_transfer` function on the target chain is called by the relayer. It emits an event `complete_transfer` with the following properties:
 
 ```javascript
@@ -90,8 +91,7 @@ The `complete_transfer` function on the target chain is called by the relayer. I
 
 This structure is used to record the transfer on the target chain.
 
-### Relayer Structures
-
+### Relayer structures
 
 Locally the relayer stores the following structure:
 
@@ -315,13 +315,13 @@ In the CONTINUOUS_BLOCK_PROCESSING Algorithm the Relayer can record the height o
 **Reading from chain**
 The relayer records on the source or target chain the `completed_block_height` (see [PROCESS_FINISHED_NONCE_HEIGHT](#calculation-of-completed-source-block-height). This can happen infrequent. A separate algorithm needs to be spelled out which records the highest source block, below which all source blocks with transfers are completed.
 
-## Considered Alternatives
+## Considered alternatives
 
 1. Use of indexer DB.
 
 This creates a dependency to another component. For example, if the postgres db has an issue, the relayer has an issue. Even thought the relayer doesn't need the db to process.
 
-## Reference Implementation
+## Reference implementation
 
 ## Verification
 

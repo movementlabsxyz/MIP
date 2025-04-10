@@ -1,8 +1,9 @@
-# MIP-88: Simplified Rate Limiter for the Lock/Mint Bridge
+# MIP-88: Simplified Rate Limiter for the lock/mint Native Bridge
 
-- **Description**: A simplified design for the rate limiter of the Lock/Mint bridge.
+- **Description**: A simplified design for the rate limiter of the Lock/Mint Native Bridge.
 - **Authors**: Andreas Penzkofer, Primata
 - **Desiderata**: [MD-74](https://github.com/movementlabsxyz/MIP/pull/74/files/MD/md-74/README.md)
+- **Approval**:
 
 ## Abstract
 
@@ -16,7 +17,7 @@ Moreover, we may assume that the inflow to and outflow from \$MOVE tokens is the
 
 ## Specification
 
-*The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.*
+_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
 
 ### Symmetric Insurance Fund
 
@@ -47,7 +48,7 @@ rateLimit (L1→L2, \text{on source}) = rateLimit (L1→L2, \text{on target}) \\
 = \texttt{InsuranceFundValueOnChain} / 2
 $$
 
-### Trusted Governance Operator informs about Insurance Fund Value
+### Trusted Governance Operator informs about Insurance Fund value
 
 This section extends the ideas of the previous section.
 
@@ -66,7 +67,7 @@ rateLimit (L1→L2, \text{on source}) = rateLimit (L1→L2, \text{on target}) \\
 = \texttt{InsuranceFundValueOnChain} / 4
 $$
 
-## Reference Implementation
+## Reference implementation
 
 - [Solidity](https://github.com/movementlabsxyz/movement/pull/992)
 - [Move](https://github.com/movementlabsxyz/aptos-core/pull/113)
@@ -75,6 +76,4 @@ $$
 
 ## Appendix
 
-## Copyright
-
-Copyright and related rights waived via [CC0](../LICENSE.md).
+## Changelog

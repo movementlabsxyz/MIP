@@ -2,6 +2,7 @@
 
 - **Authors**: [Author](mailto:author@email.com)
 - **Introducing Document: [MIP/MD-\<number\>](../MIP/mip-\<number\>/README.md)**
+- **Approval**: <!--Either approved (:white_check_mark:), rejected (:x:), stagnant or withdrawn by the governance body. To be inserted by governance. -->
 
 ## \<Term\>
 

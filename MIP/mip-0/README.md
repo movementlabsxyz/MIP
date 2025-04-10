@@ -1,8 +1,9 @@
-# MIP-0: Formalize Movement Proposals
+# MIP-0: Formalize Movement proposals
 
 - **Description**: A process through which Movement Improvement Proposals standardize and formalize specifications for Movement technologies.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz), Andreas Penzkofer
 - **Desiderata**: [MD-0](../../MD/md-0)
+- **Approval**: :white_check_mark:
 
 ## Abstract
 
@@ -14,6 +15,8 @@ Movement technologies continually evolve, and there's a need to ensure that the 
 
 ## Specification
 
+_The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
+
 ### Extensions to this MIP
 
 We treat the following documents as extensions to this MIP:
@@ -23,23 +26,52 @@ We treat the following documents as extensions to this MIP:
 - [MIP template](../../mip-template.md)
 - [MG template](../../mg-template.md)
 
-### High-level Lifecycle
+### High-level process
 
-The lifecycle of a proposal should be
+There are two lifecycle streams: the **github lifecycle** and the **approval lifecycle**. The approval lifecycle is reflective of which MIPs have been approved for implementation. The github lifecycle is reflective of the progress of the MIP in terms of its readiness and review.
+
+#### Github lifecycle
+
+The github lifecycle of a proposal is
 
 1. create a [new issue](https://github.com/movementlabsxyz/MIP/issues) to register the intent to write an MD/MIP and its scope.
-2. If 1. is approved by governance (this may require some discussions), start writing an MD and create a PR for it using [this Draft](../../md-template.md).
-3. The author MAY start an MIP using [this Draft](../../mip-template.md) in the same PR as the MD. However, doing so may slow down the governance approval of the MD. A preferred approach is to start with the MD, then await governance approval and only then start the MIP in a separate PR.
+2. If 1. achieves enough traction start writing an MD. Create a PR by using [this Draft](../../md-template.md).
+3. Ideally the author starts an MIP that addresses an MD, after the MD is approved by governance (see Section [Approval lifecycle](#approval-lifecycle)). However, and in fact in most cases, this restriction will not be implementable and authors MAY start with the MIP in parallel. The author MUST start an MIP using [this Draft](../../mip-template.md). But SHOULD do so in a separate PR to the MD.
 
-#### Status terms
+```mermaid
+graph LR
+    A[1: Idea: issue] --> B[2: Request: MD] --> C[3: Solution: MIP]
+```
 
-An MIP/MD is proposed through a PR. Each MIP/MD PR should have a status. For additional specification, see the [root README](../../README.md#status-terms).
+**Status terms**
+An MIP/MD is proposed through a PR. Each MIP/MD PR should have a status. For additional specification, see the [root README Section "Status terms"](../../README.md#status-terms).
+
+#### Approval lifecycle
+
+An MIP and MD is
+
+- **approved** (:white_check_mark:) 
+- **rejected** (:x:) by the governance
+- **stagnant** (no updates for 6 months)
+- **withdrawn** (by the author)
+
+The approval lifecycle of a proposal is
+
+1. The author flags their MD to be reviewed by the governance.
+1. The governance reviews the MD and approves or rejects it.
+1. If approved, the author flags their MIP to be reviewed by the governance.
+1. The governance reviews the MIP and approves or rejects it.
+
+```mermaid
+graph LR
+    A[1: Proposal of MD] -- 2: Approval decision --> B[3: Proposal of MIP] -- 4: Approval decision --> C[Implementation]
+```
 
 ### Roles
 
 #### Governance
 
-A governance body is responsible for overseeing the Movement Improvement Proposal process. This body is responsible for approving or rejecting proposals, and for ensuring that the process is followed correctly. The governance body is also responsible for maintaining the Movement Improvement Proposal repository, and for ensuring that the proposals are kept up-to-date.
+A governance is responsible for overseeing the Movement Improvement Proposal process. The governance is responsible for approving or rejecting proposals, and for ensuring that the process is followed correctly. The governance is also responsible for maintaining the Movement Improvement Proposal repository, and for ensuring that the proposals are kept up-to-date.
 
 #### Editor
 
@@ -64,11 +96,11 @@ An author commits to becoming the owner of the MIP/MD they propose. This means t
 
 The author MUST add themselves as a code owner in [CODEWONERS](.github/CODEOWNERS).
 
-### Proposal Stages
+### Proposal stages
 
 The Movement Improvement Proposal process is divided into three stages: Issue, MD, and MIP.
 
-#### Stage Issue
+#### Stage issue
 
 Issues are used to propose trivial changes or improvements to Movement technologies. They are used to discuss and document the rationale behind a proposed change, and to gather feedback from the community. Issues are not formalized and do not require a specific structure. They are used to gauge interest and to start discussions.
 
@@ -96,11 +128,11 @@ A Movement Improvement Proposal (MIP) is a design document that provides informa
   
 **Structure**: Each MIP must adhere to [this template](../../mip-template.md), which requires details like title, description, author, status, and more. A MIP also includes sections like Abstract, Motivation, Specification, Reference Implementation, Verification, Changelog, and Appendix, see next.
 
-**Section Reference Implementation**: A reference implementation or a sample MIP following the MIP template can be provided to guide potential proposers. This MIP (MIP-0) serves as a practical example, aiding in understanding the format and expectations.
+**Section reference implementation**: A reference implementation or a sample MIP following the MIP template can be provided to guide potential proposers. This MIP (MIP-0) serves as a practical example, aiding in understanding the format and expectations.
   
-**(Optional) Section Definitions**: Provide definitions that you think will empower the reader to quickly dive into the topic.
+**(Optional) section definitions**: Provide definitions that you think will empower the reader to quickly dive into the topic.
 
-**Section Verification**
+**Section verification**:
 
 1. Correctness: Each MIP must convincingly demonstrate its correctness.
 
@@ -114,7 +146,7 @@ The primary security concern associated with this MIP is the exposure of proprie
 
 The primary performance concern associated with this MIP is its potential for overuse. Only specifications that are non-trivial and very high-quality should be composed as MIPs.
 
-4. Procedures: To the extent possible, formal, analytical, or machined-aided validation of the above should be pursued. 
+4. Procedures: To the extent possible, formal, analytical, or machined-aided validation of the above should be pursued.
 
 I'm using spellcheck while writing this MIP. You can verify that I am using valid grammar by pasting this sentence into Google Docs.
 
@@ -129,4 +161,5 @@ The Movement Labs team is currently reviewing and assessing this process.
 ## Changelog
 
 - 2024-12-18: Add information about the process and structure of MDs.
-- 2025-xx-xx: Incorporate updates on the process from SF. [PR#76](https://github.com/movementlabsxyz/MIP/pull/76)
+- 2024-02-12: Add information about the governance process and approval status.
+- 2025-01-14: Incorporate updates on the process from SF. [PR#76](https://github.com/movementlabsxyz/MIP/pull/76)
