@@ -43,6 +43,9 @@ L2Blocks are deterministically derived from the sequencer-batches, which are cal
 
 The Postconfirmation protocol is unlikely to attest to each individual L2Block. L2Blocks may be produced at higher frequency than L1Blocks or the cost of Postconfirmation is high, thus leading to low frequency commitments. Therefore, after a defined number of L2blocks, validators calculate the next (deterministic) superBlock and commit to it in the L1 contract. The L1 contract will verify (triggered by the acceptor) if >2/3 of the validators have attested at a given superBlock height to a superBlock. Each incremental hight increase may be considered a round.
 
+#### Validator
+
+A validator is a participant in the Postconfirmation protocol. They provide commitments to superBlocks by submitting transactions on the L1. For a given commitment height, a validator has `commitmentWindow` time to submit their commitment.
 
 #### Commitment
 
@@ -251,11 +254,49 @@ function getAcceptorFromL1Randomness(bytes32 blockHash) internal view returns (a
 }
 ```
 
+```mermaid
+gantt
+    title Acceptor : Postconfirmation Timeline
+    dateFormat  DD HH:mm
+    axisFormat  %d %H:%M
+
+    section Phases
+    commitmentInterval :active, commitWindow, 01 00:00, 01 12:00
+    acceptorWindow     :active, acceptorWindow, 01 12:00, 01 18:00
+
+    section Events
+    Validator 1 commits :milestone, v1, 01 02:00, 1min
+    Validator 2 commits :milestone, v2, 01 04:00, 1min
+    Validator 3 commits :milestone, v3, 01 06:00, 1min
+    Acceptor too early ❌ :milestone, earlyA, 01 11:00, 1min
+    Acceptor postconfirms ✅ :milestone, goodA, 01 13:00, 1min
+```
+
 #### Volunteer-acceptor
 
-The acceptor is supposed to update the contract state once enough votes are collected for the lowest unconfirmed commitment height. However, if the acceptor does not update the contract state for `acceptorLivenessWindow` the protocol allows for a volunteer-acceptor to provide the service.
+The acceptor is supposed to update the contract state once enough votes are collected for the lowest unconfirmed commitment height. However, if the acceptor does not update the contract state for `acceptorWindow` the protocol allows for a volunteer-acceptor to provide the service.
 
 The first volunteer-acceptor to provide the service of the acceptor after elapse of the liveness window will be accepted and receives the reward for the service, see [Rewards](#rewards). This is a liveness measure.
+
+```mermaid
+gantt
+    title Volunteer-acceptor : Postconfirmation Timeline
+    dateFormat  DD HH:mm
+    axisFormat  %d %H:%M
+
+    section Phases
+    commitmentWindow      :active, commitWindow, 01 00:00, 01 12:00
+    acceptorWindow          :active, acceptorWindow, 01 12:00, 01 18:00
+    . :active, volunteerWindow, 01 18:00, 01 20:00
+
+    section Events
+    Validator 1 commits     :milestone, v1, 01 01:00, 1min
+    Validator 2 commits     :milestone, v2, 01 03:00, 1min
+    Validator 3 commits     :milestone, v3, 01 06:00, 1min
+    Acceptor-volunteer too early ❌    :milestone, volunteerActs, 01 13:00, 1min
+    Acceptor did nothing    :milestone, aMissed, 01 18:00, 1min
+    Acceptor-volunteer postconfirms ✅    :milestone, volunteerActs, 01 20:00, 1min
+```
 
 #### Rewards
 
@@ -263,7 +304,7 @@ The first volunteer-acceptor to provide the service of the acceptor after elapse
 
 The **acceptor** is rewarded for the service. The reward is calculated proportional to the activity. The reward is issued in the next epoch. 
 
-The **volunteer-acceptor** is rewarded for their service (the acceptor must have missed the liveness window `acceptorLivenessWindow`).
+The **volunteer-acceptor** is rewarded for their service (the acceptor must have missed the liveness window `acceptorWindow`).
 
 ```solidity
 function rewardAcceptor(address acceptor) internal {
@@ -279,7 +320,7 @@ function rewardAcceptor(address acceptor) internal {
 function hasAcceptorMissedLivenessWindow() internal view returns (bool) {
     uint256 lastActivity = getAcceptorLastActivity();
     uint256 currentTime = block.timestamp;
-    return currentTime > lastActivity + acceptorLivenessWindow;
+    return currentTime > lastActivity + acceptorWindow;
 }
 
 function getAcceptorLastActivity() internal view returns (uint256) {
@@ -297,7 +338,9 @@ With Postconfirmations alone nodes do not need to get slashed if they voted for 
 
 ## Reference Implementation
 
-A reference implementation for Postconfirmation is provided by MCR, see [here](https://github.com/movementlabsxyz/movement/tree/714831820d78b3910729a194cd0508fa1efd9aa9/protocol-units/settlement/mcr).
+A reference implementation for MCR is provided [here](https://github.com/movementlabsxyz/ffs/blob/4ffcccb950611964d5929cdb300638ecaebfe3c4/protocol/mcr/dlu/eth/contracts/src/settlement/MCR.sol).
+
+A reference implementation for PCP is provided [here](https://github.com/movementlabsxyz/ffs/blob/4ffcccb950611964d5929cdb300638ecaebfe3c4/protocol/pcp/dlu/eth/contracts/src/settlement/PCP.sol).
 
 ## Verification
 
