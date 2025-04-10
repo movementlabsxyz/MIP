@@ -1,4 +1,4 @@
-# MD-116: Dongmen Standards - Liveness-favoring Postconfirmation protocol
+# MD-116: Dongmen Standards for Postconfirmations
 
 - **Description**: Provides a set of liveness and correctness requirements for liveness-favoring Postconfirmations protocols.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
@@ -7,34 +7,34 @@
 
 ## Overview
 
-We suggest and investigate a protocol which is **quasi-synchronous**, **fork-transferable**, **fork-perfect**, and **minority-aware**. The last three of these terms are introduced and defined in this MD.
+We suggest and investigate a protocol which is **quasi-synchronous**, **branch-transferable**, **branch-perfect**, and **minority-aware**. The last three of these terms are introduced and defined in this MD.
 
 However, we already arrive at the conclusion that a protocol that satisfies the **quasi-synchronous** requirement does not provide BFT protection. That is, confirmed branches (created through a state fork) may exist, that do not have a supermajority of support.
 
 For a protocol that does satisfy BFT requirements, see the [MD-117: Ximen Postconfirmations Standards](https://github.com/movementlabsxyz/MIP/tree/l-monninger/dongmen-standards/MD/md-n).
 
-#### Motivation
+### Motivation
 
 As identified in [MD-3](https://github.com/movementlabsxyz/MIP/tree/main/MD/md-3), [MD-4](https://github.com/movementlabsxyz/MIP/tree/main/MD/md-4), [MD-5](https://github.com/movementlabsxyz/MIP/tree/main/MD/md-5), [MIP-34](https://github.com/movementlabsxyz/MIP/pulls?page=2&q=is%3Apr+is%3Aopen), and [MIP-37](https://github.com/movementlabsxyz/MIP/pull/37), naive interpretations--such as MCR--of the Postconfirmations protocol fall short of modern BFT expectations. 
 
 We summarize the shortcomings relevant to these standards as follows:
 
-1. **Liveness issues**:
-Votes on a given commitment height may never arrive as the postconfirmation attesters may become inactive, which could stall the liveness of the protocol.
+1. **Quasi-asynchronicity**: per [FLP](https://groups.csail.mit.edu/tds/papers/Lynch/jacm85.pdf), protocols that operate with asynchronous network conditions, cannot achieve consensus in the presence of one or more faulty processes. Similarly, certain variants of Postconfirmation protocol, which do not define an upper bound on voting times, may halt indefinitely if enough attesters become inactive. We call these quasi-asynchronous Postconfirmation protocols, see [Definitions](#definitions) for more details. Note that the concept of quasi-asynchrony does not map to asynchrony as the L1 provides total order broadcast, and thus synchrony on vote message dissemination. However, we suggest this helps to explain the problem. An example, would be the implementation of [MCR](https://github.com/movementlabsxyz/ffs/blob/4ffcccb950611964d5929cdb300638ecaebfe3c4/protocol/mcr/README.md). If implemented with a single vote per slot and without any bound on when the slot moves to a new committee, it may remain in permanent disagreement.
+
+2. **Liveness issues**:
+Votes on a given commitment height may never arrive as the postconfirmation attesters may become inactive, which could halt the liveness of the protocol.
 Thus, Postconfirmations protocols that do not define synchronization times, timeouts and/or a view change on who is the attester committee, can loose liveness indefinitely.
 
-2. **Temporary forks**:
+3. **Temporary forks**:
 Failure to come to consensus presents a liveness shortcoming. Permanent disagreement about the state on L2 means that the network will never progress to the next accepted state. We assert indefinite disagreement is unnecessary in the context of Postconfirmations, as attesters may change over time or their view of the state may change.
 
-Certain types of Postconfirmation protocols are, thus, **not in fact BFT consensus protocols.** MCR, for example--if implemented with a single vote per commitment slot height or without any bound on when the slot moves to a new committee--may remain in permanent disagreement.
-
-For more detailed information on these properties, see [BFT Synchronicity and Liveness](#a1-bft-synchronicity-and-liveness).
+For more detailed information on these properties, see Appendix [A1: Classification of the Protocol](#a1-classification-of-the-protocol).
 
 ## Definitions
 
 - **Fork and Branch**: A fork on L2 is the event of a divergence in what is considered the "correct" state on L2. A branch is a chain of blocks (or consensus rounds). A fork creates two or more branches.
 
-- **Quasi-models**: We attempt to transfer the concept of message propagation guarantees in network models to the Postconfirmation protocol. For more details on the models, see [Appendix A1.1]().
+- **Quasi-models**: We attempt to transfer the concept of message propagation guarantees in network models to the Postconfirmation protocol. For more details on the models, see [Appendix A1](#a1-classification-of-the-protocol).
   - **Quasi-synchronous**: The protocol assume that all relevant voting messages are delivered within time $\Delta$. Based on the received votes, the protocol will make a decision. Messages destined to be handled within the bound may arrive outside of these bounds, however, they are then ignored. It is **liveness-favoring**.
   - **Quasi-partially synchronous**: A supermajority of votes are delivered within time $\Delta$ at some finite point in the future. Steps are taken to ensure that the protocol can make a decision at some finite point in the future. This is similar to the concept of Global Stabilization Time (GST). This is **safety-favoring**.
   - **Quasi-asynchronous**: There is no bound on when the supermajority of votes will be delivered. This is **safety-favoring**.
@@ -55,7 +55,7 @@ For more detailed information on these properties, see [BFT Synchronicity and Li
 
 **Justification**: A quasi-synchronous protocol provides predictable points in time by which a decision will be made. It is liveness-favoring. It does not provide guarantees against byzantine actors with respect to selecting the correct state for the L2.
 
-The requirement of **quasi-synchronicity** means that if a supermajority decision is not made by some time $\Delta$, some form of minority decision must effectively be made, for the protocol to make progress. In essence this means that the protocol is **liveness-favoring**, see Appendix [A1.2]().
+The requirement of **quasi-synchronicity** means that if a supermajority decision is not made by some time $\Delta$, some form of minority decision must effectively be made, for the protocol to make progress. In essence this means that the protocol is **liveness-favoring**, see Appendix [A1](#a1-classification-of-the-protocol).
 
 Regardless, Dongmen Postconfirmation protocols are required to provide a formal model of the expected value of consensus on a Byzantine minority w.r.t. the value of the state and intrinsic rewards. In other words, they must explain the nature of eventual safety (with respect to Byzantine assumptions) or else describe the non-BFT nature of the protocol at quasi-synchronous decision points.
 
@@ -77,6 +77,8 @@ Regardless, Dongmen Postconfirmation protocols are required to provide a formal 
 
 **Justification**: We assert that the [**quasi-synchronicity**](#d1-quasi-synchronous) of Postconfirmations complicates BFT assumptions. These complications must be well understood for a given protocol.
 
+**Recommendation**: To illustrate the possible protocols that could be possible with minority-aware properties, we provide a selection of examples in [Appendix A4](#a4-examples-minority-selecting-protocols).
+
 ## Appendix
 
 ### A1: Classification of the Protocol
@@ -91,6 +93,8 @@ In Network theory, the following models for message propagation and arrival are 
 | Guaranteed bounded message arrival                      | Yes                      | Yes, after unknown GST                | No                     |
 
 Similarly here we define Quasi-metrics for the Postconfirmation protocol that exists on the L1 contract. For this we focus on the timely delivery of votes from the L2 on the L1.
+
+In the following table, we consider that safe means safe in the context BFT assumptions with 2/3 honest voting power.
 
 | Property / Feature             | Quasi-synchronous               | Quasi-partially Synchronous         | Quasi-asynchronous          |
 |-------------------------------|---------------------------|-------------------------------|------------------------|
@@ -109,10 +113,9 @@ We may also consider the protocol in terms of liveness-favoring and safety-favor
 | Safety Guarantee              | Have to use unsafe majority assumptions  | Safe   | Safe         |
 | Byzantine Fault Tolerance               | No | Yes    | Yes          |
 
-
 ### A2: PBFT and Perfectness
 
-[PBFT](https://pmg.csail.mit.edu/papers/osdi99.pdf) introduced a protocol which ensures consecutive rounds of consensus intersect in at least one unit of honest voting power via the Generalized Pigeon Hole Principle. The transitivity of this property ensures that a chain of consensus rounds must intersect in at least one unit of honest voting power. 
+[PBFT](https://pmg.csail.mit.edu/papers/osdi99.pdf) introduced a protocol which ensures consecutive rounds of consensus intersect in at least one unit of honest voting power via the Generalized Pigeon Hole Principle. The transitivity of this property ensures that a chain of consensus rounds must intersect in at least one unit of honest voting power.
 
 Under an [experts model](https://people.csail.mit.edu/ghaffari/AA19/AAscript.pdf?utm_source=chatgpt.com) understanding of PBFT systems, we can make an assumption that there is a perfect expert and thus that this perfect expert is identified by consensus. This, in turn, renders PBFT a lossless approximate algorithm.
 
@@ -120,16 +123,17 @@ If we consider allowing forks, however, it is initially unclear how perfectness 
 
 We can, however, apply a reduced criterion and state that a each **branch** be comprised of a chain of consensus rounds each of which intersect in one unit of honest voting power w.r.t. to the fork itself. We call this **branch-perfectness**.
 
-Preserving **branch-perfectness** reduces to ensuring the fraction of stake which was involved in the fork and which resulted in the winning branch maintains a supermajority. If this does not occur, then it is impossible to have the guaranteed intersection. 
-
+Preserving **branch-perfectness** reduces to ensuring the fraction of stake which was involved in the fork and which resulted in the winning branch maintains a supermajority. If this does not occur, then it is impossible to have the guaranteed intersection.
 
 ### A3: Example Minority-Aware Protocol
 
+> This is a sketch for the purpose of demonstrating how Minority-Awareness would be proven.
+
 Consider the following quasi-synchronous protocol:
 
-1. Votes $v \in V_h$ are cast for states $s \in S_h$ at height $h \in H$.
+1. Votes $v \in V_h$ are cast for states $s \in S_h$ at height $h \in H$. The maximal number of votes for a state can be $N$.
 2. A decision in made on a vote $s, h$ by time $t \in T$.
-    1. If $V_{h}(s) > \frac{2*|V|}{3}$, accept $s, h$
+    1. If $V_{h}(s) > \frac{2}{3}N$, accept $s, h$
     2. Otherwise, begin **Play Foward** algorithm.
 
 The **Play Forward** algorithm is as follows:
@@ -140,10 +144,10 @@ If $l' > d$, accept the root $s, h$ of the heaviest remaining subtree by weight.
 
 Otherwise, for each tuple $(s, h') \in V_{h'}$ 
 
-1. If $V_{h'}(s) > \frac{2*|V|}{3}$, accept $s, h$, i.e., the original commitment at the root of the subtree. 
+1. If $V_{h'}(s) > \frac{2}{3}N$, accept $s, h$, i.e., the original commitment at the root of the subtree. 
 2. If $V_{h'}(s) = \text{argmin} V_{h'}(s)$, remove all tuples $s, h \leq V_{h'}(s)$ and their descendants from the entire tree.
 
-At any given round, the number of ways the Byzantine fraction $\frac{|V|}{3} - 1$ can be eliminated is $n' = (incomplete)$ out of the total number of combinations $n$. 
+At any given round, the number of ways the Byzantine fraction $\frac{N}{3} - 1$ can be eliminated is $n' = (incomplete)$ out of the total number of combinations $n$. 
 
 Thus, the probability of that the Byzantine fraction makes it to the final acceptance is $p =(incomplete)$. 
 
@@ -153,7 +157,7 @@ Thus, our protocol now admits a $p$ probability of Byzantine attack. The expecte
 
 This is **quasiy-synchronous** because a decision will be cast on $h$ by $t + d$. 
 
-### A6: Examples Minority-Selecting Protocols
+### A4: Examples Minority-Selecting Protocols
 
 Consider the following quasi-synchronous protocol:
 
@@ -245,7 +249,7 @@ Since a the choice for a new branch would mean that all previous votes are inval
 
 Lets explore sone of the options:
 
-#### A6.1: Revotes, double counting, no propagation
+#### A4.1: Revotes, double counting, no propagation
 
 Step 1 of the above algorithm becomes
 
@@ -293,7 +297,7 @@ graph TD
 
 *Fig 3 b: Committee B (🟩 ). Time = 2Δ. Committee B was active for (Δ..2Δ]. `s_3` will be committed.*
 
-#### A6.2: No Revotes, single-counting, with propagation
+#### A4.2: No Revotes, single-counting, with propagation
 
 Here we would like to entertain that nodes can resubmit their vote for a different branch, but existing votes cannot be changed. We also would like to propagate votes a long a branch to ensure that this branch is maximally supported.
 
@@ -308,7 +312,7 @@ We note this is marginally different to the previous example. It differs only in
 **What can go wrong?**
 1. Same problem as previous example.
 
-#### A6.3: Revotes, single-counting, with propagation
+#### A4.3: Revotes, single-counting, with propagation
 
 Assume the previous protocol, but votes are removed from branches that are not supported any longer. This means we override previous votes.
 
@@ -356,6 +360,5 @@ graph TD
 *Fig 4 a: Committee A (🟥 ). Time = Δ. Committee A was active for (0..Δ]. State `s_2'` gathers at least the minimum number of votes of any state in that branch.*  
 
 *Fig 4 b: Committee B (🟩 ). Time = 2Δ. Committee B was active for (Δ..2Δ]. Nothing happens.*
-
 
 ## Changelog
