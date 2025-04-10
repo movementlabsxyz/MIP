@@ -223,9 +223,7 @@ Contracts's APIs:
 
 The permissions are set to ensure that only the user who initiated the transfer can request a refund, and only the relayer can complete the transfer on L1.
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
-
-## Reference implementation
+## Reference Implementation
 
 ### Bridging from L1 to L2
 
