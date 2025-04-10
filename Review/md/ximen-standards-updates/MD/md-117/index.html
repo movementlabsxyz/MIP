@@ -1,0 +1,281 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>MD-117: Ximen Standards for Postconfirmation protocols - MIP</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../../../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../../../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">MIP</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/movementlabsxyz/MIP" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="md-117-ximen-standards-for-postconfirmation-protocols"><a class="header" href="#md-117-ximen-standards-for-postconfirmation-protocols">MD-117: Ximen Standards for Postconfirmation protocols</a></h1>
+<ul>
+<li><strong>Description</strong>: Provides a set of liveness and correctness requirements for Postconfirmation protocols that may be more safety-favoring than the <a href="https://github.com/movementlabsxyz/MIP/pull/116">Dongmen Standards</a>.</li>
+<li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
+<li><strong>Approval</strong>:</li>
+<li><strong>Etymology</strong>: These standards were originally drafted as a planned but later alternative to the <a href="https://github.com/movementlabsxyz/MIP/pull/116">Dongmen Standards</a> and so bear the name of a “younger” Taipei neighborhood, Ximen.</li>
+</ul>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>The <a href="https://github.com/movementlabsxyz/MIP/pull/116">Dongmen Standards</a> (MD-116) acknowledge the inability of quasi-synchronous protocols to satisfy traditional BFT assumptions. These standards accept MD-116.D2,3 but reject <a href="https://github.com/movementlabsxyz/MIP/tree/l-monninger/dongmen-standards/MD/md-n#d1-fully-synchronous">MD-116.D1</a> (quasi-synchronicity) instead proposing <a href="#d1-partially-synchronous">MD-117.D1</a> (quasi-partial-synchronicity, defined in MD-116) in its place.</p>
+<p>As a result, <a href="https://github.com/movementlabsxyz/MIP/tree/l-monninger/dongmen-standards/MD/md-n#d4-minority-aware">MD-116.D4</a> (minority awareness) is no longer relevant. However, a request for a clear consideration of attacks on the indefinite nature of the agreement synchronicity is requested.</p>
+<h2 id="definitions"><a class="header" href="#definitions">Definitions</a></h2>
+<ul>
+<li>
+<p><strong>Commitment Hostage Attack</strong>: An adversarial strategy in which a network or participant delays confirmation of a block (or decision) indefinitely by exploiting asynchrony, forcing the protocol into a state of limbo. These attacks often require post-facto reasoning or off-path resolution to identify and mitigate.</p>
+</li>
+<li>
+<p><strong>Message Timing Attack</strong>: A broader class of strategies in which an adversary manipulates message timing or node behavior to degrade the liveness or fairness of a consensus protocol, often without violating safety directly.</p>
+</li>
+</ul>
+<h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
+<h3 id="d1-safety-favoring-and-quasi-partially-synchronous"><a class="header" href="#d1-safety-favoring-and-quasi-partially-synchronous">D1: Safety-favoring and quasi-partially-synchronous</a></h3>
+<p><strong>User journey</strong>: Consumers of Ximen Postconfirmations consensus can rely on agreement to be achieved at some finite point in time w.r.t. to the confirming ledger.</p>
+<p><strong>Justification</strong>:
+A quasi-partially synchronous protocol, as defined in <a href="https://github.com/movementlabsxyz/MIP/tree/l-monninger/dongmen-standards/MD/md-n">MD-116</a>, provides a way of changing the view on who decides the progress of the protocol. It is safety-favoring.</p>
+<p>The requirement of <strong>quasi-partial-synchronicity</strong> means that for a given height, if a supermajority decision is not made by some time <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">Δ</span></span></span></span>, a new committee will be elected for the protocol to make progress. However, it is not known when this progress will happen.</p>
+<p>In essence this means that the protocol is <strong>safety-favoring</strong>, see Appendix <a href="">A1.2</a> of <a href="https://github.com/movementlabsxyz/MIP/tree/l-monninger/dongmen-standards/MD/md-n">MD-116</a>, rather than liveness-favoring. This is because it does not render predictable points in time at which consensus will be known. However, by changing the committee, we give the protocol the chance to recover from an inactive committee.</p>
+<h3 id="d2-describe-attacks-on-indefinite-quasi-asynchronicity"><a class="header" href="#d2-describe-attacks-on-indefinite-quasi-asynchronicity">D2: Describe attacks on indefinite quasi-asynchronicity</a></h3>
+<p><strong>User journey</strong>: Consumers of Ximen Postconfirmations consensus can interpret a well-considered discussion of attacks on the indefinite nature of quasi-asynchronicity. For a given Ximen Postconfirmation protocol, best efforts should be made to mitigate these attacks.</p>
+<p><strong>Justification</strong>: The Ximen Standards seek to ensure common synchronicity attacks, such as <a href="https://github.com/movementlabsxyz/MIP/tree/main/MD/md-3">Commitment Hostage Attacks</a>, are well-considered for an adhering protocol. Owing to the complexity and often <a href="https://economics.stackexchange.com/questions/57998/on-and-off-equilibrium-path-game-theory">off-path</a> nature of these attacks, the Ximen Standards recognize that full and rigorous criteria for protections against these attacks are not practical.</p>
+<h2 id="appendix"><a class="header" href="#appendix">Appendix</a></h2>
+<h3 id="a1-example"><a class="header" href="#a1-example">A1: Example</a></h3>
+<p>We build on the example of <a href="https://github.com/movementlabsxyz/MIP/tree/l-monninger/dongmen-standards/MD/md-n#a63-revotes-single-counting-with-propagation">MD-116.A6.3</a> to build a simple example of a protocol that satisfies the desiderata above.</p>
+<p>We assume the protocol progresses through epochs, which we argue in this this example is similar to a view change. If the epoch changes, new voters must vote on the oldest not decided height.</p>
+<p>We change step 2 of the algorithm to be:</p>
+<ol>
+<li>For each undecided height <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8104em;vertical-align:-0.0391em;"></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7713em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">+</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">h</span></span></span></span>
+<ol>
+<li>If <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1128em;vertical-align:-0.3013em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8115em;"><span style="top:-2.3987em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">h</span></span></span><span style="top:-3.1031em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">+</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3013em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span> AND <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1128em;vertical-align:-0.3013em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8115em;"><span style="top:-2.3987em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">h</span></span></span><span style="top:-3.1031em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">+</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3013em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">Δ</span></span></span></span>, accept the tuple <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1128em;vertical-align:-0.3013em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8115em;"><span style="top:-2.3987em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">h</span></span></span><span style="top:-3.1031em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">+</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3013em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7713em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">+</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>. Continue processing slot <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8547em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7713em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">+</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>.</li>
+<li>Else Return</li>
+</ol>
+</li>
+</ol>
+<p><strong>What can go wrong?</strong></p>
+<ul>
+<li>Liveness may get stuck for epoch lengths. The L1 synchronizes the committee at epoch boundaries, and if enough committee members are honest and live eventually the protocol will be live again.</li>
+</ul>
+<pre><code class="language-mermaid">graph TD
+  %% Subgraph for Fig 1 b
+  subgraph "Fig 1 b)"
+    s_0b["s_0"] --&gt; s_1b["s_1"]
+    s_1b --&gt;|70%| s_2b["s_2"]
+    s_1b --&gt;|30%| s_2b'["s_2'"]
+    s_2b --&gt;|70%| s_3b["s_3"]
+
+    style s_2b fill:#afa,stroke:#0a0,stroke-width:2px
+    style s_2b' fill:#afa,stroke:#0a0,stroke-width:2px
+    style s_3b fill:#afa,stroke:#0a0,stroke-width:2px
+  end
+
+  %% Subgraph for Fig 1 a
+  subgraph "Fig 1 a)"
+    s_0a["s_0"] --&gt;|70%| s_1a["s_1"]
+    s_1a --&gt;|50%| s_2a["s_2"]
+    s_1a --&gt;|50%| s_2a'["s_2'"]
+    s_2a --&gt;|50%| s_3a["s_3"]
+
+    style s_1a fill:#faa,stroke:#f00,stroke-width:2px
+    style s_2a fill:#faa,stroke:#f00,stroke-width:2px
+    style s_2a' fill:#faa,stroke:#f00,stroke-width:2px
+    style s_3a fill:#faa,stroke:#f00,stroke-width:2px
+  end
+</code></pre>
+<p><em>Fig 1 a: Committee A (🟥 ). Time = Δ. Committee A (red) was active in time (0..Δ]. <code>s_1</code> gathers 70% of votes and will be committed. Votes for <code>s_2</code> and <code>s_2'</code> will be ignored.</em></p>
+<p><em>Fig 1 b: Committee B (🟩 ). Time = 2Δ. Committee B (green) was active in time (Δ..2Δ]. <code>s_3</code> will be committed.</em></p>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../../Review/md/dongmen-standards-adjustments/MD/md-116/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../../Review/md/dongmen-standards-adjustments/MD/md-116/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../../../elasticlunr.min.js"></script>
+        <script src="../../../../../mark.min.js"></script>
+        <script src="../../../../../searcher.js"></script>
+
+        <script src="../../../../../clipboard.min.js"></script>
+        <script src="../../../../../highlight.js"></script>
+        <script src="../../../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
