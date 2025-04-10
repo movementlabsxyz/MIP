@@ -26,7 +26,7 @@ We also request that rewards and costs are made more predictable for validators.
 
 Figure 1 shows the leader-independent (deterministic) block generation process, which is also discussed in [MIP-34: Fast Finality Settlement](https://github.com/movementlabsxyz/MIP/pull/34).
 
-![Version A Diagram](Postconfirmation.png)
+![Version A Diagram](postconfirmation.png)
 *Figure 1: Leader-independent (deterministic) block generation process.*
 
 Since this document introduces a large number of new terms, we provide a specification by defining the terms and their interactions.
