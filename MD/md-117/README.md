@@ -1,6 +1,6 @@
-# MD-117: Ximen Standards - safety-favoring Postconfirmation protocol
+# MD-117: Ximen Standards for Postconfirmation protocols
 
-- **Description**: Provides a set of requirements for a safety-favoring Postconfirmation protocol.
+- **Description**: Provides a set of liveness and correctness requirements for Postconfirmation protocols that may be more safety-favoring than the [Dongmen Standards](https://github.com/movementlabsxyz/MIP/pull/116).
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Approval**:
 - **Etymology**: These standards were originally drafted as a planned but later alternative to the [Dongmen Standards](https://github.com/movementlabsxyz/MIP/pull/116) and so bear the name of a "younger" Taipei neighborhood, Ximen.
