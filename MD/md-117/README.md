@@ -1,13 +1,13 @@
-# MD-117: Ximen (Postconfirmations) Standards
+# MD-117: Ximen Standards for Postconfirmation protocols
 
-- **Description**: Provides a set of liveness and correctness requirements for Postconfirmations protocols. 
+- **Description**: Provides a set of liveness and correctness requirements for Postconfirmation protocols that may be more safety-favoring than the [Dongmen Standards](https://github.com/movementlabsxyz/MIP/pull/116).
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Approval**: :red-cross:
-- **Etymology**: These standards were originally drafted as a planned but later alternative to the [Dongmen Standards](https://github.com/movementlabsxyz/MIP/pull/116) and so bear the name of a "younger" Taipei neighborhood, Ximen. 
+- **Approval**:
+- **Etymology**: These standards were originally drafted as a planned but later alternative to the [Dongmen Standards](https://github.com/movementlabsxyz/MIP/pull/116) and so bear the name of a "younger" Taipei neighborhood, Ximen.
 
 ## Overview
 
-The [Dongmen Standards](https://github.com/movementlabsxyz/MIP/pull/116) (MD-116) acknowledge the inability of quasi-synchronous protocols to satisfy traditional BFT assumptions. These standards accept MD-116.D2,3 but reject [MD-116.D1](https://github.com/movementlabsxyz/MIP/tree/l-monninger/dongmen-standards/MD/md-n#d1-fully-synchronous) (quasi-synchronicity) instead proposing [MD-117.D1](#d1-partially-synchronous) (quasi-partial-synchronicity) in its place. 
+The [Dongmen Standards](https://github.com/movementlabsxyz/MIP/pull/116) (MD-116) acknowledge the inability of quasi-synchronous protocols to satisfy traditional BFT assumptions. These standards accept MD-116.D2,3 but reject [MD-116.D1](https://github.com/movementlabsxyz/MIP/tree/l-monninger/dongmen-standards/MD/md-n#d1-fully-synchronous) (quasi-synchronicity) instead proposing [MD-117.D1](#d1-partially-synchronous) (quasi-partial-synchronicity, defined in MD-116) in its place. 
 
 As a result, [MD-116.D4](https://github.com/movementlabsxyz/MIP/tree/l-monninger/dongmen-standards/MD/md-n#d4-minority-aware) (minority awareness) is no longer relevant. However, a request for a clear consideration of attacks on the indefinite nature of the agreement synchronicity is requested. 
 
@@ -15,9 +15,7 @@ As a result, [MD-116.D4](https://github.com/movementlabsxyz/MIP/tree/l-monninger
 
 - **Commitment Hostage Attack**: An adversarial strategy in which a network or participant delays confirmation of a block (or decision) indefinitely by exploiting asynchrony, forcing the protocol into a state of limbo. These attacks often require post-facto reasoning or off-path resolution to identify and mitigate.
 
-- **Quasi-synchronicity Attack**: A broader class of strategies in which an adversary manipulates message timing or node behavior to degrade the liveness or fairness of a consensus protocol, often without violating safety directly.
-
-
+- **Message Timing Attack**: A broader class of strategies in which an adversary manipulates message timing or node behavior to degrade the liveness or fairness of a consensus protocol, often without violating safety directly.
 
 ## Desiderata
 
@@ -30,7 +28,7 @@ A quasi-partially synchronous protocol, as defined in [MD-116](https://github.co
 
 The requirement of **quasi-partial-synchronicity** means that for a given height, if a supermajority decision is not made by some time $\Delta$, a new committee will be elected for the protocol to make progress. However, it is not known when this progress will happen.
 
-In essence this means that the protocol is **safety-favoring**, see Appendix [A1.2]() of [MD-116](https://github.com/movementlabsxyz/MIP/tree/l-monninger/dongmen-standards/MD/md-n), rather than **liveness-favoring**. This is because it does not render predictable points in time at which consensus will be known. However, by changing the committee, it increases the probability of progress.
+In essence this means that the protocol is **safety-favoring**, see Appendix [A1.2]() of [MD-116](https://github.com/movementlabsxyz/MIP/tree/l-monninger/dongmen-standards/MD/md-n), rather than liveness-favoring. This is because it does not render predictable points in time at which consensus will be known. However, by changing the committee, we give the protocol the chance to recover from an inactive committee.
 
 ### D2: Describe attacks on indefinite quasi-asynchronicity
 
@@ -44,7 +42,7 @@ In essence this means that the protocol is **safety-favoring**, see Appendix [A1
 
 We build on the example of [MD-116.A6.3](https://github.com/movementlabsxyz/MIP/tree/l-monninger/dongmen-standards/MD/md-n#a63-revotes-single-counting-with-propagation) to build a simple example of a protocol that satisfies the desiderata above.
 
-We assume the protocol progresses through epochs, which we argue in this this example is the equivalent to a view change. If the epoch changes, new voters must vote on the oldest not decided height. Voters that have been voters in the previous epoch may not have to vote again.
+We assume the protocol progresses through epochs, which we argue in this this example is similar to a view change. If the epoch changes, new voters must vote on the oldest not decided height.
 
 We change step 2 of the algorithm to be:
 
@@ -56,45 +54,36 @@ We change step 2 of the algorithm to be:
 
 - Liveness may get stuck for epoch lengths. The L1 synchronizes the committee at epoch boundaries, and if enough committee members are honest and live eventually the protocol will be live again.
 
-
-<div style="display: flex; gap: 2rem; align-items: flex-start;">
-
-<div style="flex: 1; text-align: center;">
-
 ```mermaid
 graph TD
-  s0 -->|70%| s1
-  s1 -->|50%| s2
-  s1 -->|50%| s2'
-  s2 --> |50%| s3
+  %% Subgraph for Fig 1 b
+  subgraph "Fig 1 b)"
+    s_0b["s_0"] --> s_1b["s_1"]
+    s_1b -->|70%| s_2b["s_2"]
+    s_1b -->|30%| s_2b'["s_2'"]
+    s_2b -->|70%| s_3b["s_3"]
 
-  style s1 fill:#faa,stroke:#f00,stroke-width:2px
-  style s2 fill:#faa,stroke:#f00,stroke-width:2px
-  style s2' fill:#faa,stroke:#f00,stroke-width:2px
-  style s3 fill:#faa,stroke:#f00,stroke-width:2px
+    style s_2b fill:#afa,stroke:#0a0,stroke-width:2px
+    style s_2b' fill:#afa,stroke:#0a0,stroke-width:2px
+    style s_3b fill:#afa,stroke:#0a0,stroke-width:2px
+  end
+
+  %% Subgraph for Fig 1 a
+  subgraph "Fig 1 a)"
+    s_0a["s_0"] -->|70%| s_1a["s_1"]
+    s_1a -->|50%| s_2a["s_2"]
+    s_1a -->|50%| s_2a'["s_2'"]
+    s_2a -->|50%| s_3a["s_3"]
+
+    style s_1a fill:#faa,stroke:#f00,stroke-width:2px
+    style s_2a fill:#faa,stroke:#f00,stroke-width:2px
+    style s_2a' fill:#faa,stroke:#f00,stroke-width:2px
+    style s_3a fill:#faa,stroke:#f00,stroke-width:2px
+  end
 ```
 
-<p><strong>Fig 1 a):</strong> Time = Δ. Committee A (red) is active. <code>s1</code> gathers 70% of votes and will be committed. Votes for <code>s2</code> and <code>s2'</code> will be ignored.</p>
-</div>
+*Fig 1 a: Committee A (🟥 ). Time = Δ. Committee A (red) was active in time (0..Δ]. `s_1` gathers 70% of votes and will be committed. Votes for `s_2` and `s_2'` will be ignored.*
 
-<div style="flex: 1; text-align: center;">
-
-```mermaid
-graph TD
-  s0 --> s1
-  s1 -->|70%| s2
-  s1 -->|30%| s2'
-  s2 --> |70%| s3
-
-style s2 fill:#afa,stroke:#0a0,stroke-width:2px
-style s2' fill:#afa,stroke:#0a0,stroke-width:2px
-style s3 fill:#afa,stroke:#0a0,stroke-width:2px
-
-```
-
-<p><strong>Fig 1 b):</strong> Time = 2Δ. Committee B (green) is active. <code>s3</code> and <code>s4</code> will be committed.</p>
-</div>
-
-</div>
+*Fig 1 b: Committee B (🟩 ). Time = 2Δ. Committee B (green) was active in time (Δ..2Δ]. `s_3` will be committed.*
 
 ## Changelog
