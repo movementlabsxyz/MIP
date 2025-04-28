@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MD-112: Technology publication strategy - MIP</title>
+        <title>MD-121: Verified Message Channels (VMC) - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -158,55 +158,121 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="md-112-technology-publication-strategy"><a class="header" href="#md-112-technology-publication-strategy">MD-112: Technology publication strategy</a></h1>
+<h1 id="md-121-verified-message-channels-vmc"><a class="header" href="#md-121-verified-message-channels-vmc">MD-121: Verified Message Channels (VMC)</a></h1>
 <ul>
-<li><strong>Description</strong>: Require a technology publication strategy for both the vision and current state of the technology.</li>
-<li><strong>Authors</strong>: Andreas Penzkofer</li>
-<li><strong>Approval</strong>: <!--Either approved (:white_check_mark:) or rejected (:x:) by the governance body. To be inserted by governance. --></li>
+<li><strong>Description</strong>: Requests verified messages channels as an alternative and cost effective way to introduce programmable data on-chain.</li>
+<li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
+<li><strong>Approval</strong>:</li>
 </ul>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<p>Technology vision and current state publication strategy should be communicated to the community. We need a streamlined process for this.</p>
+<p>Transactions are expensive containers for some kinds of state transitions. Many dApps already use off-chain mechanisms to aggregate signed user-behavior. We request an additional type of channel that allows for cheap submission of data and ergonomic usage thereof.</p>
+<p>We believe this API should resemble a pub/sub channel, with topics to which users can post signed messages and to which smart contract logic can subscribe. We assert ordering of messages on each channel can independent, making VMCs partially-ordered.</p>
+<p>We request a variety of features for programming VMC. Some of these features are mutually exclusive from one another. We do not expect a VMC implementation to meet all desiderata, but instead that Proposers would implicitly or explicitly ascribe to sub-standards.</p>
+<pre><code class="language-rust">// imperative usage
+while (!vmc::empty(b"dapp_inputs") {
+   let data = vmc::pop(b"dapp_inputs");
+   dapp_transition(data);
+}
+
+// declarative/combinator-based usage
+pipe(b"dapp_inputs", dapp_lazy_combinator, b"dapp_outputs");
+
+dapp_reify(vmc::of(b"dapp_ouputs"), user_index);</code></pre>
 <h2 id="desiderata"><a class="header" href="#desiderata">Desiderata</a></h2>
-<h3 id="d1-identify-the-target-audience"><a class="header" href="#d1-identify-the-target-audience">D1: Identify the target audience</a></h3>
-<p><strong>User journey (Author)</strong>: The author knows which audience we are writing for.</p>
-<p><strong>Description</strong>: Public documents should be targeted for a specific set of audience. Otherwise they miss their goals.</p>
-<p><strong>Recommendation</strong>: Consider the following audience types:</p>
+<h3 id="d1-topic-based-api-for-receiving-stream-messages"><a class="header" href="#d1-topic-based-api-for-receiving-stream-messages">D1: Topic-based API for receiving stream messages</a></h3>
+<p><strong>User journey</strong>: VMC Senders should be able to submit messages to a channel identified <code>(move_module, topic)</code>. Smart Contract Developers should be able to read off of this stream within the module in which it was declared.</p>
+<p><strong>Justification</strong>: The API to which the messages are posted and the smart-contract complement are the two core interfaces of VMC.</p>
+<p><strong>Recommendations</strong>:</p>
+<ol>
+<li>There are several conceivable ways to declare and access the channel:
+<ol>
+<li>Senders and Developers MAY refer to a byte string, e.g., <code>b"topic"</code>.
 <ul>
-<li>Technical audience: Engineers, architects, etc.</li>
-<li>Business audience: Product managers, sales, etc.</li>
-<li>Investor audience: Shareholders, potential investors, etc.</li>
+<li>Working with the channel would then take a form similar to <code>vmc::pop(b"dapp_inputs");</code>.</li>
+<li>Developers MAY have the module prefix abstracted away within the context of a module.</li>
+<li>Senders MUST prefix with a module identifier.</li>
+<li>An allowed channels list of byte strings could be initialized with the module to prevent DoS attacks by spamming unprocessed topics.</li>
 </ul>
-<h3 id="d2-create-a-publication-product-specific-for-a-purpose"><a class="header" href="#d2-create-a-publication-product-specific-for-a-purpose">D2: Create a publication product specific for a purpose</a></h3>
-<p><strong>User journey (Author)</strong>: The author knows the purpose of the publication.</p>
-<p><strong>Description</strong>: Publications should be targeted for a specific purpose. Otherwise they miss their goals.</p>
-<p><strong>Recommendation</strong>: Consider the following purposes:</p>
+</li>
+<li>Developers MAY declare a <code>struct Topic {}</code>.
 <ul>
-<li>MIP: Technical excerpt that specify the concrete ideas, technical details and requirements for a technology.</li>
-<li>Blog post: Informal piece that explain the author’s thoughts on a technology, and that may be focused on important MIPs.</li>
-<li>Litepaper: High-level overview of a technology, and that may include concrete ideas, technical details and requirements. They may be updated when new blog posts are published, or when the technology matures. They are in essence a <strong>live paper</strong>.</li>
-<li>Whitepaper: A long-form piece that provides a deep dive into a technology, and that may include concrete ideas, technical details and requirements. They are the <em>north stars</em>, i.e. the technological distinguishing feature of the technology.</li>
+<li>This MAY have the added benefit of structuring the message type to be sent on the channel.</li>
+<li>Senders MAY then use the usual move type serialization when posting to a given channel.</li>
+<li>An additional macro <code>#[topic]</code> could be added to prevent DoS attacks by spamming unprocessed topics, similar to the <a href="https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-44.md"><code>#[event]</code></a> macro.</li>
 </ul>
-<h3 id="d3-create-a-process-to-make-technological-vision-updates-accessible-to-the-community"><a class="header" href="#d3-create-a-process-to-make-technological-vision-updates-accessible-to-the-community">D3: Create a process to make technological vision updates accessible to the community</a></h3>
-<p><strong>User journey (Author)</strong>: The author understands how to transform the technological vision into a publication of some kind.
-<strong>User journey (Community)</strong>: The community can access the technological vision in an easy and accessible way.</p>
-<p><strong>Description</strong>: There should be a streamlined process to make technological vision updates accessible to the community.</p>
-<p><strong>Recommendation</strong>: Consider the following process:</p>
+</li>
+<li>Developers MAY refer to a new class of objects <code>topic MyTopic {}</code>.
 <ul>
-<li>Define a clear process to transform MIPs into blog posts, litepapers.</li>
+<li>This MAY be useful if topics take a particularly exotic form. See <a href="#d4-combinator-api">D.4</a> for combinator usage.</li>
 </ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="d2-partial-ordering-mechanism-for-topics"><a class="header" href="#d2-partial-ordering-mechanism-for-topics">D2: Partial ordering mechanism for topics</a></h3>
+<p><strong>User journey</strong>: VMC Senders and Developers SHOULD NOT be constrained by total-ordering throughput. VMC messages SHOULD be ordered w.r.t. other messages on the same topic.</p>
+<p><strong>Justification</strong>: To deterministically process VMC messages, an order will need to be determined. For safe processing on-chain, subsets of this order would likely need to be mapped to block heights where they are first available. However, this does not mean that the ordering of all messages needs to follow total-order constraints.</p>
+<p><strong>Recommendations</strong>:</p>
+<ol>
+<li>Review <a href="https://arxiv.org/abs/2201.05677">Narwhal/Bullshark</a> for viable partial-order finalizing consensus.</li>
+</ol>
+<h3 id="d3-gas-fee-api"><a class="header" href="#d3-gas-fee-api">D3: Gas fee API</a></h3>
+<p><strong>User journey</strong>: VMC Developers SHOULD be able to charge gas fees to users for submitting messages.</p>
+<p><strong>Justification</strong>: Gas fees for any kind of processing are crucial to (a) fairness, (b) utility, and (c) sybil and DoS resistance.</p>
+<p><strong>Recommendations</strong>:</p>
+<ol>
+<li>There are several conceivable ways to charge gas fees:
+<ol>
+<li>Require the Sender to lock up funds in the module which processes and <code>topic</code>. Then, simply allow the Developer to deduct from these funds when the message is processed.
+<ul>
+<li>This minimizes opinionization of the core API.</li>
+<li>However, validation that the user has funds for a message would need to be performed within the contract–leaving some possibility for DoS.</li>
+<li>If some native gas is charged for each VMC message, then perhaps the sybil resistance is strong enough to render the DoS vector impracticable.</li>
+</ul>
+</li>
+<li>Generalize the <a href="https://github.com/aptos-foundation/AIPs/pull/511">intents framework</a> to allow the Receiver of an intent to perform a critical section with the Sender’s signer.
+<ul>
+<li>How to validate that the correct intent is submitted becomes a similar problem to the validation above.</li>
+</ul>
+</li>
+<li>Extend the <code>Account</code> framework to associate each account with a VMC account. The Sender then moves funds into the VMC account extension for a given topic. The Developer declares the type of and minimum amount of funds to be used for the <code>topic</code>–which are prevalidated in the channel ordering system. Finally, when processing the message, the Developer receives an <code>&amp;vmc_signer</code>–which is a special type allowing the Developer to spend the funds from the account for the topic.
+<ul>
+<li>In this API, and in general, we are shifting the risk of gas attack to the dApp. The user could still figure out how to send a message that requires more processing than the funds they’ve locked up.</li>
+<li>It may be possible to move the pre-validation into a procedure for which the Developer provides a callback method. In theory, this would be read-only so not generate new dependencies and thus could be run in parallel to normal execution.</li>
+</ul>
+</li>
+<li>Allow the user to attach a form of UTXO object to the message which can be spent, swapped, or similar for gas.
+<ul>
+<li>This is likely a refinement of [2], i.e., some kind of variation on the <a href="https://github.com/aptos-foundation/AIPs/pull/511">intents framework</a>.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="d4-combinator-api"><a class="header" href="#d4-combinator-api">D4: Combinator API</a></h3>
+<p><strong>User journey</strong>: VMC Developers and Clients of VMC dApps should be able to access an ergonomic API for computing and combining over topics.</p>
+<pre><code class="language-rust">// compute and combine
+pipe(b"dapp_inputs", dapp_lazy_combinator, b"dapp_outputs");
+
+// unwrap a value
+dapp_reify(vmc::of(b"dapp_ouputs"), user_index);</code></pre>
+<p><strong>Justification</strong>: The low-level benefit of the VMC API is that it provides an eventual guarantee that your partially-ordered messages will have a sync point with the total-ordered L1. This is a useful guarantee for operations that need to work with more sensitive or global state–e.g., account balances, data from other applications, etc. Naively, it is otherwise a form of ordering that dApps could program off-chain with their own DLT.</p>
+<p>However, we assert that there are many forms of computation that lie in between–i.e., which benefit from some kind of on-chain wrapping, intent, promise, closure, etc. which is later unwrapped either on-chain or off-chain.</p>
+<p><strong>Recommendations</strong>:</p>
+<ol>
+<li>We anticipate the expressiveness of any Combinator API will be a challenge. We believe it essentially requires a metaprogramming API wherein you will be able to mix some immediate operations, e.g., charge account, update wins-losses table, transfer NFT, with some operations that are captured in a closure.</li>
+<li>The prospect of unwrapping on-chain poses the possibility of unwrapping a very large dependency graph of combined operations over a topic. How to provide sane ways to address this possibility will likely be a breaking point for the feasibility of this API.</li>
+</ol>
 <h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../../../../Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../../../Review/apenzk/md-technology-publication-strategy/MD/md-112/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../../../../Review/l-monninger/md-vmc/MD/md-121/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -214,13 +280,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../../../../Review/mip/rate-limiter-lock-mint-bridge/MD/md-74/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../../../Review/apenzk/md-technology-publication-strategy/MD/md-112/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../../../../Review/l-monninger/md-vmc/MD/md-121/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>
