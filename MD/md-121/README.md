@@ -1,4 +1,4 @@
-# MD-93: Verified Message Channels (VMC)
+# MD-121: Verified Message Channels (VMC)
 
 - **Description**: Requests verified messages channels as an alternative and cost effective way to introduce programmable data on-chain. 
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
@@ -46,7 +46,7 @@ dapp_reify(vmc::of(b"dapp_ouputs"), user_index);
         - Senders MAY then use the usual move type serialization when posting to a given channel. 
         - An additional macro `#[topic]` could be added to prevent DoS attacks by spamming unprocessed topics, similar to the [`#[event]`](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-44.md) macro.
     3. Developers MAY refer to a new class of objects `topic MyTopic {}`.
-        - This MAY be useful if topics take a particularly exotic form. See [D.] for combinator usage. 
+        - This MAY be useful if topics take a particularly exotic form. See [D.4](#d4-combinator-api) for combinator usage. 
 
 ### D2: Partial ordering mechanism for topics
 
