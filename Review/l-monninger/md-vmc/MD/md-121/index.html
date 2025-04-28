@@ -160,14 +160,14 @@
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-121-verified-message-channels-vmc"><a class="header" href="#md-121-verified-message-channels-vmc">MD-121: Verified Message Channels (VMC)</a></h1>
 <ul>
-<li><strong>Description</strong>: Requests verified messages channels as an alternative and cost effective way to introduce programmable data on-chain.</li>
+<li><strong>Description</strong>: Requests verified messages channels as an alternative, cost effective, and ergonomic API to introduce programmable data on-chain.</li>
 <li><strong>Authors</strong>: <a href="mailto:liam@movementlabs.xyz">Liam Monninger</a></li>
 <li><strong>Approval</strong>:</li>
 </ul>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<p>Transactions are expensive containers for some kinds of state transitions. Many dApps already use off-chain mechanisms to aggregate signed user-behavior. We request an additional type of channel that allows for cheap submission of data and ergonomic usage thereof.</p>
-<p>We believe this API should resemble a pub/sub channel, with topics to which users can post signed messages and to which smart contract logic can subscribe. We assert ordering of messages on each channel can independent, making VMCs partially-ordered.</p>
-<p>We request a variety of features for programming VMC. Some of these features are mutually exclusive from one another. We do not expect a VMC implementation to meet all desiderata, but instead that Proposers would implicitly or explicitly ascribe to sub-standards.</p>
+<p>Transactions are expensive containers for some kinds of state transitions. Many dApps already use off-chain mechanisms to aggregate signed user behavior. We request an additional type of channel that allows for cheap submission of data and ergonomic usage thereof.</p>
+<p>We believe this API should resemble a pub/sub channel, with topics to which users can publish signed messages and to which smart contract logic can subscribe. We assert ordering of messages on each channel be can independent of each other, making the VMC system on the whole partially-ordered.</p>
+<p>We request a variety of features for programming VMC. Some of these features are mutually exclusive from one another. We do not expect a VMC implementation to meet all desiderata, but instead that MIPers would implicitly or explicitly ascribe to sub-standards.</p>
 <pre><code class="language-rust">// imperative usage
 while (!vmc::empty(b"dapp_inputs") {
    let data = vmc::pop(b"dapp_inputs");
