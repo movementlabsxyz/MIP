@@ -1,16 +1,16 @@
 # MD-121: Verified Message Channels (VMC)
 
-- **Description**: Requests verified messages channels as an alternative and cost effective way to introduce programmable data on-chain. 
+- **Description**: Requests verified messages channels as an alternative, cost effective, and ergonomic API to introduce programmable data on-chain. 
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
 - **Approval**: 
 
 ## Overview
 
-Transactions are expensive containers for some kinds of state transitions. Many dApps already use off-chain mechanisms to aggregate signed user-behavior. We request an additional type of channel that allows for cheap submission of data and ergonomic usage thereof.
+Transactions are expensive containers for some kinds of state transitions. Many dApps already use off-chain mechanisms to aggregate signed user behavior. We request an additional type of channel that allows for cheap submission of data and ergonomic usage thereof.
 
-We believe this API should resemble a pub/sub channel, with topics to which users can post signed messages and to which smart contract logic can subscribe. We assert ordering of messages on each channel can independent, making VMCs partially-ordered. 
+We believe this API should resemble a pub/sub channel, with topics to which users can publish signed messages and to which smart contract logic can subscribe. We assert ordering of messages on each channel be can independent of each other, making the VMC system on the whole partially-ordered. 
 
-We request a variety of features for programming VMC. Some of these features are mutually exclusive from one another. We do not expect a VMC implementation to meet all desiderata, but instead that Proposers would implicitly or explicitly ascribe to sub-standards.
+We request a variety of features for programming VMC. Some of these features are mutually exclusive from one another. We do not expect a VMC implementation to meet all desiderata, but instead that MIPers would implicitly or explicitly ascribe to sub-standards.
 
 ```rust
 // imperative usage
