@@ -44,12 +44,13 @@
 
 ### D2: Provide a set of MLIR dialects which enables transformation to LLVM-IR
 
-**User journey**: Move Developers can port Move programs to a variety of architectures by leveraging LLVM-IR's many supported backends. 
+**User journey**: Move Developers can port Move programs to a variety of architectures by leveraging LLVM-IR's many supported backends. Additionally, WebAssembly (Wasm) could serve as a reference for designing MLIR dialects, given its well-established approach to intermediate representation and optimization.
 
-**Justification**: The usage of Move--inside and outside of the context of DLT--can be furthered my making the language more portable.
+**Justification**: The usage of Move--inside and outside of the context of DLT--can be furthered by making the language more portable. WebAssembly, like LLVM-IR, is a widely supported intermediate representation. Its MLIR implementation could provide valuable insights into designing effective dialects for Move.
 
 **Recommendations:**
 1. Consider how optimizations under [D1.1](#d11-define-optimization-criteria-for-move-mlir-dialects) and [D1.2](#d12-provide-optimization-criteria-for-aptos-gas-algebra) do or do not still apply. 
-2. Consider how semantics may still be preserved, as is requested under [D1.4](#d14-define-an-mlir-legalizer-which-preserves-move-bytecode-semantics)
+2. Consider how semantics may still be preserved, as is requested under [D1.4](#d14-define-an-mlir-legalizer-which-preserves-move-bytecode-semantics).
+3. Explore the feasibility of referencing WebAssembly's MLIR implementation to inform the design of Move MLIR dialects.
 
 ## Changelog
