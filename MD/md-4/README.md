@@ -31,6 +31,9 @@ A researcher or protocol implementer can understand the game theory of gas costs
 **Justification**:
 The current implementation of MCR does not reward the last validator. This could lead to a disincentive to participate in the game. We require to analyze this.
 
+**Recommendations**:
+Start with [Rollover Gas](./rollover-gas.md) to understand the current state of the problem.
+
 ### D2: Provide a model for gas costs with rewards for Postconfirmation
 
 **User journey**: A researcher or protocol implementer can understand the game theory with Postconfirmation reward.
@@ -46,3 +49,5 @@ A researcher or protocol implementer can understand the game theory of gas costs
 Information incompleteness may improve the game theory of costs and rewards. Provide models which demonstrate this for incompleteness derived from network latency, randomness in the rewards, and more.
 
 ## Changelog
+
+2025-01-29: Add rollover-gas.md example for MCR
