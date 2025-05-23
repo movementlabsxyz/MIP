@@ -12,7 +12,7 @@ The model may be extended beyond postconfirmation to feature a full Fast Finalit
 
 ## Motivation
 
-The Bilbao Model is intended as a complete response to [MD-38](https://github.com/movementlabsxyz/MIP/pulls) and a reduction of the [Biarritz Model](https://github.com/movementlabsxyz/MIP/pull/54).
+The Bilbao Model is intended as a complete response to [MD-38](https://github.com/movementlabsxyz/MIP/pull/38) and a reduction of the [Biarritz Model](https://github.com/movementlabsxyz/MIP/pull/54).
 
 ## Specification
 
