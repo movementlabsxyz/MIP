@@ -2,7 +2,7 @@
 
 - **Description**: Proposes an L2 model with Native Bridge and Postconfirmation protocol that features a Gas Deficit Minter, Native Bridge Insurance Account, low-cost DA and settlement, high centralized control, and ultimately high operational assumptions.
 - **Authors**: [Liam Monninger](mailto:liam@movementlabs.xyz)
-- **Desiderata**: [MD-38](https://github.com/movementlabsxyz/MIP/pulls)
+- **Desiderata**: [MD-38](https://github.com/movementlabsxyz/MIP/pull/38)
 
 ## Abstract
 
