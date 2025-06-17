@@ -1,7 +1,7 @@
 # MD-\<number\>: Multi-chain ecosystem with cross-chain protocol
 
-- **Description**: A single sentence description summarizing the items in the desiderata.
-- **Authors**: [Author]()
+- **Description**: An overview of the key arguments and components for a multi-chain system with cross-chain protocol.
+- **Authors**: [Andreas Penzkofer]()
 - **Approval**: <!--Either approved (:white_check_mark:), rejected (:x:), stagnant or withdrawn by the governance body. To be inserted by governance. -->
 
 ## Overview
