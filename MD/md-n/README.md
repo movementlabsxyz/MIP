@@ -1,4 +1,4 @@
-# MD-\<number\>: Multi-chain ecosystem with cross-chain protocol
+# MD-123: Multi-chain ecosystem with cross-chain protocol
 
 - **Description**: An overview of the key arguments and components for a multi-chain system with cross-chain protocol.
 - **Authors**: [Andreas Penzkofer]()
