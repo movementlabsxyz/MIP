@@ -106,7 +106,7 @@ Update the genesis configuration file to set the target APR to <VALUE>%:
 - **Target APR**: <VALUE>% per year
 - **Epoch Duration**: 2 hours (7_200 seconds) - configured in `epoch_duration_secs: 7200`
 - **Epochs per Year**: ~4_380 epochs (=31_536_000 / 7_200)
-- **Per-Epoch Rate**: 10% / 4_380 ≈ 0.000022831 per epoch (calculated automatically)
+- **Per-Epoch Rate**: <VALUE>% / 4_380 per epoch (calculated automatically)
 
 **Result**: All other components will automatically use the new reward rate without any code changes.
 
