@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>MIP-125: Configuration of the APR Reward System for Validators - MIP</title>
+        <title>MIP-125: Configuration of the Reward System for Validators - MIP</title>
 
 
         <!-- Custom HTML head -->
@@ -158,9 +158,9 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="mip-125-configuration-of-the-apr-reward-system-for-validators"><a class="header" href="#mip-125-configuration-of-the-apr-reward-system-for-validators">MIP-125: Configuration of the APR Reward System for Validators</a></h1>
+<h1 id="mip-125-configuration-of-the-reward-system-for-validators"><a class="header" href="#mip-125-configuration-of-the-reward-system-for-validators">MIP-125: Configuration of the Reward System for Validators</a></h1>
 <ul>
-<li><strong>Description</strong>: Documentation of the existing configurable APR reward system for validators.</li>
+<li><strong>Description</strong>: Documentation of the existing configurable reward system for validators.</li>
 <li><strong>Authors</strong>: Andreas Penzkofer</li>
 <li><strong>Desiderata</strong>:</li>
 <li><strong>Approval</strong>: <!--Either approved (:white_check_mark:), rejected (:x:), stagnant or withdrawn by the governance body. To be inserted by governance. --></li>
@@ -179,12 +179,12 @@
   TODO: Remove this comment before finalizing.
 -->
 <h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
-<p>This document describes the existing configuration of the APR reward system for validators. The system allows setting validator rewards to a specific annual percentage rate through genesis configuration, with automatic conversion to per-epoch reward rates. The implementation leverages existing infrastructure including genesis configuration, VM conversion logic, and staking framework components.</p>
+<p>This document describes the existing configuration of the reward system for validators. The system allows setting validator rewards to a specific annual percentage rate through genesis configuration, with automatic conversion to per-epoch reward rates. The implementation leverages existing infrastructure including genesis configuration, VM conversion logic, and staking framework components.</p>
 <blockquote>
-<p><strong>Note on Terminology</strong>: The codebase uses <code>rewards_apy_percentage</code> in variable names and comments, but the actual calculation implements <strong>APR</strong> (Annual Percentage Rate), not APY (Annual Percentage Yield). This is a terminology inconsistency in the codebase that we are stuck with for backward compatibility.</p>
+<p><strong>Note on Terminology</strong>: The codebase uses <code>rewards_apy_percentage</code> in variable names and comments, but the actual calculation implements <strong>APR</strong> (Annual Percentage Rate), not APY (Annual Percentage Yield). This is a terminology inconsistency in the codebase that we are stuck with for backward compatibility. The APR is the annual percentage rate of the reward system without compounding.</p>
 </blockquote>
 <h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
-<p>This document serves to document the existing APR reward system implementation for reference and understanding. The system provides predictable validator rewards through configurable genesis parameters.</p>
+<p>This document serves to document the existing reward system implementation for reference and understanding. The system provides predictable validator rewards through configurable genesis parameters.</p>
 <h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
 <p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
 <!--
@@ -201,7 +201,7 @@
 <pre><code>rewards_amount = (stake_amount * rewards_rate * num_successful_proposals) / (rewards_rate_denominator * num_total_proposals)
 </code></pre>
 <p>This formula is implemented in the <code>calculate_rewards_amount()</code> function at lines 1751-1774 in <code>aptos-move/framework/aptos-framework/sources/stake.move</code>.</p>
-<p><strong>Parameters:</strong></p>
+<p><strong>Parameters</strong> (names do not reflect codebase names):</p>
 <ul>
 <li><code>stake_amount</code>: Validator’s active stake</li>
 <li><code>rewards_rate</code>: Numerator of the reward rate fraction</li>
@@ -210,10 +210,10 @@
 <li><code>num_total_proposals</code>: Validator’s total block proposals in the epoch</li>
 </ul>
 <h4 id="reward-rate-determination"><a class="header" href="#reward-rate-determination">Reward Rate Determination</a></h4>
-<p>The per-epoch reward rate is automatically calculated using the following formula:</p>
+<p>The per-epoch reward rate is automatically calculated using the following formula :</p>
 <pre><code>rewards_rate_numerator = (target_apr_percentage * rewards_rate_denominator / 100) / num_epochs_in_a_year
 </code></pre>
-<p><strong>Parameters:</strong></p>
+<p><strong>Parameters</strong> (names do not reflect codebase names):</p>
 <ul>
 <li><code>target_apr_percentage</code>: <VALUE> (for <VALUE>% APR)</li>
 <li><code>rewards_rate_denominator</code>: 1_000_000_000 (for precision)</li>
