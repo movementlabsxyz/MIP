@@ -1,4 +1,4 @@
-# MIP-<number>: Configurable APR Reward System for Validators
+# MIP-125: Configurable APR Reward System for Validators
 
 - **Description**: Documentation of the existing configurable APR reward system for validators.
 - **Authors**: Andreas Penzkofer
