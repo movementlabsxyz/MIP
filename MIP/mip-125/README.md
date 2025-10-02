@@ -1,4 +1,4 @@
-# MIP-125: Configurable APR Reward System for Validators
+# MIP-125: Configuration of the APR Reward System for Validators
 
 - **Description**: Documentation of the existing configurable APR reward system for validators.
 - **Authors**: Andreas Penzkofer
@@ -21,7 +21,7 @@
 
 ## Abstract
 
-This document describes the existing configurable APR reward system for validators. The system allows setting validator rewards to a specific annual percentage rate through genesis configuration, with automatic conversion to per-epoch reward rates. The implementation leverages existing infrastructure including genesis configuration, VM conversion logic, and staking framework components.
+This document describes the existing configuration of the APR reward system for validators. The system allows setting validator rewards to a specific annual percentage rate through genesis configuration, with automatic conversion to per-epoch reward rates. The implementation leverages existing infrastructure including genesis configuration, VM conversion logic, and staking framework components.
 
 > **Note on Terminology**: The codebase uses `rewards_apy_percentage` in variable names and comments, but the actual calculation implements **APR** (Annual Percentage Rate), not APY (Annual Percentage Yield). This is a terminology inconsistency in the codebase that we are stuck with for backward compatibility.
 
