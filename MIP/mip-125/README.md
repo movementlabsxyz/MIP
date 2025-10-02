@@ -1,6 +1,6 @@
-# MIP-125: Configuration of the APR Reward System for Validators
+# MIP-125: Configuration of the Reward System for Validators
 
-- **Description**: Documentation of the existing configurable APR reward system for validators.
+- **Description**: Documentation of the existing configurable reward system for validators.
 - **Authors**: Andreas Penzkofer
 - **Desiderata**: 
 - **Approval**: <!--Either approved (:white_check_mark:), rejected (:x:), stagnant or withdrawn by the governance body. To be inserted by governance. -->
@@ -21,13 +21,13 @@
 
 ## Abstract
 
-This document describes the existing configuration of the APR reward system for validators. The system allows setting validator rewards to a specific annual percentage rate through genesis configuration, with automatic conversion to per-epoch reward rates. The implementation leverages existing infrastructure including genesis configuration, VM conversion logic, and staking framework components.
+This document describes the existing configuration of the reward system for validators. The system allows setting validator rewards to a specific annual percentage rate through genesis configuration, with automatic conversion to per-epoch reward rates. The implementation leverages existing infrastructure including genesis configuration, VM conversion logic, and staking framework components.
 
-> **Note on Terminology**: The codebase uses `rewards_apy_percentage` in variable names and comments, but the actual calculation implements **APR** (Annual Percentage Rate), not APY (Annual Percentage Yield). This is a terminology inconsistency in the codebase that we are stuck with for backward compatibility.
+> **Note on Terminology**: The codebase uses `rewards_apy_percentage` in variable names and comments, but the actual calculation implements **APR** (Annual Percentage Rate), not APY (Annual Percentage Yield). This is a terminology inconsistency in the codebase that we are stuck with for backward compatibility. The APR is the annual percentage rate of the reward system without compounding.
 
 ## Motivation
 
-This document serves to document the existing APR reward system implementation for reference and understanding. The system provides predictable validator rewards through configurable genesis parameters.
+This document serves to document the existing reward system implementation for reference and understanding. The system provides predictable validator rewards through configurable genesis parameters.
 
 ## Specification
 
@@ -57,7 +57,8 @@ rewards_amount = (stake_amount * rewards_rate * num_successful_proposals) / (rew
 
 This formula is implemented in the `calculate_rewards_amount()` function at lines 1751-1774 in `aptos-move/framework/aptos-framework/sources/stake.move`.
 
-**Parameters:**
+**Parameters** (names do not reflect codebase names):
+
 - `stake_amount`: Validator's active stake
 - `rewards_rate`: Numerator of the reward rate fraction
 - `rewards_rate_denominator`: Denominator of the reward rate fraction  
@@ -66,13 +67,14 @@ This formula is implemented in the `calculate_rewards_amount()` function at line
 
 #### Reward Rate Determination
 
-The per-epoch reward rate is automatically calculated using the following formula:
+The per-epoch reward rate is automatically calculated using the following formula :
 
 ```
 rewards_rate_numerator = (target_apr_percentage * rewards_rate_denominator / 100) / num_epochs_in_a_year
 ```
 
-**Parameters:**
+**Parameters** (names do not reflect codebase names):
+
 - `target_apr_percentage`: <VALUE> (for <VALUE>% APR)
 - `rewards_rate_denominator`: 1_000_000_000 (for precision)
 - `num_epochs_in_a_year`: 4_380 (based on 2-hour epochs)
