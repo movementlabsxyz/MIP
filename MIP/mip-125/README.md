@@ -125,7 +125,9 @@ Update the genesis configuration file to set the target APR to 10%:
 
 ### Updates at Runtime
 
-After genesis, there are **two different ways** to update reward rates, depending on which system is active:
+After genesis, there are **two different ways** to update reward rates, depending on which system is active.
+
+> **Note on Governance Status**: Currently, reward rate updates are controlled by the `core_resources` signer rather than community governance. The transition to partial/full governance is planned after Move2 release and mainnet migration completion.
 
 #### Path 1: Manual Governance Updates
 
