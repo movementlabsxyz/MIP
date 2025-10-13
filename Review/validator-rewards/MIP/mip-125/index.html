@@ -259,7 +259,10 @@
 </ul>
 <hr />
 <h3 id="updates-at-runtime"><a class="header" href="#updates-at-runtime">Updates at Runtime</a></h3>
-<p>After genesis, there are <strong>two different ways</strong> to update reward rates, depending on which system is active:</p>
+<p>After genesis, there are <strong>two different ways</strong> to update reward rates, depending on which system is active.</p>
+<blockquote>
+<p><strong>Note on Governance Status</strong>: Currently, reward rate updates are controlled by the <code>core_resources</code> signer rather than community governance. The transition to partial/full governance is planned after Move2 release and mainnet migration completion.</p>
+</blockquote>
 <h4 id="path-1-manual-governance-updates"><a class="header" href="#path-1-manual-governance-updates">Path 1: Manual Governance Updates</a></h4>
 <p><strong>When Active</strong>: <code>periodical_reward_rate_decrease_enabled()</code> is <strong>FALSE</strong> (current system)</p>
 <p><strong>Governance Script Example:</strong></p>
