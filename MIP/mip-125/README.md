@@ -5,59 +5,40 @@
 - **Desiderata**: 
 - **Approval**: <!--Either approved (:white_check_mark:), rejected (:x:), stagnant or withdrawn by the governance body. To be inserted by governance. -->
 
-<!--
-  READ MIP-0 BEFORE USING THIS TEMPLATE!
-
-  This is the suggested template for new MIPs. After you have filled in the requisite fields, please delete these comments.
-
-  Note that an MIP number will be assigned by an editor. When opening a pull request to submit your MIP, please use an abbreviated title in the filename, `README.md`.
-
-  The title should be 44 characters or less. It should not repeat the MIP number in title, irrespective of the category.
-
-  The author should add himself as a code owner in the `.github/CODEOWNERS` file for the MIP.
-
-  TODO: Remove this comment before finalizing.
--->
-
 ## Abstract
 
 This document describes the existing configuration of the reward system for validators. The system allows setting validator rewards to a specific annual percentage rate through genesis configuration, with automatic conversion to per-epoch reward rates. The implementation leverages existing infrastructure including genesis configuration, VM conversion logic, and staking framework components.
 
-> **Note on Terminology**: The codebase uses `rewards_apy_percentage` in variable names and comments, but the actual calculation implements **APR** (Annual Percentage Rate), not APY (Annual Percentage Yield). This is a terminology inconsistency in the codebase that we are stuck with for backward compatibility. The APR is the annual percentage rate of the reward system without compounding.
+> **Example Values**: Throughout this document, we use **10% APR** as an **example value** for ease of calculation and demonstration. This is purely illustrative - the actual reward rate is configurable through genesis and governance. All calculations and examples in this document assume 10% APR unless otherwise specified.
+
+Note, the codebase uses `rewards_apy_percentage` in variable names and comments, but the actual calculation implements **APR** (Annual Percentage Rate), not APY (Annual Percentage Yield). This is a terminology inconsistency in the codebase that we are stuck with for backward compatibility. The APR is the annual percentage rate of the reward system without compounding.
 
 ## Motivation
 
-This document serves to document the existing reward system implementation for reference and understanding. The system provides predictable validator rewards through configurable genesis parameters.
+This document serves to document the existing reward system implementation for reference and understanding. The system provides predictable validator rewards through configurable genesis parameters or governance updates.
 
 ## Specification
 
-
 _The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174._
-
-<!--
-  The Specification section should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations.
-
-  It is recommended to follow RFC 2119 and RFC 8170. Do not remove the key word definitions if RFC 2119 and RFC 8170 are followed.
-
-  TODO: Remove this comment before finalizing
--->
-
 
 ### Reward System
 
 The reward system has two main components: how rewards are calculated per validator, and how the reward rate is determined.
 
+We distinguish between the following two concepts:
+
+- **APR**: Annual target rate (e.g., 10% per year) - configured in genesis
+- **Reward Rate**: Per-epoch rate (e.g., 0.0022831% per epoch) - used in calculations
+
 #### Validator Reward Calculation
 
-Validator rewards are calculated using the following formula implemented in `aptos-move/framework/aptos-framework/sources/stake.move`:
+Validator rewards are calculated using the following formula implemented in `aptos-move/framework/aptos-framework/sources/stake.move`, lines 1751-1774:
 
 ```
 rewards_amount = (stake_amount * rewards_rate * num_successful_proposals) / (rewards_rate_denominator * num_total_proposals)
 ```
 
-This formula is implemented in the `calculate_rewards_amount()` function at lines 1751-1774 in `aptos-move/framework/aptos-framework/sources/stake.move`.
-
-**Parameters** (names do not reflect codebase names):
+where
 
 - `stake_amount`: Validator's active stake
 - `rewards_rate`: Numerator of the reward rate fraction
@@ -65,52 +46,80 @@ This formula is implemented in the `calculate_rewards_amount()` function at line
 - `num_successful_proposals`: Validator's successful block proposals in the epoch
 - `num_total_proposals`: Validator's total block proposals in the epoch
 
-#### Reward Rate Determination
+#### Reward Rate Retrieval (`get_reward_rate`)
 
-The per-epoch reward rate is automatically calculated using the following formula :
+The `get_reward_rate()` function in `staking_config.move:207-225` is called every epoch end to retrieve the current reward rate. It uses a **two-path system**:
 
-```
-rewards_rate_numerator = (target_apr_percentage * rewards_rate_denominator / 100) / num_epochs_in_a_year
-```
+**Path 1: Manual System** (when `periodical_reward_rate_decrease_enabled()` is **FALSE**)
 
-**Parameters** (names do not reflect codebase names):
+- Loads from `StakingConfig.rewards_rate` and `StakingConfig.rewards_rate_denominator`
+- These values are set at genesis and updated only through governance
 
-- `target_apr_percentage`: <VALUE> (for <VALUE>% APR)
-- `rewards_rate_denominator`: 1_000_000_000 (for precision)
-- `num_epochs_in_a_year`: 4_380 (based on 2-hour epochs)
+**Path 2: Automatic System** (when `periodical_reward_rate_decrease_enabled()` is **TRUE**)
 
-This calculation is implemented in `aptos-move/vm-genesis/src/lib.rs` lines 535-542 and automatically converts the configured APY percentage to the appropriate per-epoch reward rate.
+- Loads from `StakingRewardsConfig.rewards_rate` (FixedPoint64 format)
+- Converts FixedPoint64 to numerator/denominator format for compatibility
+- Rate decreases automatically every configurable period (default: 1 year), see below in the Section "Path 2: Automatic Rate Decreases".
 
-**Example Reward Rate Values**
+**When Called:**
 
-For a <VALUE>% APR with 2-hour epochs:
-- **rewards_rate**: 22_831
-- **rewards_rate_denominator**: 1_000_000_000
-- **Per-epoch rate**: 0.000022831 (0.0022831%)
-- **Annual rate**: <VALUE>% APR
+- Every epoch end during `on_new_epoch()` in `stake.move:1469` and `stake.move:1682`
+- Used for validator set computation and reward distribution
 
 ---
 
-### Updates at Genesis (may not be required)
+### Setup at Genesis
 
-To implement a <VALUE> APR reward system, the following change MUST be made:
+During genesis initialization, the system converts the configured APR percentage into per-epoch reward rates for validator rewards.
+
+#### APR to Per-Epoch Rate Conversion
+
+The system converts an Annual Percentage Rate (APR) to a **per-epoch reward rate** for actual distribution. This conversion happens only at genesis - runtime updates require manual calculation.
+
+```
+rewards_rate_numerator = (genesis_config.rewards_apy_percentage * rewards_rate_denominator / 100) / num_epochs_in_a_year
+```
+
+where
+
+- `genesis_config.rewards_apy_percentage`: 10 (for 10% APR)
+- `rewards_rate_denominator`: 1_000_000_000 (for precision)
+- `num_epochs_in_a_year`: 4_380 (based on 2-hour epochs)
+
+This calculation is implemented in `aptos-move/vm-genesis/src/lib.rs` lines 535-542 and converts the configured APR percentage to the appropriate per-epoch reward rate **only at genesis**. Runtime updates require governance to manually perform this conversion.
+
+**Example Conversion (10% APR → Per-Epoch Rate):**
+
+Input (APR):
+
+- `genesis_config.rewards_apy_percentage`: 10 (10% per year)
+- `genesis_config.epoch_duration_secs`: 7_200 (2 hours)
+- `num_epochs_in_a_year`: 4_380 epochs
+
+Output (Per-Epoch Reward Rate):
+
+- `rewards_rate_numerator`: 22_831
+- `rewards_rate_denominator`: 1_000_000_000
+- **Per-epoch rate**: 0.000022831 (0.0022831% per epoch)
+- **Annual equivalent**: 10% APR (when compounded over 4_380 epochs)
 
 #### Required Configuration Change
 
-Update the genesis configuration file to set the target APR to <VALUE>%:
+Update the genesis configuration file to set the target APR to 10%:
 
 - **File**: `terraform/helm/genesis/values.yaml`
-- **Line**: 33
-- **Change**: Set `rewards_apy_percentage: <VALUE>`
+- **Change**: Set `rewards_apy_percentage: 10`
 - **Purpose**: Configure the target APR for genesis
 
-**Derived Parameters:**
-- **Target APR**: <VALUE>% per year
-- **Epoch Duration**: 2 hours (7_200 seconds) - configured in `epoch_duration_secs: 7200`
-- **Epochs per Year**: ~4_380 epochs (=31_536_000 / 7_200)
-- **Per-Epoch Rate**: <VALUE>% / 4_380 per epoch (calculated automatically)
+**Configuration Parameters:**
 
-**Result**: All other components will automatically use the new reward rate without any code changes.
+- `rewards_apy_percentage`: 10% per year (configured)
+- `epoch_duration_secs`: 7_200 seconds (2 hours)
+
+**Calculated Parameters:**
+
+- `num_epochs_in_a_year`: 4_380 epochs (=31_536_000 / 7_200)
+- `rewards_rate_numerator`: 22_831 (calculated once at genesis from APR)
 
 ---
 
@@ -123,16 +132,19 @@ After genesis, there are **two different ways** to update reward rates, dependin
 **When Active**: `periodical_reward_rate_decrease_enabled()` is **FALSE** (current system)
 
 **Governance Script Example:**
+
 - **File**: `aptos-move/move-examples/governance/sources/stake_update_rewards_rate.move`
 - **Function**: `main(proposal_id: u64)`
 - **Purpose**: Update reward rate through governance proposal
 
 **Governance Function:**
+
 - **File**: `aptos-move/framework/aptos-framework/sources/configs/staking_config.move`
 - **Function**: `update_rewards_rate()` (lines 303-325)
 - **Purpose**: Update reward rate parameters during protocol runtime
 
 **Governance Process:**
+
 1. **Proposal Creation**: Community creates governance proposal
 2. **Voting**: Validators and token holders vote on the proposal
 3. **Execution**: If approved, the `update_rewards_rate()` function is called
@@ -146,12 +158,14 @@ After genesis, there are **two different ways** to update reward rates, dependin
 **When Active**: `periodical_reward_rate_decrease_enabled()` is **TRUE** (future system)
 
 **System Components:**
+
 - **File**: `aptos-move/framework/aptos-framework/sources/configs/staking_config.move`
 - **Struct**: `StakingRewardsConfig` (lines 75-90)
-- **Function**: `calculate_and_save_latest_epoch_rewards_rate()` (lines 233-237)
+- **Function**: `calculate_and_save_latest_rewards_config()` (lines 240-269)
 
 **Automatic Process:**
-1. **Time-Based Triggers**: Rate decreases automatically every year
+
+1. **Time-Based Triggers**: Rate decreases automatically every configurable period (default: 1 year)
 2. **Decrease Rate**: Configurable decrease rate (e.g., 0.25% annually)
 3. **Minimum Threshold**: Rate cannot go below `min_rewards_rate`
 4. **Precision**: Uses `FixedPoint64` for higher precision
@@ -165,7 +179,7 @@ After genesis, there are **two different ways** to update reward rates, dependin
 
 ```mermaid
 graph TD
-    A[Genesis Config<br/>terraform/helm/genesis/values.yaml<br/>rewards_apy_percentage: VALUE] --> B[VM Genesis Conversion<br/>aptos-move/vm-genesis/src/lib.rs:535-542<br/>Convert APY to numerator/denominator]
+    A[Genesis Config<br/>terraform/helm/genesis/values.yaml<br/>rewards_apy_percentage: 10] --> B[VM Genesis Conversion<br/>aptos-move/vm-genesis/src/lib.rs:535-542<br/>Convert APY to numerator/denominator]
     
     C[Path 1: Manual Governance<br/>stake_update_rewards_rate.move<br/>Governance Proposal] --> D[update_rewards_rate<br/>staking_config.move:303-325<br/>Manual rate update]
     
@@ -199,38 +213,13 @@ graph TD
 ```
 
 **Legend:**
+
 - 🔵 **Genesis**: Initial configuration
 - 🟠 **Path 1**: Manual governance updates
 - 🟣 **Path 2**: Automatic rate decreases
 - 🟢 **Final**: Reward calculation and distribution
 
-**System Components:**
-
-#### 1. Involved Components
-
-1. **VM Genesis Conversion Logic**: 
-   - **File**: `aptos-move/vm-genesis/src/lib.rs`
-   - **Lines**: 535-542
-   - **Purpose**: Convert APY percentage to per-epoch reward rate numerator/denominator
-
-2. **Staking Config Initialization**: 
-   - **File**: `aptos-move/framework/aptos-framework/sources/configs/staking_config.move`
-   - **Function**: `staking_config::initialize()` (lines 93-102)
-   - **Purpose**: Store the calculated reward rate parameters
-
-3. **Reward Calculation Logic**: 
-   - **File**: `aptos-move/framework/aptos-framework/sources/stake.move`
-   - **Function**: `calculate_rewards_amount()` (lines 1751-1774)
-   - **Purpose**: Apply the reward rate to validator stakes based on performance
-
-
 ## Reference implementation
-
-<!--
-  The reference implementation section should include links to and an overview of a minimal implementation that assists in understanding or implementing this specification. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
-
-  TODO: Remove this comment before submitting
--->
 
 ## Changelog
 
