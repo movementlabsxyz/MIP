@@ -133,6 +133,8 @@ After genesis, there are **two different ways** to update reward rates, dependin
 
 **When Active**: `periodical_reward_rate_decrease_enabled()` is **FALSE** (current system)
 
+> **Implementation Decision**: Path 1 is the chosen implementation path due to bugs in Path 2. This provides more control and stability through manual governance updates rather than automatic algorithmic changes.
+
 **Governance Script Example:**
 
 - **File**: `aptos-move/move-examples/governance/sources/stake_update_rewards_rate.move`
@@ -158,6 +160,8 @@ After genesis, there are **two different ways** to update reward rates, dependin
 #### Path 2: Automatic Rate Decreases
 
 **When Active**: `periodical_reward_rate_decrease_enabled()` is **TRUE** (future system)
+
+> **Implementation Decision**: Path 2 contains bugs and will not be used. Path 1 is preferred for stability and control.
 
 **System Components:**
 
