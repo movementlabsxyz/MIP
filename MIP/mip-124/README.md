@@ -35,13 +35,13 @@ We distinguish between the following two concepts:
 Validator rewards are calculated using the following formula implemented in `aptos-move/framework/aptos-framework/sources/stake.move`, lines 1751-1774:
 
 ```
-rewards_amount = (stake_amount * rewards_rate * num_successful_proposals) / (rewards_rate_denominator * num_total_proposals)
+rewards_amount = (stake_amount * rewards_rate_numerator * num_successful_proposals) / (rewards_rate_denominator * num_total_proposals)
 ```
 
 where
 
 - `stake_amount`: Validator's active stake
-- `rewards_rate`: Numerator of the reward rate fraction
+- `rewards_rate_numerator`: Numerator of the reward rate fraction (stored in StakingConfig.rewards_rate)
 - `rewards_rate_denominator`: Denominator of the reward rate fraction  
 - `num_successful_proposals`: Validator's successful block proposals in the epoch
 - `num_total_proposals`: Validator's total block proposals in the epoch
@@ -77,7 +77,7 @@ During genesis initialization, the system converts the configured APR percentage
 The system converts an Annual Percentage Rate (APR) to a **per-epoch reward rate** for actual distribution. This conversion happens only at genesis - runtime updates require manual calculation.
 
 ```
-rewards_rate_numerator = (genesis_config.rewards_apy_percentage * rewards_rate_denominator / 100) / num_epochs_in_a_year
+reward_rate_numerator = (genesis_config.rewards_apy_percentage * rewards_rate_denominator / 100) / num_epochs_in_a_year
 ```
 
 where
@@ -98,7 +98,7 @@ Input (APR):
 
 Output (Per-Epoch Reward Rate):
 
-- `rewards_rate_numerator`: 22_831
+- `reward_rate_numerator`: 22_831
 - `rewards_rate_denominator`: 1_000_000_000
 - **Per-epoch rate**: 0.000022831 (0.0022831% per epoch)
 - **Annual equivalent**: 10% APR (when compounded over 4_380 epochs)
@@ -119,7 +119,7 @@ Update the genesis configuration file to set the target APR to 10%:
 **Calculated Parameters:**
 
 - `num_epochs_in_a_year`: 4_380 epochs (=31_536_000 / 7_200)
-- `rewards_rate_numerator`: 22_831 (calculated once at genesis from APR)
+- `reward_rate_numerator`: 22_831 (calculated once at genesis from APR)
 
 ---
 
