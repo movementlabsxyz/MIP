@@ -1,4 +1,4 @@
-# MIP-125: Configuration of the Reward System for Validators
+# MIP-124: Configuration of the Reward System for Validators
 
 - **Description**: Documentation of the existing configurable reward system for validators.
 - **Authors**: Andreas Penzkofer
