@@ -184,12 +184,12 @@
 </ul>
 <h4 id="validator-reward-calculation"><a class="header" href="#validator-reward-calculation">Validator Reward Calculation</a></h4>
 <p>Validator rewards are calculated using the following formula implemented in <code>aptos-move/framework/aptos-framework/sources/stake.move</code>, lines 1751-1774:</p>
-<pre><code>rewards_amount = (stake_amount * rewards_rate * num_successful_proposals) / (rewards_rate_denominator * num_total_proposals)
+<pre><code>rewards_amount = (stake_amount * rewards_rate_numerator * num_successful_proposals) / (rewards_rate_denominator * num_total_proposals)
 </code></pre>
 <p>where</p>
 <ul>
 <li><code>stake_amount</code>: Validator’s active stake</li>
-<li><code>rewards_rate</code>: Numerator of the reward rate fraction</li>
+<li><code>rewards_rate_numerator</code>: Numerator of the reward rate fraction (stored in StakingConfig.rewards_rate)</li>
 <li><code>rewards_rate_denominator</code>: Denominator of the reward rate fraction</li>
 <li><code>num_successful_proposals</code>: Validator’s successful block proposals in the epoch</li>
 <li><code>num_total_proposals</code>: Validator’s total block proposals in the epoch</li>
@@ -217,7 +217,7 @@
 <p>During genesis initialization, the system converts the configured APR percentage into per-epoch reward rates for validator rewards.</p>
 <h4 id="apr-to-per-epoch-rate-conversion"><a class="header" href="#apr-to-per-epoch-rate-conversion">APR to Per-Epoch Rate Conversion</a></h4>
 <p>The system converts an Annual Percentage Rate (APR) to a <strong>per-epoch reward rate</strong> for actual distribution. This conversion happens only at genesis - runtime updates require manual calculation.</p>
-<pre><code>rewards_rate_numerator = (genesis_config.rewards_apy_percentage * rewards_rate_denominator / 100) / num_epochs_in_a_year
+<pre><code>reward_rate_numerator = (genesis_config.rewards_apy_percentage * rewards_rate_denominator / 100) / num_epochs_in_a_year
 </code></pre>
 <p>where</p>
 <ul>
@@ -235,7 +235,7 @@
 </ul>
 <p>Output (Per-Epoch Reward Rate):</p>
 <ul>
-<li><code>rewards_rate_numerator</code>: 22_831</li>
+<li><code>reward_rate_numerator</code>: 22_831</li>
 <li><code>rewards_rate_denominator</code>: 1_000_000_000</li>
 <li><strong>Per-epoch rate</strong>: 0.000022831 (0.0022831% per epoch)</li>
 <li><strong>Annual equivalent</strong>: 10% APR (when compounded over 4_380 epochs)</li>
@@ -255,7 +255,7 @@
 <p><strong>Calculated Parameters:</strong></p>
 <ul>
 <li><code>num_epochs_in_a_year</code>: 4_380 epochs (=31_536_000 / 7_200)</li>
-<li><code>rewards_rate_numerator</code>: 22_831 (calculated once at genesis from APR)</li>
+<li><code>reward_rate_numerator</code>: 22_831 (calculated once at genesis from APR)</li>
 </ul>
 <hr />
 <h3 id="updates-at-runtime"><a class="header" href="#updates-at-runtime">Updates at Runtime</a></h3>
