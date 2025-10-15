@@ -1,0 +1,504 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>MIP-125: Risk Assessment for Staking and Governance Launch - MIP</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../../../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../../../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">MIP</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/movementlabsxyz/MIP" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="mip-125-risk-assessment-for-staking-and-governance-launch"><a class="header" href="#mip-125-risk-assessment-for-staking-and-governance-launch">MIP-125: Risk Assessment for Staking and Governance Launch</a></h1>
+<ul>
+<li><strong>Description</strong>: A comprehensive risk assessment document outlining potential risks in launching staking and governance on Movement L1, including mitigation strategies and policy recommendations.</li>
+<li><strong>Authors</strong>: <a href="">Andreas Penzkofer</a></li>
+<li><strong>Desiderata</strong>: <a href="../MD/md-125">MD-125</a></li>
+<li><strong>Approval</strong>: <!--Either approved (:white_check_mark:), rejected (:x:), stagnant or withdrawn by the governance body. To be inserted by governance. --></li>
+</ul>
+<h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
+<p>This proposal provides a comprehensive risk assessment framework for launching staking and governance mechanisms on Movement L1. The document identifies critical risks across two main categories: <strong>staking risks</strong> <em>(validator concentration, insufficient participation, delegation centralization, treasury exposure, and bootstrap trust)</em> and <strong>governance risks</strong> <em>(proposal spam, centralized voting power, stake-based attacks, governance delays, rushed upgrades, and legal compliance)</em>.</p>
+<p>Each risk includes specific examples, root causes, and detailed mitigation strategies to guide parameter selection and policy design for a secure and decentralized launch.</p>
+<h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>
+<p>The successful launch of staking and governance on Movement L1 requires careful consideration of various risks that could compromise network security, decentralization, and long-term sustainability. Without proper risk assessment and mitigation strategies, the network faces potential threats including validator centralization, governance attacks, treasury exposure, and regulatory compliance issues. This proposal addresses these concerns by providing a structured framework for identifying, analyzing, and mitigating risks before they materialize.</p>
+<h3 id="definitions"><a class="header" href="#definitions">Definitions</a></h3>
+<ul>
+<li><strong>Validator stake</strong>: The stake of a validator.</li>
+<li><strong>Delegated stake</strong>: The stake of a delegator.</li>
+<li><strong>Combined stake</strong>: The sum of the validator stake and the delegated stake.</li>
+<li><strong>MVMT Fnd</strong>: The Movement Foundation.</li>
+<li><strong>Move Inc</strong>: The Movement Inc.</li>
+<li><strong>Soft delegation caps</strong>: A limit on the amount of stake that can be delegated to a validator. This limit can be exceeded (hence soft) if other validators reduce their combined stake.</li>
+<li><strong>Diminishing returns</strong>: A function that reduces the reward to a validator the more stake it holds (delegated or directly).</li>
+</ul>
+<h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
+<p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
+<p>The risk assessment follows a structured approach:</p>
+<ol>
+<li>Risk identification through analysis of similar systems</li>
+<li>Impact assessment with specific examples</li>
+<li>Root cause analysis</li>
+<li>Mitigation strategy development</li>
+<li>Implementation considerations</li>
+</ol>
+<h3 id="a-behavioral-recommendations"><a class="header" href="#a-behavioral-recommendations">A. Behavioral Recommendations</a></h3>
+<p><em>Addresses <a href="../MD/md-125#d2-behavioral-recommendations-for-launch">MD-125 D2: Behavioral Recommendations for Launch</a></em></p>
+<p>Based on the risk assessment, the following behavioral recommendations are made to mitigate identified risks:</p>
+<p><strong>Staking Launch Behavior:</strong></p>
+<ul>
+<li>Use initially permissioned / white-listed validators to reduce collusion risks.</li>
+<li>Delegate MVMT Fnd tokens to several validators to promote diversity.</li>
+<li>Require minimum validator stake to ensure sufficient commitment.</li>
+<li>Roll out staking separately before governance decentralization.</li>
+</ul>
+<p>Consider with reservations:</p>
+<ul>
+<li>Implement soft caps (relative to the total stake) for combined stake per validator. Beyond code complexity this may not come without crypto-economic challenges, so this approach should be taken with reservations.</li>
+</ul>
+<p><strong>Governance Behavior:</strong></p>
+<ul>
+<li>Start with centralized governance.</li>
+<li>Implement and publish a progressive decentralization timeline for governance.</li>
+<li>Require minimum stake threshold for proposal submission.</li>
+<li>Require low-enough threshold for passing proposals.</li>
+</ul>
+<h3 id="b-staking-risks"><a class="header" href="#b-staking-risks">B. Staking Risks</a></h3>
+<p><em>Addresses <a href="../MD/md-125#d1-comprehensive-risk-assessment-framework">MD-125 D1: Comprehensive Risk Assessment Framework</a></em></p>
+<h4 id="b1-validator-concentration-risk"><a class="header" href="#b1-validator-concentration-risk">B.1 Validator Concentration Risk</a></h4>
+<p><strong>Description:</strong> Excessive stake concentration can lead to centralization, collusion, or network halts.
+<em>Example: one validator holds 0.34 of total stake and goes offline, halting block production.</em></p>
+<p><strong>Cause:</strong></p>
+<ul>
+<li>A single entity controlling &gt; 0.33 of total stake. Could be spread across several nodes.</li>
+<li>No max stake cap and uneven delegation distribution.</li>
+</ul>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>MVMT Fnd should delegate to several validators.</li>
+<li>Enforce a <strong>max validator stake ratio</strong> (e.g., 0.10). Limits concentration on a single validator.</li>
+<li>Only permit white-listed validators. Reduces risk of collusion between validators.</li>
+<li>Run a majority of validators self.</li>
+<li>Encourage <strong>delegation diversity</strong> through incentives.</li>
+</ul>
+<p><strong>Additional notes:</strong></p>
+<ul>
+<li>Limiting the absolute total stake is risky and not considered as a valid option. An attacker could frontrun to stake a large amount of the total stake. Obviously it also discourages token participation and increases sell pressure.</li>
+<li>Minor: Total stake can diminish over time. Stakers cannot be forced to unstake, so it is possible that a validator can exceed the threshold. This issue is minor.</li>
+<li>Diversity can in principle be encouraged by giving higher APY to validators with lower stake, however this adds additional code complexity.</li>
+</ul>
+<h4 id="b2-insufficient-validator-participation"><a class="header" href="#b2-insufficient-validator-participation">B.2 Insufficient Validator Participation</a></h4>
+<p><strong>Description:</strong> A low number of active validators can lead to centralization and bad image.
+<em>Example: only 6 of 20 potential validators can afford an amount $X as minimum, leaving the network under-decentralized.</em></p>
+<p><strong>Cause:</strong></p>
+<ul>
+<li>High min validator stake.</li>
+<li>Overly restrictive onboarding or KYC requirements.</li>
+</ul>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Start with a reasonable low minimum but permissioned validator set.</li>
+<li>Adjust minimums dynamically post-launch.</li>
+</ul>
+<h4 id="b3-delegation-centralization"><a class="header" href="#b3-delegation-centralization">B.3 Delegation Centralization</a></h4>
+<p><strong>Description:</strong> Delegators may prefer well-known validators, concentrating stake and influence.
+<em>Example: 0.70 of all delegated MOVE accrues to two MVMT Foundation-associated validators.</em></p>
+<p><strong>Cause:</strong></p>
+<ul>
+<li>No max stake per validator.</li>
+<li>Low visibility for smaller validators.</li>
+</ul>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Introduce soft delegation caps or diminishing returns.</li>
+<li>Improve validator discovery and transparency tools.</li>
+</ul>
+<h4 id="b4-reward-pool-and-treasury-risk-exposure"><a class="header" href="#b4-reward-pool-and-treasury-risk-exposure">B.4 Reward Pool and Treasury Risk Exposure</a></h4>
+<p><strong>Description:</strong> Using Foundation or reward treasuries for staking can blur lines between governance funds and validator economics, putting them at risk.
+<em>Example: the Foundation stakes part of its reward treasury, a slashing event reduces funds intended for future ecosystem rewards.</em></p>
+<p><strong>Cause:</strong></p>
+<ul>
+<li>Reward treasury used as validator capital.</li>
+<li>Undefined policy for treasury participation in staking.</li>
+</ul>
+<p><strong>Risk:</strong></p>
+<ul>
+<li>Slashing due to errors or bugs could lead to unwarranted loss of funds.</li>
+</ul>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Give well defined control over slashing, such that funds are at least initially recoverable. For example transfer slashed funds to a MVMT Fnd controlled treasury.</li>
+</ul>
+<h4 id="b5-bootstrap-trust-risk"><a class="header" href="#b5-bootstrap-trust-risk">B.5 Bootstrap Trust Risk</a></h4>
+<p><strong>Description:</strong> A small, permissioned validator set makes early consensus trust-based rather than decentralized.
+<em>Example: If all validators are operated by Move Inc, centralizing control over consensus.</em></p>
+<p><strong>Risk:</strong> Bad image due to centralization.</p>
+<p><strong>Cause:</strong></p>
+<ul>
+<li>Initial validators run by a single organization.</li>
+<li>No decentralization roadmap with concrete milestones.</li>
+</ul>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Publish <strong>decentralization milestones</strong>.</li>
+<li>Gradually onboard new validators; enable appropriate <strong>monitoring</strong>.</li>
+</ul>
+<hr />
+<h3 id="c-governance-risks"><a class="header" href="#c-governance-risks">C. Governance Risks</a></h3>
+<p><em>Addresses <a href="../MD/md-125#d1-comprehensive-risk-assessment-framework">MD-125 D1: Comprehensive Risk Assessment Framework</a></em></p>
+<h4 id="c1-proposal-spam-and-governance-flooding"><a class="header" href="#c1-proposal-spam-and-governance-flooding">C.1 Proposal Spam and Governance Flooding</a></h4>
+<p><strong>Description:</strong> Without minimum thresholds, actors can overload governance with junk proposals.
+<em>Example: one actor submits 200 trivial proposals, crowding out legitimate ones.</em></p>
+<p><strong>Cause:</strong></p>
+<ul>
+<li>No <strong>proposal deposit or stake threshold</strong>.</li>
+<li>Unlimited proposal frequency.</li>
+</ul>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Require proposers to bond <strong>≥ X</strong> fraction of circulating stake.</li>
+<li>Add <strong>proposal cooldowns</strong> and refundable deposits.</li>
+<li>Require a threshold of minimum stake to submit a proposal.</li>
+</ul>
+<h4 id="c2-centralized-voting-power"><a class="header" href="#c2-centralized-voting-power">C.2 Centralized Voting Power</a></h4>
+<p><strong>Description:</strong> Foundation or Move Inc controlling most voting power predetermines outcomes.
+<em>For example, if Move Inc controls 0.70 of votes via delegation and passes proposals unilaterally.</em></p>
+<p><strong>Cause:</strong></p>
+<ul>
+<li>Large token concentration in a single entity.</li>
+<li>Multiple validators controlled by the same operator.</li>
+</ul>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Acknowledge initial centralization phase.</li>
+<li>Implement <strong>progressive voting-power decentralization</strong>.</li>
+</ul>
+<h4 id="c3-stake-based-governance-attacks"><a class="header" href="#c3-stake-based-governance-attacks">C.3 Stake-based Governance Attacks</a></h4>
+<p><strong>Description:</strong> An attacker lends a large amount of tokens from the open market to a validator it controls, allowing it to pass proposals.</p>
+<p><strong>Cause:</strong></p>
+<ul>
+<li>Stake-based governance.</li>
+<li>Insufficient stake limit on validators.</li>
+</ul>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Implement a <strong>stake limit</strong> on validators, that is relative to the total stake of the network.</li>
+</ul>
+<h4 id="c4-governance-delay--inflexibility"><a class="header" href="#c4-governance-delay--inflexibility">C.4 Governance Delay / Inflexibility</a></h4>
+<p><strong>Description:</strong> Prolonged delay in decentralizing governance weakens confidence and agility.</p>
+<p><strong>Example:</strong> One year post-launch, all governance still routes purely through Move Inc.</p>
+<p><strong>Cause:</strong></p>
+<ul>
+<li>No decentralization roadmap.</li>
+<li>Dependencies on off-chain processes.</li>
+</ul>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Publish <strong>phase-based milestones</strong> (e.g., multisig → on-chain voting).</li>
+<li>Track progress publicly.</li>
+</ul>
+<h4 id="c5-rushed-upgrades"><a class="header" href="#c5-rushed-upgrades">C.5 Rushed Upgrades</a></h4>
+<p><strong>Description:</strong> Rapid or unchecked upgrades can introduce bugs or malicious code paths.</p>
+<p><strong>Example:</strong> A rushed proposal upgrades the staking contract and unintentionally locks validator funds.</p>
+<p><strong>Cause:</strong></p>
+<ul>
+<li>No <strong>timelock</strong> or <strong>security audit</strong> before execution.</li>
+<li>No rollback or veto mechanism.</li>
+</ul>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Add <strong>execution timelocks</strong> on passed proposals.</li>
+<li>Enable a temporary <strong>emergency veto</strong> (safety council).</li>
+</ul>
+<h4 id="c6-legal-and-compliance-exposure"><a class="header" href="#c6-legal-and-compliance-exposure">C.6 Legal and Compliance Exposure</a></h4>
+<p><strong>Description:</strong> Move Inc-managed staking or reward distribution can draw regulatory scrutiny if deemed custodial or yield-bearing.
+<em>For example, if regulators classify Move Inc or MVMT Fnd staking returns as securities due to weak separation between treasury and validator operations.</em></p>
+<p><strong>Cause:</strong></p>
+<ul>
+<li>Move Inc or MVMT Fnd directly participating in staking rewards.</li>
+<li>Lack of a compliance framework for third-party validators.</li>
+</ul>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Maintain <strong>legal separation</strong> between treasury and validators.</li>
+<li>Apply <strong>KYC / AML</strong> for accredited participants where applicable.</li>
+</ul>
+<h4 id="c7-governance-threshold-too-high"><a class="header" href="#c7-governance-threshold-too-high">C.7 Governance Threshold Too High</a></h4>
+<p><strong>Description:</strong> Maximum threshold for proposal passage may be set too high, preventing any proposals from passing and effectively halting governance.</p>
+<p><em>Example: requiring 50% of total stake to pass proposals when only 30% of the total stake is active in governance, making governance impossible.</em></p>
+<p><strong>Cause:</strong></p>
+<ul>
+<li>Overly conservative threshold setting to prevent attacks.</li>
+<li>Lack of consideration for realistic stake distribution.</li>
+</ul>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Set thresholds based on realistic stake distribution analysis.</li>
+<li>Implement graduated thresholds that can be adjusted over time.</li>
+<li>Monitor proposal passage rates and adjust thresholds if needed.</li>
+</ul>
+<hr />
+<h3 id="d-market-observed-risks"><a class="header" href="#d-market-observed-risks">D. Market-Observed Risks</a></h3>
+<p>This section expands on the risks discussed in the previous section by discussing additional risk categories observed across other ecosystems, including <a href="https://ethereum.org/en/staking/">Ethereum</a>, <a href="https://docs.cosmos.network/main/build/modules/gov">Cosmos Hub</a>, <a href="https://docs.solana.com/staking">Solana</a>, <a href="https://aptos.dev/nodes/staking">Aptos</a>, <a href="https://docs.sui.io">Sui</a>, and <a href="https://lido.fi/governance">Lido</a>. It discusses selected additional risk categories observed across these systems, that also may be relevant for Movement L1, and outlines corresponding mitigation strategies.</p>
+<blockquote>
+<p>The here discussed risks are not necessarily applicable to Movement L1, but are documented for completeness and context.</p>
+</blockquote>
+<h4 id="d1-liquid-staking-dominance"><a class="header" href="#d1-liquid-staking-dominance">D.1 Liquid-Staking Dominance</a></h4>
+<p><strong>Description:</strong> Pooled staking entities (e.g., <a href="https://lido.fi/">Lido</a>) can amass excessive governance influence, concentrating both economic and political power.</p>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Apply voting-power caps to custodial pools.</li>
+<li>Require operator diversification and public validator reports.</li>
+</ul>
+<h4 id="d2-censorship-resistance-and-block-producer-neutrality"><a class="header" href="#d2-censorship-resistance-and-block-producer-neutrality">D.2 Censorship Resistance and Block Producer Neutrality</a></h4>
+<p><strong>Description:</strong> Jurisdictional or political pressures can induce censorship in block production, as seen with OFAC-compliant relays on <a href="https://ethereum.org/en/developers/docs/mev/">Ethereum</a>. See live relay censorship metrics on <a href="https://www.mevwatch.info/">MEV Watch</a>.</p>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Define and publish a neutrality and inclusion policy.</li>
+<li>Require block producers and validators to provide non-censorship commitments.</li>
+<li>Monitor inclusion metrics on-chain to detect filtering.</li>
+</ul>
+<h4 id="d3-epoch-timing-and-liquidity-runs"><a class="header" href="#d3-epoch-timing-and-liquidity-runs">D.3 Epoch Timing and Liquidity Runs</a></h4>
+<p><strong>Description:</strong> When staking has long unbonding periods (time to withdraw staked tokens) or long epoch intervals (time between validator set updates), it can create liquidity crises during market stress. For example, if many users want to unstake simultaneously during a market crash, but the unbonding period is 21 days, this creates a “liquidity run” where users are stuck with illiquid staked tokens. Similarly, long epochs mean validator changes take too long to respond to emergencies, potentially allowing bad actors to maintain control longer than necessary. This has been observed in <a href="https://solana.com/docs/references/staking">Solana</a> and <a href="https://docs.sui.io/concepts/tokenomics/staking-unstaking">Sui</a> ecosystems.</p>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Rate-limited exits and adaptive epoch duration.</li>
+<li>Emergency pause for redemptions only (not transfers).</li>
+<li>Publish clear unbonding timelines and redemption queues.</li>
+</ul>
+<h4 id="d4-parameter-change-blast-radius"><a class="header" href="#d4-parameter-change-blast-radius">D.4 Parameter-Change Blast Radius</a></h4>
+<p><strong>Description:</strong> Broad or rapid governance parameter changes can undermine network safety, as seen with the <a href="https://docs.cosmos.network/main/build/modules/gov">Cosmos SDK governance module</a>.</p>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Classify parameters by security impact (e.g., Class A requires audit and timelock).</li>
+<li>Require simulation proofs for all Class A parameter updates.</li>
+<li>Maintain an on-chain public change log for transparency.</li>
+</ul>
+<h4 id="d5-no-slashing-regimes"><a class="header" href="#d5-no-slashing-regimes">D.5 No-Slashing Regimes</a></h4>
+<p><strong>Description:</strong> Networks like <a href="https://aptos.dev/network/blockchain/staking">Aptos</a> and (historically) <a href="https://solana.com/docs/references/staking">Solana</a> operate without slashing; both rely on performance-based incentives (Solana is actively exploring slashing).</p>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Replace slashing with performance-based reward modulation.</li>
+<li>Define uptime and performance Service Level Agreements (SLAs).</li>
+<li>Enable automatic validator eviction for prolonged underperformance.</li>
+</ul>
+<h4 id="d6-vote-bribery-and-market-manipulation"><a class="header" href="#d6-vote-bribery-and-market-manipulation">D.6 Vote Bribery and Market Manipulation</a></h4>
+<p><strong>Description:</strong> Off-chain vote markets or direct bribery mechanisms can distort governance outcomes and weaken legitimacy. Such behaviors have been observed in token-based systems like <a href="https://resources.curve.finance/vecrv/overview/">Curve DAO</a> (via “vote-bribe” markets on <a href="https://docs.votium.app/explainers/voter-manual">Votium</a>) and <a href="https://docs.balancer.fi/concepts/governance/veBAL/">Balancer DAO</a>, where users are paid to direct votes toward certain pools.</p>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Enforce quorum and turnout thresholds to prevent minority capture.</li>
+<li>Use snapshot voting windows to mitigate flash-borrow governance attacks.</li>
+<li>Encourage transparency and disclosure requirements for large proposers or bribery markets.</li>
+</ul>
+<h4 id="d7-cross-domain-governance-spillover"><a class="header" href="#d7-cross-domain-governance-spillover">D.7 Cross-Domain Governance Spillover</a></h4>
+<p><strong>Description:</strong> Application-level DAOs or bridge councils (e.g., <a href="https://docs.sui.io/standards/deepbook">Sui DeepBook</a>, an application-level protocol on Sui cited as an exemplar) can inadvertently influence Layer 1 decisions through token-weighted governance overlap.</p>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Clearly scope governance domains and restrict proposal reach.</li>
+<li>Require opt-in voting for app-governed assets.</li>
+<li>Enforce upgrade isolation for core modules.</li>
+</ul>
+<h2 id="changelog"><a class="header" href="#changelog">Changelog</a></h2>
+<ul>
+<li><strong>2025-10-15</strong>: Initial risk assessment document created. <a href="https://github.com/movementlabsxyz/MIP/pull/125">PR#125</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../../Review/validator-rewards/MIP/mip-124/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../../../index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../../Review/validator-rewards/MIP/mip-124/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../../../index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../../../elasticlunr.min.js"></script>
+        <script src="../../../../../mark.min.js"></script>
+        <script src="../../../../../searcher.js"></script>
+
+        <script src="../../../../../clipboard.min.js"></script>
+        <script src="../../../../../highlight.js"></script>
+        <script src="../../../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
