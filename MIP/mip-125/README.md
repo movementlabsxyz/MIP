@@ -13,15 +13,15 @@ Each risk includes specific examples, root causes, and detailed mitigation strat
 
 #### Risk Categories Overview
 
-| **B. Staking Risks** | **C. Governance Risks** |
-|---------------------|-------------------------|
-| B.1 Validator Concentration | C.1 Proposal Spam |
-| B.2 Low Validator Participation | C.2 Centralized Voting Power |
-| B.3 Delegation Centralization | C.3 Stake-based Governance Attacks |
-| B.4 Treasury Exposure | C.4 Governance Delay |
-| B.5 Bootstrap Trust | C.5 Rushed Upgrades |
-| | C.6 Legal Compliance |
-| | C.7 Governance Threshold Too High |
+| **B. Staking Risks** | **C. Governance Risks** | **D. Other Market-Observed Risks** |
+|---------------------|-------------------------|------------------------------|
+| B.1 Validator Concentration | C.1 Proposal Spam | D.1 Liquid-Staking Dominance |
+| B.2 Low Validator Participation | C.2 Centralized Voting Power | D.2 Censorship Resistance |
+| B.3 Delegation Centralization | C.3 Stake-based Governance Attacks | D.3 Epoch Timing & Liquidity Runs |
+| B.4 Treasury Exposure | C.4 Governance Delay | D.4 Parameter-Change Blast Radius |
+| B.5 Bootstrap Trust | C.5 Rushed Upgrades | D.5 No-Slashing Regimes |
+| | C.6 Legal Compliance | D.6 Vote Bribery & Market Manipulation |
+| | C.7 Governance Threshold Too High | D.7 Cross-Domain Governance Spillover |
 
 ## Motivation
 
@@ -78,63 +78,13 @@ Consider with reservations:
 
 *Addresses [MD-125 D1: Comprehensive Risk Assessment Framework](../MD/md-125#d1-comprehensive-risk-assessment-framework)*
 
-```mermaid
-flowchart TD
-    subgraph B1["B.1_Validator_Concentration"]
-        P1[Single Entity > 33% Stake]
-        P2[No Max Stake Cap]
-        P3[Uneven Delegation]
-    end
-    
-    B1 --> B2
-    
-    subgraph B2["B.2_Insufficient_Validator_Participation"]
-        P4[High Min Validator Stake]
-        P5[Restrictive Onboarding/KYC]
-    end
-    
-    B2 --> B3
-    
-    subgraph B3["B.3_Delegation_Centralization"]
-        P6[No Max Stake Per Validator]
-        P7[Low Visibility for Small Validators]
-    end
-    
-    B3 --> B4
-    
-    subgraph B4["B.4_Treasury_Exposure"]
-        P8[Foundation Token Concentration]
-        P9[Reward Treasury Used for Staking]
-    end
-    
-    B4 --> B5
-    
-    subgraph B5["B.5_Bootstrap_Trust"]
-        P10[Initial Validator Trust]
-        P11[Permissioned Launch Risks]
-    end
-    
-    style B1 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
-    style B2 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
-    style B3 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
-    style B4 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
-    style B5 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
-    style P1 fill:#ffcdd2
-    style P2 fill:#ffcdd2
-    style P3 fill:#ffcdd2
-    style P4 fill:#ffcdd2
-    style P5 fill:#ffcdd2
-    style P6 fill:#ffcdd2
-    style P7 fill:#ffcdd2
-    style P8 fill:#ffcdd2
-    style P9 fill:#ffcdd2
-    style P10 fill:#ffcdd2
-    style P11 fill:#ffcdd2
-    linkStyle 0 stroke:transparent,stroke-width:0px
-    linkStyle 1 stroke:transparent,stroke-width:0px
-    linkStyle 2 stroke:transparent,stroke-width:0px
-    linkStyle 3 stroke:transparent,stroke-width:0px
-```
+| Risk | Causes |
+|------|--------|
+| B.1 Validator Concentration | • Single Entity > 33% Stake<br/>• No Max Stake Cap<br/>• Uneven Delegation |
+| B.2 Insufficient Validator Participation | • High Min Validator Stake<br/>• Restrictive Onboarding/KYC |
+| B.3 Delegation Centralization | • No Max Stake Per Validator<br/>• Low Visibility for Small Validators |
+| B.4 Treasury Exposure | • Foundation Token Concentration<br/>• Reward Treasury Used for Staking |
+| B.5 Bootstrap Trust | • Initial Validator Trust<br/>• Permissioned Launch Risks |
 
 #### B.1 Validator Concentration Risk
 
@@ -231,50 +181,15 @@ flowchart TD
 
 *Addresses [MD-125 D1: Comprehensive Risk Assessment Framework](../MD/md-125#d1-comprehensive-risk-assessment-framework)*
 
-```mermaid
-flowchart TD
-    subgraph C1["C.1_Proposal_Spam"]
-        P1[No Minimum Thresholds]
-        P2[Unlimited Proposal Frequency]
-    end
-    
-    C1 --> C2
-    
-    subgraph C2["C.2_Centralized_Voting_Power"]
-        P3[Large Token Concentration]
-        P4[Multiple Validators Same Operator]
-    end
-    
-    C2 --> C3
-    
-    subgraph C3["C.3_Stake_based_Governance_Attacks"]
-        P5[Stake-based Governance]
-        P6[Insufficient Stake Limit]
-    end
-    
-    C3 --> C4
-    
-    subgraph C4["C.4_Governance_Delay"]
-        P7[No Decentralization Roadmap]
-        P8[Dependencies on Off-chain Processes]
-    end
-    
-    style C1 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
-    style C2 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
-    style C3 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
-    style C4 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
-    style P1 fill:#ffcdd2
-    style P2 fill:#ffcdd2
-    style P3 fill:#ffcdd2
-    style P4 fill:#ffcdd2
-    style P5 fill:#ffcdd2
-    style P6 fill:#ffcdd2
-    style P7 fill:#ffcdd2
-    style P8 fill:#ffcdd2
-    linkStyle 0 stroke:transparent,stroke-width:0px
-    linkStyle 1 stroke:transparent,stroke-width:0px
-    linkStyle 2 stroke:transparent,stroke-width:0px
-```
+| Risk | Causes |
+|------|--------|
+| C.1 Proposal Spam | • No Minimum Thresholds<br/>• Unlimited Proposal Frequency |
+| C.2 Centralized Voting Power | • Large Token Concentration<br/>• Multiple Validators Same Operator |
+| C.3 Stake-based Governance Attacks | • Stake-based Governance<br/>• Insufficient Stake Limit |
+| C.4 Governance Delay | • No Decentralization Roadmap<br/>• Dependencies on Off-chain Processes |
+| C.5 Rushed Upgrades | • No Timelock or Security Audit<br/>• No Rollback or Veto Mechanism |
+| C.6 Legal Compliance | • Move Inc-managed Staking<br/>• Lack of Compliance Framework |
+| C.7 Governance Threshold Too High | • Overly Conservative Threshold<br/>• Lack of Realistic Stake Analysis |
 
 #### C.1 Proposal Spam and Governance Flooding
 
