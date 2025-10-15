@@ -45,17 +45,22 @@ Based on the risk assessment, the following behavioral recommendations are made 
 
 **Staking Launch Behavior:**
 
-- Delegate MVMT Fnd tokens to several validators to promote diversity.
 - Use initially permissioned / white-listed validators to reduce collusion risks.
+- Delegate MVMT Fnd tokens to several validators to promote diversity.
 - Require minimum validator stake to ensure sufficient commitment.
-- Implement soft caps for combined stake per validator.
 - Roll out staking separately before governance decentralization.
+
+Consider with reservations:
+
+- Implement soft caps (relative to the total stake) for combined stake per validator. Beyond code complexity this may not come without crypto-economic challenges, so this approach should be taken with reservations.
+
 
 **Governance Behavior:**
 
+- Start with centralized governance.
+- Implement and publish a progressive decentralization timeline for governance.
 - Require minimum stake threshold for proposal submission.
 - Require low-enough threshold for passing proposals.
-- Implement and publish a progressive decentralization timeline for governance.
 
 ### B. Staking Risks
 
@@ -131,7 +136,7 @@ Based on the risk assessment, the following behavioral recommendations are made 
 
 **Mitigation:**
 
-- Give well defined controlled over slashing, that at least initially is recoverable. For example transfer slashed funds to a MVMT Fnd controlled treasury.
+- Give well defined control over slashing, such that funds are at least initially recoverable. For example transfer slashed funds to a MVMT Fnd controlled treasury.
 
 #### 5. Bootstrap Trust Risk
 
