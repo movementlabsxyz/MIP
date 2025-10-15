@@ -11,6 +11,18 @@ This proposal provides a comprehensive risk assessment framework for launching s
 
 Each risk includes specific examples, root causes, and detailed mitigation strategies to guide parameter selection and policy design for a secure and decentralized launch.
 
+#### Risk Categories Overview
+
+| **B. Staking Risks** | **C. Governance Risks** |
+|---------------------|-------------------------|
+| B.1 Validator Concentration | C.1 Proposal Spam |
+| B.2 Low Validator Participation | C.2 Centralized Voting Power |
+| B.3 Delegation Centralization | C.3 Stake-based Governance Attacks |
+| B.4 Treasury Exposure | C.4 Governance Delay |
+| B.5 Bootstrap Trust | C.5 Rushed Upgrades |
+| | C.6 Legal Compliance |
+| | C.7 Governance Threshold Too High |
+
 ## Motivation
 
 The successful launch of staking and governance on Movement L1 requires careful consideration of various risks that could compromise network security, decentralization, and long-term sustainability. Without proper risk assessment and mitigation strategies, the network faces potential threats including validator centralization, governance attacks, treasury exposure, and regulatory compliance issues. This proposal addresses these concerns by providing a structured framework for identifying, analyzing, and mitigating risks before they materialize.
@@ -65,6 +77,64 @@ Consider with reservations:
 ### B. Staking Risks
 
 *Addresses [MD-125 D1: Comprehensive Risk Assessment Framework](../MD/md-125#d1-comprehensive-risk-assessment-framework)*
+
+```mermaid
+flowchart TD
+    subgraph B1["B.1_Validator_Concentration"]
+        P1[Single Entity > 33% Stake]
+        P2[No Max Stake Cap]
+        P3[Uneven Delegation]
+    end
+    
+    B1 --> B2
+    
+    subgraph B2["B.2_Insufficient_Validator_Participation"]
+        P4[High Min Validator Stake]
+        P5[Restrictive Onboarding/KYC]
+    end
+    
+    B2 --> B3
+    
+    subgraph B3["B.3_Delegation_Centralization"]
+        P6[No Max Stake Per Validator]
+        P7[Low Visibility for Small Validators]
+    end
+    
+    B3 --> B4
+    
+    subgraph B4["B.4_Treasury_Exposure"]
+        P8[Foundation Token Concentration]
+        P9[Reward Treasury Used for Staking]
+    end
+    
+    B4 --> B5
+    
+    subgraph B5["B.5_Bootstrap_Trust"]
+        P10[Initial Validator Trust]
+        P11[Permissioned Launch Risks]
+    end
+    
+    style B1 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
+    style B2 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
+    style B3 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
+    style B4 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
+    style B5 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
+    style P1 fill:#ffcdd2
+    style P2 fill:#ffcdd2
+    style P3 fill:#ffcdd2
+    style P4 fill:#ffcdd2
+    style P5 fill:#ffcdd2
+    style P6 fill:#ffcdd2
+    style P7 fill:#ffcdd2
+    style P8 fill:#ffcdd2
+    style P9 fill:#ffcdd2
+    style P10 fill:#ffcdd2
+    style P11 fill:#ffcdd2
+    linkStyle 0 stroke:transparent,stroke-width:0px
+    linkStyle 1 stroke:transparent,stroke-width:0px
+    linkStyle 2 stroke:transparent,stroke-width:0px
+    linkStyle 3 stroke:transparent,stroke-width:0px
+```
 
 #### B.1 Validator Concentration Risk
 
@@ -160,6 +230,51 @@ Consider with reservations:
 ### C. Governance Risks
 
 *Addresses [MD-125 D1: Comprehensive Risk Assessment Framework](../MD/md-125#d1-comprehensive-risk-assessment-framework)*
+
+```mermaid
+flowchart TD
+    subgraph C1["C.1_Proposal_Spam"]
+        P1[No Minimum Thresholds]
+        P2[Unlimited Proposal Frequency]
+    end
+    
+    C1 --> C2
+    
+    subgraph C2["C.2_Centralized_Voting_Power"]
+        P3[Large Token Concentration]
+        P4[Multiple Validators Same Operator]
+    end
+    
+    C2 --> C3
+    
+    subgraph C3["C.3_Stake_based_Governance_Attacks"]
+        P5[Stake-based Governance]
+        P6[Insufficient Stake Limit]
+    end
+    
+    C3 --> C4
+    
+    subgraph C4["C.4_Governance_Delay"]
+        P7[No Decentralization Roadmap]
+        P8[Dependencies on Off-chain Processes]
+    end
+    
+    style C1 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
+    style C2 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
+    style C3 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
+    style C4 fill:#fff3e0,stroke:#333,stroke-width:2px,width:900px
+    style P1 fill:#ffcdd2
+    style P2 fill:#ffcdd2
+    style P3 fill:#ffcdd2
+    style P4 fill:#ffcdd2
+    style P5 fill:#ffcdd2
+    style P6 fill:#ffcdd2
+    style P7 fill:#ffcdd2
+    style P8 fill:#ffcdd2
+    linkStyle 0 stroke:transparent,stroke-width:0px
+    linkStyle 1 stroke:transparent,stroke-width:0px
+    linkStyle 2 stroke:transparent,stroke-width:0px
+```
 
 #### C.1 Proposal Spam and Governance Flooding
 
