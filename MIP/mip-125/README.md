@@ -66,7 +66,7 @@ Consider with reservations:
 
 *Addresses [MD-125 D1: Comprehensive Risk Assessment Framework](../MD/md-125#d1-comprehensive-risk-assessment-framework)*
 
-#### 1. Validator Concentration Risk
+#### B.1 Validator Concentration Risk
 
 **Description:** Excessive stake concentration can lead to centralization, collusion, or network halts.
 *Example: one validator holds 0.34 of total stake and goes offline, halting block production.*
@@ -90,7 +90,7 @@ Consider with reservations:
 - Minor: Total stake can diminish over time. Stakers cannot be forced to unstake, so it is possible that a validator can exceed the threshold. This issue is minor.
 - Diversity can in principle be encouraged by giving higher APY to validators with lower stake, however this adds additional code complexity.
 
-#### 2. Insufficient Validator Participation
+#### B.2 Insufficient Validator Participation
 
 **Description:** A low number of active validators can lead to centralization and bad image.
 *Example: only 6 of 20 potential validators can afford an amount $X as minimum, leaving the network under-decentralized.*
@@ -105,7 +105,7 @@ Consider with reservations:
 - Start with a reasonable low minimum but permissioned validator set.
 - Adjust minimums dynamically post-launch.
 
-#### 3. Delegation Centralization
+#### B.3 Delegation Centralization
 
 **Description:** Delegators may prefer well-known validators, concentrating stake and influence.
 *Example: 0.70 of all delegated MOVE accrues to two MVMT Foundation-associated validators.*
@@ -120,7 +120,7 @@ Consider with reservations:
 - Introduce soft delegation caps or diminishing returns.
 - Improve validator discovery and transparency tools.
 
-#### 4. Reward Pool and Treasury Risk Exposure
+#### B.4 Reward Pool and Treasury Risk Exposure
 
 **Description:** Using Foundation or reward treasuries for staking can blur lines between governance funds and validator economics, putting them at risk.
 *Example: the Foundation stakes part of its reward treasury, a slashing event reduces funds intended for future ecosystem rewards.*
@@ -138,7 +138,7 @@ Consider with reservations:
 
 - Give well defined control over slashing, such that funds are at least initially recoverable. For example transfer slashed funds to a MVMT Fnd controlled treasury.
 
-#### 5. Bootstrap Trust Risk
+#### B.5 Bootstrap Trust Risk
 
 **Description:** A small, permissioned validator set makes early consensus trust-based rather than decentralized.
 *Example: If all validators are operated by Move Inc, centralizing control over consensus.*
@@ -161,7 +161,7 @@ Consider with reservations:
 
 *Addresses [MD-125 D1: Comprehensive Risk Assessment Framework](../MD/md-125#d1-comprehensive-risk-assessment-framework)*
 
-#### 1. Proposal Spam and Governance Flooding
+#### C.1 Proposal Spam and Governance Flooding
 
 **Description:** Without minimum thresholds, actors can overload governance with junk proposals.
 *Example: one actor submits 200 trivial proposals, crowding out legitimate ones.*
@@ -177,7 +177,7 @@ Consider with reservations:
 - Add **proposal cooldowns** and refundable deposits.
 - Require a threshold of minimum stake to submit a proposal.
 
-#### 2. Centralized Voting Power
+#### C.2 Centralized Voting Power
 
 **Description:** Foundation or Move Inc controlling most voting power predetermines outcomes.
 *For example, if Move Inc controls 0.70 of votes via delegation and passes proposals unilaterally.*
@@ -192,7 +192,7 @@ Consider with reservations:
 - Acknowledge initial centralization phase.
 - Implement **progressive voting-power decentralization**.
 
-#### 3. Stake-based Governance Attacks
+#### C.3 Stake-based Governance Attacks
 
 **Description:** An attacker lends a large amount of tokens from the open market to a validator it controls, allowing it to pass proposals.
 
@@ -205,7 +205,7 @@ Consider with reservations:
 
 - Implement a **stake limit** on validators, that is relative to the total stake of the network.
 
-#### 4. Governance Delay / Inflexibility
+#### C.4 Governance Delay / Inflexibility
 
 **Description:** Prolonged delay in decentralizing governance weakens confidence and agility.
 
@@ -221,7 +221,7 @@ Consider with reservations:
 - Publish **phase-based milestones** (e.g., multisig → on-chain voting).
 - Track progress publicly.
 
-#### 5. Rushed Upgrades
+#### C.5 Rushed Upgrades
 
 **Description:** Rapid or unchecked upgrades can introduce bugs or malicious code paths.
 
@@ -237,7 +237,7 @@ Consider with reservations:
 - Add **execution timelocks** on passed proposals.
 - Enable a temporary **emergency veto** (safety council).
 
-#### 6. Legal and Compliance Exposure
+#### C.6 Legal and Compliance Exposure
 
 **Description:** Move Inc-managed staking or reward distribution can draw regulatory scrutiny if deemed custodial or yield-bearing.
 *For example, if regulators classify Move Inc or MVMT Fnd staking returns as securities due to weak separation between treasury and validator operations.*
@@ -252,7 +252,7 @@ Consider with reservations:
 - Maintain **legal separation** between treasury and validators.
 - Apply **KYC / AML** for accredited participants where applicable.
 
-#### 7. Governance Threshold Too High
+#### C.7 Governance Threshold Too High
 
 **Description:** Maximum threshold for proposal passage may be set too high, preventing any proposals from passing and effectively halting governance.
 
@@ -269,6 +269,82 @@ Consider with reservations:
 - Implement graduated thresholds that can be adjusted over time.
 - Monitor proposal passage rates and adjust thresholds if needed.
 
+---
+
+### D. Market-Observed Risks
+
+This section expands on the risks discussed in the previous section by discussing additional risk categories observed across other ecosystems, including [Ethereum](https://ethereum.org/en/staking/), [Cosmos Hub](https://docs.cosmos.network/main/build/modules/gov), [Solana](https://docs.solana.com/staking), [Aptos](https://aptos.dev/nodes/staking), [Sui](https://docs.sui.io), and [Lido](https://lido.fi/governance). It discusses selected additional risk categories observed across these systems, that also may be relevant for Movement L1, and outlines corresponding mitigation strategies.
+
+> The here discussed risks are not necessarily applicable to Movement L1, but are documented for completeness and context.
+
+#### D.1 Liquid-Staking Dominance
+
+**Description:** Pooled staking entities (e.g., [Lido](https://lido.fi/)) can amass excessive governance influence, concentrating both economic and political power.
+
+**Mitigation:**
+
+- Apply voting-power caps to custodial pools.
+- Require operator diversification and public validator reports.
+
+#### D.2 Censorship Resistance and Block Producer Neutrality
+
+**Description:** Jurisdictional or political pressures can induce censorship in block production, as seen with OFAC-compliant relays on [Ethereum](https://ethereum.org/en/developers/docs/mev/). See live relay censorship metrics on [MEV Watch](https://www.mevwatch.info/).
+
+**Mitigation:**
+
+- Define and publish a neutrality and inclusion policy.
+- Require block producers and validators to provide non-censorship commitments.
+- Monitor inclusion metrics on-chain to detect filtering.
+
+#### D.3 Epoch Timing and Liquidity Runs
+
+**Description:** When staking has long unbonding periods (time to withdraw staked tokens) or long epoch intervals (time between validator set updates), it can create liquidity crises during market stress. For example, if many users want to unstake simultaneously during a market crash, but the unbonding period is 21 days, this creates a "liquidity run" where users are stuck with illiquid staked tokens. Similarly, long epochs mean validator changes take too long to respond to emergencies, potentially allowing bad actors to maintain control longer than necessary. This has been observed in [Solana](https://solana.com/docs/references/staking) and [Sui](https://docs.sui.io/concepts/tokenomics/staking-unstaking) ecosystems.
+
+**Mitigation:**
+
+- Rate-limited exits and adaptive epoch duration.
+- Emergency pause for redemptions only (not transfers).
+- Publish clear unbonding timelines and redemption queues.
+
+#### D.4 Parameter-Change Blast Radius
+
+**Description:** Broad or rapid governance parameter changes can undermine network safety, as seen with the [Cosmos SDK governance module](https://docs.cosmos.network/main/build/modules/gov).
+
+**Mitigation:**
+
+- Classify parameters by security impact (e.g., Class A requires audit and timelock).
+- Require simulation proofs for all Class A parameter updates.
+- Maintain an on-chain public change log for transparency.
+
+#### D.5 No-Slashing Regimes
+
+**Description:** Networks like [Aptos](https://aptos.dev/network/blockchain/staking) and (historically) [Solana](https://solana.com/docs/references/staking) operate without slashing; both rely on performance-based incentives (Solana is actively exploring slashing).
+
+**Mitigation:**
+
+- Replace slashing with performance-based reward modulation.
+- Define uptime and performance Service Level Agreements (SLAs).
+- Enable automatic validator eviction for prolonged underperformance.
+
+#### D.6 Vote Bribery and Market Manipulation
+
+**Description:** Off-chain vote markets or direct bribery mechanisms can distort governance outcomes and weaken legitimacy. Such behaviors have been observed in token-based systems like [Curve DAO](https://resources.curve.finance/vecrv/overview/) (via "vote-bribe" markets on [Votium](https://docs.votium.app/explainers/voter-manual)) and [Balancer DAO](https://docs.balancer.fi/concepts/governance/veBAL/), where users are paid to direct votes toward certain pools.
+
+**Mitigation:**
+
+- Enforce quorum and turnout thresholds to prevent minority capture.
+- Use snapshot voting windows to mitigate flash-borrow governance attacks.
+- Encourage transparency and disclosure requirements for large proposers or bribery markets.
+
+#### D.7 Cross-Domain Governance Spillover
+
+**Description:** Application-level DAOs or bridge councils (e.g., [Sui DeepBook](https://docs.sui.io/standards/deepbook), an application-level protocol on Sui cited as an exemplar) can inadvertently influence Layer 1 decisions through token-weighted governance overlap.
+
+**Mitigation:**
+
+- Clearly scope governance domains and restrict proposal reach.
+- Require opt-in voting for app-governed assets.
+- Enforce upgrade isolation for core modules.
 
 ## Changelog
 
