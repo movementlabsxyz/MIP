@@ -23,46 +23,46 @@ Note, the codebase uses `rewards_apy_percentage` in variable names and comments,
 
 The relationship between APR and APY depends on the compounding frequency:
 
-\[
-\text{APY} = \left(1 + \frac{\text{APR}}{n}\right)^n - 1
-\]
+```
+APY = (1 + APR/n)^n - 1
+```
 
-where \( n \) is the number of compounding periods per year.
+where `n` is the number of compounding periods per year.
 
 Conversely, to find the APR needed to achieve a target APY:
 
-\[
-\text{APR} = n \times \left( (1 + \text{APY})^{1/n} - 1 \right)
-\]
+```
+APR = n × ((1 + APY)^(1/n) - 1)
+```
 
 **Example with Movement L1 (2-hour epochs, n = 4,380):**
 
 | Target | Calculation | Result |
 |--------|-------------|--------|
-| 10% APY → APR | \( 4380 \times \left( (1.10)^{1/4380} - 1 \right) \) | **9.53% APR** |
-| Per-epoch rate | \( 9.53\% / 4380 \) | **0.2176 bps** |
+| 10% APY → APR | `4380 × ((1.10)^(1/4380) - 1)` | **9.53% APR** |
+| Per-epoch rate | `9.53% / 4380` | **0.2176 bps** |
 
 With 4,380 compounding periods per year, the difference between APR and APY is approximately 0.47 percentage points (9.53% APR yields 10% APY).
 
 **Continuous Compounding Limit:**
 
-As the number of compounding periods \( n \to \infty \), the APY formula converges to:
+As the number of compounding periods `n → ∞`, the APY formula converges to:
 
-\[
-\text{APY} = e^{\text{APR}} - 1
-\]
+```
+APY = e^APR - 1
+```
 
 And the inverse:
 
-\[
-\text{APR} = \ln(1 + \text{APY})
-\]
+```
+APR = ln(1 + APY)
+```
 
 For 10% APY, the continuous compounding limit gives:
 
-\[
-\text{APR} = \ln(1.10) = 9.531\%
-\]
+```
+APR = ln(1.10) = 9.531%
+```
 
 With 4,380 epochs per year, the discrete calculation yields 9.530%, which differs from the continuous limit by only ~0.001%. At this compounding frequency, the continuous approximation is rather precise.
 
