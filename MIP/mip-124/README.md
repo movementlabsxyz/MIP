@@ -5,17 +5,66 @@
 - **Desiderata**: 
 - **Approval**: <!--Either approved (:white_check_mark:), rejected (:x:), stagnant or withdrawn by the governance body. To be inserted by governance. -->
 
+## Motivation
+
+Validators need predictable rewards to justify their operational costs and stake commitment. A well-documented reward configuration enables transparency for validators, delegators, and governance participants when evaluating or proposing rate changes.
+
 ## Abstract
 
-This document describes the existing configuration of the reward system for validators. The system allows setting validator rewards to a specific annual percentage rate through genesis configuration, with automatic conversion to per-epoch reward rates. The implementation leverages existing infrastructure including genesis configuration, VM conversion logic, and staking framework components.
+The reward system allows setting validator rewards to a target annual percentage yield (APY) through genesis configuration, with automatic conversion to per-epoch reward rates. The implementation leverages existing infrastructure including genesis configuration, VM conversion logic, and staking framework components.
 
-> **Example Values**: Throughout this document, we use **10% APR** as an **example value** for ease of calculation and demonstration. This is purely illustrative - the actual reward rate is configurable through genesis and governance. All calculations and examples in this document assume 10% APR unless otherwise specified.
+> **Target Rate**: The target is **10% APY** (Annual Percentage Yield), which requires setting **9.53% APR** (Annual Percentage Rate) in genesis. With 2-hour epochs (4,380 epochs/year), the compounding effect converts the 9.53% APR into approximately 10% APY.
 
 Note, the codebase uses `rewards_apy_percentage` in variable names and comments, but the actual calculation implements **APR** (Annual Percentage Rate), not APY (Annual Percentage Yield). This is a terminology inconsistency in the codebase that we are stuck with for backward compatibility. The APR is the annual percentage rate of the reward system without compounding.
 
-## Motivation
+### APR vs APY
 
-This document serves to document the existing reward system implementation for reference and understanding. The system provides predictable validator rewards through configurable genesis parameters or governance updates.
+**APR** (Annual Percentage Rate) is the simple interest rate without compounding. **APY** (Annual Percentage Yield) is the effective annual rate when compounding is considered.
+
+The relationship between APR and APY depends on the compounding frequency:
+
+\[
+\text{APY} = \left(1 + \frac{\text{APR}}{n}\right)^n - 1
+\]
+
+where \( n \) is the number of compounding periods per year.
+
+Conversely, to find the APR needed to achieve a target APY:
+
+\[
+\text{APR} = n \times \left( (1 + \text{APY})^{1/n} - 1 \right)
+\]
+
+**Example with Movement L1 (2-hour epochs, n = 4,380):**
+
+| Target | Calculation | Result |
+|--------|-------------|--------|
+| 10% APY → APR | \( 4380 \times \left( (1.10)^{1/4380} - 1 \right) \) | **9.53% APR** |
+| Per-epoch rate | \( 9.53\% / 4380 \) | **0.2176 bps** |
+
+With 4,380 compounding periods per year, the difference between APR and APY is approximately 0.47 percentage points (9.53% APR yields 10% APY).
+
+**Continuous Compounding Limit:**
+
+As the number of compounding periods \( n \to \infty \), the APY formula converges to:
+
+\[
+\text{APY} = e^{\text{APR}} - 1
+\]
+
+And the inverse:
+
+\[
+\text{APR} = \ln(1 + \text{APY})
+\]
+
+For 10% APY, the continuous compounding limit gives:
+
+\[
+\text{APR} = \ln(1.10) = 9.531\%
+\]
+
+With 4,380 epochs per year, the discrete calculation yields 9.530%, which differs from the continuous limit by only ~0.001%. At this compounding frequency, the continuous approximation is rather precise.
 
 ## Specification
 
@@ -24,11 +73,6 @@ _The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "
 ### Reward System
 
 The reward system has two main components: how rewards are calculated per validator, and how the reward rate is determined.
-
-We distinguish between the following two concepts:
-
-- **APR**: Annual target rate (e.g., 10% per year) - configured in genesis
-- **Reward Rate**: Per-epoch rate (e.g., 0.0022831% per epoch) - used in calculations
 
 #### Validator Reward Calculation
 
@@ -82,44 +126,19 @@ reward_rate_numerator = (genesis_config.rewards_apy_percentage * rewards_rate_de
 
 where
 
-- `genesis_config.rewards_apy_percentage`: 10 (for 10% APR)
+- `genesis_config.rewards_apy_percentage`: 9.53 (for 9.53% APR → 10% APY)
 - `rewards_rate_denominator`: 1_000_000_000 (for precision)
 - `num_epochs_in_a_year`: 4_380 (based on 2-hour epochs)
 
 This calculation is implemented in `aptos-move/vm-genesis/src/lib.rs` lines 535-542 and converts the configured APR percentage to the appropriate per-epoch reward rate **only at genesis**. Runtime updates require governance to manually perform this conversion.
 
-**Example Conversion (10% APR → Per-Epoch Rate):**
-
-Input (APR):
-
-- `genesis_config.rewards_apy_percentage`: 10 (10% per year)
-- `genesis_config.epoch_duration_secs`: 7_200 (2 hours)
-- `num_epochs_in_a_year`: 4_380 epochs
-
-Output (Per-Epoch Reward Rate):
-
-- `reward_rate_numerator`: 22_831
-- `rewards_rate_denominator`: 1_000_000_000
-- **Per-epoch rate**: 0.000022831 (0.0022831% per epoch)
-- **Annual equivalent**: 10% APR (when compounded over 4_380 epochs)
-
 #### Required Configuration Change
 
-Update the genesis configuration file to set the target APR to 10%:
+Update the genesis configuration file to set the target APR to 9.53% (for 10% APY):
 
 - **File**: `terraform/helm/genesis/values.yaml`
-- **Change**: Set `rewards_apy_percentage: 10`
-- **Purpose**: Configure the target APR for genesis
-
-**Configuration Parameters:**
-
-- `rewards_apy_percentage`: 10% per year (configured)
-- `epoch_duration_secs`: 7_200 seconds (2 hours)
-
-**Calculated Parameters:**
-
-- `num_epochs_in_a_year`: 4_380 epochs (=31_536_000 / 7_200)
-- `reward_rate_numerator`: 22_831 (calculated once at genesis from APR)
+- **Change**: Set `rewards_apy_percentage: 9.53`
+- **Resulting**: `reward_rate_numerator`: 21_760 (calculated at genesis)
 
 ---
 
@@ -185,7 +204,7 @@ After genesis, there are **two different ways** to update reward rates, dependin
 
 ```mermaid
 graph TD
-    A[Genesis Config<br/>terraform/helm/genesis/values.yaml<br/>rewards_apy_percentage: 10] --> B[VM Genesis Conversion<br/>aptos-move/vm-genesis/src/lib.rs:535-542<br/>Convert APY to numerator/denominator]
+    A[Genesis Config<br/>terraform/helm/genesis/values.yaml<br/>rewards_apy_percentage: 9.53] --> B[VM Genesis Conversion<br/>aptos-move/vm-genesis/src/lib.rs:535-542<br/>Convert APR to numerator/denominator]
     
     C[Path 1: Manual Governance<br/>stake_update_rewards_rate.move<br/>Governance Proposal] --> D[update_rewards_rate<br/>staking_config.move:303-325<br/>Manual rate update]
     
