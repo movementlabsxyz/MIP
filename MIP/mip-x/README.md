@@ -55,16 +55,16 @@ flowchart LR
     User --> source.debit
 
     subgraph Source["Source Chain"]
-        source.debit --> consume_dst["source.try_consume_rate_limit(dst_eid)"]
-        consume_dst --> source_rl_dst["source.rate_limit_budget[from:source, to:dest] ↓"]
+        source.debit --> consume_dst["source.try_consume_rate_limit<br/>(dst_eid)"]
+        consume_dst --> source_rl_dst["source.rate_limit_budget<br/>[from:source, to:dest] ↓"]
     end
 
     source.debit --> send["send LZ message"]
     send --> dest.credit
 
     subgraph Dest["Dest Chain"]
-        dest.credit --> release_src["dest.release_rate_limit(src_eid)"]
-        release_src --> dest_rl_src["dest.rate_limit_budget[from:dest, to:source] ↑"]
+        dest.credit --> release_src["dest.release_rate_limit<br/>(src_eid)"]
+        release_src --> dest_rl_src["dest.rate_limit_budget<br/>[from:dest, to:source] ↑"]
     end
 ```
 
@@ -104,10 +104,10 @@ flowchart LR
     User --> mvmt.debit
 
     subgraph Mvmt
-        mvmt.debit --> consume_dst["mvmt.try_consume_rate_limit(dst_eid)"]
-        consume_dst --> mvmt_rl_remote["mvmt.rate_limit_budget[from:mvmt, to:remote] ↓"]
-        mvmt.debit --> release_mvmt["mvmt.release_rate_limit(mvmt_eid)"]
-        release_mvmt --> mvmt_rl_mvmt["mvmt.rate_limit_budget[from:remote, to:mvmt] ↑"]
+        mvmt.debit --> consume_dst["mvmt.try_consume_rate_limit<br/>(dst_eid)"]
+        consume_dst --> mvmt_rl_remote["mvmt.rate_limit_budget<br/>[from:mvmt, to:remote] ↓"]
+        mvmt.debit --> release_mvmt["mvmt.release_rate_limit<br/>(mvmt_eid)"]
+        release_mvmt --> mvmt_rl_mvmt["mvmt.rate_limit_budget<br/>[from:remote, to:mvmt] ↑"]
     end
 
     mvmt.debit --> send["send LZ message"]
@@ -132,10 +132,10 @@ flowchart LR
     send --> mvmt.credit
 
     subgraph Mvmt
-        mvmt.credit --> consume_mvmt["mvmt.try_consume_rate_limit(mvmt_eid)"]
-        consume_mvmt --> mvmt_rl_mvmt["mvmt.rate_limit_budget[from:remote, to:mvmt] ↓"]
-        mvmt.credit --> release_src["mvmt.release_rate_limit(src_eid)"]
-        release_src --> mvmt_rl_remote["mvmt.rate_limit_budget[from:mvmt, to:remote] ↑"]
+        mvmt.credit --> consume_mvmt["mvmt.try_consume_rate_limit<br/>(mvmt_eid)"]
+        consume_mvmt --> mvmt_rl_mvmt["mvmt.rate_limit_budget<br/>[from:remote, to:mvmt] ↓"]
+        mvmt.credit --> release_src["mvmt.release_rate_limit<br/>(src_eid)"]
+        release_src --> mvmt_rl_remote["mvmt.rate_limit_budget<br/>[from:mvmt, to:remote] ↑"]
     end
 ```
 
@@ -177,8 +177,8 @@ flowchart LR
     User --> mvmt.debit
 
     subgraph Mvmt
-        mvmt.debit --> consume_dst["mvmt.try_consume_rate_limit(dst_eid)"]
-        consume_dst --> mvmt_rl_remote["mvmt.rate_limit_budget[from:mvmt, to:remote] ↓"]
+        mvmt.debit --> consume_dst["mvmt.try_consume_rate_limit<br/>(dst_eid)"]
+        consume_dst --> mvmt_rl_remote["mvmt.rate_limit_budget<br/>[from:mvmt, to:remote] ↓"]
     end
 
     mvmt.debit --> send["send LZ message"]
@@ -203,8 +203,8 @@ flowchart LR
     send --> mvmt.credit
 
     subgraph Mvmt
-        mvmt.credit --> consume_mvmt["mvmt.try_consume_rate_limit(mvmt_eid)"]
-        consume_mvmt --> mvmt_rl_mvmt["mvmt.rate_limit_budget[from:remote, to:mvmt] ↓"]
+        mvmt.credit --> consume_mvmt["mvmt.try_consume_rate_limit<br/>(mvmt_eid)"]
+        consume_mvmt --> mvmt_rl_mvmt["mvmt.rate_limit_budget<br/>[from:remote, to:mvmt] ↓"]
     end
 ```
 
