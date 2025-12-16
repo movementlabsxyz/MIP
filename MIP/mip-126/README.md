@@ -1,4 +1,4 @@
-# MIP-X: Non-Offsettable Gross Inflow Rate Limiting
+# MIP-126: Non-Offsettable Gross Inflow Rate Limiting
 
 - **Description**: Replace net-flow rate limiting with a strict gross inflow cap on Movement.
 - **Authors**: [Primata](), Ru, Andreas
