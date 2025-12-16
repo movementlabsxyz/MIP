@@ -294,6 +294,7 @@ A validator is a node that participates in the FFS protocol. Validators execute 
 <li><a href="Review/mip/move-stack/MIP/mip-92/">MIP-92: Move Stack</a></li>
 <li><a href="Review/mip/technology-publication-strategy/MIP/mip-113/">MIP-113: Technology publication strategy</a></li>
 <li><a href="Review/mip/staking-risks/MIP/mip-125/">MIP-125: Risk Assessment for Staking and Governance Launch</a></li>
+<li><a href="Review/mip/bridge-change/MIP/mip-126/">MIP-126: Non-Offsettable Gross Inflow Rate Limiting</a></li>
 </ul>
 <h3 id="mds-1"><a class="header" href="#mds-1">MDs</a></h3>
 <ul>
@@ -372,6 +373,7 @@ A validator is a node that participates in the FFS protocol. Validators execute 
 <li><a href="Review/mip/move-stack/MIP/mip-92/">MIP-92: Move Stack</a></li>
 <li><a href="Review/mip/technology-publication-strategy/MIP/mip-113/">MIP-113: Technology publication strategy</a></li>
 <li><a href="Review/mip/staking-risks/MIP/mip-125/">MIP-125: Risk Assessment for Staking and Governance Launch</a></li>
+<li><a href="Review/mip/bridge-change/MIP/mip-126/">MIP-126: Non-Offsettable Gross Inflow Rate Limiting</a></li>
 </ul>
 <h3 id="mds-3"><a class="header" href="#mds-3">MDs</a></h3>
 <ul>
@@ -2099,6 +2101,7 @@ If [a bridge] acquires more [crypto-economic] security than the harm it can suff
 <li><a href="Review/mip/move-stack/MIP/mip-92/">MIP-92: Move Stack</a></li>
 <li><a href="Review/mip/technology-publication-strategy/MIP/mip-113/">MIP-113: Technology publication strategy</a></li>
 <li><a href="Review/mip/staking-risks/MIP/mip-125/">MIP-125: Risk Assessment for Staking and Governance Launch</a></li>
+<li><a href="Review/mip/bridge-change/MIP/mip-126/">MIP-126: Non-Offsettable Gross Inflow Rate Limiting</a></li>
 </ul>
 <h3 id="mds-5"><a class="header" href="#mds-5">MDs</a></h3>
 <ul>
@@ -2453,6 +2456,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <li><a href="Review/mip/move-stack/MIP/mip-92/">MIP-92: Move Stack</a></li>
 <li><a href="Review/mip/technology-publication-strategy/MIP/mip-113/">MIP-113: Technology publication strategy</a></li>
 <li><a href="Review/mip/staking-risks/MIP/mip-125/">MIP-125: Risk Assessment for Staking and Governance Launch</a></li>
+<li><a href="Review/mip/bridge-change/MIP/mip-126/">MIP-126: Non-Offsettable Gross Inflow Rate Limiting</a></li>
 </ul>
 <h3 id="mds-7"><a class="header" href="#mds-7">MDs</a></h3>
 <ul>
@@ -2544,6 +2548,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <li><a href="Review/mip/move-stack/MIP/mip-92/">MIP-92: Move Stack</a></li>
 <li><a href="Review/mip/technology-publication-strategy/MIP/mip-113/">MIP-113: Technology publication strategy</a></li>
 <li><a href="Review/mip/staking-risks/MIP/mip-125/">MIP-125: Risk Assessment for Staking and Governance Launch</a></li>
+<li><a href="Review/mip/bridge-change/MIP/mip-126/">MIP-126: Non-Offsettable Gross Inflow Rate Limiting</a></li>
 </ul>
 <h3 id="mds-9"><a class="header" href="#mds-9">MDs</a></h3>
 <ul>
@@ -2622,6 +2627,7 @@ The attacker stalls the main chain by skipping block production while accumulati
 <li><a href="Review/mip/move-stack/MIP/mip-92/">MIP-92: Move Stack</a></li>
 <li><a href="Review/mip/technology-publication-strategy/MIP/mip-113/">MIP-113: Technology publication strategy</a></li>
 <li><a href="Review/mip/staking-risks/MIP/mip-125/">MIP-125: Risk Assessment for Staking and Governance Launch</a></li>
+<li><a href="Review/mip/bridge-change/MIP/mip-126/">MIP-126: Non-Offsettable Gross Inflow Rate Limiting</a></li>
 </ul>
 <h3 id="mds-11"><a class="header" href="#mds-11">MDs</a></h3>
 <ul>
@@ -5491,6 +5497,225 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <li><strong>2025-10-15</strong>: Initial risk assessment document created. <a href="https://github.com/movementlabsxyz/MIP/pull/125">PR#125</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="mip-126-non-offsettable-gross-inflow-rate-limiting"><a class="header" href="#mip-126-non-offsettable-gross-inflow-rate-limiting">MIP-126: Non-Offsettable Gross Inflow Rate Limiting</a></h1>
+<ul>
+<li><strong>Description</strong>: Replace net-flow rate limiting with a strict gross inflow cap on Movement.</li>
+<li><strong>Authors</strong>: <a href="Review/mip/bridge-change/MIP/mip-126/">Primata</a>, Ru, Andreas</li>
+<li><strong>Desiderata</strong>: TBD</li>
+<li><strong>Approval</strong>: <!--Either approved (:white_check_mark:), rejected (:x:), stagnant or withdrawn by the governance body. To be inserted by governance. --></li>
+</ul>
+<h2 id="abstract-31"><a class="header" href="#abstract-31">Abstract</a></h2>
+<p>This proposal modifies Movement’s bridge rate limiting to enforce a strict, non-offsettable gross inflow cap. The current baseline uses net-flow accounting where outflows release inflow capacity. This proposal intentionally abandons net-flow semantics to prevent inflow capacity from growing beyond configured limits, regardless of outflow activity.</p>
+<h2 id="motivation-31"><a class="header" href="#motivation-31">Motivation</a></h2>
+<p>The current rate limiting implementation tracks net exposure: when funds flow out of Movement, inflow capacity increases proportionally. While this is valid for systems tracking net supply movement, it means the effective inflow cap can exceed the configured limit if significant outflows occur.</p>
+<p>The security goal for Movement is to enforce a hard ceiling on gross inflow that cannot be inflated by outflows. This requires abandoning net-flow semantics in favor of consume-only rate limiting. The rate limit resets daily.</p>
+<h2 id="design-context"><a class="header" href="#design-context">Design Context</a></h2>
+<p>Bidirectional offsetting (where outflows release inflow capacity and vice versa) is a feature for systems that track <strong>net exposure</strong> or <strong>net supply movement</strong>. If 100M flows out and 100M flows in, the net change is zero, and the rate limit correctly reflects this.</p>
+<p>This proposal <strong>intentionally rejects offsetting</strong> as a design choice. The security goal for Movement is to enforce a <strong>strict, non-offsettable gross inflow cap</strong>. Inflow capacity should not increase just because funds flowed out—even if net exposure remains unchanged.</p>
+<p>The alternatives below represent a conscious tradeoff: abandoning net-flow semantics to achieve a hard ceiling on gross inflow.</p>
+<h2 id="specification-30"><a class="header" href="#specification-30">Specification</a></h2>
+<p><em>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119 and RFC 8174.</em></p>
+<h3 id="legend"><a class="header" href="#legend">Legend</a></h3>
+<ul>
+<li><code>mvmt.*</code> → code executing on Movement</li>
+<li><code>remote.*</code> → code executing on a remote chain (e.g. Ethereum)</li>
+<li><code>source.*</code> / <code>dest.*</code> → code executing on the respective chain</li>
+<li><code>X.rate_limit_budget[from:Y, to:Z]</code> → rate limit budget stored on chain X for transfers from Y to Z</li>
+<li><code>dst_eid</code> → destination endpoint id</li>
+<li><code>src_eid</code> → source endpoint id</li>
+<li><code>mvmt_eid</code> → Movement endpoint id</li>
+<li>↓ consume capacity</li>
+<li>↑ release capacity</li>
+</ul>
+<hr />
+<h3 id="baseline-current-production"><a class="header" href="#baseline-current-production">BASELINE (Current Production)</a></h3>
+<p><strong>Rule (applies symmetrically on all chains)</strong></p>
+<ul>
+<li><code>source.debit</code>: <code>source.try_consume_rate_limit(dst_eid)</code></li>
+<li><code>dest.credit</code>: <code>dest.release_rate_limit(src_eid)</code></li>
+</ul>
+<p>Each chain enforces only its own local rate limits.</p>
+<pre><code class="language-mermaid">flowchart LR
+    User --&gt; source.debit
+
+    subgraph Source["Source Chain"]
+        source.debit --&gt; consume_dst["source.try_consume_rate_limit&lt;br/&gt;(dst_eid)"]
+        consume_dst --&gt; source_rl_dst["source.rate_limit_budget&lt;br/&gt;[from:source, to:dest] ↓"]
+    end
+
+    source.debit --&gt; send["send LZ message"]
+    send --&gt; dest.credit
+
+    subgraph Dest["Dest Chain"]
+        dest.credit --&gt; release_src["dest.release_rate_limit&lt;br/&gt;(src_eid)"]
+        release_src --&gt; dest_rl_src["dest.rate_limit_budget&lt;br/&gt;[from:dest, to:source] ↑"]
+    end
+</code></pre>
+<p><strong>Baseline Behavior: Net-flow accounting via bidirectional offsetting</strong></p>
+<pre><code class="language-text">Mvmt → Remote:
+  mvmt.rate_limit_budget[from:mvmt, to:remote] ↓
+  remote.rate_limit_budget[from:remote, to:mvmt] ↑
+
+Remote → Mvmt:
+  remote.rate_limit_budget[from:remote, to:mvmt] ↓
+  mvmt.rate_limit_budget[from:mvmt, to:remote] ↑
+</code></pre>
+<p>Outgoing flow creates incoming capacity and vice versa. This is correct net-flow accounting, but it means Movement inflow caps can grow beyond the configured limit if outflows occur.</p>
+<hr />
+<h3 id="alternative-1-mvmt-centric-supply-coupled"><a class="header" href="#alternative-1-mvmt-centric-supply-coupled">ALTERNATIVE 1 (Mvmt-Centric, Supply-Coupled)</a></h3>
+<p><strong>Idea</strong></p>
+<ul>
+<li>Remove rate limiters from foreign chains entirely</li>
+<li>All rate limiting happens on Movement</li>
+<li>Outflows release Movement inflow capacity (supply-coupled)</li>
+</ul>
+<p><strong>Rule (Movement only)</strong></p>
+<ul>
+<li><code>mvmt.debit</code>: <code>mvmt.try_consume_rate_limit(dst_eid)</code> + <code>mvmt.release_rate_limit(mvmt_eid)</code></li>
+<li><code>mvmt.credit</code>: <code>mvmt.try_consume_rate_limit(mvmt_eid)</code> + <code>mvmt.release_rate_limit(src_eid)</code></li>
+</ul>
+<p><strong>Mvmt → Remote (Outgoing)</strong></p>
+<pre><code class="language-mermaid">flowchart LR
+    User --&gt; mvmt.debit
+
+    subgraph Mvmt
+        mvmt.debit --&gt; consume_dst["mvmt.try_consume_rate_limit&lt;br/&gt;(dst_eid)"]
+        consume_dst --&gt; mvmt_rl_remote["mvmt.rate_limit_budget&lt;br/&gt;[from:mvmt, to:remote] ↓"]
+        mvmt.debit --&gt; release_mvmt["mvmt.release_rate_limit&lt;br/&gt;(mvmt_eid)"]
+        release_mvmt --&gt; mvmt_rl_mvmt["mvmt.rate_limit_budget&lt;br/&gt;[from:remote, to:mvmt] ↑"]
+    end
+
+    mvmt.debit --&gt; send["send LZ message"]
+    send --&gt; remote.credit
+
+    subgraph Remote
+        remote.credit
+    end
+</code></pre>
+<p><strong>Remote → Mvmt (Incoming)</strong></p>
+<pre><code class="language-mermaid">flowchart LR
+    User --&gt; remote.debit
+
+    subgraph Remote
+        remote.debit
+    end
+
+    remote.debit --&gt; send["send LZ message"]
+    send --&gt; mvmt.credit
+
+    subgraph Mvmt
+        mvmt.credit --&gt; consume_mvmt["mvmt.try_consume_rate_limit&lt;br/&gt;(mvmt_eid)"]
+        consume_mvmt --&gt; mvmt_rl_mvmt["mvmt.rate_limit_budget&lt;br/&gt;[from:remote, to:mvmt] ↓"]
+        mvmt.credit --&gt; release_src["mvmt.release_rate_limit&lt;br/&gt;(src_eid)"]
+        release_src --&gt; mvmt_rl_remote["mvmt.rate_limit_budget&lt;br/&gt;[from:mvmt, to:remote] ↑"]
+    end
+</code></pre>
+<p><strong>Behavior: Bidirectional offsetting preserved</strong></p>
+<pre><code class="language-text">Mvmt → Remote:
+  mvmt.rate_limit_budget[from:mvmt, to:remote] ↓
+  mvmt.rate_limit_budget[from:remote, to:mvmt] ↑    ← outflow increases inflow capacity
+
+Remote → Mvmt:
+  mvmt.rate_limit_budget[from:remote, to:mvmt] ↓
+  mvmt.rate_limit_budget[from:mvmt, to:remote] ↑  ← inflow increases outflow capacity
+</code></pre>
+<p>If 100M flows out and 100M flows in, both limits return to their original values. This is valid net-flow accounting, but incompatible with the goal of a strict gross inflow cap.</p>
+<p>Alternative 1 preserves net-flow semantics, which are incompatible with the desired non-offsettable inflow limit.</p>
+<hr />
+<h3 id="alternative-2-mvmt-centric-no-releases"><a class="header" href="#alternative-2-mvmt-centric-no-releases">ALTERNATIVE 2 (Mvmt-Centric, No Releases)</a></h3>
+<p><strong>Idea</strong></p>
+<ul>
+<li>Same as Alternative 1, but remove all <code>release_rate_limit</code> calls</li>
+<li>Only consume capacity, never release</li>
+<li>Outflows cannot increase inflow capacity</li>
+</ul>
+<p><strong>Rule (Movement only)</strong></p>
+<ul>
+<li><code>mvmt.debit</code>: <code>mvmt.try_consume_rate_limit(dst_eid)</code> only</li>
+<li><code>mvmt.credit</code>: <code>mvmt.try_consume_rate_limit(mvmt_eid)</code> only</li>
+</ul>
+<p><strong>Mvmt → Remote (Outgoing)</strong></p>
+<pre><code class="language-mermaid">flowchart LR
+    User --&gt; mvmt.debit
+
+    subgraph Mvmt
+        mvmt.debit --&gt; consume_dst["mvmt.try_consume_rate_limit&lt;br/&gt;(dst_eid)"]
+        consume_dst --&gt; mvmt_rl_remote["mvmt.rate_limit_budget&lt;br/&gt;[from:mvmt, to:remote] ↓"]
+    end
+
+    mvmt.debit --&gt; send["send LZ message"]
+    send --&gt; remote.credit
+
+    subgraph Remote
+        remote.credit
+    end
+</code></pre>
+<p><strong>Remote → Mvmt (Incoming)</strong></p>
+<pre><code class="language-mermaid">flowchart LR
+    User --&gt; remote.debit
+
+    subgraph Remote
+        remote.debit
+    end
+
+    remote.debit --&gt; send["send LZ message"]
+    send --&gt; mvmt.credit
+
+    subgraph Mvmt
+        mvmt.credit --&gt; consume_mvmt["mvmt.try_consume_rate_limit&lt;br/&gt;(mvmt_eid)"]
+        consume_mvmt --&gt; mvmt_rl_mvmt["mvmt.rate_limit_budget&lt;br/&gt;[from:remote, to:mvmt] ↓"]
+    end
+</code></pre>
+<p><strong>Behavior: No bidirectional offsetting (gross inflow cap enforced)</strong></p>
+<pre><code class="language-text">Mvmt → Remote:
+  mvmt.rate_limit_budget[from:mvmt, to:remote] ↓
+  (no release)
+
+Remote → Mvmt:
+  mvmt.rate_limit_budget[from:remote, to:mvmt] ↓
+  (no release)
+</code></pre>
+<p>Limits only decrease. Capacity replenishes daily (rate limit resets), not through offsetting flows.</p>
+<p><strong>Where Rate Limits Live</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Flow Direction</th><th>Enforced On</th><th>Storage</th></tr></thead><tbody>
+<tr><td>Remote → Mvmt</td><td>Mvmt</td><td><code>mvmt.rate_limit_budget[from:remote, to:mvmt]</code></td></tr>
+<tr><td>Mvmt → Remote</td><td>Mvmt</td><td><code>mvmt.rate_limit_budget[from:mvmt, to:remote]</code></td></tr>
+<tr><td>Cross-offset</td><td>❌</td><td>❌</td></tr>
+</tbody></table>
+</div>
+<p><strong>Security Invariant</strong></p>
+<pre><code class="language-text">For all time t:
+  total_inflow_to_mvmt(t) ≤ mvmt.rate_limit_budget[from:remote, to:mvmt]
+</code></pre>
+<hr />
+<h3 id="summary"><a class="header" href="#summary">Summary</a></h3>
+<p><strong>Baseline:</strong></p>
+<ul>
+<li>Mvmt→Remote: <code>mvmt.rate_limit_budget[from:mvmt, to:remote] ↓</code>, <code>remote.rate_limit_budget[from:remote, to:mvmt] ↑</code></li>
+<li>Remote→Mvmt: <code>remote.rate_limit_budget[from:remote, to:mvmt] ↓</code>, <code>mvmt.rate_limit_budget[from:mvmt, to:remote] ↑</code></li>
+<li>Behavior: Net-flow accounting with offsetting across chains. Valid, but incompatible with gross inflow cap goal.</li>
+</ul>
+<p><strong>Alternative 1:</strong></p>
+<ul>
+<li>Mvmt→Remote: <code>mvmt.rate_limit_budget[from:mvmt, to:remote] ↓</code>, <code>mvmt.rate_limit_budget[from:remote, to:mvmt] ↑</code></li>
+<li>Remote→Mvmt: <code>mvmt.rate_limit_budget[from:remote, to:mvmt] ↓</code>, <code>mvmt.rate_limit_budget[from:mvmt, to:remote] ↑</code></li>
+<li>Behavior: All on Mvmt, but preserves net-flow semantics. Still incompatible with gross inflow cap goal.</li>
+</ul>
+<p><strong>Alternative 2:</strong></p>
+<ul>
+<li>Mvmt→Remote: <code>mvmt.rate_limit_budget[from:mvmt, to:remote] ↓</code></li>
+<li>Remote→Mvmt: <code>mvmt.rate_limit_budget[from:remote, to:mvmt] ↓</code></li>
+<li>Behavior: All on Mvmt, no releases, no offsetting. Enforces strict gross inflow cap.</li>
+</ul>
+<h2 id="changelog-33"><a class="header" href="#changelog-33">Changelog</a></h2>
+<!--
+  The Changelog should be maintained after publication.
+
+  The format should be as follows:
+  - **YYYY-MM-DD**: Description of change. [PR#](link-to-PR)
+
+-->
+<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="welcome-to-the-movement-network-mip-book-6"><a class="header" href="#welcome-to-the-movement-network-mip-book-6">Welcome to the Movement Network MIP Book</a></h1>
 <h2 id="merged-6"><a class="header" href="#merged-6">Merged</a></h2>
 <h3 id="mips-13"><a class="header" href="#mips-13">MIPs</a></h3>
@@ -5546,6 +5771,7 @@ For a code example, see <a href="https://github.com/movementlabsxyz/movement/tre
 <li><a href="Review/mip/move-stack/MIP/mip-92/">MIP-92: Move Stack</a></li>
 <li><a href="Review/mip/technology-publication-strategy/MIP/mip-113/">MIP-113: Technology publication strategy</a></li>
 <li><a href="Review/mip/staking-risks/MIP/mip-125/">MIP-125: Risk Assessment for Staking and Governance Launch</a></li>
+<li><a href="Review/mip/bridge-change/MIP/mip-126/">MIP-126: Non-Offsettable Gross Inflow Rate Limiting</a></li>
 </ul>
 <h3 id="mds-13"><a class="header" href="#mds-13">MDs</a></h3>
 <ul>
@@ -5865,7 +6091,7 @@ block.eth_priority_gas
 <li>Apply an attester based model to the native bridge.</li>
 <li>Supply a clear flow for the bridge mechanism.</li>
 </ol>
-<h3 id="motivation-31"><a class="header" href="#motivation-31">Motivation</a></h3>
+<h3 id="motivation-32"><a class="header" href="#motivation-32">Motivation</a></h3>
 <p>Our current bridge solution has been increasing in complexity with each iteration. Originally requiring three on-chain transactions, it now requires four, initiate bridge, lock, complete source chain, complete target chain. Additionally, the bridge does not currently support gas charging mechanisms to prevent exploits, and ongoing discussions are leaning toward adding further components, making it even more complex and computationally expensive.</p>
 <p>We believe the best approach is to draw from live implementations that have achieved a streamlined user experience with minimal cost to the user. One such example is USDC’s <a href="https://www.circle.com/en/cross-chain-transfer-protocol">CCTP</a>, which offers simplicity, security, and efficiency in cross-chain bridging. Instead of increasing the complexity of our current bridge design, we should aim to adopt more proven mechanisms.</p>
 <h2 id="desiderata-14"><a class="header" href="#desiderata-14">Desiderata</a></h2>
@@ -6157,7 +6383,7 @@ struct Trade {
 <li><strong>Authors</strong>: Andreas Penzkofer</li>
 </ul>
 <h2 id="overview-18"><a class="header" href="#overview-18">Overview</a></h2>
-<h2 id="abstract-31"><a class="header" href="#abstract-31">Abstract</a></h2>
+<h2 id="abstract-32"><a class="header" href="#abstract-32">Abstract</a></h2>
 <p>We require a mechanism to confirm the validity of transactions on L2. This mechanism should provide fast confirmations with crypto-economic security on L2. Moreover, it should also provide confirmations that leverage the economic security from L1 (this may be slower).</p>
 <h2 id="desiderata-16"><a class="header" href="#desiderata-16">Desiderata</a></h2>
 <h3 id="d1-postconfirmation"><a class="header" href="#d1-postconfirmation">D1: Postconfirmation</a></h3>
@@ -6183,7 +6409,7 @@ struct Trade {
 <h3 id="d6-compare-fastconfirmations-with-postconfirmation"><a class="header" href="#d6-compare-fastconfirmations-with-postconfirmation">D6: Compare Fastconfirmations with Postconfirmation</a></h3>
 <p><strong>User Journey</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks.</p>
 <p><strong>Description</strong>: Postconfirmation and fastconfirmation must confirm the same L2Blocks. The superBlock confirmed by postconfirmation must contain the L2Blocks that are confirmed by fastconfirmations.</p>
-<h2 id="changelog-33"><a class="header" href="#changelog-33">Changelog</a></h2>
+<h2 id="changelog-34"><a class="header" href="#changelog-34">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-37-ffs-postconfirmation"><a class="header" href="#md-37-ffs-postconfirmation">MD-37: FFS: Postconfirmation</a></h1>
 <ul>
@@ -6207,7 +6433,7 @@ struct Trade {
 <h3 id="d4-identify-slashing-conditions-where-necessary"><a class="header" href="#d4-identify-slashing-conditions-where-necessary">D4: Identify slashing conditions where necessary</a></h3>
 <p><strong>User Journey</strong>: Slashing conditions are clearly defined and enforced, with penalties for malicious behavior. Only utilize slashing if it is necessary.</p>
 <p><strong>Justification</strong>: Clearly defined slashing conditions deter malicious actors and protect the network from potential attacks. Overuse of slashing can discourage participation.</p>
-<h2 id="changelog-34"><a class="header" href="#changelog-34">Changelog</a></h2>
+<h2 id="changelog-35"><a class="header" href="#changelog-35">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs"><a class="header" href="#md-38-provide-for-fixed-token-supply-when-using-native-bridge-and-fast-finality-settlement-ffs">MD-38: Provide for Fixed Token Supply when Using Native Bridge and Fast Finality Settlement (FFS)</a></h1>
 <ul>
@@ -6290,7 +6516,7 @@ struct Trade {
 <h3 id="d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties"><a class="header" href="#d5-specify-how-to-distribute-gas-fees-to-the-appropriate-parties">D5: Specify How to Distribute Gas Fees to the Appropriate Parties</a></h3>
 <p><strong>User Journey</strong>: A network participant can understand how gas fees are distributed.</p>
 <p><strong>Justification</strong>: Gas fees must ultimately be used to pay extrinsic costs or else be considered as rewards. It is important to specify how gas fees are distributed to ensure that the system is fair and that the incentives for participation are aligned with the goals of the Movement Network.</p>
-<h2 id="changelog-35"><a class="header" href="#changelog-35">Changelog</a></h2>
+<h2 id="changelog-36"><a class="header" href="#changelog-36">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-69-bridge-fees"><a class="header" href="#md-69-bridge-fees">MD-69: Bridge fees</a></h1>
 <ul>
@@ -6368,7 +6594,7 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 <h3 id="d3-define-the-rate-limiting-mechanism"><a class="header" href="#d3-define-the-rate-limiting-mechanism">D3: Define the rate-limiting mechanism</a></h3>
 <p><strong>User Journey</strong>: The developer should understand the rate-limiting mechanism.</p>
 <p><strong>Description</strong>: The rate-limiting mechanism should be defined in a way that it is clear how it works and how it can be adjusted. Moreover all components and their parameters should be defined. It should also be defined what is being rate-limited.</p>
-<h2 id="changelog-36"><a class="header" href="#changelog-36">Changelog</a></h2>
+<h2 id="changelog-37"><a class="header" href="#changelog-37">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-112-technology-publication-strategy"><a class="header" href="#md-112-technology-publication-strategy">MD-112: Technology publication strategy</a></h1>
 <ul>
@@ -6406,7 +6632,7 @@ The user pays the minimum fees to transfer their tokens from the Movement Mainne
 <ul>
 <li>Define a clear process to transform MIPs into blog posts, litepapers.</li>
 </ul>
-<h2 id="changelog-37"><a class="header" href="#changelog-37">Changelog</a></h2>
+<h2 id="changelog-38"><a class="header" href="#changelog-38">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-121-verified-message-channels-vmc"><a class="header" href="#md-121-verified-message-channels-vmc">MD-121: Verified Message Channels (VMC)</a></h1>
 <ul>
@@ -6513,7 +6739,7 @@ dapp_reify(vmc::of(b"dapp_ouputs"), user_index);</code></pre>
 <li>We anticipate the expressiveness of any Combinator API will be a challenge. We believe it essentially requires a metaprogramming API wherein you will be able to mix some immediate operations, e.g., charge account, update wins-losses table, transfer NFT, with some operations that are captured in a closure.</li>
 <li>The prospect of unwrapping on-chain poses the possibility of unwrapping a very large dependency graph of combined operations over a topic. How to provide sane ways to address this possibility will likely be a breaking point for the feasibility of this API.</li>
 </ol>
-<h2 id="changelog-38"><a class="header" href="#changelog-38">Changelog</a></h2>
+<h2 id="changelog-39"><a class="header" href="#changelog-39">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-123-multi-chain-ecosystem-with-cross-chain-protocol"><a class="header" href="#md-123-multi-chain-ecosystem-with-cross-chain-protocol">MD-123: Multi-chain ecosystem with cross-chain protocol</a></h1>
 <ul>
@@ -6538,7 +6764,7 @@ dapp_reify(vmc::of(b"dapp_ouputs"), user_index);</code></pre>
 <p><strong>Author:</strong> Franck</p>
 <h4 id="why-custom-vms"><a class="header" href="#why-custom-vms"><strong>Why Custom VMs?</strong></a></h4>
 <p>A multi-chain system benefits from supporting <strong>customizable virtual machines per chain</strong>—not in the sense of arbitrary low-level code changes, but through <strong>configuration-driven specialization</strong>.</p>
-<h4 id="motivation-32"><a class="header" href="#motivation-32"><strong>Motivation</strong></a></h4>
+<h4 id="motivation-33"><a class="header" href="#motivation-33"><strong>Motivation</strong></a></h4>
 <ol>
 <li>
 <p><strong>Scoped Execution Logic</strong></p>
@@ -6575,7 +6801,7 @@ dapp_reify(vmc::of(b"dapp_ouputs"), user_index);</code></pre>
 <p><strong>Author: Primata</strong></p>
 <h4 id="why-private-chains"><a class="header" href="#why-private-chains"><strong>Why Private Chains?</strong></a></h4>
 <p>Private chains offer <strong>execution isolation, governance autonomy</strong>, and <strong>data control</strong>—without needing to build an entirely new L1. They allow organizations to deploy application-specific logic in a secure, interoperable, yet <strong>permissioned or semi-permissioned</strong> environment.</p>
-<h4 id="motivation-33"><a class="header" href="#motivation-33"><strong>Motivation</strong></a></h4>
+<h4 id="motivation-34"><a class="header" href="#motivation-34"><strong>Motivation</strong></a></h4>
 <ol>
 <li>
 <p><strong>Access Control</strong></p>
@@ -6617,7 +6843,7 @@ dapp_reify(vmc::of(b"dapp_ouputs"), user_index);</code></pre>
 <h4 id="why-shared-accounts-across-chains"><a class="header" href="#why-shared-accounts-across-chains"><strong>Why Shared Accounts Across Chains?</strong></a></h4>
 <p>In a multi-chain system built on MoveVM, allowing users to maintain the <strong>same account across all chains</strong> simplifies authentication, improves UX, and enables seamless protocol composability. It eliminates the need for fragmented key management and enables applications to treat users as globally identifiable actors—even across execution environments.</p>
 <hr />
-<h4 id="motivation-34"><a class="header" href="#motivation-34"><strong>Motivation</strong></a></h4>
+<h4 id="motivation-35"><a class="header" href="#motivation-35"><strong>Motivation</strong></a></h4>
 <ol>
 <li>
 <p><strong>Simplified Key Management</strong></p>
@@ -6650,7 +6876,7 @@ dapp_reify(vmc::of(b"dapp_ouputs"), user_index);</code></pre>
 <h4 id="why-per-chain-sequencers"><a class="header" href="#why-per-chain-sequencers"><strong>Why Per-Chain Sequencers?</strong></a></h4>
 <p>In this multi-chain system, <strong>each chain comes with its own sequencer</strong>, independently operated and configured. This allows chains to define both <strong>who controls sequencing</strong> and <strong>how sequencing behaves</strong>, aligning with application needs in terms of ownership, governance, performance, and fairness.</p>
 <hr />
-<h4 id="motivation-35"><a class="header" href="#motivation-35"><strong>Motivation</strong></a></h4>
+<h4 id="motivation-36"><a class="header" href="#motivation-36"><strong>Motivation</strong></a></h4>
 <ol>
 <li>
 <p><strong>Ownership and Autonomy</strong></p>
@@ -6754,7 +6980,7 @@ dapp_reify(vmc::of(b"dapp_ouputs"), user_index);</code></pre>
 <li>Supporting delayed or asynchronous workflows</li>
 </ul>
 <p>Rather than positioning bridges as obsolete, this design simply <strong>reduces the operational burden</strong> of bridging within the ecosystem. It gives developers the choice: <strong>use native cross-chain capabilities when possible, and fall back to bridges when appropriate.</strong></p>
-<h2 id="changelog-39"><a class="header" href="#changelog-39">Changelog</a></h2>
+<h2 id="changelog-40"><a class="header" href="#changelog-40">Changelog</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="md-125-risk-assessment-for-staking-and-governance-launch"><a class="header" href="#md-125-risk-assessment-for-staking-and-governance-launch">MD-125: Risk Assessment for Staking and Governance Launch</a></h1>
 <ul>
@@ -6784,7 +7010,7 @@ dapp_reify(vmc::of(b"dapp_ouputs"), user_index);</code></pre>
 <li>Include behavioral recommendations for staking launch (delegation diversity, permissioned validators, etc.)</li>
 <li>Include behavioral recommendations for governance launch (thresholds, decentralization timeline, etc.)</li>
 </ul>
-<h2 id="changelog-40"><a class="header" href="#changelog-40">Changelog</a></h2>
+<h2 id="changelog-41"><a class="header" href="#changelog-41">Changelog</a></h2>
 <ul>
 <li><strong>2025-10-15</strong>: Initial desiderata document created. <a href="https://github.com/movementlabsxyz/MIP/pull/125">PR#125</a></li>
 </ul>
