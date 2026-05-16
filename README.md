@@ -1,3 +1,5 @@
+> [!WARNING]
+> **This repository is deprecated.** Active development has moved to [MoveIndustries/MIP](https://github.com/MoveIndustries/MIP). Please open new issues and PRs there.
 
 # MIP, MD and MG
 
